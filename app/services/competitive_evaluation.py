@@ -132,6 +132,10 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
                     reasons.append('Peer role is ineligible for the mapped capability')
                 if kind == 'observation' and any(fields.get(k) is not None and not isinstance(fields[k],str) for k in (*SCOPE,'berry_scope','production_system_fresh_processing') if k in fields):
                     reasons.append('Scope fields must be explicit text values; no list/object scope inferred')
+                if kind == 'relationship' and any(not isinstance(fields.get(k), str) for k in ('predicate','object_entity_id_or_proposed_name')):
+                    reasons.append('Relationship direction/target fields require resolution')
+                if fields.get('source_ids') is not None and not isinstance(fields['source_ids'], str):
+                    reasons.append('Source references require the explicit returned source-ID format')
                 refs = source_refs(fields.get('source_ids'))
                 if set(refs) - sources:
                     reasons.append('Missing source ledger reference')
@@ -383,8 +387,14 @@ def job_groups(records):
         if len(matches) > 1:
             group['identity_issue'] = 'Original URL has multiple requisitions; URL-only observation held separately'
     for group in groups.values():
-        group['observations'].sort(key=lambda r: (r['fields'].get('last_observed_date', ''), r['version']))
+        def observed_day(record):
+            try:
+                return date.fromisoformat(str(record['fields'].get('last_observed_date') or '')[:10]).isoformat()
+            except ValueError:
+                return ''
+        group['observations'].sort(key=lambda r: (observed_day(r), r['version']))
         group['latest'] = group['observations'][-1]
+        group['latest_date_known'] = bool(observed_day(group['latest']))
         group['interpretation'] = 'Observed posting history; no hire or workforce growth inferred'
     return list(groups.values())
 

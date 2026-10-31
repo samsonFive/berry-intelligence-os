@@ -19,6 +19,14 @@ from app.services.living_workspaces import Store, Conflict, digest
 router = APIRouter()
 
 
+def request_params(request):
+    params = dict(request.query_params)
+    for key in ('companies','berry','tags'):
+        if key in request.query_params:
+            params[key] = ','.join(dict.fromkeys(part for value in request.query_params.getlist(key) for part in feed.values(value)))
+    return params
+
+
 def private(request, mutate=False):
     from app import main
     if not main.AUTHORING_MODE:
@@ -45,13 +53,17 @@ def comparison(main, store, params):
     for row in records:
         if row['kind'] == 'source':
             row['safe_original_url'] = ce.safe_original_url(row['fields'].get('original_url'))
+            try:
+                row['publication_age_days'] = (date.today()-date.fromisoformat(str(row['fields'].get('published_date') or '')[:10])).days
+            except ValueError:
+                row['publication_age_days'] = None
     relevant = [r for r in records if not selected or r.get('entity_id') in selected]
     if params.get('berry'):
         def crop_matches(row):
             fields = row['fields']
             raw = ' '.join(str(fields.get(k) or '') for k in ('berry_scope','crop_program_scope','berry_market_program_scope'))
             explicit = set(re.findall(r'berry-(?:blueberry|strawberry|raspberry|blackberry)\b', raw))
-            return not explicit or params['berry'] in explicit
+            return not explicit or bool(set(feed.values(params['berry'])).intersection(explicit))
         relevant = [r for r in relevant if crop_matches(r)]
     for r in relevant:
         r['sources'] = ce.record_sources(r, records)
@@ -64,12 +76,13 @@ def comparison(main, store, params):
     assessments = [r for r in effective
                    if (not selected or r['entity_id'] in selected)
                    and (not role or r['peer_role'] == role)
-                   and (not params.get('berry') or r['berry_id'] == params['berry'])
+                   and (not params.get('berry') or r['berry_id'] in feed.values(params['berry']))
                    and (not params.get('destination') or r['destination_scope'] == params['destination'])]
     capabilities = {c['capability_id']:c for c in ce.catalogue()['capabilities']}
     held_scope_count = sum(a['peer_role'] not in capabilities[a['capability_id']]['eligible_peer_roles'] for a in assessments)
     assessments = [a for a in assessments if a['peer_role'] in capabilities[a['capability_id']]['eligible_peer_roles']]
     for a in assessments:
+        a['capability_label'] = capabilities[a['capability_id']]['label']
         a['age_days'] = (date.today() - date.fromisoformat(a['assessed_at'])).days
         a['stale'] = a['age_days'] > 180
         a['effective_label'] = ('Unknown' if a['rating'] == 'unknown' else 'Not applicable' if a['rating'] == 'not_applicable'
@@ -98,24 +111,26 @@ def comparison(main, store, params):
                                            'record_id':obs['id'], 'source_ids':obs['source_refs']})
     graph = []
     for r in main.all_relationships():
-        if params.get('berry') and r.get('berry_ids') and params['berry'] not in r['berry_ids']:
+        if params.get('berry') and r.get('berry_ids') and not set(feed.values(params['berry'])).intersection(r['berry_ids']):
             continue
         if not selected or r.get('subject_id') in selected or r.get('object_id') in selected:
             graph.append({'id': r['id'], 'subject': r.get('subject_id'), 'object': r.get('object_id'),
                           'predicate': r.get('predicate'), 'status': r.get('status', 'Unknown'),
                           'basis': 'Existing canonical relationship; inspect its Evidence',
-                          'hypothesis': r.get('status') in {'hypothesis', 'proposed'}, 'sources': r.get('evidence_ids', [])})
+                          'hypothesis': r.get('status') in {'hypothesis', 'proposed'}, 'sources': r.get('evidence_ids', []),
+                          'scope': {k:r.get(k) or 'Unknown' for k in ('berry_ids','effective_date','start_date','end_date','origin_scope','destination_scope','rights_territory','notes')}})
     for r in relevant:
         if r['kind'] == 'relationship':
             f = r['fields']
-            graph.append({'id': r['id'], 'subject': f.get('subject_entity_id'),
-                          'object': f.get('object_entity_id_or_proposed_name'), 'predicate': f.get('predicate'),
+            graph.append({'id': r['id'], 'subject': str(f.get('subject_entity_id') or 'Unknown'),
+                          'object': str(f.get('object_entity_id_or_proposed_name') or 'Unknown'), 'predicate': str(f.get('predicate') or 'Unknown'),
                           'status': f.get('fact_claim_hypothesis', 'unverified research'),
                           'basis': r['batch_id']+' / '+r['local_id']+' · '+r['resolution'], 'hypothesis': True,
                           'sources': [s['fields'].get('original_url') for s in r['sources']],
                           'scope': {k:f.get(k, 'Unknown') for k in ('berry_scope','origin_scope','destination_scope','rights_territory','start_date','end_date')}})
     inventory = json.loads((ce.ROOT / 'data/imports/competitive-landscape-2026-10-30-v1/commercial-entity-inventory.json').read_text(encoding='utf-8'))
     inventory_ids = {r['entity_id'] for r in inventory['entities'] if r['inclusion_status'] != 'out_of_scope'}
+    entity_choices = sorted([row for key,row in entities.items() if key in inventory_ids or key in selected], key=lambda row:row.get('name','').casefold())
     latest_batches = {}
     for batch in batch_history:
         if batch['batch_id'] not in latest_batches or batch['updated_at'] > latest_batches[batch['batch_id']]['updated_at']:
@@ -150,7 +165,7 @@ def comparison(main, store, params):
                              'timeline_basis': date_basis})
         people_rows.append(r)
     timeline.sort(key=lambda r: '' if r['timeline_date']=='Unknown' else r['timeline_date'], reverse=True)
-    return {'entities': entities, 'inventory_ids': inventory_ids, 'selected': selected, 'assessments': assessments,
+    return {'entities': entities, 'inventory_ids': inventory_ids, 'entity_choices':entity_choices, 'selected': selected, 'assessments': assessments,
             'records': relevant, 'jobs': jobs, 'rubrics': ce.catalogue(), 'graph': graph,
             'people_rows': people_rows, 'timeline': timeline, 'events_after': events_after.isoformat(),
             'batches': list(latest_batches.values()), 'batch_revision_count': len(batch_history), 'saved': saved_comparisons,
@@ -163,6 +178,7 @@ def comparison(main, store, params):
 @router.get('/competitive-evaluation', response_class=HTMLResponse)
 def evaluation(request: Request):
     main, store, _ = private(request)
+    params = request_params(request)
     view = request.query_params.get('view', 'matrix')
     if view not in {'matrix','overview','plot','relationships','exposure','people','imports','saved'}:
         raise HTTPException(422, 'Choose a comparison view')
@@ -170,17 +186,30 @@ def evaluation(request: Request):
         saved = store.get(request.query_params.get('saved', '')) if request.query_params.get('saved') else None
         if request.query_params.get('saved') and (not saved or not saved.get('snapshot')):
             raise HTTPException(404, 'Saved comparison not found')
-        model = comparison(main, store, saved['snapshot']['scope'] if saved else dict(request.query_params))
+        model = comparison(main, store, saved['snapshot']['scope'] if saved else params)
         if saved:
             model.update(saved['snapshot'], snapshot_id=saved['id'], snapshot_title=saved['title'])
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     from app.services.workspace_landscapes import panel
+    try:
+        matrix_page = max(1,int(params.get('matrix_page') or 1))
+    except ValueError as exc:
+        raise HTTPException(422,'Choose a numbered matrix page') from exc
+    matrix_pages = max(1,(len(model['assessments'])+23)//24)
+    matrix_page = min(matrix_page,matrix_pages)
+    display_assessments = model['assessments'][(matrix_page-1)*24:matrix_page*24]
+    plot_fields = (*ce.SCOPE,'id','rating','confidence','status','access_models')
+    plot_assessments = [{**{k:a.get(k) for k in plot_fields},'entity_name':model['entities'].get(a['entity_id'],{}).get('name',a['entity_id'])} for a in model['assessments']]
     return main.templates.TemplateResponse(request=request, name='competitive_evaluation.html', context={
         **model, 'authoring_mode': True, 'static_build': False,
+        'display_assessments':display_assessments,'plot_assessments':plot_assessments,
+        'matrix_page':matrix_page,'matrix_pages':matrix_pages,
+        'matrix_previous':'/competitive-evaluation?'+urlencode({**params,'view':'matrix','matrix_page':max(1,matrix_page-1)}),
+        'matrix_next':'/competitive-evaluation?'+urlencode({**params,'view':'matrix','matrix_page':matrix_page+1}),
         **panel(main, saved['id'] if saved else None),
         'view': view,
-        'query': urlencode({k: v for k, v in request.query_params.items() if k != 'view'})})
+        'query': urlencode({k: v for k, v in params.items() if k != 'view'})})
 
 
 @router.post('/competitive-evaluation/decision')
@@ -240,7 +269,7 @@ def export(request: Request, format: str):
     if saved:
         model = saved['snapshot']
     else:
-        live = comparison(main, store, dict(request.query_params))
+        live = comparison(main, store, request_params(request))
         model = {k:live[k] for k in ('scope','selected','assessments','captured_at','rubrics','records','jobs','graph','people_rows','timeline','events_after','assessment_count','numeric_count')}
     if format == 'json':
         return Response(json.dumps(model, ensure_ascii=False, indent=2, default=str), media_type='application/json',
@@ -264,9 +293,7 @@ def archive(request: Request):
         main, context, records, entities = world()
     except (OSError, ValueError):
         return HTMLResponse('<h1>Captured coverage unavailable</h1><p>Retrieval failed. Retry this view; no empty result has been inferred.</p>', status_code=503)
-    params = dict(request.query_params)
-    for key in ('companies', 'tags'):
-        params[key] = ','.join(dict.fromkeys(part for value in request.query_params.getlist(key) for part in feed.values(value)))
+    params = request_params(request)
     try:
         tags = news_tags.catalog(main.INBOX_DIR) if main.AUTHORING_MODE else []
         automatic, overrides = news_tags.snapshot(main.INBOX_DIR) if main.AUTHORING_MODE else ({}, {})
@@ -280,8 +307,11 @@ def archive(request: Request):
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     query = {k: v for k, v in params.items() if k != 'page'}
+    from app.services.berries.landscape import SEED_FIXTURE_ENTITY_IDS
+    feed_entities = {key:row for key,row in entities.items() if key not in SEED_FIXTURE_ENTITY_IDS}
+    entity_choices = sorted([row for row in feed_entities.values() if row.get('entity_type') in {'company','brand','breeding_program','retailer'}], key=lambda row:row.get('name','').casefold())
     return main.templates.TemplateResponse(request=request, name='competitive_archive.html', context={
-        **model, 'entities': entities, 'tags': tags, 'authoring_mode': main.AUTHORING_MODE, 'static_build': False,
+        **model, 'entities': feed_entities, 'entity_choices':entity_choices, 'tags': tags, 'authoring_mode': main.AUTHORING_MODE, 'static_build': False,
         'index_issues': context.get('pending_source_issue_count', 0), 'params': params,
         'prev': '/coverage/archive?' + urlencode({**query, 'page': max(1, model['page']-1)}),
         'next': '/coverage/archive?' + urlencode({**query, 'page': model['page']+1}),

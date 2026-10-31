@@ -10,6 +10,9 @@ from math import ceil
 from urllib.parse import urlencode
 
 from app.services.article_dedup import normalize_canonical_url, normalize_title, find_duplicate_article
+from app.services import company_source_scope
+from app.services.crop_name_context import blackberry_company_noise
+from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 
 ENABLING = {'develops', 'licenses', 'licensed_to', 'markets', 'commercializes', 'uses', 'breeds', 'provides_technology_to', 'grows', 'trials', 'sells', 'carries'}
 
@@ -32,6 +35,7 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
     params = dict(params)
     companies = set(values(params.get('companies')))
     berry, destination = params.get('berry', ''), params.get('destination', '')
+    berries = set(values(berry))
     lane = params.get('lane', 'all')
     focus = params.get('focus', 'any')
     if lane not in {'all', 'company', 'market'} or focus not in {'any', 'one', 'shared'}:
@@ -53,7 +57,7 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
             relevant_ownership = rel.get('predicate') == 'owns' and (entities or {}).get(target, {}).get('entity_type') in {'variety', 'brand', 'breeding_program', 'technology'}
             if rel.get('predicate') not in ENABLING and not relevant_ownership:
                 continue
-            if berry and rel.get('berry_ids') and berry not in rel['berry_ids']:
+            if berries and rel.get('berry_ids') and not berries.intersection(rel['berry_ids']):
                 continue
             if company in companies and target and target not in companies:
                 connected.setdefault(target, []).append((company, rel['predicate'], rel.get('id', '')))
@@ -61,8 +65,13 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
                 for source_id in rel.get('evidence_ids', []):
                     proofs.setdefault(source_id, []).append(('relationship source', company, rel['predicate'], rel.get('id', '')))
     matches = []
+    subjects = [entities[key] for key in companies if key in (entities or {})
+                and entities[key].get('entity_type') == 'company'
+                and not entities[key].get('attributes', {}).get('identity_review_required')]
     for record in records.values() if isinstance(records, dict) else records:
-        ids = set(record.get('entity_ids') or [])
+        if record['id'] in SEED_FIXTURE_EVIDENCE_IDS or blackberry_company_noise(' '.join(str(record.get(k) or '') for k in ('title','summary','source_name'))):
+            continue
+        ids, mentions = company_source_scope.links(record, subjects)
         direct = companies & ids
         links = [(target, *link) for target in ids for link in connected.get(target, [])] + proofs.get(record['id'], [])
         matched = direct | {link[1] for link in links}
@@ -73,10 +82,11 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
             company_match = len(matched) == 1
         attrs = record.get('attributes') or {}
         destinations = set(record.get('destination_market_ids') or attrs.get('destination_market_ids') or [])
-        market_match = bool(berry and destination and berry in (record.get('berry_ids') or []) and destination in destinations)
-        if berry and not destination and (not companies or lane == 'market'):
-            market_match = berry in (record.get('berry_ids') or [])
-        if berry and berry not in (record.get('berry_ids') or []):
+        matched_berries = berries.intersection(record.get('berry_ids') or [])
+        market_match = bool(berries and destination and matched_berries and destination in destinations)
+        if berries and not destination and (not companies or lane == 'market'):
+            market_match = bool(matched_berries)
+        if berries and not matched_berries:
             continue
         # A destination selection scopes company and contextual stories alike.
         if destination and destination not in destinations:
@@ -93,10 +103,12 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
         published = publication(record)
         if (params.get('after') and (not published or published < params['after'])) or (params.get('before') and (not published or published > params['before'])):
             continue
-        reason = [f'Direct company assignment: {x}' for x in sorted(direct)]
+        recalled = {m['id'] for m in mentions}
+        reason = [f'Direct company assignment: {x}' for x in sorted(direct - recalled)]
+        reason += [f'Reviewed-source mention: {m["name"]} via {m["alias"]} in {m["field"]}; contextual recall, not a reviewed entity link' for m in mentions]
         reason += [f'Connected {target}: {company} / {predicate} ({rid})' for target, company, predicate, rid in links]
         if market_match:
-            reason.append(f'Market context: {berry} / destination {destination or "unspecified; berry context only"}')
+            reason.append(f'Market context: {", ".join(sorted(matched_berries))} / destination {destination or "unspecified; berry context only"}')
         matches.append({**record, 'publication': published, 'inclusion': reason or ['Unscoped captured archive'],
                         'matched_companies': sorted(matched), 'effective_tags': sorted(present)})
     # Dedupe only explicit syndication families or canonical URL, never title similarity.
@@ -126,6 +138,8 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
         winner['inclusion'] = list(dict.fromkeys(reason for r in group for reason in r['inclusion']))
         unique.append(winner)
     unique.sort(key=lambda r: (r['publication'], r['id']), reverse=True)
+    if params.get('empty_cohort') == '1':
+        unique = []
     try:
         page = max(1, int(params.get('page') or 1))
     except ValueError as exc:
