@@ -952,7 +952,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
-    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -10858,3 +10858,5 @@ app.include_router(monitor_router)
 
 from app.living_workspace_routes import router as living_workspace_router
 app.include_router(living_workspace_router)
+from app.competitive_routes import router as competitive_router
+app.include_router(competitive_router)

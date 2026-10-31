@@ -56,7 +56,10 @@ const edges = [
 ];
 const bundle = {filters:{berry:'berry-blueberry',compare:'berry-strawberry',focus:'variety',edge:'selected',view:'portrait'},nodes,edges,sources:[]};
 const location = {href:'http://localhost/landscapes/explorer?focus=variety&edge=selected'};
+const coverageEvents = [];
 const context = {URL, performance, console, location,
+  CustomEvent: class { constructor(type) { this.type = type; } },
+  window: {dispatchEvent(event) { coverageEvents.push({type:event.type, url:location.href}); }},
   history:{replaceState(_,__,url) {location.href = String(url);}},
   matchMedia:() => ({matches:false}),
   document:{querySelector:() => root, getElementById:() => ({textContent:JSON.stringify(bundle)}), createElement:() => new Element()}};
@@ -78,6 +81,7 @@ assert.equal(new URL(location.href).searchParams.get('edge'),'');
 assert.equal(panel.hidden,true);
 assert.equal(savedFocus.value,'company');
 assert.equal(savedEdge.value,'');
+assert.ok(coverageEvents.some(event => event.type === 'bios:coverage-scope-changed' && new URL(event.url).searchParams.get('focus') === 'company'), 'Captured coverage receives the changed company scope');
 // Selecting another crop clears only an incompatible genetics focus before Apply.
 const varietyLink = {dataset:{focus:'variety'},closest:selector => selector === '[data-focus]' ? varietyLink : null};
 handlers.click({target:varietyLink,preventDefault() {}});

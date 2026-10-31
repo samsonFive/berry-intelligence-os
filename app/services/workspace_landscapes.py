@@ -6,6 +6,10 @@ def choices(main):
     rows = [{"id": "gene-editing", "title": "Gene Editing & Advanced Breeding · all 11 companies", "href": "/landscapes/explorer?topic=gene-editing&adjacent=1"}]
     rows.extend({"id": row["id"], "title": row["name"], "href": landscape_workspace.view_href(row)}
                 for row in landscape_workspace.load_views(main.INBOX_DIR)["views"].values() if not row["archived"])
+    if main.AUTHORING_MODE:
+        rows.extend({'id': row['id'], 'title': 'Saved competitive comparison · '+row['title'],
+                     'href': '/competitive-evaluation?saved='+row['id']}
+                    for row in living.Store(main.INBOX_DIR).rows('competitive_comparison'))
     return rows
 
 
@@ -35,7 +39,19 @@ def resolve(main, request, keys):
         if key not in options:
             raise ValueError("Linked Landscape is unavailable or archived. Relink it before generating.")
         option = options[key]
-        if key == "gene-editing":
+        if key.startswith('comparison-'):
+            saved = living.Store(main.INBOX_DIR).get(key)
+            if not saved or 'snapshot' not in saved:
+                raise ValueError('Saved comparison is unavailable')
+            snapshot = saved['snapshot']
+            data = {k: snapshot[k] for k in ('scope', 'assessments', 'captured_at')}
+            data['narrative'] = saved.get('narrative', '')
+            data['trust_effect'] = 'Immutable cited research snapshot; no publication or Atomic Evidence promotion'
+            sources = {s['id']: {'id':s.get('article_id') or s['id'], 'title':s['fields'].get('title_original') or s['local_id'],
+                                'source_url':s['fields']['original_url'], 'published_date':s['fields'].get('published_date'),
+                                'status':'unreviewed', 'verification_state':s['verification']['status']}
+                       for a in snapshot['assessments'] for s in a.get('sources', [])}
+        elif key == "gene-editing":
             from app.landscape_explorer_routes import context
             _, _, bundle, _, _ = context(request, {"topic": "gene-editing", "adjacent": "1"})
             model = bundle["gene_editing"]
