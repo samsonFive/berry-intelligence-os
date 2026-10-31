@@ -48,11 +48,14 @@ Source errors retain prior references and raw captures remain private. This is
 an extension of the existing explicit manual statistics job, not an intelligence
 collector, new schema, new review store, normalization change or trust shortcut.
 
-All 151 affected checks pass with one existing ReportLab warning. Actual keyless
+All 159 affected checks pass with one existing ReportLab warning. Actual keyless
 capture, canonical validation and desktop/412px native review pass; the phone
 has no horizontal overflow. The final one-page app-export PDF passes visual review. A 1,797-page trusted
 static/Pagefind build passes, with all 15 new unselected source URLs absent
-from public HTML. Exact-head full CI is recorded with the draft review. Full release acceptance still needs
+from public HTML. Initial head0c7588ae passes all four checks and5,527 tests. Eight added
+resource/failure checks now pass within the159-test affected set. Application,
+source data, native/PDF and static outputs are unchanged; the final test-only
+head needs its own full CI, tracked with the draft review. Full release acceptance still needs
 then-current canonical integration, a bounded production-copy check and actual
 scoped release approval. The 31 original accepted requirement definitions/order,
 protected expansion guide and all canonical records remain unchanged.

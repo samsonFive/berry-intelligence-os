@@ -1,5 +1,6 @@
 """Offline official-source tests; the original public capture stays unselected."""
 from copy import deepcopy
+from contextlib import contextmanager
 from datetime import datetime
 from io import BytesIO
 import json
@@ -8,6 +9,7 @@ from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
 import pytest
+import httpx
 from fastapi.testclient import TestClient
 
 from app import main
@@ -156,6 +158,74 @@ def test_bounded_discovery_retains_originals_and_never_overwrites_captures(tmp_p
     assert (first.parent/'original.ods').read_bytes() == bodies[url]
     assert calls[:3] == [(uk.LANDING, 1_000_000), (notice, 1_000_000), (url, 2_000_000)]
     assert len(groups) == 3 and json.loads(first.read_text())['state'] == 'reference_capture_for_review'
+
+
+@pytest.mark.parametrize('case', ['body_limit', 'redirect'])
+def test_transport_stops_at_the_byte_limit_and_does_not_follow_redirects(case, monkeypatch):
+    calls=[]
+    @contextmanager
+    def stream(method,url,**kwargs):
+        calls.append((method,url,kwargs))
+        if case=='redirect':
+            yield httpx.Response(302,headers={'location':'http://127.0.0.1/private'},request=httpx.Request('GET',url))
+        else:
+            class Response:
+                is_redirect=False
+                def raise_for_status(self): pass
+                def iter_bytes(self):
+                    yield b'ab';yield b'cd'
+                    pytest.fail('Reader continued after its byte limit.')
+            yield Response()
+    monkeypatch.setattr(uk.httpx,'stream',stream)
+    with pytest.raises((ValueError,httpx.HTTPStatusError)):
+        uk.fetch_bytes(uk.LANDING,maximum=3)
+    assert len(calls)==1 and calls[0][2]['follow_redirects'] is False
+
+
+@pytest.mark.parametrize('case', ['expanded_xml', 'member_count', 'mimetype_size'])
+def test_oversized_archive_metadata_is_rejected_before_decompression(case, monkeypatch):
+    class Info:
+        def __init__(self,size):self.file_size=size
+    class Archive:
+        def __init__(self,*args):pass
+        def __enter__(self):return self
+        def __exit__(self,*args):pass
+        def getinfo(self,name):
+            size=20_000_001 if case=='expanded_xml' and name=='content.xml' else 101 if case=='mimetype_size' and name=='mimetype' else 50
+            return Info(size)
+        def infolist(self):return [None]*(257 if case=='member_count' else 2)
+        def read(self,*args):pytest.fail('Oversized archive content was decompressed.')
+    monkeypatch.setattr(uk,'ZipFile',Archive)
+    with pytest.raises(ValueError,match='Oversized'):
+        parse(b'bounded-archive-metadata-fixture')
+
+
+@pytest.mark.parametrize('case', ['columns', 'rows'])
+def test_oversized_grids_are_rejected_without_expanding_repeated_cells(case):
+    def mutation(root):
+        t=root.find('.//t:table[@t:name="Table_4_Fruit_area"]',uk.NS)
+        if case=='columns':
+            cell=t.find('t:table-row/t:table-cell',uk.NS)
+            cell.set('{' + uk.NS['t'] + '}number-columns-repeated','1000000')
+        else:
+            for _ in range(301):ET.SubElement(t,'{' + uk.NS['t'] + '}table-row')
+    with pytest.raises(ValueError):parse(workbook(mutation))
+
+
+def test_oversized_source_failure_keeps_selected_references_and_history(tmp_path, monkeypatch):
+    groups=document()['groups'];job,_=refresh.reserve(tmp_path,TOKEN,'defra')
+    refresh.update(tmp_path,job['id'],status='ready',message='Ready.',groups=groups)
+    state=refresh.load(tmp_path)
+    refresh.apply(tmp_path,job['id'],[group_id(groups[0])],state['revision'],'Fictional analyst')
+    old=refresh.load(tmp_path)
+    new,_=refresh.reserve(tmp_path,'explicit-oversized-uk-retry','defra')
+    def unavailable(**kwargs):raise ValueError('PRIVATE oversized source detail')
+    monkeypatch.setattr(refresh,'capture_defra',unavailable)
+    refresh.run(tmp_path,new['id'])
+    saved=refresh.load(tmp_path)
+    assert saved['jobs'][new['id']]['status']=='failed'
+    assert saved['approved']==old['approved'] and saved['history']==old['history']
+    assert 'PRIVATE' not in str(saved) and not (tmp_path/refresh.SUBDIR/'captures').exists()
 
 
 @pytest.mark.parametrize('mutation', ['country', 'crop', 'url', 'year', 'unit', 'classification', 'negative', 'cell'])
