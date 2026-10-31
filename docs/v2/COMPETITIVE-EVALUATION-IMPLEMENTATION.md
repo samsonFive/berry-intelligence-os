@@ -58,4 +58,4 @@ python -m scripts.preview_competitive_evaluation --clone-from inbox --inbox comp
 
 The preview copies shared workspace objects/history and the selected public-source metadata captures into a separate inbox only when it does not already exist. It excludes account/provider configuration, disables paid-provider keys and background polling, binds loopback only, and visibly labels rehearsal decisions. Existing main workspace decisions are unaffected. This is a local review preview, not production deployment.
 
-Integrated browser, full-suite, static-safety and current-head PR receipts remain required before final delivery; focused checks alone do not close the mission.
+The [acceptance walkthrough](COMPETITIVE-EVALUATION-ACCEPTANCE.md) records real-data browser checks, full-suite and final affected checks, static safety, remaining evidence gaps and PR status. Searchable checkbox selection supports multiple entities across searches, keyboard Space/Enter and repeated query parameters without JavaScript.

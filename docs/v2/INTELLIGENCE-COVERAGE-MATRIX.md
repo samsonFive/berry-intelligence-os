@@ -1,3 +1,7 @@
+# October 31 competitive evaluation coverage
+
+The [review-build receipt](COMPETITIVE-EVALUATION-ACCEPTANCE.md) extends private competitive analysis across 166 frozen entities. All 48 research inputs are captured; 4,109 retained rows include 924 source-ledger entries, not independent verified sources. Accepted structure: 3,907; resolution: 202. Eligible scoped cells: breeder 214, grower 48, marketer 35, technology provider 47; blueberry 143, strawberry 143, raspberry 22, blackberry 36. Four narrowly sourced numeric proposals remain Provisional; 340 Unknown. Thirteen metadata captures join the existing retained archive, preserving publication dates, source trust and explicit destination annotations. This does not increase published Evidence/Atomic Fact counts or prove country-wide market coverage. Canonical expansion guide and earlier source/release histories remain intact.
+
 # Intelligence Coverage Matrix
 
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded

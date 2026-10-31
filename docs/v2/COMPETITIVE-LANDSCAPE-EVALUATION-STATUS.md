@@ -1,3 +1,13 @@
+# October 31 implementation and research receipt
+
+This current account supersedes the historical Stage 1/pending checkpoints below. Johnny authorized direct public-source continuation after the Perplexity limit. All 46 profile batches and R01/R02 are captured; all 166 frozen entities have profiles. The private application retains 4,109 rows: 3,907 structurally accepted and 202 unresolved. Structural acceptance does not verify claims. Four narrowly scoped assessments are Provisional; 340 eligible cells remain Unknown. Genetics Uruguay remains an identity hold.
+
+The feature now includes additive searchable entity checkboxes, scoped matrix/evidence/correction history, overview, compatible-axis plot, directed relationships, exposure, people/hiring, import resolution, immutable cited export and shared captured coverage across existing routes. Real-data browser rehearsals use a separate, visibly labeled inbox; Johnny's main assessments remain four Provisional with no analyst override.
+
+See the [implementation and import instructions](COMPETITIVE-EVALUATION-IMPLEMENTATION.md), [acceptance walkthrough](COMPETITIVE-EVALUATION-ACCEPTANCE.md) and [route receipt](../research/competitive-landscape-2026-10-30-v1/feed-route-checklist.md). The branch is rebased on canonical `3b0b4acc`. Full local suite: 5,537 passed, ten skipped; subsequent final affected checks and PR checks are recorded in the walkthrough. No merge or production deployment.
+
+## Historical checkpoints retained below
+
 # Competitive landscape evaluation — Stage 1 handoff
 
 ## October 30 web-research checkpoint

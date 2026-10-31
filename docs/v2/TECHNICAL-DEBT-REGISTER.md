@@ -1,3 +1,7 @@
+# October 31 competitive evaluation follow-up debt
+
+The private review build is implemented; evidence depth remains incomplete. Track 202 unresolved imported rows, Genetics Uruguay identity hold, nine retained legacy ineligible scope mappings, and original-source inspection beyond four explicit rating sources. Of 344 role-eligible cells, 340 remain Unknown; raw destination wording includes rights/trials/targets and is not a normalized fruit-market footprint. Most berry/market/period peer cohorts cannot support a defensible relative ranking. The 197 job observations form 172 posting identity groups, with incomplete ATS/requisition/date coverage; they do not establish employee growth or completed hires. No paid acquisition, recurring monitoring or automatic publication is enabled. These are new bounded research-depth gaps, not reopened TD-001..004. See [acceptance receipt](COMPETITIVE-EVALUATION-ACCEPTANCE.md).
+
 # Technical Debt Register
 
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
