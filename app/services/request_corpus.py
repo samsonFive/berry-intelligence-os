@@ -121,6 +121,9 @@ class RequestCorpus:
     _assessments_by_signal: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
     _drafts: list[dict[str, Any]] | None = field(default=None, repr=False)
     _drafts_metadata: list[dict[str, Any]] | None = field(default=None, repr=False)
+    # Validated source proposals remain untrusted. Share one read-only source
+    # snapshot within this request; the next request validates current files.
+    _variety_portfolio_observations: list[dict[str, Any]] | None = field(default=None, repr=False)
 
     def repos(self) -> Any:
         if self._repos is None:

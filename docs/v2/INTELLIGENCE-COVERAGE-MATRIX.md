@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+is a separate performance draft on the #442 platform. It adds no catalog,
+source or geography coverage. All 90 focused tests and desktop/phone/static
+review pass; complete models and rendered responses match the baseline.
+Coverage timings remain mixed, and TD-122 and human review gaps stay open.
+Navigation #443, source #444 and Map #446/#447 are excluded from this draft.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

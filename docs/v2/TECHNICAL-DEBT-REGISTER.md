@@ -268,6 +268,14 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+shares validated observations for one request and skips unused candidate
+provenance in the field inventory. All 90 affected tests pass; full models and
+24 rendered responses retain original content. Source/profile samples improve,
+but Coverage timings are mixed, including a slightly slower company filter.
+Desktop/412px and 1,797-page static review pass. This separate draft requires
+exact-head CI and later release review; TD-122 remains partially addressed.
+
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a
 request. Alternating public-seed projections and 12 authenticated fixture
