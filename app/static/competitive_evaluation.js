@@ -44,13 +44,13 @@
     for(const point of points){
       const c=document.createElementNS(ns,'circle');c.setAttribute('cx',position(point.x));c.setAttribute('cy',530-position(point.y));
       c.setAttribute('r',8);c.setAttribute('fill',point.category?'white':'#2c6a4d');c.setAttribute('stroke','#2c6a4d');
-      const title=document.createElementNS(ns,'title');title.textContent=point.a.entity_id+': '+point.x+' / '+point.y+'; '+point.a.status+'; '+(point.category?.claim_status||point.a.confidence);c.append(title);svg.append(c);
+      const title=document.createElementNS(ns,'title');title.textContent=(point.a.entity_name||point.a.entity_id)+': '+point.x+' / '+point.y+'; '+point.a.status+'; '+(point.category?.claim_status||point.a.confidence);c.append(title);svg.append(c);
     }
     const note=document.createElement('p');note.textContent=points.length?
       points.length+' compatible points. Categorical positions are unordered; outlined markers retain their source claim status.':
       'No compatible observed pairs in this scope. Unknown values are not plotted at zero. Select different axes or inspect the matrix.';
     const list=document.createElement('ul');
-    for(const point of points){const li=document.createElement('li');li.textContent=point.a.entity_id+': '+point.x+' / '+point.y+'; '+point.a.program_or_variety+'; '+point.a.status+'; '+(point.category?.claim_status||point.a.confidence);list.append(li);}
+    for(const point of points){const li=document.createElement('li');li.textContent=(point.a.entity_name||point.a.entity_id)+': '+point.x+' / '+point.y+'; '+point.a.program_or_variety+'; '+point.a.status+'; '+(point.category?.claim_status||point.a.confidence);list.append(li);}
     const legend=document.createElement('p');if(categories.length)legend.textContent='Unordered access categories: '+categories.join(' · ');
     target.replaceChildren(svg,note,list,legend);
   }

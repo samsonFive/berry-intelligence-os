@@ -46,3 +46,24 @@ def test_existing_dedup_publisher_fallback_without_merging_distinct_publishers()
                story('redirect',title='Original article',source_name='Publisher One',published_date='2025-01-01',source_url='https://news.google.com/rss/a'),
                story('different',title='Original article',source_name='Different Publisher',published_date='2025-01-01',source_url='https://other.example/a')]
     assert select(records,{})['total'] == 2
+
+
+def test_existing_reviewed_source_recall_is_labelled_and_does_not_change_identity():
+    entities={'c':{'id':'c','name':'North Coast Berry Genetics','entity_type':'company','aliases':[]}}
+    record=story('legacy',title='North Coast Berry Genetics announces strawberry trials',status='published',submitted_by='analyst')
+    result=select([record],{'companies':'c','lane':'company'},entities=entities)
+    assert result['total']==1 and 'Reviewed-source mention' in result['items'][0]['inclusion'][0]
+    assert record['entity_ids']==[]
+
+
+def test_shared_software_company_exclusion_preserves_mixed_agtech():
+    noise=story('noise',['c'],berry=['berry-blackberry'],title='BlackBerry expands QNX software licensing')
+    mixed=story('mixed',['c'],berry=['berry-blackberry'],title='BlackBerry software used by berry growers for crop robotics')
+    assert select([noise,mixed],{'companies':'c'})['all_ids']==['mixed']
+
+
+def test_multiple_selected_berries_and_empty_parent_cohort_are_explicit():
+    records=[story('blue',['c'],berry=['berry-blueberry']),story('straw',['c']),story('rasp',['c'],berry=['berry-raspberry'])]
+    params={'companies':'c','berry':'berry-blueberry,berry-strawberry'}
+    assert set(select(records,params)['all_ids'])=={'blue','straw'}
+    assert select(records,{**params,'empty_cohort':'1'})['total']==0

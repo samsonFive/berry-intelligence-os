@@ -27,10 +27,12 @@
     if(comparison){try{defaults={...defaults,...JSON.parse(comparison.textContent)};}catch(e){/* Keep URL scope. */}}
     if(!ids.size){for(const id of defaults.companies||[])ids.add(id);if(canonical.test(defaults.focus||''))ids.add(defaults.focus);}
     if(ids.size)q.set('companies',[...ids].join(','));
-    let berry=src.searchParams.get('berry')||src.searchParams.get('crop')||defaults.berry||'';
-    const b=path.match(/\/berries\/(blueberry|strawberry|raspberry|blackberry)/);if(b)berry=b[1];
-    if(['blueberry','strawberry','raspberry','blackberry'].includes(berry))berry='berry-'+berry;
-    if(/^berry-(blueberry|strawberry|raspberry|blackberry)$/.test(berry))q.set('berry',berry);
+    if(defaults.empty_cohort)q.set('empty_cohort','1');
+    let rawBerries=src.searchParams.get('berry')||src.searchParams.getAll('berry_choice').join(',')||src.searchParams.get('crop')||defaults.berry||'';
+    const b=path.match(/\/berries\/(blueberry|strawberry|raspberry|blackberry)/);if(b)rawBerries=b[1];
+    if((src.searchParams.get('pair')||defaults.pair)==='1'||(src.searchParams.get('view')||defaults.view)==='compare')rawBerries+=','+(src.searchParams.get('compare')||defaults.compare||'');
+    const selectedBerries=String(rawBerries).split(',').map(v=>v.startsWith('berry-')?v:'berry-'+v).filter(v=>/^berry-(blueberry|strawberry|raspberry|blackberry)$/.test(v));
+    if(selectedBerries.length)q.set('berry',[...new Set(selectedBerries)].join(','));
     // A generic country/region selection may describe origins, trials or rights.
     // Only an explicit canonical destination can narrow this feed automatically.
     const destination=src.searchParams.get('destination_market')||src.searchParams.get('destination')||defaults.destination_market||'';

@@ -62,3 +62,34 @@ def test_archive_template_and_empty_state(client, monkeypatch):
     assert 'Incomplete indexing' in result.text and 'Published 2020-01-01' in result.text
     assert 'data-open-reader' in result.text
     assert 'No captured matches' in http.get('/coverage/archive?companies=company-two').text
+
+
+def test_checkbox_selection_keeps_multiple_entities_without_javascript(client):
+    http,_=client
+    query='companies=company-one&companies=company-two&berry=berry-strawberry'
+    page=http.get('/competitive-evaluation?'+query)
+    assert page.status_code==200
+    assert 'data-ce-entity-picker' in page.text and 'type="checkbox" name="companies"' in page.text
+    assert '<select name="companies"' not in page.text
+    exported=http.get('/competitive-evaluation/export/json?'+query).json()
+    assert exported['selected']==['company-one','company-two']
+    assert exported['scope']['companies']=='company-one,company-two'
+    assert 'companies=company-one%2Ccompany-two' in page.text
+
+
+def test_matrix_paginates_after_scoping_while_export_keeps_all_cells(client):
+    http,research=client
+    inbox,_,scope,*_=research
+    from app.services.living_workspaces import Store
+    store=Store(inbox)
+    with store.transaction() as db:
+        for number in range(30):
+            cell={**scope,'program_or_variety':'Fixture programme '+str(number)}
+            store.put(db,'capability_automatic',{'id':ce.scope_key(cell),**cell,'rating':'unknown',
+                'status':'unscored','confidence':'unknown','rationale':'Deterministic fixture; no rating established',
+                'assessed_at':'2026-10-30','basis':'fixture','observation_ids':[],'source_ids':[]},'test fixture')
+    query='companies=company-one&matrix_page=2'
+    page=http.get('/competitive-evaluation?'+query)
+    assert page.status_code==200 and 'Page 2 of 2' in page.text
+    assert page.text.count('<tr id="capability-')==7
+    assert len(http.get('/competitive-evaluation/export/json?'+query).json()['assessments'])==31

@@ -1,0 +1,19 @@
+<fieldset class="ce-entity-picker" data-ce-entity-picker>
+  <legend>{{ picker_label }}</legend>
+  <p class="ce-picker-hint">Check several entities. Leave empty to show all.</p>
+  <div class="ce-picker-toolbar">
+    <input type="search" aria-label="Find entities" placeholder="Find an entity…" data-ce-entity-search>
+    <button type="button" data-ce-entity-clear>Clear selection</button>
+    <output data-ce-entity-count aria-live="polite">{{ picker_selected|length }} selected</output>
+  </div>
+  <div class="ce-picked-entities" data-ce-picked-entities></div>
+  <div class="ce-entity-options">
+    {% for entity in picker_choices %}
+    <label class="ce-entity-choice" data-ce-search="{{entity.name}} {{entity.aliases|default([], true)|join(' ')}} {{entity.entity_type}}">
+      <input type="checkbox" name="companies" value="{{ entity.id }}" {{ 'checked' if entity.id in picker_selected }}>
+      <span><span data-ce-entity-name>{{ entity.name }}</span><small>{{ entity.entity_type|replace('_',' ') }}</small></span>
+    </label>
+    {% endfor %}
+  </div>
+  <p data-ce-entity-empty hidden>No names match this search. Your checked entities remain selected.</p>
+</fieldset>

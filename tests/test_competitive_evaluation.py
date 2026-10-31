@@ -161,6 +161,9 @@ def test_job_reposts_keep_history_and_do_not_infer_hire():
     assert len(groups) == 1 and len(groups[0]['observations']) == 2
     assert groups[0]['latest']['fields']['observed_status'] == 'unavailable'
     assert 'no hire' in groups[0]['interpretation']
+    undated=copy.deepcopy(records[0]);undated.update(id='undated',version=99)
+    undated['fields']['last_observed_date']='Unknown'
+    assert ce.job_groups([*records,undated])[0]['latest']['id']=='2'
 
 
 def test_later_requisition_reconciles_url_only_history_without_merging_reused_urls():
