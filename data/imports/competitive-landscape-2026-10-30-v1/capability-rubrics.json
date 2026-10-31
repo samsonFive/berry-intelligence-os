@@ -1,0 +1,1533 @@
+{
+  "rubric_version": "berry-capabilities-v1.0",
+  "status": "anchors_defined_not_applied",
+  "assessment_state": "Provisional automatically once source-validated observations select an anchor; trusted claim status remains separate. Analyst override wins until explicitly restored to automatic.",
+  "comparison_policy": "Compare compatible role, berry, destination, period, use/system and rubric only. Show ties, cohort size/coverage. With fewer than five supported companies or under 60% coverage, show observations and ties without percentiles. Never total/average capabilities into competitiveness.",
+  "unknown_scope_policy": "Unknown, unspecified, explicit global, explicit multi-crop and Not applicable are distinct. Never expand a company-wide observation to all crop/market cells.",
+  "freshness_review_days": {
+    "vacancy_status": 14,
+    "current_professional_role": 90,
+    "operating_or_market_presence": 365,
+    "rights_access_continuity": 365,
+    "trial_method_and_outcomes": 1825
+  },
+  "freshness_policy": "These are review reminders, not evidence expiry or automatic rescores. Preserve original effective and observation dates. A historic trial can remain informative, while a job must retain last-observed wording. Context changes or conflicting evidence can trigger review sooner. The people-event research window is 24 months, independent of these reminders.",
+  "capabilities": [
+    {
+      "capability_id": "breeder.program",
+      "eligible_peer_roles": [
+        "breeder"
+      ],
+      "label": "Breeding program execution",
+      "business_question": "Can this scoped program execute repeatable selection and testing?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "program_id",
+        "protocol",
+        "completed_cycles",
+        "environments",
+        "trial_dates"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Named active program and documented selection protocol",
+          "requires": "Named active program and documented selection protocol"
+        },
+        {
+          "level": 2,
+          "label": "Named program with dated controlled selection results",
+          "requires": "Named program with dated controlled selection results"
+        },
+        {
+          "level": 3,
+          "label": "Relevant field selection results over at least one completed crop cycle",
+          "requires": "Relevant field selection results over at least one completed crop cycle"
+        },
+        {
+          "level": 4,
+          "label": "Repeat field selection results over at least two completed cycles",
+          "requires": "Repeat field selection results over at least two completed cycles"
+        },
+        {
+          "level": 5,
+          "label": "Repeat selection results across at least two relevant environments and two completed cycles",
+          "requires": "Repeat selection results across at least two relevant environments and two completed cycles"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "breeder.traits",
+      "eligible_peer_roles": [
+        "breeder"
+      ],
+      "label": "Trait validation",
+      "business_question": "How well is the specified trait demonstrated against a relevant comparator?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "variety",
+        "trait",
+        "comparator",
+        "replicates",
+        "variability",
+        "conditions",
+        "sites",
+        "cycles"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Specified trait measured in a documented screening experiment",
+          "requires": "Specified trait measured in a documented screening experiment"
+        },
+        {
+          "level": 2,
+          "label": "Controlled replicated trial with a named comparator and protocol",
+          "requires": "Controlled replicated trial with a named comparator and protocol"
+        },
+        {
+          "level": 3,
+          "label": "Replicated relevant field trial with a comparator and reported variability",
+          "requires": "Replicated relevant field trial with a comparator and reported variability"
+        },
+        {
+          "level": 4,
+          "label": "Comparator advantage replicated over at least two field cycles",
+          "requires": "Comparator advantage replicated over at least two field cycles"
+        },
+        {
+          "level": 5,
+          "label": "Comparator advantage replicated over two cycles and at least two relevant sites, including an independent trial",
+          "requires": "Comparator advantage replicated over two cycles and at least two relevant sites, including an independent trial"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "breeder.commercialization",
+      "eligible_peer_roles": [
+        "breeder"
+      ],
+      "label": "Variety commercialization",
+      "business_question": "How far has this named variety reached actual commercial use?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "variety",
+        "release_date",
+        "grower",
+        "delivery",
+        "sale_evidence",
+        "commercial_seasons"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Dated variety release and verified availability for a commercial trial",
+          "requires": "Dated variety release and verified availability for a commercial trial"
+        },
+        {
+          "level": 2,
+          "label": "Named external commercial trial with plants delivered",
+          "requires": "Named external commercial trial with plants delivered"
+        },
+        {
+          "level": 3,
+          "label": "Named commercial grower production and actual first sale",
+          "requires": "Named commercial grower production and actual first sale"
+        },
+        {
+          "level": 4,
+          "label": "Named commercial production and sales repeated across two seasons",
+          "requires": "Named commercial production and sales repeated across two seasons"
+        },
+        {
+          "level": 5,
+          "label": "Repeat production and sales at two or more independently operated growers over two seasons",
+          "requires": "Repeat production and sales at two or more independently operated growers over two seasons"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "breeder.genetic_access",
+      "eligible_peer_roles": [
+        "breeder"
+      ],
+      "label": "Genetic access assurance",
+      "business_question": "Is the access required by this business model demonstrably usable and durable?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "germplasm",
+        "right_type",
+        "holder",
+        "licensee",
+        "territory",
+        "permitted_use",
+        "term",
+        "renewal",
+        "continuity"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Named germplasm and documented usable permission or public-access basis",
+          "requires": "Named germplasm and documented usable permission or public-access basis"
+        },
+        {
+          "level": 2,
+          "label": "Documented access covers the named intended activity and territory",
+          "requires": "Documented access covers the named intended activity and territory"
+        },
+        {
+          "level": 3,
+          "label": "Access covers current commercial deployment with dated grant or agreement evidence",
+          "requires": "Access covers current commercial deployment with dated grant or agreement evidence"
+        },
+        {
+          "level": 4,
+          "label": "Documented access covers repeat deployment and the relevant planned production term",
+          "requires": "Documented access covers repeat deployment and the relevant planned production term"
+        },
+        {
+          "level": 5,
+          "label": "Access continuity is documented for repeat deployment with renewal, succession or alternative-access arrangements",
+          "requires": "Access continuity is documented for repeat deployment with renewal, succession or alternative-access arrangements"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment.",
+      "categorical_access_model": [
+        "owned",
+        "exclusive_license",
+        "nonexclusive_license",
+        "public_access",
+        "commercial_supply",
+        "mixed",
+        "unknown"
+      ]
+    },
+    {
+      "capability_id": "breeder.deployment_reach",
+      "eligible_peer_roles": [
+        "breeder"
+      ],
+      "label": "Licensed deployment reach",
+      "business_question": "How many destination countries have demonstrated deployment of the scoped genetics?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "variety",
+        "destination_country",
+        "commercial_deployment",
+        "partner",
+        "rights_scope",
+        "period"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1 destination country with demonstrated commercial deployment",
+          "requires": "1 destination country with demonstrated commercial deployment"
+        },
+        {
+          "level": 2,
+          "label": "2 destination countries with demonstrated commercial deployment",
+          "requires": "2 destination countries with demonstrated commercial deployment"
+        },
+        {
+          "level": 3,
+          "label": "3–4 destination countries with demonstrated commercial deployment",
+          "requires": "3–4 destination countries with demonstrated commercial deployment"
+        },
+        {
+          "level": 4,
+          "label": "5–9 destination countries with demonstrated commercial deployment",
+          "requires": "5–9 destination countries with demonstrated commercial deployment"
+        },
+        {
+          "level": 5,
+          "label": "10 or more destination countries with demonstrated commercial deployment",
+          "requires": "10 or more destination countries with demonstrated commercial deployment"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "grower.production",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Production execution",
+      "business_question": "Can the scoped operation deliver actual production repeatedly?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "operation",
+        "control_model",
+        "actual_volume",
+        "unit",
+        "saleable_definition",
+        "period",
+        "fresh_processing",
+        "specification",
+        "fulfillment"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Documented completed crop harvest at the named operation",
+          "requires": "Documented completed crop harvest at the named operation"
+        },
+        {
+          "level": 2,
+          "label": "Documented harvested volume with crop, use and period",
+          "requires": "Documented harvested volume with crop, use and period"
+        },
+        {
+          "level": 3,
+          "label": "Documented saleable volume and quality specification for one completed season",
+          "requires": "Documented saleable volume and quality specification for one completed season"
+        },
+        {
+          "level": 4,
+          "label": "Comparable saleable volumes and specifications over two completed seasons",
+          "requires": "Comparable saleable volumes and specifications over two completed seasons"
+        },
+        {
+          "level": 5,
+          "label": "Repeat saleable production over two seasons with measured fulfillment against disclosed commitments",
+          "requires": "Repeat saleable production over two seasons with measured fulfillment against disclosed commitments"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "grower.supply_months",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Annual supply-window coverage",
+      "business_question": "How many documented months did this crop serve this destination market in one defined year?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "year",
+        "destination_market",
+        "crop",
+        "months_supplied",
+        "origin",
+        "actual_or_plan"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1–3 months",
+          "requires": "1–3 months"
+        },
+        {
+          "level": 2,
+          "label": "4–6 months",
+          "requires": "4–6 months"
+        },
+        {
+          "level": 3,
+          "label": "7–9 months",
+          "requires": "7–9 months"
+        },
+        {
+          "level": 4,
+          "label": "10–11 months",
+          "requires": "10–11 months"
+        },
+        {
+          "level": 5,
+          "label": "12 months",
+          "requires": "12 months"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment.",
+      "deterministic_rule": {
+        "metric": "documented_month_count",
+        "bands": [
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            4,
+            6,
+            2
+          ],
+          [
+            7,
+            9,
+            3
+          ],
+          [
+            10,
+            11,
+            4
+          ],
+          [
+            12,
+            12,
+            5
+          ]
+        ],
+        "requires": "Exact berry, destination, one defined year and actual supplied months. Zero documented actual supply remains a raw zero with no matching anchor; missing disclosure is Unknown."
+      }
+    },
+    {
+      "capability_id": "grower.origin_flexibility",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Operational origin flexibility",
+      "business_question": "How many distinct growing origins actually supplied this scope during the same period?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "origin_country",
+        "crop",
+        "destination_market",
+        "period",
+        "owned_contracted_licensed_sourced",
+        "actual_shipments"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1 evidenced growing-origin country",
+          "requires": "1 evidenced growing-origin country"
+        },
+        {
+          "level": 2,
+          "label": "2 evidenced growing-origin countries",
+          "requires": "2 evidenced growing-origin countries"
+        },
+        {
+          "level": 3,
+          "label": "3 evidenced growing-origin countries",
+          "requires": "3 evidenced growing-origin countries"
+        },
+        {
+          "level": 4,
+          "label": "4 evidenced growing-origin countries",
+          "requires": "4 evidenced growing-origin countries"
+        },
+        {
+          "level": 5,
+          "label": "5 or more evidenced growing-origin countries",
+          "requires": "5 or more evidenced growing-origin countries"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "grower.growing_system",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Growing-system execution",
+      "business_question": "How mature is the specified growing system in this operation and crop?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "system",
+        "operation",
+        "crop_cycles",
+        "commercial_harvest",
+        "yield",
+        "quality",
+        "conditions"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Relevant controlled-system crop validation completed",
+          "requires": "Relevant controlled-system crop validation completed"
+        },
+        {
+          "level": 2,
+          "label": "Relevant operational trial completed for one crop cycle",
+          "requires": "Relevant operational trial completed for one crop cycle"
+        },
+        {
+          "level": 3,
+          "label": "Commercial harvest using the specified system documented",
+          "requires": "Commercial harvest using the specified system documented"
+        },
+        {
+          "level": 4,
+          "label": "Commercial harvest repeated across two completed cycles",
+          "requires": "Commercial harvest repeated across two completed cycles"
+        },
+        {
+          "level": 5,
+          "label": "Repeat commercial harvest at two operations with measured quality and production outcomes",
+          "requires": "Repeat commercial harvest at two operations with measured quality and production outcomes"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "grower.postharvest",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Postharvest execution",
+      "business_question": "How well is handling performance demonstrated for the specified route?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "route",
+        "handling_protocol",
+        "temperature",
+        "duration",
+        "quality_method",
+        "loss_denominator",
+        "shelf_life_conditions",
+        "cohorts"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Named implemented handling protocol",
+          "requires": "Named implemented handling protocol"
+        },
+        {
+          "level": 2,
+          "label": "Protocol with recorded temperature and time controls",
+          "requires": "Protocol with recorded temperature and time controls"
+        },
+        {
+          "level": 3,
+          "label": "Shipment outcome measured using a defined quality or loss method",
+          "requires": "Shipment outcome measured using a defined quality or loss method"
+        },
+        {
+          "level": 4,
+          "label": "Comparable measured outcomes across two seasons or shipment cohorts",
+          "requires": "Comparable measured outcomes across two seasons or shipment cohorts"
+        },
+        {
+          "level": 5,
+          "label": "Repeat outcomes with independent route-level verification against a disclosed service target",
+          "requires": "Repeat outcomes with independent route-level verification against a disclosed service target"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "grower.resilience",
+      "eligible_peer_roles": [
+        "grower"
+      ],
+      "label": "Demonstrated operational mitigation",
+      "business_question": "Has a named mitigation worked against a specified operating disruption?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "exposure",
+        "origin",
+        "destination",
+        "mitigation",
+        "test_date",
+        "disruption",
+        "baseline",
+        "outcome",
+        "target"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Documented implemented mitigation for the named exposure",
+          "requires": "Documented implemented mitigation for the named exposure"
+        },
+        {
+          "level": 2,
+          "label": "Mitigation tested in a relevant operational exercise",
+          "requires": "Mitigation tested in a relevant operational exercise"
+        },
+        {
+          "level": 3,
+          "label": "Actual disruption and measured mitigated outcome documented",
+          "requires": "Actual disruption and measured mitigated outcome documented"
+        },
+        {
+          "level": 4,
+          "label": "Measured mitigated outcomes in two actual disruption episodes",
+          "requires": "Measured mitigated outcomes in two actual disruption episodes"
+        },
+        {
+          "level": 5,
+          "label": "Repeat mitigated outcomes with independent verification and a disclosed continuity target",
+          "requires": "Repeat mitigated outcomes with independent verification and a disclosed continuity target"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "marketer.supply_months",
+      "eligible_peer_roles": [
+        "marketer"
+      ],
+      "label": "Annual market-facing supply coverage",
+      "business_question": "How many documented months did actual supply reach the destination in a defined year?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "year",
+        "destination_market",
+        "crop",
+        "months_supplied",
+        "supplier",
+        "actual_or_plan"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1–3 months",
+          "requires": "1–3 months"
+        },
+        {
+          "level": 2,
+          "label": "4–6 months",
+          "requires": "4–6 months"
+        },
+        {
+          "level": 3,
+          "label": "7–9 months",
+          "requires": "7–9 months"
+        },
+        {
+          "level": 4,
+          "label": "10–11 months",
+          "requires": "10–11 months"
+        },
+        {
+          "level": 5,
+          "label": "12 months",
+          "requires": "12 months"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment.",
+      "deterministic_rule": {
+        "metric": "documented_month_count",
+        "bands": [
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            4,
+            6,
+            2
+          ],
+          [
+            7,
+            9,
+            3
+          ],
+          [
+            10,
+            11,
+            4
+          ],
+          [
+            12,
+            12,
+            5
+          ]
+        ],
+        "requires": "Exact berry, destination, one defined year and actual supplied months. Zero documented actual supply remains a raw zero with no matching anchor; missing disclosure is Unknown."
+      }
+    },
+    {
+      "capability_id": "marketer.sourcing",
+      "eligible_peer_roles": [
+        "marketer"
+      ],
+      "label": "Active sourcing-network breadth",
+      "business_question": "How many independent supplier groups actually supplied the selected scope?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "supplier_group",
+        "parent_group",
+        "arrangement",
+        "actual_supply",
+        "crop",
+        "destination",
+        "period"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1 named active supplier group",
+          "requires": "1 named active supplier group"
+        },
+        {
+          "level": 2,
+          "label": "2 named active supplier groups",
+          "requires": "2 named active supplier groups"
+        },
+        {
+          "level": 3,
+          "label": "3–4 named active supplier groups",
+          "requires": "3–4 named active supplier groups"
+        },
+        {
+          "level": 4,
+          "label": "5–9 named active supplier groups",
+          "requires": "5–9 named active supplier groups"
+        },
+        {
+          "level": 5,
+          "label": "10 or more named active supplier groups",
+          "requires": "10 or more named active supplier groups"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "marketer.channels",
+      "eligible_peer_roles": [
+        "marketer"
+      ],
+      "label": "Active channel breadth",
+      "business_question": "Across how many defined channel categories is actual distribution documented?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "channel_category",
+        "customer_or_listing",
+        "destination",
+        "crop",
+        "date",
+        "actual_sale"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1 documented channel category",
+          "requires": "1 documented channel category"
+        },
+        {
+          "level": 2,
+          "label": "2 documented channel categories",
+          "requires": "2 documented channel categories"
+        },
+        {
+          "level": 3,
+          "label": "3 documented channel categories",
+          "requires": "3 documented channel categories"
+        },
+        {
+          "level": 4,
+          "label": "4 documented channel categories",
+          "requires": "4 documented channel categories"
+        },
+        {
+          "level": 5,
+          "label": "5 documented channel categories",
+          "requires": "5 documented channel categories"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment.",
+      "channel_taxonomy": [
+        "grocery retail",
+        "foodservice",
+        "specialist wholesale",
+        "direct to consumer",
+        "processing/ingredient"
+      ]
+    },
+    {
+      "capability_id": "marketer.proposition",
+      "eligible_peer_roles": [
+        "marketer"
+      ],
+      "label": "Consumer-proposition validation",
+      "business_question": "How far has the specific product proposition been tested with its intended consumer?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "product",
+        "brand",
+        "proposition",
+        "target_consumer",
+        "sample",
+        "comparator",
+        "method",
+        "repeat_purchase",
+        "period"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Named marketed proposition and actual product listing",
+          "requires": "Named marketed proposition and actual product listing"
+        },
+        {
+          "level": 2,
+          "label": "Product test with disclosed target-consumer sample and method",
+          "requires": "Product test with disclosed target-consumer sample and method"
+        },
+        {
+          "level": 3,
+          "label": "Comparator consumer test with sample and reported results",
+          "requires": "Comparator consumer test with sample and reported results"
+        },
+        {
+          "level": 4,
+          "label": "Comparator outcome replicated in a second relevant consumer test",
+          "requires": "Comparator outcome replicated in a second relevant consumer test"
+        },
+        {
+          "level": 5,
+          "label": "Replicated consumer outcome plus measured repeat-purchase result for the defined product and market",
+          "requires": "Replicated consumer outcome plus measured repeat-purchase result for the defined product and market"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "marketer.deployment",
+      "eligible_peer_roles": [
+        "marketer"
+      ],
+      "label": "Commercial program execution",
+      "business_question": "Does the named marketing program progress beyond an announcement into repeat sales?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "program",
+        "listing",
+        "shipment",
+        "buyer",
+        "period",
+        "sales",
+        "fulfillment_target"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Named pilot program with actual dated trial listing",
+          "requires": "Named pilot program with actual dated trial listing"
+        },
+        {
+          "level": 2,
+          "label": "Actual first commercial listing or shipment",
+          "requires": "Actual first commercial listing or shipment"
+        },
+        {
+          "level": 3,
+          "label": "Sales under the program confirmed by a named buyer",
+          "requires": "Sales under the program confirmed by a named buyer"
+        },
+        {
+          "level": 4,
+          "label": "Buyer-confirmed sales repeated across two seasons",
+          "requires": "Buyer-confirmed sales repeated across two seasons"
+        },
+        {
+          "level": 5,
+          "label": "Repeat buyer-confirmed sales with measured program fulfillment against a disclosed target",
+          "requires": "Repeat buyer-confirmed sales with measured program fulfillment against a disclosed target"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "technology.maturity",
+      "eligible_peer_roles": [
+        "technology_provider"
+      ],
+      "label": "Technical maturity",
+      "business_question": "At what stage is this named technology in this crop and use case?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "technology",
+        "program",
+        "use_case",
+        "crop",
+        "stage",
+        "conditions",
+        "trial_result",
+        "customer",
+        "deployment_date"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Documented concept with a named technical design",
+          "requires": "Documented concept with a named technical design"
+        },
+        {
+          "level": 2,
+          "label": "Completed controlled validation with reported method and results",
+          "requires": "Completed controlled validation with reported method and results"
+        },
+        {
+          "level": 3,
+          "label": "Completed relevant operational field trial with reported results",
+          "requires": "Completed relevant operational field trial with reported results"
+        },
+        {
+          "level": 4,
+          "label": "Documented commercial deployment for the specified crop/use",
+          "requires": "Documented commercial deployment for the specified crop/use"
+        },
+        {
+          "level": 5,
+          "label": "Repeated commercial deployments at two independently operated customer sites",
+          "requires": "Repeated commercial deployments at two independently operated customer sites"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "technology.crop_validation",
+      "eligible_peer_roles": [
+        "technology_provider"
+      ],
+      "label": "Crop applicability validation",
+      "business_question": "How reproducibly does the technology work on the selected berry and production system?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "berry",
+        "system",
+        "fresh_processing",
+        "replicates",
+        "conditions",
+        "cycles",
+        "sites",
+        "performance"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Completed controlled test on the exact berry",
+          "requires": "Completed controlled test on the exact berry"
+        },
+        {
+          "level": 2,
+          "label": "Replicated controlled test on the exact berry with reported performance",
+          "requires": "Replicated controlled test on the exact berry with reported performance"
+        },
+        {
+          "level": 3,
+          "label": "Completed operational test on the exact berry and intended production system",
+          "requires": "Completed operational test on the exact berry and intended production system"
+        },
+        {
+          "level": 4,
+          "label": "Operational performance repeated over two crop cycles",
+          "requires": "Operational performance repeated over two crop cycles"
+        },
+        {
+          "level": 5,
+          "label": "Repeat operational performance at two relevant sites including independently measured results",
+          "requires": "Repeat operational performance at two relevant sites including independently measured results"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "technology.adoption",
+      "eligible_peer_roles": [
+        "technology_provider"
+      ],
+      "label": "Customer deployment",
+      "business_question": "How many independent customers actually use the technology commercially in this scope?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "customer",
+        "parent_group",
+        "technology",
+        "crop",
+        "territory",
+        "commercial_use",
+        "date"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "1 named commercial customer",
+          "requires": "1 named commercial customer"
+        },
+        {
+          "level": 2,
+          "label": "2 named commercial customers",
+          "requires": "2 named commercial customers"
+        },
+        {
+          "level": 3,
+          "label": "3–4 named commercial customers",
+          "requires": "3–4 named commercial customers"
+        },
+        {
+          "level": 4,
+          "label": "5–9 named commercial customers",
+          "requires": "5–9 named commercial customers"
+        },
+        {
+          "level": 5,
+          "label": "10 or more named commercial customers",
+          "requires": "10 or more named commercial customers"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "technology.integration",
+      "eligible_peer_roles": [
+        "technology_provider"
+      ],
+      "label": "Integration and delivery",
+      "business_question": "How well is installation and ongoing support demonstrated for the specified system?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "system",
+        "interface",
+        "site",
+        "handover",
+        "support",
+        "uptime_denominator",
+        "service_target",
+        "period"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Documented integration specification for the named system",
+          "requires": "Documented integration specification for the named system"
+        },
+        {
+          "level": 2,
+          "label": "Completed customer-site installation or integration test",
+          "requires": "Completed customer-site installation or integration test"
+        },
+        {
+          "level": 3,
+          "label": "Customer-confirmed operational handover and support arrangement",
+          "requires": "Customer-confirmed operational handover and support arrangement"
+        },
+        {
+          "level": 4,
+          "label": "Repeat customer-confirmed delivery at two independently operated sites",
+          "requires": "Repeat customer-confirmed delivery at two independently operated sites"
+        },
+        {
+          "level": 5,
+          "label": "Repeat delivery with measured uptime/support performance against a disclosed service commitment",
+          "requires": "Repeat delivery with measured uptime/support performance against a disclosed service commitment"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment."
+    },
+    {
+      "capability_id": "technology.ip_access",
+      "eligible_peer_roles": [
+        "technology_provider"
+      ],
+      "label": "Technology access assurance",
+      "business_question": "Are necessary use and delivery rights demonstrably usable and durable?",
+      "rubric_version": "berry-capabilities-v1.0",
+      "scope_key": [
+        "entity_id",
+        "peer_role",
+        "berry_id",
+        "destination_scope",
+        "program_or_variety_if_relevant",
+        "period_start",
+        "period_end",
+        "rubric_version"
+      ],
+      "evidence_fields": [
+        "technology",
+        "right_type",
+        "holder",
+        "licensee",
+        "territory",
+        "permitted_use",
+        "term",
+        "continuity"
+      ],
+      "units_periods": "Use original units and a common documented period; counts require the stated denominator. Do not compare unmatched periods, systems or fresh/processing uses.",
+      "anchors": [
+        {
+          "level": 1,
+          "label": "Identified technology and documented usable permission or public-access basis",
+          "requires": "Identified technology and documented usable permission or public-access basis"
+        },
+        {
+          "level": 2,
+          "label": "Documented rights cover the intended activity and territory",
+          "requires": "Documented rights cover the intended activity and territory"
+        },
+        {
+          "level": 3,
+          "label": "Documented rights cover the actual commercial deployment",
+          "requires": "Documented rights cover the actual commercial deployment"
+        },
+        {
+          "level": 4,
+          "label": "Rights cover repeat deployment for the disclosed operating term",
+          "requires": "Rights cover repeat deployment for the disclosed operating term"
+        },
+        {
+          "level": 5,
+          "label": "Repeat-deployment continuity documented with renewal, succession or alternative-access arrangements",
+          "requires": "Repeat-deployment continuity documented with renewal, succession or alternative-access arrangements"
+        }
+      ],
+      "sufficient_evidence_threshold": "At least one inspected original source explicitly supporting every condition of the selected anchor and its scope. Contradictions must be resolved or shown; unavailable citations cannot select an anchor. Use the highest fully supported anchor, never assume missing lower requirements.",
+      "confidence_rules": {
+        "high": "Direct, recent, scope-matched evidence with adequate method plus independent corroboration; no material unresolved conflict.",
+        "medium": "Direct, scope-matched evidence with adequate detail, but independence or recency is limited; attribute company assertions.",
+        "low": "An anchor is explicitly supported but evidence is older or method/corroboration is limited; state which factor. Missing anchor support means Unknown, not Low plus a number."
+      },
+      "unscored_states": {
+        "unknown": "Applicable but no anchor fully supported",
+        "not_applicable": "Structural irrelevance explained for this role/use case"
+      },
+      "guardrails": "No overall score. Selection cohort never changes rating. Breadth is descriptive breadth, not efficiency, quality or superiority. Parent/brand capabilities do not inherit. Company claims stay claims even if used in a provisional assessment.",
+      "categorical_access_model": [
+        "owned",
+        "exclusive_license",
+        "nonexclusive_license",
+        "public_access",
+        "commercial_supply",
+        "mixed",
+        "unknown"
+      ]
+    }
+  ],
+  "raw_context": [
+    "area",
+    "actual_volume",
+    "revenue",
+    "currency",
+    "organic_share_and_denominator",
+    "certifications",
+    "financing",
+    "people",
+    "hiring",
+    "sustainability",
+    "harvesting_type",
+    "shelf_life_conditions"
+  ],
+  "not_rated": "Nurseries/propagators, buyers, investors, regulators and other support actors stay ecosystem nodes. No extra peer rubric or financial resilience score without comparable evidence and a versioned specification."
+}

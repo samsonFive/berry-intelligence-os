@@ -1,3 +1,7 @@
+# October 31 competitive evaluation follow-up debt
+
+The private review build is implemented; evidence depth remains incomplete. Track 202 unresolved imported rows, Genetics Uruguay identity hold, nine retained legacy ineligible scope mappings, and original-source inspection beyond four explicit rating sources. Of 344 role-eligible cells, 340 remain Unknown; raw destination wording includes rights/trials/targets and is not a normalized fruit-market footprint. Most berry/market/period peer cohorts cannot support a defensible relative ranking. The 197 job observations form 172 posting identity groups, with incomplete ATS/requisition/date coverage; they do not establish employee growth or completed hires. No paid acquisition, recurring monitoring or automatic publication is enabled. These are new bounded research-depth gaps, not reopened TD-001..004. See [acceptance receipt](COMPETITIVE-EVALUATION-ACCEPTANCE.md).
+
 # Technical Debt Register
 
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
@@ -11,6 +15,8 @@ four checks /5,471 tests independently. The separate
 reduces the large public-seed response77.23% while keeping522 visible rows and
 all source content accessible. It is not deployed; server-side TD-122 work and
 human source/name/photo decisions remain. Older candidate notes below are dated.
+
+October 30 — Competitive evaluation integration gaps are recorded in the [Stage 1 status](COMPETITIVE-LANDSCAPE-EVALUATION-STATUS.md) and [route checklist](../research/competitive-landscape-2026-10-30-v1/feed-route-checklist.md). Code inspection found recent-five company comparison cards, a one-explicit-company external News handoff from Landscape, and separate Explorer/Gene Editing views; these do not yet implement the mission's shared full-archive multi-company/crop/destination feed. Existing `operates_in` relationships also include IP examination/trial context and cannot stand in for a production/destination model. These are open integration requirements, not claims of fixed defects or browser-tested behavior. No existing resolved debt item is reopened. Research and application work remain pending returned manual batches.
 
 October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
 

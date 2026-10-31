@@ -1,0 +1,681 @@
+{
+  "inventory_version": "competitive-landscape-2026-10-30-v1",
+  "rubric_version": "berry-capabilities-v1.0",
+  "inventory_sha256": "28916f557c4bcfe862e0e60be0dfe66f33f776e3519f2b814d1d00b425c450f3",
+  "hash_encoding": "sha256_utf8_lf_no_bom",
+  "status": "manual_research_pending",
+  "batches": [
+    {
+      "batch_id": "B01",
+      "kind": "identity",
+      "entity_ids": [
+        "company-genetics-uruguay",
+        "company-plant-sciences-genetics"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B01-identity.md",
+      "prompt_sha256": "766331fbf1555faf3d038fdc4c7282a59a29182cb3824fbc02b6f71b3bd6ed47",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B02",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-agrovision",
+        "brand-fruitist"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B02-complex-group.md",
+      "prompt_sha256": "f903fb30d880c47bf457cb5e187b415d6f4e6db51f84960ba8c635d8c687d8e2",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B03",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-agroberries",
+        "company-berryworld",
+        "brand-berryworld-varietal-brands"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B03-complex-group.md",
+      "prompt_sha256": "22ffe1c4eb3bda14154a50799b49f3ce841a0341f4942dc11b0f389c2415aa74",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B04",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "company-costa-berry-international",
+        "company-african-blue",
+        "breeding_program-costa-variety-improvement"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B04-complex-group.md",
+      "prompt_sha256": "10b5756384859efc503d23eb57bb3fbe35ff8adbf303082cefedb404ab4d4cf2",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B05",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-united-exports",
+        "company-nature-select",
+        "company-oz-varieties",
+        "brand-ozblu"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B05-complex-group.md",
+      "prompt_sha256": "8cf8a8197fe5ea67fc4e1035880f1153ff56c35660f7354a138110be7075b1c5",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B06",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "company-fall-creek-italia",
+        "brand-sekoya",
+        "brand-fall-creek-collection"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B06-complex-group.md",
+      "prompt_sha256": "a412814124e00c878775c27c9acf3ade003642580a258a6e9db33c92e63aa647",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B07",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-driscolls",
+        "breeding_program-driscolls-blueberry"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B07-complex-group.md",
+      "prompt_sha256": "b678c471a57d6cf9be5f7f4301739ef6fe98356ff8ef81938ed7d85fff3b5dbf",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B08",
+      "kind": "complex-group",
+      "entity_ids": [
+        "company-planasa",
+        "breeding_program-planasa-blueberry",
+        "company-advanced-berry-breeding",
+        "company-abz-seeds",
+        "company-hansabred"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B08-complex-group.md",
+      "prompt_sha256": "8b4a6638e8782383ecfefe691735da11e635205e85e4e484536b4802797e389c",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B09",
+      "kind": "technology_provider",
+      "entity_ids": [
+        "company-australasian-plant-genetics",
+        "company-heritable-agriculture",
+        "company-hudson-river-biotechnology",
+        "company-j-r-simplot"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B09-technology_provider.md",
+      "prompt_sha256": "441884440bd790f5cf8f3c9b9042b044897e09f4c07d77108e8ee8c6696ca96f",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B10",
+      "kind": "technology_provider",
+      "entity_ids": [
+        "company-ohalo",
+        "company-pairwise",
+        "company-plantik-biosciences",
+        "company-qi-biodesign"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B10-technology_provider.md",
+      "prompt_sha256": "f1ccf87a24ad1e0a4876f68c127ddfa582e57380c5cb866b2c35d891f0db592b",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B11",
+      "kind": "technology_provider",
+      "entity_ids": [
+        "company-shandong-shunfeng-biotechnology",
+        "company-biogea",
+        "company-singrow"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B11-technology_provider.md",
+      "prompt_sha256": "1c710c3e5fec415077dce9ffb86ed4f4f85b4e014d8efd24a3ebc3b4faf6daac",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B12",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-fresh-forward",
+        "company-iq-berries",
+        "company-marionnet",
+        "company-mountain-blue-orchards"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B12-breeder.md",
+      "prompt_sha256": "a1a98f76731892d09ce757f1d2f69faf5ccbd8d34e69de71fe340da5d0cebd17",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B13",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-perfection-fresh",
+        "company-university-of-arkansas",
+        "company-university-of-florida",
+        "company-wish-farms"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B13-breeder.md",
+      "prompt_sha256": "49df26f6faec806ac937a280fdc3c0abd83b487835ac469ded93cc83692bf6dd",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B14",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-berry-blue-llc",
+        "company-berrytech",
+        "company-california-berry-cultivars",
+        "company-civ-italy"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B14-breeder.md",
+      "prompt_sha256": "4d295cf2a0497805bff5a7c60bbc8345e1b87a3d56596eaa0663b2c86354a48e",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B15",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-eu-plants",
+        "company-flevo-berry",
+        "company-fresas-nuevos-materiales",
+        "company-g-berries"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B15-breeder.md",
+      "prompt_sha256": "2ba01ef4700902cb1c8336335bb53a840ae818d8321821f139c4e1e71f1a43b9",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B16",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-inkas-berries",
+        "company-james-hutton-ltd",
+        "company-limgroup",
+        "company-niab"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B16-breeder.md",
+      "prompt_sha256": "c461134b96fb12999ba3598a881bed2bc8fc866e5ff5b24637fd351a60a2fa7a",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B17",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-niwa-berry-breeding",
+        "company-nc-state-university",
+        "company-nova-siri-genetics",
+        "company-rijk-zwaan"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B17-breeder.md",
+      "prompt_sha256": "89d2cac49c656bde124fd29aed69d9241e041cd9bb9db9fd30ca11f571004bba",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B18",
+      "kind": "breeder",
+      "entity_ids": [
+        "company-james-hutton-institute",
+        "company-vissers-plant-innovators"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B18-breeder.md",
+      "prompt_sha256": "0effa072c553087f5477db2de367057dc8fda54decd29cb3945414588c451f7d",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B19",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-denning-blueberries",
+        "company-black-venture-farm",
+        "company-california-giant-berry-farms",
+        "company-gem-pack-berries"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B19-grower-marketer.md",
+      "prompt_sha256": "6e95baa4bbbebfa3f0b78bdd7d871aa218acb5f5608f223b880d5e9616d55a62",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B20",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-oishii",
+        "company-royakkers",
+        "company-smart-berries"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B20-grower-marketer.md",
+      "prompt_sha256": "a44196c8ecbbbbeb31f96777545e2eebaaf43cd33c2999bdaf8ecddd2cdb4b87",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B21",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-splendor-produce",
+        "company-sunbelle",
+        "company-the-berry-collective",
+        "company-well-pict"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B21-grower-marketer.md",
+      "prompt_sha256": "2224be731a83425093d415522565f69b5b78b537075caefe353c32919a7fedaf",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B22",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-angus-soft-fruits",
+        "company-australian-strawberry-distributors",
+        "company-camposol",
+        "company-chambers"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B22-grower-marketer.md",
+      "prompt_sha256": "425c7827dcb08fd61c46eb428d93d1d4dac2e1fb3f0c87129000cb04349114e1",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B23",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-cuna-de-platero",
+        "company-family-tree-farms",
+        "company-fresh-kampo",
+        "company-grupo-heres"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B23-grower-marketer.md",
+      "prompt_sha256": "57026ba5ae13e8bb46b5115af96f0045fff0e5dbee2542c89482fc94a067eba1",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B24",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-masia-ciscar",
+        "company-michigan-blueberry-growers",
+        "company-naturipe-farms",
+        "company-onubafruit"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B24-grower-marketer.md",
+      "prompt_sha256": "ffff6312e608b7170659f877034955b3a5d062fa4011f56e9a61c4a7585e228c",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B25",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-oregon-blueberry",
+        "company-sanlucar",
+        "company-sant-orsola",
+        "company-surexport"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B25-grower-marketer.md",
+      "prompt_sha256": "77fcea8435371e5039c962cd66cfc4a1df236a0613cb83a3b5eac17eb43ca90a",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B26",
+      "kind": "grower-marketer",
+      "entity_ids": [
+        "company-the-summer-berry-company"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B26-grower-marketer.md",
+      "prompt_sha256": "3c6b17dc80a4775c7b61769ed77f5056bb39bd22165c9ed41c74fb9215b18cba",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B27",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-expoberries",
+        "company-bayer",
+        "company-berries-del-oeste",
+        "company-bisa-trading"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B27-support-and-role-resolution.md",
+      "prompt_sha256": "e7d0e305d67ecf5ba6aa767f3425420aefbb7c7d10cc62f4c6d99f7655933fda",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B28",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-bci",
+        "company-cfia",
+        "company-cinven",
+        "company-ciopora"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B28-support-and-role-resolution.md",
+      "prompt_sha256": "ec93b5662dd126fad524a0dda3c954495e342407579fc6f46ae2105d72eb7c84",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B29",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-eurosemillas",
+        "company-ew-group",
+        "company-florida-foundation-seed-producers",
+        "company-freshuelva"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B29-support-and-role-resolution.md",
+      "prompt_sha256": "86cd9af26857fe12bf8f4579a3260a3d46b8a6e293b7257cf969fb0eaef945f6",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B30",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-global-plant-genetics",
+        "company-institute-of-botany-cas",
+        "company-ip-australia",
+        "company-mattivi-group"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B30-support-and-role-resolution.md",
+      "prompt_sha256": "926fce21daeb734d2e4d4ee163e6d356184d3da19499e93d3bc72bea783ac283",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B31",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-miyoshi-group",
+        "company-next-progeny",
+        "company-paine-schwartz-partners",
+        "company-prunus-persica"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B31-support-and-role-resolution.md",
+      "prompt_sha256": "56e9e8b7ac2a763243e0d8a0b80349772917a292e1157072b1dbb758d968fa5f",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B32",
+      "kind": "support-and-role-resolution",
+      "entity_ids": [
+        "company-queensland-government",
+        "company-topfruit",
+        "company-ushbc",
+        "company-usda"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B32-support-and-role-resolution.md",
+      "prompt_sha256": "4aa94b84a7acdb9bfdb59b699e5e36062b5769f3e26657eb775b95bbe57ad0bb",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B33",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-uc-davis-strawberry",
+        "program-gene-qi-lab",
+        "breeding_program-atlantic-blue-royal-berries",
+        "program-gene-plantik-platform"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B33-breeding_program.md",
+      "prompt_sha256": "5efb04974a07318b82ae9b3b77ba3d5e34f85ead4e00a55416364150a5b7a436",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B34",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-berry-blue",
+        "program-gene-ohalo-boosted",
+        "program-gene-shunfeng",
+        "program-gene-pairwise-compact"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B34-breeding_program.md",
+      "prompt_sha256": "5faecec2ff988e5edc91e17594970bc8db59d866e31cd3b45702c7f9be7c793b",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B35",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-cornell-berry",
+        "breeding_program-fall-creek-blueberry-breeding",
+        "program-gene-fall-creek",
+        "program-gene-ohalo-florida"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B35-breeding_program.md",
+      "prompt_sha256": "c75e861f7e7c1f6d634f00b80e0726b2163f5b029860c82662ecff40d7728399",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B36",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "program-gene-pairwise-fontana",
+        "program-gene-simplot-ip",
+        "program-gene-pairwise-hrb",
+        "program-gene-heritable-edit-design"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B36-breeding_program.md",
+      "prompt_sha256": "577b9af099662c36536e095593bb8872a6b34871ebf365012c2d79878db6890e",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B37",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "program-gene-qi-soybean",
+        "program-gene-heat-strawberry",
+        "program-gene-heritable-strawberry",
+        "program-gene-shunfeng-25t93"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B37-breeding_program.md",
+      "prompt_sha256": "df5c41c17bb97ab7d10ae7b096bfae7977f47e9225b8fe625a6b4cba4f20ea85",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B38",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-mountain-blue-blueberry-breeding",
+        "program-gene-qi-small-berry",
+        "breeding_program-nature-select-blueberry-breeding",
+        "program-gene-ohalo-strawberry"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B38-breeding_program.md",
+      "prompt_sha256": "14d3470434d7141796c747fbe7efbd439d579678c7b21923eb7cfc9fb3ccca6f",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B39",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "program-gene-pairwise-psi",
+        "program-gene-planasa",
+        "program-gene-qi-wheat",
+        "program-gene-qi-license"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B39-breeding_program.md",
+      "prompt_sha256": "33a80ef4232a01e9b05269d3da439f343b24df3b4eb22ddcf8b368d399394ea0",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B40",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-njaes-rutgers-strawberry",
+        "program-gene-simplot-s4a",
+        "program-gene-qi-seedit",
+        "program-gene-pairwise-seedless"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B40-breeding_program.md",
+      "prompt_sha256": "bd40b1692542af13e8cfd48a21a1025e860f30cb8e6a7a115a4aa34ba97511e5",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B41",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "program-gene-simplot-psi",
+        "program-gene-fall-creek-paper-affiliation",
+        "program-gene-hrb-regeneration",
+        "program-gene-plantik-tomato"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B41-breeding_program.md",
+      "prompt_sha256": "7c445826cc4e057164ea8a8294daaa9e3be0ab69c1726a8db9c57cb0237e124a",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B42",
+      "kind": "breeding_program",
+      "entity_ids": [
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B42-breeding_program.md",
+      "prompt_sha256": "d97a3be519d551d1c3b59d68f7c2b923d8839b25d305723c9f68f46484f00aef",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B43",
+      "kind": "brand",
+      "entity_ids": [
+        "brand-berryum",
+        "brand-big-skye",
+        "brand-blugenix",
+        "brand-eureka"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B43-brand.md",
+      "prompt_sha256": "f412cf34ac124bbea007cbd6a9ad8d1dee6ea2bed3a6de792a56b278729e7ff8",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B44",
+      "kind": "brand",
+      "entity_ids": [
+        "brand-rejoice"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B44-brand.md",
+      "prompt_sha256": "ac52f983c40b0b981e8d5ebb56903d404704982f346e84311ff458f00a06c782",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B45",
+      "kind": "retailer",
+      "entity_ids": [
+        "retailer-asda",
+        "retailer-coles",
+        "retailer-marks-and-spencer",
+        "retailer-morrisons"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B45-retailer.md",
+      "prompt_sha256": "8e3efd2e05b2a5e567f20df33c81370d2536b26e33b09a90a1c85dc5158bf684",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    },
+    {
+      "batch_id": "B46",
+      "kind": "retailer",
+      "entity_ids": [
+        "retailer-sainsburys",
+        "retailer-tesco",
+        "retailer-waitrose"
+      ],
+      "prompt_file": "docs/research/competitive-landscape-2026-10-30-v1/prompts/B46-retailer.md",
+      "prompt_sha256": "950092fd0c760d933dd6dbf770d0a57f4ac398117bfa56b2ec4aee6e3f6654b8",
+      "research_status": "pending",
+      "source_validation_status": "pending",
+      "import_status": "pending"
+    }
+  ]
+}

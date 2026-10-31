@@ -26,7 +26,7 @@
       const url = new URL(a.href); url.searchParams.set('focus', bundle.filters.focus || ''); url.searchParams.set('edge', bundle.filters.edge || ''); a.href = url.pathname + url.search;
     });
   }
-  function setURL(key, value) { const url = new URL(location.href); url.searchParams.set(key, value); history.replaceState(null, '', url); bundle.filters[key] = value; syncLinks(); }
+  function setURL(key, value) { const url = new URL(location.href); url.searchParams.set(key, value); history.replaceState(null, '', url); bundle.filters[key] = value; syncLinks(); window.dispatchEvent(new CustomEvent('bios:coverage-scope-changed')); }
   function sourceLink(source) { if (!source.url) return el('small', 'Original URL not recorded.'); const a = el('a', 'Read original source ↗'); a.href = source.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a; }
   function selectEdge(id, focusPanel = true) {
     const edge = edges.get(id); if (!edge) return;

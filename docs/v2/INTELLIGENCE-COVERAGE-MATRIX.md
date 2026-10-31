@@ -1,3 +1,7 @@
+# October 31 competitive evaluation coverage
+
+The [review-build receipt](COMPETITIVE-EVALUATION-ACCEPTANCE.md) extends private competitive analysis across 166 frozen entities. All 48 research inputs are captured; 4,109 retained rows include 924 source-ledger entries, not independent verified sources. Accepted structure: 3,907; resolution: 202. Eligible scoped cells: breeder 214, grower 48, marketer 35, technology provider 47; blueberry 143, strawberry 143, raspberry 22, blackberry 36. Four narrowly sourced numeric proposals remain Provisional; 340 Unknown. Thirteen metadata captures join the existing retained archive, preserving publication dates, source trust and explicit destination annotations. This does not increase published Evidence/Atomic Fact counts or prove country-wide market coverage. Canonical expansion guide and earlier source/release histories remain intact.
+
 # Intelligence Coverage Matrix
 
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
@@ -17,6 +21,8 @@ source/name counts, crop boundaries and human decisions remain; this adds no
 source or catalog coverage. The oversized HTML, broader TD-122 and human
 source/name/photo decisions remain open. Its tests and exact-head CI are tracked
 separately from the approved release.
+
+October 30 — [Competitive landscape evaluation Stage 1](COMPETITIVE-LANDSCAPE-EVALUATION-STATUS.md) freezes the current canonical ecosystem before manual research: 169 records across company/program/brand/retailer types, three fictional fixtures excluded, 166 included nodes, one unresolved company identity and 19 historical relationship leads. Forty-six self-contained profile batches plus two follow-ups and 21 role-specific rubrics are prepared. Existing role classifications and 46 import-only source records are not new verified capabilities or trusted publications. Research returns, source validation, population, provisional ratings and the application/feed integration remain pending; no paid research or deployment. Existing source, claim and release gates remain separate.
 
 October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
 
