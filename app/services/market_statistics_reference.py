@@ -23,6 +23,13 @@ EUROSTAT_COUNTRIES = {
     "PL": ("iso:PL", "Poland"),
 }
 GEOS = tuple(EUROSTAT_COUNTRIES)
+# Only the separately reported crop categories; F3000/F3900 cannot stand in
+# for blackberry or be allocated to one of these crops.
+EUROSTAT_CROPS = {
+    "S0000": ("berry-strawberry", "Strawberries"),
+    "F3200": ("berry-raspberry", "Raspberries"),
+    "F3300": ("berry-blueberry", "Blueberries"),
+}
 INDICATORS = {
     "AR_THS_HA": ("Area", "1000 ha"),
     "HPRD_HUMD_EU_THS_T": ("Harvested production", "1000 t"),
@@ -79,7 +86,7 @@ def identified_groups(groups):
 
 
 def eurostat_groups(payload, *, captured_at):
-    """Latest populated annual period per country; retain original flags/labels.
+    """Latest populated annual period per country/crop; retain flags/labels.
 
     An empty future period cannot erase last year's figures. Missing cells are
     absent, not zero. A missing yield is never calculated from area/production.
@@ -100,8 +107,8 @@ def eurostat_groups(payload, *, captured_at):
         if not isinstance(index, dict) or set(index.values()) != set(range(size)):
             raise ValueError("Invalid Eurostat dimension index")
         indexes[dim], labels[dim] = index, category.get("label") or {}
-    if set(indexes["freq"]) != {"A"} or set(indexes["crops"]) != {"S0000"}:
-        raise ValueError("Capture only annual strawberries; mixed berries stay separate")
+    if set(indexes["freq"]) != {"A"} or not indexes["crops"] or not set(indexes["crops"]).issubset(EUROSTAT_CROPS):
+        raise ValueError("Capture only separately reported annual berry crops; mixed berries stay separate")
     if not set(indexes["geo"]).issubset(GEOS) or not set(indexes["strucpro"]).issubset(INDICATORS):
         raise ValueError("Capture exceeds the bounded country/indicator scope")
     years = indexes["time"]
@@ -121,16 +128,18 @@ def eurostat_groups(payload, *, captured_at):
         for dim, size in zip(dims, sizes):
             flat = flat * size + indexes[dim][row[dim]]
         row["source_flag"] = flags.get(str(flat), "")
-        if "c" in row["source_flag"]:
-            continue  # Confidential cells are never public reference figures.
-        by_geo.setdefault(row["geo"], []).append(row)
+        if not isinstance(row["source_flag"], str):
+            raise ValueError("Invalid Eurostat cell flag")
+        if unavailable_flag(row["source_flag"]):
+            continue  # Confidential, withheld or missing cells are not figures.
+        by_geo.setdefault((row["geo"], row["crops"]), []).append(row)
     if not by_geo:
         raise ValueError("No populated Eurostat cells; keep the previous reference")
     groups = []
-    for geo, rows in sorted(by_geo.items()):
+    for (geo, crop), rows in sorted(by_geo.items()):
         year = max(r["time"] for r in rows)
         selected = {r["strucpro"]: r for r in rows if r["time"] == year}
-        url = EUROSTAT_APRO_URL + "?" + urlencode({"format": "JSON", "lang": "en", "crops": "S0000", "geo": geo, "time": year})
+        url = EUROSTAT_APRO_URL + "?" + urlencode({"format": "JSON", "lang": "en", "crops": crop, "geo": geo, "time": year})
         metrics = []
         for code, (label, unit) in INDICATORS.items():
             if code not in selected:
@@ -139,8 +148,8 @@ def eurostat_groups(payload, *, captured_at):
             metrics.append({"label": label, "value": row["value"], "unit": unit,
                             "source_code": code, "source_label": labels["strucpro"].get(code, code), "source_flag": row["source_flag"]})
         groups.append({"country_id": EUROSTAT_COUNTRIES[geo][0], "country": labels["geo"].get(geo, geo),
-                       "berry_id": "berry-strawberry", "commodity": "Strawberries", "period": year + " calendar year",
-                       "source": "Eurostat", "source_url": url, "locator": "apro_cpsh1 · S0000 · " + geo + " · " + year,
+                       "berry_id": EUROSTAT_CROPS[crop][0], "commodity": EUROSTAT_CROPS[crop][1], "period": year + " calendar year",
+                       "source": "Eurostat", "source_url": url, "locator": "apro_cpsh1 · " + crop + " · " + geo + " · " + year,
                        "published_date": "Not supplied", "source_updated_at": payload.get("updated") or "Not supplied",
                        "accessed_date": stamp.date().isoformat(), "methodology_url": METHODOLOGY,
                        "status": "Official statistics · original cell flags retained",
@@ -149,7 +158,17 @@ def eurostat_groups(payload, *, captured_at):
     return groups
 
 
+def unavailable_flag(flag):
+    # Case matters: n is below precision, N is not for publication; p is
+    # provisional, P is subject to non-statistical secrecy arrangements.
+    return any(code in flag for code in 'cCNPmz')
+
+
 def flag_label(flag):
     if not flag:
         return "No status flag supplied"
-    return {"p": "Provisional", "e": "Estimated", "b": "Break in series", "d": "Definition differs"}.get(flag, "Source flag: " + flag)
+    labels = {"p": "Provisional", "e": "Estimated", "b": "Break in series", "d": "Definition differs",
+              "n": "Below reporting precision; a reported zero is not a true zero",
+              "f": "Forecast", "i": "Imputed by Eurostat or the receiving agency", "u": "Low reliability",
+              "s": "Eurostat estimate", "r": "Revised"}
+    return "; ".join(labels.get(code, "Source flag: " + code) for code in flag if not code.isspace())

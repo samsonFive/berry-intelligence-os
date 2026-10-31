@@ -7,7 +7,7 @@ from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
 from app.services import map_statistics_refresh as refresh
-from app.services.market_statistics_reference import group_id, reference_groups
+from app.services.market_statistics_reference import flag_label, group_id, reference_groups
 
 router = APIRouter()
 
@@ -57,6 +57,7 @@ def page(request, *, error='', status_code=200, return_to=None):
         'review_href': '/explorer/statistics?' + urlencode({'return_to': return_to}),
         'research_href': '/explorer/statistics/research?' + urlencode({'return_to': return_to}),
         'official_countries': refresh.COUNTRIES,
+        'flag_label': flag_label,
     })
 
 
@@ -72,7 +73,7 @@ async def check(request: Request, tasks: BackgroundTasks):
     form = await request.form()
     try:
         reference_groups(main.DATA_DIR)
-        job, start = refresh.reserve(main.INBOX_DIR, str(form.get('token') or ''))
+        job, start = refresh.reserve(main.INBOX_DIR, str(form.get('token') or ''), str(form.get('source') or 'eurostat'))
     except ValueError as exc:
         return page(request, error=str(exc), status_code=409, return_to=str(form.get('return_to') or ''))
     if start:

@@ -82,7 +82,7 @@ def test_recapture_keeps_each_original_payload_and_existing_files(tmp_path):
     second, _ = capture(output_dir=tmp_path, fetch=fetch, now=datetime.fromisoformat(STAMP))
     assert first != second and first.read_bytes() == original
     assert json.loads(second.read_text())["payload"] == fixture()
-    assert calls[0] == {"crops": ["S0000"], "geos": list(reference.GEOS), "since_year": 2023}
+    assert calls[0] == {"crops": list(reference.EUROSTAT_CROPS), "geos": list(reference.GEOS), "since_year": 2023}
     identified = reference.identified_groups(groups)
     revised = copy.deepcopy(groups)
     revised[0]["metrics"][0]["value"] = 99
