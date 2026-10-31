@@ -73,7 +73,7 @@ async def check(request: Request, tasks: BackgroundTasks):
     form = await request.form()
     try:
         reference_groups(main.DATA_DIR)
-        job, start = refresh.reserve(main.INBOX_DIR, str(form.get('token') or ''))
+        job, start = refresh.reserve(main.INBOX_DIR, str(form.get('token') or ''), str(form.get('source') or 'eurostat'))
     except ValueError as exc:
         return page(request, error=str(exc), status_code=409, return_to=str(form.get('return_to') or ''))
     if start:
