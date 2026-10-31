@@ -1,6 +1,6 @@
 # Competitive landscape research handoff
 
-Stage 1: inventory, contracts and prompts prepared. Stage 2 research validation, population and application implementation remain pending.
+Current October 31 status: all 46 batches and both follow-ups are captured and imported privately. The implementation and real-data review preview are available. See [current status](../../v2/COMPETITIVE-LANDSCAPE-EVALUATION-STATUS.md) and [acceptance walkthrough](../../v2/COMPETITIVE-EVALUATION-ACCEPTANCE.md). The run instructions below retain the frozen original handoff; they are not an outstanding manual task for Johnny.
 
 1. Read [entity inventory](commercial-entity-inventory.md), including unresolved identities.
 2. Read [rubrics](capability-rubrics.md).
@@ -9,4 +9,4 @@ Stage 1: inventory, contracts and prompts prepared. Stage 2 research validation,
 
 Inventory `competitive-landscape-2026-10-30-v1`; rubric `berry-capabilities-v1.0`. 46 profile batches plus two follow-ups. Snapshot input and prompt hashes prevent silent inventory drift.
 
-No paid research was initiated. No new company findings, ratings, jobs or news articles were fabricated or published.
+Execution used the authorized Perplexity web UI for B01–B15 and direct public sources thereafter. No paid API or upgrade was used. Captured claims and provisional assessments remain distinct from publication/Atomic Evidence approval.

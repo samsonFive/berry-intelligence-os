@@ -1,3 +1,7 @@
+# October 31 competitive evaluation review build
+
+[Competitive landscape evaluation](docs/v2/COMPETITIVE-EVALUATION-ACCEPTANCE.md): captured all 46 batches plus R01/R02 for 166 frozen entities; imported 4,109 private observations with 202 unresolved mappings and four narrow Provisional assessments. Scoped comparison, correction history, people/hiring, cited immutable snapshots and shared captured coverage are implemented. Additive checkbox selection works with keyboard and across searches. Full local suite passed 5,537 tests with ten skips; final affected/browser/static receipts are linked. Rebased on canonical 3b0b4acc. No merge/deployment or trust promotion. Earlier release histories remain below.
+
 # Project Status
 
 November 2 — [Company source-name preparation](docs/v2/COMPANY-SOURCE-PREPARATION-REVIEW.md)

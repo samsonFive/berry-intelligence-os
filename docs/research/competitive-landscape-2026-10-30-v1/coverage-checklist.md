@@ -1,6 +1,6 @@
 # Run order and coverage checklist
 
-Run B01 first (identity); then the complex groups; then role batches and support/program/brand/buyer batches. Every non-fictional inventory node is assigned once. Secondary roles are researched inside its same batch. Program and brand evidence remains scoped, with links to operating entities. All rows below are pending; no Perplexity call has been run automatically.
+Run B01 first (identity); then the complex groups; then role batches and support/program/brand/buyer batches. Every non-fictional inventory node is assigned once. Secondary roles are researched inside its same batch. Program and brand evidence remains scoped, with links to operating entities. The table below is the frozen pre-execution handoff, retained for run membership. It is superseded by the October 31 receipt: all 46 batches and R01/R02 are captured and imported privately. B01–B15 used the authorized web UI; the rest used authorized direct public sources. Original-source inspection remains selective, with unresolved mappings retained. See the current status and acceptance walkthrough; Pending in the historical table is not the current execution status.
 
 | Run | Batch file | Entity IDs | Research | Citation validation | Import |
 | --- | --- | --- | --- | --- | --- |
