@@ -19,7 +19,7 @@ def world():
         from app.services.publication_sources import pending_source_previews
         pending, issues = pending_source_previews(main.INBOX_DIR)
     records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
-                                   include_private=main.AUTHORING_MODE, pending=pending, metadata_only=True)
+                                   include_private=main.AUTHORING_MODE, pending=pending, metadata_only=True, index_issues=issues)
     context['pending_source_issue_count'] = len(issues)
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     return main, context, records, entities

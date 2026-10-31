@@ -29,6 +29,8 @@ PREVIEW_FIELDS = {
     "source_language", "original_title", "translated", "translation_pending", "image_url", "image_source_url",
     "preview_image_url", "thumbnail_url", "source_image_url", "origin_publisher_url",
     "acquisition_lane", "discovery_provenance",
+    "destination_market_ids", "origin_market_ids", "scope_resolution", "event_date", "first_seen_at",
+    "canonical_url", "syndication_group_id", "competitive_source_ids",
 }
 
 
