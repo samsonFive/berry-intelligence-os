@@ -35,6 +35,14 @@ def test_reassembly_preserves_conflicts_and_rejects_changed_original(tmp_path):
     assert any('Missing source ledger' in ' '.join(r.get('reasons', [])) for r in result['unresolved'])
     assert assemble(output, inventory) == first
     assert candidate.read_bytes() == original_candidate
+    assert assemble(output, inventory, verify_existing=True) == first
+    modified = json.loads(original_candidate)
+    modified['records'][0]['fields']['value_or_statement'] = 'Edited candidate must not pass as original'
+    candidate.write_text(json.dumps(modified), encoding='utf-8')
+    with pytest.raises(ValueError, match='Derived candidates differ'):
+        assemble(output, inventory, verify_existing=True)
+    assert json.loads(candidate.read_text(encoding='utf-8')) == modified
+    candidate.write_bytes(original_candidate)
     raw = next((output / 'raw/B01').glob('*observationid*'))
     raw.write_bytes(raw.read_bytes() + b'changed')
     with pytest.raises(ValueError, match='Capture changed'):

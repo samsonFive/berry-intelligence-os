@@ -96,7 +96,9 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
     if not re.fullmatch(r'[a-f0-9]{64}', original_sha256):
         raise ValueError('Original return SHA-256 is required')
     rows = unpack_return(payload)
-    caps = {c['capability_id']: c for c in catalogue()['capabilities']}
+    definitions = catalogue()
+    rubric_version = definitions['rubric_version']
+    caps = {c['capability_id']: c for c in definitions['capabilities']}
     sources = {r['fields']['source_id'] for r in rows if r.get('record_kind') == 'source' and isinstance(r.get('fields'),dict) and isinstance(r['fields'].get('source_id'),str)}
     source_checks = source_checks or {}
     if not isinstance(source_checks, dict):
@@ -169,7 +171,7 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
                     store.put(db, 'competitive_record', record, 'research-import', expected=old['version'] if old else None)
                 if kind == 'observation' and not reasons and fields.get('peer_role') in {'breeder', 'grower', 'marketer', 'technology_provider'} and fields.get('berry_scope') in {'berry-blueberry', 'berry-strawberry', 'berry-raspberry', 'berry-blackberry'}:
                     scope = {'entity_id': eid, 'peer_role': fields['peer_role'], 'berry_id': fields['berry_scope'],
-                             'capability_id': fields['capability_id'], 'rubric_version': catalogue()['rubric_version'],
+                             'capability_id': fields['capability_id'], 'rubric_version': rubric_version,
                              'use_system': fields.get('production_system_fresh_processing') or 'Unknown'}
                     scope.update({k: fields.get(k) or 'Unknown' for k in SCOPE if k not in scope})
                     aid = scope_key(scope)
@@ -196,8 +198,19 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
             # numeric proposal rather than displaying it as supported evidence.
             affected = set(ids)
             for auto in store.rows('capability_automatic', db):
+                if not affected.intersection(auto.get('observation_ids', [])):
+                    continue
                 observations = [store.get(oid, db) for oid in auto.get('observation_ids', [])]
-                if affected.intersection(auto.get('observation_ids', [])) and any(not o or o['resolution'] != 'accepted_structure' for o in observations):
+                def wrong_scope(observation):
+                    if not observation or observation['resolution'] != 'accepted_structure':
+                        return True
+                    fields = observation['fields']
+                    expected = {k:fields.get(k) or 'Unknown' for k in SCOPE}
+                    expected.update(entity_id=observation['entity_id'], berry_id=fields.get('berry_scope'),
+                                    use_system=fields.get('production_system_fresh_processing') or 'Unknown',
+                                    rubric_version=rubric_version)
+                    return any(auto[k] != expected[k] for k in SCOPE)
+                if any(wrong_scope(o) for o in observations):
                     if auto.get('status') != 'requires_resolution':
                         update = {**auto, 'rating': 'unknown', 'label': 'Unknown', 'status': 'requires_resolution',
                                   'reassessment_needed': True, 'rationale': 'An observation mapping requires resolution; prior automatic proposal is retained in history.'}
