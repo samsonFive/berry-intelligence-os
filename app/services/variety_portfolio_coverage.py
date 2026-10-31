@@ -75,6 +75,11 @@ def _coded_label_keys(sources):
 
 def load_portfolio_observations(data_dir: Path):
     try:
+        from app.services.request_corpus import get_request_corpus
+        corpus = get_request_corpus()
+        if corpus is not None and Path(data_dir).resolve() == Path(corpus.data_dir).resolve():
+            return corpus._list('_variety_portfolio_observations',
+                                lambda: _load_portfolio_observations(data_dir))
         return _load_portfolio_observations(data_dir)
     except (ValueError, KeyError, TypeError, OSError) as exc:
         raise ValueError("Stored portfolio observations failed validation; check the dated observations file.") from exc
@@ -302,12 +307,14 @@ from app.services.presentation_memo import json_call_memo
 
 
 @json_call_memo
-def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None):
+def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None, include_candidates=True):
     """Account for each explicitly enumerated name, retaining source/code identity.
 
     A shared trade name is not an identity key when a denomination is recorded.
     Exact matches use the existing resolver; ambiguous matches require review.
     A selected-source view still checks identity conflicts across all sources.
+    Source-only consumers can omit the unused candidate/provenance projection;
+    every source-name match, code conflict and saved decision still runs.
     """
     today = today or date.today()
     entity_index = {row["id"]: row for row in entities}
@@ -355,24 +362,25 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                 status = "previously_rejected"
             elif not catalog_id and candidate and candidate.get("human_gated") and candidate.get("identity_state") == "distinct":
                 status = "distinct_awaiting_catalog"
-            reference = {"id": source["id"], "title": source["title"], "url": source["url"],
-                         "checked_on": source["checked_on"], "source_type": source["source_type"],
-                         **observation, "companies": entry_companies,
-                         "identity_notes": identity_notes}
-            if source.get("published_date"):
-                reference["published_date"] = source["published_date"]
-            if source.get("review_warnings"):
-                scopes = {scope["message"]: scope["candidate_names"]
-                          for scope in source.get("review_warning_scopes", [])}
-                # Only an explicit, validated source-name scope changes placement.
-                # Missing scopes retain the conservative, prominent warning.
-                reference["review_warnings"] = [message for message in source["review_warnings"]
-                    if message not in scopes or observation["candidate_name"] in scopes[message]]
-                other_warnings = [message for message in source["review_warnings"]
-                                  if message not in reference["review_warnings"]]
-                if other_warnings:
-                    reference["other_entry_warnings"] = other_warnings
-            provenance.setdefault(candidate_key(observation), []).append(reference)
+            if include_candidates:
+                reference = {"id": source["id"], "title": source["title"], "url": source["url"],
+                             "checked_on": source["checked_on"], "source_type": source["source_type"],
+                             **observation, "companies": entry_companies,
+                             "identity_notes": identity_notes}
+                if source.get("published_date"):
+                    reference["published_date"] = source["published_date"]
+                if source.get("review_warnings"):
+                    scopes = {scope["message"]: scope["candidate_names"]
+                              for scope in source.get("review_warning_scopes", [])}
+                    # Only an explicit, validated source-name scope changes placement.
+                    # Missing scopes retain the conservative, prominent warning.
+                    reference["review_warnings"] = [message for message in source["review_warnings"]
+                        if message not in scopes or observation["candidate_name"] in scopes[message]]
+                    other_warnings = [message for message in source["review_warnings"]
+                                      if message not in reference["review_warnings"]]
+                    if other_warnings:
+                        reference["other_entry_warnings"] = other_warnings
+                provenance.setdefault(candidate_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 lead = observation
                 if candidate_key(observation) != _key(observation):
@@ -395,7 +403,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                 # This is derived-only; never replace an operator's stored row.
                 candidate = {**candidate, "persisted": False, "discovered_from": "primary_portfolio",
                              "registration": {**candidate["registration"], "official_registry_source": ""}}
-                additions.append(candidate)
+                if include_candidates:
+                    additions.append(candidate)
                 existing[candidate_key(observation)] = candidate
             labels = {"catalog_match": "Catalog match", "needs_review": "Needs identity review",
                       "previously_rejected": "Previously rejected", "distinct_awaiting_catalog": "Distinct · catalog entry pending"}
@@ -433,6 +442,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                             "needs_review": sum(row["status"] == "needs_review" for row in names),
                             "closed": sum(row["status"] == "previously_rejected" for row in names),
                             "awaiting_catalog": sum(row["status"] == "distinct_awaiting_catalog" for row in names)})
+    if not include_candidates:
+        return source_rows, []
     visible = [{**row, "portfolio_sources": provenance.get(candidate_key(row), []),
                 "portfolio_review_warnings": sorted({message for ref in provenance.get(candidate_key(row), []) for message in ref.get("review_warnings", [])}),
                 "portfolio_identity_notes": sorted({message for ref in provenance.get(candidate_key(row), []) for message in ref["identity_notes"]})}

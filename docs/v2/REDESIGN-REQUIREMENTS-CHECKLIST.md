@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+October 31 — UI-03 performance follow-up:
+[request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md) preserves the
+dense source table, source content, filters, profile gaps and human decisions.
+All 90 affected tests, complete-model/24-response parity, desktop/412px and
+1,797-page static review pass. Source/profile timings improve in the isolated
+sample; overall Coverage timings remain mixed. Exact-head CI and a separate
+release review remain; all 31 accepted definitions/order are unchanged.
+
 October30 — Approved combined #440 is merged1aef8862 and live with fresh backup,
 bounded preservation, all required checks and native/live verification. The
 catalog,27 visual Learn lessons and Map additions retain their human review

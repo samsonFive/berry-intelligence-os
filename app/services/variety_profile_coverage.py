@@ -58,7 +58,7 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
     # the entire source set, independent of the separate portfolio table filter.
     if reconciled_sources is None or reference_sources:
         reconciled_sources, _ = reconcile_portfolios(sources=[*portfolio_sources, *reference_sources],
-            varieties=varieties, entities=entities, candidates=candidates)
+            varieties=varieties, entities=entities, candidates=candidates, include_candidates=False)
     for evidence in published.values():
         if evidence.get('source_type') in RIGHTS_SOURCE_TYPES:
             for entity_id in evidence.get('entity_ids') or []:
