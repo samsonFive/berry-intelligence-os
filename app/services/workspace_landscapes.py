@@ -13,6 +13,28 @@ def choices(main):
     return rows
 
 
+def coverage_scope(page, landscapes):
+    """Carry explicit page/comparison scope; never reinterpret geography as destination."""
+    companies = set((page.get('feed') or {}).get('entity_ids') or [])
+    berries = set((page.get('feed') or {}).get('berry_ids') or [])
+    destinations = set()
+    for row in landscapes:
+        data = row.get('data') or {}
+        scope = data.get('scope') or data.get('filters') or {}
+        companies.update(str(scope.get('companies') or '').split(','))
+        if scope.get('focus'):
+            companies.add(scope['focus'])
+        berries.update(str(scope.get('berry') or '').split(','))
+        destination = scope.get('destination') or scope.get('destination_market') or ''
+        if str(destination).startswith('geography-'):
+            destinations.add(destination)
+    companies = sorted(key for key in companies if key.startswith(('company-', 'brand-', 'program-', 'breeding_program-', 'retailer-')))
+    berries = sorted(key for key in berries if key.startswith('berry-'))
+    return {'companies': companies, 'berry': ','.join(berries),
+            'destination_market': next(iter(destinations)) if len(destinations) == 1 else '',
+            'empty_cohort': bool(landscapes) and not companies and not berries}
+
+
 def backlinks(main, key):
     if not main.AUTHORING_MODE or not key:
         return []

@@ -38,8 +38,14 @@
     svg.setAttribute('role','img');svg.setAttribute('aria-label',x.value+' versus '+y.value+'; '+points.length+' compatible points');svg.classList.add('ce-plot-svg');
     const categories=[...new Set(points.filter(p=>p.category).map(p=>p.category.value))].sort();
     const position=value=>typeof value==='number'?value*90:90+categories.indexOf(value)*360/Math.max(1,categories.length-1);
-    for(let n=1;n<=5;n++)for(const [px,py] of [[n*90,550],[25,530-n*90]]){
-      const t=document.createElementNS(ns,'text');t.setAttribute('x',px);t.setAttribute('y',py);t.textContent=n;svg.append(t);
+    for(const axis of ['x','y']){
+      const values=(axis==='x'?x:y).value==='access-model'?categories:[1,2,3,4,5];
+      for(const value of values){
+        const t=document.createElementNS(ns,'text');
+        t.setAttribute('x',axis==='x'?position(value):25);
+        t.setAttribute('y',axis==='x'?550:530-position(value));
+        t.textContent=value;svg.append(t);
+      }
     }
     for(const point of points){
       const c=document.createElementNS(ns,'circle');c.setAttribute('cx',position(point.x));c.setAttribute('cy',530-position(point.y));

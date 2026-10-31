@@ -151,9 +151,9 @@ def csv_export(model):
     return output.getvalue()
 
 
-def html_export(model):
+def html_export(model, *, return_url='/landscapes/explorer?topic=gene-editing'):
     e = lambda value: escape(str(value or 'Unknown'))
     rows = ''.join('<tr>'+''.join('<td>'+e(p.get(k))+'</td>' for k in EXPORT_FIELDS)+
                    '<td>'+''.join('<a href="'+e(s.get('source_url'))+'">'+e(s.get('title'))+'</a><p>'+e(s.get('supporting_excerpt'))+'</p>' for s in p.get('sources', []))+'</td></tr>'
                    for c in model['companies'] for p in (c['programs'] or [{'company':c['name'], 'gaps':c['gaps']}]))
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>'+e(model['title'])+'</title><h1>'+e(model['title'])+'</h1><p>Source claims awaiting analyst review · research '+e(model['research_date'])+'</p><table border="1"><tr>'+''.join('<th>'+e(k)+'</th>' for k in (*EXPORT_FIELDS, 'Evidence'))+'</tr>'+rows+'</table></html>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+e(model['title'])+'</title><h1>'+e(model['title'])+'</h1><p>Source claims awaiting analyst review · research '+e(model['research_date'])+'</p><p><a href="'+e(return_url)+'">Return to the selected landscape and captured coverage</a></p><table border="1"><tr>'+''.join('<th>'+e(k)+'</th>' for k in (*EXPORT_FIELDS, 'Evidence'))+'</tr>'+rows+'</table></html>'
