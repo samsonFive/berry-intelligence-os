@@ -1,0 +1,1108 @@
+{
+  "version": 1,
+  "state": "reference_capture_for_review",
+  "captured_at": "2026-10-31T16:47:38+00:00",
+  "scope": {
+    "crops": [
+      "S0000",
+      "F3200",
+      "F3300"
+    ],
+    "geos": [
+      "DE",
+      "ES",
+      "NL",
+      "PT",
+      "FR",
+      "IT",
+      "PL"
+    ],
+    "since_year": 2023
+  },
+  "payload": {
+    "version": "2.0",
+    "class": "dataset",
+    "label": "Crop production in EU standard humidity",
+    "source": "ESTAT",
+    "updated": "2026-10-27T23:00:00+0100",
+    "value": {
+      "84": 0.87,
+      "85": 0.84,
+      "86": 0.81,
+      "88": 2.08,
+      "89": 1.68,
+      "90": 1.82,
+      "92": 0.68,
+      "93": 0.71,
+      "94": 0.67,
+      "96": 0.35,
+      "97": 0.36,
+      "98": 0.36,
+      "100": 0.2,
+      "101": 0.19,
+      "102": 0.17,
+      "104": 21.4,
+      "105": 19.3,
+      "106": 17.2,
+      "108": 1.68,
+      "109": 1.56,
+      "110": 1.56,
+      "112": 6.67,
+      "113": 6.96,
+      "114": 6.18,
+      "116": 33.07,
+      "117": 30.23,
+      "118": 33.2,
+      "120": 6.3,
+      "121": 7.48,
+      "122": 6.88,
+      "124": 2.75,
+      "125": 2.83,
+      "126": 2.89,
+      "128": 3.21,
+      "129": 3.04,
+      "130": 2.79,
+      "132": 96.1,
+      "133": 76.9,
+      "134": 79.1,
+      "136": 35.66,
+      "137": 33.42,
+      "138": 33.42,
+      "168": 3.47,
+      "169": 3.5,
+      "170": 3.45,
+      "172": 4.44,
+      "173": 4.78,
+      "174": 5.14,
+      "176": 0.0,
+      "177": 0.0,
+      "178": 0.0,
+      "180": 1.38,
+      "181": 1.45,
+      "182": 1.48,
+      "184": 0.78,
+      "185": 0.69,
+      "186": 0.65,
+      "188": 12.4,
+      "189": 12.5,
+      "190": 12.6,
+      "192": 2.63,
+      "193": 2.67,
+      "194": 2.67,
+      "196": 15.32,
+      "197": 15.09,
+      "198": 17.27,
+      "200": 57.67,
+      "201": 60.95,
+      "202": 70.69,
+      "204": 0.0,
+      "205": 0.0,
+      "206": 0.0,
+      "208": 10.06,
+      "209": 10.36,
+      "210": 10.57,
+      "212": 7.78,
+      "213": 6.91,
+      "214": 6.54,
+      "216": 61.9,
+      "217": 62.0,
+      "218": 64.7,
+      "220": 20.83,
+      "221": 22.85,
+      "222": 22.85,
+      "0": 11.37,
+      "1": 10.52,
+      "2": 10.14,
+      "4": 7.31,
+      "5": 7.0,
+      "6": 7.04,
+      "8": 3.77,
+      "9": 3.69,
+      "10": 3.71,
+      "12": 4.35,
+      "13": 4.38,
+      "14": 4.33,
+      "16": 1.42,
+      "17": 1.43,
+      "18": 1.34,
+      "20": 30.0,
+      "21": 29.2,
+      "22": 28.2,
+      "24": 0.59,
+      "25": 0.32,
+      "26": 0.39,
+      "28": 130.65,
+      "29": 120.35,
+      "30": 128.41,
+      "32": 329.28,
+      "33": 323.54,
+      "34": 332.05,
+      "36": 72.27,
+      "37": 72.08,
+      "38": 74.05,
+      "40": 119.92,
+      "41": 123.85,
+      "42": 123.83,
+      "44": 79.07,
+      "45": 86.4,
+      "46": 91.14,
+      "48": 194.5,
+      "49": 173.4,
+      "50": 168.9,
+      "52": 19.29,
+      "53": 8.8,
+      "54": 10.83
+    },
+    "status": {
+      "98": "e",
+      "110": "p",
+      "126": "e",
+      "128": "e",
+      "129": "e",
+      "138": "p",
+      "176": "n",
+      "177": "n",
+      "178": "n",
+      "182": "e",
+      "194": "p",
+      "204": "n",
+      "205": "n",
+      "206": "n",
+      "210": "e",
+      "212": "e",
+      "213": "e",
+      "222": "p",
+      "24": "p",
+      "25": "p",
+      "52": "p",
+      "53": "p"
+    },
+    "id": [
+      "freq",
+      "crops",
+      "strucpro",
+      "geo",
+      "time"
+    ],
+    "size": [
+      1,
+      3,
+      3,
+      7,
+      4
+    ],
+    "dimension": {
+      "freq": {
+        "label": "Time frequency",
+        "category": {
+          "index": {
+            "A": 0
+          },
+          "label": {
+            "A": "Annual"
+          }
+        }
+      },
+      "crops": {
+        "label": "Crops",
+        "category": {
+          "index": {
+            "S0000": 0,
+            "F3200": 1,
+            "F3300": 2
+          },
+          "label": {
+            "S0000": "Strawberries",
+            "F3200": "Raspberries",
+            "F3300": "Blueberries"
+          }
+        }
+      },
+      "strucpro": {
+        "label": "Structure of production",
+        "category": {
+          "index": {
+            "AR_THS_HA": 0,
+            "HPRD_HUMD_EU_THS_T": 1,
+            "YLD_HUMD_EU_T_HA": 2
+          },
+          "label": {
+            "AR_THS_HA": "Area (sown/harvested/production) - thousand hectares",
+            "HPRD_HUMD_EU_THS_T": "Harvested production in EU standard humidity - thousand tonnes",
+            "YLD_HUMD_EU_T_HA": "Yield in EU standard humidity - tonnes per hectare"
+          }
+        }
+      },
+      "geo": {
+        "label": "Geopolitical entity (reporting)",
+        "category": {
+          "index": {
+            "DE": 0,
+            "ES": 1,
+            "FR": 2,
+            "IT": 3,
+            "NL": 4,
+            "PL": 5,
+            "PT": 6
+          },
+          "label": {
+            "DE": "Germany",
+            "ES": "Spain",
+            "FR": "France",
+            "IT": "Italy",
+            "NL": "Netherlands",
+            "PL": "Poland",
+            "PT": "Portugal"
+          }
+        }
+      },
+      "time": {
+        "label": "Time",
+        "category": {
+          "index": {
+            "2023": 0,
+            "2024": 1,
+            "2025": 2,
+            "2026": 3
+          },
+          "label": {
+            "2023": "2023",
+            "2024": "2024",
+            "2025": "2025",
+            "2026": "2026"
+          }
+        }
+      }
+    },
+    "extension": {
+      "lang": "EN",
+      "id": "APRO_CPSH1",
+      "agencyId": "ESTAT",
+      "version": "1.0",
+      "datastructure": {
+        "id": "APRO_CPSH1",
+        "agencyId": "ESTAT",
+        "version": "52.0"
+      },
+      "annotation": [
+        {
+          "type": "CREATED",
+          "date": "2018-02-21T16:55:56+0100"
+        },
+        {
+          "type": "DISSEMINATION_DOI_XML",
+          "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/APRO_CPSH1\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/APRO_CPSH1</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2023-01-23</dct:issued></adms:Identifier></adms:identifier>"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf",
+          "text": "Information note"
+        },
+        {
+          "type": "DISSEMINATION_OBJECT_TYPE",
+          "title": "DATASET"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_DATA",
+          "date": "2026-10-27T23:00:00+0100"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+          "date": "2026-10-27T23:00:00+0100"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+          "date": "2026-10-27T23:00:00+0100"
+        },
+        {
+          "type": "ESMS_HTML",
+          "title": "Explanatory texts (metadata)",
+          "href": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm"
+        },
+        {
+          "type": "ESMS_SDMX",
+          "title": "Explanatory texts (metadata)",
+          "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/apro_cp_esms.sdmx.zip"
+        },
+        {
+          "type": "FOOTNOTE",
+          "title": "Footnote (metadata)",
+          "href": "https://ec.europa.eu/eurostat/cache/metadata/Annexes/apro_cp_esms_an_Footnotes_on_crop_production_i.xlsx"
+        },
+        {
+          "type": "OBS_COUNT",
+          "title": "387075"
+        },
+        {
+          "type": "OBS_PERIOD_OVERALL_LATEST",
+          "title": "2026"
+        },
+        {
+          "type": "OBS_PERIOD_OVERALL_OLDEST",
+          "title": "2000"
+        },
+        {
+          "type": "SOURCE_INSTITUTIONS",
+          "text": "Eurostat"
+        },
+        {
+          "type": "UPDATE_DATA",
+          "date": "2026-10-27T23:00:00+0100"
+        },
+        {
+          "type": "UPDATE_FOOTNOTES",
+          "date": "2026-10-26T14:00:09Z"
+        },
+        {
+          "type": "UPDATE_STRUCTURE",
+          "date": "2026-05-19T23:00:00+0200"
+        }
+      ],
+      "status": {
+        "label": {
+          "e": "estimated",
+          "p": "provisional",
+          "n": "not significant"
+        }
+      },
+      "positions-with-no-data": {
+        "freq": [],
+        "crops": [],
+        "strucpro": [
+          2
+        ],
+        "geo": [],
+        "time": [
+          3
+        ]
+      }
+    }
+  },
+  "groups": [
+    {
+      "country_id": "geography-germany",
+      "country": "Germany",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=DE&time=2025",
+      "locator": "apro_cpsh1 · F3200 · DE · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.81,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 6.18,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-germany",
+      "country": "Germany",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=DE&time=2025",
+      "locator": "apro_cpsh1 · F3300 · DE · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 3.45,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 17.27,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-germany",
+      "country": "Germany",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=DE&time=2025",
+      "locator": "apro_cpsh1 · S0000 · DE · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 10.14,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 128.41,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-spain",
+      "country": "Spain",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=ES&time=2025",
+      "locator": "apro_cpsh1 · F3200 · ES · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 1.82,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 33.2,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-spain",
+      "country": "Spain",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=ES&time=2025",
+      "locator": "apro_cpsh1 · F3300 · ES · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 5.14,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 70.69,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-spain",
+      "country": "Spain",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=ES&time=2025",
+      "locator": "apro_cpsh1 · S0000 · ES · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 7.04,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 332.05,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:FR",
+      "country": "France",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=FR&time=2025",
+      "locator": "apro_cpsh1 · F3200 · FR · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.67,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 6.88,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:FR",
+      "country": "France",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=FR&time=2025",
+      "locator": "apro_cpsh1 · F3300 · FR · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.0,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": "n"
+        },
+        {
+          "label": "Harvested production",
+          "value": 0.0,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": "n"
+        }
+      ]
+    },
+    {
+      "country_id": "iso:FR",
+      "country": "France",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=FR&time=2025",
+      "locator": "apro_cpsh1 · S0000 · FR · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 3.71,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 74.05,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:IT",
+      "country": "Italy",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=IT&time=2025",
+      "locator": "apro_cpsh1 · F3200 · IT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.36,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": "e"
+        },
+        {
+          "label": "Harvested production",
+          "value": 2.89,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": "e"
+        }
+      ]
+    },
+    {
+      "country_id": "iso:IT",
+      "country": "Italy",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=IT&time=2025",
+      "locator": "apro_cpsh1 · F3300 · IT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 1.48,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": "e"
+        },
+        {
+          "label": "Harvested production",
+          "value": 10.57,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": "e"
+        }
+      ]
+    },
+    {
+      "country_id": "iso:IT",
+      "country": "Italy",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=IT&time=2025",
+      "locator": "apro_cpsh1 · S0000 · IT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 4.33,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 123.83,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-netherlands",
+      "country": "Netherlands",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=NL&time=2025",
+      "locator": "apro_cpsh1 · F3200 · NL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.17,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 2.79,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-netherlands",
+      "country": "Netherlands",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=NL&time=2025",
+      "locator": "apro_cpsh1 · F3300 · NL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.65,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 6.54,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-netherlands",
+      "country": "Netherlands",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=NL&time=2025",
+      "locator": "apro_cpsh1 · S0000 · NL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 1.34,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 91.14,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:PL",
+      "country": "Poland",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=PL&time=2025",
+      "locator": "apro_cpsh1 · F3200 · PL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 17.2,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 79.1,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:PL",
+      "country": "Poland",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=PL&time=2025",
+      "locator": "apro_cpsh1 · F3300 · PL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 12.6,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 64.7,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "iso:PL",
+      "country": "Poland",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=PL&time=2025",
+      "locator": "apro_cpsh1 · S0000 · PL · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 28.2,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 168.9,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    },
+    {
+      "country_id": "geography-portugal",
+      "country": "Portugal",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3200&geo=PT&time=2025",
+      "locator": "apro_cpsh1 · F3200 · PT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 1.56,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": "p"
+        },
+        {
+          "label": "Harvested production",
+          "value": 33.42,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": "p"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-portugal",
+      "country": "Portugal",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=PT&time=2025",
+      "locator": "apro_cpsh1 · F3300 · PT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 2.67,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": "p"
+        },
+        {
+          "label": "Harvested production",
+          "value": 22.85,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": "p"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-portugal",
+      "country": "Portugal",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries",
+      "period": "2025 calendar year",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=S0000&geo=PT&time=2025",
+      "locator": "apro_cpsh1 · S0000 · PT · 2025",
+      "published_date": "Not supplied",
+      "source_updated_at": "2026-10-27T23:00:00+0100",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm",
+      "status": "Official statistics · original cell flags retained",
+      "basis": "Production counts harvested fruit; USDA utilization figures count fruit used or sold. Figures keep the source units and are not combined. Eurostat changed its reporting framework in 2025, so earlier years may differ in coverage. Missing yield and other cells remain unknown.",
+      "metrics": [
+        {
+          "label": "Area",
+          "value": 0.39,
+          "unit": "1000 ha",
+          "source_code": "AR_THS_HA",
+          "source_label": "Area (sown/harvested/production) - thousand hectares",
+          "source_flag": ""
+        },
+        {
+          "label": "Harvested production",
+          "value": 10.83,
+          "unit": "1000 t",
+          "source_code": "HPRD_HUMD_EU_THS_T",
+          "source_label": "Harvested production in EU standard humidity - thousand tonnes",
+          "source_flag": ""
+        }
+      ]
+    }
+  ]
+}
