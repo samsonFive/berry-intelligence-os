@@ -44,7 +44,7 @@ def md_cell(value):
     return html.escape(value, quote=False).replace("|", "\\|").replace("\r\n", "\n").replace("\n", "<br>")
 
 
-def assemble(capture_dir, inventory_dir=INVENTORY):
+def assemble(capture_dir, inventory_dir=INVENTORY, *, verify_existing=False):
     capture_dir = Path(capture_dir)
     manifest = json.loads((capture_dir / "capture-manifest.json").read_text(encoding="utf-8"))
     inventory = json.loads((inventory_dir / "commercial-entity-inventory.json").read_text(encoding="utf-8"))
@@ -53,6 +53,11 @@ def assemble(capture_dir, inventory_dir=INVENTORY):
     cap_ids = {r["capability_id"] for r in capabilities["capabilities"]}
     batches = {}
     for sha, entry in manifest["files"].items():
+        original = (capture_dir / entry['capture_path']).resolve()
+        if not original.is_relative_to(capture_dir.resolve()):
+            raise ValueError('Original capture escaped its private folder')
+        if hashlib.sha256(original.read_bytes()).hexdigest() != sha:
+            raise ValueError(f'Capture changed: {original}')
         if entry["format"] != "csv" or len(entry["batch_ids"]) != 1:
             continue
         bid = entry["batch_ids"][0]
@@ -118,13 +123,18 @@ def assemble(capture_dir, inventory_dir=INVENTORY):
         if not result["metadata"]:
             result["unresolved"].append({"reason": "Metadata is prose or not captured as a table; inspect original return"})
         out = capture_dir / "assembled" / bid
-        out.mkdir(parents=True, exist_ok=True)
-        (out / "candidate-records.json").write_text(json.dumps(result, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
-        (out / "research-tables.md").write_text(f"# {bid} — captured research tables\n\nSource validation pending. "
-            f"Inventory `{inventory['inventory_version']}`. Machine-generated from preserved CSV exports; no ratings or trusted claims created.\n\n" + "\n\n".join(sections)+"\n", encoding="utf-8")
+        if verify_existing:
+            if json.loads((out / 'candidate-records.json').read_text(encoding='utf-8')) != result:
+                raise ValueError(f'Derived candidates differ from original captured CSVs: {bid}')
+        else:
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "candidate-records.json").write_text(json.dumps(result, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+            (out / "research-tables.md").write_text(f"# {bid} — captured research tables\n\nSource validation pending. "
+                f"Inventory `{inventory['inventory_version']}`. Machine-generated from preserved CSV exports; no ratings or trusted claims created.\n\n" + "\n\n".join(sections)+"\n", encoding="utf-8")
         summaries.append({"batch_id": bid, "tables": len(entries), "candidate_records": len(result["records"]),
                           "sources": len(source_ids), "failed_rows": len(result["failed"]), "unresolved": len(result["unresolved"])})
-    (capture_dir / "assembly-summary.json").write_text(json.dumps(summaries, indent=2)+"\n", encoding="utf-8")
+    if not verify_existing:
+        (capture_dir / "assembly-summary.json").write_text(json.dumps(summaries, indent=2)+"\n", encoding="utf-8")
     return summaries
 
 

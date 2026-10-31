@@ -20,6 +20,9 @@ WEB = ROOT / 'inbox/competitive_landscape/web-research-2026-10-30'
 
 
 def inputs():
+    if (WEB / 'capture-manifest.json').exists():
+        from scripts.assemble_competitive_research_returns import assemble
+        assemble(WEB, verify_existing=True)
     for folder in sorted((WEB / 'assembled').glob('B*')):
         path = folder / 'candidate-records.json'
         if path.exists():

@@ -188,3 +188,14 @@ def test_unresolved_canonical_placeholder_cannot_receive_rating(research):
     entities[scope['entity_id']]['attributes']={'identity_review_required':True}
     with pytest.raises(ValueError,match='Resolve the canonical entity identity'):
         ce.apply_anchor(research[0],**kwargs)
+
+
+def test_changed_observation_scope_withdraws_old_automatic_rating(research):
+    inbox, entities, scope, payload, checks, _, kwargs=research
+    auto=ce.apply_anchor(inbox,**kwargs)
+    payload['records'][0]['fields']['berry_scope']='berry-raspberry'
+    ce.import_return(inbox,batch_id='B16',payload=payload,original_sha256='f'*64,entities=entities,source_checks=checks)
+    old=Store(inbox).get(auto['id'])
+    assert old['rating']=='unknown' and old['status']=='requires_resolution'
+    changed={**scope,'berry_id':'berry-raspberry'}
+    assert Store(inbox).get(ce.scope_key(changed))['rating']=='unknown'
