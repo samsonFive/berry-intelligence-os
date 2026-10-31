@@ -556,3 +556,13 @@ def test_publication_review_preserves_workspace_nature(monkeypatch, tmp_path):
     published = repos.evidence.get(key)
     assert published["workspace_capture"]["nature"] == "analyst_hypothesis"
     assert published["verification_state"] == "unverified"
+def test_linked_comparison_coverage_preserves_explicit_scope_without_origin_inference():
+    from app.services.workspace_landscapes import coverage_scope
+    linked = [{'data': {'scope': {'companies': 'company-a,company-b', 'berry': 'berry-strawberry',
+                                 'origin': 'geography-spain', 'destination': 'geography-united-states'}}}]
+    result = coverage_scope({}, linked)
+    assert result['companies'] == ['company-a', 'company-b']
+    assert result['berry'] == 'berry-strawberry'
+    assert result['destination_market'] == 'geography-united-states'
+    linked[0]['data']['scope'].pop('destination')
+    assert coverage_scope({}, linked)['destination_market'] == ''
