@@ -23,7 +23,7 @@ PROGRESS_LABELS = {
 }
 
 
-def retained_news(inbox_dir: Path, *, selected_id: str | None = None) -> list[dict[str, Any]]:
+def retained_news(inbox_dir: Path, *, selected_id: str | None = None, issues=None) -> list[dict[str, Any]]:
     """Read retained daily caches, newest version per exact ID; never fetch."""
     records: dict[str, dict[str, Any]] = {}
     paths = list((Path(inbox_dir) / CACHE_SUBDIR).glob("????-??-??.json")) + list((Path(inbox_dir) / "news_packets" / "captures").glob("packet-*.json"))
@@ -31,11 +31,22 @@ def retained_news(inbox_dir: Path, *, selected_id: str | None = None) -> list[di
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
+            if issues is not None:
+                issues.append({'path': str(path), 'issue': 'Captured archive file unreadable'})
             continue
         if not isinstance(payload, dict):
+            if issues is not None:
+                issues.append({'path': str(path), 'issue': 'Captured archive envelope malformed'})
             continue
-        for record in payload.get("records") or []:
+        rows = payload.get('records') or []
+        if not isinstance(rows, list):
+            if issues is not None:
+                issues.append({'path': str(path), 'issue': 'Captured archive record list malformed'})
+            continue
+        for record in rows:
             if not isinstance(record, dict):
+                if issues is not None:
+                    issues.append({'path': str(path), 'issue': 'Captured article metadata malformed'})
                 continue
             item_id = str(record.get("id") or "")
             if selected_id is not None and item_id != selected_id:
@@ -47,8 +58,8 @@ def retained_news(inbox_dir: Path, *, selected_id: str | None = None) -> list[di
 
 
 def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True,
-                   pending=None, metadata_only: bool = False) -> dict[str, dict[str, Any]]:
-    records = {str(row["id"]): row for row in retained_news(inbox_dir)} if include_private else {}
+                   pending=None, metadata_only: bool = False, index_issues=None) -> dict[str, dict[str, Any]]:
+    records = {str(row["id"]): row for row in retained_news(inbox_dir, issues=index_issues)} if include_private else {}
     for row in published:
         if not row.get("id") or row.get("status") != "published":
             continue
