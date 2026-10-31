@@ -1,0 +1,230 @@
+{
+  "version": 1,
+  "state": "reference_capture_for_review",
+  "source": "Defra",
+  "captured_at": "2026-10-31T17:27:19+00:00",
+  "originals": {
+    "landing.html": "695a7963cdde13d418fc4efd164a7ab3f3760ccde9b178e447b1cfb5ef6aec5c",
+    "notice.html": "ac3c95c9f34ee40955b8c5d64a0f8f69fb9c96a3dd59e9c9acc31d8dd61cfbce",
+    "original.ods": "ce2a42fd2292d34feeb772ce5cf154f1b4de2d22a51dcb5a9698e7b513d2a7a7"
+  },
+  "year": "2025",
+  "published_date": "2026-06-25",
+  "source_cells": [
+    {
+      "crop": "Strawberries",
+      "metric": "planted_area",
+      "locator": "Table_4_Fruit_area · row 44 · column 18 · 2025",
+      "text": "4,427",
+      "cached_value": "4426.6623181360264"
+    },
+    {
+      "crop": "Raspberries",
+      "metric": "planted_area",
+      "locator": "Table_4_Fruit_area · row 45 · column 18 · 2025",
+      "text": "1,314",
+      "cached_value": "1313.5029385568359"
+    },
+    {
+      "crop": "Blueberry",
+      "metric": "planted_area",
+      "locator": "Table_4_Fruit_area · row 48 · column 18 · 2025",
+      "text": "410",
+      "cached_value": "410"
+    },
+    {
+      "crop": "Strawberries",
+      "metric": "marketed_yield",
+      "locator": "Table_5_Fruit_yield · row 41 · column 18 · 2025",
+      "text": "20.99",
+      "cached_value": "20.986197559989325"
+    },
+    {
+      "crop": "Raspberries",
+      "metric": "marketed_yield",
+      "locator": "Table_5_Fruit_yield · row 42 · column 18 · 2025",
+      "text": "13.26",
+      "cached_value": "13.255174392826047"
+    },
+    {
+      "crop": "Blueberry",
+      "metric": "marketed_yield",
+      "locator": "Table_5_Fruit_yield · row 45 · column 18 · 2025",
+      "text": "8.60",
+      "cached_value": "8.6"
+    },
+    {
+      "crop": "Strawberries",
+      "metric": "marketed_production",
+      "locator": "Table_6_Fruit_production · row 42 · column 43 · 2025",
+      "text": "92.9",
+      "cached_value": "92.898809939762955"
+    },
+    {
+      "crop": "Raspberries",
+      "metric": "marketed_production",
+      "locator": "Table_6_Fruit_production · row 43 · column 43 · 2025",
+      "text": "17.4",
+      "cached_value": "17.410710516060337"
+    },
+    {
+      "crop": "Blueberry",
+      "metric": "marketed_production",
+      "locator": "Table_6_Fruit_production · row 46 · column 43 · 2025",
+      "text": "3.5",
+      "cached_value": "3.5259999999999998"
+    }
+  ],
+  "groups": [
+    {
+      "country_id": "geography-united-kingdom",
+      "country": "United Kingdom",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberries · Defra fruit tables",
+      "period": "2025 calendar year",
+      "source": "Defra",
+      "source_url": "https://assets.publishing.service.gov.uk/media/6a327c196422bec01b1176a1/hort-dataset-25-20260625.ods",
+      "notice_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "locator": "Defra horticulture · fruit tables 4, 5 and 6 · 2025",
+      "published_date": "2026-06-25",
+      "source_updated_at": "",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "status": "Official provisional estimates · workbook series",
+      "date_note": "Planted area differs: the release narrative reports 4,602 ha; the workbook reports 4,427 ha. Check both sources before using a whole-crop total.",
+      "basis": "Provisional estimates from Defra’s fruit tables. Planted area and marketed production/yield keep the workbook’s reporting basis and rounding. Glasshouse fruit is listed separately. Do not combine these figures with total-harvest or USDA utilization figures. Planted area differs: the release narrative reports 4,602 ha; the workbook reports 4,427 ha. Check both sources before using a whole-crop total.",
+      "metrics": [
+        {
+          "source_code": "marketed_production",
+          "label": "Marketed production",
+          "value": 92.9,
+          "unit": "1000 t",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed production",
+          "definition": "Marketed production in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_6_Fruit_production · row 42 · column 43 · 2025"
+        },
+        {
+          "source_code": "planted_area",
+          "label": "Planted area",
+          "value": 4427.0,
+          "unit": "ha",
+          "classification": "Provisional estimate",
+          "source_label": "Planted area",
+          "definition": "Planted area in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_4_Fruit_area · row 44 · column 18 · 2025"
+        },
+        {
+          "source_code": "marketed_yield",
+          "label": "Marketed yield",
+          "value": 20.99,
+          "unit": "t/ha",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed yield",
+          "definition": "Marketed yield in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_5_Fruit_yield · row 41 · column 18 · 2025"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-united-kingdom",
+      "country": "United Kingdom",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberries · Defra fruit tables",
+      "period": "2025 calendar year",
+      "source": "Defra",
+      "source_url": "https://assets.publishing.service.gov.uk/media/6a327c196422bec01b1176a1/hort-dataset-25-20260625.ods",
+      "notice_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "locator": "Defra horticulture · fruit tables 4, 5 and 6 · 2025",
+      "published_date": "2026-06-25",
+      "source_updated_at": "",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "status": "Official provisional estimates · workbook series",
+      "date_note": "Planted area differs: the release narrative reports 1,344 ha; the workbook reports 1,314 ha. Check both sources before using a whole-crop total.",
+      "basis": "Provisional estimates from Defra’s fruit tables. Planted area and marketed production/yield keep the workbook’s reporting basis and rounding. Glasshouse fruit is listed separately. Do not combine these figures with total-harvest or USDA utilization figures. Planted area differs: the release narrative reports 1,344 ha; the workbook reports 1,314 ha. Check both sources before using a whole-crop total.",
+      "metrics": [
+        {
+          "source_code": "marketed_production",
+          "label": "Marketed production",
+          "value": 17.4,
+          "unit": "1000 t",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed production",
+          "definition": "Marketed production in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_6_Fruit_production · row 43 · column 43 · 2025"
+        },
+        {
+          "source_code": "planted_area",
+          "label": "Planted area",
+          "value": 1314.0,
+          "unit": "ha",
+          "classification": "Provisional estimate",
+          "source_label": "Planted area",
+          "definition": "Planted area in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_4_Fruit_area · row 45 · column 18 · 2025"
+        },
+        {
+          "source_code": "marketed_yield",
+          "label": "Marketed yield",
+          "value": 13.26,
+          "unit": "t/ha",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed yield",
+          "definition": "Marketed yield in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_5_Fruit_yield · row 42 · column 18 · 2025"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-united-kingdom",
+      "country": "United Kingdom",
+      "berry_id": "berry-blueberry",
+      "commodity": "Blueberry · Defra fruit tables",
+      "period": "2025 calendar year",
+      "source": "Defra",
+      "source_url": "https://assets.publishing.service.gov.uk/media/6a327c196422bec01b1176a1/hort-dataset-25-20260625.ods",
+      "notice_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "locator": "Defra horticulture · fruit tables 4, 5 and 6 · 2025",
+      "published_date": "2026-06-25",
+      "source_updated_at": "",
+      "accessed_date": "2026-10-31",
+      "methodology_url": "https://www.gov.uk/government/statistics/latest-horticulture-statistics/horticulture-statistics-2025",
+      "status": "Official provisional estimates · workbook series",
+      "date_note": "",
+      "basis": "Provisional estimates from Defra’s fruit tables. Planted area and marketed production/yield keep the workbook’s reporting basis and rounding. Glasshouse fruit is listed separately. Do not combine these figures with total-harvest or USDA utilization figures. ",
+      "metrics": [
+        {
+          "source_code": "marketed_production",
+          "label": "Marketed production",
+          "value": 3.5,
+          "unit": "1000 t",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed production",
+          "definition": "Marketed production in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_6_Fruit_production · row 46 · column 43 · 2025"
+        },
+        {
+          "source_code": "planted_area",
+          "label": "Planted area",
+          "value": 410.0,
+          "unit": "ha",
+          "classification": "Provisional estimate",
+          "source_label": "Planted area",
+          "definition": "Planted area in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_4_Fruit_area · row 48 · column 18 · 2025"
+        },
+        {
+          "source_code": "marketed_yield",
+          "label": "Marketed yield",
+          "value": 8.6,
+          "unit": "t/ha",
+          "classification": "Provisional estimate",
+          "source_label": "Marketed yield",
+          "definition": "Marketed yield in the Defra fruit tables; original source units and displayed rounding.",
+          "source_cell": "Table_5_Fruit_yield · row 45 · column 18 · 2025"
+        }
+      ]
+    }
+  ]
+}

@@ -7,9 +7,9 @@ import re
 from uuid import uuid4
 
 from app.services.analyst_state_io import atomic_json, serialized_write
-from app.services.market_statistics_reference import EUROSTAT_COUNTRIES, METHODOLOGY, group_id
+from app.services.market_statistics_reference import EUROSTAT_COUNTRIES, EUROSTAT_CROPS, METHODOLOGY, group_id, unavailable_flag
 from app.services.pipeline_lock import pipeline_lock
-from scripts.capture_map_statistics import capture
+from scripts.capture_map_statistics import capture, capture_defra
 
 SUBDIR = 'market_statistics_refresh'
 ACTIVE = {'queued', 'running'}
@@ -29,14 +29,24 @@ def path(inbox_dir):
 
 
 def validate_groups(groups):
-    if not isinstance(groups, list) or len(groups) > len(EUROSTAT_COUNTRIES):
+    if not isinstance(groups, list) or len(groups) > len(EUROSTAT_COUNTRIES) * len(EUROSTAT_CROPS) + 3:
         raise ValueError()
     seen = set()
     expected = {row[0]: (code, row[1]) for code, row in EUROSTAT_COUNTRIES.items()}
     for group in groups:
+        if isinstance(group, dict) and group.get('source') == 'Defra':
+            from app.services.defra_market_references import validate_group
+            validate_group(group)
+            key = ('Defra', group['country_id'], group['berry_id'])
+            if key in seen:
+                raise ValueError()
+            seen.add(key)
+            continue
         if not isinstance(group, dict) or group.get('source') != 'Eurostat' or group.get('country_id') not in expected:
             raise ValueError()
-        if group.get('berry_id') != 'berry-strawberry' or group.get('commodity') != 'Strawberries':
+        crop = next((code for code, identity in EUROSTAT_CROPS.items()
+                     if identity == (group.get('berry_id'), group.get('commodity'))), None)
+        if crop is None:
             raise ValueError()
         if any(not isinstance(group.get(key), str) or not group[key] for key in
                ('country', 'period', 'source_url', 'locator', 'accessed_date', 'status', 'basis')):
@@ -47,15 +57,16 @@ def validate_groups(groups):
         if source.scheme != 'https' or source.netloc != 'ec.europa.eu' or source.path != '/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1':
             raise ValueError()
         code, country_name = expected[group['country_id']]
-        if group['country'] != country_name or query.get('geo') != [code] or query.get('crops') != ['S0000'] or query.get('time') != [group['period'][:4]]:
+        if group['country'] != country_name or query.get('geo') != [code] or query.get('crops') != [crop] or query.get('time') != [group['period'][:4]]:
             raise ValueError()
         if date.fromisoformat(group['accessed_date']).isoformat() != group['accessed_date'] or group.get('methodology_url') != METHODOLOGY:
             raise ValueError()
         if any(not isinstance(group.get(key), str) for key in ('published_date', 'source_updated_at')):
             raise ValueError()
-        if not re.fullmatch(r'\d{4} calendar year', group['period']) or group['country_id'] in seen:
+        key = (group['country_id'], crop)
+        if not re.fullmatch(r'\d{4} calendar year', group['period']) or key in seen:
             raise ValueError()
-        seen.add(group['country_id'])
+        seen.add(key)
         from app.services.market_statistics_reference import INDICATORS
         import math
         metrics = group.get('metrics')
@@ -67,7 +78,7 @@ def validate_groups(groups):
             if code not in INDICATORS or code in codes or (metric.get('label'), metric.get('unit')) != INDICATORS[code]:
                 raise ValueError()
             value = metric.get('value')
-            if type(value) not in {int, float} or not math.isfinite(value) or value < 0 or not isinstance(metric.get('source_flag'), str) or 'c' in metric['source_flag']:
+            if type(value) not in {int, float} or not math.isfinite(value) or value < 0 or not isinstance(metric.get('source_flag'), str) or unavailable_flag(metric['source_flag']):
                 raise ValueError()
             codes.add(code)
 
@@ -94,6 +105,11 @@ def load(inbox_dir):
                 if datetime.fromisoformat(job[field]).utcoffset() is None:
                     raise ValueError()
             validate_groups(job['groups'])
+            if job.get('source', 'eurostat') not in {'eurostat', 'defra'}:
+                raise ValueError()
+            expected_source = 'Defra' if job.get('source') == 'defra' else 'Eurostat'
+            if any(g['source'] != expected_source for g in job['groups']):
+                raise ValueError()
             if job['status'] == 'ready' and not job['groups']:
                 raise ValueError()
         for entry in state['history']:
@@ -112,12 +128,16 @@ def save(inbox_dir, state):
 
 
 @serialized_write
-def reserve(inbox_dir, token):
+def reserve(inbox_dir, token, source='eurostat'):
+    if source not in {'eurostat', 'defra'}:
+        raise ValueError('Choose an available official source check.')
     if not re.fullmatch(r'[A-Za-z0-9_-]{12,80}', token):
         raise ValueError('Reload the page before checking official figures.')
     state = load(inbox_dir)
     for job in state['jobs'].values():
         if job['token'] == token:
+            if job.get('source', 'eurostat') != source:
+                raise ValueError('Reload before requesting a different source check.')
             return deepcopy(job), False
     instant = now()
     for job in state['jobs'].values():
@@ -127,7 +147,7 @@ def reserve(inbox_dir, token):
             job.update(status='interrupted', message='The earlier check stopped. Existing figures were retained.', updated_at=instant.isoformat())
     key = 'market-check-' + uuid4().hex
     job = {'id': key, 'token': token, 'status': 'queued', 'created_at': instant.isoformat(), 'updated_at': instant.isoformat(),
-           'message': 'Official figures check requested.', 'groups': [], 'capture_file': ''}
+           'message': 'Official figures check requested.', 'groups': [], 'capture_file': '', 'source': source}
     state['jobs'][key] = job
     save(inbox_dir, state)
     return deepcopy(job), True
@@ -141,6 +161,9 @@ def update(inbox_dir, job_id, *, status, message, groups=None, capture_file=''):
         return False
     if groups is not None:
         validate_groups(groups)
+        expected_source = 'Defra' if job.get('source') == 'defra' else 'Eurostat'
+        if any(group['source'] != expected_source for group in groups):
+            raise ValueError('The captured source does not match the requested check.')
         job['groups'] = groups
     job.update(status=status, message=message, updated_at=now().isoformat(), capture_file=capture_file)
     save(inbox_dir, state)
@@ -148,13 +171,16 @@ def update(inbox_dir, job_id, *, status, message, groups=None, capture_file=''):
 
 
 def run(inbox_dir, job_id):
-    if not update(inbox_dir, job_id, status='running', message='Checking the latest Eurostat figures…'):
+    job = load(inbox_dir)['jobs'][job_id]
+    source = job.get('source', 'eurostat')
+    if not update(inbox_dir, job_id, status='running', message='Checking the official source figures…'):
         return
     try:
         with pipeline_lock(Path(inbox_dir), 'map_statistics_refresh'):
-            file, groups = capture(output_dir=Path(inbox_dir) / SUBDIR / 'captures')
+            collector = capture_defra if source == 'defra' else capture
+            file, groups = collector(output_dir=Path(inbox_dir) / SUBDIR / 'captures')
         update(inbox_dir, job_id, status='ready', message='Official figures are ready to compare. Map references are unchanged.',
-               groups=groups, capture_file=file.name)
+               groups=groups, capture_file=str(file.relative_to(Path(inbox_dir) / SUBDIR / 'captures')))
     except Exception:
         update(inbox_dir, job_id, status='failed', message='Official figures could not be checked. Existing references were retained; you can try again.')
 
