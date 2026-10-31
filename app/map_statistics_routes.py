@@ -7,7 +7,7 @@ from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
 from app.services import map_statistics_refresh as refresh
-from app.services.market_statistics_reference import group_id, reference_groups
+from app.services.market_statistics_reference import flag_label, group_id, reference_groups
 
 router = APIRouter()
 
@@ -57,6 +57,7 @@ def page(request, *, error='', status_code=200, return_to=None):
         'review_href': '/explorer/statistics?' + urlencode({'return_to': return_to}),
         'research_href': '/explorer/statistics/research?' + urlencode({'return_to': return_to}),
         'official_countries': refresh.COUNTRIES,
+        'flag_label': flag_label,
     })
 
 

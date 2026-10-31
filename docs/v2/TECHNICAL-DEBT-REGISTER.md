@@ -1,5 +1,7 @@
 # Technical Debt Register
 
+October 31 debt check — The [Map reference crop expansion](MAP-THREE-CROP-REFERENCES.md) reuses the existing capture, selection/history, Map and PDF paths. It corrects observed 0n presentation and case-sensitive withholding handling, without a new store, inferred yields, public-seed rewrite or Trade/Weather normalization change. Broader world/crop statistics and source review remain incomplete; existing performance and host-budget debt is not closed by source coverage. All 123 affected tests pass; native/static/exact-head validation remains required.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,

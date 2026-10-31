@@ -16,15 +16,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.services.market_reality.eurostat_apro import fetch_apro_cpsh1
-from app.services.market_statistics_reference import GEOS, eurostat_groups
+from app.services.market_statistics_reference import EUROSTAT_CROPS, GEOS, eurostat_groups
 
 
 def capture(*, output_dir, fetch=fetch_apro_cpsh1, now=None):
     stamp = now or datetime.now(timezone.utc)
-    payload = fetch(crops=["S0000"], geos=list(GEOS), since_year=stamp.year - 3)
+    payload = fetch(crops=list(EUROSTAT_CROPS), geos=list(GEOS), since_year=stamp.year - 3)
     groups = eurostat_groups(payload, captured_at=stamp.isoformat(timespec="seconds"))
     envelope = {"version": 1, "state": "reference_capture_for_review", "captured_at": stamp.isoformat(timespec="seconds"),
-                "scope": {"crops": ["S0000"], "geos": list(GEOS), "since_year": stamp.year - 3},
+                "scope": {"crops": list(EUROSTAT_CROPS), "geos": list(GEOS), "since_year": stamp.year - 3},
                 "payload": payload, "groups": groups}
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -37,5 +37,5 @@ def capture(*, output_dir, fetch=fetch_apro_cpsh1, now=None):
 
 if __name__ == "__main__":
     path, groups = capture(output_dir=ROOT / "inbox" / "market_statistics_captures")
-    print(f"Saved {len(groups)} country references for review: {path}")
+    print(f"Saved {len(groups)} country/crop references for review: {path}")
     print("Existing public references and reviewed intelligence are unchanged.")

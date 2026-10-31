@@ -7,7 +7,7 @@ import re
 from uuid import uuid4
 
 from app.services.analyst_state_io import atomic_json, serialized_write
-from app.services.market_statistics_reference import EUROSTAT_COUNTRIES, METHODOLOGY, group_id
+from app.services.market_statistics_reference import EUROSTAT_COUNTRIES, EUROSTAT_CROPS, METHODOLOGY, group_id, unavailable_flag
 from app.services.pipeline_lock import pipeline_lock
 from scripts.capture_map_statistics import capture
 
@@ -29,14 +29,16 @@ def path(inbox_dir):
 
 
 def validate_groups(groups):
-    if not isinstance(groups, list) or len(groups) > len(EUROSTAT_COUNTRIES):
+    if not isinstance(groups, list) or len(groups) > len(EUROSTAT_COUNTRIES) * len(EUROSTAT_CROPS):
         raise ValueError()
     seen = set()
     expected = {row[0]: (code, row[1]) for code, row in EUROSTAT_COUNTRIES.items()}
     for group in groups:
         if not isinstance(group, dict) or group.get('source') != 'Eurostat' or group.get('country_id') not in expected:
             raise ValueError()
-        if group.get('berry_id') != 'berry-strawberry' or group.get('commodity') != 'Strawberries':
+        crop = next((code for code, identity in EUROSTAT_CROPS.items()
+                     if identity == (group.get('berry_id'), group.get('commodity'))), None)
+        if crop is None:
             raise ValueError()
         if any(not isinstance(group.get(key), str) or not group[key] for key in
                ('country', 'period', 'source_url', 'locator', 'accessed_date', 'status', 'basis')):
@@ -47,15 +49,16 @@ def validate_groups(groups):
         if source.scheme != 'https' or source.netloc != 'ec.europa.eu' or source.path != '/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1':
             raise ValueError()
         code, country_name = expected[group['country_id']]
-        if group['country'] != country_name or query.get('geo') != [code] or query.get('crops') != ['S0000'] or query.get('time') != [group['period'][:4]]:
+        if group['country'] != country_name or query.get('geo') != [code] or query.get('crops') != [crop] or query.get('time') != [group['period'][:4]]:
             raise ValueError()
         if date.fromisoformat(group['accessed_date']).isoformat() != group['accessed_date'] or group.get('methodology_url') != METHODOLOGY:
             raise ValueError()
         if any(not isinstance(group.get(key), str) for key in ('published_date', 'source_updated_at')):
             raise ValueError()
-        if not re.fullmatch(r'\d{4} calendar year', group['period']) or group['country_id'] in seen:
+        key = (group['country_id'], crop)
+        if not re.fullmatch(r'\d{4} calendar year', group['period']) or key in seen:
             raise ValueError()
-        seen.add(group['country_id'])
+        seen.add(key)
         from app.services.market_statistics_reference import INDICATORS
         import math
         metrics = group.get('metrics')
@@ -67,7 +70,7 @@ def validate_groups(groups):
             if code not in INDICATORS or code in codes or (metric.get('label'), metric.get('unit')) != INDICATORS[code]:
                 raise ValueError()
             value = metric.get('value')
-            if type(value) not in {int, float} or not math.isfinite(value) or value < 0 or not isinstance(metric.get('source_flag'), str) or 'c' in metric['source_flag']:
+            if type(value) not in {int, float} or not math.isfinite(value) or value < 0 or not isinstance(metric.get('source_flag'), str) or unavailable_flag(metric['source_flag']):
                 raise ValueError()
             codes.add(code)
 
