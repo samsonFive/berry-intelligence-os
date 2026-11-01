@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 123 focused checks pass.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,

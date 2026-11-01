@@ -181,6 +181,10 @@ def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
         tree = html_parser.fromstring(cleaned)
         for node in tree.xpath("//nav | //aside | //footer | //template | //*[@hidden] | //*[@aria-hidden='true']"):
             node.drop_tree()
+        # A site header can contain commerce/menu titles such as "Buy". An
+        # article's own header can contain real section wording and must stay.
+        for node in tree.xpath("//header[not(ancestor::article) and not(ancestor::main)]"):
+            node.drop_tree()
         for node in tree.xpath("//*[@role='dialog' or @aria-modal='true' or @id='onetrust-banner-sdk' or @id='didomi-host' or @id='cookie-banner' or @id='cookie-consent']"):
             node.drop_tree()
         roots = tree.xpath("//article") or tree.xpath("//main")
@@ -236,16 +240,52 @@ def looks_like_pdf(url: str, *, content_type: str = "", body: bytes = b"") -> bo
     return path.endswith(".pdf")
 
 
-def extract_article_images(html: str) -> list[dict[str, str]]:
+def extract_article_images(html: str, *, page_url: str = "") -> list[dict[str, str]]:
+    """Prefer declared social images, then photographs within publisher content.
+
+    Site navigation must not exhaust the image limit before the article. The
+    fallback supports pages without semantic article/main markup while keeping
+    site headers distinct from a header inside the article itself.
+    """
+    from lxml import etree, html as html_parser
+
     found: list[dict[str, str]] = []
     seen: set[str] = set()
     candidates = [
-        *_OG_IMAGE_RE.findall(html or ""),
-        *_OG_IMAGE_REV_RE.findall(html or ""),
-        *_IMG_SRC_RE.findall(html or ""),
+        *((url, "") for url in _OG_IMAGE_RE.findall(html or "")),
+        *((url, "") for url in _OG_IMAGE_REV_RE.findall(html or "")),
     ]
-    for raw in candidates:
-        url = str(raw or "").strip()
+    try:
+        tree = html_parser.fromstring(html)
+        roots = tree.xpath("//article") or tree.xpath("//main")
+        semantic_roots = bool(roots)
+        body_images = []
+        roots = roots or [tree]
+        for root in roots:
+            for node in root.iter("img"):
+                lineage = [node, *node.iterancestors()]
+                if any(str(parent.tag).lower() in {"nav", "aside", "footer", "template"}
+                       or "hidden" in parent.attrib or parent.get("aria-hidden") == "true"
+                       or (str(parent.tag).lower() == "header"
+                           and not any(str(ancestor.tag).lower() in {"article", "main"}
+                                       for ancestor in parent.iterancestors()))
+                       for parent in lineage):
+                    continue
+                body_images.append((node.get("src") or "", node.get("alt") or "",
+                                    any(str(parent.tag).lower() == "figure" for parent in lineage)))
+        # Without an article/main boundary, a publisher figure is a stronger
+        # lead-image signal than an unstructured page/category banner. Keep
+        # actual article/header order when the publisher supplies that scope.
+        if not semantic_roots:
+            body_images.sort(key=lambda image: not image[2])
+        candidates.extend((url, alt) for url, alt, _ in body_images)
+    except (etree.ParserError, ValueError, TypeError):
+        pass
+    for raw, alt in candidates:
+        raw = unescape(str(raw or "").strip())
+        if not raw or raw.startswith("#"):
+            continue
+        url = urljoin(page_url, raw)
         if not is_public_http_url(url) or url in seen:
             continue
         host = (urlparse(url).hostname or "").lower()
@@ -254,7 +294,7 @@ def extract_article_images(html: str) -> list[dict[str, str]]:
         if any(token in host for token in ("linkedin", "facebook", "instagram")):
             continue
         seen.add(url)
-        found.append({"url": url, "alt": ""})
+        found.append({"url": url, "alt": " ".join(alt.split())})
         if len(found) >= 8:
             break
     return found
@@ -450,7 +490,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         from app.services.article_structure import publisher_heading_levels
         heading_levels = publisher_heading_levels(html, passages) if not document else {}
         passage_limited = not document and len(paragraphs_from_html(html, limit=None)) > len(passages)
-        images = extract_article_images(html)
+        images = extract_article_images(html, page_url=final)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
         if not passages and looks_like_interstitial(decode_html_text(sanitize_reader_html(html))):

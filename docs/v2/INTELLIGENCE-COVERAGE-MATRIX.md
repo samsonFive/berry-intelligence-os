@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 123 focused checks pass.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

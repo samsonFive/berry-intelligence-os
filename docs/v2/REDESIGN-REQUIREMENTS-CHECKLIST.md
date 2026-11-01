@@ -1,5 +1,16 @@
 # Redesign and consolidation requirements
 
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 123 focused checks pass.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
 October 30 — Current live release is **#442**, merged as `3b0b4acc` from
 approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
 passed (5,477 tests). A fresh backup, isolated rehearsal and post-switch checks
