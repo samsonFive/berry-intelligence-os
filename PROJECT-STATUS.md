@@ -11,7 +11,7 @@ The source-only [Splendor interview follow-up](docs/v2/SPLENDOR-HISTORICAL-SOURC
 recovers three literal blackberry names from an original August 2011 company
 interview, retaining spelling, month-only date, company context and source gaps.
 The public-seed audit becomes523 sections/1,867 occurrences/165 matches/1,702
-review needs;64 of77 subjects have a named source. Forty affected checks, desktop/412px/A–Z/handoff review, record validation and
+review needs;64 of77 subjects have a named source. Forty-five affected checks, desktop/412px/A–Z/handoff review, record validation and
 the1,797-page trusted static build pass; exact-head CI remains. No canonical
 record, human decision, frozen release or production runtime is changed.
 

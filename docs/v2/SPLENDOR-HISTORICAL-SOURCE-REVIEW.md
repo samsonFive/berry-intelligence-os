@@ -31,8 +31,11 @@ Splendor's existing incomplete source checks and the historical warning remain:
 finding names does not establish a complete or current portfolio. Public data
 still has 64 stored profiles; that count does not replace the live runtime's 65.
 
-All 40 affected source/coverage checks pass, including replay and preservation
+All 45 affected source/coverage checks pass, including replay and preservation
 of saved candidate IDs, rejection, aliases, notes, registration and photo choices.
+The original unnamed-page and patent-photo tests keep their original input
+cohorts; the new historical interview is covered by current-corpus checks. This
+allows actual source growth without relaxing original identity or photo gates.
 The final company Varieties-tab assertion also passes on rerun. Its on-demand
 source work remains on that tab; the overview is not made slower. Existing
 public-mode candidate/source routes retain their 403 denial.
