@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+November 1 — [Splendor historical source](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+adds names without calling its current portfolio complete. Source spelling,
+month-only date, unnamed-crop exclusions, incomplete current checks and human
+identity/role gates remain. No application, schema or domain rewrite was needed.
+The requirement ledger's old future navigation gate is reconciled to verified
+live #443; all31 accepted definitions/order remain. TD-122 broader Coverage
+costs and actual human review queues remain open; this source child changes
+neither measured platform speed nor trusted decisions.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,

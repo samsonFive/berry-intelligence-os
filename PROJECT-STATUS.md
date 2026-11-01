@@ -1,5 +1,20 @@
 # Project Status
 
+November 1 — Approved navigation #443 is live as `f76080d0` from explicitly
+approved `e88fcd36`, with five accounts,65 profiles,9,856 existing JSON records,
+four databases,settings,mounts and rollback preserved. Independent performance
+#448 passes all four checks /5,486 tests and fresh bounded preservation; broad
+TD-122 costs remain open. Frozen catalog/Map #449 retains its separate pending
+release approval.
+
+The source-only [Splendor interview follow-up](docs/v2/SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+recovers three literal blackberry names from an original August 2011 company
+interview, retaining spelling, month-only date, company context and source gaps.
+The public-seed audit becomes523 sections/1,867 occurrences/165 matches/1,702
+review needs;64 of77 subjects have a named source. Forty affected checks, desktop/412px/A–Z/handoff review, record validation and
+the1,797-page trusted static build pass; exact-head CI remains. No canonical
+record, human decision, frozen release or production runtime is changed.
+
 October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 
 October 28 — [Visible source-gap summary](docs/v2/PORTFOLIO-GAP-SUMMARY-REVIEW.md). The scoped Perfection review found a badge that hid open checks once names were found. The display now counts existing filtered subject gap flags, so its one named entry and eight incomplete source checks remain consistent. Backend counters/data/review gates are unchanged. All 44 focused checks pass with one existing warning in 53.26 seconds. Native desktop/412px review confirms the corrected gap badge and retained company/berry scope; exact-head CI remains required for this child. Prior433/434 release scopes and source435 review scope remain intact. No merge/deployment or inferred approval.

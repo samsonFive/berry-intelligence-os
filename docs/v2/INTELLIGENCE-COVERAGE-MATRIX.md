@@ -1,5 +1,14 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Splendor's original August 2011 interview](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+adds three literal blackberry occurrences with explicit spelling/date and
+historical-production qualifications. The bounded public seed has523 sections,
+1,867 occurrences,165 matches and1,702 review needs. Of77 supplied subjects,
+64 have named sources,ten remain partial,one unavailable andtwo identity holds.
+Splendor still has incomplete sources; named does not mean current or complete.
+This source-only child is independent of frozen #449 and tested #448; no
+canonical variety, role, right, trait, photo or growing footprint is approved.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their
