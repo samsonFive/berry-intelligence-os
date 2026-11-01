@@ -4,7 +4,21 @@ October 31 — [UK official Map references](docs/v2/MAP-UK-OFFICIAL-REFERENCES.m
 
 Current live release remains approved #442, merge `3b0b4acc`. Navigation #443 passes all four final checks /5,479 tests and fresh isolated preservation, but is not merged or deployed: automatic approval review requires a scoped reply to the new explicit #443 question. Separate source draft #444 passes all four /5,481 tests and is excluded from this Map branch. Historical release notes below retain their dated scopes.
 
-October 31 — [Three-crop official Map check](docs/v2/MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from approved navigation #443 and source draft #444.
+October 31 — [Three-crop official Map check](docs/v2/MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from navigation #443 and source draft #444.
+
+October 30 — Live release is approved performance-only #442, merge `3b0b4acc`,
+retaining #433, Tags and #440. Five accounts including Chris.H, 65 profiles,
+9,854 existing JSON records and four databases were preserved with fresh backup
+and rollback; all four checks / 5,477 tests and live verification passed. Separate
+navigation #443 passes all four / 5,479 tests and remains an undeployed draft.
+
+The independent [Gem-Pack source follow-up](docs/v2/GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
+adds three unreviewed sections / ten name occurrences from two dated interviews,
+with two new derived candidate keys and no canonical changes. Gem-Pack retains
+its incomplete-portfolio warning. All 41 final affected checks and desktop/412px review
+pass; exact-head CI and any later release remain separate. Complete current and
+historical portfolios, human identity/rights/photo decisions and wider content
+depth remain open. Earlier dated pending-release notes are historical.
 
 October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 

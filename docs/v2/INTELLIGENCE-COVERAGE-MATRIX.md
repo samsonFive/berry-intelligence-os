@@ -4,7 +4,18 @@ October 31 — [UK official Map references](MAP-UK-OFFICIAL-REFERENCES.md) add a
 
 Current live release remains approved #442, merge `3b0b4acc`. Navigation #443 passes all four final checks /5,479 tests and fresh isolated preservation, but is not merged or deployed: automatic approval review requires a scoped reply to the new explicit #443 question. Separate source draft #444 passes all four /5,481 tests and is excluded from this Map branch. Historical release notes below retain their dated scopes.
 
-October 31 — [Three-crop official Map check](MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from approved navigation #443 and source draft #444.
+October 31 — [Three-crop official Map check](MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from navigation #443 and source draft #444.
+
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
+adds three unreviewed source sections and ten name occurrences from two dated
+original interviews. Public-seed totals are 525 sections / 1,874 occurrences /
+165 catalog matches / 1,709 review needs; ten occurrences add only two derived
+candidate keys. Named-source progress is 64 of 77 entries, with ten partial
+checks, one unavailable source and two identity holds. Gem-Pack retains its
+incomplete-portfolio warning. No identities, roles, traits, rights, regions or
+photos are approved. The Rejoice English sheet still returns 403; the readable
+web page does not establish that PDF's contents. This independent source draft
+is not deployed; the approved performance release #442 is live as `3b0b4acc`.
 
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,

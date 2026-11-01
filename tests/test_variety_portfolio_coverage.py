@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1864
-    assert report["summary"]["registry_entries_checked"] == 63
+    assert report["summary"]["names"] == 1874
+    assert report["summary"]["registry_entries_checked"] == 64
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [11, 1, 0, 2]
+        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [10, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 566, "berry-strawberry": 767, "berry-raspberry": 360, "berry-blackberry": 171}
+        "berry-blueberry": 566, "berry-strawberry": 775, "berry-raspberry": 362, "berry-blackberry": 171}
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "names_found" and sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 9 and sunbelle["has_source_gaps"]
