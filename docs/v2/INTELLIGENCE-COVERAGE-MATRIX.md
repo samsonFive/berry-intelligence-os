@@ -1,5 +1,33 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Combined source/Map review](CATALOG-MAP-COMBINED-REVIEW.md)
+retains 525 source sections / 1,874 literal name occurrences and 24 captured
+country/crop references / 51 figures across eight countries. The former remain
+unreviewed source observations; the latter require individual source selection
+and preserve incompatible units/bases. Neither is global completeness. All 181
+focused checks, native desktop/phone, PDF and static review pass on the deployed
+navigation base. Full combined-head CI and live preservation/release review
+remain; canonical records, published figures and human decisions are unchanged.
+
+November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
+
+October 31 — [UK official Map references](MAP-UK-OFFICIAL-REFERENCES.md) add a separate explicit national-source check on tested446: three 2025 crop groups / nine figures keep original units, marketed definitions, provisional status and source cell provenance. Two workbook/narrative area differences remain visible rather than reconciled automatically. All159 affected checks, actual capture, canonical validation, desktop/412px/one-page PDF review and the1,797-page trusted static build pass. The public reference seed, human selections and all31 accepted definitions/order are unchanged. Exact-head full CI and separate release acceptance remain required.
+
+Current live release remains approved #442, merge `3b0b4acc`. Navigation #443 passes all four final checks /5,479 tests and fresh isolated preservation, but is not merged or deployed: automatic approval review requires a scoped reply to the new explicit #443 question. Separate source draft #444 passes all four /5,481 tests and is excluded from this Map branch. Historical release notes below retain their dated scopes.
+
+October 31 — [Three-crop official Map check](MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from navigation #443 and source draft #444.
+
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
+adds three unreviewed source sections and ten name occurrences from two dated
+original interviews. Public-seed totals are 525 sections / 1,874 occurrences /
+165 catalog matches / 1,709 review needs; ten occurrences add only two derived
+candidate keys. Named-source progress is 64 of 77 entries, with ten partial
+checks, one unavailable source and two identity holds. Gem-Pack retains its
+incomplete-portfolio warning. No identities, roles, traits, rights, regions or
+photos are approved. The Rejoice English sheet still returns 403; the readable
+web page does not establish that PDF's contents. This independent source draft
+is not deployed; the approved performance release #442 is live as `3b0b4acc`.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their
