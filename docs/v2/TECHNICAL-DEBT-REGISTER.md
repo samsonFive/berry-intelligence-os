@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+retains the five runtime files from tested #448 and #451. All 133 affected checks
+and 48 actual canonical/photo-only/combined responses preserve full output.
+Local Coverage medians improve 3.2850→2.1748s and 3.1480→1.8394s; physical-phone,
+cold-load and production performance remain unproven for this combination.
+TD-122 stays open. The larger projection-reuse and custom-copy experiments remain
+excluded. Exact-head CI, native review, fresh preservation and scoped release
+approval still apply to the combined candidate; live #443 is unchanged.
+
 November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
 removes repeated unrelated photo matches from the existing Coverage inventory.
 All 59 focused checks and 32 alternating canonical/candidate requests preserve
@@ -278,6 +287,24 @@ receipt. Production preparation/delivery must run as UID 1000, matching the web
 application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+November 1 — The #448 draft is reconciled onto live #443. A larger guarded
+request-projection experiment preserved the complete 10.47 MB / 5.01 MB models
+and all 40 rendered responses. It actually exercised reuse, but its fuller
+sequential sample made broad Coverage slower (4.16 to 5.91 seconds warm median),
+so the experiment is removed from the draft. The simpler source-validation and
+source-only field work remains. All 92 current-base focused checks, full-model/24-response parity and
+desktop/412px review pass; exact-head CI remains. No overall Coverage or
+production latency improvement is claimed. TD-122 stays
+open, including repeated graph construction, copying and cold host costs.
+
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+shares validated observations for one request and skips unused candidate
+provenance in the field inventory. All 90 affected tests pass; full models and
+24 rendered responses retain original content. Source/profile samples improve,
+but Coverage timings are mixed, including a slightly slower company filter.
+Desktop/412px and 1,797-page static review pass. This separate draft requires
+exact-head CI and later release review; TD-122 remains partially addressed.
 
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a

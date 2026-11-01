@@ -1,5 +1,14 @@
 # Redesign and consolidation requirements
 
+November 1 — The [combined Coverage performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+consolidates tested #448 and #451 into one new review candidate on live #443.
+All 133 affected checks and 48 complete-response comparisons pass. Full models,
+source rows and profile fields remain; no data, schema or review decision changes.
+The combination needs its own remaining acceptance checks. Source/Map #449 and
+source #450 retain their separate scopes, and #449's one approval question remains
+pending. All original 31 accepted definitions/order below remain unchanged.
+The component evidence beneath this note is dated history, not combined proof.
+
 November 1 — Approved navigation release **#443** is live as `f76080d0` from
 explicitly approved head `e88fcd36`. Fresh backup, all four checks and offline/live
 preservation retained five accounts, 65 profiles, 9,856 existing JSON records,
@@ -9,6 +18,14 @@ draft: no catalog data, domain schema or human decisions change. Draft #448,
 combined source/Map #449 and historical-source #450 remain separate; #449 has
 one pending scoped approval question and is not deployed. All original 31
 accepted definitions and their order remain unchanged.
+
+November 1 — Navigation #443 is live as `f76080d0`, following explicit approval
+of `e88fcd36`, fresh backup and preservation checks. Independent UI-03 draft
+#448 is reconciled onto it. A larger request-projection experiment retained
+all content but made broad Coverage slower, so it is excluded from the draft.
+The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; exact-head CI remains. TD-122 stays open. Catalog/Map #449 stays a separate review. All 31 accepted
+definitions/order below remain unchanged; dated notes are history.
 
 October 30 — Current live release is **#442**, merged as `3b0b4acc` from
 approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
@@ -31,6 +48,14 @@ accepted definitions and their ordering below remain unchanged.
 
 Earlier dated release and pending-approval notes below are historical evidence;
 they do not reopen approvals already completed in #433, #440 or #442.
+
+October 31 — UI-03 performance follow-up:
+[request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md) preserves the
+dense source table, source content, filters, profile gaps and human decisions.
+All 90 affected tests, complete-model/24-response parity, desktop/412px and
+1,797-page static review pass. Source/profile timings improve in the isolated
+sample; overall Coverage timings remain mixed. Exact-head CI and a separate
+release review remain; all 31 accepted definitions/order are unchanged.
 
 October30 — Approved combined #440 is merged1aef8862 and live with fresh backup,
 bounded preservation, all required checks and native/live verification. The

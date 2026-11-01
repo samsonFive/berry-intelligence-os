@@ -1,5 +1,31 @@
 # Project Status
 
+November 1 — The [combined Coverage performance review](docs/v2/COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+brings tested #448 and #451 together on live #443 without changing their five
+runtime files. All 133 affected checks and 48 complete-response comparisons pass;
+three-way local measurements support the combination, with full typed models
+unchanged. This new candidate still needs its own static/native/current-head CI
+and fresh isolated preservation checks. Source/Map #449 and source #450 remain
+separate, their human gates unchanged. No canonical merge or deployment.
+
+November 1 — Approved navigation #443 is live as `f76080d0` (approved head
+`e88fcd36`), with fresh backup, rollback and existing accounts/data preserved.
+Independent performance #448 is reconciled onto that base. The draft retains
+request-local source validation and the field inventory's source-only mode.
+A larger request-projection experiment preserved complete models and HTML but
+regressed broad Coverage in the fuller timing sample; it was removed before
+pushing. All 92 focused checks, complete-model/24-response parity and fresh desktop/412px
+review pass. Exact-head CI is being refreshed. Cold Coverage remains open under TD-122. Catalog/Map #449 stays a
+separate frozen release review; no additional production code or data changed.
+
+October 31 — [Coverage request-work performance](docs/v2/COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+is an independent draft based on #442. It shares validated source reads only
+within a request and omits unused candidate provenance from the field inventory.
+All 90 focused tests and desktop/phone/static review pass; complete models and
+24 rendered responses match. Source/profile samples improve, but overall
+Coverage timings remain mixed. No source/catalog addition or production change;
+exact-head CI and later preservation/release approval remain required.
+
 October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 
 October 28 — [Visible source-gap summary](docs/v2/PORTFOLIO-GAP-SUMMARY-REVIEW.md). The scoped Perfection review found a badge that hid open checks once names were found. The display now counts existing filtered subject gap flags, so its one named entry and eight incomplete source checks remain consistent. Backend counters/data/review gates are unchanged. All 44 focused checks pass with one existing warning in 53.26 seconds. Native desktop/412px review confirms the corrected gap badge and retained company/berry scope; exact-head CI remains required for this child. Prior433/434 release scopes and source435 review scope remain intact. No merge/deployment or inferred approval.

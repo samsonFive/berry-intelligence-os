@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+retains all canonical source/profile coverage: 522 source sections, 1,864 name
+occurrences and 64 public-seed profiles. It combines request-local source work
+and the literal photo-reference index, adding no source, figure, variety or trust
+decision. All 133 affected checks and 48 complete-response comparisons pass;
+this combination needs its own CI/native/live-copy proof. Catalog/Map #449 and
+historical-source #450 remain separate. Dated component notes below are history.
+
 November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
 is presentation-only performance work over the canonical public seed: 522 source
 sections and 64 profiles. It adds no source, named variety, region, photo, role,
@@ -7,6 +15,20 @@ rights or trust decision. Full source tables and profile-field gaps remain
 identical. Broader current/historical portfolio and media depth remain open;
 source/Map #449 and historical interview #450 retain their own draft scopes.
 Approved navigation #443 is live, with existing runtime records preserved.
+
+November 1 — Performance #448 is reconciled onto live navigation #443
+(`f76080d0`). It adds no sources, varieties, market figures or trusted decisions.
+The larger request-projection experiment matched full models but regressed
+broad Coverage, so it is not shipped. The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; current-head CI remains. Separate catalog/Map #449 stays frozen; coverage breadth,
+TD-122 and human review gaps remain open.
+
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+is a separate performance draft on the #442 platform. It adds no catalog,
+source or geography coverage. All 90 focused tests and desktop/phone/static
+review pass; complete models and rendered responses match the baseline.
+Coverage timings remain mixed, and TD-122 and human review gaps stay open.
+Navigation #443, source #444 and Map #446/#447 are excluded from this draft.
 
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
