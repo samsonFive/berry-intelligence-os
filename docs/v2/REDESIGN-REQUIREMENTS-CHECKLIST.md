@@ -1,5 +1,17 @@
 # Redesign and consolidation requirements
 
+November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
 November 1 — [Historical Singrow/Surexport sources](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
 add fifteen literal name occurrences from three original documents, retaining
 the parent Splendor source and all identity/role/photo/rights gates. Current
@@ -490,8 +502,8 @@ table and implementation sequence below are preserved.
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Source-to-catalog review now includes the historical Splendor, Singrow and Surexport original documents. The new three scopes add fifteen name occurrences and eleven derived review keys; Crystal color/identity and Ruby/Rouge label differences remain explicit. Existing source passages, company handoffs and all saved IDs/decisions are retained. | Human source/name/role/catalog decisions and the independent expected-name worksheets remain. A source mention or repeated label does not authorize an identity, company role, photo association or current portfolio. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current source-child audit: 526 sections / 1,882 occurrences / 165 catalog matches / 1,717 review needs, with 1,257 combined candidates. Public 64-profile field gaps remain eleven photos / thirteen rights / 33 cited traits / ten company links. Of 77 subjects, 66 have named source entries, eight remain partial, one unavailable and two identity-held. | Comprehensive current/historical recall, current rights, reviewed identities and canonical authoring, sourced traits/regions/photos and stale-prose decisions remain open. Singrow/Surexport retain source gaps despite named entries. Counts are not distinct cultivar totals or proof of global completeness. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Original source recovery now includes the printed Rejoice BK 17.006-13 sheet, with the earlier blank attempt retained and code/filename/catalog differences visible. Splendor, Singrow and Surexport source handoffs and conflicts remain. All old candidate IDs, saved decisions and canonical records are preserved. | Human source/name/role/catalog decisions and the independent expected-name worksheets remain. A source mention or repeated label does not authorize an identity, company role, photo association or current portfolio. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current source-child audit: 526 sections / 1,883 occurrences / 165 matches / 1,718 review needs; 420 readable, 14 unreadable, 1,258 combined review keys. Public 64-profile gaps remain 11 photos / 13 rights / 33 traits / 10 company links. Named source progress remains 66 of 77 subjects, eight partial, one unavailable and two held. Counts are not proven distinct cultivars or global completeness. | Comprehensive current/historical recall, current rights, reviewed identities and canonical authoring, sourced traits/regions/photos and stale-prose decisions remain open. Singrow/Surexport retain source gaps despite named entries. Counts are not distinct cultivar totals or proof of global completeness. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures remain. Deployed #440 retains article hierarchy and human gates. Approved #442 is live: all 522 source rows and their full details remain accessible; the measured production-copy HTML is 77.10% smaller. Desktop/412px error/retry/fallback and live disclosure checks pass. | The approved rendering release is complete. Server-side reconciliation/copying and broader TD-122 remain open; article/body coverage and human source decisions remain separate. |

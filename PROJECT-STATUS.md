@@ -1,5 +1,17 @@
 # Project Status
 
+November 1 — [Recovered Rejoice original sheet](docs/v2/REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
 November 1 — [Historical Singrow/Surexport sources](docs/v2/HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
 add fifteen literal name occurrences from three original documents, retaining
 the parent Splendor source and all identity/role/photo/rights gates. Current
