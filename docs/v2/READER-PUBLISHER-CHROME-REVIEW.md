@@ -23,12 +23,21 @@ generates titles or changes claims.
 ## Verification and boundaries
 
 The initial synthetic regression suite reproduced six failures against the
-unchanged implementation. Ten regression cases now cover header-image
+unchanged implementation. Twelve regression cases now cover header-image
 exhaustion, legitimate article headers and flag imagery, metadata precedence,
 fallback banners, relative/hidden/unsafe URLs, navigation-only pages, exact
-heading scope and the selected-article capture path. The combined Reader,
-preview, Firecrawl, capture-bound and prose-navigation suite passes **123 tests
-in 10.90 seconds**, with one existing ReportLab warning.
+heading scope, existing image precedence and the selected-article capture path.
+The combined Reader, preview, Firecrawl, capture-bound and prose-navigation
+suite passes **125 tests in 10.02 seconds**, with one existing ReportLab warning.
+
+The first bounded live-data rehearsal at `5f485120` exposed an older merge
+defect: a captured image could be added under `article.image_url` and displace
+an existing root-level source/operator image in the Reader. The stored input
+stayed unchanged, but its display precedence did not. The preservation assertion
+is retained. The repair now respects an existing public image at either level;
+private/unsafe URLs cannot gain precedence. The failed attempt and its fresh
+backup remain private. New-head CI, native review and a new isolated rehearsal
+must establish acceptance; the earlier head's passing CI does not prove it.
 
 A saved, bounded 67,426-byte public publisher response is replayed offline.
 The original first image is a header country flag; the repaired first image is

@@ -1,8 +1,10 @@
 """Publisher site chrome must not displace article photographs or section titles."""
 import httpx
+from copy import deepcopy
 
+from app.services.feed_first import safe_image_url
 from app.services.article_structure import publisher_heading_levels
-from app.services.feed_first_reader import extract_article_images, fetch_public_article, paragraphs_from_html
+from app.services.feed_first_reader import extract_article_images, fetch_public_article, merge_capture, paragraphs_from_html
 
 
 def test_article_photo_is_not_displaced_by_many_header_images():
@@ -53,6 +55,31 @@ def test_navigation_only_page_does_not_supply_a_fake_article_image():
 def test_missing_or_fragment_image_source_cannot_become_the_article_url():
     page = '<article><img alt="Missing source"><img src=""><img src="#local-fragment"></article>'
     assert extract_article_images(page, page_url='https://publisher.test/story') == []
+
+
+def test_new_capture_preserves_existing_root_and_article_images_and_edited_prose():
+    capture = {'url': 'https://publisher.test/story', 'passages': ['New captured publisher text.'],
+               'images': [{'url': 'https://publisher.test/captured.jpg', 'alt': 'Captured fruit'}]}
+    for image_field in ('root', 'article'):
+        record = {'source_url': capture['url'], 'article': {'paragraphs': [{'text': 'Operator-edited original words.'}]}}
+        if image_field == 'root':
+            record['image_url'] = 'https://publisher.test/operator.jpg'
+        else:
+            record['article']['image_url'] = 'https://publisher.test/operator.jpg'
+        before = deepcopy(record)
+        merged = merge_capture(record, capture)
+        assert record == before
+        assert merged['article'] == before['article']
+        assert safe_image_url(merged) == safe_image_url(before) == 'https://publisher.test/operator.jpg'
+
+
+def test_private_root_url_cannot_displace_a_public_capture_image():
+    record = {'source_url': 'https://publisher.test/story', 'image_url': 'http://127.0.0.1/private'}
+    before = deepcopy(record)
+    capture = {'url': record['source_url'], 'images': [{'url': 'https://publisher.test/fruit.jpg'}]}
+    merged = merge_capture(record, capture)
+    assert record == before
+    assert safe_image_url(merged) == 'https://publisher.test/fruit.jpg'
 
 
 def test_publisher_figure_precedes_a_generic_category_banner_in_body_fallback():

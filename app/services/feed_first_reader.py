@@ -829,7 +829,10 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if images:
         merged["images"] = images
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
-        if not article.get("image_url"):
+        from app.services.feed_first import safe_image_url
+        # A root-level source/operator image is already the chosen image. Do
+        # not add a nested capture image that would take precedence over it.
+        if not article.get("image_url") and not is_public_http_url(safe_image_url(merged)):
             article["image_url"] = images[0]["url"]
             merged["article"] = article
     if capture.get("content_kind"):
