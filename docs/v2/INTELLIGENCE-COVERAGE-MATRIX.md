@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Completion review](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+confirms the canonical public seed remains 522 sections / 1,864 name occurrences /
+165 catalog matches / 1,699 review needs; no new source or variety is added by
+this statement-link repair. Its 186 new public page destinations display
+existing eligible Fact records, not 186 new facts. Human classifications and
+all source/name/role/rights/photo gates remain. The public 64-profile corpus
+differs from the preserved live 65-profile runtime. Prepared #449/#450 source
+counts describe separate candidates and must not be summed as a deployed union.
+Engineering tests do not complete the independent expected-name worksheets.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

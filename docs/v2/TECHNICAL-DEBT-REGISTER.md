@@ -2331,6 +2331,19 @@ September 30, 2026. `APP-SECTION-AUDIT.md` documents fragmentation across feed-f
 
 Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in the isolated render audit, and no Fact-detail GET handler exists in the inspected application. `app/queries/timeline.py` and `app/services/commercial_positions.py` emit this URL family. The design preview's statement-source links were repaired to supporting publication pages; production consumers still require a canonical destination/compatibility decision and regression checks. Preserve Fact vs feed-statement identity and provenance. Owner: product/navigation. Evidence: `artifacts/design-sprint/section-render-audit.json`.
 
+**November 1 repair candidate:** the fresh offline audit reproduced this same
+404 with an existing canonical record. A read-only `/facts/{id}` destination
+and public static counterpart now preserve literal statements, claim/fact and
+history labels, all eligible references and distinct dates. Only selected
+sources hydrate; draft/unvalidated/excluded metadata stays hidden. Seventy-two
+focused regressions, desktop/412px Reader/publisher/return checks and a full
+static scan of 820 existing statement links pass (186 existing statement pages;
+1,983 pages total). Current-head CI and release review remain before closing
+this production defect. No new trust action, canonical record or schema change;
+this updates the existing open item, not resolved TD-001..004. See
+[statement-link review](REVIEWED-STATEMENT-LINKS-REVIEW.md).
+
+
 
 **2026-09-30 section-review follow-up:** The accepted Learn expansion requires a persistent research-job/lesson lifecycle, explicit Perplexity deep-research integration, source/media provenance, duplicate-topic handling and user-edit protection. Existing Search/Agent research seams do not establish this workflow. Personal Digest needs saved-versus-reading-state migration; configurable Landscape needs per-panel scope parity; Meeting Prep must retain notes and old links. These are open requirements, not defects declared fixed. See APP-SECTION-AUDIT.md and feature-requests/LEARNER-MODE.md.
 
