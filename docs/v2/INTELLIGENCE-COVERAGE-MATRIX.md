@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+November 1 — Performance #448 is reconciled onto live navigation #443
+(`f76080d0`). It adds no sources, varieties, market figures or trusted decisions.
+The larger request-projection experiment matched full models but regressed
+broad Coverage, so it is not shipped. The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; current-head CI remains. Separate catalog/Map #449 stays frozen; coverage breadth,
+TD-122 and human review gaps remain open.
+
 October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
 is a separate performance draft on the #442 platform. It adds no catalog,
 source or geography coverage. All 90 focused tests and desktop/phone/static

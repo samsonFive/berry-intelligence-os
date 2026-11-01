@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+November 1 — Navigation #443 is live as `f76080d0`, following explicit approval
+of `e88fcd36`, fresh backup and preservation checks. Independent UI-03 draft
+#448 is reconciled onto it. A larger request-projection experiment retained
+all content but made broad Coverage slower, so it is excluded from the draft.
+The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; exact-head CI remains. TD-122 stays open. Catalog/Map #449 stays a separate review. All 31 accepted
+definitions/order below remain unchanged; dated notes are history.
+
 October 30 — Current live release is **#442**, merged as `3b0b4acc` from
 approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
 passed (5,477 tests). A fresh backup, isolated rehearsal and post-switch checks

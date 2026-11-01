@@ -268,6 +268,16 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+November 1 — The #448 draft is reconciled onto live #443. A larger guarded
+request-projection experiment preserved the complete 10.47 MB / 5.01 MB models
+and all 40 rendered responses. It actually exercised reuse, but its fuller
+sequential sample made broad Coverage slower (4.16 to 5.91 seconds warm median),
+so the experiment is removed from the draft. The simpler source-validation and
+source-only field work remains. All 92 current-base focused checks, full-model/24-response parity and
+desktop/412px review pass; exact-head CI remains. No overall Coverage or
+production latency improvement is claimed. TD-122 stays
+open, including repeated graph construction, copying and cold host costs.
+
 October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
 shares validated observations for one request and skips unused candidate
 provenance in the field inventory. All 90 affected tests pass; full models and

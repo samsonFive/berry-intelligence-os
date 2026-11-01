@@ -1,5 +1,15 @@
 # Project Status
 
+November 1 — Approved navigation #443 is live as `f76080d0` (approved head
+`e88fcd36`), with fresh backup, rollback and existing accounts/data preserved.
+Independent performance #448 is reconciled onto that base. The draft retains
+request-local source validation and the field inventory's source-only mode.
+A larger request-projection experiment preserved complete models and HTML but
+regressed broad Coverage in the fuller timing sample; it was removed before
+pushing. All 92 focused checks, complete-model/24-response parity and fresh desktop/412px
+review pass. Exact-head CI is being refreshed. Cold Coverage remains open under TD-122. Catalog/Map #449 stays a
+separate frozen release review; no additional production code or data changed.
+
 October 31 — [Coverage request-work performance](docs/v2/COVERAGE-REQUEST-WORK-PERFORMANCE.md)
 is an independent draft based on #442. It shares validated source reads only
 within a request and omits unused candidate provenance from the field inventory.
