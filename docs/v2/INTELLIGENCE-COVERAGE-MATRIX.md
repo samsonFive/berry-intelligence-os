@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
+is presentation-only performance work over the canonical public seed: 522 source
+sections and 64 profiles. It adds no source, named variety, region, photo, role,
+rights or trust decision. Full source tables and profile-field gaps remain
+identical. Broader current/historical portfolio and media depth remain open;
+source/Map #449 and historical interview #450 retain their own draft scopes.
+Approved navigation #443 is live, with existing runtime records preserved.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

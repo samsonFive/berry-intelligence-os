@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
+removes repeated unrelated photo matches from the existing Coverage inventory.
+All 59 focused checks and 32 alternating canonical/candidate requests preserve
+complete output; two full typed Coverage models match. Public-seed warm medians
+improve 3.5272→3.2352s and 4.8195→3.5249s in the two affected scopes. These are
+local measurements, not production performance claims. Single-variety and
+source-detail paths stay unchanged. A custom-copy experiment was rejected after
+mixed actual-page timings. TD-122 remains open; current-head CI, native review,
+fresh isolated live-data proof and separate release approval remain. Approved
+#443 is already live; later drafts do not reopen its completed release gate.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,
