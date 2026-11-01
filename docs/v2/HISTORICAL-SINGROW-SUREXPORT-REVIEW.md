@@ -64,6 +64,18 @@ idempotent replay and authoring/public boundaries. All existing observations
 remain byte-identical; no canonical entity, Fact, Evidence or relationship is
 created or changed.
 
+Full CI then exposed one additional historical fixture: its twelve unnamed
+Surexport/Gem-Pack pages were selected by every future company source, so the
+new named interview made thirteen. That cohort now uses the same explicit
+original-page selector as its companion tests. The original twelve-page count,
+duplicate-URL check, refreshed IDs and full-current-corpus candidate equivalence
+remain; no assertions or current source data are dropped. The initial full run
+retains its one failure and 5,488 passes. The new source tests separately verify
+the named interview, company handoffs and all retained portfolio gaps.
+All 52 affected checks, including the original unnamed-company cohort, pass
+after this correction in 69.66 seconds with one existing warning. The import
+payloads and application code are unchanged from the initial source draft.
+
 Native desktop/412px review verifies five distinct Singrow names, nine Surexport
 names, both Crystal source references, separate publication/check dates,
 retained gap warnings, the W quick jump, company V filtering and the Victoria
