@@ -1,5 +1,29 @@
 # Project Status
 
+November 1 — [Combined platform review](docs/v2/PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — Navigation #443 is live as `f76080d0`, retaining the approved
+platform and content stack. The [current requirements audit](docs/v2/REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+records all 31 original requirements and subsequent requests, separating
+delivered workflows, prepared releases and human/content/performance gaps.
+Existing statement links in dossiers/timelines/commercial positions had no
+destination. This read-only repair retains exact claim/fact wording, provenance,
+source Reader/publisher routes and static links: 72 focused checks, native
+desktop/412px review and 820 generated-link checks pass. Final-head CI and
+release review remain required; no canonical data/schema or production change.
+Prepared #449/#450/#452 retain their own scopes and approval state. Earlier
+dated candidate descriptions below are historical, not current release requests.
+
 November 1 — The [combined Coverage performance review](docs/v2/COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
 brings tested #448 and #451 together on live #443 without changing their five
 runtime files. All 133 affected checks and 48 complete-response comparisons pass;

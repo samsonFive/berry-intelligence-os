@@ -243,6 +243,16 @@ def build() -> list[Path]:
         )
     )
 
+    # Existing dossier/timeline links also address canonical statements. Reuse
+    # the live read model with published-only sources; no private triage/history.
+    from app.services.canonical_statements import statement_detail
+    for fact in all_facts():
+        statement = statement_detail(fact, evidence, entities)
+        if statement is not None:
+            written.append(write_page("canonical_statement.html", f"/facts/{fact['id']}", {
+                "statement": statement, "authoring_mode": False,
+            }))
+
     # Evidence detail + attachments.
     # Pre-index reverse lineage once for the whole Evidence set (avoid
     # O(evidence × signals/assessments) scans per page).

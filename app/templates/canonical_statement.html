@@ -1,0 +1,24 @@
+{% extends "public_library_base.html" %}
+{% block title %}Reviewed statement — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page canonical-statement" data-pagefind-filter="type:statement">
+  <header class="page-heading"><div><p class="eyebrow">INTELLIGENCE</p><h1>Reviewed statement</h1></div></header>
+  <article class="detail-card">
+    <div class="statement-labels"><span class="badge badge-{{ statement.classification }}">{{ statement.classification|capitalize }}</span><span class="badge badge-muted">{{ statement.status|capitalize }}</span></div>
+    {% if statement.is_history %}<p class="statement-history" role="status">This statement is {{ statement.status }}. It is retained for history and should not be treated as a current finding.</p>{% endif %}
+    <blockquote class="canonical-statement-text">{{ statement.statement }}</blockquote>
+    {% if statement.classification == 'claim' %}<p class="context-limit">This is a recorded claim. Publication and review do not make it a verified fact.</p>{% endif %}
+    {% if statement.event_date %}<p class="public-source-line">Reported event · {{ statement.event_date|us_date }}</p>{% endif %}
+    {% if statement.linked_entities %}<div class="statement-entities" aria-label="Related companies, varieties and places">{% for entity in statement.linked_entities %}<a href="{{ entity_path(entity.entity_type, entity.id) }}">{{ entity.name }}</a>{% endfor %}</div>{% endif %}
+  </article>
+  <section aria-labelledby="statement-sources"><h2 id="statement-sources">Supporting sources</h2>
+    <div class="balanced-card-grid">{% for source in statement.sources %}<article class="detail-card statement-source">
+      <p class="eyebrow">{{ source.publisher }}</p><h3>{{ source.title }}</h3>
+      <p class="public-source-line">{% if source.published_date %}Published {{ source.published_date|us_date }}{% else %}Publication date not recorded{% endif %}</p>
+      <div class="statement-source-actions">{% if static_build %}<a class="sh-btn" href="{{ source.record_href }}">Read source →</a>{% else %}<a class="sh-btn" href="{{ source.reader_href }}" data-open-reader data-item-id="{{ source.id }}">Read source →</a>{% endif %}{% if source.original_url %}<a href="{{ source.original_url }}" target="_blank" rel="noopener noreferrer">Original publisher ↗</a>{% endif %}</div>
+    </article>{% else %}<p class="empty-state">The referenced sources are not available in the published library.</p>{% endfor %}</div>
+    {% if statement.unavailable_sources %}<p class="context-limit">{{ statement.unavailable_sources }} referenced source{{ 's are' if statement.unavailable_sources != 1 else ' is' }} unavailable in the published library. Missing references do not add corroboration.</p>{% endif %}
+  </section>
+  <details class="public-source-details"><summary>Record details</summary><dl><dt>Recorded</dt><dd>{{ statement.recorded_date|us_date if statement.recorded_date else 'Date not recorded' }}</dd><dt>Confidence</dt><dd>{{ statement.confidence|capitalize if statement.confidence else 'Not recorded' }}</dd>{% if authoring_mode and not static_build %}<dt>Reviewer</dt><dd>{{ statement.reviewer or 'Not recorded' }}</dd>{% endif %}</dl></details>
+</div>
+{% endblock %}

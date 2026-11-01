@@ -1,5 +1,27 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — [Completion review](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+confirms the canonical public seed remains 522 sections / 1,864 name occurrences /
+165 catalog matches / 1,699 review needs; no new source or variety is added by
+this statement-link repair. Its 186 new public page destinations display
+existing eligible Fact records, not 186 new facts. Human classifications and
+all source/name/role/rights/photo gates remain. The public 64-profile corpus
+differs from the preserved live 65-profile runtime. Prepared #449/#450 source
+counts describe separate candidates and must not be summed as a deployed union.
+Engineering tests do not complete the independent expected-name worksheets.
+
 November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
 retains all canonical source/profile coverage: 522 source sections, 1,864 name
 occurrences and 64 public-seed profiles. It combines request-local source work

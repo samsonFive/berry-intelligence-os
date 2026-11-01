@@ -952,6 +952,10 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
+    # Statement detail uses the same lightweight Library shell. Its selected
+    # references must not hydrate every article merely to calculate old badges.
+    if request.url.path.startswith("/facts/"):
+        return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
     if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
@@ -2680,6 +2684,26 @@ def home(
             "authoring_mode": AUTHORING_MODE,
         },
     )
+
+
+@app.get("/facts/{record_id}", response_class=HTMLResponse)
+def canonical_statement_detail(request: Request, record_id: str) -> HTMLResponse:
+    from app.services.canonical_statements import statement_detail
+
+    fact = next((row for row in all_facts() if row.get("id") == record_id), None)
+    if fact is None:
+        raise HTTPException(status_code=404, detail="Reviewed statement not found")
+    evidence_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    sources = [source for identity in dict.fromkeys(fact.get("evidence_ids") or [])
+               if (source := evidence_repo.get(identity)) is not None]
+    statement = statement_detail(fact, _social_eligible_outputs(sources), entity_index(),
+                                 include_history=AUTHORING_MODE)
+    if statement is None:
+        raise HTTPException(status_code=404, detail="Reviewed statement not found")
+    return templates.TemplateResponse(request=request, name="canonical_statement.html", context={
+        "statement": statement, "authoring_mode": AUTHORING_MODE, "static_build": False,
+        "nav_work_counts": {},
+    })
 
 
 @app.get("/evidence/{record_id}", response_class=HTMLResponse)
