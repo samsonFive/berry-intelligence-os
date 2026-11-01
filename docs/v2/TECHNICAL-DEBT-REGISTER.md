@@ -1,5 +1,48 @@
 # Technical Debt Register
 
+November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
+the tested #455 platform changes while removing unrelated variety, briefing and
+publication preparation from login/health/News readiness. News inputs, auth,
+polling and human gates remain. Initial real-lifespan public-fixture comparison
+preserves complete models/HTML and all 2,982 data files; specialist cold work
+moves to its first visit. All 89 focused checks and record validation pass.
+Confirmation/current-head/native/fresh preservation acceptance remains; no new
+release approval or deployment. TD-122 stays open. Frozen #449 (one unanswered
+question) and source #457 remain separate. Original 31 definitions/order and
+the governing guide remain verbatim. Earlier notes are dated evidence.
+
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+retains the five runtime files from tested #448 and #451. All 133 affected checks
+and 48 actual canonical/photo-only/combined responses preserve full output.
+Local Coverage medians improve 3.2850→2.1748s and 3.1480→1.8394s; physical-phone,
+cold-load and production performance remain unproven for this combination.
+TD-122 stays open. The larger projection-reuse and custom-copy experiments remain
+excluded. Exact-head CI, native review, fresh preservation and scoped release
+approval still apply to the combined candidate; live #443 is unchanged.
+
+November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
+removes repeated unrelated photo matches from the existing Coverage inventory.
+All 59 focused checks and 32 alternating canonical/candidate requests preserve
+complete output; two full typed Coverage models match. Public-seed warm medians
+improve 3.5272→3.2352s and 4.8195→3.5249s in the two affected scopes. These are
+local measurements, not production performance claims. Single-variety and
+source-detail paths stay unchanged. A custom-copy experiment was rejected after
+mixed actual-page timings. TD-122 remains open; current-head CI, native review,
+fresh isolated live-data proof and separate release approval remain. Approved
+#443 is already live; later drafts do not reopen its completed release gate.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,
@@ -267,6 +310,24 @@ receipt. Production preparation/delivery must run as UID 1000, matching the web
 application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+November 1 — The #448 draft is reconciled onto live #443. A larger guarded
+request-projection experiment preserved the complete 10.47 MB / 5.01 MB models
+and all 40 rendered responses. It actually exercised reuse, but its fuller
+sequential sample made broad Coverage slower (4.16 to 5.91 seconds warm median),
+so the experiment is removed from the draft. The simpler source-validation and
+source-only field work remains. All 92 current-base focused checks, full-model/24-response parity and
+desktop/412px review pass; exact-head CI remains. No overall Coverage or
+production latency improvement is claimed. TD-122 stays
+open, including repeated graph construction, copying and cold host costs.
+
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+shares validated observations for one request and skips unused candidate
+provenance in the field inventory. All 90 affected tests pass; full models and
+24 rendered responses retain original content. Source/profile samples improve,
+but Coverage timings are mixed, including a slightly slower company filter.
+Desktop/412px and 1,797-page static review pass. This separate draft requires
+exact-head CI and later release review; TD-122 remains partially addressed.
 
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a
@@ -2330,6 +2391,19 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 September 30, 2026. `APP-SECTION-AUDIT.md` documents fragmentation across feed-first, V2 and stakeholder navigation; overlapping News/Monitor/Reports homes; informational-only Settings; and state mappings required before consolidation. No abandonment claim is inferred from sparse private data or the user's limited usage. These issues remain open production/product work, not fixed by the prototype.
 
 Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in the isolated render audit, and no Fact-detail GET handler exists in the inspected application. `app/queries/timeline.py` and `app/services/commercial_positions.py` emit this URL family. The design preview's statement-source links were repaired to supporting publication pages; production consumers still require a canonical destination/compatibility decision and regression checks. Preserve Fact vs feed-statement identity and provenance. Owner: product/navigation. Evidence: `artifacts/design-sprint/section-render-audit.json`.
+
+**November 1 repair candidate:** the fresh offline audit reproduced this same
+404 with an existing canonical record. A read-only `/facts/{id}` destination
+and public static counterpart now preserve literal statements, claim/fact and
+history labels, all eligible references and distinct dates. Only selected
+sources hydrate; draft/unvalidated/excluded metadata stays hidden. Seventy-two
+focused regressions, desktop/412px Reader/publisher/return checks and a full
+static scan of 820 existing statement links pass (186 existing statement pages;
+1,983 pages total). Current-head CI and release review remain before closing
+this production defect. No new trust action, canonical record or schema change;
+this updates the existing open item, not resolved TD-001..004. See
+[statement-link review](REVIEWED-STATEMENT-LINKS-REVIEW.md).
+
 
 
 **2026-09-30 section-review follow-up:** The accepted Learn expansion requires a persistent research-job/lesson lifecycle, explicit Perplexity deep-research integration, source/media provenance, duplicate-topic handling and user-edit protection. Existing Search/Agent research seams do not establish this workflow. Personal Digest needs saved-versus-reading-state migration; configurable Landscape needs per-panel scope parity; Meeting Prep must retain notes and old links. These are open requirements, not defects declared fixed. See APP-SECTION-AUDIT.md and feature-requests/LEARNER-MODE.md.

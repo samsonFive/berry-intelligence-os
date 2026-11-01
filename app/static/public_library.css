@@ -56,6 +56,14 @@
 .public-source-details { margin: 14px 0; border-top: 1px solid #c4d2bc; padding: 12px 0 0; }
 .public-source-details > summary { font-size: 13px; font-weight: 650; }
 .public-source-details[open] > summary { margin-bottom: 12px; }
+.canonical-statement-text { margin: 14px 0; max-width: 78ch; border-left: 4px solid var(--green); padding: 4px 0 4px 16px; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.55; font-weight: 600; overflow-wrap: anywhere; }
+.canonical-statement .statement-labels, .canonical-statement .statement-source-actions, .canonical-statement .statement-entities { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.canonical-statement .statement-entities { margin-top: 14px; font-size: 13px; }
+.canonical-statement .statement-entities a { max-width: 100%; overflow-wrap: anywhere; }
+.canonical-statement .statement-source-actions { margin-top: 12px; }
+.canonical-statement .statement-source h3 { margin: 6px 0; overflow-wrap: anywhere; }
+.canonical-statement .statement-history { border-left: 4px solid #98691f; padding: 10px 14px; background: #fff4dc; }
+.canonical-statement dd { overflow-wrap: anywhere; }
 @media (max-width: 600px) {
   .public-library .detail-card { padding: 14px; }
   .public-library .detail-card dl { grid-template-columns: minmax(90px, 110px) minmax(0, 1fr); }

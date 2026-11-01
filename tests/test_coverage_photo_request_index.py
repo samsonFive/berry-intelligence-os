@@ -95,3 +95,96 @@ def test_new_request_retains_new_identity_hold_and_rejects_another_snapshot():
     notes = photo_identity_reviews(target, sources=updated, varieties=varieties, _index=fresh)
     assert len(notes)==1 and any('code in one source' in n for n in notes[0]['review_notes'])
     assert 'image_url' not in notes[0] and 'q=Rutgers+D%27Light' in notes[0]['review_href']
+
+
+def fixture_photo(name='Keepsake', **changes):
+    return dict(dict(image_url='https://example.test/fruit.jpg', source_url='https://example.test/fruit',
+        credit='Fixture publisher', caption='Source-labeled fruit', named_variety=name,
+        berry_id='berry-strawberry', reuse='unknown', checked_on='2026-01-01', kind='fruit'), **changes)
+
+
+def fixture_source(*raw, **changes):
+    return dict(id='fixture-photo-source', company_ids=[], names=[dict(
+        candidate_name='Keepsake', berry_id='berry-strawberry', photos=list(raw), **changes)])
+
+
+@pytest.mark.parametrize('field', ['name', 'aliases', 'trade_name', 'commercial_name',
+    'denomination', 'selection_code', 'breeder_code', 'patent_number', 'patent_id', 'rights_id'])
+def test_prefilter_preserves_every_authoritative_identity_field(field):
+    target = dict(id='fixture-variety', entity_type='variety', name='Different name',
+        berry_ids=['berry-strawberry'], attributes={})
+    if field == 'name':
+        target['name'] = 'Kéepsake'
+    elif field == 'aliases':
+        target['aliases'] = ['Kéepsake', 'Keepsake']
+    else:
+        target['attributes'][field] = 'Kéepsake'
+    sources, varieties = [fixture_source(fixture_photo())], [target]
+    expected = photos.source_photos(target, sources=sources, varieties=varieties)
+    assert len(expected) == 1
+    index = photos.SourcePhotoIndex(sources, varieties)
+    assert photos.source_photos(target, sources=sources, varieties=varieties, _index=index) == expected
+
+
+def test_prefilter_keeps_duplicate_photo_order_and_calls_final_match_gate(monkeypatch):
+    target = dict(id='fixture-variety', name='Keepsake', aliases=['Kéepsake', 'Other label'],
+        berry_ids=['berry-strawberry'])
+    first = fixture_photo(caption='First caption')
+    last = fixture_photo('Other label', caption='Later caption for the same image')
+    unrelated = fixture_photo('Unrelated')
+    wrong_crop = {**fixture_photo(), 'berry_id': 'berry-blueberry'}
+    sources = [fixture_source(first, unrelated, wrong_crop, last)]
+    varieties = [target]
+    before = deepcopy((sources, varieties))
+    expected = photos.source_photos(target, sources=sources, varieties=varieties)
+    calls = []
+    compatible = photos.compatible
+    def count(photo, record, **kwargs):
+        calls.append(photo['named_variety'])
+        return compatible(photo, record, **kwargs)
+    monkeypatch.setattr(photos, 'compatible', count)
+    actual = photos.source_photos(target, sources=sources, varieties=varieties,
+        _index=photos.SourcePhotoIndex(sources, varieties))
+    assert actual == expected and actual[0]['caption'] == 'Later caption for the same image'
+    assert calls == ['Keepsake', 'Other label']
+    assert (sources, varieties) == before
+
+
+def test_prefilter_does_not_hide_invalid_unrelated_photos_or_validate_held_previews():
+    target = dict(id='fixture-variety', name='Keepsake', berry_ids=['berry-strawberry'])
+    # Review-only callers supply already chosen photos and historically validate
+    # base metadata, not the optional image-preview overlay.
+    held = fixture_source({**fixture_photo(), 'preview_image_url': 'http://127.0.0.1/private'},
+        identity_notes=['Name requires review'])
+    sources, varieties = [held], [target]
+    assert photos.source_photos(target, sources=sources, varieties=varieties) == []
+    index = photos.SourcePhotoIndex(sources, varieties)
+    assert photos.source_photos(target, sources=sources, varieties=varieties, _index=index) == []
+    expected = photo_identity_reviews(target, sources=sources, varieties=varieties, sourced=[])
+    assert photo_identity_reviews(target, sources=sources, varieties=varieties, sourced=[], _index=index) == expected
+    assert len(expected) == 1 and 'image_url' not in expected[0]
+    held['names'][0]['photos'][0]['image_url'] = 'http://127.0.0.1/private'
+    assert photos.source_photos(target, sources=sources, varieties=varieties,
+        _index=photos.SourcePhotoIndex(sources, varieties)) == []
+    with pytest.raises(ValueError, match='public http'):
+        photo_identity_reviews(target, sources=sources, varieties=varieties, sourced=[],
+            _index=photos.SourcePhotoIndex(sources, varieties))
+    unrelated = [fixture_source({**fixture_photo('Other fruit'), 'image_url': 'http://127.0.0.1/private'})]
+    for index in (None, photos.SourcePhotoIndex(unrelated, varieties)):
+        with pytest.raises(ValueError, match='public http'):
+            photos.source_photos(target, sources=unrelated, varieties=varieties, _index=index)
+
+
+def test_short_names_still_fail_authoritative_match_and_catalog_ambiguity_is_global():
+    target = dict(id='fixture-variety', name='AB', berry_ids=['berry-strawberry'])
+    sources, varieties = [fixture_source(fixture_photo('AB'))], [target]
+    assert photos.source_photos(target, sources=sources, varieties=varieties,
+        _index=photos.SourcePhotoIndex(sources, varieties)) == []
+    target['name'] = 'Keepsake'
+    sources[0]['names'][0]['photos'][0]['named_variety'] = 'Keepsake'
+    varieties.append(dict(id='fixture-other', name='Another cultivar', aliases=['Keepsake'],
+        berry_ids=['berry-strawberry']))
+    index = photos.SourcePhotoIndex(sources, varieties)
+    assert photos.source_photos(target, sources=sources, varieties=varieties, _index=index) == []
+    reviews = photo_identity_reviews(target, sources=sources, varieties=varieties, _index=index)
+    assert len(reviews) == 1 and any('more than one catalog' in n for n in reviews[0]['review_notes'])

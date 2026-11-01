@@ -16,7 +16,8 @@ def photo_identity_reviews(target, *, sources=(), varieties=(), sourced=None, _i
     eligible = {photo['id'] for photo in sourced}
     pair_notes = None
     rows = {}
-    refs = _index.refs if _index is not None else [(source, ref) for source in sources for ref in source.get('names', [])]
+    refs = (_index.references_for(target, review=True) if _index is not None else
+            [(source, ref) for source in sources for ref in source.get('names', [])])
     for source, ref in refs:
         for raw in ref.get('photos', []):
             photo = _index.photo(raw) if _index is not None else validate_photo(raw)
