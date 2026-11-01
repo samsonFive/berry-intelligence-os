@@ -1,5 +1,19 @@
 # Technical Debt Register
 
+November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
 November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
 replaces the effective blank-viewer check with one literal printed code, retaining
 the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and

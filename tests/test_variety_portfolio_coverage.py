@@ -98,7 +98,7 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
-    assert abz["starting_url"] == "https://www.abzseeds.com/high-tech-greenhouse"
+    assert abz["starting_url"] == "https://www.abzseeds.com/high-tech-greenhouse?hsLang=en"
     assert abz["starting_label"] == "Checked page ↗"
     assert any(s["id"] == "portfolio-abz-booklet" and s["capture_status"] == "unreadable" for s in report["sources"])
 

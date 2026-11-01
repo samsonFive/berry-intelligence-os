@@ -1,5 +1,19 @@
 # Redesign and consolidation requirements
 
+November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
 November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
 replaces the effective blank-viewer check with one literal printed code, retaining
 the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
@@ -503,7 +517,7 @@ table and implementation sequence below are preserved.
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
 | CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Original source recovery now includes the printed Rejoice BK 17.006-13 sheet, with the earlier blank attempt retained and code/filename/catalog differences visible. Splendor, Singrow and Surexport source handoffs and conflicts remain. All old candidate IDs, saved decisions and canonical records are preserved. | Human source/name/role/catalog decisions and the independent expected-name worksheets remain. A source mention or repeated label does not authorize an identity, company role, photo association or current portfolio. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current source-child audit: 526 sections / 1,883 occurrences / 165 matches / 1,718 review needs; 420 readable, 14 unreadable, 1,258 combined review keys. Public 64-profile gaps remain 11 photos / 13 rights / 33 traits / 10 company links. Named source progress remains 66 of 77 subjects, eight partial, one unavailable and two held. Counts are not proven distinct cultivars or global completeness. | Comprehensive current/historical recall, current rights, reviewed identities and canonical authoring, sourced traits/regions/photos and stale-prose decisions remain open. Singrow/Surexport retain source gaps despite named entries. Counts are not distinct cultivar totals or proof of global completeness. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current source child retains 526 sections / 1,883 occurrences / 165 matches / 1,718 review needs and 1,258 review keys. Nine ABZ sections refresh all 21 known names and add 21 credited, permission-held photo options. No new cultivar key or source denominator is counted. Named progress remains 66/77; the old booklet remains unreadable. Public 64-profile gaps stay 11 photos / 13 rights / 33 traits / 10 company links. | Comprehensive current/historical recall, current rights, reviewed identities and canonical authoring, sourced traits/regions/photos and stale-prose decisions remain open. Singrow/Surexport retain source gaps despite named entries. Counts are not distinct cultivar totals or proof of global completeness. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures remain. Deployed #440 retains article hierarchy and human gates. Approved #442 is live: all 522 source rows and their full details remain accessible; the measured production-copy HTML is 77.10% smaller. Desktop/412px error/retry/fallback and live disclosure checks pass. | The approved rendering release is complete. Server-side reconciliation/copying and broader TD-122 remain open; article/body coverage and human source decisions remain separate. |
