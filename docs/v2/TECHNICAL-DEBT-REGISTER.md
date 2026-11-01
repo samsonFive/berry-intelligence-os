@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
+the tested #455 platform changes while removing unrelated variety, briefing and
+publication preparation from login/health/News readiness. News inputs, auth,
+polling and human gates remain. Initial real-lifespan public-fixture comparison
+preserves complete models/HTML and all 2,982 data files; specialist cold work
+moves to its first visit. All 89 focused checks and record validation pass.
+Confirmation/current-head/native/fresh preservation acceptance remains; no new
+release approval or deployment. TD-122 stays open. Frozen #449 (one unanswered
+question) and source #457 remain separate. Original 31 definitions/order and
+the governing guide remain verbatim. Earlier notes are dated evidence.
+
 November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
 brings tested Coverage performance #452 and statement-navigation/audit #453
 together on live #443 (`f76080d0`). All ten runtime files retain their exact
