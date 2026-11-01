@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Historical Singrow/Surexport names](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+add three scopes / fifteen occurrences and eleven derived review keys on the
+tested Splendor source parent. Current candidate corpus: 526 sections,1,882
+occurrences,165 matches,1,717 review needs; 66/77 named subjects, eight partial,
+one unavailable and two held. Crystal's cross-source depiction conflict and
+Ruby/Rouge labels remain unresolved; Victoria stays in strawberry review rather
+than matching the catalog blackberry. New named-source checks do not clear
+earlier gaps or create current-rights/role/photo/trait/footprint findings.
+Public 64-profile gaps remain 11/13/33/10. No new canonical record or monitor.
+This source child is separate from frozen #449, tested #452/#453 and live #443.
+
 November 1 — [Splendor's original August 2011 interview](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
 adds three literal blackberry occurrences with explicit spelling/date and
 historical-production qualifications. The bounded public seed has523 sections,

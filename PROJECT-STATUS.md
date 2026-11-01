@@ -1,5 +1,15 @@
 # Project Status
 
+November 1 — [Historical Singrow/Surexport sources](docs/v2/HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+add fifteen literal name occurrences from three original documents, retaining
+the parent Splendor source and all identity/role/photo/rights gates. Current
+source-child counts are 526 sections / 1,882 occurrences / 165 matches / 1,717
+review needs; 66 of 77 subjects have named source entries. Existing gaps remain.
+Navigation #443 is live as `f76080d0`. Catalog/Map #449 retains its already-asked
+approval question; performance #452 and statement/audit #453 are separate tested
+drafts. #448/#451 were superseded by #452. Earlier dated notes below retain
+their historical scopes. All 31 original accepted definitions/order remain.
+
 November 1 — Approved navigation #443 is live as `f76080d0` from explicitly
 approved `e88fcd36`, with five accounts,65 profiles,9,856 existing JSON records,
 four databases,settings,mounts and rollback preserved. Independent performance

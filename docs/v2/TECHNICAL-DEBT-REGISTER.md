@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+November 1 — [Historical source-depth follow-up](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+adds original Singrow/Surexport name observations with explicit chronology,
+source accounting and identity conflicts; no platform debt is declared closed.
+An old NUS PDF 404 was recovered via the official report index, retaining the
+old failure and new URL provenance. The original human recall/source/name/
+rights/photo decisions remain. No domain schemas or backend change, no reopened
+TD-001..004, and no inference that source count measures intelligence recall.
+Performance #452 and statement-link #453 retain their separate tested scopes.
+
 November 1 — [Splendor historical source](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
 adds names without calling its current portfolio complete. Source spelling,
 month-only date, unnamed-crop exclusions, incomplete current checks and human
