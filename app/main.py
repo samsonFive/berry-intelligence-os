@@ -8112,7 +8112,7 @@ def _explorer_context(request, countries, berry, sections=None):
     model["news_return"] = "/today?" + urlencode(origin) if origin else ""
     model["statistics_review_href"] = "/explorer/statistics?" + urlencode({"return_to": request.url.path + ("?" + request.url.query if request.url.query else "")})
     return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
-                    "nav": NAV, "active_href": "/explorer"}
+                    "nav": NAV, "active_href": "/explorer", "authoring_mode": AUTHORING_MODE}
 
 
 @app.get("/explorer", response_class=HTMLResponse)
