@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+November 1 — [Combined catalog/Map candidate](CATALOG-MAP-COMBINED-REVIEW.md)
+reconciles the CAT-01/CAT-02 and MAP-02 follow-ups with deployed navigation
+`f76080d0`. All 181 focused checks, joined desktop/412px/PDF and static review
+pass. The same 31 accepted definitions/order and protected guide remain; source,
+name, photo, role, figure and model decisions are separate human work. Required
+combined-head CI, fresh live-data preservation and actual release approval
+remain. No content deployment is approved by navigation #443's completed release.
+
 November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
 
 October 31 — [UK official Map references](MAP-UK-OFFICIAL-REFERENCES.md) add a separate explicit national-source check on tested446: three 2025 crop groups / nine figures keep original units, marketed definitions, provisional status and source cell provenance. Two workbook/narrative area differences remain visible rather than reconciled automatically. All159 affected checks, actual capture, canonical validation, desktop/412px/one-page PDF review and the1,797-page trusted static build pass. The public reference seed, human selections and all31 accepted definitions/order are unchanged. Exact-head full CI and separate release acceptance remain required.

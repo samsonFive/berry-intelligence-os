@@ -1,5 +1,13 @@
 # Technical Debt Register
 
+November 1 — [Combined source/Map review](CATALOG-MAP-COMBINED-REVIEW.md)
+reconciles the existing manual source paths with the deployed navigation base.
+No collector schedule, store, schema or qualification is added. All 181 focused
+checks and native/PDF/static review pass; combined-head CI and fresh preservation
+remain. TD-122 stays open: a cold Coverage navigation exceeded the browser wait
+before completing. Source coverage and human decisions remain independent of
+this release candidate, which is not deployed.
+
 November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
 
 October31 debt check — [UK official references](MAP-UK-OFFICIAL-REFERENCES.md) reuse manual Map job health, selection/history and PDF paths. Two source area comparisons remain unresolved and visible; source comparability, wider global statistics and source decisions are not closed. Download/expanded-file/grid limits, source-choice isolation and legacy-job preservation are tested. No new scheduler, paid provider, store or domain normalization is added. Existing TD-122/124 work remains open.

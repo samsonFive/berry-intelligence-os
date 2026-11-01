@@ -1,5 +1,14 @@
 # Project Status
 
+November 1 — [Combined catalog and Map review](docs/v2/CATALOG-MAP-COMBINED-REVIEW.md)
+joins tested source #444 and Map #447 on deployed navigation `f76080d0`.
+All 181 focused checks, desktop/412px review, one-page PDF and the 1,797-page
+trusted static build pass. It adds no canonical identities or source decisions;
+the public reference seed and all 31 accepted definitions/order remain intact.
+Current-head full CI, fresh live-data preservation and separate actual release
+approval remain. Performance #448 is excluded; slow cold Coverage loads remain
+open. This combined candidate is not merged or deployed.
+
 November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
 
 October 31 — [UK official Map references](docs/v2/MAP-UK-OFFICIAL-REFERENCES.md) add a separate explicit national-source check on tested446: three 2025 crop groups / nine figures keep original units, marketed definitions, provisional status and source cell provenance. Two workbook/narrative area differences remain visible rather than reconciled automatically. All159 affected checks, actual capture, canonical validation, desktop/412px/one-page PDF review and the1,797-page trusted static build pass. The public reference seed, human selections and all31 accepted definitions/order are unchanged. Exact-head full CI and separate release acceptance remain required.
