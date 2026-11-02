@@ -1,5 +1,15 @@
 # Project Status
 
+November 2 UTC — [Presentation copy performance](docs/v2/PRESENTATION-COPY-PERFORMANCE-REVIEW.md)
+targets the remaining TD-122 copy cost in one runtime helper, retaining full
+models, cache keys and human gates. The slower first prototype was rejected;
+the revised class-denying, in-process snapshot path preserves complete typed
+models and HTML in fresh-process comparisons. Final local confirmation measured
+4.48 to 4.24 seconds cold and 2.37 to 2.04 seconds on repeat requests. These are
+public-fixture timings, not production percentiles. All 459 affected tests pass;
+exact-head CI and fresh isolated server-copy preservation remain. This is a
+child of frozen #462; no existing approval is reused or deployment performed.
+
 November 2 UTC — [Combined platform quality review](docs/v2/PLATFORM-QUALITY-COMBINED-REVIEW.md)
 brings #460 performance/statement/startup work, #459 Reader capture fixes and the
 verified candidate keyboard repair together on live #443. All sixteen runtime

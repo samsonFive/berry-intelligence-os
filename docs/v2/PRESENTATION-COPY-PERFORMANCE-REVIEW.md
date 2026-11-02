@@ -1,0 +1,23 @@
+# Presentation copy performance review
+
+The remaining Coverage latency is a real TD-122 gap. Profiling the actual synchronous handler on an isolated public-data copy found 818,903 `deepcopy` calls, accounting for about three seconds under the profiler. These are diagnostic timings with profiler overhead, not a production latency claim.
+
+This technical-debt child of frozen platform #462 (`b0210f91`) changes one runtime file: `app/services/presentation_memo.py`. The parent handler, identity matcher, indexes, cache keys, invalidation, filters, source inventory and review decisions remain. Source/catalog/Map additions and Learn #464 are excluded. Existing release questions retain their original scopes; this work does not approve, modify or supersede their exact heads.
+
+## Copying without dropping information
+
+Large builtin presentation graphs can be stored as opaque, process-local snapshots, then restored into a fresh owned graph on a cache hit. This replaces the expensive generic Python copy traversal. Tuple/set types, shared children, dictionary order, Unicode and exact numeric types/values remain. Small results, immutable text, dates, custom types/subclasses and nonfinite numbers retain legacy `deepcopy` behavior. A conservative nonfinite-token check can also leave ordinary text containing those tokens on the legacy path.
+
+The snapshot writer rejects every object needing a class/reducer. The reader denies every global/class lookup. Both follow the [Python serialization customization contract](https://docs.python.org/3.13/library/pickle.html#custom-reduction-for-types-functions-and-other-objects). Snapshot bytes are created only from existing in-process models; no endpoint, file, download, provider response, external cache or persisted pickle payload is accepted as a snapshot. A damaged internal entry becomes a cache miss. Normal user edits remain JSON input to the original calculations, never executable serialization. There is no new dependency, data format, collection call or qualification change.
+
+Cache admission, byte accounting and eviction retain their original JSON-size rules. Binary overhead never rejects a value that fit before: it uses legacy copying instead. Every returned mutable value remains isolated from the cache, its inputs and other readers. No authenticated response or personal-layout/Digest page is cached by this change.
+
+## Evidence and limitations
+
+The first implementation walked every graph in Python before snapshotting. Despite a faster isolated copy benchmark, its two cold requests regressed from a 4.23-second baseline median to 5.11 seconds, so that implementation was rejected and retained only as private experiment evidence. The revision lets the class-denying C serializer enforce its boundary during serialization.
+
+Two counterbalanced public-fixture pairs then preserved all complete typed models and every HTML byte. Cold medians were 4.90 → 4.47 seconds and repeat medians 2.48 → 2.17 seconds. A final safeguard kept legacy cache admission exact; its fresh-process confirmation measured **4.48 → 4.24 seconds cold**, with **2.37 → 2.04 seconds** for the three repeat requests. Each pair checks four complete models and unnormalized responses: 294,508 typed nodes per Rutgers view and 159,171 per Hortifrut view. All 2,974 source-data files remain unchanged; outbound connections are blocked. These measurements are modest local improvements, not server or physical-phone percentiles, and do not close broader performance debt.
+
+Final affected checks pass **459 tests**, including media discovery, draft attribution, Reader/source-body fidelity, review workbench, identity preparation, memory-backed consumers and account-private Digest behavior. Fifty-five new checks cover graph/value/type parity, shared-child and per-reader isolation, custom reducers, dates/Markup/enums, nonfinite keys, cache budgets, corrupt/class-loading payload rejection and concurrent readers. Existing Python 3.13 dependency warnings remain. Record validation passes; the local static build produces 1,983 pages and passes its unpublished-content check. Required final-head CI remains authoritative.
+
+Native desktop/412px review retains the dense Coverage table, source disclosure, all 21 Hortifrut name occurrences, 20 pending-name links and crop/name handoff to Prelude's separate candidates. The page has equal 397px client/scroll widths at the phone viewport. A fictional account's first login opens Help. No real account login, name/role/photo/rights decision, source addition or production change is made. Original 31 requirements and the governing guide are unchanged. Final server-copy performance/preservation and exact-head CI must pass before any separately approved release.
