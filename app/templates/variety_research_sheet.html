@@ -11,7 +11,7 @@
 <form class="sheet-filters" data-filters>
 <label>Search<input name="q" type="search" placeholder="Variety, company, application…"></label>
 <label>Crop<select name="crop"><option value="">All crops</option>{% for crop in ['Blueberry','Strawberry','Raspberry','Blackberry','OtherRubus'] %}<option>{{ crop }}</option>{% endfor %}</select></label>
-<label>Isolate<select name="isolate"><option value="all">All records</option><option value="missing">Missing roles in starting sheet</option><option value="fillable">Missing roles with a proposal</option><option value="unresolved">Missing roles still unresolved</option><option value="issues">Identity / transcription issues</option></select></label>
+<label>Isolate<select name="isolate"><option value="all">All records</option><option value="missing">Missing roles in starting sheet</option><option value="fillable">Missing roles with a proposal</option><option value="unresolved">Missing roles still unresolved</option><option value="leads">Unresolved · rights / programme lead found</option><option value="no-leads">Unresolved · no qualified lead</option><option value="issues">Identity / transcription issues</option></select></label>
 <label>Prior coverage<select name="baseline"><option value="">All findings</option><option value="No match in local snapshot">No previous match / new candidate</option><option value="Previously mentioned; no canonical profile">Previously mentioned</option><option value="Existing variety profile">Existing profile</option><option value="Identity unresolved">Unresolved identity</option></select></label>
 <label>From row<input name="from" type="number" min="2" placeholder="2"></label><label>To row<input name="to" type="number" min="2" placeholder="341"></label>
 <button type="button" data-clear>Clear filters</button>
@@ -31,4 +31,4 @@
 </div>
 <script type="application/json" id="research-sheet-data">{{ sheet|tojson }}</script>
 {% endblock %}
-{% block scripts %}<script src="/static/variety_research_sheet.js?v=1"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_research_sheet.js?v=2"></script>{% endblock %}

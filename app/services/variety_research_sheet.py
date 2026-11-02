@@ -8,7 +8,8 @@ HEADERS = ["Berry", "Application Number", "Grant Number", "Application Date",
            "Grant Publication Date", "Grant Start Date", "Country", "Denomination/Status",
            "Variety Denomination", "Trade Name", "Commercial Entity", "Species LatinName",
            "Parties Concerned", "Rec Type"]
-EXTRA_HEADERS = ["Commercial role (unreviewed)", "Research status", "Sources", "Earlier database coverage"]
+EXTRA_HEADERS = ["Commercial role (unreviewed)", "Research status", "Sources", "Earlier database coverage",
+                 "Rights / programme leads — supply unverified", "Closeout result and remaining gap"]
 
 
 def sheet(inbox_dir, batch_id=""):
@@ -40,6 +41,9 @@ def sheet(inbox_dir, batch_id=""):
         proposed = "; ".join(dict.fromkeys(c["name"] for c in contacts))
         roles = "\n".join(c["name"] + " — " + c["role"] + (" · " + c["territory"] if c.get("territory") else "") for c in contacts)
         sources = list(dict.fromkeys(s["url"] for s in dossier.get("sources", [])))
+        leads = "\n".join(c["name"] + " — " + c["role"] + " · " + c.get("evidence_status", "Supply unverified") for c in dossier.get("commercial_leads", []))
+        closeout = dossier.get("closeout", {})
+        closeout_note = " · ".join(filter(None, [closeout.get("conclusion"), closeout.get("remaining_gap")]))
         for record in records:
             number = record["row"]
             if type(number) is not int or number < 2 or number in rows:
@@ -58,9 +62,10 @@ def sheet(inbox_dir, batch_id=""):
                 "baseline": dossier.get("baseline_status", "Identity unresolved"),
                 "summary": dossier.get("summary", ""), "issue": issue,
                 "review_notes": record.get("review_notes", []), "href": dossier.get("href", ""),
+                "leads": leads, "closeout": closeout_note,
                 "aliases": dossier.get("aliases", []), "missing_role": blank,
                 "can_fill": blank and bool(proposed) and not row_hold and "hold" not in status.lower(),
-                "search": " ".join(str(x) for x in [*original, proposed, roles, *dossier.get("aliases", []), dossier.get("summary", "")]).casefold()}
+                "search": " ".join(str(x) for x in [*original, proposed, roles, leads, closeout_note, *dossier.get("aliases", []), dossier.get("summary", "")]).casefold()}
     values = [rows[number] for number in sorted(rows)]
     return {"headers": HEADERS, "extra_headers": EXTRA_HEADERS, "rows": values,
         "batch_id": batch["id"], "batches": [{"id": b["id"], "label": b["checked_on"] + " · " + str(b["counts"]["input_rows"]) + " source rows"} for b in batches],
