@@ -1,3 +1,15 @@
+# November 2 — Maryland regional cultivar source
+
+The [source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md) adds 53 table names and
+six named photo references from one Extension publication: 59 occurrences of 54
+names, including caption-only Valor. All 1,258 prior review keys survive; 25
+source-backed keys bring the review corpus to 1,283. No canonical identity,
+breeder/owner role, right, trait, photo permission or footprint is approved.
+Corpus: 528 sections / 1,942 occurrences / 171 matches / 1,771 review needs.
+The 77-subject source-plan denominators and human decisions remain unchanged.
+This source child retains #461; frozen platform #462 and catalog/Map #449 remain
+separate and unapproved. Wider completeness and independent recall stay open.
+
 # Intelligence Coverage Matrix
 
 November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)

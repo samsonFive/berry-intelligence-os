@@ -1,3 +1,12 @@
+# November 2 — source-backed regional cultivar recall
+
+The [Maryland Extension source review](docs/v2/MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
+retains 1,258 review keys and adds 25 from the original regional table/captions.
+Six named photo references preserve Haley Sater's credit and unknown-permission
+holds. No canonical profile or human decision changes. This source-only child
+retains #461; platform #462 and catalog/Map #449 remain separate, frozen and
+unapproved. Their existing release questions are not repeated or inherited.
+
 # Project Status
 
 November 2 UTC — [Original ABZ infosheets](docs/v2/ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)

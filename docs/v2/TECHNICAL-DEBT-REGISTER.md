@@ -1,3 +1,14 @@
+# November 2 — regional-source recall follow-up
+
+TD-116 remains open. [Maryland Extension source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
+adds bounded table/caption recall and six credited photo references; the new
+source notes keep each cultivar's search context specific. There is no global
+completeness, current-rights or reuse-permission claim, and human gates remain.
+TD-122 also remains open: this source-only child does not absorb the keyboard
+or performance changes in frozen, unapproved platform #462. Catalog/Map #449
+and its existing unanswered question remain separate. No protected domain or
+schema changes.
+
 # Technical Debt Register
 
 November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)

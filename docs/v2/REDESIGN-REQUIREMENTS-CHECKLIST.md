@@ -1,3 +1,14 @@
+# November 2 — original regional names and credited photo references
+
+CAT-01/CAT-02 follow-up: [Maryland Extension review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
+reconciles 53 table names and six photo captions from one publication. Existing
+1,258 keys remain and 25 source-backed keys are added; no human decision,
+canonical profile or photo permission changes. Exact named photos retain Haley
+Sater's credit and existing preview gates. Original 31 definitions/order remain
+verbatim. This source-only child retains #461; #462 and #449 stay separate, with
+their existing unanswered release questions unchanged. Comprehensive coverage,
+independent recall and human source/name/rights/photo decisions remain open.
+
 # Redesign and consolidation requirements
 
 November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
