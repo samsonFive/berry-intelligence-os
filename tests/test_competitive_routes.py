@@ -151,6 +151,8 @@ def test_people_sheet_export_searches_before_pagination_and_is_private(client,mo
     import csv,io
     exported=list(csv.DictReader(io.StringIO(http.get('/competitive-evaluation/records.csv?view=people&record_page=2').text)))
     assert len(exported)==65 and any(r['name']=="'=Source formula" for r in exported)
+    retained=json.loads(exported[0]['retained_records'])[0]
+    assert retained['batch_id']=='B01' and retained['effective_fields']==retained['returned_fields']
     searched=list(csv.DictReader(io.StringIO(http.get('/competitive-evaluation/records.csv?view=people&people_q=Professional+63').text)))
     assert len(searched)==1 and searched[0]['name']=='Professional 63'
     monkeypatch.setattr(main,'AUTHORING_MODE',False)

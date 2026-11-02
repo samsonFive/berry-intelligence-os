@@ -74,7 +74,8 @@ def build(model, view, params, *, page_size=50):
             row=make(r);f=r['fields']
             if view=='overview':
                 row.update(name=company(r.get('entity_id')),role=text(f,'peer_roles','capability_id_or_identity'),
-                           detail=text(f,'issue','gaps','identity_status'),status=r['resolution'])
+                           detail=text(f,'issue','gaps','identity_status'),status=r['resolution'],
+                           date_basis='Source scope period' if text(f,'last_observed_date','observed_date')=='Unknown' and text(f,'scope_period')!='Unknown' else 'Last observed')
             elif view=='exposure':
                 row.update(name=text(f,'dependency','exposure_statement'),role=text(f,'pestel_category'),
                            detail=text(f,'exposure_statement','mechanism'),mitigation=text(f,'reported_mitigation'),

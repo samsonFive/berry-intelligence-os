@@ -257,14 +257,17 @@ def record_export(request: Request):
         raise HTTPException(422,str(exc)) from exc
     output=io.StringIO();writer=csv.writer(output)
     columns=[c['key'] for c in sheet['columns']]
-    writer.writerow(['record_id',*columns,'source_inspection','resolution','source_urls','original_records'])
+    writer.writerow(['record_id',*columns,'source_inspection','resolution','source_urls','retained_records'])
     def safe(value):
         value=str(value)
         return "'"+value if value.lstrip().startswith(('=','+','-','@','\t','\r')) else value
     for row in sheet['all_rows']:
         writer.writerow([safe(v) for v in [row['id'],*[row.get(k,'Unknown') for k in columns],row['source_state'],row['resolution'],
                          '; '.join(s['fields'].get('original_url','') for s in row['sources']),
-                         json.dumps([r['fields'] for r in row['records']],ensure_ascii=False)]])
+                         json.dumps([{'id':r['id'],'batch_id':r['batch_id'],'local_id':r['local_id'],
+                                      'effective_fields':r['fields'],
+                                      'returned_fields':r.get('original_row',{}).get('returned_fields',r['fields']),
+                                      'mapping_review':r.get('mapping_review')} for r in row['records']],ensure_ascii=False)]])
     return Response(output.getvalue(),media_type='text/csv',headers={'Content-Disposition':f'attachment; filename="competitive-{view}.csv"'})
 
 
