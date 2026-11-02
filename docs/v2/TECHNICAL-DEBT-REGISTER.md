@@ -1,3 +1,7 @@
+# November 2 competitive sheet UI follow-up
+
+[The sheet workspace](COMPETITIVE-EVALUATION-SHEET-UI.md) addresses the oversized picker and tall comparison rows. Full-result filters and exports remain server-side; column visibility/density are page-local. Pagination stays at 24 cells, with no overall score, raw-source inline editing or bulk trust actions. Remaining evidence/identity/source gaps below are unchanged. This does not reopen TD-001..004.
+
 # November 2 competitive source-review debt
 
 The [source review](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) resolves the earlier structural queue into 63 corrected rows, 135 retained context rows and four remaining holds. Genetics Uruguay needs unique berry-organization identity evidence; Shunfeng B11-S013 needs its exact original posting URL. Neither unrelated organizations nor an older third-party advert may substitute. Of 395 eligible cells, 380 remain Unknown; nine legacy ineligible scope objects stay held. Original-source inspection is selective (31 URLs), with accessibility failures, stale listings, missing trial methods, period/market normalization and independent corroboration still material. HTTP retrieval and context exclusion do not resolve substantive gaps. No new paid acquisition or monitoring is enabled and TD-001..004 remain closed. The October 31 queue counts below are historical.

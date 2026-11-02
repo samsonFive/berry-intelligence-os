@@ -44,6 +44,10 @@ def test_review_conflict_export_snapshot_and_public_boundary(client, monkeypatch
     snapshot = http.get('/competitive-evaluation/export/json?saved='+saved['id']).json()
     assert snapshot['assessments'][0]['rating'] == 2
     assert snapshot['assessments'][0]['sources'][0]['fields']['original_url'] == 'https://example.org/design'
+    snapshot_page = http.get('/competitive-evaluation?saved='+saved['id'])
+    assert snapshot_page.status_code == 200 and 'Saved immutable comparison' in snapshot_page.text
+    assert '>Save decision<' not in snapshot_page.text
+    assert http.get('/competitive-evaluation/export/json?saved='+saved['id']).json() == snapshot
     assert 'rubric_version' in http.get('/competitive-evaluation/export/csv?saved='+saved['id']).text
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
     assert http.get('/competitive-evaluation').status_code == 403

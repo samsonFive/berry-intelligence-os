@@ -1,3 +1,7 @@
+# November 2 competitive sheet workspace
+
+[The competitive evaluation UI](docs/v2/COMPETITIVE-EVALUATION-SHEET-UI.md) now uses a compact sheet, frozen entity/evidence columns, full-result search/filter/sort and a row-details panel. Existing scope, source, correction and immutable-snapshot semantics remain. Desktop and 412px checks retain multi-entity selection, Reader behavior and keyboard focus. Draft PR #445 tracks final current-head checks; no merge/deployment.
+
 # November 2 competitive evaluation source review
 
 [Original-source continuation](docs/v2/COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) reviews all 202 prior unresolved rows: 63 corrected, 135 context only and four remaining holds. All 48 inputs retain 4,122 rows with 15 Provisional assessments and 380 eligible Unknown cells. Thirty-one manual original inspections remain distinct from the 855-URL technical audit. Exact original fields, analyst decisions and trust gates are preserved; all 48 imports replay without record/assessment version changes. Focused verification passes 67 tests; draft PR #445 tracks current-head required checks. No paid API, merge or deployment. Earlier dated histories remain below.
