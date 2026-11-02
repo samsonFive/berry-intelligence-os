@@ -1,4 +1,6 @@
 /* Dense research views use the existing OS green/sage palette. */
+/* The closed, translated shared Reader must not widen the archive viewport. */
+html:has(.ce-archive-sheet){overflow-x:clip}
 .ce-workspace.ce-sheet{display:block;max-width:1800px;margin:0 auto;background:#fcfef9;color:#203e2f}
 .ce-sheet .ce-sheet-sidebar{display:block;background:#eff5e8;border-bottom:1px solid #b8cbb3;padding:0}
 .ce-sheet .ce-sidebar-home,.ce-sheet .ce-sidebar-label,.ce-sheet .ce-sidebar-note{display:none}

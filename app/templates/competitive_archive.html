@@ -1,6 +1,6 @@
 {% extends 'glasshouse_base.html' %}
 {% block title %}Captured coverage · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/competitive_evaluation.css?v=dense-4"><link rel="stylesheet" href="/static/competitive_dense.css?v=4">{% if params.get('embedded') %}<style>.glass-header{display:none}#digest-main{padding:0;max-width:none}</style>{% endif %}{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/competitive_evaluation.css?v=dense-4"><link rel="stylesheet" href="/static/competitive_dense.css?v=5">{% if params.get('embedded') %}<style>.glass-header{display:none}#digest-main{padding:0;max-width:none}</style>{% endif %}{% endblock %}
 {% block content %}<section class="ce-workspace ce-archive-sheet"><header class="ce-archive-heading"><div><h1>Captured coverage</h1><p id="archive-counts"><b>{{total}} matching stories</b> · {{archive_count}} indexed records · full-archive filtering</p></div><button type="button" id="archive-refresh">Refresh coverage</button></header><span id="archive-refresh-status" role="status"></span>
 {% if index_issues %}<p class="ce-dense-note" role="alert">Incomplete indexing: {{index_issues}} captured-source metadata issues. Results may omit affected sources.</p>{% endif %}
 <form class="ce-record-toolbar" method="get" action="/coverage/archive">{% for key,value in params.items() if key not in ['news_q','publisher','news_sort','news_direction','page'] %}<input type="hidden" name="{{key}}" value="{{value}}">{% endfor %}
