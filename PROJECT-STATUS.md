@@ -1,3 +1,17 @@
+# Verified live release — November 2, 2026, 21:28 UTC
+
+Approved #473 is deployed as `d5b619b2`, retaining completed platform #468 and
+#445. All four final checks pass (6,089 tests), the fresh isolated rehearsal
+passes 53 route/PDF checks, and live preservation verifies all five accounts,
+65 profiles, existing records, four databases and private research. The backup
+and rollback are retained. No canonical varieties or human review decisions
+are added. Earlier pending-release statements below are dated history.
+
+The original 31 accepted definitions and order remain unchanged. Separate Help
+draft #474 explains company comparisons and saved exports; it is not part of
+the approved deployment. Human catalog/source/photo/figure decisions, content
+completeness, real-provider Learn quality/cost and cold-load performance remain.
+
 # Current combined Learn/catalog review — November 2, 2026
 
 The [final integration draft](docs/v2/LEARN-CATALOG-CLOSEOUT-REVIEW-2026-11-02.md)
