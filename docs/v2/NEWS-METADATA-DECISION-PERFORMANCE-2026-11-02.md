@@ -47,8 +47,15 @@ not timing proof. The final table uses the confirmation without concurrent
 pytest. An earlier comparison harness's incorrect Hortifrut ID returned 404;
 that failure is retained and the verified canonical ID used thereafter.
 
+Native desktop and 412px review retains 36 visible News cards, loaded and labeled
+illustrations, the phone's initially collapsed filters and horizontal containment.
+A fictional first login opens Help. The Reader presents an existing consent-page
+capture as unavailable, retains its source-link fallback, and closes back to the
+same grid. No capture retry or paid research action is used. Viewport emulation
+does not establish physical-device behavior or publisher availability.
+
 TD-122 remains open for source reconciliation, broad cold loads and real-device
-measurements. Exact-head required CI, browser review and fresh isolated live-data
-preservation remain release gates. This draft does not alter deployed #473 or
+measurements. Exact-head required CI and fresh isolated live-data preservation
+remain release gates. This draft does not alter deployed #473 or
 Help #474 and has no merge/deployment approval. The governing expansion guide,
 all original 31 requirement definitions/order, data and schemas remain unchanged.
