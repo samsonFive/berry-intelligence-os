@@ -1,9 +1,26 @@
 # Catalog and Map closeout review
 
+Latest canonical base: #445 (`147cdc41`), retaining deployed platform #468.
+The same eight runtime files and twenty additive imports remain. Current-head
+CI and a new isolated current-live rehearsal must also preserve the competitive
+research imported by that separate release. Previous-base rehearsal receipts
+are historical, not approval or preservation proof for this revised head.
+
+Current base: deployed platform #468 (`c773c60a`). The preceding #471-based
+catalog head passed all four checks and 5,597 tests. This rebase preserves the
+same eight runtime files and twenty additive imports while retaining the live
+platform's full models, source text and review gates. Current-head CI and fresh
+current-live preservation are required again. Platform release approval does
+not authorize this separate catalog/Map deployment. Historical bases below
+describe earlier rehearsals rather than the currently running release.
+
 This draft brings together the prepared catalog/Map candidate #449 and the
-original-source follow-ups through #467 on current canonical/live #470
-(`d2f6eb96`). It retains the private patent research and original-row spreadsheet
-that were deployed separately. Frozen component heads and their earlier review
+original-source follow-ups through #467 on current canonical/live #471
+(`5f60662c`). It retains private patent research, the original-row spreadsheet,
+attributed commercial partners and research trails deployed separately.
+The preceding #470-based head passed 5,590 tests, native review and isolated
+preservation; exact-head gates and current-live checks are required again.
+Frozen component heads and their earlier review
 questions remain historical evidence; their approvals are not inherited here.
 Platform #468 and Learn #464 remain separate release scopes.
 
@@ -72,8 +89,9 @@ a source, exporting or passing tests cannot answer these decisions.
 This is measurable coverage improvement, not proof of the most comprehensive
 resource on the web. Worldwide current/historical recall, traits, supported
 growing regions and independent name-coverage review remain open under TD-116.
-Cold loading remains a TD-122 limitation; this source/Map release does not claim
-the separate performance work is deployed.
+Cold loading remains a TD-122 limitation. Separate platform performance work
+is now deployed in approved #468; this catalog/Map draft adds no performance
+claim and does not close that debt.
 
 After exact-head verification, this combined scope needs its own release
 approval, fresh release-time backup, retained rollback and post-switch checks.

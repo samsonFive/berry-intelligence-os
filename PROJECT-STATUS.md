@@ -1,3 +1,13 @@
+# Current catalog/Map review — November 2, 2026
+
+Catalog/Map #472 now uses canonical #445 (`147cdc41`), which retains deployed
+platform #468. Its eight runtime files and twenty additive import files remain
+unchanged. Existing competitive research, canonical identities and human source,
+name, photo and figure decisions must be preserved by a fresh current-live
+rehearsal. Current-head CI and separate release approval remain required.
+The old-base prepared rehearsal has not run; it must not be reused against the
+new live image. Historical notes below retain their original populations/scopes.
+
 # November 2 dense evaluation correction
 
 [People and the other evaluation/captured-news views](docs/v2/COMPETITIVE-DENSE-VIEWS-REVIEW.md) now use dense tables, full-result search/filter/sort and the existing green/sage formatting. The correction removes a late duplicate stylesheet and the People form positioning defect. Underlying research, decisions and snapshots remain. Draft PR #445 tracks final verification; no merge/deployment.
@@ -16,15 +26,27 @@
 
 ## Current catalog/Map closeout — November 2, 2026
 
+Current review base is deployed platform #468 (`c773c60a`), which retains #471.
+Its exact approved head passed 5,896 tests; release-time and live verification
+preserved all five accounts,65 profiles,four databases and private research.
+Catalog/Map #472 is rebased onto that platform with the same eight runtime files
+and twenty additive import files as its previous reviewed draft. Current-head
+CI and current-live preservation remain required for this separate release.
+Learn #464 and paid provider calls are excluded; platform approval is not reused.
+The preceding #471-based catalog head passed 5,597 tests. Earlier notes retain
+their dated bases and observations.
+
 [The combined review](docs/v2/CATALOG-MAP-CLOSEOUT-2026-11-02.md) reconciles
-catalog/Map #449 and source follow-ups through #467 onto live #470 (`d2f6eb96`).
+catalog/Map #449 and source follow-ups through #467 onto live #471 (`5f60662c`).
 The public seed has 537 sections / 2,029 literal occurrences / 175 text matches /
 1,854 review needs and 1,315 review keys. The original 77-subject plan has 67
 named entries, seven partial, one unavailable and two identity holds. Map keeps
 24 captured country/crop groups and 51 unselected figures across eight countries;
 two UK area comparisons remain unresolved. All component source bytes, canonical
-patent/spreadsheet work, the expansion guide and original31 definitions/order
-remain. Joined tests/native/static/current-live preservation are in progress;
+patent/spreadsheet work, attributed commercial partners, research trails, the
+expansion guide and original31 definitions/order remain. The preceding head
+passed 5,590 tests and isolated preservation; revised exact-head CI, native
+and current-live checks are required again;
 this is not deployed. Platform #468 and Learn #464 remain separate scopes.
 Earlier dated notes below retain their own populations and release boundaries.
 
