@@ -32,12 +32,15 @@ def imports(inbox_dir):
 
 def index(inbox_dir, *, q="", berry="", state=""):
     profiles = {}
-    unresolved = []
+    unresolved = {}
     batches = imports(inbox_dir)
     for batch in batches:
         for row in batch["profiles"]:
             profiles[row["entity_id"]] = row
-        unresolved.extend(batch.get("unresolved", []))
+        for key in batch.get("resolved_keys", []):
+            unresolved.pop(key, None)
+        unresolved.update({row["key"]: row for row in batch.get("unresolved", [])})
+    unresolved = list(unresolved.values())
     rows = list(profiles.values())
     total = len(rows)
     if q:

@@ -38,7 +38,7 @@ def sheet(inbox_dir, batch_id=""):
         dossier = dossiers.get(key, {})
         contacts = dossier.get("commercial_contacts", [])
         proposed = "; ".join(dict.fromkeys(c["name"] for c in contacts))
-        roles = "\n".join(c["name"] + " — " + c["role"] for c in contacts)
+        roles = "\n".join(c["name"] + " — " + c["role"] + (" · " + c["territory"] if c.get("territory") else "") for c in contacts)
         sources = list(dict.fromkeys(s["url"] for s in dossier.get("sources", [])))
         for record in records:
             number = record["row"]
