@@ -60,7 +60,10 @@ def test_brand_program_and_scoped_faq_gaps_cannot_close_named_portfolio_coverage
 
 def test_added_gap_sources_leave_all_candidate_ids_and_company_associations_unchanged():
     all_rows = load_portfolio_observations(DATA)
-    scoped = [s for s in all_rows if set(s['company_ids']) & {'company-surexport','company-gem-pack-berries'}]
+    # Replay the original twelve unnamed pages. Later named interviews are
+    # legitimate additions, not duplicate or changed members of this cohort.
+    # The full-current-corpus candidate equivalence below still includes them.
+    scoped = sources()
     assert len(scoped) == len({(tuple(s['company_ids']), s['url']) for s in scoped}) == 12
     assert {s['id'] for s in scoped if s['capture_reference'].get('refresh_of_existing_section')} == REFRESH_IDS
     def candidate_set(rows):

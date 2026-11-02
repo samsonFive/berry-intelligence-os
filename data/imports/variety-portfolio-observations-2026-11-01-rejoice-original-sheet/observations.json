@@ -1,0 +1,67 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-psg-rejoice-english-sheet-attempt",
+      "title": "Rejoice — English technical sheet: BK 17.006-13",
+      "url": "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-ENG-v1.0.pdf#page=1",
+      "checked_on": "2026-11-01",
+      "company_ids": ["company-plant-sciences-genetics"],
+      "berry_ids": ["berry-blackberry"],
+      "source_type": "breeder_technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One-page original English sheet: the code printed in the heading and body, the Rejoice trade label and the qualification beneath its performance and production-window panels. Repeated code mentions count once.",
+      "limitations": "Recovery of the October 7 blank-viewer attempt, not a new source section or proof of an additional cultivar. The printed code is BK 17.006-13; BK6-13 appears only in the filename. Neither code is automatically equated with the existing catalog BK 6-13 or the earlier first-party BK3-17.006-13 and PS-BK3-17.006-13 forms. Rejoice is a trade label, not an extra variety. The document is version 1.0 but provides no publication day; the 2026/07 upload folder does not establish publication date. Performance is publisher-asserted genetic potential, subject to climate, growing conditions and agronomic practices. The production-window chart does not establish actual plantings or a growing footprint. Ordering contacts do not approve breeder, owner or license roles. Photos are visible on original page 1, but no standalone photo, reuse permission or cross-code image identity is approved. The Spanish sheet and wider regional portfolio remain unchecked.",
+      "review_warnings": [
+        "The sheet prints BK 17.006-13. Its BK6-13 filename and the catalog BK 6-13 are not an approved identity match.",
+        "Earlier first-party pages print BK3-17.006-13 and PS-BK3-17.006-13 under Rejoice. These code differences need review, not automatic aliases or distinct-variety decisions.",
+        "Performance figures are company assertions with climate, growing-condition and agronomic qualifications; production windows are not confirmed planting locations.",
+        "Original sheet photos remain linked in the PDF; permission and the connection to other code forms are unconfirmed."
+      ],
+      "review_warning_scopes": [
+        {"message": "The sheet prints BK 17.006-13. Its BK6-13 filename and the catalog BK 6-13 are not an approved identity match.", "candidate_names": ["BK 17.006-13"]},
+        {"message": "Earlier first-party pages print BK3-17.006-13 and PS-BK3-17.006-13 under Rejoice. These code differences need review, not automatic aliases or distinct-variety decisions.", "candidate_names": ["BK 17.006-13"]}
+      ],
+      "names": [
+        {
+          "candidate_name": "BK 17.006-13",
+          "breeder_code": "BK 17.006-13",
+          "trade_name": "Rejoice",
+          "display_label": "Rejoice",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-ENG-v1.0.pdf#page=1",
+          "portfolio_context": "BK 17.006-13 is printed in the large heading and repeated in the blackberry description. Rejoice is the trade label. The filename and three other catalog/first-party code forms are unresolved; this observation is neither an approved alias nor proof of a new cultivar.",
+          "source_company_ids": ["company-plant-sciences-genetics"],
+          "source_company_context": "Plant Sciences Genetics branding and plant-order instructions are visible in the sheet. They establish this source association, not an independently approved breeder, owner, licensee or current-rights relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [{"label": "Rejoice", "reason": "Trade label/platform, not a second cultivar in this one-code scope."}]
+      },
+      "capture_reference": {
+        "method": "direct_original_pdf_capture_and_visual_review",
+        "http_status": 200,
+        "capture_sha256": "f6be227287b0947f6417ae7350f5554b4023c7c43d711d107df09554cad51efa",
+        "capture_bytes": 949121,
+        "final_url": "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-ENG-v1.0.pdf",
+        "body_readable": true,
+        "pdf_pages": 1,
+        "visually_reviewed_pages": [1],
+        "document_version": "v 1.0",
+        "publication_date_precision": "No publication date established; upload path and check date are separate clocks.",
+        "parent_source": "portfolio-psg-rejoice-varietal-faq",
+        "previous_capture": {"checked_on": "2026-10-07", "capture_status": "unreadable", "blank_viewer": true, "body_readable": false},
+        "printed_code": "BK 17.006-13",
+        "filename_code": "BK6-13",
+        "unresolved_related_codes": ["BK 6-13", "BK3-17.006-13", "PS-BK3-17.006-13"],
+        "existing_catalog_reference": "variety-bk-6-13",
+        "existing_reporting_evidence": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+        "performance_qualification": "Publisher describes genetic potential, subject to climate, growing conditions and agronomic practices; this observation does not approve traits or current performance.",
+        "production_window_context": "The seasonal chart names California, Oregon, Southeast US, Baja California and Central Mexico. This marketing context is not evidence of actual planting sites.",
+        "image_review": "Original page 1 shows blackberry plant and hand-held fruit photographs under the printed code. No standalone image URL, cross-code identity or reuse permission is established; no photo is assigned."
+      }
+    }
+  ]
+}
