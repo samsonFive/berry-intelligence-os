@@ -1,3 +1,7 @@
+# November 2 acceptance continuation
+
+See the [source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) for the current 202-row disposition, original-source audit, eleven additional assessments and replay instructions. Current state: 4,122 retained rows, 3,983 accepted structure, 135 context only, four unresolved; 395 eligible cells with 15 Provisional and 380 Unknown. All 48 inputs replay without duplicate rows or record/assessment version changes. Focused verification passes 67 tests. Current-head required checks remain recorded on draft PR #445; historical October 31 test/coverage counts below describe their own head. No merge/deployment or source-claim approval.
+
 # Competitive evaluation review build — October 31, 2026
 
 Branch `feature/competitive-landscape-evaluation-v1` extends the existing canonical registry, shared SQLite store, retained article archive, Reader and capture/review paths. It is based on canonical `3b0b4acca2d9e7e59823fb8b5b48f89a27a9c452`; the frozen October 30 inventory is unchanged. This is a private local review build, not production deployment or approval of source claims.

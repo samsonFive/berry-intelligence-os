@@ -1,3 +1,7 @@
+# November 2 continuation
+
+The [November 2 source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) supersedes the dated counts and replay filenames below. All 202 earlier holds were reviewed: 63 corrected, 135 context only and four still held. Current private state is 4,122 rows / 3,983 accepted structure / 135 context / four unresolved, with 15 Provisional and 380 eligible Unknown cells. Public-access checks of 855 original URLs remain separate from 31 manual original inspections. Use the November 2 source-inspection, anchor-selection and capture-selection files, plus the importer's default hash-bound mapping review manifest. Existing analyst decisions and original return fields are preserved. No paid API, publication/Atomic Evidence approval, merge or deployment. The October 31 implementation account below is historical.
+
 # Scoped competitive evaluation
 
 Current implementation is undergoing integrated acceptance review. The historical Stage 1 inventory remains frozen; it is not regenerated from later findings. This document separates captured research, structural acceptance, source checks and capability decisions.

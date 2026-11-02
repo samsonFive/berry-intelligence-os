@@ -1,3 +1,7 @@
+# November 2 original-source continuation
+
+The [source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) records completion of the requested 202-row review: 63 corrections, 135 context classifications and four remaining holds (three Genetics Uruguay profiles and one missing Shunfeng original job URL). Current imports retain 4,122 rows across all 48 inputs; 15 narrow assessments are Provisional and 380 eligible cells remain Unknown. Thirty-one originals received content inspection notes; the separate 855-URL accessibility audit is not blanket verification. Original returns, identities, saved decisions and human trust gates remain. No paid API, merge or production deployment. Earlier checkpoints below are historical.
+
 # October 31 implementation and research receipt
 
 This current account supersedes the historical Stage 1/pending checkpoints below. Johnny authorized direct public-source continuation after the Perplexity limit. All 46 profile batches and R01/R02 are captured; all 166 frozen entities have profiles. The private application retains 4,109 rows: 3,907 structurally accepted and 202 unresolved. Structural acceptance does not verify claims. Four narrowly scoped assessments are Provisional; 340 eligible cells remain Unknown. Genetics Uruguay remains an identity hold.

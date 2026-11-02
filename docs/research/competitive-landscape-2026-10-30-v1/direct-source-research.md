@@ -1,3 +1,5 @@
+November 2 continuation: R02 retains its earlier SHA-addressed revision and adds eight source records plus five scoped observations. The [source-review receipt](../../v2/COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) records all 202 prior mapping dispositions, selective original inspections and eleven additional numeric proposals. No paid API or blanket source verification. Earlier batch/revision accounts below are historical.
+
 # Direct public-source continuation
 
 The user authorized direct public-source web research without a paid API after Perplexity's monthly Deep Research limit prevented B16 onward. The previously approved public-only pack remains the frozen inventory and rubric contract.

@@ -103,7 +103,7 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
     source_checks = source_checks or {}
     if not isinstance(source_checks, dict):
         raise ValueError('Source inspections must be an object keyed by source ID')
-    fingerprint = digest(['import-policy-v5', batch_id, original_sha256, rows, source_checks])
+    fingerprint = digest(['import-policy-v6', batch_id, original_sha256, rows, source_checks])
     batch_key = identifier('competitive-batch', [batch_id, fingerprint])
     store = Store(inbox_dir)
     with pipeline_lock(Path(inbox_dir), 'competitive-research-import'):
@@ -160,7 +160,20 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
                           'original_row': {k: v for k, v in row.items() if k != 'fields'},
                           'verification': checked or {'status': 'unverified_research_return'},
                           'resolution': 'unresolved' if reasons else 'accepted_structure', 'issues': reasons}
+                from app.services.competitive_research_review import context_review_usable
+                if context_review_usable(row, reasons, entities):
+                    record['resolution'] = 'context_only'
+                    record['issues'] = []
+                    record['context_boundaries'] = list(reasons)
+                if row.get('mapping_review'):
+                    record['mapping_review'] = deepcopy(row['mapping_review'])
                 old = store.get(key, db)
+                verification = record['verification']
+                if kind == 'source' and source_check_usable(verification) and (
+                    (verification.get('original_url') and verification['original_url'] != fields.get('original_url')) or
+                    (verification.get('reviewed_fields_sha256') and verification['reviewed_fields_sha256'] != digest(fields))
+                ):
+                    record['verification'] = {'status':'source_changed_requires_reinspection','previous_check':deepcopy(verification)}
                 if old and old.get('article_id') and old['fields'].get('original_url') == fields.get('original_url'):
                     record['article_id'] = old['article_id']
                 if kind == 'source' and not checked and old:
@@ -173,7 +186,7 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
                     record['supersedes_version'] = old['version']
                 if not old or any(record.get(k) != old.get(k) for k in record):
                     store.put(db, 'competitive_record', record, 'research-import', expected=old['version'] if old else None)
-                if kind == 'observation' and not reasons and fields.get('peer_role') in {'breeder', 'grower', 'marketer', 'technology_provider'} and fields.get('berry_scope') in {'berry-blueberry', 'berry-strawberry', 'berry-raspberry', 'berry-blackberry'}:
+                if kind == 'observation' and record['resolution'] == 'accepted_structure' and fields.get('peer_role') in {'breeder', 'grower', 'marketer', 'technology_provider'} and fields.get('berry_scope') in {'berry-blueberry', 'berry-strawberry', 'berry-raspberry', 'berry-blackberry'}:
                     scope = {'entity_id': eid, 'peer_role': fields['peer_role'], 'berry_id': fields['berry_scope'],
                              'capability_id': fields['capability_id'], 'rubric_version': rubric_version,
                              'use_system': fields.get('production_system_fresh_processing') or 'Unknown'}
@@ -194,7 +207,7 @@ def import_return(inbox_dir, *, batch_id, payload, original_sha256, entities, so
                         update['basis'] = digest([existing_auto['basis'], key, original_sha256])
                         store.put(db, 'capability_automatic', update, 'research-import', expected=existing_auto['version'])
                 counts[record['resolution']] += 1
-                if reasons:
+                if record['issues']:
                     issues.append({'record_id': key, 'row': local, 'reasons': reasons})
                 ids.append(key)
             # A stricter validation pass can invalidate an earlier mapping. Keep

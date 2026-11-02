@@ -46,7 +46,7 @@ def inputs():
         yield revision['batch_id'], prepared, sha, str(folder / 'authored-research.json')
 
 
-def run(*, apply=False, inbox_dir=ROOT / 'inbox', checks=None):
+def run(*, apply=False, inbox_dir=ROOT / 'inbox', checks=None, reviews=None):
     entities = {}
     for path in (ROOT / 'data/entities').rglob('*.json'):
         entity = json.loads(path.read_text(encoding='utf-8'))
@@ -54,7 +54,13 @@ def run(*, apply=False, inbox_dir=ROOT / 'inbox', checks=None):
     summary = {'mode': 'applied_private_workspace' if apply else 'dry_run', 'batches': [],
                'trust_effect': 'No publication or Atomic Evidence decisions; no numeric ratings selected'}
     totals = Counter()
-    for bid, payload, sha, path in inputs():
+    prepared = list(inputs())
+    if reviews:
+        from app.services.competitive_research_review import reviewed_payload
+        if {r.get('batch_id') for r in reviews} - {item[0] for item in prepared}:
+            raise ValueError('Mapping review refers to an unavailable research batch')
+        prepared = [(bid,reviewed_payload(bid,payload,reviews),sha,path) for bid,payload,sha,path in prepared]
+    for bid, payload, sha, path in prepared:
         rows = evaluation.unpack_return(payload)
         item = {'batch_id': bid, 'original_path': path, 'sha256': sha, 'candidate_rows': len(rows)}
         if apply:
@@ -75,9 +81,11 @@ if __name__ == '__main__':
     parser.add_argument('--apply', action='store_true')
     parser.add_argument('--inbox', type=Path, default=ROOT / 'inbox')
     parser.add_argument('--source-checks', type=Path, help='Explicit original-source inspection decisions, grouped by batch/source ID')
+    parser.add_argument('--mapping-reviews', type=Path, default=ROOT / 'inbox/competitive_landscape/research-mapping-reviews.json', help='Private, explicit hash-bound mapping reviews; originals remain unchanged')
     args = parser.parse_args()
     checks = json.loads(args.source_checks.read_text(encoding='utf-8')) if args.source_checks else None
-    result = run(apply=args.apply, inbox_dir=args.inbox, checks=checks)
+    reviews = json.loads(args.mapping_reviews.read_text(encoding='utf-8')) if args.mapping_reviews.exists() else None
+    result = run(apply=args.apply, inbox_dir=args.inbox, checks=checks, reviews=reviews)
     print(json.dumps({'mode': result['mode'], 'batches': len(result['batches']),
                       'candidate_rows': sum(b['candidate_rows'] for b in result['batches']),
                       'totals': result['totals'], 'trust_effect': result['trust_effect']}, indent=2))
