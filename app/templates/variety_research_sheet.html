@@ -1,0 +1,34 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Patent research · Sheet view{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_research_sheet.css?v=1">{% endblock %}
+{% block content %}
+<div class="research-sheet" data-research-sheet>
+<a href="/varieties/research">← Variety research profiles</a>
+<header><p class="eyebrow">APRIL–OCTOBER 2026 · ORIGINAL SHEET ROWS</p><h1>Patent research · Sheet view</h1><p>Match the starting document, isolate missing roles, and copy cells back into Excel.</p></header>
+<div class="sheet-metrics"><span><b>{{ sheet.counts.rows or 0 }}</b> original rows</span><span><b>{{ sheet.counts.missing_roles or 0 }}</b> blank commercial entities</span><span><b>{{ sheet.counts.proposals_for_blanks or 0 }}</b> blanks with a proposal</span><span><b>{{ sheet.counts.unresolved_blanks or 0 }}</b> blanks still unresolved</span></div>
+<p class="sheet-note">Amber Commercial Entity cells are <strong>unreviewed proposals</strong>. Other starting values stay as transcribed. The row gutter matches the starting spreadsheet; repeated varieties keep their separate original rows.</p>
+{% if sheet.error %}<p role="alert">{{ sheet.error }}</p>{% endif %}
+<form class="sheet-filters" data-filters>
+<label>Search<input name="q" type="search" placeholder="Variety, company, application…"></label>
+<label>Crop<select name="crop"><option value="">All crops</option>{% for crop in ['Blueberry','Strawberry','Raspberry','Blackberry','OtherRubus'] %}<option>{{ crop }}</option>{% endfor %}</select></label>
+<label>Isolate<select name="isolate"><option value="all">All records</option><option value="missing">Missing roles in starting sheet</option><option value="fillable">Missing roles with a proposal</option><option value="unresolved">Missing roles still unresolved</option><option value="issues">Identity / transcription issues</option></select></label>
+<label>Prior coverage<select name="baseline"><option value="">All findings</option><option value="No match in local snapshot">No previous match / new candidate</option><option value="Previously mentioned; no canonical profile">Previously mentioned</option><option value="Existing variety profile">Existing profile</option><option value="Identity unresolved">Unresolved identity</option></select></label>
+<label>From row<input name="from" type="number" min="2" placeholder="2"></label><label>To row<input name="to" type="number" min="2" placeholder="341"></label>
+<button type="button" data-clear>Clear filters</button>
+</form>
+<div class="sheet-toolbar">
+<label>Cell values<select data-mode><option value="proposals">Fill blank Commercial Entity with proposals</option><option value="original">Starting sheet only</option></select></label>
+<label>Columns<select data-preset><option value="original">Starting columns A–N</option><option value="roles">Variety + commercial roles + sources</option><option value="all">All columns + research notes</option><option value="custom">Custom column selection</option></select></label>
+<details class="sheet-columns"><summary>Choose columns</summary><div data-column-choices></div></details>
+<label class="sheet-inline"><input type="checkbox" data-headers> Include headers when copying</label>
+</div>
+<div class="sheet-actions"><button type="button" data-select-all>Select matching rows</button><button type="button" data-clear-selection>Clear selection</button><button type="button" data-copy-rows disabled>Copy selected rows</button><button type="button" data-copy-cells disabled>Copy selected cells</button><button type="button" data-copy-roles disabled>Commercial Entity paste blocks</button><button type="button" data-download>Download matching rows + row numbers</button></div>
+<p class="sheet-help">Drag across cells, Shift-click a second cell, or use Shift + arrow keys to select a range. Press Ctrl/Cmd+C to copy it. Use the checkboxes to select records. Copying filtered rows compacts them; the paste address below appears only when the original rows and columns are contiguous.</p>
+<p class="sheet-selection" data-selection aria-live="polite"></p><p class="sheet-message" data-message role="status"></p>
+<div class="sheet-grid-wrap" tabindex="0" aria-label="Spreadsheet: scroll horizontally for all starting columns"><table class="sheet-grid" role="grid" aria-label="Original patent spreadsheet with research proposals" data-grid></table></div>
+<section class="sheet-blocks" data-blocks hidden><h2>Paste Commercial Entity values into column K</h2><p>Each button copies one contiguous block and shows its exact destination in the starting sheet. Only selected source rows are included.</p><div data-block-buttons></div></section>
+<details class="sheet-evidence" data-evidence><summary>Selected row · sources and review notes</summary><div data-evidence-body>Click an original row number to inspect its evidence and source warnings.</div></details>
+</div>
+<script type="application/json" id="research-sheet-data">{{ sheet|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script src="/static/variety_research_sheet.js?v=1"></script>{% endblock %}

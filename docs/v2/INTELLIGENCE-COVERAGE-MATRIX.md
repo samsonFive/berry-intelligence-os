@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+November 2, 2026: [Patent research sheet view](PATENT-RESEARCH-SHEET-VIEW.md)
+adds a read-only, original-row projection of the existing 340-row private import.
+It isolates missing commercial roles and prior/new findings, supports row/cell
+selection and Excel-compatible copying, and keeps unverified proposals distinct
+from original values. This is a presentation/export workflow, not new source
+acquisition, trust promotion or an increase in market coverage.
+
 November 1, 2026: [Patent variety research integration](PATENT-VARIETY-RESEARCH-2026-11-01.md)
 adds a private local authoring import covering 340 source rows. Fifteen existing
 profiles gain research sections and 242 named varieties gain unverified research
