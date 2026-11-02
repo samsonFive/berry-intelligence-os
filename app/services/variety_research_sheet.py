@@ -49,13 +49,17 @@ def sheet(inbox_dir, batch_id=""):
             blank = not str(original[10] or "").strip()
             issue = dossier.get("issue", "")
             status = dossier.get("commercial_status", "Commercial route unverified")
+            row_hold = dossier.get("row_holds", {}).get(str(number), "")
+            if row_hold:
+                issue = "; ".join(filter(None, [issue, row_hold]))
+                status = "Hold — source row identity conflict"
             rows[number] = {"row": number, "original": original, "proposal": proposed,
                 "role": roles, "status": status, "sources": sources,
                 "baseline": dossier.get("baseline_status", "Identity unresolved"),
                 "summary": dossier.get("summary", ""), "issue": issue,
                 "review_notes": record.get("review_notes", []), "href": dossier.get("href", ""),
                 "aliases": dossier.get("aliases", []), "missing_role": blank,
-                "can_fill": blank and bool(proposed) and "hold" not in status.lower(),
+                "can_fill": blank and bool(proposed) and not row_hold and "hold" not in status.lower(),
                 "search": " ".join(str(x) for x in [*original, proposed, roles, *dossier.get("aliases", []), dossier.get("summary", "")]).casefold()}
     values = [rows[number] for number in sorted(rows)]
     return {"headers": HEADERS, "extra_headers": EXTRA_HEADERS, "rows": values,

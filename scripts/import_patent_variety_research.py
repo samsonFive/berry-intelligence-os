@@ -139,7 +139,7 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
         keep=['key','name','resolved_name','berry','rows','applications','aliases','summary','availability','commercial_status','role',
               'patent_assignee_lead','baseline_status','new_information_assessment','issue','sources','variety_image_links']
         dossier={key:g[key] for key in keep};dossier['checked_on']=payload['metadata']['checked_on'];dossier['commercial_contacts']=contacts
-        for key in ['closeout','commercial_leads','partnerships']:
+        for key in ['closeout','commercial_leads','partnerships','row_holds']:
             if key in g:dossier[key]=g[key]
         dossier['review_state']='unreviewed';dossier['batch_id']=batch_id;dossier['captures']=[]
         dossier['baseline_references']=sorted({*[x['file'] for x in g['existing_entities']],*[x['baseline_file'] for x in g['prior_mentions']],*[x['file'] for x in g['prior_evidence']]})

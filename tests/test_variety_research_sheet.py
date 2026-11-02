@@ -62,6 +62,14 @@ def test_duplicate_row_identity_stops_projection(sheet_inbox):
         sheet(sheet_inbox)
 
 
+def test_individual_row_conflict_does_not_fill_an_otherwise_supported_variety(sheet_inbox):
+    path=sheet_inbox/'variety_research/imports/test-sheet/profiles/variety-test.json'
+    value=json.loads(path.read_text());value['dossiers'][0]['row_holds']={'2':'Application identifies a different cultivar'}
+    path.write_text(json.dumps(value));first=sheet(sheet_inbox)['rows'][0]
+    assert first['proposal']=='Example Nursery' and not first['can_fill']
+    assert 'Hold' in first['status'] and 'different cultivar' in first['issue']
+
+
 def test_empty_and_missing_source_sheet_are_explicit(sheet_inbox):
     assert sheet(sheet_inbox,'../unrelated')['rows']==[]
     (sheet_inbox/'variety_research/imports/test-sheet/source_sheet_rows.json').unlink()
