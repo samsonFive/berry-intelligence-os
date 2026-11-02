@@ -1,5 +1,15 @@
 # Project Status
 
+November 2 UTC — [Original ABZ infosheets](docs/v2/ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+checks all 18 retained PDF destinations and exposes their original documents
+through existing Name reference links. Six source sections retain their names,
+photos, company context and holds. All 46 affected checks, record validation,
+public build/leakage and edited-import/key replay checks pass. Native desktop/
+412px review confirms the references and reveals a separate sticky-navigation
+keyboard occlusion issue, recorded under TD-122. Exact-head CI and fresh isolated
+preservation remain. No source-count inflation, new identities, trust decisions
+or production change; frozen release scopes and pending questions remain separate.
+
 November 1 — [Current ABZ product photographs](docs/v2/ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
 refresh nine original source sections and retain all 21 names and existing review
 keys. Twenty-one credited, permission-held photo references are available through

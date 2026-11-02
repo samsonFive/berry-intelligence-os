@@ -1,5 +1,14 @@
 # Redesign and consolidation requirements
 
+November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+adds inspected original PDF references for 18 existing names across six source
+sections. CAT-01/CAT-02 depth improves while all 1,258 review keys, prior names,
+photo holds and accepted definitions/order remain. Publisher claims, botanical
+origin and blanket PBR wording do not become verified traits, planting regions
+or rights. All 46 affected checks and local replay/static/native evidence pass
+within their stated limits; phone keyboard occlusion remains under TD-122.
+Current-head CI/fresh preservation remain; no merge/deployment or new approval.
+
 November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
 refresh nine original source sections and retain all 21 names and existing review
 keys. Twenty-one credited, permission-held photo references are available through

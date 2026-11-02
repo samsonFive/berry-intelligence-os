@@ -20,8 +20,11 @@ def captures():
     return old, current, [s for s in current if s['id'] in IDS]
 
 
-def test_recapture_retains_all_names_source_ids_and_unrecovered_booklet_without_fake_dates():
+def test_historical_photo_capture_retains_all_names_and_unrecovered_booklet_without_fake_dates():
     old, current, refreshed = captures()
+    # This checks the retained November 1 HTML/photo capture. Later document
+    # checks may supersede its current projection without rewriting its proof.
+    refreshed = json.loads((DATA / 'imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json').read_text())['sources']
     assert len(refreshed) == 9 and sum(len(s['names']) for s in refreshed) == 21
     assert {s['id'] for s in refreshed} == {s['id'] for s in old} == IDS
     for prior in old:

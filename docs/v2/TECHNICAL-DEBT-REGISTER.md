@@ -312,6 +312,15 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+November 2 UTC — Native [original-infosheet review](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+finds a separate phone keyboard-focus issue: after PageDown/Tab navigation, the
+Name reference link can sit at y146-167 beneath the sticky jump bar (around
+y127-185) on the 412px emulation. Manual scrolling exposes the link and no page
+overflow is present. Source-only work leaves runtime styling unchanged; a
+separate platform repair must prove focus/anchor clearance while preserving the
+floating alphabet navigation, density and authoring gates. Do not call that
+keyboard check passed. Existing performance/physical-device debt remains open.
+
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a
 request. Alternating public-seed projections and 12 authenticated fixture

@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+checks the 18 exact retained PDFs and links the existing names directly to their
+documents. Six sections retain their names/photos/holds; corpus totals remain
+526 sections / 1,883 occurrences / 165 matches / 1,718 review needs and 1,258 keys.
+All 46 affected checks, records, static leakage and edited-import replay pass.
+Native review preserves the source/permission boundaries while recording phone
+focus occlusion for a separate platform repair. Wider portfolios, current rights,
+independent recall and human decisions remain open. Exact-head CI and fresh
+preservation remain; no production or protected-domain change.
+
 November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
 refresh nine original source sections and retain all 21 names and existing review
 keys. Twenty-one credited, permission-held photo references are available through

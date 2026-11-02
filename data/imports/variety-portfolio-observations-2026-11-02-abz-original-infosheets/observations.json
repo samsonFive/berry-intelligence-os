@@ -1,0 +1,1574 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-abz-4",
+      "title": "ABZ — Patio Pleasure strawberries",
+      "url": "https://www.abzseeds.com/sierteelt-patio-pleasure?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 3 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "Delizz® F1",
+          "display_label": "Delizz® F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheet%20Delizz%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Delizz®. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Delizz%20018%20close%20up.jpg",
+              "source_url": "https://www.abzseeds.com/sierteelt-patio-pleasure?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Delizz® F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Delizz® F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Queeny F1",
+          "display_label": "Queeny F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Queeny%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Queeny. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/Queeny_1_Vrij.png",
+              "source_url": "https://www.abzseeds.com/sierteelt-patio-pleasure?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Queeny F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Queeny F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Lizzy F1",
+          "display_label": "Lizzy F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Lizzy%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Lizzy. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Lizzy%20006M.jpg",
+              "source_url": "https://www.abzseeds.com/sierteelt-patio-pleasure?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Lizzy F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Lizzy F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "107e4c3b1d66dcb97b90a9869ecb61de1490fc0dfb507ceaf2737386764a9531",
+        "capture_bytes": 51259,
+        "final_url": "https://www.abzseeds.com/sierteelt-patio-pleasure?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/sierteelt-patio-pleasure",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Delizz F1",
+            "Queeny F1",
+            "Lizzy F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Delizz® F1",
+          "Queeny F1",
+          "Lizzy F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Delizz® F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Delizz%20018%20close%20up.jpg",
+            "alt": "ABZ Delizz 018 close-up"
+          },
+          {
+            "name": "Queeny F1",
+            "image_url": "https://www.abzseeds.com/hubfs/Queeny_1_Vrij.png",
+            "alt": "Queeny_1_Fri"
+          },
+          {
+            "name": "Lizzy F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Lizzy%20006M.jpg",
+            "alt": "ABZ Lizzy 006M"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Delizz® F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheet%20Delizz%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheet%20Delizz%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheet%20Delizz%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:12.099102+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 293653,
+                "sha256": "f5360cff39f6e1fcd4d86d12b632c3e3bc0481802f020608e9e6da4d08315b7e",
+                "pages": 2,
+                "extracted_text_sha256": "ef76f910a37fdff9a1a1780dc51930ff44c923d292367dbc109d63389c38a84a",
+                "page_text_characters": [
+                  659,
+                  1614
+                ],
+                "cover_heading": "Delizz®",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Queeny F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Queeny%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Queeny%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Queeny%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:15.276681+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 263860,
+                "sha256": "f3c7ce72cbe6ebc3f245aae229e60009ab9492f106cd38098be0f0335d284146",
+                "pages": 2,
+                "extracted_text_sha256": "666c006dfa9011d5344b74db8f7a00d47422e8d1e5573ce491cb850405c78f67",
+                "page_text_characters": [
+                  693,
+                  1613
+                ],
+                "cover_heading": "Queeny",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Lizzy F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Lizzy%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Lizzy%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Lizzy%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:17.490446+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 240984,
+                "sha256": "6bbad358824ba1e38f66bfa7951307f549f7c0dfe228c89172a4508987b308e2",
+                "pages": 2,
+                "extracted_text_sha256": "2b09dee759da9559db882e62bb698b0952f1a5be24301453df080c7e51d39bea",
+                "page_text_characters": [
+                  658,
+                  1613
+                ],
+                "cover_heading": "Lizzy",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "11e1a11c2d9a9499618ecd852d9144938e3517da886c7307f4e39fc00d4bd111",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    },
+    {
+      "id": "portfolio-abz-5",
+      "title": "ABZ — Home Harvest strawberries",
+      "url": "https://www.abzseeds.com/homegrown?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 2 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [
+        "Current product descriptions and photographs are publisher assertions; independent cultivar authentication and image-specific reuse permission are unconfirmed.",
+        "The Milan panel reuses Elan_1_Vrij.png with a Milan alt label. That conflicting plant photo is excluded; Milan uses its separately named original fruit photograph."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "The Milan panel reuses Elan_1_Vrij.png with a Milan alt label. That conflicting plant photo is excluded; Milan uses its separately named original fruit photograph.",
+          "candidate_names": [
+            "Milan F1"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Elan F1",
+          "display_label": "Elan F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Elan%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Elan. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Elan%20on%20straw%20S.jpg",
+              "source_url": "https://www.abzseeds.com/homegrown?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Elan F1",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "Elan F1: fruit photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Milan F1",
+          "display_label": "Milan F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Milan%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Milan. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Milan%20010%20S.jpg",
+              "source_url": "https://www.abzseeds.com/homegrown?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Milan F1",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "Milan F1: fruit photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Milan panel image Elan_1_Vrij.png",
+            "reason": "The original URL names Elan and is reused in the Elan panel; the Milan alt label does not resolve photo identity."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "2665546b13527c91671a89cc0cd4fec4c1a48edea4459a76c27d238c2d0fc9e9",
+        "capture_bytes": 47224,
+        "final_url": "https://www.abzseeds.com/homegrown?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/homegrown",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Elan F1",
+            "Milan F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Elan F1",
+          "Milan F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Elan F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Elan%20on%20straw%20S.jpg",
+            "alt": "ABZ Elan on Straw S"
+          },
+          {
+            "name": "Milan F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Milan%20010%20S.jpg",
+            "alt": "ABZ Milan 010 S"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Elan F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Elan%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Elan%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Elan%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:19.673826+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 278476,
+                "sha256": "08c3d2896e9443e366331e8f851f4fbdd9bb83a0e25433ca14e957437b7e49d2",
+                "pages": 2,
+                "extracted_text_sha256": "483a34ba798b2f69afb681356d0c3db24200d07c489452b396db3b568860cc68",
+                "page_text_characters": [
+                  597,
+                  1575
+                ],
+                "cover_heading": "Elan",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Milan F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Milan%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Milan%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Milan%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:20.964201+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 328541,
+                "sha256": "85108e5f0e08d738753fadbe3666ae1e4bc4768e29dcebe8637fcbb8199246ea",
+                "pages": 2,
+                "extracted_text_sha256": "21d123318b910e158e9cc7e62418632670e3af9c8d46e8c0fb417bcaea317473",
+                "page_text_characters": [
+                  626,
+                  1575
+                ],
+                "cover_heading": "Milan",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "67599effadc5741001ee87c29788b5536bd5a3e914d5e33924a6847766990cce",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    },
+    {
+      "id": "portfolio-abz-6",
+      "title": "ABZ — Early & Compact strawberries",
+      "url": "https://www.abzseeds.com/early-compact?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 3 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "Loran F1",
+          "display_label": "Loran F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Loran%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Loran. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Loran%20005%20S.jpg",
+              "source_url": "https://www.abzseeds.com/early-compact?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Loran F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Loran F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Merlan F1",
+          "display_label": "Merlan F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Merlan%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Merlan. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Merlan%20001%20S.jpg",
+              "source_url": "https://www.abzseeds.com/early-compact?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Merlan F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Merlan F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Tristan F1",
+          "display_label": "Tristan F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Tristan%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Tristan. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Tristan%20028%20S.jpg",
+              "source_url": "https://www.abzseeds.com/early-compact?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Tristan F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Tristan F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "ff5f2dac9eb0f9ebdaa4b1663e3ab4308d4fb0bcf300499c1be7c769c3210319",
+        "capture_bytes": 50727,
+        "final_url": "https://www.abzseeds.com/early-compact?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/early-compact",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Loran F1",
+            "Merlan F1",
+            "Tristan F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Loran F1",
+          "Merlan F1",
+          "Tristan F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Loran F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Loran%20005%20S.jpg",
+            "alt": "ABZ Loran 005 S"
+          },
+          {
+            "name": "Merlan F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Merlan%20001%20S.jpg",
+            "alt": "ABZ Merlan 001 S"
+          },
+          {
+            "name": "Tristan F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Tristan%20028%20S.jpg",
+            "alt": "ABZ Tristan 028 S"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Loran F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Loran%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Loran%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Loran%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:22.212970+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 235146,
+                "sha256": "a2e2cdf500aa7692d9d897a94657e29aa61c6826174adc24f58d0526638b04f7",
+                "pages": 2,
+                "extracted_text_sha256": "5d7033dba63090f9a433ab33732c385b8f8bbd85ec13f83de4c185448b70140f",
+                "page_text_characters": [
+                  670,
+                  1617
+                ],
+                "cover_heading": "Loran",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Merlan F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Merlan%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Merlan%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Merlan%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:23.746614+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 239068,
+                "sha256": "089501cb93234e91ac30189bd5a3d979a54ff272682484f64726d47c446b3579",
+                "pages": 2,
+                "extracted_text_sha256": "dea07784b8122e97fbdd45fd9e74e445b3fba5bc68e1ef571ce6f6f27cb2b328",
+                "page_text_characters": [
+                  678,
+                  1617
+                ],
+                "cover_heading": "Merlan",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Tristan F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Tristan%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Tristan%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Tristan%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:25.145790+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 221414,
+                "sha256": "170b2572d90a3703d31031ba41168e8553f291269a4d7abb9c13b898ba30ae52",
+                "pages": 2,
+                "extracted_text_sha256": "aa0cd3484b5c23559e13d66d3bd348b718426f0a013beac0642973c050f5b9fc",
+                "page_text_characters": [
+                  684,
+                  1617
+                ],
+                "cover_heading": "Tristan",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "f4ac47d1dc486f010dea275167aca545ca31869c90db46a9a5a3f96c13995d1c",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    },
+    {
+      "id": "portfolio-abz-7",
+      "title": "ABZ — Hanging Basket strawberries",
+      "url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 4 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "Beltran F1",
+          "display_label": "Beltran F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Beltran%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Beltran. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Beltran%20021S.jpg",
+              "source_url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Beltran F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Beltran F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Frisan F1",
+          "display_label": "Frisan F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Frisan%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Frisan. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Frisan%20017%20S.jpg",
+              "source_url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Frisan F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Frisan F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Roman F1",
+          "display_label": "Roman F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Roman%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Roman. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/Roman_1_Vrij.png",
+              "source_url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Roman F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Roman F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Ruby Ann F1",
+          "display_label": "Ruby Ann F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Ruby%20Ann%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Ruby Ann. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Ruby%20Ann%20015S.jpg",
+              "source_url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Ruby Ann F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Ruby Ann F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "c70cff8cc395f5d35d16152149a48dbfc97109aa93fcc50a31e33da5be084ee7",
+        "capture_bytes": 54544,
+        "final_url": "https://www.abzseeds.com/hanging-basket?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/hanging-basket",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Beltran F1",
+            "Frisan F1",
+            "Roman F1",
+            "Ruby Ann F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Beltran F1",
+          "Frisan F1",
+          "Roman F1",
+          "Ruby Ann F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Beltran F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Beltran%20021S.jpg",
+            "alt": "ABZ Beltran 021S"
+          },
+          {
+            "name": "Frisan F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Frisan%20017%20S.jpg",
+            "alt": "ABZ Frisan 017 S"
+          },
+          {
+            "name": "Roman F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/Roman_1_Vrij.png",
+            "alt": "Roman_1_Free"
+          },
+          {
+            "name": "Ruby Ann F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Ruby%20Ann%20015S.jpg",
+            "alt": "ABZ Ruby Ann 015S"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Beltran F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Beltran%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Beltran%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Beltran%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:26.072015+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 278798,
+                "sha256": "5fed41b84b197e0e2574f4a234a64dd60ba948bb38408be7c3fe6a0cf056f4a9",
+                "pages": 2,
+                "extracted_text_sha256": "5955f7ec3148f24e897a1a02b318470e55335bca87a2d629a218f277a8784ba7",
+                "page_text_characters": [
+                  634,
+                  1613
+                ],
+                "cover_heading": "Beltran",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Frisan F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Frisan%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Frisan%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Frisan%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:27.811202+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 276283,
+                "sha256": "6b313b581ba1054361b81a57557b206a11512c1da894b7e104634c4ac53a20dd",
+                "pages": 2,
+                "extracted_text_sha256": "19a5ef8d62a59340b089b9129172c8c44390138ee35710933ef72aa12b10e8b8",
+                "page_text_characters": [
+                  630,
+                  1613
+                ],
+                "cover_heading": "Frisan",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Roman F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Roman%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Roman%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Roman%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:30.018685+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 276191,
+                "sha256": "27a7e900cc2babc03b0358d7997660596014b7024375c6a1b50b2e3d6a16a238",
+                "pages": 2,
+                "extracted_text_sha256": "4453308b3153e2e71fd5308353f31c47bf5de33bac66c5d4ab929407e6915c6f",
+                "page_text_characters": [
+                  634,
+                  1613
+                ],
+                "cover_heading": "Roman",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Ruby Ann F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Ruby%20Ann%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Ruby%20Ann%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Ruby%20Ann%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:31.293633+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 291271,
+                "sha256": "44f7bffdbebe00d2205f0365b152dbda9f40771eed8b5d2ac338c1bfd2fe5f78",
+                "pages": 2,
+                "extracted_text_sha256": "bc66ebc7e90abe379ab224bf9fd0dfce7ad437228c23b3f91bba8b1ec1f000be",
+                "page_text_characters": [
+                  624,
+                  1613
+                ],
+                "cover_heading": "Ruby Ann",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "b337ebcb93ebd4b873970ace16d3be23118103e946859ca1c07d107052f70517",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    },
+    {
+      "id": "portfolio-abz-8",
+      "title": "ABZ — Large Flower strawberries",
+      "url": "https://www.abzseeds.com/large-flower?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 3 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "Montana F1",
+          "display_label": "Montana F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Montana%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Montana. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Montana%20004aM.jpg",
+              "source_url": "https://www.abzseeds.com/large-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Montana F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Montana F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Gasana F1",
+          "display_label": "Gasana F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Gasana%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Gasana. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Gasana%203M.jpg",
+              "source_url": "https://www.abzseeds.com/large-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Gasana F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Gasana F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Toscana F1",
+          "display_label": "Toscana F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Toscana%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Toscana. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Toscana%20036%20S.jpg",
+              "source_url": "https://www.abzseeds.com/large-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Toscana F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Toscana F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "5c23634765bef4df3bfa139a06b97cd2bdce98c6ada6692a108156b606157541",
+        "capture_bytes": 51044,
+        "final_url": "https://www.abzseeds.com/large-flower?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/large-flower",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Montana F1",
+            "Gasana F1",
+            "Toscana F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Montana F1",
+          "Gasana F1",
+          "Toscana F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Montana F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Montana%20004aM.jpg",
+            "alt": "ABZ Montana 004aM"
+          },
+          {
+            "name": "Gasana F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Gasana%203M.jpg",
+            "alt": "ABZ Gasana 3M"
+          },
+          {
+            "name": "Toscana F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Toscana%20036%20S.jpg",
+            "alt": "ABZ Toscana 036 S"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Montana F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Montana%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Montana%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Montana%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:32.698440+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 299873,
+                "sha256": "00c5a2bbd1e8a459a12a961de61cc5d080f1b600de2bf54b081e63dfa7f37da9",
+                "pages": 2,
+                "extracted_text_sha256": "df6a43d1b4fb2599a33f74cd55ee4b99b6703caea50944b28e36f7efc3b40e05",
+                "page_text_characters": [
+                  663,
+                  1612
+                ],
+                "cover_heading": "Montana",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Gasana F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Gasana%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Gasana%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Gasana%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:34.003710+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 278979,
+                "sha256": "49f9b7ee3f2c8dfa29fb23ea7a8de92163e85f2a09012ca937f4f701ed358d52",
+                "pages": 2,
+                "extracted_text_sha256": "3b73287e0da6847adab9f0afc92b656657313cfae9ae72fab0f66d1c26efc10a",
+                "page_text_characters": [
+                  660,
+                  1612
+                ],
+                "cover_heading": "Gasana",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Toscana F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Toscana%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Toscana%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Toscana%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:36.488606+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 301287,
+                "sha256": "b42d4021ba95e5fbd843186505d67fabd923a64445d02b5ec80b4c94e20f3331",
+                "pages": 2,
+                "extracted_text_sha256": "0f623e000ee754781034d9540f69bc00effcc87f4992ae6bf430c86c802ded11",
+                "page_text_characters": [
+                  668,
+                  1612
+                ],
+                "cover_heading": "Toscana",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "7518ea018936496b290e9645847a8360bd4ca90c24d5ae33bc0478dadf45f958",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    },
+    {
+      "id": "portfolio-abz-9",
+      "title": "ABZ — Semi-Double Flower strawberries",
+      "url": "https://www.abzseeds.com/semi-double-flower?hsLang=en",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-02",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The same 3 named English product tabs, now checked against their linked two-page original ABZ infosheets. PDF cover headings and strawberry F1 labels agree with these existing product names. No additional cultivar or alias is inferred from typography, marketing groups or technical tables.",
+      "limitations": "Bounded current product-page observation, not a complete historical or current worldwide breeding portfolio, independent trial or rights register. Original October 7 captures remain unchanged. The Delizz registered-mark typography does not add an alias or new cultivar. No publication day is established from retrieval, site event dates or upload paths. Flower/fruit colour, yield, vitamin and performance wording remain company claims. Growing-system advice and seasonal marketing do not establish actual planting locations. Photographer and image-specific reuse terms are unconfirmed; no image or legal right is approved or loaded automatically. The separate 2024–2025 booklet remains unreadable and is not replaced by these current pages. The linked individual infosheets were retrieved on 2026-11-02 UTC and their names inspected. The PDF Family/Origin row and hardiness zones are not variety planting locations. Cultural schedules describe ABZ's advice under qualified conditions, not independent performance results. ABZ's blanket PBR/PVP wording is an attributed publisher claim; these sheets do not supply an individual grant number, jurisdiction or current legal-status determination. The separate unavailable 2024-2025 booklet, excluded Milan/Elan website image conflict and all identity/photo holds remain. No publication date is established from retrieval, HTTP headers, PDF metadata or the Snow award year.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "Summer Breeze Snow F1",
+          "display_label": "Summer Breeze Snow F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Snow%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Summer Breeze Snow. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Summer%20Breeze%20Snow%20010S.jpg",
+              "source_url": "https://www.abzseeds.com/semi-double-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Summer Breeze Snow F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Summer Breeze Snow F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Summer Breeze Cherry Blossom F1",
+          "display_label": "Summer Breeze Cherry Blossom F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Cherry%20Blossom%20-%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Summer Breeze Cherry Blossom. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Summer%20Breeze%20Cherry%20Blossom%20018%20L.jpg",
+              "source_url": "https://www.abzseeds.com/semi-double-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Summer Breeze Cherry Blossom F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Summer Breeze Cherry Blossom F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Summer Breeze Rose F1",
+          "display_label": "Summer Breeze Rose F1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Rose%20-%20Online-1.pdf?hsLang=en",
+          "portfolio_context": "Original two-page ABZ infosheet for Summer Breeze Rose. Name reference opens the PDF; the source title opens its product category. The cover identifies this product as a strawberry F1 hybrid. Descriptions and PBR/PVP wording are ABZ claims; the sheet does not establish actual growing locations or current individual rights.",
+          "source_company_ids": [
+            "company-abz-seeds"
+          ],
+          "source_company_context": "ABZ Seeds presents this named product in its own catalog page. This source association is not an independently approved breeder, owner or licensee relationship.",
+          "photos": [
+            {
+              "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Summer%20Breeze%20Rose%20005%20S.jpg",
+              "source_url": "https://www.abzseeds.com/semi-double-flower?hsLang=en",
+              "credit": "ABZ Seeds · Photographer not credited",
+              "named_variety": "Summer Breeze Rose F1",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "Summer Breeze Rose F1: plant photograph shown in its named ABZ product tab",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named product tab and its photo reference checked together on the original English page. Source attribution only; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No image is loaded by default. Private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_html_named_tabs_plus_exact_linked_pdf_body_and_visual_name_check",
+        "http_status": 200,
+        "capture_sha256": "74b73d74a11e4be071256f7cf3be07be703be406b5764f3cb77f04bba75ec996",
+        "capture_bytes": 51471,
+        "final_url": "https://www.abzseeds.com/semi-double-flower?hsLang=en",
+        "body_language": "English",
+        "publication_date_precision": "No publication date established",
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "url": "https://www.abzseeds.com/semi-double-flower",
+          "capture_status": "names_enumerated",
+          "names": [
+            "Summer Breeze Snow F1",
+            "Summer Breeze Cherry Blossom F1",
+            "Summer Breeze Rose F1"
+          ]
+        },
+        "navigation": "Followed the current official Fresh market / Garden & Patio cards, then the exposed EN switch; no guessed URL variants.",
+        "literal_product_tabs": [
+          "Summer Breeze Snow F1",
+          "Summer Breeze Cherry Blossom F1",
+          "Summer Breeze Rose F1"
+        ],
+        "selected_photo_references": [
+          {
+            "name": "Summer Breeze Snow F1",
+            "image_url": "https://www.abzseeds.com/hubfs/website/ABZ%20Summer%20Breeze%20Snow%20010S.jpg",
+            "alt": "ABZ Summer Breeze Snow 010S"
+          },
+          {
+            "name": "Summer Breeze Cherry Blossom F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Summer%20Breeze%20Cherry%20Blossom%20018%20L.jpg",
+            "alt": "ABZ Summer Breeze Cherry Blossom 018 L"
+          },
+          {
+            "name": "Summer Breeze Rose F1",
+            "image_url": "https://www.abzseeds.com/hubfs/ABZ%20Summer%20Breeze%20Rose%20005%20S.jpg",
+            "alt": "ABZ Summer Breeze Rose 005 S"
+          }
+        ],
+        "infosheet_destinations": [
+          {
+            "name": "Summer Breeze Snow F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Snow%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Snow%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Snow%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:38.494985+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 330872,
+                "sha256": "c0957be7e790465acc21eb3878b14048c9abdc941a5b123772eb92cec8685741",
+                "pages": 2,
+                "extracted_text_sha256": "fafb1c754246015f4a163a722153a9c128076b98d5d35bb2ab9dcc3a7ac43d93",
+                "page_text_characters": [
+                  839,
+                  1610
+                ],
+                "cover_heading": "Summer Breeze Snow",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Summer Breeze Cherry Blossom F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Cherry%20Blossom%20-%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Cherry%20Blossom%20-%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Cherry%20Blossom%20-%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:40.607404+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 315594,
+                "sha256": "2de5a9af60d552c5cfac3b6f7568fb3a52e1d4166e577c610420ed87fd14f84a",
+                "pages": 2,
+                "extracted_text_sha256": "c1c73ef48c168ec5feab278f0dbd96ee4df0f380d8db83352b73d75028b604c8",
+                "page_text_characters": [
+                  786,
+                  1610
+                ],
+                "cover_heading": "Summer Breeze Cherry Blossom",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          },
+          {
+            "name": "Summer Breeze Rose F1",
+            "urls": [
+              "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Rose%20-%20Online-1.pdf?hsLang=en"
+            ],
+            "bodies_checked": true,
+            "pdf_documents": [
+              {
+                "url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Rose%20-%20Online-1.pdf?hsLang=en",
+                "final_url": "https://www.abzseeds.com/hubfs/infosheets%20Summer%20Breeze%20Rose%20-%20Online-1.pdf?hsLang=en",
+                "checked_at": "2026-11-02T01:03:42.226565+00:00",
+                "http_status": 200,
+                "content_type": "application/pdf",
+                "bytes": 283865,
+                "sha256": "3dd6dbb30fcafc13520b30aa8f9fb247f051e210273d81f17da4e98104b7bd3e",
+                "pages": 2,
+                "extracted_text_sha256": "940e3f8ea5cad818a141b1f739e3bf809c88b9ba1eeb0a5bf3c87266bbf2f8f8",
+                "page_text_characters": [
+                  774,
+                  1610
+                ],
+                "cover_heading": "Summer Breeze Rose",
+                "identity_pages": [
+                  1
+                ],
+                "cultivation_and_publisher_disclaimer_pages": [
+                  2
+                ],
+                "body_review": "Cover name, strawberry F1 product label, botanical-origin/hardiness scope and qualified publisher advice checked. No trusted trait, right, location or cultivar identity is created.",
+                "publication_date_established": false,
+                "independent_corroboration": false,
+                "photo_permission": "Unknown; PDF photographs are not extracted, hosted or approved by this observation."
+              }
+            ]
+          }
+        ],
+        "image_review": "One image tied to each specific product tab. Multi-product hero images, repeated generic seed-handling photos and the conflicting Milan/Elan plant image are not assigned. Unknown reuse and human identity gates remain.",
+        "previous_html_photo_capture": {
+          "checked_on": "2026-11-01",
+          "record_sha256": "01fcfc540d7245c8325ad876f49705fcf3932faf1791d0745e5d51d24e62b395",
+          "preserved_in": "data/imports/variety-portfolio-observations-2026-11-01-abz-current-photos/observations.json"
+        },
+        "pdf_text_extraction_note": "Tristan and Toscana cover text contains extraction spacing artifacts; their actual rendered cover headings were inspected. No spaced spelling is added as an alias."
+      }
+    }
+  ]
+}
