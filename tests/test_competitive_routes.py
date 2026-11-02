@@ -128,3 +128,27 @@ def test_sheet_search_filter_and_sort_apply_before_pagination_and_export(client)
 @pytest.mark.parametrize('query', ['sort=arbitrary', 'direction=sideways', 'rating_state=trusted'])
 def test_sheet_rejects_unsupported_filter_values(client, query):
     assert client[0].get('/competitive-evaluation?' + query).status_code == 422
+
+
+def test_people_sheet_export_searches_before_pagination_and_is_private(client,monkeypatch):
+    http,research=client
+    inbox,*_=research
+    from app.services.living_workspaces import Store
+    store=Store(inbox)
+    with store.transaction() as db:
+        for number in range(65):
+            store.put(db,'competitive_record',{'id':'person-fixture-'+str(number),'kind':'person',
+                'entity_id':'company-one','batch_id':'B01','local_id':'P'+str(number),
+                'fields':{'name_original':'=Source formula' if number==64 else 'Professional '+str(number),
+                          'role_title':'Breeder','last_observed_date':'2026-10-30'},
+                'resolution':'accepted_structure','source_refs':[]},'test fixture')
+    page=http.get('/competitive-evaluation?view=people&record_page=2')
+    assert page.status_code==200 and 'Page 2 of 2' in page.text
+    assert 'ce-record-grid' in page.text and '<ol>' not in page.text
+    import csv,io
+    exported=list(csv.DictReader(io.StringIO(http.get('/competitive-evaluation/records.csv?view=people&record_page=2').text)))
+    assert len(exported)==65 and any(r['name']=="'=Source formula" for r in exported)
+    searched=list(csv.DictReader(io.StringIO(http.get('/competitive-evaluation/records.csv?view=people&people_q=Professional+63').text)))
+    assert len(searched)==1 and searched[0]['name']=='Professional 63'
+    monkeypatch.setattr(main,'AUTHORING_MODE',False)
+    assert http.get('/competitive-evaluation/records.csv?view=people').status_code==403

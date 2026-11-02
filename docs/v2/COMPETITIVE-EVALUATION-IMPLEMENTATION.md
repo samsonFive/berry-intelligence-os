@@ -1,3 +1,5 @@
+Current presentation: [dense record and news tables](COMPETITIVE-DENSE-VIEWS-REVIEW.md) supersede the first matrix-only sheet styling below. People, profiles/gaps, relationships, exposure, imports and saved comparisons now share searchable/filterable/sortable record tables. Source and assessment semantics remain.
+
 Current UI: see [the sheet workspace](COMPETITIVE-EVALUATION-SHEET-UI.md) for compact grid controls, server-side search/sort and the source-linked row-details panel. Original assessment and research semantics below remain.
 
 # November 2 continuation

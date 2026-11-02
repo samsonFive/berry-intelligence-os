@@ -9,7 +9,11 @@
   const link=document.createElement('a');link.textContent='Open full archive';
   const compare=document.createElement('a');compare.href='/competitive-evaluation';compare.textContent='Open scoped capability comparison';
   const iframe=document.createElement('iframe');iframe.title='Scoped captured coverage';iframe.loading='lazy';
-  const css=document.createElement('link');css.rel='stylesheet';css.href='/static/competitive_evaluation.css';document.head.append(css);
+  // Never append a second copy after a view's more specific layout stylesheet.
+  // The late duplicate used to restore the obsolete sidebar and positioning rules.
+  if(![...document.querySelectorAll('link[rel="stylesheet"]')].some(link=>new URL(link.href,location.href).pathname==='/static/competitive_evaluation.css')){
+    const css=document.createElement('link');css.rel='stylesheet';css.href='/static/competitive_evaluation.css';document.head.append(css);
+  }
   panel.append(summary,p,link,document.createTextNode(' · '),compare,iframe);main.append(panel);
   let loaded='';
   function scope(){

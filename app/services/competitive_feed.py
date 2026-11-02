@@ -137,7 +137,16 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
         winner['duplicate_ids'] = [r['id'] for r in group[1:]]
         winner['inclusion'] = list(dict.fromkeys(reason for r in group for reason in r['inclusion']))
         unique.append(winner)
-    unique.sort(key=lambda r: (r['publication'], r['id']), reverse=True)
+    query=str(params.get('news_q') or '').strip().casefold()
+    publisher=str(params.get('publisher') or '')
+    sort=params.get('news_sort','publication');direction=params.get('news_direction','desc')
+    if sort not in {'publication','title','source_name'} or direction not in {'asc','desc'}:
+        raise ValueError('Choose a valid captured-coverage sort')
+    publishers=sorted({str(r.get('source_name') or 'Publisher unspecified') for r in unique})
+    unique=[r for r in unique if (not publisher or (r.get('source_name') or 'Publisher unspecified')==publisher)
+            and (not query or query in ' '.join(str(r.get(k) or '') for k in ('title','summary','source_name','effective_tags','matched_companies','inclusion')).casefold())]
+    unique.sort(key=lambda r:(str(r.get(sort) or '').casefold(),r['id']),reverse=direction=='desc')
+    unique.sort(key=lambda r:not bool(r.get(sort)))
     if params.get('empty_cohort') == '1':
         unique = []
     try:
@@ -148,4 +157,4 @@ def select(records, params, *, relationships=(), tag_map=None, entities=None, pa
     page = min(page, pages)
     return {'items': unique[(page-1)*page_size:page*page_size], 'total': len(unique),
             'page': page, 'pages': pages, 'all_ids': [r['id'] for r in unique],
-            'scope': dict(params), 'archive_count': len(records)}
+            'scope': dict(params), 'archive_count': len(records),'publishers':publishers}

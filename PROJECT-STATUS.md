@@ -1,3 +1,7 @@
+# November 2 dense evaluation correction
+
+[People and the other evaluation/captured-news views](docs/v2/COMPETITIVE-DENSE-VIEWS-REVIEW.md) now use dense tables, full-result search/filter/sort and the existing green/sage formatting. The correction removes a late duplicate stylesheet and the People form positioning defect. Underlying research, decisions and snapshots remain. Draft PR #445 tracks final verification; no merge/deployment.
+
 # November 2 competitive sheet workspace
 
 [The competitive evaluation UI](docs/v2/COMPETITIVE-EVALUATION-SHEET-UI.md) now uses a compact sheet, frozen entity/evidence columns, full-result search/filter/sort and a row-details panel. Existing scope, source, correction and immutable-snapshot semantics remain. Desktop and 412px checks retain multi-entity selection, Reader behavior and keyboard focus. Draft PR #445 tracks final current-head checks; no merge/deployment.

@@ -67,3 +67,15 @@ def test_multiple_selected_berries_and_empty_parent_cohort_are_explicit():
     params={'companies':'c','berry':'berry-blueberry,berry-strawberry'}
     assert set(select(records,params)['all_ids'])=={'blue','straw'}
     assert select(records,{**params,'empty_cohort':'1'})['total']==0
+
+
+def test_news_text_publisher_and_sort_apply_to_full_archive_before_pagination():
+    records=[story(str(i),title=f'Berry story {i:02}',source_name='Publisher A' if i%2 else 'Publisher B',
+                   published_date='2026-10-01',source_url=f'https://example.org/{i}') for i in range(70)]
+    result=select(records,{'news_q':'story 69','page':'3'})
+    assert result['total']==1 and result['page']==1 and result['items'][0]['title']=='Berry story 69'
+    result=select(records,{'publisher':'Publisher A','news_sort':'title','news_direction':'asc','page':'2'})
+    assert result['total']==35 and len(result['all_ids'])==35
+    assert result['items'][0]['title']=='Berry story 49'
+    records.append(story('undated',title='Undated',source_name='Publisher A'))
+    assert select(records,{'news_direction':'asc'})['all_ids'][-1]=='undated'

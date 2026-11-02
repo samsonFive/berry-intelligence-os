@@ -1,3 +1,7 @@
+# November 2 dense view correction
+
+[The dense-view repair](COMPETITIVE-DENSE-VIEWS-REVIEW.md) closes the observed People list/form layout and duplicate stylesheet defects. Shared tables cover all six record views; captured-news panels use the same dense archive table. Existing source/identity/evidence-depth gaps remain unchanged, and TD-001..004 remain closed. No paid acquisition or trust action.
+
 # November 2 competitive sheet UI follow-up
 
 [The sheet workspace](COMPETITIVE-EVALUATION-SHEET-UI.md) addresses the oversized picker and tall comparison rows. Full-result filters and exports remain server-side; column visibility/density are page-local. Pagination stays at 24 cells, with no overall score, raw-source inline editing or bulk trust actions. Remaining evidence/identity/source gaps below are unchanged. This does not reopen TD-001..004.

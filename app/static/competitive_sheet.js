@@ -70,6 +70,11 @@
       sheet.querySelectorAll('[data-ce-col]').forEach(cell => {
         if (cell.dataset.ceCol === input.value) cell.classList.toggle('ce-column-hidden', !input.checked);
       });
+      sheet.querySelectorAll('[data-ce-record-grid]').forEach(table => {
+        const width = [...table.querySelectorAll('thead th')].filter(th=>!th.classList.contains('ce-column-hidden'))
+          .reduce((total,th)=>total+Number(th.dataset.ceWidth||0),0);
+        table.style.width = width+'px';
+      });
     }));
     menu.querySelector('[data-ce-density]').addEventListener('change', event => {
       sheet.classList.toggle('ce-comfortable', event.target.value === 'comfortable');

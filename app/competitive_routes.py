@@ -215,6 +215,10 @@ def evaluation(request: Request):
         model = comparison(main, store, saved['snapshot']['scope'] if saved else params)
         if saved:
             model.update(saved['snapshot'], snapshot_id=saved['id'], snapshot_title=saved['title'])
+        record_sheet = None
+        if view in {'people','overview','relationships','exposure','imports','saved'}:
+            from app.services.competitive_record_sheet import build
+            record_sheet = build(model, view, params)
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     from app.services.workspace_landscapes import panel
@@ -229,13 +233,39 @@ def evaluation(request: Request):
     plot_assessments = [{**{k:a.get(k) for k in plot_fields},'entity_name':model['entities'].get(a['entity_id'],{}).get('name',a['entity_id'])} for a in model['assessments']]
     return main.templates.TemplateResponse(request=request, name='competitive_evaluation.html', context={
         **model, 'authoring_mode': True, 'static_build': False,
+        'record_sheet':record_sheet,
         'display_assessments':display_assessments,'plot_assessments':plot_assessments,
         'matrix_page':matrix_page,'matrix_pages':matrix_pages,
         'matrix_previous':'/competitive-evaluation?'+urlencode({**params,'view':'matrix','matrix_page':max(1,matrix_page-1)}),
         'matrix_next':'/competitive-evaluation?'+urlencode({**params,'view':'matrix','matrix_page':matrix_page+1}),
         **panel(main, saved['id'] if saved else None),
         'view': view,
+        'nav_query':urlencode({k:v for k,v in params.items() if not k.startswith('record_') and k not in {'view','matrix_page','people_q','events_after'}}),
         'query': urlencode({k: v for k, v in params.items() if k != 'view'})})
+
+
+@router.get('/competitive-evaluation/records.csv')
+def record_export(request: Request):
+    main, store, _ = private(request)
+    params=request_params(request); view=params.get('view','people')
+    if view not in {'people','overview','relationships','exposure','imports','saved'}:
+        raise HTTPException(422,'Choose a record sheet')
+    from app.services.competitive_record_sheet import build
+    try:
+        sheet=build(comparison(main,store,params),view,params)
+    except ValueError as exc:
+        raise HTTPException(422,str(exc)) from exc
+    output=io.StringIO();writer=csv.writer(output)
+    columns=[c['key'] for c in sheet['columns']]
+    writer.writerow(['record_id',*columns,'source_inspection','resolution','source_urls','original_records'])
+    def safe(value):
+        value=str(value)
+        return "'"+value if value.lstrip().startswith(('=','+','-','@','\t','\r')) else value
+    for row in sheet['all_rows']:
+        writer.writerow([safe(v) for v in [row['id'],*[row.get(k,'Unknown') for k in columns],row['source_state'],row['resolution'],
+                         '; '.join(s['fields'].get('original_url','') for s in row['sources']),
+                         json.dumps([r['fields'] for r in row['records']],ensure_ascii=False)]])
+    return Response(output.getvalue(),media_type='text/csv',headers={'Content-Disposition':f'attachment; filename="competitive-{view}.csv"'})
 
 
 @router.post('/competitive-evaluation/decision')
@@ -339,6 +369,7 @@ def archive(request: Request):
     return main.templates.TemplateResponse(request=request, name='competitive_archive.html', context={
         **model, 'entities': feed_entities, 'entity_choices':entity_choices, 'tags': tags, 'authoring_mode': main.AUTHORING_MODE, 'static_build': False,
         'index_issues': context.get('pending_source_issue_count', 0), 'params': params,
+        'news_sort_urls':{key:'/coverage/archive?'+urlencode({**query,'news_sort':key,'news_direction':'asc' if params.get('news_sort','publication')==key and params.get('news_direction','desc')=='desc' else 'desc'}) for key in ['title','source_name','publication']},
         'prev': '/coverage/archive?' + urlencode({**query, 'page': max(1, model['page']-1)}),
         'next': '/coverage/archive?' + urlencode({**query, 'page': model['page']+1}),
         'berry_choices': {'berry-'+b: b.title() for b in ('blueberry', 'strawberry', 'raspberry', 'blackberry')}})
