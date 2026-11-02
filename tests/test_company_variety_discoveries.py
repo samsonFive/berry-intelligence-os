@@ -55,6 +55,40 @@ def test_catalog_match_does_not_become_reviewed_company_link():
     assert reviewed["rows"] == [] and reviewed["linked_count"] == 1
 
 
+def test_company_lookup_preparation_preserves_full_results_and_catalog_edits(monkeypatch):
+    sources = [source("names", [observation("Known"), observation("Closed"), observation("Unmapped")])]
+    varieties = [{"id": "variety-" + str(i), "name": name, "entity_type": "variety",
+                  "berry_ids": ["berry-blueberry"], "aliases": []}
+                 for i, name in enumerate(["Known", "Other", "Different", "Fourth"])]
+    candidates = [{"id": "vcand-closed", "candidate_name": "Closed", "berry_id": "berry-blueberry",
+                   "status": "rejected", "identity_state": "rejected", "human_gated": True,
+                   "notes": "Keep the analyst's decision"}]
+
+    def universe():
+        rows, visible = reconcile_portfolios(
+            sources=sources, varieties=varieties, candidates=candidates,
+            entities=[{"id": "company-a", "name": "Company A", "entity_type": "company"}],
+        )
+        return varieties, visible, {"portfolio_sources": rows}
+
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    monkeypatch.setattr(main, "variety_candidate_universe", universe)
+    results = []
+    for change in (lambda: None, lambda: varieties[0].update(name="Renamed"),
+                   lambda: varieties[0]["aliases"].append("Known")):
+        change()
+        before = deepcopy((sources, varieties, candidates))
+        reference = company_variety_discoveries(entity_id="company-a",
+            sources=universe()[2]["portfolio_sources"], linked_variety_ids=set())
+        actual = main.company_source_varieties("company-a", {"variety_rows": []})
+        assert actual == reference
+        assert actual["rejected_count"] == 1
+        assert (sources, varieties, candidates) == before
+        results.append(actual)
+    assert results[0] != results[1]
+    assert results[0] == results[2]
+
+
 def test_human_rejection_remains_closed_and_unreadable_is_a_gap():
     candidates = [{"id": "vcand-rejected", "candidate_name": "Closed", "berry_id": "berry-blueberry",
                    "status": "rejected", "identity_state": "rejected", "human_gated": True, "notes": "Keep my decision"}]

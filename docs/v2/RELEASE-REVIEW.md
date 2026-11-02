@@ -1,5 +1,26 @@
 # Berry Intelligence release review
 
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — Current live release is explicitly approved **#443**, head
+`e88fcd36`, merged as `f76080d0` and deployed at 14:40 UTC. All four checks and
+5,479 tests passed; fresh backup/preservation retained five accounts including
+Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four
+databases, with settings, mounts and rollback intact. Earlier candidate notes
+below retain their dated scopes. See the [current completion review](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+for prepared #449/#450/#452 and the separate statement-link repair. New drafts
+require their own final-head checks, preservation and scoped release approval.
+
 October 28 — [Visual explanations across Learn](LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 
 October 28 — [Source-gap summary correction](PORTFOLIO-GAP-SUMMARY-REVIEW.md) is a separate presentation child of source435. It retains that data exactly and changes only the coverage badge/caption over existing filtered subject flags. All44 focused checks and native desktop/412px company/berry review pass; exact-head CI remains required. Platform433 actual approval and later intended catalog release proof remain separate. No merge/deployment.

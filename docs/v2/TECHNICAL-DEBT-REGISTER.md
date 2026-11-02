@@ -1,5 +1,79 @@
 # Technical Debt Register
 
+November 2 — [Company source-name preparation](COMPANY-SOURCE-PREPARATION-REVIEW.md)
+retains complete inputs and match decisions while reusing the existing temporary
+identity lookup. All 348 affected checks and 24 complete server-copy context/HTML
+comparisons pass. The bounded first Splendor request improves modestly from
+9.45 to 8.78 seconds; other company results are flat or slightly slower. TD-122
+remains open: this does not establish generally fast cold loads or device
+percentiles. Three precise test-fixture repairs remove the traced 36 attempted
+external connections, with all 111 affected tests passing offline. Repaired
+complete-suite and revised release gates remain required.
+
+November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
+integrates tested #460 and #459 with the independently reproduced/fixed candidate
+focus obstruction. All sixteen runtime files retain component bytes; the original
+image-precedence failure/assertion and rejected slow lookup experiments remain
+documented. No new source, identity or trust decision. Combined current-head,
+native and fresh preservation gates still apply. TD-122 and wider content/device
+work remain open; no merge, deployment or inherited approval.
+
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 125 focused checks pass.
+The first isolated rehearsal exposed and now guards existing-image precedence;
+new-head acceptance remains required, with the failed attempt retained.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
+November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
+the tested #455 platform changes while removing unrelated variety, briefing and
+publication preparation from login/health/News readiness. News inputs, auth,
+polling and human gates remain. Initial real-lifespan public-fixture comparison
+preserves complete models/HTML and all 2,982 data files; specialist cold work
+moves to its first visit. All 89 focused checks and record validation pass.
+Confirmation/current-head/native/fresh preservation acceptance remains; no new
+release approval or deployment. TD-122 stays open. Frozen #449 (one unanswered
+question) and source #457 remain separate. Original 31 definitions/order and
+the governing guide remain verbatim. Earlier notes are dated evidence.
+
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+retains the five runtime files from tested #448 and #451. All 133 affected checks
+and 48 actual canonical/photo-only/combined responses preserve full output.
+Local Coverage medians improve 3.2850→2.1748s and 3.1480→1.8394s; physical-phone,
+cold-load and production performance remain unproven for this combination.
+TD-122 stays open. The larger projection-reuse and custom-copy experiments remain
+excluded. Exact-head CI, native review, fresh preservation and scoped release
+approval still apply to the combined candidate; live #443 is unchanged.
+
+November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
+removes repeated unrelated photo matches from the existing Coverage inventory.
+All 59 focused checks and 32 alternating canonical/candidate requests preserve
+complete output; two full typed Coverage models match. Public-seed warm medians
+improve 3.5272→3.2352s and 4.8195→3.5249s in the two affected scopes. These are
+local measurements, not production performance claims. Single-variety and
+source-detail paths stay unchanged. A custom-copy experiment was rejected after
+mixed actual-page timings. TD-122 remains open; current-head CI, native review,
+fresh isolated live-data proof and separate release approval remain. Approved
+#443 is already live; later drafts do not reopen its completed release gate.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,
@@ -267,6 +341,42 @@ receipt. Production preparation/delivery must run as UID 1000, matching the web
 application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+addresses the reproduced phone Shift+Tab obstruction without changing floating
+navigation geometry. The baseline link center hits the bar; the fixed phone
+and desktop centers hit the intended link, with measured clearance. All 22
+affected candidate/anchor checks pass. Final-head/static/preservation acceptance
+remains. This scoped interaction repair does not close the broader cold-load,
+graph/copy work or physical-device portions of TD-122.
+
+November 1 — [Coverage identity lookup experiment](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+targets the measured cold-handler blocker with optional request-local row
+selection, retaining the original matcher and human gates. A per-call Python
+fingerprint implementation preserved full typed models/HTML but regressed
+6.58 to 8.26 seconds, so it was rejected. Complete-record freshness checks
+reduced the initial cold sample to 4.15 seconds; repeat samples stay near two
+seconds. Final confirmation, current-head/native and fresh preservation remain.
+No production improvement or completion claim; this is a separate child of
+#458. TD-122 and broader cold-load work stay open.
+
+November 1 — The #448 draft is reconciled onto live #443. A larger guarded
+request-projection experiment preserved the complete 10.47 MB / 5.01 MB models
+and all 40 rendered responses. It actually exercised reuse, but its fuller
+sequential sample made broad Coverage slower (4.16 to 5.91 seconds warm median),
+so the experiment is removed from the draft. The simpler source-validation and
+source-only field work remains. All 92 current-base focused checks, full-model/24-response parity and
+desktop/412px review pass; exact-head CI remains. No overall Coverage or
+production latency improvement is claimed. TD-122 stays
+open, including repeated graph construction, copying and cold host costs.
+
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+shares validated observations for one request and skips unused candidate
+provenance in the field inventory. All 90 affected tests pass; full models and
+24 rendered responses retain original content. Source/profile samples improve,
+but Coverage timings are mixed, including a slightly slower company filter.
+Desktop/412px and 1,797-page static review pass. This separate draft requires
+exact-head CI and later release review; TD-122 remains partially addressed.
 
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a
@@ -2331,6 +2441,19 @@ September 30, 2026. `APP-SECTION-AUDIT.md` documents fragmentation across feed-f
 
 Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in the isolated render audit, and no Fact-detail GET handler exists in the inspected application. `app/queries/timeline.py` and `app/services/commercial_positions.py` emit this URL family. The design preview's statement-source links were repaired to supporting publication pages; production consumers still require a canonical destination/compatibility decision and regression checks. Preserve Fact vs feed-statement identity and provenance. Owner: product/navigation. Evidence: `artifacts/design-sprint/section-render-audit.json`.
 
+**November 1 repair candidate:** the fresh offline audit reproduced this same
+404 with an existing canonical record. A read-only `/facts/{id}` destination
+and public static counterpart now preserve literal statements, claim/fact and
+history labels, all eligible references and distinct dates. Only selected
+sources hydrate; draft/unvalidated/excluded metadata stays hidden. Seventy-two
+focused regressions, desktop/412px Reader/publisher/return checks and a full
+static scan of 820 existing statement links pass (186 existing statement pages;
+1,983 pages total). Current-head CI and release review remain before closing
+this production defect. No new trust action, canonical record or schema change;
+this updates the existing open item, not resolved TD-001..004. See
+[statement-link review](REVIEWED-STATEMENT-LINKS-REVIEW.md).
+
+
 
 **2026-09-30 section-review follow-up:** The accepted Learn expansion requires a persistent research-job/lesson lifecycle, explicit Perplexity deep-research integration, source/media provenance, duplicate-topic handling and user-edit protection. Existing Search/Agent research seams do not establish this workflow. Personal Digest needs saved-versus-reading-state migration; configurable Landscape needs per-panel scope parity; Meeting Prep must retain notes and old links. These are open requirements, not defects declared fixed. See APP-SECTION-AUDIT.md and feature-requests/LEARNER-MODE.md.
 
@@ -3238,3 +3361,25 @@ October 23, 2026 — Analyst living workspaces ([delivery notes](ANALYST-LIVING-
 - **TD-LIVING-004, external validation:** deterministic/model-fixture synthesis and simulated ingestion arrivals are tested. Live provider synthesis, physical touch hardware and production collection cadence are not verified by this candidate. Prior gene-editing research debt remains open; the preview is not an eleven-company research-completion claim.
 
 October 13 printed-code review: ABB135/ABB 135 and ABB136/ABB 136 source formatting produced false discrepancy holds. The issuer-specific comparison correction preserves literal records, canonical names/aliases and real different-number holds; 79 affected tests pass. The genuine Baridi ABB132/ABB137 conflict, RedSayra/Plared 15121 legal-name review, other-jurisdiction rights, source completeness and photo reuse remain open. Source snapshots and two named Ervin images are review metadata only. See PRINTED-CODE-REGISTER-FOLLOWUP.md. No qualification, canonical profile or production change.
+
+
+### November 2, 2026 — TD-122 presentation copy cost
+
+Reader closeout: the canonical-target release found a 538.9 ms warm request
+against its unchanged 500 ms test. [Exact-pattern preparation](READER-CLOSEOUT-PERFORMANCE-REVIEW.md)
+removes repeated escape/regex-cache work while preserving full contexts and HTML
+in twelve controls. Long/nonbuiltin inputs retain the old path and cached
+patterns are bounded. Host variation and broad cold-load latency remain open;
+local medians alone do not close TD-122 or authorize deployment.
+
+Directory follow-up: the [one-handler preparation review](VARIETY-DIRECTORY-PREPARATION-REVIEW.md)
+addresses 23,606 repeated photo validations and 58 source-identity rebuilds on a
+profiled cold request. Existing request-local helpers preserve complete typed
+models and HTML in two controlled pairs: 10.65 to 2.25 seconds cold and 7.03 to
+1.09 seconds repeat on public fixtures. All 396 affected tests and native
+desktop/phone checks pass. Source edits, hides, ambiguity and unknown photo
+permission remain effective on each request. Exact-head CI and fresh isolated
+server-copy preservation remain. No matcher, validator, source or domain-schema
+change; TD-122 is still open and release approval is separate.
+
+The actual Coverage handler still spends substantial time copying cached builtin graphs. [This isolated presentation-copy child](PRESENTATION-COPY-PERFORMANCE-REVIEW.md) retains the parent handler, matcher, full models and all cache invalidation/admission rules. Its slower Python-walk prototype was rejected. The final public-fixture pair preserves every HTML byte and 294,508/159,171 typed model nodes while measuring 4.48→4.24 seconds cold and 2.37→2.04 seconds on repeat requests. All 459 affected checks pass; final-head CI and fresh server-copy preservation remain. Snapshot bytes are process-local only, with class/reducer creation and class/global loading denied; dates/custom objects/nonfinite values use legacy copies. TD-122 remains open for broad cold loads, repeated graph construction and real-device/network measurements. No domain, source or human review gate changes; no merge/deployment or inherited approval.
