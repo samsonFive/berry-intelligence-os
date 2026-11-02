@@ -47,6 +47,16 @@ schema changes.
 
 # Technical Debt Register
 
+November 2 — [News metadata decision experiment](NEWS-METADATA-DECISION-PERFORMANCE-2026-11-02.md)
+shares the existing full qualifier while omitting unused explanation work only
+when its Boolean result is already determined. All 137 affected checks and
+sixteen complete-model/HTML comparisons pass. The final small public-fixture
+sample measures News after company navigation at 2.24 → 1.43 seconds and the
+first company request at 4.68 → 3.86 seconds; subsequent views are nearly flat.
+Earlier mixed/contended attempts are retained. This is a separate draft needing
+exact-head CI, browser/current-live preservation and release review. No data,
+trust, model qualification or deployment changes; TD-122 remains open.
+
 November 2 — [Company source-name preparation](COMPANY-SOURCE-PREPARATION-REVIEW.md)
 retains complete inputs and match decisions while reusing the existing temporary
 identity lookup. All 348 affected checks and 24 complete server-copy context/HTML
