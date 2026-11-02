@@ -40,7 +40,10 @@ def test_original_patents_keep_exact_denominations_parents_and_historical_docume
 
 
 def test_original_splendor_pages_remain_unnamed_without_brand_or_crop_photo_candidates():
-    current=[s for s in sources() if 'portfolio-splendor-' in s['id']]
+    # These three original company pages remain unnamed. The separately dated
+    # 2011 company interview now supplies historical names, not a replacement
+    # for their incomplete current-portfolio checks.
+    current=[s for s in sources() if s['id'].startswith('portfolio-splendor-original-')]
     assert len(current)==3 and all(s['capture_status']=='partial' and not s['names'] for s in current)
     assert {s['url'] for s in current}=={
         'https://splendorproduce.com/actualmente/','https://splendorproduce.com/nosotros/',
@@ -78,7 +81,8 @@ def test_saved_identity_registration_and_photo_choices_survive_patent_provenance
 
 
 def test_exact_fruit_photos_require_session_choice_and_do_not_write_or_leak(monkeypatch,tmp_path):
-    _,candidates=reconcile_portfolios(sources=sources(),varieties=[],entities=[],candidates=[])
+    patents=[s for s in sources() if s['source_type']=='plant_patent']
+    _,candidates=reconcile_portfolios(sources=patents,varieties=[],entities=[],candidates=[])
     assert len(candidates)==2
     for candidate in candidates:
         photo,=source_photos(candidate,candidate=True)

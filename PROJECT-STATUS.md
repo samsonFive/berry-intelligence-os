@@ -1,5 +1,66 @@
 # Project Status
 
+November 2 UTC — [Original ABZ infosheets](docs/v2/ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+checks all 18 retained PDF destinations and exposes their original documents
+through existing Name reference links. Six source sections retain their names,
+photos, company context and holds. All 46 affected checks, record validation,
+public build/leakage and edited-import/key replay checks pass. Native desktop/
+412px review confirms the references and reveals a separate sticky-navigation
+keyboard occlusion issue, recorded under TD-122. Exact-head CI and fresh isolated
+preservation remain. No source-count inflation, new identities, trust decisions
+or production change; frozen release scopes and pending questions remain separate.
+
+November 1 — [Current ABZ product photographs](docs/v2/ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
+November 1 — [Recovered Rejoice original sheet](docs/v2/REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
+November 1 — [Historical Singrow/Surexport sources](docs/v2/HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+add fifteen literal name occurrences from three original documents, retaining
+the parent Splendor source and all identity/role/photo/rights gates. Current
+source-child counts are 526 sections / 1,882 occurrences / 165 matches / 1,717
+review needs; 66 of 77 subjects have named source entries. Existing gaps remain.
+Navigation #443 is live as `f76080d0`. Catalog/Map #449 retains its already-asked
+approval question; performance #452 and statement/audit #453 are separate tested
+drafts. #448/#451 were superseded by #452. Earlier dated notes below retain
+their historical scopes. All 31 original accepted definitions/order remain.
+
+November 1 — Approved navigation #443 is live as `f76080d0` from explicitly
+approved `e88fcd36`, with five accounts,65 profiles,9,856 existing JSON records,
+four databases,settings,mounts and rollback preserved. Independent performance
+#448 passes all four checks /5,486 tests and fresh bounded preservation; broad
+TD-122 costs remain open. Frozen catalog/Map #449 retains its separate pending
+release approval.
+
+The source-only [Splendor interview follow-up](docs/v2/SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+recovers three literal blackberry names from an original August 2011 company
+interview, retaining spelling, month-only date, company context and source gaps.
+The public-seed audit becomes523 sections/1,867 occurrences/165 matches/1,702
+review needs;64 of77 subjects have a named source. Forty-five affected checks, desktop/412px/A–Z/handoff review, record validation and
+the1,797-page trusted static build pass; exact-head CI remains. No canonical
+record, human decision, frozen release or production runtime is changed.
+
 October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 
 October 28 — [Visible source-gap summary](docs/v2/PORTFOLIO-GAP-SUMMARY-REVIEW.md). The scoped Perfection review found a badge that hid open checks once names were found. The display now counts existing filtered subject gap flags, so its one named entry and eight incomplete source checks remain consistent. Backend counters/data/review gates are unchanged. All 44 focused checks pass with one existing warning in 53.26 seconds. Native desktop/412px review confirms the corrected gap badge and retained company/berry scope; exact-head CI remains required for this child. Prior433/434 release scopes and source435 review scope remain intact. No merge/deployment or inferred approval.
