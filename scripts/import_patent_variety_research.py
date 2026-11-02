@@ -91,7 +91,7 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     # but do not approve a different commercial-name alias.
     for g in groups:
         if not g['resolved_name']:
-            unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources','closeout','commercial_leads'] if key in g});continue
+            unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources','closeout','commercial_leads','issue','commercial_status','row_holds'] if key in g});continue
         crop=g['berry'];name=g['resolved_name'];known=[entities[x['id']] for x in g['existing_entities'] if x['id'] in entities]
         current_matches=[entity for entity in entities.values() if entity.get('entity_type')=='variety'
             and 'berry-'+crop.lower() in entity.get('berry_ids',[])

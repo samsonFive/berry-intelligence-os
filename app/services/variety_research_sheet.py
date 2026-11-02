@@ -33,7 +33,7 @@ def sheet(inbox_dir, batch_id=""):
         for dossier in profile["dossiers"]:
             dossiers[dossier["key"]] = {**dossier, "href": entry["href"]}
     for unresolved in batch.get("unresolved", []):
-        dossiers.setdefault(unresolved["key"], {**unresolved, "commercial_status": "Identity unresolved", "issue": "Variety name missing; no commercial role assigned."})
+        dossiers.setdefault(unresolved["key"], {"commercial_status": "Identity unresolved", "issue": "Variety name missing; no commercial role assigned.", **unresolved})
     rows = {}
     for key, records in groups.items():
         dossier = dossiers.get(key, {})

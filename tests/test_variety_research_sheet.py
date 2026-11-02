@@ -79,6 +79,14 @@ def test_rights_leads_are_searchable_but_never_become_supplier_fill(sheet_inbox)
     assert 'Rights Owner' in first['leads'] and 'rights owner' in first['search']
 
 
+def test_unnamed_application_retains_its_specific_crop_conflict(sheet_inbox):
+    path=sheet_inbox/'variety_research/imports/test-sheet/manifest.json'
+    value=json.loads(path.read_text());value['unresolved'][0].update(issue='Official register says sorghum, not strawberry',commercial_status='Identity conflict — hold')
+    path.write_text(json.dumps(value));unknown=sheet(sheet_inbox)['rows'][1]
+    assert 'sorghum' in unknown['issue'] and 'hold' in unknown['status']
+    assert not unknown['can_fill']
+
+
 def test_empty_and_missing_source_sheet_are_explicit(sheet_inbox):
     assert sheet(sheet_inbox,'../unrelated')['rows']==[]
     (sheet_inbox/'variety_research/imports/test-sheet/source_sheet_rows.json').unlink()
