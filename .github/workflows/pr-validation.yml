@@ -171,4 +171,6 @@ jobs:
         run: pip install -r requirements-dev.txt
       - name: Run complete deterministic suite
         if: needs.change-scope.outputs.docs-only != 'true'
-        run: python -m pytest -q
+        # Validation branch only: keep all tests and fail if a swallowed
+        # acquisition error concealed an unmocked external connection.
+        run: python -m pytest -q -p tests.closeout_offline_guard

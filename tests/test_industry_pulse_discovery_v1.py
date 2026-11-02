@@ -514,16 +514,25 @@ def test_industry_pulse_post_does_not_write_evidence(monkeypatch, tmp_path: Path
     monkeypatch.setattr(main, "published_evidence", lambda: [])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "list_drafts_metadata", lambda: [])
+    monkeypatch.setattr(main, "list_pending_drafts", lambda: [])
     monkeypatch.setattr(main, "list_discovered_items", lambda _inbox: [])
     monkeypatch.setattr(main, "variety_candidate_universe", lambda: ([], [], {}))
+    monkeypatch.setattr(main, "PERPLEXITY_PULSE_ENABLED", False)
 
-    def _fake_run(**kwargs):
-        assert kwargs.get("persist_dir") == inbox
-        return {"auto_trust": False}
+    calls = []
 
-    monkeypatch.setattr(main, "run_pulse", _fake_run)
+    class FixtureProvider(MemoryProvider):
+        def discover(self, query):
+            calls.append(query.id)
+            return super().discover(query)
+
+    # Exercise the real newsroom cycle. The old run_pulse mock no longer
+    # intercepted this route after its newsroom-intake migration.
+    monkeypatch.setattr(main, "GoogleNewsRssProvider", lambda: FixtureProvider(hits_by_query_id={}))
     resp = TestClient(main.app).post("/industry-pulse/run", follow_redirects=False)
     assert resp.status_code == 303
+    assert resp.headers["location"] == "/industry-pulse?ran=ok&reason="
+    assert calls and len(calls) == len(set(calls))
     assert list((data_dir / "evidence").glob("*.json")) == []
     get_run = TestClient(main.app).get("/industry-pulse/run")
     assert get_run.status_code == 405

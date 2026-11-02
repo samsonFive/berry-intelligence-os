@@ -889,7 +889,13 @@ def test_live_rows_tag_named_geography_and_filter():
     assert restored["geography"] == "geography-spain"
 
 
-def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path):
+def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path, monkeypatch):
+    # This exercises source/geography attribution, with a fixture thumbnail
+    # instead of an unmocked request to the real publisher.
+    monkeypatch.setattr(
+        "app.services.feed_first_reader.fetch_source_preview_image",
+        lambda url: "https://publisher.example/fixture-preview.jpg",
+    )
     today = date(2026, 9, 21)
     now = datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc)
     google = MemoryProvider(
