@@ -5,10 +5,52 @@ responses are cached. Every mutable result is copied before returning.
 """
 from collections import OrderedDict
 from copy import deepcopy
+from dataclasses import dataclass
 from functools import wraps
+from io import BytesIO
 import json
 import hashlib
+import pickle
 from threading import RLock
+
+
+_SNAPSHOT_MIN_BYTES = 64_000
+
+
+@dataclass(frozen=True, slots=True)
+class _BuiltinSnapshot:
+    # Created locally from an allowlisted graph, never from files or requests.
+    payload: bytes
+
+
+class _BuiltinUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        # Builtin container opcodes need no global/class lookup. Even an
+        # accidentally corrupted internal entry cannot import/execute classes.
+        raise pickle.UnpicklingError('Presentation snapshots cannot load classes')
+
+
+class _BuiltinPickler(pickle.Pickler):
+    def reducer_override(self, value):
+        # The C pickler handles exact builtin atoms/containers without this
+        # callback. Every object needing a class/reducer uses legacy deepcopy.
+        raise pickle.PicklingError('Presentation snapshots cannot save classes')
+
+
+def _owned_cache_value(value, size, encoded):
+    # deepcopy retains NaN objects by identity. Conservatively retain its path
+    # for any nonfinite token, including harmless occurrences inside strings.
+    if (size >= _SNAPSHOT_MIN_BYTES and type(value) in {dict, list, tuple, set, frozenset}
+            and 'NaN' not in encoded and 'Infinity' not in encoded):
+        try:
+            buffer = BytesIO()
+            _BuiltinPickler(buffer, protocol=5).dump(value)
+            payload = buffer.getvalue()
+            if len(payload) <= size:
+                return _BuiltinSnapshot(payload)
+        except pickle.PicklingError:
+            pass
+    return deepcopy(value)
 
 
 class ByteMemo:
@@ -26,21 +68,33 @@ class ByteMemo:
             if row is None:
                 return None
             self.rows.move_to_end(key)
+            if type(row[0]) is _BuiltinSnapshot:
+                try:
+                    return _BuiltinUnpickler(BytesIO(row[0].payload)).load()
+                except (pickle.UnpicklingError, EOFError, ValueError, TypeError):
+                    # A private cache entry is disposable; recompute from the
+                    # original current inputs rather than serving corrupt data.
+                    self.rows.pop(key)
+                    self.bytes -= row[1]
+                    return None
             return deepcopy(row[0])
 
     def put(self, key, value):
         try:
-            size = len(key.encode('utf-8')) + len(json.dumps(value, ensure_ascii=False,
-                default=lambda row: sorted(row) if isinstance(row, set) else row.isoformat()).encode('utf-8'))
+            encoded = json.dumps(value, ensure_ascii=False,
+                default=lambda row: sorted(row) if isinstance(row, set) else row.isoformat())
+            value_size = len(encoded.encode('utf-8'))
+            size = len(key.encode('utf-8')) + value_size
         except (TypeError, ValueError, AttributeError):
             return
         if size > min(self.max_bytes, self.max_item):
             return
+        owned = _owned_cache_value(value, value_size, encoded)
         with self.lock:
             prior = self.rows.pop(key, None)
             if prior:
                 self.bytes -= prior[1]
-            self.rows[key] = (deepcopy(value), size)
+            self.rows[key] = (owned, size)
             self.bytes += size
             while self.bytes > self.max_bytes or len(self.rows) > self.max_entries:
                 _, removed = self.rows.popitem(last=False)
