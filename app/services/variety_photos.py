@@ -12,7 +12,7 @@ from uuid import uuid4
 from app.services import company_directory
 from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.map_regions import public_source_url
-from app.services.variety_universe.identity import fold_identity, resolve_identity
+from app.services.variety_universe.identity import _identity_strings, fold_identity, resolve_identity
 
 REUSE = {"unknown": "Reuse not established", "public_domain": "Public domain",
          "cc0": "CC0", "cc_by": "CC BY", "cc_by_sa": "CC BY-SA",
@@ -97,6 +97,7 @@ class SourcePhotoIndex:
         self.refs = [(source, ref) for source in sources for ref in source.get("names", [])]
         self._validated, self._previews, self._matches = {}, {}, {}
         self._pair_notes = None
+        self._reference_lookups = {}
 
     def require_inputs(self, sources, varieties):
         if sources is not self.sources or varieties is not self.varieties:
@@ -125,6 +126,44 @@ class SourcePhotoIndex:
             self._matches[key] = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
         return self._matches[key]
 
+    def references_for(self, target, *, review=False):
+        """Prefilter literal photo names; the existing gates still decide.
+
+        Validation covers the same original source population as each caller.
+        Catalog photos skip explicitly held references; identity review includes
+        those references but does not request their preview overlays. Keep both
+        lookup populations separate and preserve original source/photo order.
+        This index belongs to one read-only coverage calculation, not a cache
+        across requests or edits.
+        """
+        if review not in self._reference_lookups:
+            entries, by_name = [], {}
+            for source, ref in self.refs:
+                if ref.get("identity_notes") and not review:
+                    continue
+                for raw in ref.get("photos", []):
+                    photo = self.photo(raw, preview=not review)
+                    key = (photo["berry_id"], fold_identity(photo["named_variety"]))
+                    by_name.setdefault(key, []).append(len(entries))
+                    entries.append((source, ref, raw))
+            self._reference_lookups[review] = entries, by_name
+        entries, by_name = self._reference_lookups[review]
+        try:
+            berries = target.get("berry_ids") or []
+            if not isinstance(berries, (list, tuple, set, frozenset)) or any(
+                    not isinstance(berry, str) for berry in berries):
+                return self.refs
+            if not berries:
+                return []
+            names = {fold_identity(text) for text, _role in _identity_strings(target)}
+            positions = sorted({position for berry in berries for name in names
+                                for position in by_name.get((berry, name), ())})
+        except (AttributeError, TypeError, ValueError):
+            # Keep the original behavior for nonstandard direct-call targets.
+            return self.refs
+        return [(source, {**ref, "photos": [raw]})
+                for source, ref, raw in (entries[position] for position in positions)]
+
 
 def source_photos(target, *, sources=(), candidate=False, varieties=(), _index=None):
     if _index is not None:
@@ -132,7 +171,7 @@ def source_photos(target, *, sources=(), candidate=False, varieties=(), _index=N
         if candidate:
             raise ValueError("Catalog photo preparation cannot be used for candidate photos")
     refs = ([(None, ref) for ref in target.get("portfolio_sources", [])] if candidate else
-            _index.refs if _index is not None else [
+            _index.references_for(target) if _index is not None else [
                 (source, name) for source in sources for name in source.get("names", [])])
     rows = {}
     pair_notes = None

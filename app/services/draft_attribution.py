@@ -97,9 +97,16 @@ def _needles(entity):
         tuple(str(a or '') for a in entity.get('also_known_as') or [])))
 
 
+@lru_cache(maxsize=4096)
+def _boundary_pattern(needle: str) -> re.Pattern[str]:
+    return re.compile(r"\b" + re.escape(needle) + r"\b", re.IGNORECASE)
+
+
 def _boundary_search(haystack: str, needle: str) -> bool:
     if not haystack or not needle:
         return False
+    if type(needle) is str and len(needle) <= 256:
+        return _boundary_pattern(needle).search(haystack) is not None
     return re.search(r"\b" + re.escape(needle) + r"\b", haystack, re.IGNORECASE) is not None
 
 

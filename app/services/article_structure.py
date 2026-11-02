@@ -27,7 +27,11 @@ def publisher_heading_levels(html: str, passages: list[str]) -> dict[int, int]:
     for node in (node for root in roots for node in root.iter() if str(node.tag).lower() in {"h2", "h3", "h4", "h5", "h6"}):
         lineage = [node, *node.iterancestors()]
         if any(str(parent.tag).lower() in {"nav", "aside", "footer", "script", "style", "template"}
-               or "hidden" in parent.attrib or parent.get("aria-hidden") == "true" for parent in lineage):
+               or "hidden" in parent.attrib or parent.get("aria-hidden") == "true"
+               or (str(parent.tag).lower() == "header"
+                   and not any(str(ancestor.tag).lower() in {"article", "main"}
+                               for ancestor in parent.iterancestors()))
+               for parent in lineage):
             continue
         text = _key(node.text_content())
         if text and len(text) <= 500:
