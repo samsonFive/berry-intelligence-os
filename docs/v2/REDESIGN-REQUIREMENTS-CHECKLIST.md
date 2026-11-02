@@ -1,5 +1,103 @@
 # Redesign and consolidation requirements
 
+November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
+retains #460 performance/statement/startup work, #459 Reader capture repair and
+the native keyboard-focus fix for one new combined review. Sixteen exact runtime
+component files, both dated documentation histories, all original 31 accepted
+definitions/order and the guide remain. Combined current-head/native/preservation
+acceptance and its own scoped release decision are still required. Catalog/Map
+#449 and source #461 are excluded; existing questions retain their scopes.
+
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+adds a focused UI-03 repair after a native Shift+Tab failure beneath the sticky
+alphabet bar. All 22 affected checks and phone/desktop comparisons pass; visible
+controls, filter scope, alphabet navigation and ordinary scrolling remain.
+This platform child retains #460 and excludes source #461 records. All original
+31 definitions/order and human gates remain. Final acceptance is still required;
+no production change or new release approval.
+
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 125 focused checks pass.
+The first isolated rehearsal exposed and now guards existing-image precedence;
+new-head acceptance remains required, with the failed attempt retained.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
+November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+records a separate UI-03 performance experiment after #458. Optional read-only
+lookup preparation retains matching decisions, same-request edit freshness,
+all complete typed models and HTML. The first implementation was slower and
+rejected; the revised cold sample improves, with confirmation and final
+acceptance pending. No data/source/schema or production change. Original 31
+definitions/order and the governing guide remain verbatim; TD-122 stays open.
+
+November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
+the tested #455 platform changes while removing unrelated variety, briefing and
+publication preparation from login/health/News readiness. News inputs, auth,
+polling and human gates remain. Initial real-lifespan public-fixture comparison
+preserves complete models/HTML and all 2,982 data files; specialist cold work
+moves to its first visit. All 89 focused checks and record validation pass.
+Confirmation/current-head/native/fresh preservation acceptance remains; no new
+release approval or deployment. TD-122 stays open. Frozen #449 (one unanswered
+question) and source #457 remain separate. Original 31 definitions/order and
+the governing guide remain verbatim. Earlier notes are dated evidence.
+
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — Approved navigation **#443** is live as `f76080d0` after
+all four checks / 5,479 tests, fresh backup and preserved accounts, records,
+settings, mounts and rollback. The snapshot navigation follow-up is delivered;
+do not request that completed approval again. See the
+[current completion audit](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md) for all
+31 requirements and later prompts. Catalog/Map #449 has one unanswered approval
+question; original interview #450 and combined performance #452 are separately
+tested drafts. This statement-link repair is a new candidate, not part of live
+#443. Earlier dated notes below are historical. All original accepted
+definitions and ordering remain unchanged.
+
+November 1 — The [combined Coverage performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+consolidates tested #448 and #451 into one new review candidate on live #443.
+All 133 affected checks and 48 complete-response comparisons pass. Full models,
+source rows and profile fields remain; no data, schema or review decision changes.
+The combination needs its own remaining acceptance checks. Source/Map #449 and
+source #450 retain their separate scopes, and #449's one approval question remains
+pending. All original 31 accepted definitions/order below remain unchanged.
+The component evidence beneath this note is dated history, not combined proof.
+
+November 1 — Approved navigation release **#443** is live as `f76080d0` from
+explicitly approved head `e88fcd36`. Fresh backup, all four checks and offline/live
+preservation retained five accounts, 65 profiles, 9,856 existing JSON records,
+3,228 data files and four databases. Its release gate is complete. The separate
+[photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md) is a performance-only
+draft: no catalog data, domain schema or human decisions change. Draft #448,
+combined source/Map #449 and historical-source #450 remain separate; #449 has
+one pending scoped approval question and is not deployed. All original 31
+accepted definitions and their order remain unchanged.
+
+November 1 — Navigation #443 is live as `f76080d0`, following explicit approval
+of `e88fcd36`, fresh backup and preservation checks. Independent UI-03 draft
+#448 is reconciled onto it. A larger request-projection experiment retained
+all content but made broad Coverage slower, so it is excluded from the draft.
+The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; exact-head CI remains. TD-122 stays open. Catalog/Map #449 stays a separate review. All 31 accepted
+definitions/order below remain unchanged; dated notes are history.
+
 October 30 — Current live release is **#442**, merged as `3b0b4acc` from
 approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
 passed (5,477 tests). A fresh backup, isolated rehearsal and post-switch checks
@@ -21,6 +119,14 @@ accepted definitions and their ordering below remain unchanged.
 
 Earlier dated release and pending-approval notes below are historical evidence;
 they do not reopen approvals already completed in #433, #440 or #442.
+
+October 31 — UI-03 performance follow-up:
+[request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md) preserves the
+dense source table, source content, filters, profile gaps and human decisions.
+All 90 affected tests, complete-model/24-response parity, desktop/412px and
+1,797-page static review pass. Source/profile timings improve in the isolated
+sample; overall Coverage timings remain mixed. Exact-head CI and a separate
+release review remain; all 31 accepted definitions/order are unchanged.
 
 October30 — Approved combined #440 is merged1aef8862 and live with fresh backup,
 bounded preservation, all required checks and native/live verification. The
@@ -487,7 +593,7 @@ table and implementation sequence below are preserved.
 | PACK-01 | Competitor registry from supplied image, first group/list, export JSON schema and pipeline rules | First competitor list has 77 supplied-photo subjects with provisional identities/programs/brands retained; versioned JSON schema, stable identities and separate association rows (M2). | Schema/registry acceptance complete; unresolved human identities and optional receiving-system integration remain. |
 | PACK-02 | Reviewed-news-source-only or all-news toggle; dates at generation; last generated timestamp for each successful export | Reviewed-source-only/all-news choice, generation-time dates and successful export receipts/last-generated history; individual statement approval is not required for source-reviewed packets (M2). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | PACK-03 | Fresh capture before every export, latest capture results, stable source identity, separate relationship rows, original URLs | Export requires explicit fresh per-subject capture with bounded queries, actual outcomes, duplicate handling and unchanged source URLs; failed capture cannot be mislabeled fresh (M2). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| AUDIT-01 | Audit each section's purpose, working state, duplication/zombie risk and appropriate consolidation; preserve every useful workflow | Purpose/workflow/duplication audit and accepted eleven-home consolidation implemented. Retained comparisons, review/identity/claim/intake/history/tools keep their routes (M11/20/35); M37 old-PR overlap assessment. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
+| AUDIT-01 | Audit each section's purpose, working state, duplication/zombie risk and appropriate consolidation; preserve every useful workflow | Section purpose/workflow/duplication audit and eleven-home consolidation are delivered. The November 1 offline audit checks 79 variants without outbound calls or 5xx. Existing statement links exposed one real 404; its read-only destination and static links are now repaired in this candidate. | The repair passes 72 focused checks, native desktop/412px review and a full static scan of 820 statement links. Its own exact-head CI and release review remain; human source/catalog decisions stay separate. |
 | REPORT-01 | One Reports & Briefings home; executive view, selected briefs, editable reports, snapshots and news packets distinguished | Reports & Briefings task home unifies Executive view, briefs, editable reports, snapshots and packets without flattening their distinct outputs (M7/13/15/24/28/29). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | REPORT-02 | Rename War Room to Meeting Prep, keep its scope, saved takeaways and handoffs | Meeting Prep replaces War Room presentation; scope, saved takeaways, question/refresh actions, history and human handoffs retained (M7). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | REPORT-03 | Reports and exports must read as designed documents: takeaway first, clear hierarchy, no generated internal ID dumps, readable linked sources | Refined takeaway-first PDF/editor, numbered outlined findings, readable linked Source references and named appendix; literal edits/qualifications retained. #300 four checks green; five PDF pages and phone reviewed. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
@@ -498,8 +604,8 @@ table and implementation sequence below are preserved.
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The live guide contains twelve section cards, four workflow steps, six report choices and shared Workspaces Capture → Connect → Brief with Markdown/JSON outputs. Approved #433, #440 and #442 retain it, with native review, required checks and offline/live preservation. | The visual explainer is delivered. Separate snapshot navigation has 17 focused checks and desktop/phone review; its own exact-head CI and future release remain separate. Wider educational/media depth and human source/catalog decisions stay open. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved performance-only #442 head ab6256c7 merged as 3b0b4acc and deployed 2026-10-30 at18:47UTC, retaining #433, Tags and #440. All four checks pass /5,477 tests; fresh backup, bounded isolated rehearsal, live fingerprints and native source disclosure verify five accounts,65 profiles,9,854 existing JSON records,3,228 data files and four databases. All nine approved runtime hashes match; settings,mounts,real first-login state and rollback are retained. No new data or review decision. | This approved release is complete. The separate snapshot navigation draft needs its own exact-head checks and later release approval. Broader catalog,current-rights,qualification,reuse and identity decisions remain human; completed release approvals are not repeated. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The live guide contains twelve section cards, four workflow steps, six report choices and shared Workspaces Capture → Connect → Brief with Markdown/JSON outputs. Approved #433/#440/#442/#443 retain it with native review, required checks and offline/live preservation. | The requested visual explainer and snapshot navigation are delivered. Wider educational/media depth and human source/catalog decisions remain open. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved navigation #443 at e88fcd36 merged as f76080d0 and deployed November 1 at 14:40 UTC. Four checks / 5,479 tests, fresh backup and preservation retain five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. Settings, mounts, real first-login state and rollback remain. | Completed live approvals are not reopened. The new combined #452/#453 platform candidate needs its own final-head checks, native review, fresh preservation and scoped release approval. Source/Map #449 and source #454 remain separate. Human source/name/rights/photo/qualification decisions stay human. |
 
 ## Historical implementation sequence
 

@@ -1,5 +1,104 @@
 # Intelligence Coverage Matrix
 
+November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
+combines tested #460, #459 and the focused candidate keyboard repair without
+adding source/catalog coverage or trust decisions. All sixteen runtime files
+retain component bytes and both documentation histories. The new combination
+needs its own current-head/native/preservation acceptance; older component
+proofs/approvals are not combined approval. Source #461 and catalog/Map #449
+remain separate, with broader TD-122/content/human work still open.
+
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+is a platform-only interaction repair following #460. Actual Shift+Tab now
+clears the sticky bar in desktop/412px controls; all 22 affected checks pass.
+No catalog/source breadth, human decisions or protected-domain behavior change.
+Source #461 and other frozen scopes remain independent. Final acceptance and
+broader TD-122 performance/device work remain; no merge/deployment.
+
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 125 focused checks pass.
+The first isolated rehearsal exposed and now guards existing-image precedence;
+new-head acceptance remains required, with the failed attempt retained.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
+
+November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+records a platform-only child of #458 addressing the measured cold-handler
+blocker. Optional row selection retains the original matcher, review gates,
+complete typed models and HTML; no catalog/source coverage is added. Initial
+timings favor the revised implementation after a slower version was rejected.
+Confirmation and final acceptance remain; TD-122, source/name/rights/photo
+decisions and independent recall stay open. No merge or deployment.
+
+November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
+the tested #455 platform changes while removing unrelated variety, briefing and
+publication preparation from login/health/News readiness. News inputs, auth,
+polling and human gates remain. Initial real-lifespan public-fixture comparison
+preserves complete models/HTML and all 2,982 data files; specialist cold work
+moves to its first visit. All 89 focused checks and record validation pass.
+Confirmation/current-head/native/fresh preservation acceptance remains; no new
+release approval or deployment. TD-122 stays open. Frozen #449 (one unanswered
+question) and source #457 remain separate. Original 31 definitions/order and
+the governing guide remain verbatim. Earlier notes are dated evidence.
+
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+November 1 — [Completion review](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+confirms the canonical public seed remains 522 sections / 1,864 name occurrences /
+165 catalog matches / 1,699 review needs; no new source or variety is added by
+this statement-link repair. Its 186 new public page destinations display
+existing eligible Fact records, not 186 new facts. Human classifications and
+all source/name/role/rights/photo gates remain. The public 64-profile corpus
+differs from the preserved live 65-profile runtime. Prepared #449/#450 source
+counts describe separate candidates and must not be summed as a deployed union.
+Engineering tests do not complete the independent expected-name worksheets.
+
+November 1 — The [combined performance review](COVERAGE-PERFORMANCE-COMBINED-REVIEW.md)
+retains all canonical source/profile coverage: 522 source sections, 1,864 name
+occurrences and 64 public-seed profiles. It combines request-local source work
+and the literal photo-reference index, adding no source, figure, variety or trust
+decision. All 133 affected checks and 48 complete-response comparisons pass;
+this combination needs its own CI/native/live-copy proof. Catalog/Map #449 and
+historical-source #450 remain separate. Dated component notes below are history.
+
+November 1 — The [photo-reference index](COVERAGE-PHOTO-REFERENCE-INDEX.md)
+is presentation-only performance work over the canonical public seed: 522 source
+sections and 64 profiles. It adds no source, named variety, region, photo, role,
+rights or trust decision. Full source tables and profile-field gaps remain
+identical. Broader current/historical portfolio and media depth remain open;
+source/Map #449 and historical interview #450 retain their own draft scopes.
+Approved navigation #443 is live, with existing runtime records preserved.
+
+November 1 — Performance #448 is reconciled onto live navigation #443
+(`f76080d0`). It adds no sources, varieties, market figures or trusted decisions.
+The larger request-projection experiment matched full models but regressed
+broad Coverage, so it is not shipped. The simpler source/field work passes 92 focused checks, full-model/24-response
+parity and desktop/412px review; current-head CI remains. Separate catalog/Map #449 stays frozen; coverage breadth,
+TD-122 and human review gaps remain open.
+
+October 31 — [Request-local source work](COVERAGE-REQUEST-WORK-PERFORMANCE.md)
+is a separate performance draft on the #442 platform. It adds no catalog,
+source or geography coverage. All 90 focused tests and desktop/phone/static
+review pass; complete models and rendered responses match the baseline.
+Coverage timings remain mixed, and TD-122 and human review gaps stay open.
+Navigation #443, source #444 and Map #446/#447 are excluded from this draft.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

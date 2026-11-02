@@ -1,5 +1,37 @@
 # What is delivered, and what remains
 
+November 1 — [Combined platform review](PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
+brings tested Coverage performance #452 and statement-navigation/audit #453
+together on live #443 (`f76080d0`). All ten runtime files retain their exact
+component bytes; data, schemas, the governing guide and original 31 accepted
+definitions/order remain. This combination requires its own combined tests,
+native/static/current-head checks and fresh isolated preservation before any
+new scoped merge/deployment approval. Component proofs do not approve it.
+Frozen source/Map #449 retains its already-delivered question; source #454
+is an independent historical-name follow-up. Neither catalog scope is bundled.
+Earlier candidate notes below are dated component evidence, not a claim that
+this new combined release is already live or approved.
+
+## Current delivery state — November 1, 2026
+
+Approved #443 is live as `f76080d0`, retaining the approved platform, catalog,
+Learn, Map and performance deliveries. Its release-time proof preserved five
+accounts, 65 profiles, 9,856 existing JSON records and four databases. Snapshot
+navigation and the visual Help explainer are delivered. All older sections below
+are dated evidence, not current pending approvals.
+
+The [new full requirements review](REQUIREMENTS-COMPLETION-REVIEW-2026-11-01.md)
+maps all original 31 requirements and later prompts to delivered behavior and
+remaining limits. It distinguishes live #443, prepared #449/#450/#452 and the
+new repair for existing statement links. The repair retains original statements,
+claims and every eligible source; 72 focused tests, desktop/412px review and
+820 generated-link checks pass. Final-head CI/release review remains separate.
+
+Human source/name/rights/photo/qualification decisions, independent recall,
+wider profile/media/statistics depth and broader cold-load performance remain
+open. Neither green CI nor source occurrences establish global completeness.
+No pending release question is repeated or treated as answered by this audit.
+
 ## Current delivery state — October 30, 2026
 
 The approved platform #433, combined catalog/Learn/Map #440 and performance

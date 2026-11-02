@@ -56,6 +56,27 @@
   }
   window.addEventListener('resize', measure);
   measure();
+
+  // A focused link can be inside the viewport yet covered by the sticky bar.
+  // Correct only a focus transition, after the browser's own focus scrolling;
+  // ordinary scrolling and the navigation's controls keep their behavior.
+  let focusFrame = 0;
+  workspace.addEventListener('focusin', event => {
+    const target = event.target;
+    if (!target?.getBoundingClientRect || bar.contains(target)) return;
+    window.cancelAnimationFrame(focusFrame);
+    focusFrame = window.requestAnimationFrame(() => {
+      if (document.activeElement !== target || !target.isConnected) return;
+      const rect = target.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const headerBottom = Math.max(0, header?.getBoundingClientRect().bottom || 0);
+      const nav = bar.getBoundingClientRect();
+      const coveredBottom = nav.top <= headerBottom + 1
+        ? Math.max(headerBottom, nav.bottom) : headerBottom;
+      const delta = rect.top - coveredBottom - 8;
+      if (delta < 0) window.scrollBy({top: delta, behavior: 'instant'});
+    });
+  });
 })();
 
 // Profile anchors must clear the shell even when its navigation wraps on phones.
