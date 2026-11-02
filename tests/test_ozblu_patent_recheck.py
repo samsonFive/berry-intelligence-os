@@ -11,8 +11,10 @@ BATCH = DATA / 'imports/variety-portfolio-observations-2026-10-07-ozblu-patent-r
 
 
 def sources():
-    ids = {s['id'] for s in json.loads(BATCH.read_text(encoding='utf-8'))['sources']}
-    return [s for s in load_portfolio_observations(DATA) if s['id'] in ids]
+    # These assertions cover the original October 7 capture, including the
+    # then-blank Rejoice sheet. A later successful recapture must not rewrite
+    # that historical evidence. Current loader/recovery is tested separately.
+    return json.loads(BATCH.read_text(encoding='utf-8'))['sources']
 
 
 def test_existing_filing_denominations_reuse_catalog_without_new_candidates():

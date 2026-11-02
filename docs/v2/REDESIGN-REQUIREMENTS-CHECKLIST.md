@@ -1,4 +1,23 @@
+# November 2 — original regional names and credited photo references
+
+CAT-01/CAT-02 follow-up: [Maryland Extension review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
+reconciles 53 table names and six photo captions from one publication. Existing
+1,258 keys remain and 25 source-backed keys are added; no human decision,
+canonical profile or photo permission changes. Exact named photos retain Haley
+Sater's credit and existing preview gates. Original 31 definitions/order remain
+verbatim. This source-only child retains #461; #462 and #449 stay separate, with
+their existing unanswered release questions unchanged. Comprehensive coverage,
+independent recall and human source/name/rights/photo decisions remain open.
+
 # Redesign and consolidation requirements
+
+November 2 — [Combined Learn/catalog review](LEARN-CATALOG-CLOSEOUT-REVIEW-2026-11-02.md)
+retains all original 31 definitions/order while joining current #464 and #472
+on live #445. Component checks and isolated preservation pass, but the joined
+candidate requires its own final checks, browser review, current-live rehearsal
+and release approval. Completed platform #468 is retained, not reapproved.
+Source/name/role/photo/figure/Atomic decisions and broad performance depth stay
+independent. Historical notes below retain their original review boundaries.
 
 November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
 retains #460 performance/statement/startup work, #459 Reader capture repair and
@@ -97,6 +116,80 @@ all content but made broad Coverage slower, so it is excluded from the draft.
 The simpler source/field work passes 92 focused checks, full-model/24-response
 parity and desktop/412px review; exact-head CI remains. TD-122 stays open. Catalog/Map #449 stays a separate review. All 31 accepted
 definitions/order below remain unchanged; dated notes are history.
+
+November 1 — [Combined catalog/Map candidate](CATALOG-MAP-COMBINED-REVIEW.md)
+reconciles the CAT-01/CAT-02 and MAP-02 follow-ups with deployed navigation
+`f76080d0`. All 181 focused checks, joined desktop/412px/PDF and static review
+pass. The same 31 accepted definitions/order and protected guide remain; source,
+name, photo, role, figure and model decisions are separate human work. Required
+combined-head CI, fresh live-data preservation and actual release approval
+remain. No content deployment is approved by navigation #443's completed release.
+
+November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
+
+October 31 — [UK official Map references](MAP-UK-OFFICIAL-REFERENCES.md) add a separate explicit national-source check on tested446: three 2025 crop groups / nine figures keep original units, marketed definitions, provisional status and source cell provenance. Two workbook/narrative area differences remain visible rather than reconciled automatically. All159 affected checks, actual capture, canonical validation, desktop/412px/one-page PDF review and the1,797-page trusted static build pass. The public reference seed, human selections and all31 accepted definitions/order are unchanged. Exact-head full CI and separate release acceptance remain required.
+
+Current live release remains approved #442, merge `3b0b4acc`. Navigation #443 passes all four final checks /5,479 tests and fresh isolated preservation, but is not merged or deployed: automatic approval review requires a scoped reply to the new explicit #443 question. Separate source draft #444 passes all four /5,481 tests and is excluded from this Map branch. Historical release notes below retain their dated scopes.
+
+October 31 — [Three-crop official Map check](MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from navigation #443 and source draft #444.
+
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md) adds three unreviewed source sections /ten name occurrences from two dated original interviews. Public-seed totals are525 /1,874 /165 /1,709;64 of77 supplied subjects now have named-source coverage. Gem-Pack retains five incomplete checks. All41 final affected tests and desktop/412px review pass; this source draft still needs its exact-head CI and later release. Canonical3b0b4acc retains approved442; navigation443 is separately tested and unreleased. All31 original accepted definitions/order remain. Earlier pending-release notes below are historical.
+
+November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+adds inspected original PDF references for 18 existing names across six source
+sections. CAT-01/CAT-02 depth improves while all 1,258 review keys, prior names,
+photo holds and accepted definitions/order remain. Publisher claims, botanical
+origin and blanket PBR wording do not become verified traits, planting regions
+or rights. All 46 affected checks and local replay/static/native evidence pass
+within their stated limits; phone keyboard occlusion remains under TD-122.
+Current-head CI/fresh preservation remain; no merge/deployment or new approval.
+
+November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
+November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
+November 1 — [Historical Singrow/Surexport sources](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+add fifteen literal name occurrences from three original documents, retaining
+the parent Splendor source and all identity/role/photo/rights gates. Current
+source-child counts are 526 sections / 1,882 occurrences / 165 matches / 1,717
+review needs; 66 of 77 subjects have named source entries. Existing gaps remain.
+Navigation #443 is live as `f76080d0`. Catalog/Map #449 retains its already-asked
+approval question; performance #452 and statement/audit #453 are separate tested
+drafts. #448/#451 were superseded by #452. Earlier dated notes below retain
+their historical scopes. All 31 original accepted definitions/order remain.
+
+November 1 — Navigation #443 is live as `f76080d0` after actual approval of
+`e88fcd36`, fresh backup and preservation. Its Help/Snapshot navigation gate is
+complete. Performance #448 separately passes all four checks /5,486 tests and
+fresh bounded preservation; TD-122 remains open. Catalog/Map #449 remains frozen
+with its already delivered release approval pending.
+
+The independent [Splendor historical-source child](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+adds three printed blackberry names from an August 2011 company interview,
+retaining source gaps and every human gate. All 31 accepted definitions/order
+below remain unchanged; current evidence cells supersede dated history.
 
 October 30 — Current live release is **#442**, merged as `3b0b4acc` from
 approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
@@ -575,8 +668,8 @@ table and implementation sequence below are preserved.
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Original-source reconciliation now includes the six release/interview scopes in COMPANY-RELEASE-VARIETY-DEPTH.md. Ten occurrences add five source-derived keys while preserving all prior saved IDs and human decisions. Existing article/filing/photo-name handoffs remain; no identity is automatically accepted. | The 52 copied proposals and original 32 independent expected-name worksheets still require actual human review. Source acceptance, name/role/catalog authoring and independent recall remain separate gates; unavailable text and unresolved names remain visible. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current source-child audit: 522 sections / 1,864 name occurrences / 165 matches / 1,699 review needs. Public 64-profile field gaps remain 11 photos / 13 rights / 33 cited traits / ten company links. Sun Belle and Perfection gain named historical source entries while retaining portfolio gaps. Tested catalog/platform434 preserves source431 on platform433; this later source child is separate. | Current/historical portfolio completeness, current official rights, reviewed identities/canonical authoring, attributed photos, cited traits/regions, stale prose and independent recall remain. The 77-subject source plan has 63 named-source entries, eleven partial checks, one unavailable source and two identity holds. Counts are not global completeness or distinct variety totals. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | The joined #449/#467 source draft retains original interviews, printed sheets, cultivar tables and captions with source-specific name handoffs. All prior source keys/decisions survive; current public candidate view has 1,315 keys. See CATALOG-MAP-CLOSEOUT-2026-11-02.md. | Human source/name/role/catalog decisions, the 32 unclear photographed cells, two organization labels and independent 32-source expected-name review remain. Source acceptance, identity, statement review and qualification remain separate; no global recall is established. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Combined public seed: 537 sections / 2,029 literal occurrences / 175 catalog text matches / 1,854 review needs. The 77-subject source plan has 67 named, seven partial, one unavailable and two identity holds. Historical periods, 14 unreadable sections and 146 follow-ups remain explicit. | Current/historical completeness, current rights, reviewed identities/canonical authoring, cited traits/growing regions and photo permissions remain open. Name occurrences and text matches are not distinct approved varieties; named-source progress is not full portfolio coverage. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures remain. Deployed #440 retains article hierarchy and human gates. Approved #442 is live: all 522 source rows and their full details remain accessible; the measured production-copy HTML is 77.10% smaller. Desktop/412px error/retry/fallback and live disclosure checks pass. | The approved rendering release is complete. Server-side reconciliation/copying and broader TD-122 remain open; article/body coverage and human source decisions remain separate. |
@@ -589,7 +682,7 @@ table and implementation sequence below are preserved.
 | VAR-01 | Seed supplied photo variety names with supplied companies, without pretending associations prove roles or identities | 143 photo candidates, 144 associations, 32 unclear cells retained; review UI and original photo provenance preserved (M2/6). | Human spelling/identity/role review remains; 32 unclear cells are retained, not guessed. |
 | VAR-02 | Varieties visible on Map with editable and source/news-populable Growing regions; company Operating regions as another layer | Shared editable Growing/Operating region tables and country map layers; article/statement prefill (M23), cited editable proposals/current comparisons and protected review/history (M27). | Release acceptance complete. Subnational notes remain notes; exact polygons are later scope. |
 | MAP-01 | Real boundary map, multi-country selection, touch/keyboard interaction, connected news/filter state and region tables with A–Z | Boundary map, multiple selected countries, keyboard/touch controls, A–Z region tables, shared news scope and selected-location snapshots (M4/28/29). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| MAP-02 | Market statistics below Map from best available public sources or explicit research population | Public baseline plus explicit Eurostat capture (M32) and country/berry research (M36); cited source passages, current/proposed comparison, human selection/history; individual PDF figures preserve units/estimates/period notes. | Release acceptance complete; genuine source/figure approval and ongoing sparse coverage remain human/content work. |
+| MAP-02 | Market statistics below Map from best available public sources or explicit research population | Public baseline plus explicit Eurostat three-crop/seven-country and UK Defra checks; combined captures offer24 country/crop references /51 original-unit figures for human selection. Reported yield is not calculated; marketed production, provisional labels, source dates and two area discrepancies remain explicit. All159 affected checks, desktop/412px/PDF and1,797-page static review pass for the UK child of tested446. | Published references remain unchanged. Broader world/crop coverage and actual source/figure decisions remain open; exact-head full CI, then-current canonical/live-data preservation and separate release approval remain required. |
 | PACK-01 | Competitor registry from supplied image, first group/list, export JSON schema and pipeline rules | First competitor list has 77 supplied-photo subjects with provisional identities/programs/brands retained; versioned JSON schema, stable identities and separate association rows (M2). | Schema/registry acceptance complete; unresolved human identities and optional receiving-system integration remain. |
 | PACK-02 | Reviewed-news-source-only or all-news toggle; dates at generation; last generated timestamp for each successful export | Reviewed-source-only/all-news choice, generation-time dates and successful export receipts/last-generated history; individual statement approval is not required for source-reviewed packets (M2). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | PACK-03 | Fresh capture before every export, latest capture results, stable source identity, separate relationship rows, original URLs | Export requires explicit fresh per-subject capture with bounded queries, actual outcomes, duplicate handling and unchanged source URLs; failed capture cannot be mislabeled fresh (M2). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
@@ -605,7 +698,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The live guide contains twelve section cards, four workflow steps, six report choices and shared Workspaces Capture → Connect → Brief with Markdown/JSON outputs. Approved #433/#440/#442/#443 retain it with native review, required checks and offline/live preservation. | The requested visual explainer and snapshot navigation are delivered. Wider educational/media depth and human source/catalog decisions remain open. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved navigation #443 at e88fcd36 merged as f76080d0 and deployed November 1 at 14:40 UTC. Four checks / 5,479 tests, fresh backup and preservation retain five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. Settings, mounts, real first-login state and rollback remain. | Completed live approvals are not reopened. The new combined #452/#453 platform candidate needs its own final-head checks, native review, fresh preservation and scoped release approval. Source/Map #449 and source #454 remain separate. Human source/name/rights/photo/qualification decisions stay human. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Explicitly approved platform #468 head36c58b53 merged as c773c60a and deployed November2 at20:02UTC. All four checks pass /5,896 tests; fresh backup, isolated preservation and post-switch checks retain five accounts including Chris.H,65 profiles,10,375 existing JSON records,3,228 data files,four databases and1,115 private research files. Settings,mounts,real first-login history and rollback remain. | The approved platform release is complete. Learn #464 and catalog/Map/source #472 remain separate drafts needing current-head checks, current-live preservation and their own release approval. Cold-load performance and human source/name/rights/photo/qualification decisions remain open. |
 
 ## Historical implementation sequence
 
