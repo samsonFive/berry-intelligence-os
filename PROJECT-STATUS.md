@@ -1,3 +1,14 @@
+# Current Learn review — November 2, 2026
+
+Learn #464 now uses canonical #445 (`147cdc41`), which retains deployed platform
+#468. All six Learn runtime files and the prior component tests are unchanged.
+This remains a separate draft requiring exact-head CI, a fresh isolated copy
+of the current live runtime and its own release approval. The previous
+platform-based Learn head passed all four checks; its backup rehearsal was
+interrupted by the other release and is not a preservation pass. No real
+provider call or human decision was made. Historical release notes below retain
+their original dates and scopes.
+
 # November 2 dense evaluation correction
 
 [People and the other evaluation/captured-news views](docs/v2/COMPETITIVE-DENSE-VIEWS-REVIEW.md) now use dense tables, full-result search/filter/sort and the existing green/sage formatting. The correction removes a late duplicate stylesheet and the People form positioning defect. Underlying research, decisions and snapshots remain. Draft PR #445 tracks final verification; no merge/deployment.
@@ -15,6 +26,13 @@
 [Competitive landscape evaluation](docs/v2/COMPETITIVE-EVALUATION-ACCEPTANCE.md): captured all 46 batches plus R01/R02 for 166 frozen entities; imported 4,109 private observations with 202 unresolved mappings and four narrow Provisional assessments. Scoped comparison, correction history, people/hiring, cited immutable snapshots and shared captured coverage are implemented. Additive checkbox selection works with keyboard and across searches. Full local suite passed 5,537 tests with ten skips; final affected/browser/static receipts are linked. Rebased on canonical 3b0b4acc. No merge/deployment or trust promotion. Earlier release histories remain below.
 
 # Project Status
+
+November 2 — Learn research #464 is now reconciled onto the deployed platform
+#468 (`c773c60a`). Its six runtime files retain the separately reviewed Learn
+behavior; the platform's company preparation and isolated test fixtures remain
+intact. New exact-head CI and current-live preservation are required. This is a
+separate draft: platform approval does not approve Learn deployment or paid
+provider calls. The preceding #471-based Learn head passed 5,515 tests.
 
 November 2 — [Company source-name preparation](docs/v2/COMPANY-SOURCE-PREPARATION-REVIEW.md)
 extends the existing request-scoped identity lookup to the measured slow company
@@ -136,6 +154,12 @@ All 90 focused tests and desktop/phone/static review pass; complete models and
 24 rendered responses match. Source/profile samples improve, but overall
 Coverage timings remain mixed. No source/catalog addition or production change;
 exact-head CI and later preservation/release approval remain required.
+November 2 — Learn research #464 is reconciled onto live #471 (`5f60662c`),
+retaining attributed commercial partners and research trails alongside the
+original patent/spreadsheet work. The preceding #470-based head passed 5,508
+tests, native review and isolated preservation. The same six runtime files
+are retained; revised exact-head CI and current-live verification are required
+again. No paid provider call, merge, deployment or inherited approval.
 
 October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
 
