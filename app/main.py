@@ -952,6 +952,10 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
+    # Statement detail uses the same lightweight Library shell. Its selected
+    # references must not hydrate every article merely to calculate old badges.
+    if request.url.path.startswith("/facts/"):
+        return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
     if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
@@ -2682,6 +2686,26 @@ def home(
     )
 
 
+@app.get("/facts/{record_id}", response_class=HTMLResponse)
+def canonical_statement_detail(request: Request, record_id: str) -> HTMLResponse:
+    from app.services.canonical_statements import statement_detail
+
+    fact = next((row for row in all_facts() if row.get("id") == record_id), None)
+    if fact is None:
+        raise HTTPException(status_code=404, detail="Reviewed statement not found")
+    evidence_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    sources = [source for identity in dict.fromkeys(fact.get("evidence_ids") or [])
+               if (source := evidence_repo.get(identity)) is not None]
+    statement = statement_detail(fact, _social_eligible_outputs(sources), entity_index(),
+                                 include_history=AUTHORING_MODE)
+    if statement is None:
+        raise HTTPException(status_code=404, detail="Reviewed statement not found")
+    return templates.TemplateResponse(request=request, name="canonical_statement.html", context={
+        "statement": statement, "authoring_mode": AUTHORING_MODE, "static_build": False,
+        "nav_work_counts": {},
+    })
+
+
 @app.get("/evidence/{record_id}", response_class=HTMLResponse)
 def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
     for record in all_evidence():
@@ -2889,7 +2913,9 @@ def entity_list(
             }
         )
         varieties_all = [e for e in entities_idx.values() if e.get("entity_type") == "variety"]
-        _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
+        from app.services.identity_read_model import identity_read_model_scope
+        with identity_read_model_scope():
+            _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
         context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
         if variety_view == "index":
             index_model = present_variety_index(
@@ -2951,11 +2977,14 @@ def entity_list(
                 from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                photo_index = (variety_photos.SourcePhotoIndex(photo_sources, varieties_all)
+                    if len(context["variety_rows"]) > 1 else None)
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
-                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all)
+                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all,
+                        _index=photo_index)
                     card["photo_identity_reviews"] = photo_identity_reviews(target, sources=photo_sources,
-                        varieties=varieties_all, sourced=sourced_photos)
+                        varieties=varieties_all, sourced=sourced_photos, _index=photo_index)
                     card["photos"] = variety_photos.gallery(target, authoring=True,
                         sourced=sourced_photos,
                         profile=photo_profiles.get(card["id"]))
@@ -3383,6 +3412,13 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
 
 @app.get("/varieties/coverage", response_class=HTMLResponse)
 def variety_coverage_page(request: Request) -> HTMLResponse:
+    """Render read-only coverage with optional request-local lookup preparation."""
+    from app.services.identity_read_model import identity_read_model_scope
+    with identity_read_model_scope():
+        return _render_variety_coverage_page(request)
+
+
+def _render_variety_coverage_page(request: Request) -> HTMLResponse:
     """Explainable Variety universe counts. GET is read-only."""
     varieties, candidates, corpus_report = variety_candidate_universe()
     coverage = coverage_matrix(

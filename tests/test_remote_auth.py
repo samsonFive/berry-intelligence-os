@@ -25,6 +25,11 @@ SESSION_SECRET = "application-session-secret-not-the-password"
 def isolated_accounts(tmp_path, monkeypatch):
     from app import main
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+    reset_login_failures()
+    yield
+    # The throttling test must not leave its shared client IP blocked for
+    # subsequent account/privacy fixtures. Production throttling is unchanged.
+    reset_login_failures()
 
 
 def _enable_remote(monkeypatch, **overrides: str) -> None:
