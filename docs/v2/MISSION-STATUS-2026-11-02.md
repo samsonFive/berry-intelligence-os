@@ -1,0 +1,46 @@
+# Berry Intelligence mission status — November 2, 2026
+
+The approved software stack is live. PR #473 was merged as `d5b619b2` and
+deployed at 21:28 UTC, retaining platform #468 and the intervening #445 release.
+It adds the Learn deep-research request repair and 20 source import files for
+variety/Map review. It creates no canonical varieties, changes no human review
+decisions and applies no unreviewed market figures.
+
+All four final CI checks pass: 6,089 tests, 11 skips and two existing warnings,
+plus record integrity and public-static safety. Desktop/412px browser review
+and 53 isolated route/PDF checks pass. Fresh backup and post-switch checks
+preserve all five accounts including Chris.H, 65 profiles, 10,526 existing JSON
+records, four databases and 1,115 private research files. Mounts, settings and
+rollback are retained. Public HTTPS health/login respond; protected pages retain
+authentication. No real account was used for verification or paid provider called.
+
+## Delivered platform
+
+The redesign includes Glasshouse styling and compact navigation, the image-led
+News grid and overlay Reader, shared company marks/lists/workspaces, private
+Digest/layout preferences, editable company profiles/People, varieties/regions,
+Map and Landscape comparisons, Reports & Briefings/Meeting Prep, competitor news
+packets, expanded visual Learn, and consolidated investigation/operations tools.
+The original visual explainer at `/guide` covers site sections, analyst workflow
+and reporting choices. Earlier release and workflow proofs remain in the
+[31-item requirements checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md); passing
+route checks alone does not prove every form or source's availability.
+
+## Remaining work and required inputs
+
+| Work | State and next step | Input needed |
+| --- | --- | --- |
+| Updated Help | Separate draft #474 adds company comparisons, retained coverage and accurate saved-comparison JSON/CSV guidance. Three focused tests and desktop/phone layout review pass. Current full CI and release review remain. | A separate tested-release approval before merging/deploying this follow-up; #473 approval does not cover it. |
+| Source-to-catalog review | 537 source sections contain 2,029 literal name occurrences; 175 are catalog text matches and 1,854 need review across 1,315 source-derived keys. Repetition is not a distinct variety. Human identity/catalog decisions remain. | Individual source/name/role decisions through the existing queues. |
+| Photo transcription | 143 candidates / 144 associations retain 32 unclear photographed cells. Temporary original files are unavailable in their former paths. | A correction or clearer original for each unresolved cell; no guessed spelling or company role. |
+| Organization identity | Genetics Uruguay is generic; Mario Aguas-Alvarado is a person with a possible affiliation. | Clarify the intended organization or retain the person as a contact. |
+| Independent recall | The retained 32-source worksheet is prepared, with no completed expected-name lists. | Independent human reading of the saved sources; detector output must not supply its own expected answers. |
+| Market references | Explicit captures offer 24 country/crop groups and 51 original-unit figures across eight countries. Two UK area discrepancies remain held. | Human figure selection/source decisions; wider country/crop coverage requires more source evidence. |
+| Rights, photos and variety depth | Original patents, credited photo references and coverage gaps are accessible. Reuse of unknown-permission photos remains held; explicit session preview does not grant publication permission. | Current rights evidence, individual photo permissions, and reviewed traits/growing regions. No worldwide completeness claim is established. |
+| Learn provider acceptance | High-depth request behavior, durable jobs, edits/history and duplicate-submission prevention pass fixture checks. | Real-provider quality/cost remains unverified; no paid acceptance run is authorized by a software deployment approval. |
+| Performance | The deployed platform retains measured rendering/startup/lookup improvements. Cold specialist loads remain slow under TD-122. | Further bounded profiling and parity checks; no user input is needed for that engineering work. |
+
+These are distinct from the completed #473 deployment. The mission remains open;
+neither green CI nor deployment approval supplies human evidence or review
+decisions. Workspaces are collaborative; only Digest and layout preferences are
+account-private under the approved account model. Existing data and edits remain.

@@ -353,6 +353,8 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Choose the output you need" in guide_html
     assert '/reports/new' not in guide_html
     assert '/news-packets' not in guide_html
+    assert '/competitive-evaluation' not in guide_html
+    assert '/coverage/archive' not in guide_html
     assert '/landscapes/explorer' not in guide_html
     assert '/source-fidelity' not in guide_html
     assert "Accepting text does not approve identities or individual statements" in guide_html
