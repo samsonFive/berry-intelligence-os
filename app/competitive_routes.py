@@ -81,6 +81,32 @@ def comparison(main, store, params):
     capabilities = {c['capability_id']:c for c in ce.catalogue()['capabilities']}
     held_scope_count = sum(a['peer_role'] not in capabilities[a['capability_id']]['eligible_peer_roles'] for a in assessments)
     assessments = [a for a in assessments if a['peer_role'] in capabilities[a['capability_id']]['eligible_peer_roles']]
+    query = str(params.get('q') or '').strip().casefold()
+    rating_state = params.get('rating_state', '')
+    sort = params.get('sort', 'entity')
+    direction = params.get('direction', 'asc')
+    if rating_state not in {'', 'rated', 'unknown', 'needs_review'} or sort not in {'entity', 'capability', 'rating', 'updated'} or direction not in {'asc', 'desc'}:
+        raise ValueError('Choose a valid sheet filter and sort order')
+    if query:
+        assessments = [a for a in assessments if query in ' '.join([
+            entities[a['entity_id']].get('name', a['entity_id']), capabilities[a['capability_id']]['label'],
+            *[str(a.get(k) or '') for k in ce.SCOPE], str(a['rating']), a['status']
+        ]).casefold()]
+    if rating_state:
+        assessments = [a for a in assessments if (
+            isinstance(a['rating'], int) if rating_state == 'rated' else
+            a['rating'] == 'unknown' if rating_state == 'unknown' else
+            bool(a.get('new_evidence')) or (date.today()-date.fromisoformat(a['assessed_at'])).days > 180)]
+    sort_key = {
+        'entity': lambda a: entities[a['entity_id']].get('name', a['entity_id']).casefold(),
+        'capability': lambda a: capabilities[a['capability_id']]['label'].casefold(),
+        'rating': lambda a: a['rating'] if isinstance(a['rating'], int) else -1,
+        'updated': lambda a: a['assessed_at'],
+    }[sort]
+    assessments.sort(key=lambda a: (sort_key(a), a['id']), reverse=direction == 'desc')
+    if sort == 'rating':
+        # Unknown/N/A stay after the numeric observations in either direction.
+        assessments.sort(key=lambda a: not isinstance(a['rating'], int))
     for a in assessments:
         a['capability_label'] = capabilities[a['capability_id']]['label']
         a['age_days'] = (date.today() - date.fromisoformat(a['assessed_at'])).days

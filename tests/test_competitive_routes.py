@@ -93,3 +93,34 @@ def test_matrix_paginates_after_scoping_while_export_keeps_all_cells(client):
     assert page.status_code==200 and 'Page 2 of 2' in page.text
     assert page.text.count('<tr id="capability-')==7
     assert len(http.get('/competitive-evaluation/export/json?'+query).json()['assessments'])==31
+
+
+def test_sheet_search_filter_and_sort_apply_before_pagination_and_export(client):
+    http, research = client
+    inbox, _, scope, *_ = research
+    from app.services.living_workspaces import Store
+    store = Store(inbox)
+    with store.transaction() as db:
+        for number in range(30):
+            cell = {**scope, 'program_or_variety': 'Searchable programme %02d' % number}
+            store.put(db, 'capability_automatic', {'id': ce.scope_key(cell), **cell,
+                'rating': 'unknown', 'status': 'unscored', 'confidence': 'unknown',
+                'rationale': 'Fixture only', 'assessed_at': '2020-01-01', 'basis': 'fixture',
+                'observation_ids': [], 'source_ids': []}, 'test fixture')
+    query = 'companies=company-one&q=programme+29&rating_state=unknown&matrix_page=2'
+    page = http.get('/competitive-evaluation?' + query)
+    assert page.status_code == 200 and 'Page 1 of 1' in page.text
+    assert page.text.count('<tr id="capability-') == 1
+    exported = http.get('/competitive-evaluation/export/json?' + query).json()['assessments']
+    assert len(exported) == 1 and exported[0]['program_or_variety'] == 'Searchable programme 29'
+    assert len(http.get('/competitive-evaluation/export/json?rating_state=needs_review').json()['assessments']) == 30
+    for direction in ('asc', 'desc'):
+        values = http.get('/competitive-evaluation/export/json?sort=rating&direction=' + direction).json()['assessments']
+        assert isinstance(values[0]['rating'], int)
+        assert all(value['rating'] == 'unknown' for value in values[1:])
+    assert Store(inbox).rows('capability_decision') == []
+
+
+@pytest.mark.parametrize('query', ['sort=arbitrary', 'direction=sideways', 'rating_state=trusted'])
+def test_sheet_rejects_unsupported_filter_values(client, query):
+    assert client[0].get('/competitive-evaluation?' + query).status_code == 422
