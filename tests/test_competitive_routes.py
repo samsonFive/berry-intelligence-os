@@ -32,6 +32,20 @@ def test_actual_templates_with_scoped_records(client, view):
         assert 'ce-record-grid' in result.text
 
 
+def test_evaluation_inventory_uses_the_mounted_catalogue_folder(client, monkeypatch, tmp_path):
+    http, _ = client
+    mounted = tmp_path / 'mounted-import'
+    mounted.mkdir()
+    catalogue = mounted / 'capability-rubrics.json'
+    catalogue.write_text(json.dumps(ce.catalogue()), encoding='utf-8')
+    (mounted / 'commercial-entity-inventory.json').write_text(json.dumps({'entities': [
+        {'entity_id': 'company-one', 'inclusion_status': 'in_scope'}]}), encoding='utf-8')
+    monkeypatch.setattr(ce, 'CATALOGUE', catalogue)
+    monkeypatch.setattr(ce, 'ROOT', tmp_path / 'no-checkout-data')
+    result = http.get('/competitive-evaluation?view=people')
+    assert result.status_code == 200 and 'People &amp; Hiring' in result.text
+
+
 def test_review_conflict_export_snapshot_and_public_boundary(client, monkeypatch):
     http, research = client
     inbox, _, scope, _, _, _, _ = research

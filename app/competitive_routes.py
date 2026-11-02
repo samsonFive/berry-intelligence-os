@@ -154,7 +154,7 @@ def comparison(main, store, params):
                           'basis': r['batch_id']+' / '+r['local_id']+' · '+r['resolution'], 'hypothesis': True,
                           'sources': [s['fields'].get('original_url') for s in r['sources']],
                           'scope': {k:f.get(k, 'Unknown') for k in ('berry_scope','origin_scope','destination_scope','rights_territory','start_date','end_date')}})
-    inventory = json.loads((ce.ROOT / 'data/imports/competitive-landscape-2026-10-30-v1/commercial-entity-inventory.json').read_text(encoding='utf-8'))
+    inventory = json.loads((ce.CATALOGUE.parent / 'commercial-entity-inventory.json').read_text(encoding='utf-8'))
     inventory_ids = {r['entity_id'] for r in inventory['entities'] if r['inclusion_status'] != 'out_of_scope'}
     entity_choices = sorted([row for key,row in entities.items() if key in inventory_ids or key in selected], key=lambda row:row.get('name','').casefold())
     latest_batches = {}
