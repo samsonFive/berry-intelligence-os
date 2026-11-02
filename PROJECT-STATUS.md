@@ -1,3 +1,18 @@
+# Verified live Help and current performance draft — November 2, 2026
+
+Approved Help/checklist #474 is deployed as `7fa7dd53`, retaining #473 and
+the platform stack. All four final checks /6,091 tests, desktop/phone review,
+39 isolated route/PDF checks and live verification pass. Existing accounts,
+data, edits, private research, settings and mounts are preserved, with backup
+and rollback retained. Its release approval is complete; earlier pending
+statements below retain their historical dates and scopes.
+
+Separate News performance draft #475 preserves all original 31 definitions/order,
+data and human review gates. Its 137 focused checks, complete-model/HTML parity
+and native review pass. Current-head CI and current-live isolated validation
+remain before its own release review. Cold-load debt and human catalog/source/
+photo/figure/independent-recall work remain open.
+
 # Verified live release — November 2, 2026, 21:28 UTC
 
 Approved #473 is deployed as `d5b619b2`, retaining completed platform #468 and

@@ -1,3 +1,18 @@
+# Verified live Help and current performance draft — November 2, 2026
+
+Approved Help/checklist #474 is deployed as `7fa7dd53`, retaining #473 and
+the platform stack. All four final checks /6,091 tests, desktop/phone review,
+39 isolated route/PDF checks and live verification pass. Existing accounts,
+data, edits, private research, settings and mounts are preserved, with backup
+and rollback retained. Its release approval is complete; earlier pending
+statements below retain their historical dates and scopes.
+
+Separate News performance draft #475 preserves all original 31 definitions/order,
+data and human review gates. Its 137 focused checks, complete-model/HTML parity
+and native review pass. Current-head CI and current-live isolated validation
+remain before its own release review. Cold-load debt and human catalog/source/
+photo/figure/independent-recall work remain open.
+
 # Berry Intelligence mission status — November 2, 2026
 
 The approved software stack is live. PR #473 was merged as `d5b619b2` and
@@ -30,7 +45,7 @@ route checks alone does not prove every form or source's availability.
 
 | Work | State and next step | Input needed |
 | --- | --- | --- |
-| Updated Help | Separate draft #474 adds company comparisons, retained coverage and accurate saved-comparison JSON/CSV guidance. Three focused tests and desktop/phone layout review pass. Current full CI and release review remain. | A separate tested-release approval before merging/deploying this follow-up; #473 approval does not cover it. |
+| Updated Help | Approved #474 is live as7fa7dd53 with company comparisons, retained coverage and accurate JSON/CSV guidance. All four checks /6,091 tests, native and fresh preservation/live checks pass. | None for this completed release; its backup and rollback remain retained. |
 | Source-to-catalog review | 537 source sections contain 2,029 literal name occurrences; 175 are catalog text matches and 1,854 need review across 1,315 source-derived keys. Repetition is not a distinct variety. Human identity/catalog decisions remain. | Individual source/name/role decisions through the existing queues. |
 | Photo transcription | 143 candidates / 144 associations retain 32 unclear photographed cells. Temporary original files are unavailable in their former paths. | A correction or clearer original for each unresolved cell; no guessed spelling or company role. |
 | Organization identity | Genetics Uruguay is generic; Mario Aguas-Alvarado is a person with a possible affiliation. | Clarify the intended organization or retain the person as a contact. |

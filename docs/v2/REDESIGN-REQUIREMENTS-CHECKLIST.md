@@ -1,3 +1,18 @@
+# Verified live Help and current performance draft — November 2, 2026
+
+Approved Help/checklist #474 is deployed as `7fa7dd53`, retaining #473 and
+the platform stack. All four final checks /6,091 tests, desktop/phone review,
+39 isolated route/PDF checks and live verification pass. Existing accounts,
+data, edits, private research, settings and mounts are preserved, with backup
+and rollback retained. Its release approval is complete; earlier pending
+statements below retain their historical dates and scopes.
+
+Separate News performance draft #475 preserves all original 31 definitions/order,
+data and human review gates. Its 137 focused checks, complete-model/HTML parity
+and native review pass. Current-head CI and current-live isolated validation
+remain before its own release review. Cold-load debt and human catalog/source/
+photo/figure/independent-recall work remain open.
+
 # Verified live release — November 2, 2026, 21:28 UTC
 
 Approved #473 is deployed as `d5b619b2`, retaining completed platform #468 and
@@ -711,8 +726,8 @@ table and implementation sequence below are preserved.
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The live guide explains twelve section cards, four analyst steps, six report choices and shared Workspaces Capture → Connect → Brief. Separate draft #474 adds Competitive evaluation, retained coverage and accurate saved-comparison JSON/CSV guidance; three focused tests and desktop/phone review pass. | The original visual explainer is delivered. The new Help follow-up remains a separate draft requiring its own current CI and release review; wider media depth and human catalog decisions remain open. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved #468 is deployed and retained by #445 and combined #473, merged as d5b619b2 and deployed November 2 at 21:28 UTC. All four #473 checks pass with 6,089 tests. Fresh backup, isolated preservation and live verification retain five accounts including Chris.H, 65 profiles, 10,526 existing JSON records, four databases and 1,115 private research files. Only 20 source files are added; settings, mounts and rollback are retained. | The approved platform and Learn/catalog/Map software releases are complete. Separate Help draft #474 is not deployed. Cold-load performance, comprehensive content depth and human source/name/rights/photo/figure/qualification decisions remain open. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The visual explainer is live through approved #474, merge7fa7dd53. It retains twelve site-section cards, four analyst steps, prior reporting choices and shared Workspaces guidance, and now explains company comparisons, retained coverage and accurate saved-comparison JSON/CSV behavior. All four checks pass/6,091 tests; desktop/phone, fresh isolated preservation and live verification pass. | The requested visual explainer and follow-up are delivered. Wider educational/media depth and human source/catalog decisions remain open; no new approval is needed for completed #474. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved platform #468, combined Learn/catalog/Map #473 and Help/checklist #474 are deployed. Current merge7fa7dd53 retains all earlier releases. Fresh backup and live verification preserve five accounts including Chris.H,65 profiles,10,536 existing JSON records,four databases and1,115 private research files, with unchanged mounts/settings and rollback. Help adds or changes no data. | These approved releases are complete. Independent performance draft #475 retains137 focused checks, full-model/HTML parity and native review; its final current-head CI, fresh live-copy validation and separately reviewed release remain. Comprehensive content and human source/name/rights/photo/figure/qualification decisions remain open. |
 
 ## Historical implementation sequence
 
