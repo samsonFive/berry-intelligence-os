@@ -1,14 +1,16 @@
 ## Current catalog/Map closeout — November 2, 2026
 
 [The combined review](docs/v2/CATALOG-MAP-CLOSEOUT-2026-11-02.md) reconciles
-catalog/Map #449 and source follow-ups through #467 onto live #470 (`d2f6eb96`).
+catalog/Map #449 and source follow-ups through #467 onto live #471 (`5f60662c`).
 The public seed has 537 sections / 2,029 literal occurrences / 175 text matches /
 1,854 review needs and 1,315 review keys. The original 77-subject plan has 67
 named entries, seven partial, one unavailable and two identity holds. Map keeps
 24 captured country/crop groups and 51 unselected figures across eight countries;
 two UK area comparisons remain unresolved. All component source bytes, canonical
-patent/spreadsheet work, the expansion guide and original31 definitions/order
-remain. Joined tests/native/static/current-live preservation are in progress;
+patent/spreadsheet work, attributed commercial partners, research trails, the
+expansion guide and original31 definitions/order remain. The preceding head
+passed 5,590 tests and isolated preservation; revised exact-head CI, native
+and current-live checks are required again;
 this is not deployed. Platform #468 and Learn #464 remain separate scopes.
 Earlier dated notes below retain their own populations and release boundaries.
 

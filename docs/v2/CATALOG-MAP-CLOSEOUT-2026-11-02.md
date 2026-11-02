@@ -1,9 +1,12 @@
 # Catalog and Map closeout review
 
 This draft brings together the prepared catalog/Map candidate #449 and the
-original-source follow-ups through #467 on current canonical/live #470
-(`d2f6eb96`). It retains the private patent research and original-row spreadsheet
-that were deployed separately. Frozen component heads and their earlier review
+original-source follow-ups through #467 on current canonical/live #471
+(`5f60662c`). It retains private patent research, the original-row spreadsheet,
+attributed commercial partners and research trails deployed separately.
+The preceding #470-based head passed 5,590 tests, native review and isolated
+preservation; exact-head gates and current-live checks are required again.
+Frozen component heads and their earlier review
 questions remain historical evidence; their approvals are not inherited here.
 Platform #468 and Learn #464 remain separate release scopes.
 
