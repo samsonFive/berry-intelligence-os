@@ -108,6 +108,22 @@ def test_closeout_party_sources_reject_unsafe_urls(imported):
         install(packet,data_dir=data,inbox_dir=inbox)
 
 
+def test_corrected_private_identity_hides_stale_candidate_without_rewriting_history(imported):
+    data,inbox,packet,receipt,before=imported
+    value=json.loads(packet.read_text());old='variety-research-strawberry-abc123'
+    value['metadata']['superseded_entity_ids']=[old]
+    value['varieties'][3]['resolved_name']='Corrected Code'
+    archive=inbox/research.ROOT/'imports'/receipt['batch_id']/'profiles'/(old+'.json')
+    original=archive.read_bytes();packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    assert archive.read_bytes()==original and digest_tree(data)==before
+    assert research.private_entity(inbox,'variety',old) is None and research.profile(inbox,old) is None
+    assert old not in {r['entity_id'] for r in research.index(inbox)['rows']}
+    assert research.profile(inbox,'variety-research-strawberry-correctedcode')
+    value['metadata']['superseded_entity_ids']=['variety-known'];packet.write_text(json.dumps(value))
+    with pytest.raises(ValueError,match='private research'):
+        install(packet,data_dir=data,inbox_dir=inbox)
+
+
 def test_install_reconciles_against_newer_runtime_catalog(imported):
     data,inbox,packet,receipt,before=imported
     entity={'id':'variety-runtime-abc','record_type':'entity','entity_type':'variety','name':'New runtime name',

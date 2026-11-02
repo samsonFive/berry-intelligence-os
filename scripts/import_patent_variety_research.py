@@ -18,7 +18,7 @@ from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.services.analyst_state_io import atomic_json
-from app.services.variety_research import ROOT, SAFE_CAPTURE
+from app.services.variety_research import ROOT, SAFE_CAPTURE, SAFE_ID
 
 CONTACT_IDS = {
  "Fall Creek Farm & Nursery": "company-fall-creek-farm-and-nursery",
@@ -83,6 +83,9 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     entities={}
     for path in (data_dir/'entities').rglob('*.json'):
         entity=json.loads(path.read_text(encoding='utf-8'));entities[entity['id']]=entity
+    superseded=payload['metadata'].get('superseded_entity_ids',[])
+    if any(not isinstance(eid,str) or not SAFE_ID.fullmatch(eid) or not eid.startswith('variety-research-') or eid in entities for eid in superseded):
+        raise ValueError('Only private research identities may be superseded')
     groups=payload['varieties'];profile_groups=defaultdict(list);profile_entities={};unresolved=[];commercial_entities={};capture_files=set()
     # Registration-resolved blank names join the same literal code and berry,
     # but do not approve a different commercial-name alias.
@@ -177,6 +180,7 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
         'baseline_commit':payload['metadata']['baseline_commit'],'method':payload['metadata']['method'],
         'review_state':'unreviewed','canonical_data_sha256_before':before,'canonical_data_sha256_after':after,
         'profiles':profiles,'unresolved':unresolved,'resolved_keys':[g['key'] for g in groups if g['resolved_name']],
+        'superseded_entity_ids':superseded,
         'commercial_entities':list(commercial_entities.values()),'capture_files':sorted(capture_files),'counts':counts}
     # Manifest is committed last: partial attempts do not become visible pages.
     if sheet_payload is not None:atomic_json(batch_dir/'source_sheet_rows.json',sheet_payload)
