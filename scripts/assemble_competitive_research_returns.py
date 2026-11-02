@@ -11,7 +11,7 @@ import hashlib
 import html
 import io
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +21,17 @@ INVENTORY = resolve_data_dir(ROOT) / "imports/competitive-landscape-2026-10-30-v
 KINDS = {"entity_id": "profile", "observation_id": "observation", "relationship_id": "relationship",
          "person_id": "person", "job_id": "job", "event_id": "hiring_event", "exposure_id": "exposure",
          "source_id": "source", "gap_id": "gap"}
+
+
+def retained_path(root, value):
+    """Read retained Windows or POSIX relative paths without changing originals."""
+    relative = PurePosixPath(str(value).replace('\\', '/'))
+    if relative.is_absolute() or PureWindowsPath(str(value)).drive or '..' in relative.parts:
+        raise ValueError('Original capture escaped its private folder')
+    path = (Path(root) / relative).resolve()
+    if not path.is_relative_to(Path(root).resolve()):
+        raise ValueError('Original capture escaped its private folder')
+    return path
 
 
 def parse_table(raw):
@@ -54,7 +65,7 @@ def assemble(capture_dir, inventory_dir=INVENTORY, *, verify_existing=False):
     cap_ids = {r["capability_id"] for r in capabilities["capabilities"]}
     batches = {}
     for sha, entry in manifest["files"].items():
-        original = (capture_dir / entry['capture_path']).resolve()
+        original = retained_path(capture_dir, entry['capture_path'])
         if not original.is_relative_to(capture_dir.resolve()):
             raise ValueError('Original capture escaped its private folder')
         if hashlib.sha256(original.read_bytes()).hexdigest() != sha:
@@ -72,7 +83,7 @@ def assemble(capture_dir, inventory_dir=INVENTORY, *, verify_existing=False):
         source_ids = set()
         identity = {}
         for sha, entry in entries:
-            path = capture_dir / entry["capture_path"]
+            path = retained_path(capture_dir, entry["capture_path"])
             raw = path.read_bytes()
             if hashlib.sha256(raw).hexdigest() != sha:
                 raise ValueError(f"Capture changed: {path}")

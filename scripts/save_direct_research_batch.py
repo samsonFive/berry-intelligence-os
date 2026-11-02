@@ -13,10 +13,11 @@ import sys
 
 from scripts.competitive_landscape_prompt_contract import MASTER
 from scripts.assemble_competitive_research_returns import md_cell
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 
 ROOT = Path(__file__).resolve().parents[1]
-SNAPSHOT = ROOT / 'data/imports/competitive-landscape-2026-10-30-v1'
-OUTPUT = ROOT / 'inbox/competitive_landscape/direct-research-2026-10-30'
+SNAPSHOT = resolve_data_dir(ROOT) / 'imports/competitive-landscape-2026-10-30-v1'
+OUTPUT = resolve_inbox_dir(ROOT) / 'competitive_landscape/direct-research-2026-10-30'
 KINDS = [
     ('profiles', 'Per-entity profile', None),
     ('observations', 'Capability evidence ledger', 'O'),

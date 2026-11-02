@@ -32,7 +32,8 @@ def inputs():
             yield folder.name, json.loads(raw), hashlib.sha256(raw).hexdigest(), str(path)
     for pointer in sorted(DIRECT.glob('[BR]*/latest.json')):
         revision = json.loads(pointer.read_text(encoding='utf-8'))
-        folder = (DIRECT / revision['revision_path']).resolve()
+        from scripts.assemble_competitive_research_returns import retained_path
+        folder = retained_path(DIRECT, revision['revision_path'])
         if not folder.is_relative_to(DIRECT.resolve()):
             raise ValueError('Research revision escaped its private capture folder')
         original = (folder / 'authored-research.json').read_bytes()

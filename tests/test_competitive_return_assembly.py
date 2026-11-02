@@ -1,6 +1,15 @@
 from scripts.assemble_competitive_research_returns import parse_table, md_cell
 
 
+def test_retained_windows_paths_are_portable_and_stay_inside_capture(tmp_path):
+    import pytest
+    from scripts.assemble_competitive_research_returns import retained_path
+    assert retained_path(tmp_path, r'raw\B01\source.csv') == (tmp_path / 'raw/B01/source.csv').resolve()
+    for value in [r'..\outside', '../outside', r'C:\private\file', '/etc/passwd', r'\\server\share\file']:
+        with pytest.raises(ValueError, match='escaped'):
+            retained_path(tmp_path, value)
+
+
 def test_reassembly_preserves_conflicts_and_rejects_changed_original(tmp_path):
     import json
     import pytest
