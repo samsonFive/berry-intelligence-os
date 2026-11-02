@@ -1,3 +1,13 @@
+# November 2 — original caneberry source references
+
+[Raspberry/blackberry review](CANEBERRY-ORIGINAL-EXTENSION-REVIEW.md): six
+sections add 77 occurrences and four attributed, permission-unknown photo
+references. The bounded corpus is 534 sections / 2,019 occurrences / 175
+catalog text matches / 1,844 review needs / 1,313 review keys. All earlier
+keys and source files remain; company-source status remains 66 named / eight
+partial / one unavailable / two identity holds. No global recall, approved
+identity, trait, rights or commercial-footprint claim follows from these counts.
+
 # November 2 — Maryland regional cultivar source
 
 The [source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md) adds 53 table names and

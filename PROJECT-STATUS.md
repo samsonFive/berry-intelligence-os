@@ -1,3 +1,13 @@
+# November 2 — original raspberry and blackberry names
+
+The [caneberry source review](docs/v2/CANEBERRY-ORIGINAL-EXTENSION-REVIEW.md)
+adds 77 original university source occurrences, 30 review keys and four held,
+credited photo references. All 1,283 earlier keys remain. The source inventory
+now has 534 sections and 2,019 occurrences; company-source status is unchanged.
+No canonical variety, approved alias, breeder role, photo permission or growing
+region is created. This is a source-only child of #463; platform #466,
+catalog/Map #449 and Learn #464 remain separate. Validation is in progress.
+
 # November 2 — source-backed regional cultivar recall
 
 The [Maryland Extension source review](docs/v2/MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)

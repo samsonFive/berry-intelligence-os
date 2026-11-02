@@ -1,3 +1,12 @@
+# November 2 — bramble source recall follow-up
+
+TD-116 remains open. [Original raspberry/blackberry tables and captions](CANEBERRY-ORIGINAL-EXTENSION-REVIEW.md)
+add 30 review keys while preserving all 1,283 earlier keys, crop boundaries,
+saved decisions and unknown photo permissions. Six source sections and 77
+occurrences are not complete breeder inventories or independent human recall.
+No runtime/domain/schema change or inferred commercial growing region. Wider
+current/historical portfolios, identity, rights, traits and photo reuse remain.
+
 # November 2 — regional-source recall follow-up
 
 TD-116 remains open. [Maryland Extension source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
