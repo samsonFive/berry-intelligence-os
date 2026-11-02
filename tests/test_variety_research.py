@@ -75,6 +75,55 @@ def test_later_source_snapshot_updates_the_page_without_duplicate_dossiers(impor
     assert digest_tree(data)==before
 
 
+def test_closeout_retains_individual_roles_territories_and_non_supplier_leads(imported):
+    data,inbox,packet,_,before=imported
+    value=json.loads(packet.read_text())
+    value['varieties'][1].update(commercial_contacts=[
+        {'name':'Example Nursery','role':'Propagator','territory':'Spain','source_urls':['https://example.test/nursery']},
+        {'name':'Example Nursery','role':'Fruit marketer','territory':'UK','source_urls':['https://example.test/marketing']}],
+        commercial_leads=[{'name':'Rights Only','role':'Patent owner','evidence_status':'Supply unverified','source_urls':['https://example.test/rights']}],
+        closeout={'conclusion':'Route supported','checks':['Official catalogue'],'remaining_gap':'Stock unconfirmed','next_contact':''},
+        partnerships=['Nursery and marketer roles are separately attributed.'])
+    packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    dossier=research.profile(inbox,'variety-research-blueberry-abc123')['dossiers'][0]
+    assert [(p['role'],p['territory']) for p in dossier['commercial_contacts']]==[('Propagator','Spain'),('Fruit marketer','UK')]
+    assert dossier['commercial_leads'][0]['name']=='Rights Only'
+    html=main.templates.env.get_template('_variety_research.html').render(variety_research={'dossiers':[dossier]},authoring_mode=True,static_build=False)
+    assert 'Role source 1' in html and 'Spain' in html and 'Stock unconfirmed' in html
+    assert digest_tree(data)==before
+
+
+def test_resolved_identity_supersedes_old_application_lead(imported):
+    data,inbox,packet,_,_=imported
+    value=json.loads(packet.read_text());value['varieties'][-1]['resolved_name']='Newly Identified'
+    packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    assert not research.index(inbox)['unresolved']
+
+
+def test_closeout_party_sources_reject_unsafe_urls(imported):
+    data,inbox,packet,_,_=imported
+    value=json.loads(packet.read_text());value['varieties'][1]['commercial_contacts']=[{'name':'Bad','source_urls':['javascript:alert(1)']}]
+    packet.write_text(json.dumps(value))
+    with pytest.raises(ValueError,match='HTTP'):
+        install(packet,data_dir=data,inbox_dir=inbox)
+
+
+def test_corrected_private_identity_hides_stale_candidate_without_rewriting_history(imported):
+    data,inbox,packet,receipt,before=imported
+    value=json.loads(packet.read_text());old='variety-research-strawberry-abc123'
+    value['metadata']['superseded_entity_ids']=[old]
+    value['varieties'][3]['resolved_name']='Corrected Code'
+    archive=inbox/research.ROOT/'imports'/receipt['batch_id']/'profiles'/(old+'.json')
+    original=archive.read_bytes();packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    assert archive.read_bytes()==original and digest_tree(data)==before
+    assert research.private_entity(inbox,'variety',old) is None and research.profile(inbox,old) is None
+    assert old not in {r['entity_id'] for r in research.index(inbox)['rows']}
+    assert research.profile(inbox,'variety-research-strawberry-correctedcode')
+    value['metadata']['superseded_entity_ids']=['variety-known'];packet.write_text(json.dumps(value))
+    with pytest.raises(ValueError,match='private research'):
+        install(packet,data_dir=data,inbox_dir=inbox)
+
+
 def test_install_reconciles_against_newer_runtime_catalog(imported):
     data,inbox,packet,receipt,before=imported
     entity={'id':'variety-runtime-abc','record_type':'entity','entity_type':'variety','name':'New runtime name',

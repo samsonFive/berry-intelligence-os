@@ -18,7 +18,7 @@ from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.services.analyst_state_io import atomic_json
-from app.services.variety_research import ROOT, SAFE_CAPTURE
+from app.services.variety_research import ROOT, SAFE_CAPTURE, SAFE_ID
 
 CONTACT_IDS = {
  "Fall Creek Farm & Nursery": "company-fall-creek-farm-and-nursery",
@@ -57,6 +57,8 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
         return {'replayed': True, 'batch_id': batch_id, **prior['counts']}
     for group in payload['varieties']:
         links=[s['url'] for s in group['sources']]+[s['source'] for s in group['captures']]
+        for party in group.get('commercial_contacts', []) + group.get('commercial_leads', []):
+            links.extend(party.get('source_urls', []))
         links.extend(link for photo in group['variety_image_links'] for link in [photo['url'],photo['source']])
         for link in links:
             parsed=urlsplit(link)
@@ -81,12 +83,15 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     entities={}
     for path in (data_dir/'entities').rglob('*.json'):
         entity=json.loads(path.read_text(encoding='utf-8'));entities[entity['id']]=entity
+    superseded=payload['metadata'].get('superseded_entity_ids',[])
+    if any(not isinstance(eid,str) or not SAFE_ID.fullmatch(eid) or not eid.startswith('variety-research-') or eid in entities for eid in superseded):
+        raise ValueError('Only private research identities may be superseded')
     groups=payload['varieties'];profile_groups=defaultdict(list);profile_entities={};unresolved=[];commercial_entities={};capture_files=set()
     # Registration-resolved blank names join the same literal code and berry,
     # but do not approve a different commercial-name alias.
     for g in groups:
         if not g['resolved_name']:
-            unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources']});continue
+            unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources','closeout','commercial_leads','issue','commercial_status','row_holds'] if key in g});continue
         crop=g['berry'];name=g['resolved_name'];known=[entities[x['id']] for x in g['existing_entities'] if x['id'] in entities]
         current_matches=[entity for entity in entities.values() if entity.get('entity_type')=='variety'
             and 'berry-'+crop.lower() in entity.get('berry_ids',[])
@@ -108,7 +113,12 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
                     'attributes':{'package_note':'Research identity pending. Source-reported aliases and company roles below do not change the reviewed catalog.'}}
             profile_entities[entity_id]=entity
         contacts=[]
-        for label in [x.strip() for x in g['commercial_entities'].split(';') if x.strip()]:
+        parties=g.get('commercial_contacts')
+        if parties is None:
+            parties=[{'name':x.strip()} for x in g['commercial_entities'].split(';') if x.strip()]
+        for party in parties:
+            label=party['name'].strip()
+            if not label:raise ValueError('Commercial contacts need a name')
             contact_id=CONTACT_IDS.get(label)
             if contact_id not in entities:
                 exact=[e for e in entities.values() if e['entity_type'] in {'company','brand','breeding_program'} and fold(label) in {fold(e['name']),*(fold(a) for a in e.get('aliases',[]))}]
@@ -119,16 +129,21 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
                     'status':'unverified','description':'Source-reported commercial contact. Legal identity and cultivar-specific role are unreviewed.',
                     'berry_ids':[],'roles':[],'evidence_ids':[],'fact_ids':[],'relationship_ids':[],'attributes':{}}
             target=entities.get(contact_id) or commercial_entities[contact_id]
-            role=g['role']
-            if label=='CIV' or label=='Flevo Berry':role='Breeder / licensing contact'
-            elif label=='Salvi Vivai' or 'Trayplant' in label:role='Commercial nursery supplier'
-            elif label=='California Berry Cultivars licensed nursery network':role='Licensor contact; actual supplying nursery unnamed'
-            if not any(c['entity_id']==contact_id for c in contacts):
-                contacts.append({'entity_id':contact_id,'name':target['name'],'source_label':label,'role':role,
+            role=party.get('role') or g['role']
+            if not party.get('role') and (label=='CIV' or label=='Flevo Berry'):role='Breeder / licensing contact'
+            elif not party.get('role') and (label=='Salvi Vivai' or 'Trayplant' in label):role='Commercial nursery supplier'
+            elif not party.get('role') and label=='California Berry Cultivars licensed nursery network':role='Licensor contact; actual supplying nursery unnamed'
+            if not any((c['entity_id'],c['source_label'],c['role'],c.get('territory',''))==(contact_id,label,role,party.get('territory','')) for c in contacts):
+                contacts.append({'entity_id':contact_id,'name':label,'source_label':label,'role':role,
+                    'territory':party.get('territory',''),'source_urls':party.get('source_urls',[]),
+                    'evidence_status':party.get('evidence_status','Source-supported; awaiting review'),
+                    'relationship_note':party.get('relationship_note',''),
                     'href':f"/entities/{target['entity_type']}/{contact_id}",'review_state':'unreviewed'})
         keep=['key','name','resolved_name','berry','rows','applications','aliases','summary','availability','commercial_status','role',
               'patent_assignee_lead','baseline_status','new_information_assessment','issue','sources','variety_image_links']
         dossier={key:g[key] for key in keep};dossier['checked_on']=payload['metadata']['checked_on'];dossier['commercial_contacts']=contacts
+        for key in ['closeout','commercial_leads','partnerships','row_holds']:
+            if key in g:dossier[key]=g[key]
         dossier['review_state']='unreviewed';dossier['batch_id']=batch_id;dossier['captures']=[]
         dossier['baseline_references']=sorted({*[x['file'] for x in g['existing_entities']],*[x['baseline_file'] for x in g['prior_mentions']],*[x['file'] for x in g['prior_evidence']]})
         for cap in g['captures']:
@@ -164,7 +179,9 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     manifest={'id':batch_id,'kind':'private_variety_research_import','version':1,'packet_sha256':digest,'checked_on':payload['metadata']['checked_on'],'imported_at':datetime.now(UTC).isoformat(),
         'baseline_commit':payload['metadata']['baseline_commit'],'method':payload['metadata']['method'],
         'review_state':'unreviewed','canonical_data_sha256_before':before,'canonical_data_sha256_after':after,
-        'profiles':profiles,'unresolved':unresolved,'commercial_entities':list(commercial_entities.values()),'capture_files':sorted(capture_files),'counts':counts}
+        'profiles':profiles,'unresolved':unresolved,'resolved_keys':[g['key'] for g in groups if g['resolved_name']],
+        'superseded_entity_ids':superseded,
+        'commercial_entities':list(commercial_entities.values()),'capture_files':sorted(capture_files),'counts':counts}
     # Manifest is committed last: partial attempts do not become visible pages.
     if sheet_payload is not None:atomic_json(batch_dir/'source_sheet_rows.json',sheet_payload)
     atomic_json(manifest_path,manifest)

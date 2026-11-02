@@ -8,7 +8,8 @@ HEADERS = ["Berry", "Application Number", "Grant Number", "Application Date",
            "Grant Publication Date", "Grant Start Date", "Country", "Denomination/Status",
            "Variety Denomination", "Trade Name", "Commercial Entity", "Species LatinName",
            "Parties Concerned", "Rec Type"]
-EXTRA_HEADERS = ["Commercial role (unreviewed)", "Research status", "Sources", "Earlier database coverage"]
+EXTRA_HEADERS = ["Commercial role (unreviewed)", "Research status", "Sources", "Earlier database coverage",
+                 "Rights / programme leads — supply unverified", "Closeout result and remaining gap"]
 
 
 def sheet(inbox_dir, batch_id=""):
@@ -32,14 +33,17 @@ def sheet(inbox_dir, batch_id=""):
         for dossier in profile["dossiers"]:
             dossiers[dossier["key"]] = {**dossier, "href": entry["href"]}
     for unresolved in batch.get("unresolved", []):
-        dossiers.setdefault(unresolved["key"], {**unresolved, "commercial_status": "Identity unresolved", "issue": "Variety name missing; no commercial role assigned."})
+        dossiers.setdefault(unresolved["key"], {"commercial_status": "Identity unresolved", "issue": "Variety name missing; no commercial role assigned.", **unresolved})
     rows = {}
     for key, records in groups.items():
         dossier = dossiers.get(key, {})
         contacts = dossier.get("commercial_contacts", [])
         proposed = "; ".join(dict.fromkeys(c["name"] for c in contacts))
-        roles = "\n".join(c["name"] + " — " + c["role"] for c in contacts)
+        roles = "\n".join(c["name"] + " — " + c["role"] + (" · " + c["territory"] if c.get("territory") else "") for c in contacts)
         sources = list(dict.fromkeys(s["url"] for s in dossier.get("sources", [])))
+        leads = "\n".join(c["name"] + " — " + c["role"] + " · " + c.get("evidence_status", "Supply unverified") for c in dossier.get("commercial_leads", []))
+        closeout = dossier.get("closeout", {})
+        closeout_note = " · ".join(filter(None, [closeout.get("conclusion"), closeout.get("remaining_gap")]))
         for record in records:
             number = record["row"]
             if type(number) is not int or number < 2 or number in rows:
@@ -49,14 +53,19 @@ def sheet(inbox_dir, batch_id=""):
             blank = not str(original[10] or "").strip()
             issue = dossier.get("issue", "")
             status = dossier.get("commercial_status", "Commercial route unverified")
+            row_hold = dossier.get("row_holds", {}).get(str(number), "")
+            if row_hold:
+                issue = "; ".join(filter(None, [issue, row_hold]))
+                status = "Hold — source row identity conflict"
             rows[number] = {"row": number, "original": original, "proposal": proposed,
                 "role": roles, "status": status, "sources": sources,
                 "baseline": dossier.get("baseline_status", "Identity unresolved"),
                 "summary": dossier.get("summary", ""), "issue": issue,
                 "review_notes": record.get("review_notes", []), "href": dossier.get("href", ""),
+                "leads": leads, "closeout": closeout_note,
                 "aliases": dossier.get("aliases", []), "missing_role": blank,
-                "can_fill": blank and bool(proposed) and "hold" not in status.lower(),
-                "search": " ".join(str(x) for x in [*original, proposed, roles, *dossier.get("aliases", []), dossier.get("summary", "")]).casefold()}
+                "can_fill": blank and bool(proposed) and not row_hold and "hold" not in status.lower(),
+                "search": " ".join(str(x) for x in [*original, proposed, roles, leads, closeout_note, *dossier.get("aliases", []), dossier.get("summary", "")]).casefold()}
     values = [rows[number] for number in sorted(rows)]
     return {"headers": HEADERS, "extra_headers": EXTRA_HEADERS, "rows": values,
         "batch_id": batch["id"], "batches": [{"id": b["id"], "label": b["checked_on"] + " · " + str(b["counts"]["input_rows"]) + " source rows"} for b in batches],

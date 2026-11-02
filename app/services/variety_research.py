@@ -32,12 +32,17 @@ def imports(inbox_dir):
 
 def index(inbox_dir, *, q="", berry="", state=""):
     profiles = {}
-    unresolved = []
+    unresolved = {}
     batches = imports(inbox_dir)
     for batch in batches:
+        for entity_id in batch.get("superseded_entity_ids", []):
+            profiles.pop(entity_id, None)
         for row in batch["profiles"]:
             profiles[row["entity_id"]] = row
-        unresolved.extend(batch.get("unresolved", []))
+        for key in batch.get("resolved_keys", []):
+            unresolved.pop(key, None)
+        unresolved.update({row["key"]: row for row in batch.get("unresolved", [])})
+    unresolved = list(unresolved.values())
     rows = list(profiles.values())
     total = len(rows)
     if q:
@@ -57,6 +62,8 @@ def index(inbox_dir, *, q="", berry="", state=""):
 def private_entity(inbox_dir, entity_type, entity_id):
     if not SAFE_ID.fullmatch(entity_id):
         return None
+    if any(entity_id in batch.get("superseded_entity_ids", []) for batch in imports(inbox_dir)):
+        return None
     for batch in reversed(imports(inbox_dir)):
         for row in batch["profiles"]:
             entity = row.get("private_entity")
@@ -70,6 +77,8 @@ def private_entity(inbox_dir, entity_type, entity_id):
 
 def profile(inbox_dir, entity_id):
     if not SAFE_ID.fullmatch(entity_id):
+        return None
+    if any(entity_id in batch.get("superseded_entity_ids", []) for batch in imports(inbox_dir)):
         return None
     dossiers = {}
     for batch in imports(inbox_dir):

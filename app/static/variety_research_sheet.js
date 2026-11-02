@@ -16,7 +16,7 @@
   const value = (row, col) => {
     if (col === 10 && mode() === 'proposals' && row.can_fill) return row.proposal;
     if (col < 14) return row.original[col] ?? '';
-    return [row.role, row.status + (row.issue ? ' · ' + row.issue : ''), row.sources.join('\n'), row.baseline][col - 14] ?? '';
+    return [row.role, row.status + (row.issue ? ' · ' + row.issue : ''), row.sources.join('\n'), row.baseline, row.leads, row.closeout][col - 14] ?? '';
   };
   const literal = value => {
     const text = String(value ?? '');
@@ -81,6 +81,8 @@
     body.append(el('h3','Original row ' + row.row + ' · ' + (row.original[8] || row.original[1])));
     body.append(el('p',row.summary),el('p','Commercial proposal (unreviewed): ' + (row.proposal || 'No sourced contact available.')));
     if (row.role) body.append(el('p',row.role));
+    if (row.leads) body.append(el('p','Rights / programme leads — supply unverified: '+row.leads));
+    if (row.closeout) body.append(el('p',row.closeout));
     body.append(el('p',row.status + ' · ' + row.baseline));
     if (row.issue) body.append(el('p','Needs verification: ' + row.issue));
     if (row.review_notes.length) body.append(el('p','Photo transcription: ' + row.review_notes.join('; ')));
@@ -95,7 +97,7 @@
     if (reset) {selected.clear();anchor=null;focus=null;root.querySelector('[data-blocks]').hidden=true;}
     const data = new FormData(filters), words=String(data.get('q') || '').toLowerCase().split(/\s+/).filter(Boolean), crop=data.get('crop'), isolate=data.get('isolate'), baseline=data.get('baseline');
     const from=Number(data.get('from')) || 2, to=Number(data.get('to')) || Infinity;
-    visible=model.rows.filter(row => row.row>=from && row.row<=to && (!crop || row.original[0]===crop) && (!baseline || row.baseline===baseline) && words.every(w=>row.search.includes(w)) && (isolate==='all' || isolate==='missing'&&row.missing_role || isolate==='fillable'&&row.can_fill || isolate==='unresolved'&&row.missing_role&&!row.can_fill || isolate==='issues'&&(row.issue||row.review_notes.length)));
+    visible=model.rows.filter(row => row.row>=from && row.row<=to && (!crop || row.original[0]===crop) && (!baseline || row.baseline===baseline) && words.every(w=>row.search.includes(w)) && (isolate==='all' || isolate==='missing'&&row.missing_role || isolate==='fillable'&&row.can_fill || isolate==='unresolved'&&row.missing_role&&!row.can_fill || isolate==='leads'&&row.missing_role&&!row.can_fill&&row.leads || isolate==='no-leads'&&row.missing_role&&!row.can_fill&&!row.leads || isolate==='issues'&&(row.issue||row.review_notes.length)));
     grid.replaceChildren();grid.setAttribute('aria-rowcount',visible.length+1);grid.setAttribute('aria-colcount',columns.length+1);
     const head=el('thead'),hr=el('tr'),corner=el('th','Source row','sheet-row-number');hr.append(corner);
     columns.forEach(col=>{const th=el('th');th.scope='col';th.append(el('small',col<14 ? letter(col) : 'RESEARCH'),el('span',headers[col]));hr.append(th);});head.append(hr);grid.append(head);
@@ -134,13 +136,13 @@
     const body=root.querySelector('[data-column-choices]');body.replaceChildren();
     headers.forEach((header,col)=>{const label=el('label'),check=el('input');check.type='checkbox';check.checked=columns.includes(col);check.addEventListener('change',()=>{if(check.checked)columns.push(col);else if(columns.length>1)columns=columns.filter(n=>n!==col);else{check.checked=true;return;}columns.sort((a,b)=>a-b);root.querySelector('[data-preset]').value='custom';anchor=null;focus=null;render(false);});label.append(check,document.createTextNode((col<14?letter(col)+' · ':'')+header));body.append(label);});
   }
-  root.querySelector('[data-preset]').addEventListener('change',event=>{if(event.target.value==='custom')return;columns=event.target.value==='roles'?[8,10,14,15,16]:event.target.value==='all'?headers.map((_,i)=>i):headers.slice(0,14).map((_,i)=>i);anchor=null;focus=null;choices();render(false);});
+  root.querySelector('[data-preset]').addEventListener('change',event=>{if(event.target.value==='custom')return;columns=event.target.value==='roles'?[8,10,14,15,16,18,19]:event.target.value==='all'?headers.map((_,i)=>i):headers.slice(0,14).map((_,i)=>i);anchor=null;focus=null;choices();render(false);});
   root.querySelector('[data-mode]').addEventListener('change',()=>{anchor=null;focus=null;root.querySelector('[data-blocks]').hidden=true;render(false);});
   root.querySelector('[data-headers]').addEventListener('change',updateSelection);
   filters.addEventListener('submit',event=>event.preventDefault());filters.addEventListener('input',()=>{message.textContent='';render();});
   root.querySelector('[data-clear]').addEventListener('click',()=>{filters.reset();render();});
   root.querySelector('[data-download]').addEventListener('click',()=>{
-    const extras=[15,16].filter(col=>!columns.includes(col)),cols=[...columns,...extras];
+    const extras=[15,16,18,19].filter(col=>!columns.includes(col)),cols=[...columns,...extras];
     const data=[['Source row',...cols.map(c=>headers[c])],...visible.map(row=>[row.row,...cols.map(c=>value(row,c))])];
     const blob=new Blob(['\uFEFF'+tsv(data)],{type:'text/tab-separated-values;charset=utf-8'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='patent-research-row-map.tsv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     message.textContent='Downloaded '+visible.length+' records with original row numbers, review status and sources.';
