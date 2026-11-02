@@ -1,0 +1,360 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-singrow-nus-report-2023",
+      "title": "Singrow — four strawberry labels in the NUS Sustainability Report 2023",
+      "url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf#page=25",
+      "company_ids": [
+        "company-singrow"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-01",
+      "source_type": "university_report",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Four literal strawberry labels on the two-page Singrow profile, report pages 25–26. Report title verified on the cover and reporting scope on page 4.",
+      "limitations": "Historical institutional profile, not a current product catalog, independent trait trial, rights register or complete portfolio. Crystal is called a variety; the other three labels appear in the strawberry sales context and do not establish registered denominations. Color descriptions and climate-resilience wording remain source assertions. The report identifies its scope through December 2023; neither the old 2024 upload path nor the replacement 2026 upload path is a publication date. No exact publication day is established. The captioned Crystal photograph stays available on original PDF page 25, without reuse approval or an inferred identity bridge to the white Crystal in the earlier interview. The farm photograph on page 26 does not identify individual cultivars.",
+      "review_warnings": [
+        "Historical 2023 report: current portfolio and product availability still need checking.",
+        "Crystal is pictured red in the NUS report, but the 2021 interview describes Crystal as white. Identity needs review.",
+        "Ruby and Rouge have not been established as aliases."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Crystal is pictured red in the NUS report, but the 2021 interview describes Crystal as white. Identity needs review.",
+          "candidate_names": [
+            "Crystal"
+          ]
+        },
+        {
+          "message": "Ruby and Rouge have not been established as aliases.",
+          "candidate_names": [
+            "Rouge"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Crystal",
+          "display_label": "Crystal",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf#page=25",
+          "portfolio_context": "Named Crystal in the historical NUS profile. The report calls it a variety and captions its photograph; the earlier white-Crystal description has not been reconciled.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "NUS describes Singrow strawberry development and sales; no legal denomination, approved company role or current right is established."
+        },
+        {
+          "candidate_name": "Rouge",
+          "display_label": "Rouge",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf#page=26",
+          "portfolio_context": "Named Rouge in the historical NUS profile. The report describes this strawberry sales label as red; this is not an approved identity or trait.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "NUS describes Singrow strawberry development and sales; no legal denomination, approved company role or current right is established."
+        },
+        {
+          "candidate_name": "Winterbelle",
+          "display_label": "Winterbelle",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf#page=26",
+          "portfolio_context": "Named Winterbelle in the historical NUS profile. The report describes this strawberry sales label as white; this is not an approved identity or trait.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "NUS describes Singrow strawberry development and sales; no legal denomination, approved company role or current right is established."
+        },
+        {
+          "candidate_name": "Blush",
+          "display_label": "Blush",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf#page=26",
+          "portfolio_context": "Named Blush in the historical NUS profile. The report describes this strawberry sales label as pink; this is not an approved identity or trait.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "NUS describes Singrow strawberry development and sales; no legal denomination, approved company role or current right is established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Blooom",
+            "reason": "E-commerce platform, not a cultivar."
+          },
+          {
+            "label": "Fast Cultivation Method",
+            "reason": "Cultivation method, not a cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_pdf_capture_and_visual_review",
+        "http_status": 200,
+        "capture_sha256": "8bed3ef7651a760821e08f454ee435b7549217efc8a098bf363dcb48d3476768",
+        "capture_bytes": 10253597,
+        "final_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2026/09/NUS-Sustainability-Report-2023.pdf",
+        "publication": "NUS Sustainability Report 2023",
+        "publication_period": "2023 report; exact publication day not established",
+        "publication_date_precision": "Report year and reporting scope only",
+        "pdf_pages_read": [
+          1,
+          4,
+          25,
+          26
+        ],
+        "prior_url": "https://sustainability.nus.edu.sg/wp-content/uploads/2024/06/NUS-sustainability-report_Jun-5_Final.pdf",
+        "prior_direct_status": 404,
+        "download_index": "https://sustainability.nus.edu.sg/about/reports-and-plans/",
+        "recovery": "Followed the visible 2023 download from the official university report index; upload directories do not date publication.",
+        "image_review": "Original page 25 captions Crystal; its red photograph conflicts with the earlier white description. No standalone image URL or reuse permission established; no photo assigned."
+      }
+    },
+    {
+      "id": "portfolio-singrow-company-interview-2021",
+      "title": "Singrow — Ruby and Crystal in the August 2021 product interview",
+      "url": "https://www.freshplaza.com/asia/article/9349015/bringing-soft-fruit-production-to-tropical-urban-regions-through-franchising/",
+      "company_ids": [
+        "company-singrow"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-01",
+      "source_type": "company_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "published_date": "2021-08-24",
+      "enumerated_scope": "The two literal strawberry product labels in the interview product-range paragraph; the named tomato and spinach are excluded.",
+      "limitations": "Historical founder interview, not independent verification, a current portfolio or a legal-rights record. Product labels do not establish registered denominations or approved breeder/owner roles. The article describes Crystal as white; the NUS report captions a red photograph as Crystal. Those identities are not reconciled. Ruby is not silently translated or merged with Rouge. Generic farm/fruit images are not assigned to either name. Technical, climate, health, yield and franchise-location assertions are outside this name-list scope.",
+      "review_warnings": [
+        "August 2021 product interview: current availability and company roles still need checking.",
+        "Crystal is pictured red in the NUS report, but the 2021 interview describes Crystal as white. Identity needs review.",
+        "Ruby and Rouge have not been established as aliases."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Crystal is pictured red in the NUS report, but the 2021 interview describes Crystal as white. Identity needs review.",
+          "candidate_names": [
+            "Crystal"
+          ]
+        },
+        {
+          "message": "Ruby and Rouge have not been established as aliases.",
+          "candidate_names": [
+            "Ruby"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Ruby",
+          "display_label": "Ruby",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/asia/article/9349015/bringing-soft-fruit-production-to-tropical-urban-regions-through-franchising/",
+          "portfolio_context": "The August 2021 founder interview lists Ruby as a strawberry product; no alias to Rouge is established.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "The company founder describes its historical product offering; this is not an approved breeder/owner role or current rights finding."
+        },
+        {
+          "candidate_name": "Crystal",
+          "display_label": "Crystal",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/asia/article/9349015/bringing-soft-fruit-production-to-tropical-urban-regions-through-franchising/",
+          "portfolio_context": "The August 2021 founder interview lists Crystal as a white strawberry product; its equivalence to the NUS Crystal mention needs review.",
+          "source_company_ids": [
+            "company-singrow"
+          ],
+          "source_company_context": "The company founder describes its historical product offering; this is not an approved breeder/owner role or current rights finding."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Cherrito",
+            "reason": "A cherry-tomato product, not a berry cultivar."
+          },
+          {
+            "label": "Komatsuna",
+            "reason": "Spinach in the product list, not a berry cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_interview_capture_and_body_review",
+        "http_status": 200,
+        "capture_bytes": 59780,
+        "capture_sha256": "ea40c3837f20254af39391064e785592148e02e0089ee6e66be09fadc98e2986",
+        "printed_publication_date": "Tue 24 Aug 2021",
+        "final_url": "https://www.freshplaza.com/asia/article/9349015/bringing-soft-fruit-production-to-tropical-urban-regions-through-franchising/",
+        "publication_period": "August 2021",
+        "publication": "FreshPlaza",
+        "author": "Rebekka Boekhout",
+        "image_review": "Farm and uncaptained fruit images are not specific cultivar identifications; no photos assigned."
+      }
+    },
+    {
+      "id": "portfolio-surexport-company-interview-2013",
+      "title": "Surexport — strawberry and raspberry names in the April 2013 interview",
+      "url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-01",
+      "source_type": "company_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "published_date": "2013-04-16",
+      "enumerated_scope": "Five strawberry names and four raspberry names in the original interview; the export brand is excluded. Repeated seasonal mentions are not additional varieties.",
+      "limitations": "Historical production/marketing interview, not a current company portfolio, independent trial or current rights register. Exclusive-rights wording is a historical company claim, not an approved role or current legal status. Strawberry Victoria is not the catalog blackberry of the same name. No breeder-code bridge, alias, patent, present availability or growing footprint is inferred. The preserved Victoria caption has no associated article photo in the current HTML; related-article and advertising images are not cultivar photos.",
+      "review_warnings": [
+        "April 2013 interview: current portfolio and company roles still need checking.",
+        "Historical exclusive-rights wording is a company claim, not a current registry finding.",
+        "Victoria here is a strawberry, not the catalog blackberry with the same name."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Victoria here is a strawberry, not the catalog blackberry with the same name.",
+          "candidate_names": [
+            "Victoria"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Candonga",
+          "display_label": "Candonga",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 strawberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Sabrina",
+          "display_label": "Sabrina",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 strawberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Splendour",
+          "display_label": "Splendour",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 strawberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Virtue",
+          "display_label": "Virtue",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 strawberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Victoria",
+          "display_label": "Victoria",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 strawberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Glen Lyon",
+          "display_label": "Glen Lyon",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 raspberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Tulameen",
+          "display_label": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 raspberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Radiance",
+          "display_label": "Radiance",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 raspberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        },
+        {
+          "candidate_name": "Grandeur",
+          "display_label": "Grandeur",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+          "portfolio_context": "Named in the April 2013 raspberry production/marketing interview; current supply, identity and any rights claim remain unreviewed.",
+          "source_company_ids": [
+            "company-surexport"
+          ],
+          "source_company_context": "Surexport is the grower/marketer described in a 2013 interview; no breeding, ownership, licensing or current exclusivity role is approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "Doñarosa",
+            "reason": "Export brand, not a cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_interview_capture_and_body_review",
+        "http_status": 200,
+        "capture_bytes": 58721,
+        "capture_sha256": "dae0203334a2f4b5589593c23f5b3d70dc7208a09782decbd856a5a5795c9498",
+        "printed_publication_date": "Tue 16 Apr 2013",
+        "final_url": "https://www.freshplaza.com/north-america/article/2108087/spain-surexport-competes-with-exclusive-strawberries-and-raspberries/",
+        "publication_period": "April 2013",
+        "publication": "FreshPlaza",
+        "image_review": "Current original HTML retains the Victoria caption without its article photo. Advertising and related-article images are excluded."
+      }
+    }
+  ]
+}

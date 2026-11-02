@@ -6,6 +6,41 @@ The [source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) 
 
 The [review-build receipt](COMPETITIVE-EVALUATION-ACCEPTANCE.md) extends private competitive analysis across 166 frozen entities. All 48 research inputs are captured; 4,109 retained rows include 924 source-ledger entries, not independent verified sources. Accepted structure: 3,907; resolution: 202. Eligible scoped cells: breeder 214, grower 48, marketer 35, technology provider 47; blueberry 143, strawberry 143, raspberry 22, blackberry 36. Four narrowly sourced numeric proposals remain Provisional; 340 Unknown. Thirteen metadata captures join the existing retained archive, preserving publication dates, source trust and explicit destination annotations. This does not increase published Evidence/Atomic Fact counts or prove country-wide market coverage. Canonical expansion guide and earlier source/release histories remain intact.
 
+# November 2 — joined catalog/Map closeout
+
+The [current combined draft](CATALOG-MAP-CLOSEOUT-2026-11-02.md) joins frozen
+#449 and source follow-ups through #467 on live #470. Its public corpus is
+537 source sections / 2,029 occurrences / 175 text matches / 1,854 review needs /
+1,315 review keys. All earlier keys and individual source provenance remain.
+The 77-subject plan has 67 named, seven partial, one unavailable and two identity
+holds; named does not mean complete. Map retains 24 captured country/crop groups
+and 51 figures across eight countries, with individual selection required and
+two UK comparisons held. The separately deployed private patent research is
+retained, not counted as extra approved varieties. Joined verification and
+separate release approval remain. No global completeness or automatic trust.
+
+# November 2 — original caneberry source references
+
+[Raspberry/blackberry review](CANEBERRY-ORIGINAL-EXTENSION-REVIEW.md): six
+sections add 77 occurrences and four attributed, permission-unknown photo
+references. The bounded corpus is 534 sections / 2,019 occurrences / 175
+catalog text matches / 1,844 review needs / 1,313 review keys. All earlier
+keys and source files remain; company-source status remains 66 named / eight
+partial / one unavailable / two identity holds. No global recall, approved
+identity, trait, rights or commercial-footprint claim follows from these counts.
+
+# November 2 — Maryland regional cultivar source
+
+The [source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md) adds 53 table names and
+six named photo references from one Extension publication: 59 occurrences of 54
+names, including caption-only Valor. All 1,258 prior review keys survive; 25
+source-backed keys bring the review corpus to 1,283. No canonical identity,
+breeder/owner role, right, trait, photo permission or footprint is approved.
+Corpus: 528 sections / 1,942 occurrences / 171 matches / 1,771 review needs.
+The 77-subject source-plan denominators and human decisions remain unchanged.
+This source child retains #461; frozen platform #462 and catalog/Map #449 remain
+separate and unapproved. Wider completeness and independent recall stay open.
+
 # Intelligence Coverage Matrix
 
 November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
@@ -123,6 +158,90 @@ The 215 source captures and publisher image references remain private and
 attributed. No canonical identity, trusted Fact, active relationship, growing
 footprint, monitor or public catalog entry is auto-promoted. This is local
 research coverage, not a production-deployment or market-activity claim.
+
+November 1 — [Combined source/Map review](CATALOG-MAP-COMBINED-REVIEW.md)
+retains 525 source sections / 1,874 literal name occurrences and 24 captured
+country/crop references / 51 figures across eight countries. The former remain
+unreviewed source observations; the latter require individual source selection
+and preserve incompatible units/bases. Neither is global completeness. All 181
+focused checks, native desktop/phone, PDF and static review pass on the deployed
+navigation base. Full combined-head CI and live preservation/release review
+remain; canonical records, published figures and human decisions are unchanged.
+
+November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
+
+October 31 — [UK official Map references](MAP-UK-OFFICIAL-REFERENCES.md) add a separate explicit national-source check on tested446: three 2025 crop groups / nine figures keep original units, marketed definitions, provisional status and source cell provenance. Two workbook/narrative area differences remain visible rather than reconciled automatically. All159 affected checks, actual capture, canonical validation, desktop/412px/one-page PDF review and the1,797-page trusted static build pass. The public reference seed, human selections and all31 accepted definitions/order are unchanged. Exact-head full CI and separate release acceptance remain required.
+
+Current live release remains approved #442, merge `3b0b4acc`. Navigation #443 passes all four final checks /5,479 tests and fresh isolated preservation, but is not merged or deployed: automatic approval review requires a scoped reply to the new explicit #443 question. Separate source draft #444 passes all four /5,481 tests and is excluded from this Map branch. Historical release notes below retain their dated scopes.
+
+October 31 — [Three-crop official Map check](MAP-THREE-CROP-REFERENCES.md) extends the same bounded seven-country capture from strawberries to separately reported raspberries and blueberries: 21 latest country/crop references / 42 figures are available for explicit review. Original flags and 0n precision qualifications remain readable through Map/PDF; withheld or missing cells cannot become saved figures. All 123 affected checks, desktop/412px/two-page PDF review, canonical validation and a 1,797-page trusted static build pass. Published references and human choices are unchanged; wider world/crop coverage, exact-head full CI and release review remain open. This is separate from navigation #443 and source draft #444.
+
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
+adds three unreviewed source sections and ten name occurrences from two dated
+original interviews. Public-seed totals are 525 sections / 1,874 occurrences /
+165 catalog matches / 1,709 review needs; ten occurrences add only two derived
+candidate keys. Named-source progress is 64 of 77 entries, with ten partial
+checks, one unavailable source and two identity holds. Gem-Pack retains its
+incomplete-portfolio warning. No identities, roles, traits, rights, regions or
+photos are approved. The Rejoice English sheet still returns 403; the readable
+web page does not establish that PDF's contents. This independent source draft
+is not deployed; the approved performance release #442 is live as `3b0b4acc`.
+
+November 2 UTC — [Original ABZ infosheets](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+checks the 18 exact retained PDFs and links the existing names directly to their
+documents. Six sections retain their names/photos/holds; corpus totals remain
+526 sections / 1,883 occurrences / 165 matches / 1,718 review needs and 1,258 keys.
+All 46 affected checks, records, static leakage and edited-import replay pass.
+Native review preserves the source/permission boundaries while recording phone
+focus occlusion for a separate platform repair. Wider portfolios, current rights,
+independent recall and human decisions remain open. Exact-head CI and fresh
+preservation remain; no production or protected-domain change.
+
+November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
+November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
+November 1 — [Historical Singrow/Surexport names](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+add three scopes / fifteen occurrences and eleven derived review keys on the
+tested Splendor source parent. Current candidate corpus: 526 sections,1,882
+occurrences,165 matches,1,717 review needs; 66/77 named subjects, eight partial,
+one unavailable and two held. Crystal's cross-source depiction conflict and
+Ruby/Rouge labels remain unresolved; Victoria stays in strawberry review rather
+than matching the catalog blackberry. New named-source checks do not clear
+earlier gaps or create current-rights/role/photo/trait/footprint findings.
+Public 64-profile gaps remain 11/13/33/10. No new canonical record or monitor.
+This source child is separate from frozen #449, tested #452/#453 and live #443.
+
+November 1 — [Splendor's original August 2011 interview](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+adds three literal blackberry occurrences with explicit spelling/date and
+historical-production qualifications. The bounded public seed has523 sections,
+1,867 occurrences,165 matches and1,702 review needs. Of77 supplied subjects,
+64 have named sources,ten remain partial,one unavailable andtwo identity holds.
+Splendor still has incomplete sources; named does not mean current or complete.
+This source-only child is independent of frozen #449 and tested #448; no
+canonical variety, role, right, trait, photo or growing footprint is approved.
 
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,

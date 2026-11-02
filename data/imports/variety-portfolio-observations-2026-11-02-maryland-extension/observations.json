@@ -1,0 +1,656 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "limitations": "Bounded University of Maryland Extension publication, not a worldwide cultivar inventory or a current breeder catalog. Regional advice is not independently verified performance, a rights determination, or proof of actual commercial planting. Publisher identity does not establish breeder, owner or marketer roles. No company relationship, alias, trait, growing footprint or legal status is approved. No full article, table notes, photograph or PDF asset is copied into public output. The linked PDF cover uses a different title, Growing Blueberries in the Mid-Atlantic, under the same FS-2025-0777 identifier. Its table names and Figure 3 captions agree with the webpage; these are two formats of one publication, not independent sources.",
+      "capture_reference": {
+        "method": "original_html_table_and_caption_plus_linked_pdf_visual_check",
+        "publisher": "University of Maryland Extension",
+        "authors": [
+          "Haley Sater",
+          "Bryan Butler"
+        ],
+        "html": {
+          "url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+          "final_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+          "status": 200,
+          "checked_at": "2026-11-02T02:37:13.206844+00:00",
+          "bytes": 60548,
+          "sha256": "c0f457426082c2a46155cb1c2b0b2c2808f97948819f6d046d179ac64823522c",
+          "content_type": "text/html; charset=utf-8",
+          "table_rows": 53
+        },
+        "pdf": {
+          "url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf",
+          "final_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf",
+          "status": 200,
+          "checked_at": "2026-11-02T02:37:14.104850+00:00",
+          "bytes": 1054902,
+          "sha256": "8af7273f0f7d37a889852ed4a4fab9325608fb5f52e303b73a0098380ff12d9b",
+          "content_type": "application/pdf",
+          "pages": 8,
+          "text_sha256": "f30ffdb57b84e39efb4da6e80ee116ae9a3253748171bd84fa420863c5812d71"
+        },
+        "visually_reviewed_pdf_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "html_updated_on": "2026-06-30",
+        "pdf_publication_label": "June 2026",
+        "suggested_citation_year": "2003, updated 2026",
+        "publication_day_established": false,
+        "original_document_formats_not_independent": true,
+        "pdf_cover_title": "Growing Blueberries in the Mid-Atlantic",
+        "html_title": "Blueberry Cultivars for Maryland and the Greater Mid-Atlantic Region (FS-2025-0777)",
+        "pdf_page4_title": "Blueberry Cultivars for Maryland and the Greater Mid-Atlantic Region",
+        "text_extraction_note": "pypdf warned of missing fontTools and produced scrambled text. Original rendered pages, not corrupt extracted words, establish names/captions.",
+        "checked_on_timezone": "America/Los_Angeles"
+      },
+      "id": "portfolio-umd-mid-atlantic-blueberry-table",
+      "title": "Maryland Extension — 53 blueberry cultivars in regional guidance",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "All 53 cultivar rows of Table 1, in printed order; linked PDF pages 5–8 agree with the original HTML. The six Figure 3 captions have a separate observation; five repeat table names and Valor is outside the table. No alias equivalence or extra cultivar is inferred from the Blue Ribbon asterisk.",
+      "names": [
+        {
+          "candidate_name": "Chanticleer",
+          "display_label": "Chanticleer",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Weymouth",
+          "display_label": "Weymouth",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Hannah’s Choice",
+          "display_label": "Hannah’s Choice",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "O’Neal",
+          "display_label": "O’Neal",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Ventura",
+          "display_label": "Ventura",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Spartan",
+          "display_label": "Spartan",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Duke",
+          "display_label": "Duke",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Sweetheart",
+          "display_label": "Sweetheart",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Bluetta",
+          "display_label": "Bluetta",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Reka",
+          "display_label": "Reka",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Patriot",
+          "display_label": "Patriot",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Earliblue",
+          "display_label": "Earliblue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Blueray",
+          "display_label": "Blueray",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Blue Ribbon",
+          "display_label": "Blue Ribbon*",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=5",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 5. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings. The printed name has an asterisk; this marker is retained in the display label and does not establish a separate name or patent status."
+        },
+        {
+          "candidate_name": "Huron",
+          "display_label": "Huron",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Draper",
+          "display_label": "Draper",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Bluejay",
+          "display_label": "Bluejay",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Calypso",
+          "display_label": "Calypso",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Clockwork",
+          "display_label": "Clockwork",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Ozark Blue",
+          "display_label": "Ozark Blue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Toro",
+          "display_label": "Toro",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Top Shelf",
+          "display_label": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Bluecrop",
+          "display_label": "Bluecrop",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Lenoir",
+          "display_label": "Lenoir",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Bluegold",
+          "display_label": "Bluegold",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Jubilee",
+          "display_label": "Jubilee",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Collins",
+          "display_label": "Collins",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Concord",
+          "display_label": "Concord",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=6",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 6. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "LoretoBlue",
+          "display_label": "LoretoBlue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "PeachyBlue",
+          "display_label": "PeachyBlue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Capella",
+          "display_label": "Capella",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Katahdin",
+          "display_label": "Katahdin",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Talisman",
+          "display_label": "Talisman",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Rubel",
+          "display_label": "Rubel",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Tophat",
+          "display_label": "Tophat",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "ArabellaBlue",
+          "display_label": "ArabellaBlue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Atlantic",
+          "display_label": "Atlantic",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Cargo",
+          "display_label": "Cargo",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Brigitta Blue",
+          "display_label": "Brigitta Blue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Legacy",
+          "display_label": "Legacy",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Nelson",
+          "display_label": "Nelson",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Darrow",
+          "display_label": "Darrow",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=7",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 7. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Liberty",
+          "display_label": "Liberty",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Chandler",
+          "display_label": "Chandler",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Jersey",
+          "display_label": "Jersey",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Coville",
+          "display_label": "Coville",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Dixi",
+          "display_label": "Dixi",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Herbert",
+          "display_label": "Herbert",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Late Blue",
+          "display_label": "Late Blue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "LunaBlue",
+          "display_label": "LunaBlue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Elliott",
+          "display_label": "Elliott",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Aurora",
+          "display_label": "Aurora",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        },
+        {
+          "candidate_name": "Last Call",
+          "display_label": "Last Call",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=8",
+          "portfolio_context": "Named in Table 1 of the University of Maryland Extension regional selection guide. Name reference opens its row on original PDF page 8. Regional guidance does not establish breeder/owner identity, current rights or actual commercial plantings."
+        }
+      ],
+      "accounting": {
+        "observed_items": 53,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "Blue Ribbon has an unexplained asterisk in the table. It does not establish a separate cultivar, patent, grant or current rights status."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Blue Ribbon has an unexplained asterisk in the table. It does not establish a separate cultivar, patent, grant or current rights status.",
+          "candidate_names": [
+            "Blue Ribbon"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "limitations": "Bounded University of Maryland Extension publication, not a worldwide cultivar inventory or a current breeder catalog. Regional advice is not independently verified performance, a rights determination, or proof of actual commercial planting. Publisher identity does not establish breeder, owner or marketer roles. No company relationship, alias, trait, growing footprint or legal status is approved. No full article, table notes, photograph or PDF asset is copied into public output. The linked PDF cover uses a different title, Growing Blueberries in the Mid-Atlantic, under the same FS-2025-0777 identifier. Its table names and Figure 3 captions agree with the webpage; these are two formats of one publication, not independent sources.",
+      "capture_reference": {
+        "method": "original_html_table_and_caption_plus_linked_pdf_visual_check",
+        "publisher": "University of Maryland Extension",
+        "authors": [
+          "Haley Sater",
+          "Bryan Butler"
+        ],
+        "html": {
+          "url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+          "final_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+          "status": 200,
+          "checked_at": "2026-11-02T02:37:13.206844+00:00",
+          "bytes": 60548,
+          "sha256": "c0f457426082c2a46155cb1c2b0b2c2808f97948819f6d046d179ac64823522c",
+          "content_type": "text/html; charset=utf-8",
+          "table_rows": 53
+        },
+        "pdf": {
+          "url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf",
+          "final_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf",
+          "status": 200,
+          "checked_at": "2026-11-02T02:37:14.104850+00:00",
+          "bytes": 1054902,
+          "sha256": "8af7273f0f7d37a889852ed4a4fab9325608fb5f52e303b73a0098380ff12d9b",
+          "content_type": "application/pdf",
+          "pages": 8,
+          "text_sha256": "f30ffdb57b84e39efb4da6e80ee116ae9a3253748171bd84fa420863c5812d71"
+        },
+        "visually_reviewed_pdf_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "html_updated_on": "2026-06-30",
+        "pdf_publication_label": "June 2026",
+        "suggested_citation_year": "2003, updated 2026",
+        "publication_day_established": false,
+        "original_document_formats_not_independent": true,
+        "pdf_cover_title": "Growing Blueberries in the Mid-Atlantic",
+        "html_title": "Blueberry Cultivars for Maryland and the Greater Mid-Atlantic Region (FS-2025-0777)",
+        "pdf_page4_title": "Blueberry Cultivars for Maryland and the Greater Mid-Atlantic Region",
+        "text_extraction_note": "pypdf warned of missing fontTools and produced scrambled text. Original rendered pages, not corrupt extracted words, establish names/captions.",
+        "checked_on_timezone": "America/Los_Angeles"
+      },
+      "id": "portfolio-umd-mid-atlantic-blueberry-photos",
+      "title": "Maryland Extension — six named blueberry photographs",
+      "source_type": "university_cultivar_photo",
+      "enumerated_scope": "All six Figure 3 photo captions, checked against original PDF page 3: Blue Ribbon, Bluecrop, Duke, Last Call, Legacy and Valor. Five repeat Table 1; Valor is additional. Same publication, not independent corroboration.",
+      "names": [
+        {
+          "candidate_name": "Blue Ribbon",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Blue Ribbon and credits Haley Sater. Name reference opens original PDF page 3. This cultivar also appears in Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Blue-Ribbon.jpeg?itok=2w2G6Tu-",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Blue Ribbon",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "Figure 3 labels this photograph as Blue Ribbon. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Bluecrop",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Bluecrop and credits Haley Sater. Name reference opens original PDF page 3. This cultivar also appears in Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Bluecrop.jpeg?itok=mcgCdJhT",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Bluecrop",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "Figure 3 labels this photograph as Bluecrop. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Duke and credits Haley Sater. Name reference opens original PDF page 3. This cultivar also appears in Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Duke.jpeg?itok=dOd5ld-Q",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Duke",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "Figure 3 labels this photograph as Duke. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Last Call",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Last Call and credits Haley Sater. Name reference opens original PDF page 3. This cultivar also appears in Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Last%20Call.jpeg?itok=kHXQrfaW",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Last Call",
+              "berry_id": "berry-blueberry",
+              "kind": "plant",
+              "caption": "Figure 3 labels this photograph as Last Call. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Legacy",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Legacy and credits Haley Sater. Name reference opens original PDF page 3. This cultivar also appears in Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Legacy.jpeg?itok=BKODOU3w",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Legacy",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "Figure 3 labels this photograph as Legacy. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Valor",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://extension.umd.edu/sites/extension.umd.edu/files/publications/_FS-2025-0777_BlueberryCultivarsforMarylandGreaterMid-AtlanticRegion_ada.pdf#page=3",
+          "portfolio_context": "Figure 3 labels this photograph as Valor and credits Haley Sater. Name reference opens original PDF page 3. This caption names a cultivar outside Table 1. The research-center caption is source context, not an approved commercial growing region.",
+          "photos": [
+            {
+              "image_url": "https://extension.umd.edu/sites/extension.umd.edu/files/styles/optimized/public/2026-06/FS-2025-0777_Figure-3_Valor.jpeg?itok=S4ELijFN",
+              "source_url": "https://extension.umd.edu/resource/blueberry-cultivars-maryland-and-greater-mid-atlantic-region-fs-2025-0777",
+              "credit": "Haley Sater · University of Maryland Extension",
+              "named_variety": "Valor",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "Figure 3 labels this photograph as Valor. The publication credits Haley Sater and describes the pictured cultivars at the University of Maryland Wye Research and Extension Center.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "The original HTML photo reference and PDF page 3 caption were checked together. Photographer attribution is explicit; image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual photo was downloaded. No default image load or rights change; private session preview requires an explicit user action."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "Haley Sater is credited for Figure 3. Reuse permission remains unknown; these photo references are held for explicit private session preview and are not automatically displayed."
+      ]
+    }
+  ]
+}

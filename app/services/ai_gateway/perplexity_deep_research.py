@@ -1,8 +1,8 @@
 """Explicit, resumable deep research. Never used by browse or extraction.
 
-Provider contract checked October 2, 2026 against the Agent API background
-and presets documentation. `medium` is the current deep-research preset;
-its returned model is recorded because preset internals may change.
+Provider contract rechecked November 2, 2026 against the Agent API effort
+and background documentation. Medium remains the general research default;
+Learn explicitly selects high for deep, source-heavy research.
 """
 from dataclasses import asdict, dataclass
 import re
@@ -16,7 +16,7 @@ from app.services.ai_gateway.perplexity_agent import (
 )
 
 CONFIG = {"provider": "perplexity", "endpoint": DEFAULT_PERPLEXITY_AGENT_BASE_URL,
-          "preset": "medium", "background": True, "max_steps": 15,
+          "effort": "medium", "background": True, "max_steps": 15,
           "max_output_tokens": 6000, "prompt_version": "learn-deep-v1"}
 STATUSES = {"queued", "in_progress", "completed", "failed", "cancelled", "incomplete", "cancelling"}
 
@@ -25,6 +25,25 @@ class ResearchError(ValueError):
     def __init__(self, message, *, uncertain=False):
         super().__init__(message)
         self.uncertain = uncertain
+
+
+def submission_configuration(saved=None):
+    """Translate historical preset snapshots without changing saved history.
+
+    Only our bounded research profiles are accepted. Runtime metadata cannot
+    change the destination or silently select a more expensive research level.
+    """
+    saved = CONFIG if saved is None else saved
+    if not isinstance(saved, dict):
+        raise ResearchError("Saved research settings are unavailable. No request was sent.")
+    effort = saved.get("effort") or saved.get("preset")
+    if (saved.get("provider") != "perplexity" or saved.get("endpoint") != CONFIG["endpoint"]
+            or not isinstance(effort, str) or effort not in {"medium", "high"} or saved.get("background") is not True
+            or type(saved.get("max_steps")) is not int or not 1 <= saved["max_steps"] <= 15
+            or type(saved.get("max_output_tokens")) is not int or not 1 <= saved["max_output_tokens"] <= 6000
+            or not isinstance(saved.get("prompt_version"), str) or not 1 <= len(saved["prompt_version"]) <= 150):
+        raise ResearchError("Saved research settings are unsupported. No request was sent.")
+    return {key: saved[key] for key in ("provider", "endpoint", "background", "max_steps", "max_output_tokens", "prompt_version")} | {"effort": effort}
 
 
 def safe_url(value):
@@ -75,6 +94,7 @@ def normalize(envelope):
     return {"provider_id": key, "provider_status": status,
             "text": (extract_output_text(output) or "") if isinstance(output, list) else "",
             "citations": citations, "model": str(envelope.get("model") or "")[:150],
+            "reported_effort": envelope["effort"][:150] if isinstance(envelope.get("effort"), str) else "",
             "usage": asdict(normalize_responses_usage(envelope.get("usage")))}
 
 
@@ -83,6 +103,7 @@ class DeepResearchClient:
     api_key: str
     post: object = httpx.post
     get: object = httpx.get
+    configuration: dict | None = None
 
     def _request(self, method, url, *, body=None, submitting=False):
         try:
@@ -109,8 +130,9 @@ class DeepResearchClient:
             raise ResearchError("The research service returned an unreadable result.", uncertain=submitting) from exc
 
     def start(self, prompt):
+        configuration = submission_configuration(self.configuration)
         return self._request(self.post, CONFIG["endpoint"], body={
-            key: CONFIG[key] for key in ("preset", "background", "max_steps", "max_output_tokens")
+            key: configuration[key] for key in ("effort", "background", "max_steps", "max_output_tokens")
         } | {"input": prompt}, submitting=True)
 
     def check(self, provider_id):

@@ -10,10 +10,11 @@ from uuid import uuid4
 from markupsafe import Markup, escape
 
 from app.services.analyst_state_io import atomic_json, serialized_write
-from app.services.ai_gateway.perplexity_deep_research import CONFIG, ResearchError, safe_url
+from app.services.ai_gateway.perplexity_deep_research import CONFIG, ResearchError, safe_url, submission_configuration
 from app.services.learner import KNOWLEDGE_CLASS_LABELS, PILLAR_LABELS
 
 TERMINAL = {"ready", "partial", "failed", "cancelled"}
+LEARN_CONFIG = {**CONFIG, "effort": "high"}
 
 
 def now():
@@ -128,7 +129,7 @@ def reserve(inbox_dir, request, token):
         raise ValueError("Two research runs are already open. Finish or resolve one before starting another.")
     row = {"id": "lr-" + uuid4().hex, "token": token, "fingerprint": mark, "request": request,
            "status": "requested", "created_at": now(), "updated_at": now(), "revision": 1,
-           "configuration": deepcopy(CONFIG), "provider_id": "", "message": "Research requested.", "lesson_id": ""}
+           "configuration": deepcopy(LEARN_CONFIG), "provider_id": "", "message": "Research requested.", "lesson_id": ""}
     store["jobs"][row["id"]] = row
     atomic_json(path(inbox_dir), store)
     return row, True
@@ -140,6 +141,7 @@ def claim(inbox_dir, key):
     row = store["jobs"][key]
     if row["status"] != "requested":
         return False
+    row["submission_configuration"] = submission_configuration(row["configuration"])
     row.update(status="submitting", updated_at=now(), revision=row["revision"] + 1,
                message="Starting research. If interrupted, resolve this run before starting another.")
     atomic_json(path(inbox_dir), store)
@@ -159,6 +161,8 @@ def apply_result(inbox_dir, key, result, *, expected_revision=None):
     status = result["provider_status"]
     row.update(provider_id=result["provider_id"], provider_status=status, model=result["model"], usage=result["usage"],
                updated_at=now(), revision=row["revision"] + 1)
+    if result.get("reported_effort"):
+        row["reported_effort"] = result["reported_effort"]
     row["status"] = {"completed": "ready", "incomplete": "partial", "failed": "failed", "cancelled": "cancelled", "cancelling": "cancelling"}.get(status, "running")
     row["message"] = {"ready": "Your educational draft is ready.", "partial": "Research stopped before finishing. Review the partial draft.",
                       "failed": "Research did not finish. No complete lesson was created.", "cancelled": "The provider confirmed cancellation.",
@@ -197,11 +201,11 @@ def failure(inbox_dir, key, error, *, submitting=False):
 
 
 def submit(inbox_dir, key, client_factory):
-    if not claim(inbox_dir, key):
-        return
-    row = load(inbox_dir)["jobs"][key]
     try:
-        result = client_factory().start(prompt(row["request"]))
+        if not claim(inbox_dir, key):
+            return
+        row = load(inbox_dir)["jobs"][key]
+        result = client_factory(row["submission_configuration"]).start(prompt(row["request"]))
     except ResearchError as exc:
         failure(inbox_dir, key, exc, submitting=True)
         return
