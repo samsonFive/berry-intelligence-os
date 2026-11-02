@@ -3355,4 +3355,14 @@ October 13 printed-code review: ABB135/ABB 135 and ABB136/ABB 136 source formatt
 
 ### November 2, 2026 — TD-122 presentation copy cost
 
+Directory follow-up: the [one-handler preparation review](VARIETY-DIRECTORY-PREPARATION-REVIEW.md)
+addresses 23,606 repeated photo validations and 58 source-identity rebuilds on a
+profiled cold request. Existing request-local helpers preserve complete typed
+models and HTML in two controlled pairs: 10.65 to 2.25 seconds cold and 7.03 to
+1.09 seconds repeat on public fixtures. All 396 affected tests and native
+desktop/phone checks pass. Source edits, hides, ambiguity and unknown photo
+permission remain effective on each request. Exact-head CI and fresh isolated
+server-copy preservation remain. No matcher, validator, source or domain-schema
+change; TD-122 is still open and release approval is separate.
+
 The actual Coverage handler still spends substantial time copying cached builtin graphs. [This isolated presentation-copy child](PRESENTATION-COPY-PERFORMANCE-REVIEW.md) retains the parent handler, matcher, full models and all cache invalidation/admission rules. Its slower Python-walk prototype was rejected. The final public-fixture pair preserves every HTML byte and 294,508/159,171 typed model nodes while measuring 4.48→4.24 seconds cold and 2.37→2.04 seconds on repeat requests. All 459 affected checks pass; final-head CI and fresh server-copy preservation remain. Snapshot bytes are process-local only, with class/reducer creation and class/global loading denied; dates/custom objects/nonfinite values use legacy copies. TD-122 remains open for broad cold loads, repeated graph construction and real-device/network measurements. No domain, source or human review gate changes; no merge/deployment or inherited approval.

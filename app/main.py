@@ -2913,7 +2913,9 @@ def entity_list(
             }
         )
         varieties_all = [e for e in entities_idx.values() if e.get("entity_type") == "variety"]
-        _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
+        from app.services.identity_read_model import identity_read_model_scope
+        with identity_read_model_scope():
+            _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
         context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
         if variety_view == "index":
             index_model = present_variety_index(
@@ -2975,11 +2977,14 @@ def entity_list(
                 from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                photo_index = (variety_photos.SourcePhotoIndex(photo_sources, varieties_all)
+                    if len(context["variety_rows"]) > 1 else None)
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
-                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all)
+                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all,
+                        _index=photo_index)
                     card["photo_identity_reviews"] = photo_identity_reviews(target, sources=photo_sources,
-                        varieties=varieties_all, sourced=sourced_photos)
+                        varieties=varieties_all, sourced=sourced_photos, _index=photo_index)
                     card["photos"] = variety_photos.gallery(target, authoring=True,
                         sourced=sourced_photos,
                         profile=photo_profiles.get(card["id"]))
