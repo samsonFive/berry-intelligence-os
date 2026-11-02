@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+adds a focused UI-03 repair after a native Shift+Tab failure beneath the sticky
+alphabet bar. All 22 affected checks and phone/desktop comparisons pass; visible
+controls, filter scope, alphabet navigation and ordinary scrolling remain.
+This platform child retains #460 and excludes source #461 records. All original
+31 definitions/order and human gates remain. Final acceptance is still required;
+no production change or new release approval.
+
 November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 records a separate UI-03 performance experiment after #458. Optional read-only
 lookup preparation retains matching decisions, same-request edit freshness,

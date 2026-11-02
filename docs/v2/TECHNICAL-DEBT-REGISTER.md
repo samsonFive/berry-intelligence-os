@@ -311,6 +311,14 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+addresses the reproduced phone Shift+Tab obstruction without changing floating
+navigation geometry. The baseline link center hits the bar; the fixed phone
+and desktop centers hit the intended link, with measured clearance. All 22
+affected candidate/anchor checks pass. Final-head/static/preservation acceptance
+remains. This scoped interaction repair does not close the broader cold-load,
+graph/copy work or physical-device portions of TD-122.
+
 November 1 — [Coverage identity lookup experiment](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 targets the measured cold-handler blocker with optional request-local row
 selection, retaining the original matcher and human gates. A per-call Python

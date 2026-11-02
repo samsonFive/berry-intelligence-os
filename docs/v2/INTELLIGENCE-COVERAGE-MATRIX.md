@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+is a platform-only interaction repair following #460. Actual Shift+Tab now
+clears the sticky bar in desktop/412px controls; all 22 affected checks pass.
+No catalog/source breadth, human decisions or protected-domain behavior change.
+Source #461 and other frozen scopes remain independent. Final acceptance and
+broader TD-122 performance/device work remain; no merge/deployment.
+
 November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 records a platform-only child of #458 addressing the measured cold-handler
 blocker. Optional row selection retains the original matcher, review gates,

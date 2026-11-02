@@ -1,5 +1,13 @@
 # Project Status
 
+November 2 UTC — [Candidate keyboard focus](docs/v2/CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
+repairs a native Shift+Tab case where the floating alphabet bar covered the
+focused source link. A small focus-transition guard uses actual sticky geometry;
+navigation, density and ordinary scrolling remain. All 22 affected checks and
+desktop/412px browser comparisons pass. This isolated platform child retains
+#460 runtime bytes and excludes source #461 data. Records/static/current-head CI
+and fresh preservation remain. No data/review decision, merge or deployment.
+
 November 1 — [Coverage identity lookup review](docs/v2/COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 prepares relevant catalog rows inside one read-only Coverage request while
 retaining the original identity matcher, edit freshness and review gates.
