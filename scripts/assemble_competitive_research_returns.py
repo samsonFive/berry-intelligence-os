@@ -15,8 +15,9 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CAPTURE = ROOT / "inbox/competitive_landscape/web-research-2026-10-30"
-INVENTORY = ROOT / "data/imports/competitive-landscape-2026-10-30-v1"
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
+DEFAULT_CAPTURE = resolve_inbox_dir(ROOT) / "competitive_landscape/web-research-2026-10-30"
+INVENTORY = resolve_data_dir(ROOT) / "imports/competitive-landscape-2026-10-30-v1"
 KINDS = {"entity_id": "profile", "observation_id": "observation", "relationship_id": "relationship",
          "person_id": "person", "job_id": "job", "event_id": "hiring_event", "exposure_id": "exposure",
          "source_id": "source", "gap_id": "gap"}

@@ -12,6 +12,8 @@ import json
 import re
 from pathlib import Path
 
+from app.runtime_config import resolve_inbox_dir
+
 from app.services import competitive_evaluation as ce, personal_digest
 from app.services.analyst_state_io import atomic_json
 from app.services.pipeline_lock import pipeline_lock
@@ -87,7 +89,7 @@ def capture(inbox, selections, *, published=(), entities):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('selection_file', type=Path)
-    parser.add_argument('--inbox', type=Path, default=ce.ROOT / 'inbox')
+    parser.add_argument('--inbox', type=Path, default=resolve_inbox_dir(ce.ROOT))
     args = parser.parse_args()
     from app import main
     print(json.dumps(capture(args.inbox, json.loads(args.selection_file.read_text(encoding='utf-8')),

@@ -3,6 +3,8 @@ import argparse
 import json
 from pathlib import Path
 
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
+
 from app.services import competitive_evaluation as ce
 from app.services.living_workspaces import Store
 
@@ -34,9 +36,9 @@ def apply(inbox, selections, entities):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('selection_file', type=Path)
-    parser.add_argument('--inbox', type=Path, default=ce.ROOT / 'inbox')
+    parser.add_argument('--inbox', type=Path, default=resolve_inbox_dir(ce.ROOT))
     args = parser.parse_args()
-    entities = {r['id']: r for p in (ce.ROOT / 'data/entities').rglob('*.json')
+    entities = {r['id']: r for p in (resolve_data_dir(ce.ROOT) / 'entities').rglob('*.json')
                 for r in [json.loads(p.read_text(encoding='utf-8'))]}
     result = apply(args.inbox, json.loads(args.selection_file.read_text(encoding='utf-8')), entities)
     print(json.dumps([{'id': r['id'], 'entity_id': r['entity_id'], 'capability_id': r['capability_id'],

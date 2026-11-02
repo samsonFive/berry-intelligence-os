@@ -11,12 +11,14 @@ import hashlib
 import json
 from pathlib import Path
 
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
+
 from app.services import competitive_evaluation as evaluation
 from app.services.analyst_state_io import atomic_json
 
 ROOT = Path(__file__).resolve().parents[1]
-DIRECT = ROOT / 'inbox/competitive_landscape/direct-research-2026-10-30'
-WEB = ROOT / 'inbox/competitive_landscape/web-research-2026-10-30'
+DIRECT = resolve_inbox_dir(ROOT) / 'competitive_landscape/direct-research-2026-10-30'
+WEB = resolve_inbox_dir(ROOT) / 'competitive_landscape/web-research-2026-10-30'
 
 
 def inputs():
@@ -46,9 +48,10 @@ def inputs():
         yield revision['batch_id'], prepared, sha, str(folder / 'authored-research.json')
 
 
-def run(*, apply=False, inbox_dir=ROOT / 'inbox', checks=None, reviews=None):
+def run(*, apply=False, inbox_dir=None, checks=None, reviews=None):
+    inbox_dir = inbox_dir or resolve_inbox_dir(ROOT)
     entities = {}
-    for path in (ROOT / 'data/entities').rglob('*.json'):
+    for path in (resolve_data_dir(ROOT) / 'entities').rglob('*.json'):
         entity = json.loads(path.read_text(encoding='utf-8'))
         entities[entity['id']] = entity
     summary = {'mode': 'applied_private_workspace' if apply else 'dry_run', 'batches': [],
@@ -79,9 +82,9 @@ def run(*, apply=False, inbox_dir=ROOT / 'inbox', checks=None, reviews=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--apply', action='store_true')
-    parser.add_argument('--inbox', type=Path, default=ROOT / 'inbox')
+    parser.add_argument('--inbox', type=Path, default=resolve_inbox_dir(ROOT))
     parser.add_argument('--source-checks', type=Path, help='Explicit original-source inspection decisions, grouped by batch/source ID')
-    parser.add_argument('--mapping-reviews', type=Path, default=ROOT / 'inbox/competitive_landscape/research-mapping-reviews.json', help='Private, explicit hash-bound mapping reviews; originals remain unchanged')
+    parser.add_argument('--mapping-reviews', type=Path, default=resolve_inbox_dir(ROOT) / 'competitive_landscape/research-mapping-reviews.json', help='Private, explicit hash-bound mapping reviews; originals remain unchanged')
     args = parser.parse_args()
     checks = json.loads(args.source_checks.read_text(encoding='utf-8')) if args.source_checks else None
     reviews = json.loads(args.mapping_reviews.read_text(encoding='utf-8')) if args.mapping_reviews.exists() else None

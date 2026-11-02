@@ -15,12 +15,14 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
+from app.runtime_config import resolve_data_dir
+
 from app.services.article_dedup import normalize_canonical_url
 from app.services.living_workspaces import Store, Conflict, digest
 from app.services.pipeline_lock import pipeline_lock
 
 ROOT = Path(__file__).resolve().parents[2]
-CATALOGUE = ROOT / 'data/imports/competitive-landscape-2026-10-30-v1/capability-rubrics.json'
+CATALOGUE = resolve_data_dir(ROOT) / 'imports/competitive-landscape-2026-10-30-v1/capability-rubrics.json'
 KINDS = {'profile', 'observation', 'relationship', 'person', 'job', 'hiring_event', 'exposure', 'source', 'gap'}
 TABLE_KINDS = {'profiles': 'profile', 'observations': 'observation', 'relationships': 'relationship',
                'people': 'person', 'jobs': 'job', 'hiring_events': 'hiring_event', 'exposures': 'exposure',
