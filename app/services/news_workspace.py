@@ -9,7 +9,7 @@ from app.services.geography_hierarchy import record_geography_ids, resolve_geogr
 from app.services.global_explorer import IntelligenceQuery
 from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.industry_pulse.models import DiscoveryHit
-from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
+from app.services.industry_pulse.qualify import QualificationIndex, is_qualifying_hit
 from app.services import company_source_scope
 from app.services.company_source_scope import source_reviewed
 from app.services.industry_pulse.specialist_feeds import requested_sustainability_record
@@ -35,7 +35,7 @@ def _qualifying_news(title, snippet, url, published_date, company_names, variety
     # filters, saved marks and current entity assignments are applied every time.
     hit = DiscoveryHit(title=title, snippet=snippet, url=url, source_domain="", published_date=published_date,
                        query_id="news-workspace", query_text="", geography="", berry=None, topic=None, provider="stored-source")
-    return qualify_hit(hit, index=_qualification_index(company_names, variety_names)).qualifying
+    return is_qualifying_hit(hit, index=_qualification_index(company_names, variety_names))
 
 
 def escalations(facts):

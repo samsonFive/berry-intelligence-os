@@ -8,7 +8,7 @@ Does not use an LLM. Does not write Evidence or onboard Sources.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any, Iterable
 
 from app.services.coverage_assurance.classes import (
@@ -323,6 +323,7 @@ def qualify_result(
     index: QualificationIndex | None = None,
     company_names: Iterable[str] = (),
     variety_names: Iterable[str] = (),
+    _decision_only: bool = False,
 ) -> DiscoveryHit:
     """Mutate hit with QUALIFY/REJECT, reasons, editorial topic, source context."""
     compiled = index or QualificationIndex.compile(
@@ -341,9 +342,13 @@ def qualify_result(
         return _reject(hit, "unrelated .gov / non-agricultural authority page")
 
     crop = _crop_identity(text)
+    industry = bool(_INDUSTRY.search(text))
+    if _decision_only and crop and (industry or (
+            crop != "berry" and context in {SOURCE_TRADE, SOURCE_BREEDER, SOURCE_GOV_AG})):
+        hit.qualifying = True
+        return hit
     named_company = _named(compiled.company_re, text)
     named_variety = _named(compiled.variety_re, text)
-    industry = bool(_INDUSTRY.search(text))
     reasons: list[str] = []
     if crop and crop != "berry":
         reasons.append(f"explicit {crop} crop")
@@ -370,6 +375,17 @@ def qualify_result(
         return _reject(hit, "collective berry word without industry context")
 
     return _qualify(hit, reasons, text)
+
+
+def is_qualifying_hit(hit: DiscoveryHit, *, index: QualificationIndex) -> bool:
+    """Return the existing metadata decision without producing unused reasons.
+
+    Explicit crop + industry wording (or an eligible source with a specific
+    crop) already determines a positive result after every exclusion passes.
+    Names cannot change that result. All other cases use the full qualifier.
+    This does not review a source, claim or model and does not mutate the hit.
+    """
+    return qualify_result(replace(hit), index=index, _decision_only=True).qualifying
 
 
 def qualify_hit(
