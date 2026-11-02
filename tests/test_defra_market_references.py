@@ -157,7 +157,7 @@ def test_bounded_discovery_retains_originals_and_never_overwrites_captures(tmp_p
     assert first != second and first.read_bytes() == before
     assert (first.parent/'original.ods').read_bytes() == bodies[url]
     assert calls[:3] == [(uk.LANDING, 1_000_000), (notice, 1_000_000), (url, 2_000_000)]
-    assert len(groups) == 3 and json.loads(first.read_text())['state'] == 'reference_capture_for_review'
+    assert len(groups) == 3 and json.loads(first.read_text(encoding='utf-8'))['state'] == 'reference_capture_for_review'
 
 
 @pytest.mark.parametrize('case', ['body_limit', 'redirect'])

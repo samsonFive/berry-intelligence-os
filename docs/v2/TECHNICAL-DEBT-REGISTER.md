@@ -1,3 +1,34 @@
+# November 2 — joined catalog/Map acceptance
+
+[The current draft](CATALOG-MAP-CLOSEOUT-2026-11-02.md) consolidates prepared
+#449/#467 work on live #470 without changing protected schemas or canonical
+identities. TD-116 remains open for independent recall, source/name/role/rights
+decisions and worldwide portfolio/trait/region/photo depth. TD-122 remains open
+for cold loading; the platform #468 repair has a separate pending approval.
+Source units, unselected figures, two UK discrepancies and earlier human edits
+remain visible. Combined exact-head validation/preservation and separate
+release approval remain required; component evidence is not deployment proof.
+
+# November 2 — bramble source recall follow-up
+
+TD-116 remains open. [Original raspberry/blackberry tables and captions](CANEBERRY-ORIGINAL-EXTENSION-REVIEW.md)
+add 30 review keys while preserving all 1,283 earlier keys, crop boundaries,
+saved decisions and unknown photo permissions. Six source sections and 77
+occurrences are not complete breeder inventories or independent human recall.
+No runtime/domain/schema change or inferred commercial growing region. Wider
+current/historical portfolios, identity, rights, traits and photo reuse remain.
+
+# November 2 — regional-source recall follow-up
+
+TD-116 remains open. [Maryland Extension source review](MARYLAND-ORIGINAL-CULTIVAR-REVIEW.md)
+adds bounded table/caption recall and six credited photo references; the new
+source notes keep each cultivar's search context specific. There is no global
+completeness, current-rights or reuse-permission claim, and human gates remain.
+TD-122 also remains open: this source-only child does not absorb the keyboard
+or performance changes in frozen, unapproved platform #462. Catalog/Map #449
+and its existing unanswered question remain separate. No protected domain or
+schema changes.
+
 # Technical Debt Register
 
 November 1 — [Combined source/Map review](CATALOG-MAP-COMBINED-REVIEW.md)
@@ -24,6 +55,50 @@ PDF copy); direct FreshPlaza and Rejoice PDF HTTP attempts return403 and remain
 recorded as such. Complete historical/current portfolios, exact identities,
 current rights, independent recall and human authoring stay open. No trust
 gate or protected domain schema is changed; this source draft is not deployed.
+
+November 1 — [Current ABZ product photographs](ABZ-CURRENT-PRODUCT-PHOTOS-REVIEW.md)
+refresh nine original source sections and retain all 21 names and existing review
+keys. Twenty-one credited, permission-held photo references are available through
+explicit private-session preview; no image or identity is approved. Shared generic
+images and the Milan/Elan mismatch are excluded. The old booklet remains a gap;
+18 individual infosheet links are retained without claiming their PDF bodies read.
+Source-child counts remain 526 sections / 1,883 occurrences / 165 matches / 1,718
+review needs, with 1,258 keys and 66/77 named subjects. Source follow-up sections
+are 144 because Milan's specific conflict is disclosed. Original31 definitions,
+all previous data and the expansion guide remain unchanged. Live remains #443;
+#449 retains its existing unanswered approval question, platform #455 is separate,
+and tested source #456 remains the parent until this child independently passes.
+Earlier dated notes retain their historical scopes. No merge or deployment.
+
+November 1 — [Recovered Rejoice original sheet](REJOICE-ORIGINAL-TECHNICAL-SHEET-REVIEW.md)
+replaces the effective blank-viewer check with one literal printed code, retaining
+the original failed attempt. BK 17.006-13, BK3-17.006-13, PS-BK3-17.006-13 and
+catalog BK 6-13 remain unresolved; no alias, extra proven cultivar, company role,
+trait, photo or growing footprint is approved. Current source child: 526 sections,
+420 readable/14 unreadable, 1,883 occurrences, 165 matches, 1,718 review needs,
+1,258 combined review keys and unchanged 66/77 named subjects. All 31 accepted
+definitions/order and the expansion guide remain unchanged. Live is #443;
+#449 retains its existing unanswered approval question. Tested platform #455
+supersedes #452/#453. Source #454 remains a tested parent; no release is inferred.
+Earlier dated sections below retain their historical scopes.
+
+November 1 — [Historical source-depth follow-up](HISTORICAL-SINGROW-SUREXPORT-REVIEW.md)
+adds original Singrow/Surexport name observations with explicit chronology,
+source accounting and identity conflicts; no platform debt is declared closed.
+An old NUS PDF 404 was recovered via the official report index, retaining the
+old failure and new URL provenance. The original human recall/source/name/
+rights/photo decisions remain. No domain schemas or backend change, no reopened
+TD-001..004, and no inference that source count measures intelligence recall.
+Performance #452 and statement-link #453 retain their separate tested scopes.
+
+November 1 — [Splendor historical source](SPLENDOR-HISTORICAL-SOURCE-REVIEW.md)
+adds names without calling its current portfolio complete. Source spelling,
+month-only date, unnamed-crop exclusions, incomplete current checks and human
+identity/role gates remain. No application, schema or domain rewrite was needed.
+The requirement ledger's old future navigation gate is reconciled to verified
+live #443; all31 accepted definitions/order remain. TD-122 broader Coverage
+costs and actual human review queues remain open; this source child changes
+neither measured platform speed nor trusted decisions.
 
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
@@ -292,6 +367,15 @@ receipt. Production preparation/delivery must run as UID 1000, matching the web
 application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+November 2 UTC — Native [original-infosheet review](ABZ-ORIGINAL-INFOSHEETS-REVIEW.md)
+finds a separate phone keyboard-focus issue: after PageDown/Tab navigation, the
+Name reference link can sit at y146-167 beneath the sticky jump bar (around
+y127-185) on the 412px emulation. Manual scrolling exposes the link and no page
+overflow is present. Source-only work leaves runtime styling unchanged; a
+separate platform repair must prove focus/anchor clearance while preserving the
+floating alphabet navigation, density and authoring gates. Do not call that
+keyboard check passed. Existing performance/physical-device debt remains open.
 
 October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 removes repeated exact-name preparation and source/company scope scans within a
