@@ -1,11 +1,32 @@
 # Intelligence Coverage Matrix
 
+November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
+combines tested #460, #459 and the focused candidate keyboard repair without
+adding source/catalog coverage or trust decisions. All sixteen runtime files
+retain component bytes and both documentation histories. The new combination
+needs its own current-head/native/preservation acceptance; older component
+proofs/approvals are not combined approval. Source #461 and catalog/Map #449
+remain separate, with broader TD-122/content/human work still open.
+
 November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
 is a platform-only interaction repair following #460. Actual Shift+Tab now
 clears the sticky bar in desktop/412px controls; all 22 affected checks pass.
 No catalog/source breadth, human decisions or protected-domain behavior change.
 Source #461 and other frozen scopes remain independent. Final acceptance and
 broader TD-122 performance/device work remain; no merge/deployment.
+
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 125 focused checks pass.
+The first isolated rehearsal exposed and now guards existing-image precedence;
+new-head acceptance remains required, with the failed attempt retained.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
 
 November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 records a platform-only child of #458 addressing the measured cold-handler

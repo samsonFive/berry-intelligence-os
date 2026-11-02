@@ -1,5 +1,13 @@
 # Project Status
 
+November 2 UTC — [Combined platform quality review](docs/v2/PLATFORM-QUALITY-COMBINED-REVIEW.md)
+brings #460 performance/statement/startup work, #459 Reader capture fixes and the
+verified candidate keyboard repair together on live #443. All sixteen runtime
+files retain exact component bytes; three Markdown prefix conflicts preserve
+both dated histories. This is a new review candidate requiring combined checks,
+native review and fresh isolated preservation. Catalog/Map #449 and source #461
+are excluded; frozen heads/questions retain their scopes. No merge/deployment.
+
 November 2 UTC — [Candidate keyboard focus](docs/v2/CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
 repairs a native Shift+Tab case where the floating alphabet bar covered the
 focused source link. A small focus-transition guard uses actual sticky geometry;

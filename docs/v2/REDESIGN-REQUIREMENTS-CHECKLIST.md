@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
+retains #460 performance/statement/startup work, #459 Reader capture repair and
+the native keyboard-focus fix for one new combined review. Sixteen exact runtime
+component files, both dated documentation histories, all original 31 accepted
+definitions/order and the guide remain. Combined current-head/native/preservation
+acceptance and its own scoped release decision are still required. Catalog/Map
+#449 and source #461 are excluded; existing questions retain their scopes.
+
 November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
 adds a focused UI-03 repair after a native Shift+Tab failure beneath the sticky
 alphabet bar. All 22 affected checks and phone/desktop comparisons pass; visible
@@ -7,6 +15,19 @@ controls, filter scope, alphabet navigation and ordinary scrolling remain.
 This platform child retains #460 and excludes source #461 records. All original
 31 definitions/order and human gates remain. Final acceptance is still required;
 no production change or new release approval.
+
+November 1 — [Reader publisher-chrome repair](READER-PUBLISHER-CHROME-REVIEW.md)
+keeps header flags/menu graphics and site commerce headings out of new article
+captures. Existing article headers, source wording, edited text/images and
+explicit reload/cache policies remain. Offline publisher replay preserves all
+21 non-header passages and selects the article figure; 125 focused checks pass.
+The first isolated rehearsal exposed and now guards existing-image precedence;
+new-head acceptance remains required, with the failed attempt retained.
+This separate draft adds no catalog data or trust decisions and needs its own
+current-head/native/fresh preservation acceptance and release approval. Frozen
+#458 and #449 each retain their one unanswered question; source #457 remains
+separate. Original 31 accepted definitions/order and guide stay verbatim;
+broader TD-122/source/media limitations remain open.
 
 November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
 records a separate UI-03 performance experiment after #458. Optional read-only

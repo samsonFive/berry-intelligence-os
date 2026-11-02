@@ -17,9 +17,11 @@ rather than a phone-specific constant.
 The floating alphabet navigation, density, geometry, existing hash offsets,
 Reader and authoring actions remain unchanged. There is no global scroll padding,
 new library, network request, saved preference or data/review-state mutation.
-Only `app/static/variety_workspace.js` changes at runtime. This follows tested
-platform #460 (`baf33dc2`); its thirteen runtime files remain exact. No source
-imports, Reader #459 change or catalog/Map #449 change is included.
+The UI component changes only `app/static/variety_workspace.js` at runtime.
+It follows tested platform #460 (`baf33dc2`); those thirteen runtime files remain
+exact. The [combined platform review](PLATFORM-QUALITY-COMBINED-REVIEW.md) now also
+includes the tested Reader #459 component. Source imports and catalog/Map #449
+remain separate.
 
 ## Evidence and remaining acceptance
 
