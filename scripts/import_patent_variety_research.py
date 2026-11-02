@@ -47,7 +47,7 @@ def digest_tree(root):
         h.update(str(path.relative_to(root)).encode());h.update(path.read_bytes())
     return h.hexdigest()
 
-def install(packet_path, *, data_dir, inbox_dir):
+def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     packet_path=Path(packet_path).resolve();data_dir=Path(data_dir).resolve();inbox_dir=Path(inbox_dir).resolve()
     raw=packet_path.read_bytes();payload=json.loads(raw);digest=sha256(raw).hexdigest();batch_id='patents-apr-oct-2026-'+digest[:12]
     batch_dir=inbox_dir/ROOT/'imports'/batch_id;manifest_path=batch_dir/'manifest.json'
@@ -62,6 +62,21 @@ def install(packet_path, *, data_dir, inbox_dir):
             parsed=urlsplit(link)
             if parsed.scheme not in {'http','https'} or not parsed.hostname or parsed.username or parsed.password:
                 raise ValueError('Research sources and image references require public HTTP(S) links')
+    sheet_payload=None
+    if source_sheet is not None:
+        sheet_raw=Path(source_sheet).read_bytes();sheet=json.loads(sheet_raw)
+        if len(sheet['headers'])!=14 or any(len(row)!=14 for row in sheet['rows']):
+            raise ValueError('Original sheet must retain its fourteen columns')
+        sheet_groups={}
+        for group in payload['varieties']:
+            sheet_groups[group['key']]=[]
+            for number in group['rows']:
+                if type(number) is not int or not 2<=number<=len(sheet['rows'])+1:
+                    raise ValueError('Original sheet row is outside the source range')
+                sheet_groups[group['key']].append({'row':number,'fields':dict(zip(sheet['headers'],sheet['rows'][number-2])),
+                    'review_notes':[str(note[1])+': '+str(note[-1]) for note in sheet.get('review',[]) if note[0]==number]})
+        sheet_payload={'source':'Rebuilt April–October 2026 photo spreadsheet','source_sha256':sha256(sheet_raw).hexdigest(),
+            'review_state':'Unverified photo transcription; original review flags preserved','groups':sheet_groups}
     before=digest_tree(data_dir)
     entities={}
     for path in (data_dir/'entities').rglob('*.json'):
@@ -73,6 +88,11 @@ def install(packet_path, *, data_dir, inbox_dir):
         if not g['resolved_name']:
             unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources']});continue
         crop=g['berry'];name=g['resolved_name'];known=[entities[x['id']] for x in g['existing_entities'] if x['id'] in entities]
+        current_matches=[entity for entity in entities.values() if entity.get('entity_type')=='variety'
+            and 'berry-'+crop.lower() in entity.get('berry_ids',[])
+            and fold(name) in {fold(entity['name']),*(fold(a) for a in entity.get('aliases',[])),
+                *(fold(entity.get('attributes',{}).get(field,'')) for field in ['denomination','breeder_code','selection_code'])}]
+        known=list({entity['id']:entity for entity in [*known,*current_matches]}.values())
         if len(known)>1:raise ValueError('Ambiguous canonical mapping: '+g['key'])
         if known:
             entity=known[0]
@@ -146,11 +166,12 @@ def install(packet_path, *, data_dir, inbox_dir):
         'review_state':'unreviewed','canonical_data_sha256_before':before,'canonical_data_sha256_after':after,
         'profiles':profiles,'unresolved':unresolved,'commercial_entities':list(commercial_entities.values()),'capture_files':sorted(capture_files),'counts':counts}
     # Manifest is committed last: partial attempts do not become visible pages.
+    if sheet_payload is not None:atomic_json(batch_dir/'source_sheet_rows.json',sheet_payload)
     atomic_json(manifest_path,manifest)
     return {'replayed':False,'batch_id':batch_id,**counts}
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('packet',type=Path);p.add_argument('--data-dir',type=Path,required=True);p.add_argument('--inbox-dir',type=Path,required=True)
-    a=p.parse_args();print(json.dumps(install(a.packet,data_dir=a.data_dir,inbox_dir=a.inbox_dir),indent=2))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('packet',type=Path);p.add_argument('--data-dir',type=Path,required=True);p.add_argument('--inbox-dir',type=Path,required=True);p.add_argument('--source-sheet',type=Path)
+    a=p.parse_args();print(json.dumps(install(a.packet,data_dir=a.data_dir,inbox_dir=a.inbox_dir,source_sheet=a.source_sheet),indent=2))
 
 if __name__=='__main__':main()

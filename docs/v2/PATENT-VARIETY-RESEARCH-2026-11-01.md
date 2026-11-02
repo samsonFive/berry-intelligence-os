@@ -79,3 +79,16 @@ passed. Record validation passed. The static build produced 1,797 pages with
 zero imported-private identifiers or capture routes in the generated HTML.
 Browser checks passed for existing/new profiles, crop-conflict warnings,
 commercial contacts and filters; the 412-pixel directory has no page-wide overflow.
+
+## Live release preparation — November 2
+
+The user explicitly requested this research on the live authenticated site.
+The release branch starts from current canonical `f76080d0`, keeping the newer
+source/photo review UI. The research and original sheet remain a separate private
+runtime delivery, not a public Git dataset. The installer now rechecks exact
+names/codes against the destination catalog, with crop separation and an
+ambiguity stop, so a newer runtime record is reused rather than duplicated.
+`--source-sheet` installs the original row sidecar before making the batch visible.
+All 13 final import tests pass on this base. Current-head CI, a verified live
+backup, bounded server-side rehearsal and an authenticated live check gate the
+actual switch; the deployment receipt records their completed results.

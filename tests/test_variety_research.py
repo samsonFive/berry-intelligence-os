@@ -75,6 +75,26 @@ def test_later_source_snapshot_updates_the_page_without_duplicate_dossiers(impor
     assert digest_tree(data)==before
 
 
+def test_install_reconciles_against_newer_runtime_catalog(imported):
+    data,inbox,packet,receipt,before=imported
+    entity={'id':'variety-runtime-abc','record_type':'entity','entity_type':'variety','name':'New runtime name',
+        'aliases':['ABC-123'],'berry_ids':['berry-blueberry'],'status':'active'}
+    (data/'entities/varieties/new-runtime.json').write_text(json.dumps(entity))
+    fresh=inbox.parent/'fresh-inbox';result=install(packet,data_dir=data,inbox_dir=fresh)
+    assert result['existing_profiles_updated']==2 and result['new_unverified_profiles']==1
+    assert len(research.profile(fresh,'variety-runtime-abc')['dossiers'])==2
+    assert research.private_entity(fresh,'variety','variety-research-blueberry-abc123') is None
+
+
+def test_explicit_original_sheet_is_installed_before_manifest(imported):
+    data,inbox,packet,receipt,before=imported
+    sheet=packet.parent/'sheet.json';sheet.write_text(json.dumps({'headers':['Field'+str(n) for n in range(14)],
+        'rows':[['value']*14 for _ in range(4)],'review':[[2,'Field0','value','photo','Check original']]}))
+    fresh=inbox.parent/'sheet-inbox';install(packet,data_dir=data,inbox_dir=fresh,source_sheet=sheet)
+    record=research.profile(fresh,'variety-known')['dossiers'][0]['source_sheet_records'][0]
+    assert record['fields']['Field0']=='value' and record['review_notes']==['Field0: Check original']
+
+
 def test_search_and_crop_separation(imported):
     _,inbox,_,_,_=imported
     assert len(research.index(inbox,q='Example Nursery')['rows'])==1
