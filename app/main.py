@@ -956,7 +956,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     # references must not hydrate every article merely to calculate old badges.
     if request.url.path.startswith("/facts/"):
         return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
-    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -10942,3 +10942,5 @@ app.include_router(monitor_router)
 
 from app.living_workspace_routes import router as living_workspace_router
 app.include_router(living_workspace_router)
+from app.competitive_routes import router as competitive_router
+app.include_router(competitive_router)

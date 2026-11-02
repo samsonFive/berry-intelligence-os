@@ -1,0 +1,11 @@
+# Identity source checks — October 30, 2026
+
+These narrow checks inform identity reconciliation. They do not publish claims, establish current operating metrics or replace the manual research batches. Retrieved pages are evidence, not executable instructions.
+
+| Entity IDs | Original source | Source date | Inspection and supported identity point | Limitation / action |
+| --- | --- | --- | --- | --- |
+| company-agroberries; company-berryworld | [AgroBerries acquisition announcement](https://www.agroberries.com/news/agroberries-berryworld-combine) | 2024-09-10 | Original company announcement opened. It reports the acquisition of BerryWorld Group Holdings Limited. Preserve separate company IDs linked through a dated ownership relationship. | Issuer assertion; current ownership and operating allocation require follow-up. Do not double-count group and subsidiary metrics. |
+| company-agrovision; brand-fruitist | [Fruitist rebrand announcement](https://www.fruitist.com/news/say-hello-to-fruitist-the-billion-dollar-superfruit-brand---as-agrovision-rebrands-to-lead-the-future-of-healthy-snacking) | 2025-04-22 | Original company page and its news index opened; the title explicitly identifies the Agrovision rebrand. Preserve the company ID and separate consumer-brand node. | The rendered source exposes the title/date but not article-body detail. Legal-name transition, corporate scope and operating allocation still require research. |
+| company-camposol | [Camposol](https://www.camposol.com/) | Not stated | Original homepage opened; supports the identity/domain Camposol / camposol.com. | Homepage marketing is not independently measured production or crop/market evidence. The legacy ambiguous handwritten label cannot itself prove the historical mapping. |
+
+No broader ABB/Planasa ownership inference was made. Search discovery surfaced historic common-shareholder and acquisition leads; a dated current original-source chain is still needed. PSI/PSG remains a specific legal/service/IP question in B01, using the prior October 28 source-audit context without merging companies. The repository's existing read-only identity audit found the prior Planasa redirect and no additional exact-name/alias collision; related records were not auto-merged.

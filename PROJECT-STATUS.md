@@ -1,3 +1,19 @@
+# November 2 dense evaluation correction
+
+[People and the other evaluation/captured-news views](docs/v2/COMPETITIVE-DENSE-VIEWS-REVIEW.md) now use dense tables, full-result search/filter/sort and the existing green/sage formatting. The correction removes a late duplicate stylesheet and the People form positioning defect. Underlying research, decisions and snapshots remain. Draft PR #445 tracks final verification; no merge/deployment.
+
+# November 2 competitive sheet workspace
+
+[The competitive evaluation UI](docs/v2/COMPETITIVE-EVALUATION-SHEET-UI.md) now uses a compact sheet, frozen entity/evidence columns, full-result search/filter/sort and a row-details panel. Existing scope, source, correction and immutable-snapshot semantics remain. Desktop and 412px checks retain multi-entity selection, Reader behavior and keyboard focus. Draft PR #445 tracks final current-head checks; no merge/deployment.
+
+# November 2 competitive evaluation source review
+
+[Original-source continuation](docs/v2/COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) reviews all 202 prior unresolved rows: 63 corrected, 135 context only and four remaining holds. All 48 inputs retain 4,122 rows with 15 Provisional assessments and 380 eligible Unknown cells. Thirty-one manual original inspections remain distinct from the 855-URL technical audit. Exact original fields, analyst decisions and trust gates are preserved; all 48 imports replay without record/assessment version changes. Focused verification passes 67 tests; draft PR #445 tracks current-head required checks. No paid API, merge or deployment. Earlier dated histories remain below.
+
+# October 31 competitive evaluation review build
+
+[Competitive landscape evaluation](docs/v2/COMPETITIVE-EVALUATION-ACCEPTANCE.md): captured all 46 batches plus R01/R02 for 166 frozen entities; imported 4,109 private observations with 202 unresolved mappings and four narrow Provisional assessments. Scoped comparison, correction history, people/hiring, cited immutable snapshots and shared captured coverage are implemented. Additive checkbox selection works with keyboard and across searches. Full local suite passed 5,537 tests with ten skips; final affected/browser/static receipts are linked. Rebased on canonical 3b0b4acc. No merge/deployment or trust promotion. Earlier release histories remain below.
+
 # Project Status
 
 November 2 — [Company source-name preparation](docs/v2/COMPANY-SOURCE-PREPARATION-REVIEW.md)

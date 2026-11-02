@@ -4,7 +4,7 @@
   const $ = id => document.getElementById(id), token = () => crypto.randomUUID();
   const api = window.livingAPI;
   let inventory, page, items = {}, sources = {}, selected = new Set(), dirty = false, saving = false, timer, feedCards = [], incoming = [], createToken = token();
-  let overviewStale=false,materialUpdatedAt='',linkedLandscapes=[],landscapeError='',socialItems={};
+  let overviewStale=false,materialUpdatedAt='',linkedLandscapes=[],landscapeError='',socialItems={},coverageScope={};
   let gridView=localStorage.getItem('bios:living:view')!=='document',expandedRows=new Set();
   let cardSizer,layoutSizer;
   let briefingSelection=false;
@@ -70,6 +70,7 @@
     if(page?.id!==id){selected.clear();briefingSelection=false;}
     const data = await api('/api/workspaces/page/' + id); page = data.page;overviewLoadedSignature='';overviewStale=data.overview_stale;materialUpdatedAt=data.page_material_updated_at;
     linkedLandscapes=data.landscapes||[];landscapeError=data.landscape_error||'';renderLandscapeLinks();
+    coverageScope=data.coverage_scope||{};
     socialItems=Object.fromEntries((data.social||[]).map(row=>[row.id,row]));
     items = Object.fromEntries(data.items.map(i => [i.id, i])); sources = Object.fromEntries(data.sources.map(s => [s.id, s]));
     $('lw-welcome').hidden = true; $('lw-editor').hidden = false; $('lw-title').value = page.title;requestAnimationFrame(()=>{$('lw-title').style.height='auto';$('lw-title').style.height=$('lw-title').scrollHeight+'px';});
@@ -103,6 +104,12 @@
     if(page.feed.paused)host.append(el('p','Feed paused · tracked entities are saved for when you resume coverage.','lw-muted'));
   }
   function render() {
+    let coverage=document.getElementById('ce-coverage-context');
+    if(!coverage){coverage=document.createElement('script');coverage.id='ce-coverage-context';coverage.type='application/json';root.append(coverage);}
+    const companies=[...new Set([...(coverageScope.companies||[]),...(page.feed.entity_ids||[]),...page.blocks.filter(b=>b.type==='entity').map(b=>b.entity_id)].filter(id=>/^(company|brand|program|breeding_program|retailer)-/.test(id||'')))];
+    const berries=[...new Set([...(coverageScope.berry||'').split(','),...(page.feed.berry_ids||[])].filter(Boolean))];
+    coverage.textContent=JSON.stringify({...coverageScope,companies,berry:berries.join(','),empty_cohort:coverageScope.empty_cohort&&!companies.length&&!berries.length});
+    window.dispatchEvent(new CustomEvent('bios:coverage-scope-changed'));
     cardSizer?.disconnect();layoutSizer?.disconnect();hideFindingPreview();
     const host = $('lw-blocks'); host.replaceChildren();host.classList.toggle('lw-card-grid',!gridView);
     host.style.gridTemplateColumns='';

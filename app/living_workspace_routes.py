@@ -194,7 +194,7 @@ def get_page(request: Request, page_id: str):
         item["review_status"] = evidence.get("status", "in_review")
     source_keys = {i["source_id"] for i in items}
     overview = page.get("overview")
-    from app.services.workspace_landscapes import resolve
+    from app.services.workspace_landscapes import resolve, coverage_scope
     landscape_error = ""
     try:
         landscapes = resolve(main, request, page.get("landscape_links", []))
@@ -203,7 +203,7 @@ def get_page(request: Request, page_id: str):
     updated = max([page.get("content_updated_at", page.get("updated_at", ""))] + [i.get("updated_at", "") for i in items])
     social_ids = {b.get('social_id') for b in page['blocks'] if b['type'] == 'social'}
     social = [{k: row.get(k) for k in ('id', 'text', 'source', 'published_at', 'collected_at', 'mode', 'translation')} for row in social_observations(main).values() if row['id'] in social_ids] if social_ids else []
-    return {"page": page, "items": items, "social": social, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "landscapes": [{k: v for k, v in row.items() if k != "data"} for row in landscapes], "landscape_error": landscape_error, "page_material_updated_at": updated, "overview_stale": bool(overview and (landscape_error or overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}, landscapes)))}
+    return {"page": page, "items": items, "social": social, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "landscapes": [{k: v for k, v in row.items() if k != "data"} for row in landscapes], "coverage_scope": coverage_scope({}, landscapes), "landscape_error": landscape_error, "page_material_updated_at": updated, "overview_stale": bool(overview and (landscape_error or overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}, landscapes)))}
 
 
 @router.put("/api/workspaces/page/{page_id}")

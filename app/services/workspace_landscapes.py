@@ -6,7 +6,33 @@ def choices(main):
     rows = [{"id": "gene-editing", "title": "Gene Editing & Advanced Breeding · all 11 companies", "href": "/landscapes/explorer?topic=gene-editing&adjacent=1"}]
     rows.extend({"id": row["id"], "title": row["name"], "href": landscape_workspace.view_href(row)}
                 for row in landscape_workspace.load_views(main.INBOX_DIR)["views"].values() if not row["archived"])
+    if main.AUTHORING_MODE:
+        rows.extend({'id': row['id'], 'title': 'Saved competitive comparison · '+row['title'],
+                     'href': '/competitive-evaluation?saved='+row['id']}
+                    for row in living.Store(main.INBOX_DIR).rows('competitive_comparison'))
     return rows
+
+
+def coverage_scope(page, landscapes):
+    """Carry explicit page/comparison scope; never reinterpret geography as destination."""
+    companies = set((page.get('feed') or {}).get('entity_ids') or [])
+    berries = set((page.get('feed') or {}).get('berry_ids') or [])
+    destinations = set()
+    for row in landscapes:
+        data = row.get('data') or {}
+        scope = data.get('scope') or data.get('filters') or {}
+        companies.update(str(scope.get('companies') or '').split(','))
+        if scope.get('focus'):
+            companies.add(scope['focus'])
+        berries.update(str(scope.get('berry') or '').split(','))
+        destination = scope.get('destination') or scope.get('destination_market') or ''
+        if str(destination).startswith('geography-'):
+            destinations.add(destination)
+    companies = sorted(key for key in companies if key.startswith(('company-', 'brand-', 'program-', 'breeding_program-', 'retailer-')))
+    berries = sorted(key for key in berries if key.startswith('berry-'))
+    return {'companies': companies, 'berry': ','.join(berries),
+            'destination_market': next(iter(destinations)) if len(destinations) == 1 else '',
+            'empty_cohort': bool(landscapes) and not companies and not berries}
 
 
 def backlinks(main, key):
@@ -35,7 +61,19 @@ def resolve(main, request, keys):
         if key not in options:
             raise ValueError("Linked Landscape is unavailable or archived. Relink it before generating.")
         option = options[key]
-        if key == "gene-editing":
+        if key.startswith('comparison-'):
+            saved = living.Store(main.INBOX_DIR).get(key)
+            if not saved or 'snapshot' not in saved:
+                raise ValueError('Saved comparison is unavailable')
+            snapshot = saved['snapshot']
+            data = {k: snapshot[k] for k in ('scope', 'assessments', 'captured_at')}
+            data['narrative'] = saved.get('narrative', '')
+            data['trust_effect'] = 'Immutable cited research snapshot; no publication or Atomic Evidence promotion'
+            sources = {s['id']: {'id':s.get('article_id') or s['id'], 'title':s['fields'].get('title_original') or s['local_id'],
+                                'source_url':s['fields']['original_url'], 'published_date':s['fields'].get('published_date'),
+                                'status':'unreviewed', 'verification_state':s['verification']['status']}
+                       for a in snapshot['assessments'] for s in a.get('sources', [])}
+        elif key == "gene-editing":
             from app.landscape_explorer_routes import context
             _, _, bundle, _, _ = context(request, {"topic": "gene-editing", "adjacent": "1"})
             model = bundle["gene_editing"]

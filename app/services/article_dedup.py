@@ -166,11 +166,11 @@ def find_duplicate_article(
     item_title = normalize_title(item.get("title"))
     item_source = item.get("source_id")
     item_date = (item.get("published_date") or "")[:10]
-    if not (item_title and item_source and item_date):
+    if not (item_title and item_date):
         return None
     same_source_matches = []
     for record in existing_records:
-        if record.get("source_id") != item_source:
+        if not item_source or record.get("source_id") != item_source:
             continue
         if (record.get("published_date") or "")[:10] != item_date:
             continue

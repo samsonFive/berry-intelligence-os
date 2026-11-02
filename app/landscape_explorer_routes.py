@@ -142,7 +142,7 @@ def briefing(request: Request):
     _, _, bundle, _, _ = context(request)
     if 'gene_editing' in bundle:
         from app.services.gene_editing import html_export
-        return HTMLResponse(html_export(bundle['gene_editing']), headers={'Cache-Control': 'private, no-store'})
+        return HTMLResponse(html_export(bundle['gene_editing'], return_url=str(request.base_url).rstrip('/') + '/landscapes/explorer?' + str(request.query_params)), headers={'Cache-Control': 'private, no-store'})
     return HTMLResponse(exports.html_export(bundle, return_url=str(request.base_url).rstrip("/") + bundle["url"]),
                         headers={"Cache-Control": "private, no-store"})
 
@@ -154,7 +154,7 @@ def export(request: Request, format: str):
         from app.services import gene_editing
         if format not in {'csv', 'html'}:
             raise HTTPException(422, 'This lens supports evidence CSV and printable HTML. Print HTML to PDF in your browser.')
-        generate = gene_editing.csv_export if format == 'csv' else gene_editing.html_export
+        generate = gene_editing.csv_export if format == 'csv' else lambda model: gene_editing.html_export(model, return_url=str(request.base_url).rstrip('/') + '/landscapes/explorer?' + str(request.query_params))
         return Response(generate(bundle['gene_editing']), media_type='text/csv' if format == 'csv' else 'text/html',
             headers={'Content-Disposition': f'attachment; filename="gene-editing-{bundle["version"]}.{format}"', 'Cache-Control': 'private, no-store'})
     generators = {"html": (lambda b: exports.html_export(b, return_url=str(request.base_url).rstrip("/") + b["url"]), "text/html; charset=utf-8"),
