@@ -3863,6 +3863,17 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
 
 
+@app.get("/varieties/research/sheet", response_class=HTMLResponse)
+def imported_variety_research_sheet(request: Request) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Research sheet not found")
+    from app.services.variety_research_sheet import sheet
+    model = sheet(INBOX_DIR, request.query_params.get("batch", ""))
+    return templates.TemplateResponse(request=request, name="variety_research_sheet.html",
+        context={"sheet": model, "authoring_mode": True, "static_build": False},
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"})
+
+
 @app.get("/varieties/research", response_class=HTMLResponse)
 def imported_variety_research(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
