@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+November 1, 2026: [Patent variety research integration](PATENT-VARIETY-RESEARCH-2026-11-01.md)
+adds a private local authoring import covering 340 source rows. Fifteen existing
+profiles gain research sections and 242 named varieties gain unverified research
+pages; 17 missing identities remain application leads. Commercial contact routes
+are source-supported for 62 research groups, with role and territory caveats.
+The 215 source captures and publisher image references remain private and
+attributed. No canonical identity, trusted Fact, active relationship, growing
+footprint, monitor or public catalog entry is auto-promoted. This is local
+research coverage, not a production-deployment or market-activity claim.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their

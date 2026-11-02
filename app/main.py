@@ -3863,6 +3863,30 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
 
 
+@app.get("/varieties/research", response_class=HTMLResponse)
+def imported_variety_research(request: Request) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Research workspace not found")
+    from app.services import variety_research
+    research = variety_research.index(INBOX_DIR, q=request.query_params.get("q", ""),
+        berry=request.query_params.get("berry", ""), state=request.query_params.get("state", ""))
+    return templates.TemplateResponse(request=request, name="variety_research.html",
+        context={"research": research, "authoring_mode": True, "static_build": False},
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"})
+
+
+@app.get("/variety-research-captures/{batch_id}/{filename}")
+def imported_variety_research_capture(batch_id: str, filename: str) -> FileResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Research capture not found")
+    from app.services.variety_research import capture_file
+    path = capture_file(INBOX_DIR, batch_id, filename)
+    if path is None:
+        raise HTTPException(404, "Research capture not found")
+    return FileResponse(path, media_type="image/png",
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"})
+
+
 @app.get("/entity-logos/{entity_id}/{filename}")
 def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
     from app.services.entity_logo_overrides import LogoOverrideError, logo_file
@@ -3951,9 +3975,13 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
         feed_first = _feed_first_company_response(request, entity_id)
         if feed_first is not None:
             return feed_first
-    for entity in all_entities():
+    private_research_entity = None
+    if AUTHORING_MODE:
+        from app.services.variety_research import private_entity
+        private_research_entity = private_entity(INBOX_DIR, entity_type, entity_id)
+    for entity in [*all_entities(), *([private_research_entity] if private_research_entity else [])]:
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
-            entities = entity_index()
+            entities = {**entity_index(), entity_id: entity}
             linked_evidence = linked_evidence_for_entity(entity, published_evidence(), entities=entities)
             independent_sources = {r.get("source_name") for r in linked_evidence if r.get("source_name")}
             last_updated = linked_evidence[0].get("published_date") or linked_evidence[0].get("captured_date") if linked_evidence else None
@@ -4066,6 +4094,10 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     published=published_evidence(),
                     inbox_dir=INBOX_DIR,
                 )
+            if AUTHORING_MODE:
+                from app.services import variety_research
+                synthesis["variety_research"] = variety_research.profile(INBOX_DIR, entity_id) if entity_type == "variety" else None
+                synthesis["company_variety_research"] = variety_research.company_research(INBOX_DIR, entity_id) if entity_type in {"company", "brand", "breeding_program"} else None
             template_name = "entity.html"
             if entity_type == "variety" and AUTHORING_MODE:
                 from app.services import variety_photos, company_directory
@@ -4104,6 +4136,9 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 },
             )
             apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+            if private_research_entity or synthesis.get("variety_research") or synthesis.get("company_variety_research"):
+                response.headers["Cache-Control"] = "private, no-store"
+                response.headers["X-Robots-Tag"] = "noindex"
             return response
     from app.services.entity_logo_overrides import load_logo_overrides
     from app.services.seed_roster import seed_profile

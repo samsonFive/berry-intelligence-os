@@ -1,0 +1,30 @@
+{% if authoring_mode and not static_build and variety_research %}
+<section class="company-panel" id="imported-research" data-pagefind-ignore>
+  <div class="digest-toolbar"><h2>Variety research</h2><a href="/varieties/research">All imported research →</a></div>
+  <p class="context-limit"><strong>UNREVIEWED RESEARCH</strong> · Source-supported findings remain proposals. Identity, commercial roles and performance claims have not been promoted to trusted Facts. Supplier listings do not establish stock or worldwide availability.</p>
+  {% for dossier in variety_research.dossiers %}
+  <div class="variety-context">
+    <h3>{{ dossier.resolved_name or dossier.name }} <small>· {{ dossier.berry }}</small></h3>
+    <p><span class="badge v2-mark-pending">{{ dossier.commercial_status }}</span> · Checked {{ dossier.checked_on }}</p>
+    {% if dossier.issue %}<p role="note"><strong>Needs verification:</strong> {{ dossier.issue }}</p>{% endif %}
+    <p>{{ dossier.summary }}</p>
+    {% if dossier.aliases %}<p><strong>Source-reported names / proposed aliases:</strong> {{ dossier.aliases|join(' · ') }}. These do not alter the catalog’s reviewed identity.</p>{% endif %}
+    <h4>Commercial entities and contacts</h4>
+    {% if dossier.commercial_contacts %}
+    <ul>{% for party in dossier.commercial_contacts %}<li><a href="{{ party.href }}">{{ party.name }}</a> · <strong>{{ party.role }}</strong> · Source-supported, awaiting review</li>{% endfor %}</ul>
+    {% else %}<p>Commercial supplier or licensing route unverified. No company role assigned.</p>{% endif %}
+    <p><strong>Availability and territory:</strong> {{ dossier.availability }}</p>
+    {% if dossier.patent_assignee_lead %}<p><strong>Patent assignee lead:</strong> {{ dossier.patent_assignee_lead }} · Rights lead only; does not prove commercial supply.</p>{% endif %}
+    <details><summary>Original records and earlier database coverage</summary><p>Sheet rows {{ dossier.rows|join(', ') }} · Applications {{ dossier.applications|join('; ') }}</p><p>Original photo name: {{ dossier.name or 'Missing' }} · {{ dossier.baseline_status }}</p><p>{{ dossier.new_information_assessment }}. This comparison uses the pre-import local snapshot, not worldwide novelty.</p><ul>{% for reference in dossier.baseline_references %}<li>{{ reference }}</li>{% endfor %}</ul>
+    {% for record in dossier.source_sheet_records %}<details><summary>Photo transcription · row {{ record.row }} · unverified</summary><p>Dates, grants and parties below are retained from the reconstructed photos; they are not independently approved registry facts or company roles.</p><dl>{% for field,value in record.fields.items() %}<dt>{{ field }}</dt><dd>{{ value or 'Blank in photo' }}</dd>{% endfor %}</dl>{% if record.review_notes %}<p><strong>Transcription issues:</strong> {{ record.review_notes|join('; ') }}</p>{% endif %}</details>{% endfor %}</details>
+    <h4>Sources</h4>
+    <ul>{% for source in dossier.sources %}<li><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a> · {{ source.kind }}<small> · {{ source.access }} · {{ source.prior_url }}</small></li>{% else %}<li>No sufficiently specific public source verified. Identity and commercial information remain unresolved.</li>{% endfor %}</ul>
+    {% if dossier.captures %}<h4>Source-page image captures</h4><p class="company-muted">Evidence captures of publisher pages, not approved cultivar portraits or reuse-licensed photographs. The page may contain comparisons or generic imagery.</p><div style="display:flex;gap:1rem;flex-wrap:wrap">{% for capture in dossier.captures %}<figure style="margin:0 0 1rem;flex:0 1 280px"><a href="{{ capture.href }}" target="_blank" rel="noopener noreferrer"><img src="{{ capture.href }}" loading="lazy" alt="Source-page capture: {{ capture.title }}" width="280" height="210" style="max-width:100%;object-fit:contain;object-position:top;border:1px solid #b8c5cb"></a><figcaption><a href="{{ capture.source }}" target="_blank" rel="noopener noreferrer">Original source</a> · captured {{ dossier.checked_on }}</figcaption></figure>{% endfor %}</div>{% endif %}
+    {% if dossier.variety_image_links %}<details><summary>Publisher-labelled image references · identity/reuse unverified</summary><ul>{% for photo in dossier.variety_image_links %}<li><a href="{{ photo.url }}" target="_blank" rel="noopener noreferrer">{{ photo.alt or 'Publisher image' }}</a> · <a href="{{ photo.source }}" target="_blank" rel="noopener noreferrer">Source / credit</a> · Reuse not established; not an approved profile photograph.</li>{% endfor %}</ul></details>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+{% if authoring_mode and not static_build and company_variety_research %}
+<section class="company-panel" data-pagefind-ignore><h2>Unreviewed variety research associations</h2><p>Source-reported commercial contacts, not approved breeder, owner or licensee relationships. Open the variety for the precise role and source.</p><ul>{% for row in company_variety_research.rows %}<li><a href="{{ row.href }}#imported-research">{{ row.name }}</a> · {{ row.berries|join(' · ') }}</li>{% endfor %}</ul></section>
+{% endif %}
