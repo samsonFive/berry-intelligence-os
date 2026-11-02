@@ -36,7 +36,7 @@ def test_original_three_crop_response_reproduces_every_group_without_seed_writes
     assert groups == doc['groups'] and doc == original
     assert len(groups) == 21 and sum(len(g['metrics']) for g in groups) == 42
     assert calls == [{'crops': ['S0000', 'F3200', 'F3300'], 'geos': list(reference.GEOS), 'since_year': 2023}]
-    assert json.loads(file.read_text())['payload'] == doc['payload']
+    assert json.loads(file.read_text(encoding='utf-8'))['payload'] == doc['payload']
     assert all(g['period'] == '2025 calendar year' for g in groups)
     assert {g['berry_id'] for g in groups} == set(BERRIES)
     assert all([m['unit'] for m in g['metrics']] == ['1000 ha', '1000 t'] for g in groups)

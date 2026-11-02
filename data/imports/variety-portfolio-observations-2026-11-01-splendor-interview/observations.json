@@ -1,0 +1,91 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-splendor-company-interview-2011-blackberry",
+      "title": "Splendor Produce — blackberry names in the August 2011 company interview",
+      "url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-aug-2011.pdf#page=35",
+      "company_ids": [
+        "company-splendor-produce"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-01",
+      "observed_at": "2026-11-01T17:03:02.630446+00:00",
+      "source_type": "company_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The three literal blackberry names in the company interview’s answer about its main varieties, PDF page 35. Issue date verified on PDF page 3.",
+      "limitations": "Historical production interview, not a current portfolio or breeding/rights record. Printed spellings are retained without accepting aliases to Tupy, Brazos or any other catalog name. The neighboring Driscoll text and generic, uncaptained fruit photographs do not identify these varieties. Regional acreage/export figures are outside this name-list scope. No current supply, trait, legal right or growing region is approved. The 2024 upload directory is not the publication date.",
+      "review_warnings": [
+        "August 2011 interview: current varieties and supply still need checking.",
+        "Printed spellings need identity review; production context does not establish breeding or rights ownership."
+      ],
+      "names": [
+        {
+          "candidate_name": "Tuppy",
+          "display_label": "Tuppy",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Printed as Tuppy in the August 2011 company production interview; spelling and any alias still need review.",
+          "product_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-aug-2011.pdf#page=35",
+          "source_company_ids": [
+            "company-splendor-produce"
+          ],
+          "source_company_context": "The named company interview describes production in August 2011, not breeding or rights ownership."
+        },
+        {
+          "candidate_name": "Brazzo",
+          "display_label": "Brazzo",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Printed as Brazzo in the August 2011 company production interview; spelling and any alias still need review.",
+          "product_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-aug-2011.pdf#page=35",
+          "source_company_ids": [
+            "company-splendor-produce"
+          ],
+          "source_company_context": "The named company interview describes production in August 2011, not breeding or rights ownership."
+        },
+        {
+          "candidate_name": "Brasileña",
+          "display_label": "Brasileña",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Printed as Brasileña in the August 2011 company production interview; spelling and any alias still need review.",
+          "product_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-aug-2011.pdf#page=35",
+          "source_company_ids": [
+            "company-splendor-produce"
+          ],
+          "source_company_context": "The named company interview describes production in August 2011, not breeding or rights ownership."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "raspberry",
+            "reason": "Crop mentioned without a variety name in this interview answer."
+          },
+          {
+            "label": "blueberry",
+            "reason": "Crop mentioned without a variety name in this interview answer."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_pdf_capture_and_visual_review",
+        "http_status": 200,
+        "capture_sha256": "cc6dd98a69af2cdaaa1a22023936ee4577c7233596a7ad84ff084d76083231dd",
+        "capture_bytes": 7201371,
+        "final_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-aug-2011.pdf",
+        "publication_period": "August 2011",
+        "publication_date_precision": "Month and year only; no day invented",
+        "publication": "Produce Business, volume 27, number 08",
+        "pdf_pages_read": [
+          3,
+          35
+        ],
+        "interview_heading": "Perspective from the field: Splendor Produce",
+        "image_review": "Generic photographs have no named-cultivar captions; no variety photo added."
+      }
+    }
+  ]
+}

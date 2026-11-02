@@ -1,0 +1,831 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-osu-coast-raspberry-table",
+      "title": "Oregon State — 21 raspberry cultivar recommendations",
+      "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "All 21 names in Table 2, including yellow, black and purple raspberries. Table group labels remain guidance, not approved trait records.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output. The visible publication label says March 2018, reviewed 2025; machine metadata instead says October 2, 2017, with a January 2, 2026 modification. These clocks conflict; no publication day is inferred.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "Oregon State University Extension Service",
+        "html": {
+          "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:29.839445+00:00",
+          "bytes": 147112,
+          "sha256": "5034bd48daeb75b5776117028217cba976468004bbbe92a1f8fa399f360de828",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "visible_publication_label": "Published March 2018, Reviewed 2025",
+        "html_published_time": "2017-10-02T09:35:57-07:00",
+        "html_modified_time": "2026-01-02T14:32:33-08:00",
+        "date_discrepancy_retained": true
+      },
+      "names": [
+        {
+          "candidate_name": "Prelude",
+          "display_label": "Prelude",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Cascade Dawn",
+          "display_label": "Cascade Dawn",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Willamette",
+          "display_label": "Willamette",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Cascade Bounty",
+          "display_label": "Cascade Bounty",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Chemainus",
+          "display_label": "Chemainus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Meeker",
+          "display_label": "Meeker",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Tulameen",
+          "display_label": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Cascade Delight",
+          "display_label": "Cascade Delight",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Cascade Gold",
+          "display_label": "Cascade Gold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Heritage",
+          "display_label": "Heritage",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Vintage",
+          "display_label": "Vintage",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Kokanee",
+          "display_label": "Kokanee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Autumn Bliss",
+          "display_label": "Autumn Bliss",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Joan J",
+          "display_label": "Joan J",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Polka",
+          "display_label": "Polka",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Himbo Top",
+          "display_label": "Himbo Top",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Anne",
+          "display_label": "Anne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Jewel",
+          "display_label": "Jewel",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Munger",
+          "display_label": "Munger",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Brandywine",
+          "display_label": "Brandywine",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        },
+        {
+          "candidate_name": "Royalty",
+          "display_label": "Royalty",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 2; regional recommendation, not verified planting or breeder attribution."
+        }
+      ],
+      "accounting": {
+        "observed_items": 21,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-osu-coast-blackberry-table",
+      "title": "Oregon State — 18 blackberry and hybrid recommendations",
+      "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "All 18 names in Table 3, including four hybrids managed as trailing blackberries. Trademark symbols remain in display labels; they create no additional cultivar or alias assertion.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output. The visible publication label says March 2018, reviewed 2025; machine metadata instead says October 2, 2017, with a January 2, 2026 modification. These clocks conflict; no publication day is inferred.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "Oregon State University Extension Service",
+        "html": {
+          "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:29.839445+00:00",
+          "bytes": 147112,
+          "sha256": "5034bd48daeb75b5776117028217cba976468004bbbe92a1f8fa399f360de828",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "visible_publication_label": "Published March 2018, Reviewed 2025",
+        "html_published_time": "2017-10-02T09:35:57-07:00",
+        "html_modified_time": "2026-01-02T14:32:33-08:00",
+        "date_discrepancy_retained": true
+      },
+      "names": [
+        {
+          "candidate_name": "Obsidian",
+          "display_label": "Obsidian",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Metolius",
+          "display_label": "Metolius",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Black Diamond",
+          "display_label": "Black Diamond",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Columbia Star",
+          "display_label": "Columbia Star",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Marion",
+          "display_label": "Marion",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Wild Treasure",
+          "display_label": "Wild Treasure",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Columbia Giant",
+          "display_label": "Columbia Giant",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Halls Beauty",
+          "display_label": "Halls Beauty",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Logan",
+          "display_label": "Logan",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Tayberry",
+          "display_label": "Tayberry",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Newberry",
+          "display_label": "Newberry",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Boysen",
+          "display_label": "Boysen",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Triple Crown",
+          "display_label": "Triple Crown",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Loch Ness",
+          "display_label": "Loch Ness",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Ouachita",
+          "display_label": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Navaho",
+          "display_label": "Navaho",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Prime-Ark 45",
+          "display_label": "Prime-Ark® 45",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        },
+        {
+          "candidate_name": "Prime-Ark Freedom",
+          "display_label": "Prime-Ark® Freedom",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Listed in Table 3. The document groups raspberry-blackberry hybrids with blackberries; this does not create a genetic relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 18,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-osu-coast-additional-names-photos",
+      "title": "Oregon State — additional name and four credited photographs",
+      "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "Chester Thornless is an additional introductory name; four named photo captions repeat table names. Figure 4 lacks a cultivar identity and is excluded.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output. The visible publication label says March 2018, reviewed 2025; machine metadata instead says October 2, 2017, with a January 2, 2026 modification. These clocks conflict; no publication day is inferred.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "Oregon State University Extension Service",
+        "html": {
+          "url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:29.839445+00:00",
+          "bytes": 147112,
+          "sha256": "5034bd48daeb75b5776117028217cba976468004bbbe92a1f8fa399f360de828",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "visible_publication_label": "Published March 2018, Reviewed 2025",
+        "html_published_time": "2017-10-02T09:35:57-07:00",
+        "html_modified_time": "2026-01-02T14:32:33-08:00",
+        "date_discrepancy_retained": true
+      },
+      "names": [
+        {
+          "candidate_name": "Chester Thornless",
+          "display_label": "Chester Thornless",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#intro",
+          "portfolio_context": "Named in the introductory semierect examples, outside Table 3. This spelling is retained without approving equivalence to Chester."
+        },
+        {
+          "candidate_name": "Cascade Delight",
+          "display_label": "Cascade Delight",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Figure 1 names this cultivar. This repeats a table name, not an independent source or a new cultivar.",
+          "photos": [
+            {
+              "image_url": "https://extension.oregonstate.edu/sites/extd8/files/styles/full/public/images/2023-06/fig3cascadedelight.jpg?itok=NWdd7ddx",
+              "source_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+              "credit": "Bernadine Strik · © Oregon State University",
+              "named_variety": "Cascade Delight",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "Figure 1 labels Cascade Delight. Photographer credit is explicit on the original page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named original photograph and attribution checked. Image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual image was downloaded or hosted. Explicit private session preview does not change rights or identity decisions."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Columbia Star",
+          "display_label": "Columbia Star",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Figure 2 names this cultivar. This repeats a table name, not an independent source or a new cultivar.",
+          "photos": [
+            {
+              "image_url": "https://extension.oregonstate.edu/sites/extd8/files/styles/full/public/images/2023-06/fig1columbiastar-197461335.jpg?itok=Ddori4Ih",
+              "source_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+              "credit": "Bernadine Strik · © Oregon State University",
+              "named_variety": "Columbia Star",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "caption": "Figure 2 labels Columbia Star. Photographer credit is explicit on the original page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named original photograph and attribution checked. Image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual image was downloaded or hosted. Explicit private session preview does not change rights or identity decisions."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Logan",
+          "display_label": "Logan",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#cultivars",
+          "portfolio_context": "Figure 3 names this cultivar. This repeats a table name, not an independent source or a new cultivar.",
+          "photos": [
+            {
+              "image_url": "https://extension.oregonstate.edu/sites/extd8/files/styles/full/public/images/2023-06/fig2loganblackberries-203014137.jpg?itok=gzWOWnWt",
+              "source_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+              "credit": "Sally Reill · © Oregon State University",
+              "named_variety": "Logan",
+              "berry_id": "berry-blackberry",
+              "kind": "plant",
+              "caption": "Figure 3 labels Logan. Photographer credit is explicit on the original page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named original photograph and attribution checked. Image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual image was downloaded or hosted. Explicit private session preview does not change rights or identity decisions."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Meeker",
+          "display_label": "Meeker",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries#raspberry-planting-systems",
+          "portfolio_context": "Figure 5 names this cultivar. This repeats a table name, not an independent source or a new cultivar.",
+          "photos": [
+            {
+              "image_url": "https://extension.oregonstate.edu/sites/extd8/files/styles/full/public/images/2023-06/fig5meekerredrasberrygrowninahillsysteminspring-1948176341.jpg?itok=Hm1THukN",
+              "source_url": "https://extension.oregonstate.edu/catalog/em-9180-growing-berries-oregon-coast-raspberries-blackberries",
+              "credit": "Bernadine Strik · © Oregon State University",
+              "named_variety": "Meeker",
+              "berry_id": "berry-raspberry",
+              "kind": "plant",
+              "caption": "Figure 5 labels Meeker. Photographer credit is explicit on the original page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-01",
+              "reuse_note": "Named original photograph and attribution checked. Image-specific reuse permission and independent cultivar authentication remain unconfirmed. No individual image was downloaded or hosted. Explicit private session preview does not change rights or identity decisions."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-umd-home-raspberry-table",
+      "title": "Maryland Extension — 13 raspberry table recommendations",
+      "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "All 13 cultivar rows of the raspberry table. Source spelling and trademark display are retained without approving alias equivalences.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "University of Maryland Extension",
+        "html": {
+          "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:30.293520+00:00",
+          "bytes": 74487,
+          "sha256": "f72ad72e465730642da66a1d28da21ac284c8e8c2dabce3fdfad5c20285887aa",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "html_updated_on": "2026-07-30"
+      },
+      "names": [
+        {
+          "candidate_name": "Anne",
+          "display_label": "Anne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Bristol",
+          "display_label": "Bristol",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Caroline",
+          "display_label": "Caroline",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Crimson Night",
+          "display_label": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Double Gold",
+          "display_label": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Encore",
+          "display_label": "Encore",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Himbo-Top",
+          "display_label": "Himbo-Top®",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Jaclyn",
+          "display_label": "Jaclyn",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Jewel",
+          "display_label": "Jewel",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Joan-J",
+          "display_label": "Joan-J",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Latham",
+          "display_label": "Latham",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Prelude",
+          "display_label": "Prelude",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Royalty",
+          "display_label": "Royalty",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the raspberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        }
+      ],
+      "accounting": {
+        "observed_items": 13,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-umd-home-blackberry-table",
+      "title": "Maryland Extension — 10 blackberry table recommendations",
+      "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "All 10 cultivar rows of the blackberry table. Source spelling and trademark display are retained without approving alias equivalences.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "University of Maryland Extension",
+        "html": {
+          "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:30.293520+00:00",
+          "bytes": 74487,
+          "sha256": "f72ad72e465730642da66a1d28da21ac284c8e8c2dabce3fdfad5c20285887aa",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "html_updated_on": "2026-07-30"
+      },
+      "names": [
+        {
+          "candidate_name": "Eclipse",
+          "display_label": "Eclipse",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Galaxy",
+          "display_label": "Galaxy",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Natchez",
+          "display_label": "Natchez",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Ouachita",
+          "display_label": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Prime-Ark Freedom",
+          "display_label": "Prime-Ark® Freedom",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Prime-Ark Traveler",
+          "display_label": "Prime-Ark® Traveler",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Sweet-Ark Caddo",
+          "display_label": "Sweet-Ark® Caddo",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Sweet-Ark Ponca",
+          "display_label": "Sweet-Ark® Ponca",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Sweetie Pie",
+          "display_label": "Sweetie Pie",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        },
+        {
+          "candidate_name": "Twilight",
+          "display_label": "Twilight",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the blackberry recommendation table; source comments remain on the original page, without approved traits or breeder roles."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-umd-home-additional-names",
+      "title": "Maryland Extension — ten additional named brambles",
+      "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-01",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "extension_recommendation",
+      "enumerated_scope": "The two container names and all eight additional blackberry names in the notes. Generic bramble types and unlabeled disease photographs are excluded.",
+      "limitations": "Original regional extension guidance, not a complete breeder portfolio or worldwide inventory. The publisher is not inferred to be a breeder, owner or marketer. Advice and garden recommendations do not establish current rights, verified traits or actual commercial plantings. No approved aliases, relationships, traits or growing footprints are created. Full documents and photographs are not copied into public output.",
+      "capture_reference": {
+        "method": "original_html_lists_tables_and_named_captions",
+        "publisher": "University of Maryland Extension",
+        "html": {
+          "url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "status": 200,
+          "checked_at": "2026-11-02T06:59:30.293520+00:00",
+          "bytes": 74487,
+          "sha256": "f72ad72e465730642da66a1d28da21ac284c8e8c2dabce3fdfad5c20285887aa",
+          "content_type": "text/html; charset=utf-8"
+        },
+        "checked_on_timezone": "America/Los_Angeles",
+        "publication_day_established": false,
+        "html_updated_on": "2026-07-30"
+      },
+      "names": [
+        {
+          "candidate_name": "Raspberry Shortcake",
+          "display_label": "Raspberry Shortcake®",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Baby Cakes",
+          "display_label": "Baby Cakes",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Apache",
+          "display_label": "Apache",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Arapaho",
+          "display_label": "Arapaho",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Navaho",
+          "display_label": "Navaho",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Osage",
+          "display_label": "Osage",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Von",
+          "display_label": "Von",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Triple Crown",
+          "display_label": "Triple Crown",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Chester",
+          "display_label": "Chester",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        },
+        {
+          "candidate_name": "Hull",
+          "display_label": "Hull",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden",
+          "portfolio_context": "Named in the notes outside the two tables; container and regional advice is not proof of commercial planting."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      }
+    }
+  ]
+}
