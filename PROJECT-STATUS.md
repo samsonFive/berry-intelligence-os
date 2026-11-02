@@ -1,10 +1,12 @@
 # Project Status
 
-November 2 — The closeout release is being reconciled onto live patent-research
-and spreadsheet #470 (`d2f6eb96`). Existing private research pages, contacts and source rows
-remain; no catalog promotion or review decision is inferred. Fresh current-head
-CI, native checks and live-data preservation replace the old #443-based release
-baseline. Frozen component/source heads retain their original scopes.
+November 2 — The closeout release is reconciled onto live #471 (`5f60662c`),
+including its attributed commercial partners and preserved research trails.
+Existing private research pages, contacts and source rows remain; no catalog
+promotion or review decision is inferred. The preceding #470-based head passed
+5,888 tests, native review and isolated preservation. Fresh current-head CI,
+native checks and current-live preservation are required again; old receipts
+and unanswered approval questions do not approve the revised head.
 
 November 2 — [Reader closeout performance](docs/v2/READER-CLOSEOUT-PERFORMANCE-REVIEW.md)
 addresses the real #468 warm-Reader CI failure (538.9 ms against 500 ms).

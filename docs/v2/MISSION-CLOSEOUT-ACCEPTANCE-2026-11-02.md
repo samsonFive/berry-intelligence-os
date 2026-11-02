@@ -1,16 +1,17 @@
 # Mission closeout acceptance
 
-Current live release #470 (`d2f6eb96`) retains the approved #443 redesign,
-#469's private patent research and its original-row spreadsheet follow-up. Its
-platform release #468 is still in verification: the first canonical-target CI
-run found a 538.9 ms warm-Reader request against the unchanged 500 ms test.
-The bounded preparation repair and complete-output controls are documented in
-[the Reader review](READER-CLOSEOUT-PERFORMANCE-REVIEW.md). New exact-head CI,
-native review and server-copy preservation must pass on the reconciled #470
-base before release approval. Existing private research profiles, source rows,
-contacts and user edits must survive that check.
+Current live release #471 (`5f60662c`) retains the approved #443 redesign,
+private patent research and its original-row spreadsheet, and now attributes
+commercial partners while preserving research trails. Platform release #468
+is reconciled onto that baseline. Its preceding #470-based head passed 5,888
+tests, native review and isolated preservation, after the bounded repair of
+the unchanged 500 ms Reader test described in
+[the Reader review](READER-CLOSEOUT-PERFORMANCE-REVIEW.md). Those results remain
+historical evidence: new exact-head CI, native checks and server-copy
+preservation must pass on #471 before release approval. Existing private
+research profiles, source rows, contacts and user edits must survive.
 
-Source #467, catalog/Map #449 and Learn #464 have separate scopes. Their prepared
+Catalog/Map/source #472 and Learn #464 have separate scopes. Their prepared
 evidence does not make them live or grant approval to combine them. The full
 mission remains open for release acceptance and the catalog/research items below.
 
@@ -55,7 +56,7 @@ and access gates, not every form workflow.
 | MON-01 | Monitor tests cover shared watches, alerts/history, stale state, damaged stores, multi-berry filters and pure browsing. | Implemented; watch intent does not confirm a signal. |
 | OPS-01 | Collection, Review and Quality retain specialist routes. Publication, source authenticity, identity and Atomic qualification have separate human gates and read-only/static boundaries. | Implemented consolidation; pending human reviews remain decisions rather than disappearing queues. |
 | GUIDE-01 | Read-only Help explains 12 workspaces, four analyst steps and six report choices, including Capture → Connect → Brief. Guide/static tests and prior native review cover the visual explainer. | Delivered at `/guide`; it is the requested explainer, not an unfinished presentation. |
-| REL-01 | Live #470 retains #443, private patent research and row-aligned spreadsheet copying. Earlier component receipts remain historical evidence; #468 now reconciles onto current canonical. | Open: revised exact-head gates, scoped approval, release-time backup, deploy/rollback and post-switch verification remain. |
+| REL-01 | Live #471 retains #443, private patent research, row-aligned spreadsheet copying and attributed commercial partners. Earlier component receipts remain historical evidence; #468 now reconciles onto current canonical. | Open: revised exact-head gates, scoped approval, release-time backup, deploy/rollback and post-switch verification remain. |
 
 ## Human decisions and research still open
 
