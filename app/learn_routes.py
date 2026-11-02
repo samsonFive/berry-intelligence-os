@@ -12,12 +12,12 @@ from app.services.ai_gateway.perplexity_deep_research import DeepResearchClient,
 router = APIRouter()
 
 
-def client_factory():
+def client_factory(configuration=None):
     try:
         key = resolve_perplexity_api_key()
     except MissingCredentialError as exc:
         raise ResearchError("Research is not connected in this workspace. Your topic has been saved; no provider request was sent.") from exc
-    return DeepResearchClient(key)
+    return DeepResearchClient(key, configuration=learn_research.LEARN_CONFIG if configuration is None else configuration)
 
 
 def private_store():

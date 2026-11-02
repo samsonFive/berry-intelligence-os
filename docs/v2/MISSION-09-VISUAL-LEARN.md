@@ -14,6 +14,8 @@ Starting research reserves a durable private job before contacting Perplexity. T
 
 ## Provider, persistence and boundaries
 
+**November 2 contract correction:** the following paragraph records the original October 2 implementation. The completion audit found that the current provider uses `effort`, with `high` for deep research. New Learn submissions now select high explicitly, while old jobs retain their recorded settings and other research remains medium. See [current request, lifecycle and preservation evidence](LEARN-DEEP-RESEARCH-CONTRACT-2026-11-02.md). Historical medium results are not relabeled as high-depth research.
+
 The current official [background-mode contract](https://docs.perplexity.ai/docs/agent-api/background-mode) and [presets documentation](https://docs.perplexity.ai/docs/agent-api/presets) were checked October 2, 2026. The provider call uses `POST https://api.perplexity.ai/v1/agent`, `preset=medium`, `background=true`, at most 15 steps and 6,000 output tokens. Retrieval/cancellation use the existing provider run reference. Prompt version `learn-deep-v1` and the returned model are retained because preset internals can change. This is separate from closed-book inference and Atomic Evidence extraction qualification.
 
 Private `inbox/learn_research.json` stores reservations, provider references, requests, citations, lessons and history. No Evidence, Fact, Signal, Assessment, entity identity or canonical learning file is written. GET/browse/search never calls the provider. Research actions require the analyst workspace and same-origin protections. Public/live read-only browsing cannot see private drafts; the static build continues to use existing published educational templates and never includes this store.

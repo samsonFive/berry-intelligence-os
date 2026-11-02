@@ -39,6 +39,8 @@ def test_repeated_and_concurrent_submissions_reserve_once(tmp_path):
     job = rows[0][0]
     count = []
     class Client:
+        def __init__(self, configuration=None):
+            self.configuration = configuration
         def start(self, prompt):
             count.append(prompt)
             return result("queued", "")
@@ -84,7 +86,7 @@ def test_timeout_does_not_resubmit_unknown_paid_request(tmp_path):
     job = create(tmp_path)
     def timeout(*args, **kwargs):
         raise httpx.ReadTimeout("secret-key and private provider detail")
-    service.submit(tmp_path, job["id"], lambda: DeepResearchClient("secret-key", post=timeout))
+    service.submit(tmp_path, job["id"], lambda configuration: DeepResearchClient("secret-key", post=timeout, configuration=configuration))
     stored = service.load(tmp_path)
     assert stored["jobs"][job["id"]]["status"] == "submission_uncertain"
     assert "secret-key" not in json.dumps(stored)
@@ -153,7 +155,7 @@ def test_exact_background_provider_contract():
     client.start("Only the approved public topic")
     url, params = calls[0]
     assert url == "https://api.perplexity.ai/v1/agent"
-    assert params["json"] == {"preset": "medium", "background": True, "max_steps": 15, "max_output_tokens": 6000,
+    assert params["json"] == {"effort": "medium", "background": True, "max_steps": 15, "max_output_tokens": 6000,
                              "input": "Only the approved public topic"}
     assert params["headers"]["Authorization"] == "Bearer key-value"
 
@@ -227,7 +229,7 @@ def test_updated_research_creates_a_separate_draft_and_deduplicates_active_run(t
 
 def test_missing_credential_failure_can_be_retried_but_never_sends_a_request(tmp_path):
     job = create(tmp_path)
-    def missing():
+    def missing(configuration):
         raise ResearchError("Research is not connected; no provider request was sent.")
     service.submit(tmp_path, job["id"], missing)
     assert service.load(tmp_path)["jobs"][job["id"]]["status"] == "failed"
@@ -255,6 +257,8 @@ def test_route_flow_no_provider_on_get_then_edit_and_reload(tmp_path, monkeypatc
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     calls = []
     class Client:
+        def __init__(self, configuration=None):
+            self.configuration = configuration
         def start(self, prompt):
             calls.append("start")
             return result("queued", "")
