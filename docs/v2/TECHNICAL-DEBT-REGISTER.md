@@ -1,5 +1,15 @@
 # Technical Debt Register
 
+November 2 — [Company source-name preparation](COMPANY-SOURCE-PREPARATION-REVIEW.md)
+retains complete inputs and match decisions while reusing the existing temporary
+identity lookup. All 348 affected checks and 24 complete server-copy context/HTML
+comparisons pass. The bounded first Splendor request improves modestly from
+9.45 to 8.78 seconds; other company results are flat or slightly slower. TD-122
+remains open: this does not establish generally fast cold loads or device
+percentiles. Three precise test-fixture repairs remove the traced 36 attempted
+external connections, with all 111 affected tests passing offline. Repaired
+complete-suite and revised release gates remain required.
+
 November 2 UTC — [Combined platform quality review](PLATFORM-QUALITY-COMBINED-REVIEW.md)
 integrates tested #460 and #459 with the independently reproduced/fixed candidate
 focus obstruction. All sixteen runtime files retain component bytes; the original

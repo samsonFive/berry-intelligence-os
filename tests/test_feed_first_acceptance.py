@@ -537,7 +537,13 @@ def test_p1_geography_filter_restores_url_state():
     assert "data-feed-first-today" in page.text
 
 
-def test_p1_official_update_when_host_publishes(tmp_path):
+def test_p1_official_update_when_host_publishes(tmp_path, monkeypatch):
+    # The official-site collector remains injected; keep its optional
+    # thumbnail enrichment on a fixture boundary as well.
+    monkeypatch.setattr(
+        "app.services.feed_first_reader.fetch_source_preview_image",
+        lambda url: "https://publisher.example/fixture-preview.jpg",
+    )
     from datetime import datetime, timezone
 
     from app.services.industry_pulse.providers import MemoryProvider

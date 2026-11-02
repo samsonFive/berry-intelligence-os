@@ -1887,7 +1887,9 @@ def company_source_varieties(entity_id: str, portfolio: dict | None) -> dict | N
     if not AUTHORING_MODE:
         return None
     from app.services.company_variety_discoveries import company_variety_discoveries
-    _varieties, _candidates, report = variety_candidate_universe()
+    from app.services.identity_read_model import identity_read_model_scope
+    with identity_read_model_scope():
+        _varieties, _candidates, report = variety_candidate_universe()
     return company_variety_discoveries(
         entity_id=entity_id, sources=report.get("portfolio_sources", []),
         linked_variety_ids={row["id"] for row in (portfolio or {}).get("variety_rows", [])},

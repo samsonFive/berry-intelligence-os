@@ -1,5 +1,16 @@
 # Project Status
 
+November 2 — [Company source-name preparation](docs/v2/COMPANY-SOURCE-PREPARATION-REVIEW.md)
+extends the existing request-scoped identity lookup to the measured slow company
+helper, retaining every input and match decision. All 348 affected checks pass;
+24 complete server-copy contexts and exact HTML responses match. Splendor's
+bounded first-request median improves modestly from 9.45 to 8.78 seconds;
+other company results are flat or slightly slower, so cold loading remains a
+limitation. Three precise thumbnail/discovery fixture repairs also pass all 111
+affected checks with no external attempts; the Pulse test exercises the real
+newsroom cycle. Repaired complete-suite verification and revised release
+gates remain; the old-head approval is recorded without transferring it.
+
 November 2 — The closeout release is reconciled onto live #471 (`5f60662c`),
 including its attributed commercial partners and preserved research trails.
 Existing private research pages, contacts and source rows remain; no catalog
