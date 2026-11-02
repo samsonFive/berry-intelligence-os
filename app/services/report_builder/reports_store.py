@@ -13,6 +13,10 @@ section's text is preserved verbatim and is never silently overwritten
 by a later packet change; only an explicit "regenerate this section"
 action replaces it).
 
+Topic research reports additionally preserve matched excerpts, source hashes
+and retrieval metadata in scope.research_snapshot. Full source bodies remain
+in the private research cache; ordinary reports still re-resolve their data.
+
 Persisted privately under inbox/reports/ (same precedent as
 inbox/brief_packs/ and inbox/watchlist_state.json). Not wired into
 build_static.py.

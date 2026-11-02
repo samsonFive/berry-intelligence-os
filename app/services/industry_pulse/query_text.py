@@ -31,6 +31,9 @@ def semantic_query_text(query: PulseQuery) -> str:
 
 
 def date_window_of(query: PulseQuery) -> str:
+    custom = re.fullmatch(r'([1-9][0-9]{0,3})d', str(query.date_window or ''))
+    if query.date_window == 'all' or (custom and int(custom[1]) <= 3650):
+        return str(query.date_window)
     if query.date_window in WINDOW_DAYS:
         return query.date_window
     for window in ("24h", "3d", "7d", "30d"):
@@ -49,11 +52,14 @@ def date_window_of(query: PulseQuery) -> str:
 
 
 def window_start(window: str, *, today: date) -> date:
-    days = WINDOW_DAYS.get(window) or 7
+    match = re.fullmatch(r'([1-9][0-9]{0,3})d', window)
+    days = WINDOW_DAYS.get(window) or (int(match[1]) if match and int(match[1]) <= 3650 else 7)
     return today - timedelta(days=days)
 
 
 def perplexity_date_kwargs(window: str, *, today: date) -> dict[str, str]:
+    if window == 'all':
+        return {}
     recency = PERPLEXITY_RECENCY.get(window)
     if recency:
         return {"search_recency_filter": recency}
@@ -62,6 +68,8 @@ def perplexity_date_kwargs(window: str, *, today: date) -> dict[str, str]:
 
 
 def firecrawl_tbs(window: str, *, today: date) -> str:
+    if window == 'all':
+        return ''
     if window in FIRECRAWL_TBS:
         return FIRECRAWL_TBS[window]
     start = window_start(window, today=today)

@@ -32,6 +32,7 @@ from app.services.industry_pulse.specialist_feeds import (
     SpecialistRssProvider,
     week_specialist_feed_queries,
     week_specialist_site_queries,
+    configured_feeds,
 )
 
 
@@ -102,7 +103,8 @@ def test_specialist_catalog_covers_required_publishers():
         "thepacker.com",
     ):
         assert host in hosts
-    assert len(week_specialist_feed_queries()) == len(WEEK_SPECIALIST_FEEDS)
+    assert {q.id for q in week_specialist_feed_queries()} == {feed['id'] for feed in configured_feeds()}
+    assert len(configured_feeds()) == len(WEEK_SPECIALIST_FEEDS) + 8
 
 
 def test_specialist_rss_maps_article_feed_without_google_when():

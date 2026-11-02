@@ -1,0 +1,1546 @@
+{
+  "Blackberry Floricans": {
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "reason": "The captured primary introduction explicitly identifies Ervin as floricane-fruiting and names its former trial code.",
+      "source_locator": "article:1",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured licensee announcement explicitly connects the floricane variety to international licensing after evaluation.",
+      "source_locator": "article:1-2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The inspected trade account reports the same international licensing milestone as the licensee page; it is not another development.",
+      "source_locator": "article:0",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected university release states a named late-season floricane cultivar and material offered for the 2024 planting season.",
+      "source_locator": "article:2-4",
+      "source_version": "d96b709d7f932977b0575782c6a2e075a3740997d45a229c02cc58eac346a69f",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected trade article covers the same Arkansas cultivar release; distinct URL does not establish a distinct milestone.",
+      "source_locator": "article:0-2",
+      "source_version": "48a3dcfea953c206cf8497532b26ddc6367630b1321f90d0ef066e59ec315820",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.emcocal.com/university-of-arkansas/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured program overview explains floricane breeding objectives and biology; the inspected lead does not establish a separately dated milestone.",
+      "source_locator": "article:2",
+      "source_version": "bcbf3bff430b4b00855462d49bc4e56962e8297f924edd216a7fcdc0cb526fb3",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/gpg_times/august-2026/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The inspected newsletter index contains an Ervin teaser, alongside unrelated topics; the truncated teaser is background/lead material, not a separately established development.",
+      "source_locator": "article:17-18",
+      "source_version": "af4c92ba3a8c13a40aa4bde78867074fbc9747949c95c1e092f007ab6220b556",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The paper primarily concerns primocane breeding and management. Its opening floricane comparison does not establish a new floricane release.",
+      "source_locator": "PDF pages 1-2; page 1 visually inspected",
+      "source_version": "1ba3b21d800046a647d4769b6bd680c387696b73d5f95b490eb8a63f23f17d29",
+      "checked_against": "public PDF captured 2026-10-28, printed proceedings year 2012",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://ask.ifas.ufl.edu/publication/HS1458": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-4",
+      "reason": "Extension pruning and cane-life-cycle guidance supplies background, without a discrete release, license or trial-result milestone.",
+      "source_version": "04727702f5d7fd2889310f501eb81764aa34d32fdb5cc66f80c8026f08531463"
+    },
+    "https://ask.ifas.ufl.edu/publication/HS1352": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:9,21-23",
+      "reason": "Cultivar-selection overview explains fruiting types and a central-Florida evaluation. The bounded capture includes only the first cultivar result; useful background, not a complete trial report.",
+      "source_version": "182fb9a6f1af1204b41379599d322b26f613efa85bec06e2272bc293bb39a256"
+    },
+    "https://blogs.ifas.ufl.edu/volusiaco/2023/11/20/a-very-berry-season/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-4",
+      "reason": "General home-production guidance defines the cane types; it does not announce an industry development.",
+      "source_version": "87c9355cab3f5cc1054c9b589ef0820cd215648d93f9ffe8edcf8978b3a9ca0a"
+    },
+    "https://www.finegardening.com/article/growing-blackberries-in-southern-gardens": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:6,10-17",
+      "reason": "Home-garden cultivar and climate-selection advice is background. Related-article navigation is excluded from this judgment.",
+      "source_version": "e127bb967f8a6e4b4f3d9d59d732d1ac6bbd7ffcbbf2735daa246a4e85e307d6"
+    },
+    "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1562341332039": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:1-4",
+      "reason": "After-harvest pruning explanation is background for cane biology, not a new cultivar or commercial event.",
+      "source_version": "e7c8e61c6ccc694b22d1698484343b0eb55c5be09c4dbf574eab4955a9474fc6"
+    },
+    "https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:9,16,22-23",
+      "reason": "Home-garden guide and labeled cane photographs provide biological context, not a separately identified development.",
+      "source_version": "e8124a2a4cfe753b2499dbaf17a41fb39957b4463d717a852c8310e73b9ac874"
+    },
+    "https://extension.usu.edu/yardandgarden/research/selecting-blackberry-cultivars-for-utah": {
+      "grade": 3,
+      "event_group": "usu-kaysville-2006-2012-cultivar-trial",
+      "source_checked": true,
+      "source_locator": "article:9,15,18-20",
+      "reason": "Source reports cultivar-specific winter-survival and yield findings from the 2006 planting and 2008-2012 trial. This is historical research, not a current release; primocane controls remain distinct.",
+      "source_version": "5921204393c8d45986d8f420b1e7b539438e6edf0da9118408f7a7890d57ea62"
+    },
+    "https://agnr.umd.edu/performance-blackberry-varieties-southern-md": {
+      "grade": 3,
+      "event_group": "umd-upper-marlboro-2018-2022-blackberry-trial",
+      "source_checked": true,
+      "source_locator": "article:2-6",
+      "reason": "Primary trial report identifies the 2018 planting, 2022 results and cultivar-specific yields. Freedom is explicitly tested for its floricane crop rather than relabeled as a floricane-only cultivar.",
+      "source_version": "483926bac6c9fecda113e64cb1ec18d0dfd5a52b7b4ad677ed4b5bcfd9dc3deb"
+    },
+    "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:1-4",
+      "reason": "Regional selection recommendations and a general breeding-program overview provide background, without an identified new release event in the inspected passage.",
+      "source_version": "f26ec0ddec883fd0dd792483818da10ef0c157d6a187664777f7a0379d874331"
+    }
+  },
+  "Floricane blackberry developments": {
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "reason": "The captured primary introduction explicitly identifies Ervin as floricane-fruiting and names its former trial code.",
+      "source_locator": "article:1",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured licensee announcement explicitly connects the floricane variety to international licensing after evaluation.",
+      "source_locator": "article:1-2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The inspected trade account reports the same international licensing milestone as the licensee page; it is not another development.",
+      "source_locator": "article:0",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected university release states a named late-season floricane cultivar and material offered for the 2024 planting season.",
+      "source_locator": "article:2-4",
+      "source_version": "d96b709d7f932977b0575782c6a2e075a3740997d45a229c02cc58eac346a69f",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected trade article covers the same Arkansas cultivar release; distinct URL does not establish a distinct milestone.",
+      "source_locator": "article:0-2",
+      "source_version": "48a3dcfea953c206cf8497532b26ddc6367630b1321f90d0ef066e59ec315820",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.emcocal.com/university-of-arkansas/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured program overview explains floricane breeding objectives and biology; the inspected lead does not establish a separately dated milestone.",
+      "source_locator": "article:2",
+      "source_version": "bcbf3bff430b4b00855462d49bc4e56962e8297f924edd216a7fcdc0cb526fb3",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/gpg_times/august-2026/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The inspected newsletter index contains an Ervin teaser, alongside unrelated topics; the truncated teaser is background/lead material, not a separately established development.",
+      "source_locator": "article:17-18",
+      "source_version": "af4c92ba3a8c13a40aa4bde78867074fbc9747949c95c1e092f007ab6220b556",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The paper primarily concerns primocane breeding and management. Its opening floricane comparison does not establish a new floricane release.",
+      "source_locator": "PDF pages 1-2; page 1 visually inspected",
+      "source_version": "1ba3b21d800046a647d4769b6bd680c387696b73d5f95b490eb8a63f23f17d29",
+      "checked_against": "public PDF captured 2026-10-28, printed proceedings year 2012",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://ask.ifas.ufl.edu/publication/HS1458": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-4",
+      "reason": "Extension pruning and cane-life-cycle guidance supplies background, without a discrete release, license or trial-result milestone.",
+      "source_version": "04727702f5d7fd2889310f501eb81764aa34d32fdb5cc66f80c8026f08531463"
+    },
+    "https://www.growables.org/information/TropicalFruit/BlackberrySpecrop.htm": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "reason": "Republished grower article gives historical cultivar and Florida-trial context. The captured paragraph ends before trial outcomes and includes menu text, which is excluded from the judgment.",
+      "source_version": "8ad98af9bcc5c796458f677d9862c557bb2611bde88d0b3b4129584d1add72dc"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2019": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:1,3,5",
+      "reason": "Primary 2019 program report describes named blackberry releases and patents. It supplies historical breeding context, but the inspected blackberry passages do not explicitly establish the requested floricane habit; raspberry habit is not transferred to blackberry.",
+      "source_version": "adc18aaf22b012732bb57593c735367e7ee66131520c6fd3badbdea73e911d35"
+    },
+    "https://ishs.org/ishs-article/1133_2/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "reason": "Public abstract provides a historical Arkansas breeding overview with named floricane releases. This truncated abstract is useful background, not the full research paper or a recent release announcement.",
+      "source_version": "ff4d440dada6c4df4909fc1607fafc7ab20b0f2e5705883d7dc206f1a26d8ba0"
+    },
+    "https://www.freshfruitportal.com/news/2026/08/07/rejoice-psg/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-11",
+      "reason": "Commercial development concerns a newly developed primocane cultivar. Floricane is a comparison in the introduction; the body does not report a floricane-crop trial, so this remains adjacent.",
+      "source_version": "85445bb43cc032727dcd22d3b66a6b8f17194656411c258518c35ebfcf407ea4"
+    },
+    "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-11",
+      "reason": "Forum post quotes historical Marion and later Columbia Star research abstracts. It is a useful research pointer; original-paper full text has not been verified in this inspection, and the forum date is not the original study date.",
+      "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763"
+    }
+  },
+  "New blackberry varieties that fruit on second-year canes": {
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "reason": "The captured primary introduction explicitly identifies Ervin as floricane-fruiting and names its former trial code.",
+      "source_locator": "article:1",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured licensee announcement explicitly connects the floricane variety to international licensing after evaluation.",
+      "source_locator": "article:1-2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The inspected trade account reports the same international licensing milestone as the licensee page; it is not another development.",
+      "source_locator": "article:0",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected university release states a named late-season floricane cultivar and material offered for the 2024 planting season.",
+      "source_locator": "article:2-4",
+      "source_version": "d96b709d7f932977b0575782c6a2e075a3740997d45a229c02cc58eac346a69f",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The inspected trade article covers the same Arkansas cultivar release; distinct URL does not establish a distinct milestone.",
+      "source_locator": "article:0-2",
+      "source_version": "48a3dcfea953c206cf8497532b26ddc6367630b1321f90d0ef066e59ec315820",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.emcocal.com/university-of-arkansas/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured program overview explains floricane breeding objectives and biology; the inspected lead does not establish a separately dated milestone.",
+      "source_locator": "article:2",
+      "source_version": "bcbf3bff430b4b00855462d49bc4e56962e8297f924edd216a7fcdc0cb526fb3",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://www.globalplantgenetics.com/gpg_times/august-2026/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The inspected newsletter index contains an Ervin teaser, alongside unrelated topics; the truncated teaser is background/lead material, not a separately established development.",
+      "source_locator": "article:17-18",
+      "source_version": "af4c92ba3a8c13a40aa4bde78867074fbc9747949c95c1e092f007ab6220b556",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The paper primarily concerns primocane breeding and management. Its opening floricane comparison does not establish a new floricane release.",
+      "source_locator": "PDF pages 1-2; page 1 visually inspected",
+      "source_version": "1ba3b21d800046a647d4769b6bd680c387696b73d5f95b490eb8a63f23f17d29",
+      "checked_against": "public PDF captured 2026-10-28, printed proceedings year 2012",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-28"
+    },
+    "https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:9,16,22-23",
+      "reason": "Home-garden guide and labeled cane photographs provide biological context, not a separately identified development.",
+      "source_version": "e8124a2a4cfe753b2499dbaf17a41fb39957b4463d717a852c8310e73b9ac874"
+    },
+    "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-11",
+      "reason": "Forum post quotes historical Marion and later Columbia Star research abstracts. It is a useful research pointer; original-paper full text has not been verified in this inspection, and the forum date is not the original study date.",
+      "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763"
+    },
+    "https://www.growingproduce.com/fruits/berries/big-changes-on-the-horizon-for-the-blackberry-market/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-13",
+      "reason": "Market overview discusses floricane production and a shift toward primocane genetics. It does not establish floricane fruiting for all newly named cultivars, so it supplies broader background rather than a new floricane-release claim.",
+      "source_version": "65e6c2618b6cc453aab4cc83ff4576410818fcbaf2af46e6a043cebe5747edb9"
+    },
+    "https://multibaies.com/new-blackberry-varieties/": {
+      "grade": 3,
+      "event_group": "multibaies-arkansas-blackberry-availability",
+      "source_checked": true,
+      "source_locator": "article:0-4",
+      "reason": "Nursery announces additional Arkansas varieties and explicitly identifies Ponca as floricane. This is an attributed availability milestone with unknown publication date, not evidence that Ponca was newly bred at capture time.",
+      "source_version": "8cefe2456811f8b151bfb6ab8aff811d9dd5d9ea0ad9d959e192bd25b71a9d61"
+    },
+    "https://www.lsuagcenter.com/articles/page1564515844169": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:20-23",
+      "reason": "Growing guide explains cultivar chilling requirements and distinguishes new primocane genetics from standard second-year-cane production. The bounded capture is background, not a complete cultivar-release inventory.",
+      "source_version": "c90b3e6ba8841753cb33dc059bdc58a472943237930e3e5fce49955ed2982e25"
+    },
+    "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1642699437740": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-3",
+      "reason": "Extension overview names Caddo and Ponca and explicitly assigns second-year-cane fruiting to the listed varieties. It is useful cultivar-selection background; no local trial is claimed by the author.",
+      "source_version": "ddf6414bf01302751c71a3e20c638e30c8feb8e3b72deedf67c67ce5032cd5e2"
+    },
+    "https://www.freshplaza.com/europe/article/9266907/blackberries-and-blueberries-new-improved-varieties/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:4-9",
+      "reason": "Nursery availability overview names Ouachita and Natchez, but its Prime-Ark 45 floricane wording conflicts with the primocane distinction. Treat as attributed background, not authoritative fruiting-type verification.",
+      "source_version": "c6f8c7bdbea0549a4e7f5dc86de2f460597508b8de01733b511899522d1dfa2f"
+    },
+    "https://www.freshplaza.com/north-america/article/9196489/late-blackberry-variety-finally-available/": {
+      "grade": 3,
+      "event_group": "molari-natchez-ouachita-europe-availability",
+      "source_checked": true,
+      "source_locator": "article:0-6",
+      "reason": "Article reports nursery agreement and European availability, explicitly identifying Natchez and Ouachita as floricane. Prime-Ark 45 is separately described as remontant; the late-production headline does not erase the floricane section.",
+      "source_version": "a922dcf9e94f6437874b359b7b1ed9171bebb2e53818c10e819093d1d924e0d6"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx": {
+      "grade": 3,
+      "event_group": "arkansas-ponca-release-2019",
+      "source_checked": true,
+      "source_locator": "article:2-3,19-23",
+      "reason": "Primary breeder release identifies Ponca, breeding code A-2538T and second-year-cane fruiting. It is a historical 2019 release; later availability summaries do not make it a new 2026 cultivar.",
+      "source_version": "958a336e9175af9e5a91c973fe91c7442329ef273bcf6732e6b2c68aeba838fd"
+    },
+    "https://content.ces.ncsu.edu/blackberries-for-the-home-garden": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:2,6,11-15",
+      "reason": "Home-garden guide supplies fruiting-type and management context, without a separately identified new cultivar milestone in the captured excerpt.",
+      "source_version": "6e95ba85de156d38704b5bb65c88cd14361615ff396b46c054c290e0c49d8428"
+    }
+  },
+  "Ervin blackberry": {
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "source_locator": "article:0-3",
+      "reason": "Trade report directly identifies the named cultivar and its international development agreement. It repeats the same agreement reported by the licensee, not independent proof of commercial performance.",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "source_locator": "article:3-5",
+      "reason": "Primary university profile explicitly names the Ervin cultivar and a licensing agreement. Its July publication date is not treated as the execution date of the agreement or conflated with the September announcement. For distinct-event accounting, its introduction recap is mapped to the existing breeder introduction, not a new July release.",
+      "source_version": "f845acd6e9de43e44c51556a4f06e66b51a412c70115bcba308ce20636d72dde",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://www.globalplantgenetics.com/gpg_times/august-2026/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:17-18",
+      "reason": "Captured newsletter contains a short Ervin introduction teaser, not the full linked announcement or a separately established milestone. Publication date is unknown.",
+      "source_version": "af4c92ba3a8c13a40aa4bde78867074fbc9747949c95c1e092f007ab6220b556",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23": {
+      "grade": 0,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-23",
+      "reason": "The captured forum page discusses Marion, Columbia Star and other berries but does not identify Ervin or NC 740. It is not relevant to this named-variety query.",
+      "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "source_locator": "article:1-2",
+      "reason": "Primary breeder introduction explicitly equates Ervin with the former NC 740 trial code and states its floricane fruiting habit.",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://www.growingproduce.com/fruits/remembering-a-berry-industry-leader-innovator-and-friend/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-2",
+      "reason": "This 2021 obituary concerns the grower whose first name matches the later cultivar. It is adjacent biographical context, not an announcement or description of the cultivar.",
+      "source_version": "5a17f91c6e3e6a3ae413d3ee6cf0ecca16f36519de003aa8fa721e2b1098bb6f",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://www.gurneys.com/products/ervin-blackberry": {
+      "grade": 3,
+      "event_group": "ervin-retail-listing-undated",
+      "source_checked": true,
+      "source_locator": "article:2-4",
+      "reason": "Retail product copy explicitly describes the named Ervin blackberry. Commercial trait assertions remain retailer claims; the capture provides no verified publication date or trial-code statement.",
+      "source_version": "2051de0df80ba3d76f2b6997dc001b458123a829bef17ede1c21256ac5390557",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    }
+  },
+  "NC 740 blackberry": {
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "source_locator": "article:0-3",
+      "reason": "Trade report directly identifies the named cultivar and its international development agreement. It repeats the same agreement reported by the licensee, not independent proof of commercial performance.",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "source_locator": "article:3-5",
+      "reason": "Primary university profile explicitly names the Ervin cultivar and a licensing agreement. Its July publication date is not treated as the execution date of the agreement or conflated with the September announcement. For distinct-event accounting, its introduction recap is mapped to the existing breeder introduction, not a new July release.",
+      "source_version": "f845acd6e9de43e44c51556a4f06e66b51a412c70115bcba308ce20636d72dde",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "source_locator": "article:1-2",
+      "reason": "Primary breeder introduction explicitly equates Ervin with the former NC 740 trial code and states its floricane fruiting habit.",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://growingfruit.org/t/best-thornless-blackberry/1582?page=13": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:2-3",
+      "reason": "Forum post explicitly mentions NC 740 and points to a breeder video. Its parentage statement is unverified and is not promoted into canonical pedigree.",
+      "source_version": "b85ad33e8ddb307749fc795a3e202acd7eb0a8b7bffada2bac90a89eb3a78e9a",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://www.gurneys.com/products/ervin-blackberry": {
+      "grade": 3,
+      "event_group": "ervin-retail-listing-undated",
+      "source_checked": true,
+      "source_locator": "article:2-4",
+      "reason": "Retail product copy explicitly describes the named Ervin blackberry. Commercial trait assertions remain retailer claims; the capture provides no verified publication date or trial-code statement.",
+      "source_version": "2051de0df80ba3d76f2b6997dc001b458123a829bef17ede1c21256ac5390557",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    },
+    "https://www.zillow.com/homedetails/740-Blackberry-Trl-Sapphire-NC-28774/215278113_zpid/": {
+      "grade": 0,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-1",
+      "reason": "Captured body is a residential property listing, not a cultivar source. The title shares scattered number, street-name and state-abbreviation tokens with the code query.",
+      "source_version": "17474f64850b71099a1bb2eb942e299e00d46954a8af7948578e4f36d75bb318",
+      "checked_at": "2026-10-29",
+      "checked_against": "frozen application source capture, 2026-10-26",
+      "reviewer": "Codex source inspection, not deterministic retrieval labels"
+    }
+  },
+  "Floricane blackberry licensing outside the United States": {
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured trade account explicitly describes the floricane Ervin variety licensed to GPG for development outside the United States. It covers the same licensing milestone as the licensee announcement.",
+      "source_locator": "article:0-2",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The inspected licensee announcement explicitly identifies a floricane cultivar and development rights outside the United States after evaluation; it is direct licensing evidence, not proof of current rights status.",
+      "source_locator": "article:1-2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The complete captured breeder introduction identifies Ervin as floricane-fruiting and NC 740. It supplies identity background but does not establish the outside-US licensing event.",
+      "source_locator": "article:1-2",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The extension cultivar overview provides cane-type background and US regional trials, without a specific outside-US licensing agreement.",
+      "source_locator": "article:1;article:4;article:6",
+      "source_version": "6d017552a3f3768aaf083787361c18b49cb910263ff4f41e5ea412237a7fe89e",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The Ponca release and floricane description supply cultivar background; this captured US release is not an international licensing announcement.",
+      "source_locator": "article:2;article:22",
+      "source_version": "958a336e9175af9e5a91c973fe91c7442329ef273bcf6732e6b2c68aeba838fd",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.emcocal.com/emcocal-rubus-varieties/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The marketing portfolio discusses global licensing and named floricane blackberries but does not establish a dated territorial agreement for this query.",
+      "source_locator": "article:0;article:7;article:8",
+      "source_version": "b181079ca8b003d58c0377b5a51729095752de4980a908565a84a48591b0a9f4",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Floricane blackberry developments 2026-01-01 through 2026-10-26": {
+    "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured September 2026 report directly covers an Ervin floricane licensing milestone inside the requested publication window; the same GPG announcement is not an independent event.",
+      "source_locator": "article:0-2",
+      "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "event_group": "ervin-international-license-2026-09",
+      "source_checked": true,
+      "reason": "The captured September 2026 primary licensee announcement describes the new floricane Ervin international licensing milestone within the requested publication window.",
+      "source_locator": "article:1-2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 3,
+      "event_group": "ervin-introduction-2026-02",
+      "source_checked": true,
+      "reason": "The captured February 2026 breeder introduction explicitly names Ervin as a new floricane-fruiting blackberry and NC 740, establishing a separate introduction milestone within the publication window.",
+      "source_locator": "article:1-2",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://www.freshplaza.com/north-america/article/9879343/exclusive-propagation-and-sales-agreement-signed-for-easyrose-raspberry/": {
+      "grade": 0,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured agreement concerns Easy Rose ALEL101 raspberry. Mention of floricane production does not make this a blackberry development; its publication date alone does not satisfy the crop scope.",
+      "source_locator": "article:0-2",
+      "source_version": "6fba890d127491791bbabb7197c0ef47920bd1b882b29842409a40436140eeba",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured 2026 forum discussion reproduces older Marion and Columbia Star pruning and training research. It supplies relevant floricane background but does not establish a newly dated 2026 trial result from a primary report.",
+      "source_locator": "article:0-6",
+      "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    },
+    "https://www.bloomingexpert.com/garden/blackberry-growing-guide/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The inspected captured article explains blackberry cane biology and home-garden management. Its 2026 date does not turn general floricane growing guidance into a release, licensing, or trial-result milestone.",
+      "source_locator": "article:0-8",
+      "source_version": "ad9a3e6a94ebd557ce63017902fc1a722506a0b2a5b20f6eed2a11a76e5a1d4b",
+      "checked_against": "frozen application capture, 2026-10-26",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-29"
+    }
+  },
+  "Sweet-Ark Immaculate blackberry release": {
+    "https://www.stuttgartdailyleader.com/after-a-season-of-hail-and-fire-arkansas-blackberry-production-looks-toward-a-better-summer/": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The field-day recap explicitly dates the Immaculate release to 2024; the 2025 recap is not a second cultivar release.",
+      "source_locator": "article:12",
+      "source_version": "c295e24b4d15344f574df6b7c9a2387c5f8b18630e1dd54f0d1bef689ed05c3c",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "http://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured extension list describes other cultivars, including Ponca and Caddo, rather than the requested Immaculate release.",
+      "source_locator": "article:1;article:10;article:14;article:23",
+      "source_version": "6d017552a3f3768aaf083787361c18b49cb910263ff4f41e5ea412237a7fe89e",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.uaex.uada.edu/media-resources/news/2024/june2024/06-17-2024-blackberry-field-day.aspx": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The university field-day account identifies the cultivar code and states that Immaculate was released that February; it recaps the existing release.",
+      "source_locator": "article:7",
+      "source_version": "806d691636022876c7b6842c86d645c81fbd300ea8c55a8e47de2a35d834e289",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The article directly discusses the named cultivar, but its early-2026 release date conflicts with the university 2024 release account. Its color and maturity claims require primary-source verification; relevance is not truth approval.",
+      "source_locator": "article:5;article:7;article:8",
+      "source_version": "0ece50fcfe642f71c87b1e9c2b0e41feb3634e4c1dd032c0cf11684d76ad2a50",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/": {
+      "grade": 3,
+      "event_group": "sweet-ark-immaculate-release-2024",
+      "source_checked": true,
+      "reason": "The trade article directly describes the cultivar release and 2024 planting availability, with attributed breeder statements and postharvest comparisons.",
+      "source_locator": "article:0-4",
+      "source_version": "48a3dcfea953c206cf8497532b26ddc6367630b1321f90d0ef066e59ec315820",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Fontana blackberry Pairwise": {
+    "https://www.pairwise.com/insights/pairwise-sunworld-pitless-cherry": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The owned article concerns a cherry joint venture; the Fontana release text begins after the explicit Related articles boundary and cannot support claims attributed to this article.",
+      "source_locator": "article:0-3;article:8",
+      "source_version": "065ce8a2cdec5e0476f144a4a218f15374feb217a1a30973d177019684fcfd94",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry": {
+      "grade": 3,
+      "event_group": "fontana-introduction-date-unverified",
+      "source_checked": true,
+      "reason": "The dedicated company release identifies Fontana and its compact-architecture commercial proposition. Publication date remains unverified, and this is a breeder assertion rather than independent performance confirmation.",
+      "source_locator": "article:0-6",
+      "source_version": "26fcdf5ea33793e8718c61d3cdf13721c558796ae7959fd944574983a203191f",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The company landing page carries a Fontana announcement excerpt, useful as a lead to the dedicated release, not as an independently established second introduction.",
+      "source_locator": "article:15-18",
+      "source_version": "da7d0e52cebe6cd7232f800ae956bc008be8bcbd42aef07a911c992fdd5d609d",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The owned article reports a seedless-blackberry program. Fontana appears in the recommendation tail; this does not establish that Fontana itself is seedless.",
+      "source_locator": "article:0-2;article:10",
+      "source_version": "fbea78cbbf56135dbb69bcb13d7b8dd59efe123182df02867da10d09eca5c882",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The owned newsletter discusses outdoor blackberry trials in the US and Colombia. Its appended Fontana recommendation is not a named Fontana trial report.",
+      "source_locator": "article:0-3;article:15",
+      "source_version": "1b0ed6bbaf1c8cc2a238d751bcd903acc7fefd4d4c691bd89a15e71e27f284be",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/feaured-in-wired-seedless-blackberries-and-cherries-that-grow-on-bushes-vie-to-be-the-future-of-food": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The owned WIRED excerpt concerns gene-edited berry traits generally; the Fontana release text follows the related-article marker.",
+      "source_locator": "article:0-4;article:5",
+      "source_version": "3c4631b4e12460ea1bc6bf85839b33a3fe2d0b7214b5dd82023d64c64b18c4a5",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/pairwise-foodtech-500": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The owned announcement concerns a company-level FoodTech ranking. The related Fontana card does not establish a cultivar-specific award.",
+      "source_locator": "article:0-3",
+      "source_version": "1bbf97f8d91b5680a7fbc20492f5f91378b7a72f07905448e03f3cae36565977",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/pairwise-poised-to-revolutionize-agriculture-with-industry-leading-fulcrum-tm-platform-following-40m-series-c-funding": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The funding article describes a broader gene-editing pipeline. A later Fontana recommendation does not make its funding event a Fontana release or named-variety performance finding.",
+      "source_locator": "article:0-2;article:15",
+      "source_version": "69a63bf2830270179e36a39156f13e9422befe9cdcee4618de659760ca22f0aa",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/pairwise-announces-closing-of-90m-series-b-funding-round": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The Series B announcement concerns company financing and broad products; Fontana appears in the recommendation tail, not its owned announcement.",
+      "source_locator": "article:0-2;article:17",
+      "source_version": "11fb2590526d7e07593f689f5bde39fb2d8d263f51aa9421f52186e51a9464d7",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.pairwise.com/insights/featured-in-the-economist-a-basket-of-new-fruit-varieties-is-coming-your-way": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The Economist excerpt discusses gene-edited fruit generally. A separate Fontana card appended after Related articles is not evidence of a Fontana-specific claim in that excerpt.",
+      "source_locator": "article:0-2",
+      "source_version": "5a44032338a90f911b95e81733a5c439e031b321ed18243b068a16414da5578a",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Strawberry Planasa licensing Spain": {
+    "https://planasa.com/mexican-and-us-adelita-licensees-planasa/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The primary account describes US and Mexican licensees visiting Spanish facilities. It is historical licensing context, not proof of a new Spanish strawberry license agreement.",
+      "source_locator": "article:0-3",
+      "source_version": "5575d71f09c3f89a55f6f175f057a39e7e854d756c36cc3a716b7d77fcb9e451",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://planasa.com/strawberry/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The strawberry landing page is a mixed list of awards, trials and market-position teasers, not an inspected Spanish licensing agreement.",
+      "source_locator": "article:0",
+      "source_version": "456d1e80b13186065862ded23592c2e1174f7df812dd39bf681e27f6da97bf62",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.hortidaily.com/article/6019071/spain-planasa-looking-to-obtain-off-season-strawberry-variety/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The captured congress account describes strawberry breeding and the company program in Huelva. It provides program background without identifying a new territorial license.",
+      "source_locator": "article:0",
+      "source_version": "5c1c7ff19180c10d1727c53576b932253e0be63d8785ec86185c1082fe17177f",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://planasa.com/nursery-es/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The Spanish nursery page describes plant production and facilities, not an identified strawberry licensing event.",
+      "source_locator": "article:0-3",
+      "source_version": "b57893c2e1fde612604d9ea7910c52460e17401510640efc9e117d5199f0f069",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://planasa.com/us/nursery/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The English nursery directory describes planting material and international facilities; a Moroccan nursery entry does not establish a Spanish license.",
+      "source_locator": "article:0-3;article:16",
+      "source_version": "38a1aede8c231d4ab17a23c9ef3e411186fd1c3a5a7eaf691150f00f6a0ec142",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://planasa.com/about-us/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "reason": "The corporate overview describes berry breeding generally, without the requested Spanish strawberry licensing event.",
+      "source_locator": "article:0-3",
+      "source_version": "1269ab4c673cf5400e8b755f940b6d92354d094c180f7a0b3550e8504b9546be",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blackberry floricane pruning": {
+    "https://ask.ifas.ufl.edu/publication/HS1458": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "04727702f5d7fd2889310f501eb81764aa34d32fdb5cc66f80c8026f08531463",
+      "reason": "The extension introduction supports pruning and cane-cycle background, not a new commercial milestone.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blackberry floricane crop trials involving a primocane-fruiting cultivar": {
+    "https://ask.ifas.ufl.edu/publication/HS1352": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:9",
+      "source_version": "182fb9a6f1af1204b41379599d322b26f613efa85bec06e2272bc293bb39a256",
+      "reason": "The passage explains the two cane cycles and the floricane crop of primocane cultivars; it is biological context, not a new cultivar release or trial outcome.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.ars.usda.gov/research/publications/publication/?seqNo115=172293": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-1",
+      "source_version": "e6f82c2675e3a72b936af19893a3dd9ace7cc33629bf65f0a57c69144e5827a2",
+      "reason": "The primary release abstract explains that Prime-Jan and Prime-Jim can fruit on both cane generations and were intended for limited trials. That is background on dual cropping, not a report of a particular floricane-crop experiment.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.growables.org/information/TropicalFruit/BlackberrySpecrop.htm": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "8ad98af9bcc5c796458f677d9862c557bb2611bde88d0b3b4129584d1add72dc",
+      "reason": "The limited captured article introduces Florida cultivar trials and lists dual-cropping types. It ends before a documented floricane-crop outcome; the truncated capture is not enough to classify it as a direct result for this specific question.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "http://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:1;article:4;article:6;article:19",
+      "source_version": "6d017552a3f3768aaf083787361c18b49cb910263ff4f41e5ea412237a7fe89e",
+      "reason": "The extension cultivar overview describes floricane crops of primocane types and notes regional trial work. It is useful background, but the captured overview is less specific than the separate Maryland Freedom trial report.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2019": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:1;article:3",
+      "source_version": "adc18aaf22b012732bb57593c735367e7ee66131520c6fd3badbdea73e911d35",
+      "reason": "The multi-crop USDA programme account includes primocane raspberry commercialization and broad germplasm work. The inspected progress passages do not establish the requested blackberry floricane-crop trial.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://agnr.umd.edu/performance-blackberry-varieties-southern-md": {
+      "grade": 3,
+      "event_group": "maryland-freedom-floricane-trial-2018",
+      "source_checked": true,
+      "source_locator": "article:2-3",
+      "source_version": "483926bac6c9fecda113e64cb1ec18d0dfd5a52b7b4ad677ed4b5bcfd9dc3deb",
+      "reason": "The extension trial report explicitly identifies Freedom as primocane-fruiting and says it was managed as a floricane-bearing plant in the Maryland experiment. Trial establishment in 2018 is not treated as publication date.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Primocane blackberry developments": {
+    "https://www.freshfruitportal.com/news/2026/08/07/rejoice-psg/": {
+      "grade": 3,
+      "event_group": "rejoice-primocane-introduction",
+      "source_checked": true,
+      "source_locator": "article:1",
+      "source_version": "85445bb43cc032727dcd22d3b66a6b8f17194656411c258518c35ebfcf407ea4",
+      "reason": "The passage contrasts a primocane cultivar with traditional floricane production. It is comparative background and does not establish a new floricane-fruiting release.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/north-america/article/9883273/new-compact-blackberry-variety-offers-higher-planting-density-and-earlier-harvests/": {
+      "grade": 3,
+      "event_group": "fontana-introduction-date-unverified",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "1c00774c0973234c194be8f2c3b9a01f494f35569c6d03219072c4e62d18f179",
+      "reason": "The trade quotation directly states a named primocane cultivar introduction. Its classification and performance proposition remain attributed and require primary verification before trait promotion.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.globalplantgenetics.com/gpg-brings-new-blackberry-genetics-to-the-market/": {
+      "grade": 3,
+      "event_group": "niwa-maryna-juhas-international-license",
+      "source_checked": true,
+      "source_locator": "article:2;article:3",
+      "source_version": "ec20588b652ff356e6225d5406cb26a48d44d07c5813da9edfb85695529e13bb",
+      "reason": "The quoted licensee account names two primocane cultivars and international representation. It is a historical, single-announcement source, not independent current-rights verification.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.farms.com/news/arkansas-blackberry-field-day-brings-research-together-from-across-the-southeast-243401.aspx": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-3",
+      "source_version": "a17100a7f08c28c28315c097483308bd994a3e96b9825e2ccbf1851b1e5452fa",
+      "reason": "The field-day account supplies research and programme history, including the original primocane breakthrough. The inspected lead is not a separately established new primocane cultivar or trial outcome.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.ars.usda.gov/research/publications/publication/?seqNo115=424902": {
+      "grade": 3,
+      "event_group": "usda-thunderhead-release",
+      "source_checked": true,
+      "source_locator": "article:1-2",
+      "source_version": "d0153666155a37f3aa03ae3a60a038c800571e1f828d2878bd8e1b8d1677945a",
+      "reason": "The primary interpretive summary and technical abstract describe the release of Thunderhead as an erect primocane blackberry and its comparative characteristics. Performance and the patent reference remain source assertions; publication date is unverified.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://ishs.org/ishs-article/926_54/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "6584cdf9b337895c6c016f42d797967f0f50f2f1caf171ced865dcb62a36eeb6",
+      "reason": "The proceedings abstract reviews early primocane cultivar releases, heat constraints and multi-location testing. It provides historical synthesis rather than an additional release event.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2023": {
+      "grade": 3,
+      "event_group": "usda-thunderhead-release",
+      "source_checked": true,
+      "source_locator": "article:3-4",
+      "source_version": "942fdcde62445a45f37a4c066e4d45bd33a45d7527c3bd1fa3e1e7b360c5ae7e",
+      "reason": "The fiscal-year project account explicitly names Thunderhead as a primocane blackberry being released, propagated and placed in commercial trials. This is overlapping coverage of the release, not a second cultivar introduction.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://horticulture.uark.edu/research-extension/production-genomics.php": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:7",
+      "source_version": "f8e0711441642cd6b68e4642370f7fd98d08d6f1ad57e5f0f25420a1c5af202b",
+      "reason": "The university programme overview summarizes historical primocane introductions from 2004, 2009 and 2013; its current webpage is not a new release milestone.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2022": {
+      "grade": 3,
+      "event_group": "usda-thunderhead-release",
+      "source_checked": true,
+      "source_locator": "article:3;article:5",
+      "source_version": "64f8691c2f87245879a7b4351eb2e2f847636d2341518927c28eda26fc74361f",
+      "reason": "The earlier USDA project account describes the same named primocane release and comparative performance. Fiscal-year labeling is not a verified publication date or evidence of a second release.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://ishs.org/ishs-article/1133_2/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "ff4d440dada6c4df4909fc1607fafc7ab20b0f2e5705883d7dc206f1a26d8ba0",
+      "reason": "The symposium abstract reviews the history of southern US blackberry breeding and the emergence of primocane fruiting. It is useful historical background, not an additional current milestone.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.emcocal.com/university-of-arkansas/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:2-4",
+      "source_version": "bcbf3bff430b4b00855462d49bc4e56962e8297f924edd216a7fcdc0cb526fb3",
+      "reason": "The commercial programme page explains historical primocane introductions and production differences, without a separately dated new cultivar or trial result.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Strawberry gene editing heat tolerance Hudson River Plantik": {
+    "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/": {
+      "grade": 3,
+      "event_group": "plantik-hudson-strawberry-heat-partnership-2026-09",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "ae6c3f58fbb268a03342231fcfe70b1d46f38d44ab6c8cecdd809941849ba570",
+      "reason": "The passage directly describes the named companies, strawberry gene-editing objective and ongoing validation. The stated goal is not an achieved commercial heat-tolerant variety.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/": {
+      "grade": 3,
+      "event_group": "plantik-hudson-strawberry-heat-partnership-2026-09",
+      "source_checked": true,
+      "source_locator": "article:0;article:1",
+      "source_version": "47ebd47359ad7dddd8e7e6871049411e2e096783de3d67383ed4b3f31204f0af",
+      "reason": "The passage supports an announced collaboration and validation work, with methods attributed to the companies. It does not establish realized heat-tolerance performance or commercial availability.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://futuristforfood.com/2026/10/20/ai-guided-crop-editing-how-tomatoes-and-strawberries-got-future-proofed/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:18",
+      "source_version": "980e25f280db5719ee10985bb0af081e1bb08566fe86bf94de635f976518f1b0",
+      "reason": "The secondary account supplies collaboration background without quantified validated strawberry performance.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/": {
+      "grade": 3,
+      "event_group": "plantik-hudson-strawberry-heat-partnership-2026-09",
+      "source_checked": true,
+      "source_locator": "article:1",
+      "source_version": "cee4339df699982c5db04631d6fad2c4c7615e2eaa15857dad6a28d4b928193c",
+      "reason": "The quotation describes planned future field trials. It cannot be reported as a completed trial or a commercially available heat-tolerant cultivar.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.seedquest.com/news.php?id_category=2490": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:16",
+      "source_version": "2709801c860a7dbbc3397d3be5c7dd5fb965c0bdd96acfcad758eeed7e7ddb58",
+      "reason": "The category page contains the exact named-company heat-tolerance partnership headline among unrelated gene-editing news. It is a discovery lead to the article, not an inspected full account or independent confirmation.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.seedquest.com/news.php?id_category=174&id_region=10": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:9",
+      "source_version": "18d03fd772a479a9cc5e7d21425c65bf526f1d5000d04f857bd90ea023c4959b",
+      "reason": "This second category index repeats the same partnership headline. It is another route to the same lead, not a separate partnership or corroborating article.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9397135/": {
+      "grade": 1,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:4-5",
+      "source_version": "b09288c2aa2877b8e5b5c6ddd4f556d418b26d05797803c7813c0738275e215b",
+      "reason": "The paper reviews melatonin-mediated temperature-stress responses and genetic engineering broadly. It is adjacent technical context, not evidence of the named strawberry-company partnership.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blueberry breeding developments": {
+    "https://www.freshplaza.com/north-america/article/9859716/oregon-blueberry-introduces-four-new-cultivars/": {
+      "grade": 3,
+      "event_group": "oregon-blueberry-four-cultivar-debut",
+      "source_checked": true,
+      "source_locator": "article:0-2",
+      "source_version": "f899cafb81aca654a08524bd227f89a7dd672dbd032b8fad26905d43352ab6a9",
+      "reason": "The inspected article lead explicitly names the four introduced cultivars. Its separately selected opinion quotation does not substantiate that milestone and is flagged in the semantic citation review.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/north-america/article/9842315/global-blueberry-breeding-program-expands-from-australian-base/": {
+      "grade": 3,
+      "event_group": "costa-blugenix-program-launch",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "7c9d3214c98f3a13c5d8f59618aed993690a427be4045e3c56b9121b1379cc03",
+      "reason": "The quotation directly identifies the breeding-program launch as the development; it does not establish variety-level performance or market success.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/north-america/article/9335024/topfruit-and-planasa-accelerate-the-growth-of-blueberries-in-south-africa-and-beyond/": {
+      "grade": 3,
+      "event_group": "topfruit-planasa-southern-africa-partnership",
+      "source_checked": true,
+      "source_locator": "article:0;article:1",
+      "source_version": "e14d5a36a546bceceae4e489d28ff6b16f302c07eaebae4edb0360d8466e0a21",
+      "reason": "The source reports a regional evaluation partnership and attributed adaptation claims; it is historical context, not independent multi-region performance validation.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/north-america/article/9860131/consumer-demand-reshapes-blueberry-breeding/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "dd7ea461b792e8bb3852be6f44bd7bb225a02f545ef95087cbab9eacf521a6de",
+      "reason": "This attributed industry view describes breeding priorities. It is not a measured consumer result or a specific new release.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4588112/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:7-8",
+      "source_version": "68366e888ba92a469eb290ff80be94028ccf648fb9b8efad80f85f5c8e2fedf1",
+      "reason": "The 2015 review addresses blueberry adaptation, marker-assisted breeding and phenomics under warmer conditions. It supplies historical breeding context rather than a new cultivar introduction.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Raspberry developments Europe": {
+    "https://www.freshplaza.com/north-america/article/9864848/global-market-overview-raspberries/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "21ea067ec9ece1ffc91d49be2b22a293aa4f306d9ff7253eee4644427c715b48",
+      "reason": "The market overview supports attributed European supply and weather context. It does not establish a named breeding trial or universal market outcome.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.raspberrypi.com/news/raspberry-pi-and-the-eu-cyber-resilience-act/": {
+      "grade": 0,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:2",
+      "source_version": "5d1f8934382c798269868fb91765c1471f4a6085039ff61b2d13f2f2c7457756",
+      "reason": "This is Raspberry Pi computer regulation, not raspberry crop intelligence. The crop homonym makes this citation irrelevant to the question.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/north-america/article/9775283/raspberries-news-coming-soon-for-the-italian-and-foreign-markets/": {
+      "grade": 3,
+      "event_group": "easy-raspberry-portfolio-development",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "68621f5446d5c955ee06c1b45f1a2cc71a97a7869deabfbc4acc3a268ab32c89",
+      "reason": "The company statement supplies raspberry portfolio and European commercial context. Popularity and performance remain assertions from the commercial source.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.seedworld.com/europe/2025/01/16/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/": {
+      "grade": 3,
+      "event_group": "scottish-raspberry-consortium-to-2029",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "62b11559bb27dabd2eb286037bbc61b5ae647fbad1762daac3704380955fe788",
+      "reason": "The passage supports establishment of a Scottish raspberry consortium. The consortium horizon is not a cultivar release or achieved trial result.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blueberry varieties Fall Creek Peru": {
+    "https://blueberriesconsulting.com/en/fall-creek-presenta-nueva-variedad-para-nuevos-desafios/": {
+      "grade": 3,
+      "event_group": "fall-creek-fcm14057-peru-introduction",
+      "source_checked": true,
+      "source_locator": "article:2",
+      "source_version": "5a7bb2b0776713a07de946a5b2914539e93302221fe095aeaf7dbfa9b919cafa",
+      "reason": "The source attributes FCM14-057 performance to a commercial representative in Peru; it is not independent replicated trial proof or a universal superiority claim.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.freshplaza.com/oceania/article/9840891/peruvian-blueberry-enters-a-new-era-with-premium-fruit-in-the-spotlight/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "754ec5235f52dafdfa1f58edaa5fd776a72fdd30a0feddd1e0e3048af59467d8",
+      "reason": "This is a Fall Creek Peru season account, with profitability and climate effects attributed to its representative; no specific variety-level conclusion follows from this excerpt.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://blueberriesconsulting.com/en/julio-zavala-gerente-general-de-fall-creek-peru-estamos-ingresando-como-punta-de-lanza-al-mercado-con-sekoya-pop/": {
+      "grade": 3,
+      "event_group": "sekoya-pop-peru-varietal-renewal",
+      "source_checked": true,
+      "source_locator": "article:1",
+      "source_version": "5718feb519820bfb272e32a7e8db03912b4c157752b137b308bf97c466da8e49",
+      "reason": "The source supports a named Fall Creek variety being marketed in Peru, without establishing independent trait superiority.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Raspberry breeding Scotland": {
+    "https://www.hortidaily.com/article/9221240/british-raspberry-breeding-programme-results-in-three-new-varieties/": {
+      "grade": 3,
+      "event_group": "hutton-lewis-skye-release-2020",
+      "source_checked": true,
+      "source_locator": "article:1;article:2",
+      "source_version": "4593bfe9652f665d3ff77baa037f28ab72f66d55b0be604c21fd2458300b3758",
+      "reason": "The quoted account supports historical releases from the Scottish breeding consortium; it does not make them recent or independently validate the comparative trial claims.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.thescottishfarmer.co.uk/news/26403876.soft-fruit-breeding-delivers-climate-resilient-berries/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:14",
+      "source_version": "2a3567ed5e31fec99a13887d379d79b0570f377d3e308d4d7e42b6cfd8b2a72b",
+      "reason": "The inspected multi-crop event account supplies Scottish breeding-program background, but the selected honeyberry quotation does not support a raspberry-specific conclusion.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.hortidaily.com/article/9852119/we-re-seeing-excellent-berry-size-sweetness-and-overall-quality/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:13",
+      "source_version": "0c5951882b095da28bd309a547311a5198c3e0a96280858179c638b8d183d68a",
+      "reason": "The commercial statement describes intended expansion and selections in trials. It is forward-looking portfolio context rather than a completed rollout in each named country.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.hutton.ac.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/": {
+      "grade": 3,
+      "event_group": "scottish-raspberry-consortium-to-2029",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "dd7dfba59e4a523be3856803fd7715e3b59a1278242280e69e945938a71fa09d",
+      "reason": "The primary account supports formation of the raspberry consortium and its intended duration, not a realized breeding outcome.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blueberry machine harvesting trials": {
+    "https://www.freshplaza.com/north-america/article/2178374/university-developing-firmer-blueberries-to-increase-mechanical-harvesting/": {
+      "grade": 3,
+      "event_group": "ncstate-blueberry-mechanical-harvest-research",
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "9b51fc57025c50848bbdab79e0fe19683468911e48cefc14ae3a78dd0bc6d29a",
+      "reason": "The leading text supports blueberry mechanical-harvest breeding research, but the captured quotation ends with unrelated news/navigation text. Trim or recapture the owned excerpt before using this full quotation.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Raspberry primocane trials United Kingdom": {
+    "https://italianberry.it/en/news/g-viva-g-berries-raspberry": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:13",
+      "source_version": "bd946132567f0ef47ce30470db82e2eaa31d7ee596e933b0f74591d3855e3a20",
+      "reason": "The excerpt supplies asserted crop yield figures without identifying UK trial locations. It does not satisfy the United Kingdom trial scope on its own.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.hortidaily.com/article/9270225/improved-raspberry-varieties-for-moroccan-and-tunisian-producers/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:2",
+      "source_version": "95f26e2e334577911d15e6a3e832bdf2814846b26f281656a7fa8fbb0f9685d8",
+      "reason": "The source concerns cultivar offerings for Morocco and Tunisia. The quoted comparisons do not establish a trial in the United Kingdom; breeding origin is not trial location.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Strawberry robotic harvesting research": {
+    "https://www.asme.org/topics-resources/content/strawberry-picking-using-ai-vision,-silicone-fingers,-and-a-fan": {
+      "grade": 3,
+      "event_group": "wsu-strawberry-harvest-robot-research",
+      "source_checked": true,
+      "source_locator": "article:1",
+      "source_version": "db897803d361d6d0e7d72697f74f4fde46d2e5972acd26e919c8adc29ffd9185",
+      "reason": "The technical article supports a strawberry robotic-harvesting research prototype. It does not establish commercial deployment, profitability or whole-farm labor savings.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blueberry heat tolerance breeding": {
+    "https://www.internationalblueberry.org/2025/10/23/the-impact-of-climate-stress-on-global-blueberry-cultivation/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0",
+      "source_version": "b0d8992ce49853b3caa6acd46716042b420d90375a4af7e015ab2bfb5cbd5b9a",
+      "reason": "The trade organization summary supplies broad heat-tolerance breeding context. It is not a primary named-genotype heat trial or universal performance verification.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  },
+  "Blackberry fruit new varieties -software -security": {
+    "https://www.hutton.ac.uk/scientific-services/improving-crop-production/accessing-varieties/blackberry-licensing/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0-8",
+      "source_version": "b5364a77f4ee784d3ffb6ec62dff7776b7802df81e6cdf8669cda9823337b40d",
+      "reason": "The primary licensing page describes a Scottish blackberry portfolio and breeding services. Portfolio and protection assertions remain attributed; the webpage is not a separately dated new-variety release.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    },
+    "https://www.emcocal.com/emcocal-rubus-varieties/": {
+      "grade": 2,
+      "event_group": null,
+      "source_checked": true,
+      "source_locator": "article:0;article:7-8",
+      "source_version": "b181079ca8b003d58c0377b5a51729095752de4980a908565a84a48591b0a9f4",
+      "reason": "The portfolio overview explicitly describes named commercial blackberry offerings alongside other crops. It is useful variety context, without independently establishing a new release date.",
+      "reviewer": "Codex source inspection, independent of deterministic retrieval labels",
+      "checked_at": "2026-10-30",
+      "checked_against": "frozen application capture, 2026-10-26"
+    }
+  }
+}

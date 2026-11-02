@@ -8,6 +8,7 @@ default discovery backbone.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date, datetime, timezone
 from typing import Any, Callable
 from urllib.parse import quote
 
@@ -24,7 +25,7 @@ from app.services.industry_pulse.http import request_json
 from app.services.industry_pulse.matrix import PulseQuery
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import hits_from_web_rows
-from app.services.industry_pulse.query_text import date_window_of, semantic_query_text
+from app.services.industry_pulse.query_text import date_window_of, firecrawl_tbs, semantic_query_text
 
 BRIGHTDATA_REQUEST_URL = "https://api.brightdata.com/request"
 
@@ -37,6 +38,7 @@ class BrightDataSearchProvider:
     api_key: str | None = None
     zone: str | None = None
     timeout_seconds: float = 45.0
+    today: date | None = None
     post: Callable[..., Any] = httpx.post
 
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
@@ -47,8 +49,8 @@ class BrightDataSearchProvider:
         text = semantic_query_text(query)
         window = date_window_of(query)
         # tbs is Google SERP date syntax, used only when a SERP zone is configured.
-        tbs = {"24h": "qdr:d", "3d": "qdr:d3", "7d": "qdr:w"}.get(window, "qdr:w")
-        target = f"https://www.google.com/search?q={quote(text)}&tbs={tbs}&hl=en&num=10"
+        tbs = {'24h':'qdr:d', '3d':'qdr:d3', '7d':'qdr:w'}.get(window, firecrawl_tbs(window, today=self.today or datetime.now(timezone.utc).date()))
+        target = f"https://www.google.com/search?q={quote(text)}&hl=en&num=10" + (f'&tbs={quote(tbs)}' if tbs else '')
         envelope = request_json(
             self.post,
             BRIGHTDATA_REQUEST_URL,

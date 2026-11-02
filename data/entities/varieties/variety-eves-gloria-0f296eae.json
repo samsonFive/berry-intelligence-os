@@ -1,0 +1,29 @@
+{
+  "id": "variety-eves-gloria-0f296eae",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Eves Gloria",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-b78961465e1d",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:40.059467+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.berryworld.com/en-za/berries/varieties",
+      "source_label": "BerryWorld South Africa — strawberry list",
+      "candidate_name": "Eves Gloria"
+    }
+  }
+}

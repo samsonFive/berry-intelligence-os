@@ -321,7 +321,8 @@ def test_primary_candidates_render_only_in_authoring_and_get_never_persists(monk
     candidates = client.get("/varieties/candidates?source=portfolio-uf-strawberry")
     assert candidates.status_code == 200 and "FL 19.66-220" in candidates.text and "Florida Pearl" in candidates.text
     assert "Check the identity and company roles before relying on these sources." in candidates.text
-    assert "Review decisions do not create new catalog varieties or approve company roles." in candidates.text
+    assert "Identity markings alone do not create catalog entries." in candidates.text
+    assert "Add canonical variety is an explicit identity action; it does not approve company roles or source claims." in candidates.text
     assert list(tmp_path.rglob("*.json")) == []
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     public = client.get("/varieties/coverage")

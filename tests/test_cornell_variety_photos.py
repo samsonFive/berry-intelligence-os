@@ -23,7 +23,7 @@ def photo_sources():
             if source["id"].startswith("portfolio-cornell-photo-")]
 
 
-def test_cornell_photos_fill_three_existing_profile_gaps_without_other_field_changes():
+def test_cornell_photos_fill_four_named_profile_gaps_without_other_field_changes():
     entities = records("entities")
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
     sources = load_portfolio_observations(DATA)
@@ -33,8 +33,9 @@ def test_cornell_photos_fill_three_existing_profile_gaps_without_other_field_cha
     baseline = profile_field_coverage(**kwargs, portfolio_sources=[
         source for source in sources if not source["id"].startswith("portfolio-cornell-photo-")])
     corrected = profile_field_coverage(**kwargs, portfolio_sources=sources)
-    assert baseline["catalog_total"] == corrected["catalog_total"] == 64
-    assert baseline["missing_counts"]["photos"] - corrected["missing_counts"]["photos"] == 3
+    assert baseline["catalog_total"] == corrected["catalog_total"] == len(varieties)
+    # Dickens now has an admitted identity alongside the original three profiles.
+    assert baseline["missing_counts"]["photos"] - corrected["missing_counts"]["photos"] == 4
     assert {key: count for key, count in baseline["missing_counts"].items() if key != "photos"} == {
         key: count for key, count in corrected["missing_counts"].items() if key != "photos"}
     baseline_rows = {row["id"]: row for row in baseline["rows"]}
@@ -46,7 +47,7 @@ def test_cornell_photos_fill_three_existing_profile_gaps_without_other_field_cha
             assert row["photos"] == row["held_photos"] == 1
         assert {key: value for key, value in row.items() if key not in {"photos", "held_photos", "missing"}} == {
             key: value for key, value in old.items() if key not in {"photos", "held_photos", "missing"}}
-    assert set(changed) == {"Crimson Night", "Crimson Treasure", "Double Gold"}
+    assert set(changed) == {"Crimson Night", "Crimson Treasure", "Double Gold", "Dickens"}
     assert sources == before
 
 
@@ -75,7 +76,9 @@ def test_caption_identity_never_borrows_a_nearby_or_other_crop_photo():
         assert photos.source_photos(candidate, candidate=True) == []
     dickens = next(source["names"][0] for source in sources
                    if source["id"] == "portfolio-cornell-photo-dickens")
-    assert not any(row["name"] == "Dickens" for row in varieties)
+    # Source association remains crop-specific after Dickens identity admission.
+    dickens_profile = next(row for row in varieties if row["name"] == "Dickens")
+    assert dickens_profile["status"] == "unverified" and dickens_profile["berry_ids"] == ["berry-strawberry"]
     assert dickens["berry_id"] == "berry-strawberry"
 
 
@@ -99,12 +102,13 @@ def test_cornell_photo_routes_are_private_readonly_and_initially_withheld(monkey
     assert image in response.text and 'src="' + image + '"' not in response.text
     assert "Courtney Weber" in response.text and "Ignore permission" in response.text
     assert "Permission unconfirmed" in response.text and "Edit variety photos" in response.text
-    candidate = client.get("/varieties/candidates?source=portfolio-cornell-photo-dickens&berry=berry-strawberry&q=Dickens")
+    target = next(row for row in main.living_catalog() if row.get("entity_type") == "variety" and row["name"] == "Dickens" and row.get("berry_ids") == ["berry-strawberry"])
+    candidate = client.get("/entities/variety/" + target["id"])
     dickens = next(row["names"][0]["photos"][0] for row in photo_sources()
                    if row["id"] == "portfolio-cornell-photo-dickens")
     assert candidate.status_code == 200 and dickens["image_url"] in candidate.text
     assert 'src="' + dickens["image_url"] + '"' not in candidate.text
-    assert "Check the identity and mark it distinct" in candidate.text
+    assert "Permission unconfirmed" in candidate.text and "Ignore permission" in candidate.text
     assert not list(tmp_path.rglob("*.json"))
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert image not in client.get("/entities/variety/variety-crimson-night").text

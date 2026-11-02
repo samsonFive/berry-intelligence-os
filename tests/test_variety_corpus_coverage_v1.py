@@ -4,7 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
+
+# These scenarios test discovery before the explicitly authorized catalog admissions.
+pytestmark = pytest.mark.usefixtures("pre_admission_catalog")
 
 from app import main
 from app.main import app

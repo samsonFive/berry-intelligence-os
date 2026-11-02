@@ -143,7 +143,8 @@ def living_entities(
     redirects: list[dict[str, Any]] | dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     retired = retired_entity_ids(entities, redirects=redirects)
-    return [row for row in entities if str(row.get("id") or "") not in retired]
+    return [row for row in entities if str(row.get("id") or "") not in retired
+            and not (row.get('entity_type') == 'variety' and (row.get('attributes') or {}).get('catalog_removed'))]
 
 
 def match_named_entity(

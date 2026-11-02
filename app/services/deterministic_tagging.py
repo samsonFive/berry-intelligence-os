@@ -43,6 +43,10 @@ BERRY_TERMS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 
+from app.services.berry_vocabulary import EXTRA_CROP_TERMS
+BERRY_TERMS = tuple((key, terms + EXTRA_CROP_TERMS.get(key.removeprefix("berry-"), ())) for key, terms in BERRY_TERMS)
+
+
 def matchers_from_entities(
     entities: list[dict[str, Any]] | dict[str, dict[str, Any]],
     entity_type: str,

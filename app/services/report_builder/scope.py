@@ -605,6 +605,10 @@ class ResolvedScope:
     geography_text: str = ""
     geography_unresolved: bool = False
     geography_descendant_ids: tuple[str, ...] = ()
+    research_query: str = ""
+    source_scope: str = "archive"
+    research_snapshot: dict[str, Any] | None = None
+    use_original_query: bool = False
 
 
 def resolve_scope(

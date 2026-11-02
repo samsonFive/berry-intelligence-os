@@ -1,0 +1,9 @@
+{% if authoring_mode and not static_build %}
+<button class="outline-button" type="button" data-open-entity-research>Research {{ research_entity.name if research_entity else 'varieties & companies' }}</button>
+<dialog class="entity-research-dialog" aria-labelledby="entity-research-title" data-entity-research data-target-id="{{ research_entity.id if research_entity else '' }}" data-target-name="{{ research_entity.name if research_entity else '' }}" data-target-berry="{{ research_entity.berry_ids|join(' ')|replace('berry-','') if research_entity else '' }}">
+<header><div><h2 id="entity-research-title">Research in your workspace</h2><p>Public web search and Ask Berry · results stay unreviewed</p></div><button type="button" data-close-entity-research aria-label="Close research">Close ×</button></header>
+<nav aria-label="Research topics">{% for topic,label in [('technical sheets trials conditions','Technical sheets'),('awards recognition medals','Awards'),('news release licensing','News'),('patent PBR cultivar denomination','Patents / PBR')] %}<button type="button" data-research-topic="{{ topic }}">{{ label }}</button>{% endfor %}</nav>
+<iframe title="Variety and company research" data-entity-research-frame></iframe>
+</dialog>
+<link rel="stylesheet" href="/static/entity_research.css?v=1"><script src="/static/entity_research.js?v=1" defer></script>
+{% endif %}

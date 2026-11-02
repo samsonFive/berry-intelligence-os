@@ -8,6 +8,8 @@ on this stack.
 
 from __future__ import annotations
 
+from app.services.collection_settings import configured
+
 from app.services.industry_pulse.matrix import GEO_EDITIONS, PulseQuery
 
 _EDITION = GEO_EDITIONS["global"]
@@ -63,6 +65,7 @@ def _query(query_id: str, text: str, berry: str | None, *, kind: str, topic: str
     )
 
 
+@configured("radar_google")
 def radar_google_queries() -> list[PulseQuery]:
     return [
         _query(query_id, text, berry, kind="radar_theme", topic="radar_google")
@@ -70,6 +73,7 @@ def radar_google_queries() -> list[PulseQuery]:
     ]
 
 
+@configured("radar_semantic")
 def radar_semantic_queries() -> list[PulseQuery]:
     """Exa-only. Never sent to Google. Not the Pulse 32."""
     return [
@@ -78,6 +82,7 @@ def radar_semantic_queries() -> list[PulseQuery]:
     ]
 
 
+@configured("radar_catchnet")
 def radar_catchnet_queries() -> list[PulseQuery]:
     return [
         _query(query_id, text, berry, kind="radar_catchnet", topic="radar_catchnet")
