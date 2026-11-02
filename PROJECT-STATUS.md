@@ -1,5 +1,14 @@
 # Project Status
 
+November 2 UTC — [Variety directory preparation](docs/v2/VARIETY-DIRECTORY-PREPARATION-REVIEW.md)
+addresses a measured TD-122 blocker in one existing handler. Request-local
+preparation replaces repeated photo/source work without changing validators,
+matchers, complete models or HTML. Counterbalanced public-fixture medians are
+10.65 to 2.25 seconds cold and 7.03 to 1.09 seconds on repeat full-directory
+requests. All 396 affected tests, record/static checks and desktop/412px review
+pass. Fresh server-copy preservation and exact-head CI remain. This is stacked
+on frozen #465; no existing approval is reused and production is unchanged.
+
 November 2 UTC — [Presentation copy performance](docs/v2/PRESENTATION-COPY-PERFORMANCE-REVIEW.md)
 targets the remaining TD-122 copy cost in one runtime helper, retaining full
 models, cache keys and human gates. The slower first prototype was rejected;
