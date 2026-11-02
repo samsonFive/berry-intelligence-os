@@ -1,5 +1,14 @@
 # Project Status
 
+November 1 — [Coverage identity lookup review](docs/v2/COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+prepares relevant catalog rows inside one read-only Coverage request while
+retaining the original identity matcher, edit freshness and review gates.
+This independent child of #458 targets a measured cold-load blocker; no
+source/catalog/schema or production change. Initial complete-model/HTML parity
+passes, and a slower first implementation was rejected before finalization.
+Confirmation, final-head/native and fresh preservation remain. Frozen #458,
+#459, #449 and #457 keep their own scopes and approval states. TD-122 remains open.
+
 November 1 — [Combined platform review](docs/v2/PLATFORM-PERFORMANCE-STATEMENTS-RELEASE-REVIEW.md)
 brings tested Coverage performance #452 and statement-navigation/audit #453
 together on live #443 (`f76080d0`). All ten runtime files retain their exact

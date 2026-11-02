@@ -311,6 +311,16 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+November 1 — [Coverage identity lookup experiment](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+targets the measured cold-handler blocker with optional request-local row
+selection, retaining the original matcher and human gates. A per-call Python
+fingerprint implementation preserved full typed models/HTML but regressed
+6.58 to 8.26 seconds, so it was rejected. Complete-record freshness checks
+reduced the initial cold sample to 4.15 seconds; repeat samples stay near two
+seconds. Final confirmation, current-head/native and fresh preservation remain.
+No production improvement or completion claim; this is a separate child of
+#458. TD-122 and broader cold-load work stay open.
+
 November 1 — The #448 draft is reconciled onto live #443. A larger guarded
 request-projection experiment preserved the complete 10.47 MB / 5.01 MB models
 and all 40 rendered responses. It actually exercised reuse, but its fuller

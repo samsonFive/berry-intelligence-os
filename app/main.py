@@ -3407,6 +3407,13 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
 
 @app.get("/varieties/coverage", response_class=HTMLResponse)
 def variety_coverage_page(request: Request) -> HTMLResponse:
+    """Render read-only coverage with optional request-local lookup preparation."""
+    from app.services.identity_read_model import identity_read_model_scope
+    with identity_read_model_scope():
+        return _render_variety_coverage_page(request)
+
+
+def _render_variety_coverage_page(request: Request) -> HTMLResponse:
     """Explainable Variety universe counts. GET is read-only."""
     varieties, candidates, corpus_report = variety_candidate_universe()
     coverage = coverage_matrix(

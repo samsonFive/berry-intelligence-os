@@ -12,6 +12,7 @@ from functools import lru_cache
 from typing import Any
 
 from app.services.patent_monitor.entity_link import _fold
+from app.services.identity_read_model import with_identity_catalog_index
 
 STATE_CONFIRMED_SAME = "confirmed_same"
 STATE_POSSIBLE_ALIAS = "possible_alias"
@@ -36,6 +37,28 @@ LABELS = {
 }
 
 _MIN_FOLD = 3
+
+_IDENTITY_ATTRIBUTE_ROLES = (
+    ("trade_name", "trade_name"),
+    ("commercial_name", "commercial_name"),
+    ("denomination", "denomination"),
+    ("selection_code", "breeder_code"),
+    ("breeder_code", "breeder_code"),
+    ("patent_number", "registration"),
+    ("patent_id", "registration"),
+    ("rights_id", "registration"),
+)
+_REGISTRATION_ATTRIBUTES = ("patent_number", "patent_id", "rights_id", "cpvo_application_number", "grant_number")
+_CATALOG_MATCH_ATTRIBUTES = tuple(dict.fromkeys(
+    [key for key, _role in _IDENTITY_ATTRIBUTE_ROLES] + list(_REGISTRATION_ATTRIBUTES)
+))
+_SIGNATURE_SCALARS = (str, int, float, bool, type(None))
+_CANDIDATE_NAME_ROLES = (
+    ("candidate_name", "candidate_name"), ("denomination", "denomination"),
+    ("trade_name", "trade_name"), ("breeder_code", "breeder_code"), ("alias", "alias"),
+)
+_CANDIDATE_REGISTRATION_KEYS = ("registration_id", "application_number", "grant_number", "patent_number")
+_CANDIDATE_REGISTRATION_DETAIL_KEYS = ("application_number", "grant_number", "registration_number")
 
 
 @lru_cache(maxsize=4096)
@@ -62,16 +85,7 @@ def _identity_strings(variety: dict[str, Any]) -> list[tuple[str, str]]:
         text = str(alias).strip()
         if text:
             values.append((text, "alias"))
-    for key, role in (
-        ("trade_name", "trade_name"),
-        ("commercial_name", "commercial_name"),
-        ("denomination", "denomination"),
-        ("selection_code", "breeder_code"),
-        ("breeder_code", "breeder_code"),
-        ("patent_number", "registration"),
-        ("patent_id", "registration"),
-        ("rights_id", "registration"),
-    ):
+    for key, role in _IDENTITY_ATTRIBUTE_ROLES:
         text = str(attrs.get(key) or "").strip()
         if text:
             values.append((text, role))
@@ -81,7 +95,7 @@ def _identity_strings(variety: dict[str, Any]) -> list[tuple[str, str]]:
 def _registration_ids(variety: dict[str, Any]) -> set[str]:
     attrs = variety.get("attributes") or {}
     out: set[str] = set()
-    for key in ("patent_number", "patent_id", "rights_id", "cpvo_application_number", "grant_number"):
+    for key in _REGISTRATION_ATTRIBUTES:
         text = str(attrs.get(key) or "").strip()
         if text:
             out.add(fold_identity(text))
@@ -90,18 +104,13 @@ def _registration_ids(variety: dict[str, Any]) -> set[str]:
 
 def candidate_registration_ids(candidate: dict[str, Any]) -> set[str]:
     out: set[str] = set()
-    for key in (
-        "registration_id",
-        "application_number",
-        "grant_number",
-        "patent_number",
-    ):
+    for key in _CANDIDATE_REGISTRATION_KEYS:
         text = str(candidate.get(key) or "").strip()
         if text:
             out.add(fold_identity(text))
     registration = candidate.get("registration") or {}
     if isinstance(registration, dict):
-        for key in ("application_number", "grant_number", "registration_number"):
+        for key in _CANDIDATE_REGISTRATION_DETAIL_KEYS:
             text = str(registration.get(key) or "").strip()
             if text:
                 out.add(fold_identity(text))
@@ -110,13 +119,7 @@ def candidate_registration_ids(candidate: dict[str, Any]) -> set[str]:
 
 def candidate_query_names(candidate: dict[str, Any]) -> list[tuple[str, str]]:
     values: list[tuple[str, str]] = []
-    for key, role in (
-        ("candidate_name", "candidate_name"),
-        ("denomination", "denomination"),
-        ("trade_name", "trade_name"),
-        ("breeder_code", "breeder_code"),
-        ("alias", "alias"),
-    ):
+    for key, role in _CANDIDATE_NAME_ROLES:
         text = str(candidate.get(key) or "").strip()
         if text:
             values.append((text, role))
@@ -142,6 +145,59 @@ def _contiguous(needle: list[str], haystack: list[str]) -> bool:
     return any(haystack[index : index + size] == needle for index in range(len(haystack) - size + 1))
 
 
+def _catalog_record_signature(variety: dict[str, Any]) -> tuple:
+    """Validate supported matching inputs before optional preparation.
+
+    Whole-record equality against an owned copy checks freshness on reuse.
+    The attribute lists above are shared with the matcher, rather than a second
+    independently maintained list of identity fields.
+    """
+    if type(variety) is not dict:
+        raise TypeError("Unsupported catalog record for optional lookup preparation")
+    name, entity_type = variety.get("name"), variety.get("entity_type")
+    aliases, attrs = variety.get("aliases") or [], variety.get("attributes") or {}
+    berry_ids = variety.get("berry_ids") or []
+    if (type(name) not in (str, type(None))
+            or type(entity_type) not in (str, type(None))
+            or type(aliases) not in (list, tuple)
+            or type(attrs) is not dict
+            or type(berry_ids) not in (list, tuple, set, frozenset)):
+        raise TypeError("Unsupported catalog input for optional lookup preparation")
+    values = tuple(attrs.get(key) for key in _CATALOG_MATCH_ATTRIBUTES)
+    # Numeric values use the original path: Python equality treats True, 1
+    # and 1.0 as equal, while their identity strings can differ. Plain text
+    # and null fields make whole-record equality safe for matching inputs.
+    if any(type(value) not in (str, type(None))
+           for value in (*aliases, *berry_ids, variety.get("berry_id"), variety.get("id"), *values)):
+        raise TypeError("Unsupported identity value for optional lookup preparation")
+    return (entity_type, str(variety.get("id") or ""), name,
+            tuple(str(alias).strip() for alias in aliases),
+            frozenset(_berries(variety)),
+            tuple(str(value or "").strip() for value in values))
+
+
+def _index_candidate_supported(candidate: dict[str, Any]) -> bool:
+    """Avoid consuming iterators or coercing opaque objects before the matcher."""
+    if type(candidate) is not dict:
+        return False
+    aliases, berries = candidate.get("aliases") or [], candidate.get("berry_ids") or []
+    if type(aliases) not in (list, tuple) or type(berries) not in (list, tuple, set, frozenset):
+        return False
+    values = [candidate.get(key) for key, _role in _CANDIDATE_NAME_ROLES]
+    values.extend(candidate.get(key) for key in _CANDIDATE_REGISTRATION_KEYS)
+    values.extend([*aliases, *berries, candidate.get("berry_id")])
+    registration = candidate.get("registration")
+    if registration is not None and type(registration) is not dict:
+        return False
+    registration = registration or {}
+    if isinstance(registration, dict):
+        if type(registration) is not dict:
+            return False
+        values.extend(registration.get(key) for key in _CANDIDATE_REGISTRATION_DETAIL_KEYS)
+    return all(type(value) in _SIGNATURE_SCALARS for value in values)
+
+
+@with_identity_catalog_index
 def resolve_identity(
     candidate: dict[str, Any],
     varieties: list[dict[str, Any]],

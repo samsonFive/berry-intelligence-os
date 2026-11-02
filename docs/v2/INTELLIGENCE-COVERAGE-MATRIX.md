@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+records a platform-only child of #458 addressing the measured cold-handler
+blocker. Optional row selection retains the original matcher, review gates,
+complete typed models and HTML; no catalog/source coverage is added. Initial
+timings favor the revised implementation after a slower version was rejected.
+Confirmation and final acceptance remain; TD-122, source/name/rights/photo
+decisions and independent recall stay open. No merge or deployment.
+
 November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
 the tested #455 platform changes while removing unrelated variety, briefing and
 publication preparation from login/health/News readiness. News inputs, auth,

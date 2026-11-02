@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+November 1 — [Coverage identity lookup review](COVERAGE-IDENTITY-LOOKUP-REVIEW.md)
+records a separate UI-03 performance experiment after #458. Optional read-only
+lookup preparation retains matching decisions, same-request edit freshness,
+all complete typed models and HTML. The first implementation was slower and
+rejected; the revised cold sample improves, with confirmation and final
+acceptance pending. No data/source/schema or production change. Original 31
+definitions/order and the governing guide remain verbatim; TD-122 stays open.
+
 November 1 — [News-first startup review](NEWS-ONLY-STARTUP-REVIEW.md) retains
 the tested #455 platform changes while removing unrelated variety, briefing and
 publication preparation from login/health/News readiness. News inputs, auth,
