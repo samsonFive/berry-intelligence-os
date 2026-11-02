@@ -1,5 +1,30 @@
 # Technical Debt Register
 
+November 1 — [Combined source/Map review](CATALOG-MAP-COMBINED-REVIEW.md)
+reconciles the existing manual source paths with the deployed navigation base.
+No collector schedule, store, schema or qualification is added. All 181 focused
+checks and native/PDF/static review pass; combined-head CI and fresh preservation
+remain. TD-122 stays open: a cold Coverage navigation exceeded the browser wait
+before completing. Source coverage and human decisions remain independent of
+this release candidate, which is not deployed.
+
+November 1 — Explicitly approved navigation #443, head `e88fcd36`, is merged as `f76080d0` and live. A new verified backup and bounded offline rehearsal preserved all five accounts including Chris.H, 65 profiles, 9,856 existing JSON records, 3,228 data files and four databases. The deployed image retains original mounts/settings and rollback; no new catalog or market-reference data was deployed. The separate local catalog #444 + Map #447 review candidate is now being reconciled onto this live base. Its earlier 179 focused checks and component browser/static proofs remain dated evidence; the new combined head still requires its own tests, preservation and actual release approval. Performance #448 remains separate. Earlier pending-navigation statements below are historical; the explicit approval question has been answered and the release is complete.
+
+October31 debt check — [UK official references](MAP-UK-OFFICIAL-REFERENCES.md) reuse manual Map job health, selection/history and PDF paths. Two source area comparisons remain unresolved and visible; source comparability, wider global statistics and source decisions are not closed. Download/expanded-file/grid limits, source-choice isolation and legacy-job preservation are tested. No new scheduler, paid provider, store or domain normalization is added. Existing TD-122/124 work remains open.
+
+October 31 debt check — The [Map reference crop expansion](MAP-THREE-CROP-REFERENCES.md) reuses the existing capture, selection/history, Map and PDF paths. It corrects observed 0n presentation and case-sensitive withholding handling, without a new store, inferred yields, public-seed rewrite or Trade/Weather normalization change. Broader world/crop statistics and source review remain incomplete; existing performance and host-budget debt is not closed by source coverage. All 123 affected tests pass; native/static/exact-head validation remains required.
+
+October 30 — CAT-01/CAT-02/TD-116 source-depth follow-up:
+[Gem-Pack interviews](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md) add ten literal
+occurrences while preserving every earlier source, canonical record and saved
+decision. Gem-Pack gains named-source coverage but retains five incomplete
+checks; neighboring-company labels and uncaptioned photos remain excluded.
+Two original documents are readable (one ordinary browser page and one public
+PDF copy); direct FreshPlaza and Rejoice PDF HTTP attempts return403 and remain
+recorded as such. Complete historical/current portfolios, exact identities,
+current rights, independent recall and human authoring stay open. No trust
+gate or protected domain schema is changed; this source draft is not deployed.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,

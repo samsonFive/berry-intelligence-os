@@ -1,0 +1,230 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "checked_on": "2026-10-30",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "source_type": "grower_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-gempack-interview-2026-07-strawberry",
+      "title": "Gem-Pack — July 2026 strawberry names",
+      "url": "https://www.freshplaza.com/north-america/article/9859182/peak-supply-of-california-strawberries-and-raspberries-continues/",
+      "published_date": "2026-07-21",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "enumerated_scope": "Two strawberry names in the complete interview; raspberry names are recorded separately.",
+      "limitations": "Company statements in a dated journalist interview, not independent trial results or a complete portfolio. Reported production and quality remain unreviewed; no ownership, breeding, current rights or growing footprint is approved. The Agronometrics version is a reprint, not independent corroboration. Photographs have no individual cultivar captions and are not assigned to these names.",
+      "names": [
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "display_label": "Alturas",
+          "portfolio_context": "Named in the July 2026 supply interview; the article attributes its development to California Berry Cultivars, separately from Gem-Pack growing context.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Carpinteria",
+          "berry_id": "berry-strawberry",
+          "display_label": "Carpinteria",
+          "portfolio_context": "Named as a strawberry addition in the same July interview; no underlying breeder code is supplied.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_visible_article_review",
+        "body_read": true,
+        "capture_sha256": "268048b22e496409ecb848f277fb55bc561845f50fbd2343bdc54cc065017260",
+        "capture_bytes": 6897,
+        "author": "Astrid van den Broek",
+        "interviewee": "Paola Martin, Gem-Pack Berries",
+        "direct_http_attempt": "HTTP403; ordinary public browser page readable",
+        "image_identity": "Two article images are not individually cultivar-captioned; no variety photo added."
+      }
+    },
+    {
+      "checked_on": "2026-10-30",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "source_type": "grower_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-gempack-interview-2026-07-raspberry",
+      "title": "Gem-Pack — July 2026 raspberry names",
+      "url": "https://www.freshplaza.com/north-america/article/9859182/peak-supply-of-california-strawberries-and-raspberries-continues/",
+      "published_date": "2026-07-21",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "Two raspberry names in the same complete interview; strawberry names are recorded separately.",
+      "limitations": "Company statements in a dated journalist interview, not independent trial results or a complete portfolio. Reported production and quality remain unreviewed; no ownership, breeding, current rights or growing footprint is approved. The Agronometrics version is a reprint, not independent corroboration. Photographs have no individual cultivar captions and are not assigned to these names.",
+      "names": [
+        {
+          "candidate_name": "Majestic",
+          "berry_id": "berry-raspberry",
+          "display_label": "Majestic",
+          "portfolio_context": "The July interview places this raspberry in Watsonville; that is a dated company assertion, not an approved growing-region record.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "display_label": "Adelita",
+          "portfolio_context": "The July interview mentions this raspberry in Baja California; attribution and historical scope remain attached.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_visible_article_review",
+        "body_read": true,
+        "capture_sha256": "268048b22e496409ecb848f277fb55bc561845f50fbd2343bdc54cc065017260",
+        "capture_bytes": 6897,
+        "author": "Astrid van den Broek",
+        "interviewee": "Paola Martin, Gem-Pack Berries",
+        "direct_http_attempt": "HTTP403; ordinary public browser page readable",
+        "image_identity": "Two article images are not individually cultivar-captioned; no variety photo added."
+      }
+    },
+    {
+      "checked_on": "2026-10-30",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "source_type": "grower_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-gempack-interview-2025-04-strawberry",
+      "title": "Gem-Pack — six strawberry names in the April 2025 interview",
+      "url": "https://www.unitedag.org/site/assets/files/435204/the_packer_april_7_2025_unitedag_feature_4_21_25.pdf#page=34",
+      "published_date": "2025-04-07",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "enumerated_scope": "Gem-Pack variety paragraph on printed page 32 (PDF page 34), plus explicit exclusions from adjacent company text. Other newspaper pages are outside this check.",
+      "limitations": "Historical company statements reported by Tom Burfield in The Packer, in a public UnitedAg-hosted copy. The image credits California Giant and identifies no cultivar; no Gem-Pack variety photo is added. Nearby BG and Short N Sweet refer to Western Veg-Produce. Cultivation does not establish breeding, ownership, current availability, rights, traits or a verified footprint. Unnamed proprietary selections and a complete current/historical portfolio remain unresolved.",
+      "names": [
+        {
+          "candidate_name": "Fronteras",
+          "berry_id": "berry-strawberry",
+          "display_label": "Fronteras",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Monterey",
+          "berry_id": "berry-strawberry",
+          "display_label": "Monterey",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "display_label": "Belvedere",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Victor",
+          "berry_id": "berry-strawberry",
+          "display_label": "Victor",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "display_label": "Adelanto",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "display_label": "San Andreas",
+          "portfolio_context": "Listed under Gem-Pack in the April 2025 interview; historical growing context only.",
+          "source_company_ids": [
+            "company-gem-pack-berries"
+          ],
+          "source_company_context": "Gem-Pack is the interviewed grower/shipper; this source association is not an approved breeder, owner or licensee relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": [
+          {
+            "label": "proprietary strawberries",
+            "reason": "Unnamed selections are not invented as cultivar names."
+          },
+          {
+            "label": "BG",
+            "reason": "Adjacent Western Veg-Produce selection; not assigned to Gem-Pack."
+          },
+          {
+            "label": "Short N Sweet",
+            "reason": "Western Veg-Produce brand in adjacent text, not a Gem-Pack cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "public_pdf_text_and_rendered_page_review",
+        "http_status": 200,
+        "capture_sha256": "58875f7d5092f1cd8771ffed3109f970e49c6cefcb98cbd9c58cf61f5d62e2b8",
+        "capture_bytes": 16431029,
+        "final_url": "https://www.unitedag.org/site/assets/files/435204/the_packer_april_7_2025_unitedag_feature_4_21_25.pdf",
+        "publisher": "The Packer",
+        "public_copy_host": "UnitedAg",
+        "author": "Tom Burfield",
+        "article_title": "Later Easter a bonus for growers",
+        "publication_pages": "32",
+        "pdf_page": 34,
+        "pdf_total_pages": 40,
+        "pages_visually_reviewed": [
+          34
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "capture_file_date_is_not_publication_date": true,
+        "date_basis": "Printed footer, April 7, 2025, not the 4_21_25 filename."
+      }
+    }
+  ]
+}
