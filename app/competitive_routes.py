@@ -358,6 +358,10 @@ def archive(request: Request):
         from app.services.feed_first import safe_image_url
         for record in model['items']:
             record['preview_image'] = safe_image_url(record)
+            excerpt=str(record.get('summary') or '')
+            for prefix in ['Research-source metadata; original attribution remains unreviewed. ', 'Paraphrase: ']:
+                if excerpt.startswith(prefix):excerpt=excerpt[len(prefix):]
+            record['display_excerpt']=excerpt
             if not str(record.get('source_url') or '').startswith(('https://', 'http://')):
                 record['source_url'] = ''
     except ValueError as exc:

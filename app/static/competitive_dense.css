@@ -24,6 +24,7 @@
 .ce-sheet .ce-row-scope dd{color:#203e2f}.ce-sheet .ce-row-scope dt{color:#536752}
 .ce-sheet .ce-filter-fields label,.ce-sheet .ce-entity-picker legend{font-size:12px}
 .ce-sheet .ce-filters{width:min(720px,calc(100vw - 40px));max-height:70vh}
+.ce-sheet .ce-column-menu:not([open])>div,.ce-sheet .ce-filter-panel:not([open])>.ce-filters{display:none}
 .ce-record-toolbar{display:flex;align-items:end;gap:8px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid #bdccb6;background:#f7fbf2;margin:0}
 .ce-record-toolbar label{display:grid!important;gap:3px;font-size:11px!important;font-weight:600;flex:0 1 120px;width:120px;min-width:100px;max-width:145px;margin:0!important;color:#35573a}
 .ce-record-toolbar .ce-record-search{flex:1 1 190px;width:auto;max-width:none;min-width:170px}

@@ -26,7 +26,10 @@ def test_actual_templates_with_scoped_records(client, view):
     result = http.get('/competitive-evaluation?companies=company-one&view='+view)
     assert result.status_code == 200
     assert 'Competitive evaluation' in result.text and 'competitive_coverage.js' in result.text
-    assert 'Unknown means insufficient evidence' in result.text
+    if view in {'matrix','plot'}:
+        assert 'Unknown means insufficient evidence' in result.text
+    else:
+        assert 'ce-record-grid' in result.text
 
 
 def test_review_conflict_export_snapshot_and_public_boundary(client, monkeypatch):
