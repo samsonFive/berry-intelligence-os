@@ -62,12 +62,15 @@ def support_context(plan, entities, identifiers):
         if any(len(name)>=4 and re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',positive) for name in names):
             organizations.append(names)
     places=[]
+    place_terms=set()
     if any(t.startswith(('trial','experiment')) for t in plan.terms):
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]
             if entity.get('name')=='United Kingdom':names.append('U.K.')
-            if any(name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',positive) for name in names):
+            matched_names=[normalize(name) for name in names if name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',positive)]
+            if matched_names:
+                place_terms.update(word for name in matched_names for word in name.split())
                 if entity.get('name')=='United Kingdom':names.extend(['England','Scotland','Wales','Northern Ireland','Britain'])
                 places.append(tuple(filter(None,(normalize(name) for name in names))))
         # Geographic scope vocabulary does not create registry entities or
@@ -78,7 +81,9 @@ def support_context(plan, entities, identifiers):
             term=normalize(name)
             if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',positive):
                 places.append((term,))
-    return {'identities':list(identities.values()),'trial_places':places,'organizations':organizations}
+                place_terms.update(term.split())
+    return {'identities':list(identities.values()),'trial_places':places,
+            'place_terms':tuple(sorted(place_terms)),'organizations':organizations}
 
 
 def organizations_in_passage(text, groups):

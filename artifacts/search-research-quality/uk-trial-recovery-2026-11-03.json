@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "kind": "Post-inspection diagnostic, not blind or contemporaneously paired acceptance",
+  "query": "Raspberry primocane trials United Kingdom",
+  "captured_at": "2026-11-03T04:58:16.185603+00:00",
+  "retrieval_version": "topic-retrieval-v12",
+  "search_requests": 5,
+  "cumulative_search_requests": 127,
+  "budget": 128,
+  "warm_search_requests": 0,
+  "ranked_candidates": 18,
+  "direct_top10": 6,
+  "unknown_top10": 1,
+  "direct_precision_at_10_bounds": [
+    0.6,
+    0.7
+  ],
+  "original_frozen_direct_top10": 2,
+  "original_frozen_google_bounds": [
+    0.3,
+    0.4
+  ],
+  "limitations": [
+    "All results source-inspected after seeing the prior gap; same operator and not blind.",
+    "Original sealed app/Google captures and metrics remain unchanged; the later live result is not substituted into them.",
+    "Conservative same-passage trial-geography checks leave many useful article-level matches as scope-verification leads; no source-truth or legal/identity claim is approved.",
+    "The recovered AHDB primary page is rank 11 and still a location-verification lead."
+  ],
+  "judgments": [
+    {
+      "rank": 1,
+      "source_id": "web-8d63ac4a2de5399b",
+      "title": "CSG 15",
+      "source_url": "https://naturalengland.contentdm.oclc.org/digital/api/collection/p21006coll3/id/4469/download",
+      "source_version": "794f06a6c2e3e8a23017a33344d36454a1a7653bec0115afbf963f6190931516",
+      "grade": 3,
+      "status": "graded",
+      "reason": "Government research report of UK primocane trials; existing inspected source, reacquired.",
+      "source_locators": [
+        "article:0",
+        "article:1",
+        "article:2"
+      ]
+    },
+    {
+      "rank": 2,
+      "source_id": "web-223286c4bcee68aa",
+      "title": "G-Viva: the new primocane raspberry yielding 28 t/ha",
+      "source_url": "https://italianberry.it/en/news/g-viva-g-berries-raspberry",
+      "source_version": "bd946132567f0ef47ce30470db82e2eaa31d7ee596e933b0f74591d3855e3a20",
+      "grade": 1,
+      "status": "graded",
+      "reason": "G-Viva trial reporting concerns southern Europe and Morocco; no UK trial result established.",
+      "source_locators": [
+        "article:10",
+        "article:11",
+        "article:13"
+      ]
+    },
+    {
+      "rank": 3,
+      "source_id": "web-f5f5be1c9f79b68a",
+      "title": "Photo report - Fruit for the Future",
+      "source_url": "https://www.hortidaily.com/article/9752062/photo-report-fruit-for-the-future/",
+      "source_version": "a44bc0410568782d15476d5095dad34bdfb3ca8d2947beba194aed6f24f8c022",
+      "grade": 3,
+      "status": "graded",
+      "reason": "Dundee/Invergowrie trial-tunnel tour describes ongoing primocane raspberry selections; other crop and weeder sections excluded.",
+      "source_locators": [
+        "article:0",
+        "article:10",
+        "article:12"
+      ]
+    },
+    {
+      "rank": 4,
+      "source_id": "web-da1348140ea52d11",
+      "title": "How to grow raspberries and the best varieties - Which?",
+      "source_url": "https://www.which.co.uk/reviews/grow-your-own/article/how-to-grow-raspberries-and-the-best-varieties-aWnax3L7u51Y",
+      "source_version": "be8f1e6e23311059b89fc7c41f83153a54497605dc6792cbfe9151839d72ad73",
+      "grade": null,
+      "status": "unassessable",
+      "reason": "Only subscription invitation text captured; article relevance unassessable.",
+      "source_locators": [
+        "article:0",
+        "article:1"
+      ]
+    },
+    {
+      "rank": 5,
+      "source_id": "web-07d25dd238cff71a",
+      "title": "Improved raspberry varieties for Moroccan and Tunisian Producers",
+      "source_url": "https://www.hortidaily.com/article/9270225/improved-raspberry-varieties-for-moroccan-and-tunisian-producers/",
+      "source_version": "c20c1049ada24f8966201b1e1633c973388877b13818b52dad905e98834168ad",
+      "grade": 1,
+      "status": "graded",
+      "reason": "Scottish origin/UK contact does not turn Morocco/Tunisia performance trials into UK trials.",
+      "source_locators": [
+        "article:0",
+        "article:1"
+      ]
+    },
+    {
+      "rank": 6,
+      "source_id": "web-d4b86017e46039dc",
+      "title": "British raspberry breeding programme results in three new varieties",
+      "source_url": "https://www.hortidaily.com/article/9221240/british-raspberry-breeding-programme-results-in-three-new-varieties/",
+      "source_version": "ad65b99773a6b52089ad7de3c8bc00fde7efe23d50c8609a6aba06a7755aa70f",
+      "grade": 3,
+      "status": "graded",
+      "reason": "British breeding report describes Lewis/Skye primocane releases, consortium trial results and James Hutton Institute trials.",
+      "source_locators": [
+        "article:0",
+        "article:1",
+        "article:2",
+        "article:4"
+      ]
+    },
+    {
+      "rank": 7,
+      "source_id": "web-d7debdfb3c23f364",
+      "title": "\"Radiance and Grandeur heralded the new bench mark in the shelf-life of a raspberry\"",
+      "source_url": "https://www.freshplaza.com/north-america/article/2169998/radiance-and-grandeur-heralded-the-new-bench-mark-in-the-shelf-life-of-a-raspberry/",
+      "source_version": "c92ed9181db4d7ef678fe6d891ed0ee37631edbf468f9cd22b2468655d03108b",
+      "grade": 2,
+      "status": "graded",
+      "reason": "Primocane UK commercial context and Kent new-selection trials; bounded paragraph ends before identifying the tested selections.",
+      "source_locators": [
+        "article:0"
+      ]
+    },
+    {
+      "rank": 8,
+      "source_id": "web-7dc7af4df4cc2081",
+      "title": "US20130212755P1 - Raspberry plant named 'Diamond Jubilee' - Google Patents",
+      "source_url": "https://patents.google.com/patent/US20130212755P1/en",
+      "source_version": "2704e5eadb982f69e928de85fcf4ef9778a375688f756a4f097ca0b04a151f6a",
+      "grade": 3,
+      "status": "graded",
+      "reason": "Diamond Jubilee patent describes double cropping/primocanes and trialed seedlings grown in Faversham, Kent, UK; parentage uncertainty retained.",
+      "source_locators": [
+        "article:0",
+        "article:3",
+        "article:4"
+      ]
+    },
+    {
+      "rank": 9,
+      "source_id": "web-eccb292ad26bef76",
+      "title": "USPP31197P3 - Rubus plant named \u2018emr 20171\u2019 - Google Patents",
+      "source_url": "https://patents.google.com/patent/USPP31197P3/en",
+      "source_version": "080e3052262ae023ea05431164a9701b6f5f7fae6081e721ca967f490af32b23",
+      "grade": 3,
+      "status": "graded",
+      "reason": "EMR 20171 patent explicitly reports UK/Spain trials from 2008\u20132017, primocane breeding and performance; no legal-status approval.",
+      "source_locators": [
+        "article:0",
+        "article:4",
+        "article:5"
+      ]
+    },
+    {
+      "rank": 10,
+      "source_id": "web-3a818a8eb65850fd",
+      "title": "USPP21007P3 - Raspberry plant named \u2018Marcianna\u2019 - Google Patents",
+      "source_url": "https://patents.google.com/patent/USPP21007P3/en",
+      "source_version": "13ce94759a366f3b10f5b9620029e1d159a95cb13d2dc65a841702f8be86bf28",
+      "grade": 3,
+      "status": "graded",
+      "reason": "Marcianna patent reports primocane cultivar comparisons tested in UK; Spain floricane chilling response is separately scoped.",
+      "source_locators": [
+        "article:0",
+        "article:4",
+        "article:8",
+        "article:10"
+      ]
+    }
+  ]
+}

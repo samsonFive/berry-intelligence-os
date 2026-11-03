@@ -1444,3 +1444,6 @@ November 3 source-review completion: all 314 new source units have explicit disp
 
 
 November 3 limited-variety recovery: four primary captures add ten source-reported rows to the same 31-profile import (148 total). Breeder card, research report, official denomination description and patent lead remain separate evidence scopes. Identity holds and disagreement are retained; no reviewed trait/right/footprint coverage upgrade.
+
+
+November 3 UK-trial recovery: bounded geography-alias discovery and separate place-equivalence matching recover additional trial sources without new publisher subscriptions or approved geography/trait/right claims. Six inspected top-ten sources in the consumed-query diagnostic do not upgrade global recall maturity or establish contemporaneous Google parity.

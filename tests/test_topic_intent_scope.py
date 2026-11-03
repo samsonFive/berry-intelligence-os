@@ -102,6 +102,18 @@ def test_regional_trial_request_cannot_borrow_international_licensing():
     assert row and row['support_status']=='body_supported'
 
 
+def test_multitoken_country_does_not_preempt_its_verified_trial_alias():
+    entities={'uk':{'id':'uk','entity_type':'geography','name':'United Kingdom',
+                    'aliases':['UK'], 'status':'active'}}
+    plan=plan_query('Raspberry primocane trials United Kingdom')
+    record=source(['Raspberry primocane trials in England compared crop yield.'])
+    row=match_record(record,plan,entities=entities)
+    assert row and row['support_status']=='body_supported' and 'England' in row['passage']
+    unknown=source(['Raspberry primocane trials compared crop yield.'])
+    row=match_record(unknown,plan,entities=entities)
+    assert row and row['support_status']=='scope_unverified'
+
+
 def test_ventilation_question_does_not_quote_soil_advice():
     record=source(['Raspberry plants in high tunnels need well-drained soil and nitrogen.',
                    'A raspberry high tunnel trial compared summer ventilation using roof vents and measured air exchange.'])

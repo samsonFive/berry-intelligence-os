@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v11"
+VERSION = "topic-retrieval-v12"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -187,6 +187,10 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
             return None
     # Crop and cane are mandatory concepts; remaining literal terms use coverage.
     concepts = set(plan.terms) - crop_terms - {"floricane", "primocane"}
+    # Geography is checked as an equivalent-place group below. Counting each
+    # word of a country's long name here would reject its valid alias before
+    # that check (for example a trial explicitly located in England).
+    concepts -= set(support['place_terms'])
     concepts -= set().union(*(i['tokens'] for i in identifiers)) if identifiers else set()
     matched = concepts & words
     if concepts and len(matched) / len(concepts) < 0.5:

@@ -29,10 +29,45 @@ CAPTURE_VERSION = 'topic-capture-v6'  # Identity-checked, explicitly attributed 
 MAX_CAPTURE_CANDIDATES = 40
 
 
+def geographic_query_variant(plan: QueryPlan, entities: dict | None) -> str | None:
+    """One registered place-name alternative, without altering quoted scope.
+
+    Search providers can return different coverage for a country's long name
+    and its abbreviation. This changes discovery wording, never the local
+    evidence/date/geography checks or entity identities.
+    """
+    places = [e for e in (entities or {}).values()
+              if e.get('entity_type') == 'geography' and e.get('status') == 'active']
+    owners: dict[str, set[str]] = {}
+    for entity in places:
+        for name in [entity.get('name') or '', *(entity.get('aliases') or [])]:
+            owners.setdefault(name.casefold(), set()).add(entity['id'])
+    pieces = re.split(r'("[^"]*")', plan.interpreted_query)
+    for entity in sorted(places, key=lambda e: (-len(e.get('name') or ''), e['id'])):
+        names = list(dict.fromkeys(filter(None, [entity.get('name'), *(entity.get('aliases') or [])])))
+        for name in names:
+            if len(name) < 2 or len(owners[name.casefold()]) != 1:
+                continue
+            alternate = next((n for n in names if n.casefold() != name.casefold()
+                              and len(owners[n.casefold()]) == 1), None)
+            if not alternate:
+                continue
+            # Short aliases must retain their registered case: 'us' is not US.
+            pattern = re.compile(r'(?<![\w-])' + re.escape(name) + r'(?!\w)',
+                                 0 if len(name) <= 3 else re.I)
+            for index in range(0, len(pieces), 2):
+                if pattern.search(pieces[index]):
+                    changed = list(pieces)
+                    changed[index] = pattern.sub(lambda _: alternate, changed[index], count=1)
+                    return ''.join(changed)
+    return None
+
+
 def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     identity_basis = [{k:e.get(k) for k in ('id','name','aliases','berry_ids')} for e in (entities or {}).values() if e.get('entity_type')=='variety']
-    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id'])], sort_keys=True).encode()).hexdigest()
+    geography_variant = geographic_query_variant(plan, entities)
+    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant], sort_keys=True).encode()).hexdigest()
     path = inbox_dir / "topic_research_cache" / f"{key}.json"
     # Serialize cold starts so repeated requests do not buy the same search.
     with _LOCK:
@@ -49,6 +84,8 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         started = time.monotonic()
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         variants = [plan.raw_query, plan.interpreted_query]
+        if geography_variant:
+            variants.append(geography_variant)
         if plan.cane_type:
             variants.extend([plan.interpreted_query + " new variety releases trials", plan.interpreted_query + " licensing international development"])
         queries = list(dict.fromkeys(variants))[:4]

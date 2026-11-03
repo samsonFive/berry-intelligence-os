@@ -3736,3 +3736,6 @@ TD-SEARCH-001 November 3 follow-up: all 314 fresh source units dispositioned (23
 
 
 TD-VARIETY-SOURCE-PARITY-001 November 3 recovery: ten new pending source-detail rows from four primary sources bring the fixed import to 148 rows. Twilight breeder-card units are unknown; Victoria robotics observations retain technical limits; Zara’s conditional CFIA coded dossier conflicts with the prior comparison; BK 6-13 retains an unresolved patent identity bridge. All four holds and canonical trait gaps remain. No trust promotion or deployment.
+
+
+TD-SEARCH-001 November 3 UK repair: registered country aliases now supply one bounded discovery variant, and multiword country tokens no longer preempt the trial-location check. Post-inspection UK diagnostic improves from two to six inspected direct top-ten sources (one unknown); AHDB recovered as rank-11 verification lead. Frozen acceptance unchanged, aggregate parity unverified. Cumulative paid search 127/128; warm rerun zero. Full CI required on final head; deployment held.
