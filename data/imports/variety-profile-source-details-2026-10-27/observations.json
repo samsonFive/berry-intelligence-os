@@ -2903,6 +2903,104 @@
           "context": "Oregon type-level extension guidance, not a variety-specific pruning experiment or a universal phenology calendar."
         }
       ]
+    },
+    {
+      "variety_id": "variety-promyk-3fb5c2e4",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Breeder descriptions and the 2024 conference abstract are pending source reports, not approved traits. Harvest dates are local, disease claims lack test protocols, and neither source establishes storage days, current rights or a commercial growing footprint. General yellow-raspberry health claims are excluded.",
+      "sources": {
+        "1": {
+          "url": "https://en.niwabrzezna.pl/varieties/raspberries/promyk/",
+          "title": "NIWA — Promyk (English)",
+          "kind": "Primary breeder variety profile",
+          "locator": "Promyk heading and first two descriptive paragraphs"
+        },
+        "2": {
+          "url": "https://niwabrzezna.pl/odmiany/maliny/promyk/",
+          "title": "NIWA — Promyk (Polish)",
+          "kind": "Primary breeder variety profile",
+          "locator": "Named fruiting, fruit, Brix and pathogen-response fields"
+        },
+        "3": {
+          "url": "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf",
+          "title": "EHC 2024 — Polish primocane raspberry and blackberry cultivars",
+          "kind": "Breeder-authored conference abstract",
+          "locator": "S05-I-O-6, PDF pages 5–6; Promyk continues at the top of page 6"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & season",
+          "value": "Yellow-fruited primocane raspberry; breeder reports current-year cane harvest beginning in August.",
+          "source_id": "1",
+          "context": "NIWA product description; local timing is not a calendar for other climates. No release date inferred from website copyright."
+        },
+        {
+          "field": "Fruit",
+          "value": "Breeder describes firm, glossy, conical yellow berries averaging about 5 g, with transport suitability.",
+          "source_id": "1",
+          "context": "No sampling design or storage duration supplied; qualitative postharvest wording is not a measured shelf life."
+        },
+        {
+          "field": "Soluble solids",
+          "value": "Polish breeder page reports 12.2% Brix.",
+          "source_id": "2",
+          "context": "Measurement and sampling conditions are unspecified. The English edition omits this number; the two editions are one breeder, not independent confirmation."
+        },
+        {
+          "field": "Disease & pest qualifications",
+          "value": "Polish page claims raspberry-rust resistance and high spider-mite susceptibility.",
+          "source_id": "2",
+          "context": "Breeder assertion without a disclosed resistance-test protocol; general disease wording must not conceal the stated pest susceptibility."
+        },
+        {
+          "field": "Experimental yield context",
+          "value": "2024 abstract groups Promyk with Magnat, Baron and Delniwa at 1 kg per cane on primocanes.",
+          "source_id": "3",
+          "context": "Potted high-tunnel evaluation in Brzezna, Southern Poland. The abstract does not give replication or seasons. Husaria floricane yield/height and Maryna blackberry fruit size are separate results and are not Promyk traits."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-alice-208b5a1b",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Historical HDC breeder report only; source details await review. Measurements and disease responses describe those trials, not present-day universal performance, registration status or a growing footprint. EM726 remains a cited source designation, not an approved alias.",
+      "sources": {
+        "1": {
+          "url": "https://projectbluearchive.blob.core.windows.net/media/Default/Research%20Papers/Horticulture/SF%20021a%20strawberry%20variety%20trials%20final%20report%202004.pdf",
+          "title": "HDC SF21a (2004) — strawberry variety trials, D.W. Simpson",
+          "kind": "Primary breeder technical report",
+          "locator": "Alice profile: PDF page 13, printed page 11"
+        }
+      },
+      "details": [
+        {
+          "field": "Season",
+          "value": "Main-season strawberry; report places the 50% harvest date seven days after Elsanta, with a longer harvest period.",
+          "source_id": "1",
+          "context": "Historical UK breeder trials. Relative cultivar timing is not a universal harvest date."
+        },
+        {
+          "field": "Yield & fruit size",
+          "value": "Trial net yield is described as similar to Elsanta, with over 70% of berries above 35 mm and typically over 80% Class 1.",
+          "source_id": "1",
+          "context": "Source-reported historical trial proportions; diameter is not berry mass. These figures are not replicated commercial guarantees."
+        },
+        {
+          "field": "Disease qualifications",
+          "value": "Report describes Verticillium-wilt and crown-rot resistance in East Malling tests; less mildew susceptibility than Elsanta, while recommending a standard spray programme.",
+          "source_id": "1",
+          "context": "These are reported test responses, not immunity. Powdery-mildew management remains explicitly necessary; no current legal or pesticide guidance is inferred."
+        }
+      ]
     }
   ]
 }

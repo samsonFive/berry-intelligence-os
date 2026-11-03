@@ -19,8 +19,8 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 70
-    assert sum(len(n['details']) for n in notes.values()) == 243
+    assert len(notes) == 72
+    assert sum(len(n['details']) for n in notes.values()) == 251
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 3
     for variety in varieties:
@@ -163,3 +163,23 @@ def test_new_primary_profiles_render_scoped_measurements_and_citations():
     assert any('4–6 g' in r['value'] and 'breeder average' in r['context']for r in treasure['details'])
     liberty=notes[by_name['Liberty']['id']]
     assert any('15,146'in r['value']and 'present legal status not checked'in r['value']for r in liberty['details'])
+
+
+def test_promyk_and_alice_render_pending_scoped_details_without_canonical_mutations():
+    payload, varieties = corpus(); notes = validate_notes(payload, varieties)
+    env = Environment(loader=FileSystemLoader('app/templates'), autoescape=True)
+    env.filters['us_date'] = str
+    template = env.get_template('_variety_profile_sources.html')
+    for key in ['variety-promyk-3fb5c2e4', 'variety-alice-208b5a1b']:
+        note = notes[key]
+        rendered = template.render(authoring_mode=True, static_build=False, variety_profile_sources=note)
+        assert 'Pending review' in rendered
+        assert all(row['value'] in rendered for row in note['details'])
+        assert all(source['url'] in rendered for source in note['sources'].values())
+        assert not template.render(authoring_mode=True, static_build=True, variety_profile_sources=note).strip()
+        variety = next(v for v in varieties if v['id'] == key)
+        assert not variety['aliases'] and not variety['fact_ids']
+        assert not variety.get('attributes', {}).get('traits')
+    promyk = notes['variety-promyk-3fb5c2e4']
+    assert any('spider-mite susceptibility' in r['value'] for r in promyk['details'])
+    assert any('Husaria' in r['context'] and 'Maryna' in r['context'] for r in promyk['details'])

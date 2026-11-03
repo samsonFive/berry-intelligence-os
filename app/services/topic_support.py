@@ -131,6 +131,7 @@ def organizations_in_passage(text, groups):
 
 def identity_in_passage(text, entity):
     from app.services.topic_retrieval import normalize
+    original = text
     text=re.sub(r"(?<!\w)'|'(?!\w)",'',normalize(text))
     for name in [entity.get('name') or '',*(entity.get('aliases') or [])]:
         name=normalize(name)
@@ -142,8 +143,15 @@ def identity_in_passage(text, entity):
         # Explicit cultivar grammar prevents a person's namesake becoming a trait.
         if re.search(r'\b(?:variety|cultivar|blackberry|raspberry|blueberry|strawberry|named|called|introduce\w*)\s+(?:the\s+)?'+name+r'(?!\w)',text):return True
         if re.search(r'\b(?:includes?|including|such as)\s+(?:the\s+)?(?:variety|cultivar)\s+[^.!?]{0,350}(?<!\w)'+name+r'(?!\w)',text):return True
-        descriptors=r'(?:(?:ever bearer|everbearer|primocane fruiting|floricane fruiting|thornless|early|late|midseason)\s+){0,3}'
+        descriptors=r'(?:(?:ever bearer|everbearer|primocane fruiting|floricane fruiting|thornless|early|late|midseason|main season|mid late|june bearing|day neutral|short day)\s+){0,3}'
         if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+(?:a\s+)?(?:new\s+)?|(?:a|the)\s+)?'+descriptors+r'(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
+        # A parenthesized experimental cultivar list owns its crop context,
+        # including when a PDF page break falls inside the list. Names outside
+        # that explicit list (authors, other crops) do not inherit the context.
+        for group in re.finditer(r'\b(?:evaluated|tested|compared)\s+(?:(?:primocane|floricane)\s+)?(raspberries|blackberries|blueberries|strawberries)\b[^.!?]{0,250}\(([^)]+)\)', original, re.I):
+            crop = normalize(group[1])
+            if 'berry-' + crop in entity.get('berry_ids', []) and re.search(r'(?<!\w)' + name + r'(?!\w)', normalize(group[2])):
+                return True
     return False
 
 
