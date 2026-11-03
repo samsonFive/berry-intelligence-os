@@ -1,3 +1,17 @@
+# Live News performance and remaining closeout — November 2, 2026
+
+Approved #475 is live at `6c2feaf1` /tested `c666a481`, retaining #474 and all
+earlier approved releases. All four checks /6,094 tests, fresh isolated complete
+model/HTML and route/PDF preservation, live health/data/settings, backup/rollback
+and proxy restoration pass. The first safe rollback and legitimate News refresh
+are retained; no data was restored or exempted. No repeated approval is needed.
+
+See [the closeout audit](MISSION-CLOSEOUT-2026-11-02.md) for remaining cold
+performance, catalog completeness, human review and real-provider Learn acceptance.
+The separate company/Candidates performance prototype has325 focused passing
+checks but requires controlled workflow measurements and final acceptance. It is
+not deployed or approved. Earlier dated notes below remain historical evidence.
+
 # Verified live Help and current performance draft — November 2, 2026
 
 Approved Help/checklist #474 is deployed as `7fa7dd53`, retaining #473 and

@@ -67,6 +67,42 @@ def test_newest_publication_always_first_not_priority_or_capture():
     assert ids(project(rows, state=state)) == ['ev-new', 'ev-middle', 'ev-old']
 
 
+def test_explicit_company_scope_skips_unrelated_news_work_without_losing_mentions(monkeypatch):
+    monkeypatch.setitem(ENTITIES,'company-grower',dict(ENTITIES['company-grower'],name='Verdant Genetics'))
+    rows=[article('ev-linked'),
+          article('ev-legacy',title='Verdant Genetics launches blueberry breeding programme',entity_ids=[]),
+          article('live-unlinked',title='Verdant Genetics launches blueberry breeding programme',entity_ids=[],live=True),
+          article('ev-unrelated',title='Other company expands blueberry nursery',entity_ids=['company-other'])]
+    state=feed_first.empty_state();facts=[dict(id='fact-linked',status='active',evidence_ids=['ev-linked'])]
+    before=deepcopy((rows,state,facts));calls=[];qualify=news._qualifying_news
+    def measured(title,*args):
+        calls.append(title)
+        return qualify(title,*args)
+    monkeypatch.setattr(news,'_qualifying_news',measured)
+    result=project(rows,{'company':'company-grower'},state=state,facts=facts)
+    assert set(ids(result))=={'ev-linked','ev-legacy'}
+    assert result['counts']=={'trusted':1,'unreviewed':2}
+    legacy=next(card for card in result['cards']if card['id']=='ev-legacy')
+    assert legacy['company_mentions'][0]['id']=='company-grower'
+    assert len(calls)==2 and rows[-1]['title']not in calls
+    assert (rows,state,facts)==before
+
+
+def test_company_early_scope_retains_the_original_malformed_record_path(monkeypatch):
+    # A non-news row with malformed old entity links was previously discarded
+    # by relevance screening. Early preparation must not introduce an error.
+    row=article(entity_ids=[{}]);calls=[]
+    def rejected(*args):
+        calls.append(True)
+        return False
+    monkeypatch.setattr(news,'_qualifying_news',rejected)
+    assert ids(project([row],{'company':'company-grower'}))==[] and calls==[True]
+    # Once the same malformed row passes screening, retain the old failure
+    # rather than quietly hiding malformed linked data.
+    monkeypatch.setattr(news,'_qualifying_news',lambda *args:True)
+    with pytest.raises(TypeError):project([row],{'company':'company-grower'})
+
+
 def test_trusted_requires_reviewed_source_plus_active_escalation():
     rows = [article('ev-escalated'), article('ev-source-reviewed'), article('live-raw', live=True),
             article('ev-auto', submitted_by='auto'), article('ev-retired')]
