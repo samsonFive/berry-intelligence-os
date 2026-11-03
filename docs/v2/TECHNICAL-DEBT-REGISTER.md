@@ -3603,3 +3603,7 @@ TD-122 stays open; no coverage or human decision is upgraded.
 ### November 3 — NEWS-03 publisher navigation clarity
 
 [The source destination child](READER-SOURCE-DESTINATIONS-REVIEW.md) corrects Google News links described as publisher articles and rejects failed/mismatched/consent/homepage capture destinations. It preserves recorded URLs, source bodies and human decisions. Initial 112 focused checks pass; desktop/phone, final CI and release review remain. The feed stays metadata-only; opaque wrappers with no existing resolution still require publisher navigation. This does not close TD-122 or source/body availability and fidelity review.
+
+### November 3 — TD-122 empty declaration preparation
+
+[The empty-declaration child](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md) skips only base-parser paths that cannot contain an existing declaration. The isolated prototype preserves all complete typed outputs/HTML across eight fresh processes, with modest variable gains. All 294 affected checks pass. No grammar, source, canonical identity, human decision or cache change; final current-code acceptance remains. Frozen #483 retains its separate approval scope. TD-122 stays open.

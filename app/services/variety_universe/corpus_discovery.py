@@ -123,6 +123,13 @@ _SPLIT_LIST_RE = re.compile(r"\s*(?:,|;|\band\b)\s*", re.IGNORECASE)
 # rather than emitting a shortened identity and dropping the rest of the list.
 _NAMED_TOKEN = r"[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ][\w'’+\-]*){0,7}(?![\w+\-]|\s+[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ])"
 _NAMED_ITEM = rf"['‘’\"“”]?{_NAMED_TOKEN}['‘’\"“”]?"
+# Every base declaration below needs one of these literals or a pipe table.
+# Keep this necessary-syntax gate aligned when adding a declaration format.
+# No word boundaries: the original grammar also accepts adjacent delimiters
+# and concatenated labels; IGNORECASE retains its Unicode matching behavior.
+_DECLARATION_HINT_RE = re.compile(
+    r"varieties|cultivars|denominations|selection|variedades|odmiany", re.IGNORECASE,
+)
 _EXPLICIT_LIST_RE = re.compile(
     rf"\b(?:(?P<species>(?i:blueberry|strawberry|raspberry|blackberry))\s+)?"
     rf"(?i:varieties|cultivars|denominations)\s*(?i:including|include|named|such as|are|:)\s*"
@@ -540,6 +547,8 @@ def _declared_names(summary, record, blocked, *, source_text=False):
     mentions, exclusions = [], []
     berries = _berries(record)
     fallback = berries[0] if len(berries) == 1 else ""
+    if type(summary) is str and "|" not in summary and not _DECLARATION_HINT_RE.search(summary):
+        return [], []
     formatted, excluded = explicit_summary_formats(summary, name_token=_NAMED_TOKEN)
     exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
     for row in formatted:

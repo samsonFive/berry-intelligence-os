@@ -1322,3 +1322,7 @@ is withdrawn and excluded from this child.
 ### November 3 — existing-source link presentation
 
 [Reader source destinations](READER-SOURCE-DESTINATIONS-REVIEW.md) improve navigation to existing captured publisher articles and honestly label unresolved Google News links. No source is onboarded, recovered, reviewed or counted as new coverage. There are no acquisition calls or canonical/catalog additions; source/body availability and worldwide recall remain unproven.
+
+### November 3 — declaration preparation only
+
+[Empty declaration preparation](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md) is read-time CPU work, not an increase in source/name coverage. Existing multilingual forms, tables, exclusions, code/name distinctions and all human gates remain. No source is fetched, onboarded, reviewed or promoted; worldwide completeness and independent human audit remain unproven.

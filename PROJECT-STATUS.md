@@ -1,3 +1,12 @@
+# Empty declaration preparation — November 3, 2026
+
+The [declaration preparation child](docs/v2/EMPTY-DECLARATION-PERFORMANCE-REVIEW.md)
+retains frozen #483 and changes one runtime file. An eight-process server-copy
+prototype preserves complete typed models/HTML and skips 19,982 empty parser
+paths, with modest variable cold-load gains. All 294 affected checks pass;
+final acceptance remains. No data, grammar, identity or human decision changes.
+TD-122 remains open. #483's separate pending approval does not cover this child.
+
 # Reader source-link follow-up — November 3, 2026
 
 The [source destination repair](docs/v2/READER-SOURCE-DESTINATIONS-REVIEW.md)

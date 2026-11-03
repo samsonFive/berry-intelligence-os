@@ -1,3 +1,13 @@
+# Declaration preparation continuation — November 3, 2026
+
+Frozen #483 (`d8a28e31`) passes all four PR and canonical-base checks, 6,214 tests,
+native desktop/phone review and fresh isolated preservation; it remains
+unapproved and undeployed. The [empty-declaration child](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md)
+continues TD-122 with one runtime-file change and 294 passing affected checks.
+Its prototype retains complete typed output/HTML, all source and human gates,
+and original 31 definitions/order. Final acceptance remains; broad cold loads
+and independent catalog/source/photo/Map decisions remain open here.
+
 # Current Reader continuation — November 3, 2026
 
 Approved #477 is deployed at `1ad5084f`; that approval is complete. #480 remains
