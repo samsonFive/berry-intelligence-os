@@ -193,7 +193,7 @@ def test_post_evaluation_sources_keep_provisional_resistance_and_historical_righ
     assert 'HTTP capture remains blocked' in baya['limitations']
     aketzali = notes['variety-aketzali-049da825']
     assert aketzali['status'] == 'limited' and 'agronomic sheet' in aketzali['limitations']
-    assert any('not a new sale of rights' in r['context'] for r in aketzali['details'])
+    assert any('not a new cultivar or a new sale of rights' in r['context'] for r in aketzali['details'])
     titania = notes['variety-titania-eb4ee7e8']
     assert any('Grant edition differs' in r['context'] for r in titania['details'])
     assert 'public reproduction' in titania['limitations'] and 'blackcurrant' in titania['limitations']
