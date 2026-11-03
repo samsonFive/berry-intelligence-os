@@ -41,6 +41,19 @@ def test_saved_primary_urls_respect_positive_name_and_crop():
     assert not client._registry('strawberry Synthetic Scarlet')
 
 
+def test_registered_catalog_follows_exact_named_sheet_without_recursive_or_external_links():
+    entity=dict(id='v',entity_type='variety',name='Synthetic Scarlet',berry_ids=['berry-strawberry'],attributes={'identity_review':{'source_url':'https://breeder.example/varieties/'}})
+    body=b'<main><a href="/sheets/synthetic-scarlet.pdf">Technical sheet</a><a href="/sheets/other.pdf">Other Scarlet</a><a href="https://outside.example/synthetic-scarlet.pdf">Synthetic Scarlet</a><a href="http://127.0.0.1/synthetic-scarlet">Synthetic Scarlet</a></main>'
+    reads=[]
+    def primary(url):reads.append(url);return body
+    client=PublicResearchSearchClient(entities={'v':entity},get=metadata,primary_get=primary)
+    hits=client.search('strawberry "Synthetic Scarlet" breeder technical sheet').hits
+    assert hits[0].url=='https://breeder.example/sheets/synthetic-scarlet.pdf'
+    assert reads==['https://breeder.example/varieties/'] and client.primary_page_requests==1
+    assert not client._primary_links('strawberry -"Synthetic Scarlet"',client._registry('strawberry -"Synthetic Scarlet"'))
+    assert not any('outside.example'in h.url or 'other.pdf'in h.url for h in hits)
+
+
 def test_total_public_outage_is_failure_even_with_registered_seed():
     def fail(url):raise TimeoutError('private transport detail')
     client=PublicResearchSearchClient(get=fail)
@@ -123,6 +136,8 @@ def test_requested_document_format_does_not_reject_owned_variety_description():
     record=dict(id='x',title='Synthetic Scarlet variety description',article={'paragraphs':[{'index':0,'text':'The strawberry variety Synthetic Scarlet was bred by Synthetic Breeder. The variety has firm fruit.'}]})
     assert match_record(record,plan_query('strawberry "Synthetic Scarlet" breeder technical sheet'),entities={'v':entity})['support_status']=='body_supported'
     assert match_record(record,plan_query('strawberry "technical sheet" "Synthetic Scarlet"'),entities={'v':entity}) is None
+    caption={**record,'article':{'paragraphs':[{'index':0,'text':'Strawberry variety Synthetic Scarlet is shown in the photograph.'}]}}
+    assert match_record(caption,plan_query('strawberry "Synthetic Scarlet" breeder technical sheet'),entities={'v':entity})['support_status']=='scope_unverified'
 
 
 def test_primary_auth_fault_circuits_across_queries_and_resets_after_cooldown():

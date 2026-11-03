@@ -10,7 +10,7 @@ import json
 import re
 import time
 import threading
-from urllib.parse import urlencode, quote, urlsplit
+from urllib.parse import urlencode, quote, urlsplit, urljoin,unquote
 
 import httpx
 from lxml import etree, html
@@ -68,8 +68,11 @@ class PublicResearchSearchClient:
     entities: dict = field(default_factory=dict)
     primary_sources: dict = field(default_factory=dict)
     get: object = None
+    primary_get: object = None
     failures: list = field(default_factory=list)
     requests: int = 0
+    primary_page_requests: int = 0
+    primary_page_failures: list = field(default_factory=list)
     _lock: object = field(default_factory=threading.Lock, repr=False)
 
     def _read(self, url, host):
@@ -135,6 +138,45 @@ class PublicResearchSearchClient:
             # DOI resolution is identity-specific; deposited abstracts are
             # separately acquired/provenanced by the existing copy reader.
             out.append(SearchHit(_text((r.get('title')or[''])[0]),'https://doi.org/'+quote(doi,safe='/'),_text(r.get('abstract'))[:600]))
+        return out
+
+    def _primary_links(self, query, seeds):
+        """Find named sheets on already registered public catalog pages.
+
+        Two same-host pages, no recursive crawl, no inferred cultivar aliases.
+        Each linked candidate still needs independent body/scope inspection.
+        """
+        if self.get is not None and self.primary_get is None:return []
+        from app.services.topic_retrieval import normalize
+        positive=normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)','',query))
+        names={normalize(n) for e in self.entities.values() for n in [e.get('name')or'',*(e.get('aliases')or[])]
+               if e.get('entity_type')=='variety' and len(normalize(n))>=4 and re.search(r'(?<!\w)'+re.escape(normalize(n))+r'(?!\w)',positive)}
+        out=[]
+        for seed in seeds[:2]:
+            if urlsplit(seed.url).path.lower().endswith(('.pdf','.epub','.zip')):continue
+            with self._lock:self.primary_page_requests+=1
+            try:
+                if self.primary_get is not None:raw=self.primary_get(seed.url)
+                else:
+                    with httpx.Client(timeout=4,follow_redirects=False)as client:
+                        final,raw,_,_,status,_=_bounded_public_response(seed.url,client,limit=750_000)
+                    if status!=200 or urlsplit(final).hostname.removeprefix('www.')!=urlsplit(seed.url).hostname.removeprefix('www.'):
+                        self.primary_page_failures.append('PrimaryCatalogUnavailable')
+                        continue
+                root=html.fromstring(raw,parser=html.HTMLParser(no_network=True))
+                anchors=sorted(root.xpath('//a[@href]'),key=lambda a:not urlsplit(a.get('href')).path.lower().endswith('.pdf'))
+                for anchor in anchors:
+                    target=urljoin(seed.url,anchor.get('href'))
+                    if target==seed.url or not is_public_http_url(target)or urlsplit(target).hostname.removeprefix('www.')!=urlsplit(seed.url).hostname.removeprefix('www.'):continue
+                    label=' '.join(anchor.itertext()).strip()
+                    text=normalize(label+' '+unquote(urlsplit(target).path).replace('_',' '))
+                    if any(re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',text)for name in names):
+                        out.append(SearchHit(label or seed.title,target,'Named link from registered primary catalog; identity, claims and dates require inspection.'))
+                    if len(out)>=4:return out
+            except Exception as exc:
+                # A source-page parse/access failure is not a global outage.
+                self.primary_page_failures.append(type(exc).__name__)
+                continue
         return out
 
     def _pmc(self, query, count):
@@ -205,7 +247,7 @@ class PublicResearchSearchClient:
         registry=self._registry(query)
         # Interleave scholarly/news lanes so one fuzzy index cannot consume the
         # acquisition budget. Preserve ordering within each provider lane.
-        rows=registry[:4]
+        rows=[*self._primary_links(query,registry),*registry[:4]]
         for i in range(count):
             rows.extend(items[i]for _,items in results if i<len(items))
         seen=set();hits=[]

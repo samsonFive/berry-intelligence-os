@@ -508,6 +508,10 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             capture["status_code"] = status_code
             return capture
         content_type = str(headers.get("content-type") or headers.get("Content-Type") or "")
+        if raw.startswith(b'PK\x03\x04') or 'application/epub+zip'in content_type.lower():
+            # ZIP/EPUB containers are not HTML. Keep them as explicit format
+            # gaps rather than decoding compressed bytes into source passages.
+            return {**empty_capture(final,reason='unsupported-archive-format'),'content_kind':'archive','status_code':status_code}
         if looks_like_pdf(final, content_type=content_type, body=raw):
             passages = extract_pdf_text(raw)
             availability = "excerpt_only" if passages else "metadata_only"

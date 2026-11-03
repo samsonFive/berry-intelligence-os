@@ -18,6 +18,14 @@ def test_rejects_private_and_local_urls():
     assert is_public_http_url("not-a-url") is False
 
 
+def test_epub_archive_bytes_cannot_become_article_passages(monkeypatch):
+    from app.services import feed_first_reader as reader
+    monkeypatch.setattr(reader,'_bounded_public_response',lambda *a,**k:('https://publisher.example/article/epub',b'PK\x03\x04compressed bytes',{'content-type':'application/epub+zip'},'utf8',200,False))
+    capture=reader.fetch_public_article('https://publisher.example/article/epub',client=object())
+    assert not capture['ok'] and capture['passages']==[]
+    assert capture['reason']=='unsupported-archive-format'
+
+
 def test_frame_policy_is_honest():
     assert frame_allowed({}) is True
     assert frame_allowed({"x-frame-options": "DENY"}) is False

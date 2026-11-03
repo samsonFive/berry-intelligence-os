@@ -13,6 +13,7 @@ def passage_intent_supported(text, plan):
     from app.services.topic_retrieval import normalize
     words=set(plan.terms)
     plain=normalize(text)
+    if 'breeder'in words and not re.search(r'\b(?:breeder|breeding|bred|origin\w*|parentage|cross\w*|select\w*)\b',plain):return False
     if 'license' in words:
         # Article copyright and open-access licences are not cultivar deals.
         licensing=re.search(r'\b(?:licen[sc](?:e|es|ed|ing)\s+(?:to|for|in|across|outside|agreement|arrangement|rights|territory|territories)|licen[sc](?:e|es|ed|ing)\s+(?:the\s+)?(?:blackberry|blueberry|raspberry|strawberry|variety)|(?:licen[sc]e|licen[sc]ing)\s+(?:agreement|deal|partner|program|programme)|(?:propagation|growing|commercialisation|commercialization)\s+rights)\b',plain)
@@ -153,4 +154,6 @@ def trial_location_in_passage(text, places, *, require_trial=True):
     if not places:return True
     text=normalize(text)
     if require_trial and not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
-    return all(any(re.search(r'\b(?:in|at|across|within|near|for|throughout|outside) (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:trial|evaluation|experiment|licen[sc]\w*|territor\w*|agreement)',text) for place in group) for group in places)
+    prepositions='in|at|across|within|near'if require_trial else'in|at|across|within|near|for|throughout|outside'
+    subjects='trial|evaluation|experiment'if require_trial else'licen[sc]\\w*|territor\\w*|agreement'
+    return all(any(re.search(r'\b(?:'+prepositions+r') (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:'+subjects+r')',text) for place in group) for group in places)
