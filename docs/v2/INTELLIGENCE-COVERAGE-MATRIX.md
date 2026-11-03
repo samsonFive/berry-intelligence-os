@@ -1,3 +1,14 @@
+# Crop-word preparation — November 3, 2026
+
+[The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
+It retains the full global source corpus and original Unicode matcher, skipping
+only scans with no necessary crop prefix. The eight-process prototype preserves
+complete typed models/HTML and improves the two measured route medians by about
+12% and 6%; final-code acceptance remains. Initial 112 focused tests pass.
+No cache, grammar, canonical identity, source addition or human decision changes.
+TD-122, source/catalog/photo and held Map reviews remain open. Original 31
+definitions/order and the governing guide remain unchanged. #477 remains live.
+
 # November 2 competitive source-review coverage
 
 The [source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) updates the private 166-entity population to 4,122 rows / 932 source-ledger entries across 48 inputs. Mapping review: 3,983 accepted structure, 135 context only, four unresolved. Eligible cells: 395, comprising 15 Provisional and 380 Unknown. Eleven additional narrow proposals preserve historical trial periods and new observation dates separately. The original 855-URL technical audit and 31 manually inspected URLs have distinct meanings; neither is a count of verified independent facts. Thirteen selected source references yield 24 retained News metadata captures after URL deduplication. Published Evidence/Atomic Fact counts and the frozen inventory are unchanged. Earlier coverage accounts below are historical.
@@ -1294,3 +1305,35 @@ October8 social quality audit: a fixed30-caption stratified diagnostic sample ex
 October 8 social source follow-up: bounded Atomus X search returned five supplied-English posts with reported dates in the requested October7–8 window; shared private normalization/replay succeeded. This is partial source access, not qualified consumer/market coverage, native-source fidelity or health-claim evidence. Rights/deletion refresh remain open; collection disabled. See SOCIAL-APIFY-TRIAL.md for exact scope and charges.
 
 October 12 manual social production: [manual collection](SOCIAL-MANUAL-PRODUCTION.md) adds operator-triggered, bounded funded discovery across berries and corporate/agtech/consumer search scopes. Corporate scope is a search target, not author ownership. Facebook remains two known company pages; Instagram hashtag scope and provider-dependent dates remain explicit. New coverage must be measured from real collection receipts; funding alone does not upgrade access or recall qualification.
+
+November 3 variety recall repair: the retained Hortifrut July30 article names
+Vicentina / raspberry but previously produces zero private variety mentions.
+The [bounded handoff draft](COMPANY-ARTICLE-NAME-HANDOFF-REVIEW.md) recognizes an
+explicit crop/name declaration and surfaces already-derived article names beside
+company source observations. One retained capture now yields its missing lead;
+the original33 company portfolio rows remain. This adds no source, canonical
+variety, role, footprint, reviewed fact or recall qualification. Independent
+human expected names and broader current/historical catalog coverage remain open.
+
+November 3 Learn acceptance: one explicitly authorized public-topic high-effort
+request completed, preserving the prior two jobs/two lessons and producing one
+editable AI draft. Reported cost was USD0.13679. Its83 captured links are not83
+verified sources or a recall score. Two OSU guides were checked; blocked
+paper/video checks remain disclosed. [Acceptance and presentation repair](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md)
+do not add competitive Evidence, canonical sources, traits or review decisions.
+
+November 3 source preparation: [the performance child](SOURCE-PROSE-PERFORMANCE-REVIEW.md)
+reduces repeated text work with unchanged assertions, exclusions, typed discovery
+output and source/identity review boundaries. Its measurements add no source,
+canonical variety, approved identity, photo permission or recall qualification.
+Prior coverage classes, counts, current/historical gaps and independent human
+expected-name requirements remain. The unrelated catalog-batch experiment481
+is withdrawn and excluded from this child.
+
+### November 3 — existing-source link presentation
+
+[Reader source destinations](READER-SOURCE-DESTINATIONS-REVIEW.md) improve navigation to existing captured publisher articles and honestly label unresolved Google News links. No source is onboarded, recovered, reviewed or counted as new coverage. There are no acquisition calls or canonical/catalog additions; source/body availability and worldwide recall remain unproven.
+
+### November 3 — declaration preparation only
+
+[Empty declaration preparation](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md) is read-time CPU work, not an increase in source/name coverage. Existing multilingual forms, tables, exclusions, code/name distinctions and all human gates remain. No source is fetched, onboarded, reviewed or promoted; worldwide completeness and independent human audit remain unproven.

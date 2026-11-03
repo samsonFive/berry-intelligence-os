@@ -645,10 +645,10 @@ def test_company_route_renders_canonical_backbone_for_real_planasa_data():
     service function in isolation."""
     page = TestClient(app).get("/entities/company/company-planasa?tab=intelligence")
     assert page.status_code == 200
-    assert "Canonical portfolio" in page.text
+    assert "Recorded portfolio" in page.text
     assert "Blue Manila" in page.text
     assert "Breeding programs" in page.text
     assert "Planasa blueberry breeding programme" in page.text
-    assert "Canonical footprint" in page.text
-    assert "Canonical corporate relationships" in page.text
+    assert "Recorded operating regions" in page.text
+    assert "Recorded company relationships" in page.text
     assert "not yet distinct predicates in this schema" in page.text

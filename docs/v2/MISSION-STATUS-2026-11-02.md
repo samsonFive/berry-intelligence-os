@@ -1,3 +1,28 @@
+# Live477 and remaining integrated review — November 3, 2026
+
+Approved #477 is merged and independently verified live at `1ad5084f`, tested
+`0ff4c5d6`. Fresh backup/rollback, all five accounts, 65 profiles, 10,539 existing
+JSON records, four databases and private research were preserved; settings/mounts
+and the original proxy remain. Its approval is complete.
+
+Draft #480 is reconciled onto477 and retains article-name handoffs, company
+Intelligence hierarchy and the real Learn acceptance presentation repair.
+[Combined review](COMPANY-READING-COMBINED-REVIEW.md) and
+[Learn acceptance](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md) record the
+boundaries. One authorized high-effort request completed at a provider-reported
+USD0.13679; its lesson remains an editable AI draft. No further paid request.
+The current #480 head passes all four checks (6,165 tests), native desktop/phone
+review and fresh isolated preservation. Separate release approval remains.
+Earlier476-base6157-test acceptance stays dated. All original31 definitions/order and human gates remain. Cold loads,
+independent catalog/source and Map decisions and wider Learn source/media quality
+remain in this same active mission.
+
+The [source text preparation child](SOURCE-PROSE-PERFORMANCE-REVIEW.md) follows actual server profiles.
+Its prototype improves both tested cold routes with identical discovery models
+and HTML; 544 affected implementation checks pass. Final acceptance remains.
+The rejected catalog-batch experiment481 is closed and excluded. Neither change
+is included in pending480 approval. All human review decisions remain.
+
 # Active same-thread mission — November 3, 2026
 
 Approved performance #476 is merged and verified live at `50659fcd`, tested head

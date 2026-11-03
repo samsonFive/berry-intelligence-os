@@ -2,7 +2,7 @@
 {% from "_company_controls.html" import tracking with context %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}{{ name }} · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/news_workspace.css">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/company_dossier.css?v=1"><link rel="stylesheet" href="/static/news_workspace.css">{% endblock %}
 {% block content %}
 {% set linked_varieties = company_linked_varieties|default([]) %}
 {% set has_company_portfolio = dossier.backbone and dossier.backbone.portfolio %}

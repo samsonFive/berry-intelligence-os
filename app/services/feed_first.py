@@ -610,6 +610,7 @@ def present_item(
     capture: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     from app.services.feed_first_reader import merge_capture
+    from app.services.reader_source_links import source_links
 
     record = merge_capture(record, capture)
     item_id = str(record.get("id") or "")
@@ -656,6 +657,7 @@ def present_item(
         "source_kind": kind,
         "display_kind": display_kind,
         "source_url": record.get("source_url") or "",
+        **source_links(record, capture=capture),
         "published_at": published,
         "date_uncertain": date_uncertain,
         "captured_at": record.get("captured_date") or "",

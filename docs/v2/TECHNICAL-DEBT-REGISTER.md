@@ -1,3 +1,14 @@
+# Crop-word preparation — November 3, 2026
+
+[The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
+It retains the full global source corpus and original Unicode matcher, skipping
+only scans with no necessary crop prefix. The eight-process prototype preserves
+complete typed models/HTML and improves the two measured route medians by about
+12% and 6%; final-code acceptance remains. Initial 112 focused tests pass.
+No cache, grammar, canonical identity, source addition or human decision changes.
+TD-122, source/catalog/photo and held Map reviews remain open. Original 31
+definitions/order and the governing guide remain unchanged. #477 remains live.
+
 # November 2 dense view correction
 
 [The dense-view repair](COMPETITIVE-DENSE-VIEWS-REVIEW.md) closes the observed People list/form layout and duplicate stylesheet defects. Shared tables cover all six record views; captured-news panels use the same dense archive table. Existing source/identity/evidence-depth gaps remain unchanged, and TD-001..004 remain closed. No paid acquisition or trust action.
@@ -3562,3 +3573,48 @@ A bounded production-copy experiment compared63,113 text predicates including
 15,761 positives. Reordering UI checks or using a literal-union regex preserved
 all decisions but produced no useful improvement; both variants are rejected.
 No Reader/source/discovery/identity changes are retained. TD-122 remains open.
+### November 3 — CAT-01 captured-article handoff gap
+
+The retained Hortifrut article is readable but its explicit Vicentina raspberry
+wording produces zero mentions; Company Varieties also ignores article candidates.
+See [bounded repair](COMPANY-ARTICLE-NAME-HANDOFF-REVIEW.md). This draft recognizes
+an adjacent-crop possessive declaration and reuses article mentions for private
+company handoffs. Original portfolio rows, exact-source identity and current
+human decisions remain. No canonical entity, role, footprint, subscription or
+review decision is created. Final acceptance remains; CAT-01/TD-116 and TD-122
+stay open. This is not a worldwide completeness or performance claim.
+### November 3 — Company Intelligence presentation follow-up
+
+[The UI-03/INT-01 follow-up](COMPANY-DOSSIER-READABILITY-REVIEW.md) moves registry metadata and record IDs into closed disclosures, humanizes profile codes for display only and keeps questions, literal reviewed statements, source quotations and assessment prerequisites intact. Native/final checks and separate release approval remain. This does not close broader UI review, TD-122 cold loads or any catalog/source/rights/Map/Learn human decision. No provider call or data addition.
+
+### November 3 — Real Learn acceptance and visual reading gap
+
+[One authorized real-provider run](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md)
+completed at reported USD0.13679, with no duplicate POST or trust promotion.
+The actual result exposed absent default visual context, a duplicate title and
+raw emphasis/numbered-list presentation. The same draft reuses canonical visuals
+only for one literal title/alias match, keeps explicit selections, and preserves
+every saved text/request/source/edit. All92 affected checks pass. Fresh combined
+acceptance and separate release approval remain. Unknown/ambiguous topics do not
+guess a diagram. No provider field, acquisition, source identity or qualification
+change. Broader media/source review and TD-122 remain open.
+
+### November 3 — TD-122 source text preparation
+
+The catalog-batch experiment #481 is withdrawn: preservation passed but fresh
+production-copy pages were flat. Its code is excluded. A subsequent server
+profile identifies source-text preparation and article declaration checks as
+larger costs. The [source-prose prototype](SOURCE-PROSE-PERFORMANCE-REVIEW.md)
+preserves complete typed discovery models and HTML while improving both tested
+cold routes. The isolated implementation changes two runtime files; 544 affected
+Reader/News/article/source-fidelity checks pass. Final acceptance and separate
+release approval remain.
+TD-122 stays open; no coverage or human decision is upgraded.
+
+### November 3 — NEWS-03 publisher navigation clarity
+
+[The source destination child](READER-SOURCE-DESTINATIONS-REVIEW.md) corrects Google News links described as publisher articles and rejects failed/mismatched/consent/homepage capture destinations. It preserves recorded URLs, source bodies and human decisions. Initial 112 focused checks pass; desktop/phone, final CI and release review remain. The feed stays metadata-only; opaque wrappers with no existing resolution still require publisher navigation. This does not close TD-122 or source/body availability and fidelity review.
+
+### November 3 — TD-122 empty declaration preparation
+
+[The empty-declaration child](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md) skips only base-parser paths that cannot contain an existing declaration. The isolated prototype preserves all complete typed outputs/HTML across eight fresh processes, with modest variable gains. All 294 affected checks pass. No grammar, source, canonical identity, human decision or cache change; final current-code acceptance remains. Frozen #483 retains its separate approval scope. TD-122 stays open.

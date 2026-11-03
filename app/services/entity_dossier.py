@@ -451,7 +451,27 @@ def build_dossier(
             statements=statements,
             archetype=archetype,
         )
-        questions.append({**question, "answer_state": answer_state, "answer": answer})
+        # Display labels never alter the registry, stored metadata or source wording.
+        # Only controlled profile codes are humanized; statement text stays exact.
+        profile_answer = question["id"] in {
+            "entity.identity.canonical_name",
+            "entity.identity.entity_type",
+            "entity.identity.operating_status",
+            "entity.identity.website",
+            "entity.activity.berry_roles",
+        }
+        code_answer = question["id"] in {
+            "entity.identity.entity_type",
+            "entity.identity.operating_status",
+            "entity.activity.berry_roles",
+        }
+        questions.append({
+            **question,
+            "answer_state": answer_state,
+            "answer": answer,
+            "display_answer": answer.replace("_", " ") if code_answer else answer,
+            "answer_basis": "profile" if profile_answer else "reviewed_statement",
+        })
     applicable = [row for row in questions if row["answer_state"] != "not_applicable"]
     answered = [row for row in applicable if row["answer_state"] == "answered"]
     conflicts = [row for row in statements if row.get("statement_state") == "conflicting"]

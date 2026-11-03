@@ -1,3 +1,58 @@
+# Crop-word preparation — November 3, 2026
+
+[The crop-word child](docs/v2/CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
+It retains the full global source corpus and original Unicode matcher, skipping
+only scans with no necessary crop prefix. The eight-process prototype preserves
+complete typed models/HTML and improves the two measured route medians by about
+12% and 6%; final-code acceptance remains. Initial 112 focused tests pass.
+No cache, grammar, canonical identity, source addition or human decision changes.
+TD-122, source/catalog/photo and held Map reviews remain open. Original 31
+definitions/order and the governing guide remain unchanged. #477 remains live.
+
+# Empty declaration preparation — November 3, 2026
+
+The [declaration preparation child](docs/v2/EMPTY-DECLARATION-PERFORMANCE-REVIEW.md)
+retains frozen #483 and changes one runtime file. An eight-process server-copy
+prototype preserves complete typed models/HTML and skips 19,982 empty parser
+paths, with modest variable cold-load gains. All 294 affected checks pass;
+final acceptance remains. No data, grammar, identity or human decision changes.
+TD-122 remains open. #483's separate pending approval does not cover this child.
+
+# Reader source-link follow-up — November 3, 2026
+
+The [source destination repair](docs/v2/READER-SOURCE-DESTINATIONS-REVIEW.md)
+follows tested #482. It corrects misleading Google News publisher labels,
+validates exact-source successful saved destinations and keeps publisher
+websites visible when the article remains unresolved. The initial 112 focused
+checks pass; final acceptance remains. No original URL/data/review decision is
+rewritten, and feed browsing adds no capture-body or discovery reads. Frozen
+#480/#482 retain their existing approval scopes. #477 is already live.
+
+# Live477 and remaining integrated review — November 3, 2026
+
+Approved #477 is merged and independently verified live at `1ad5084f`, tested
+`0ff4c5d6`. Fresh backup/rollback, all five accounts, 65 profiles, 10,539 existing
+JSON records, four databases and private research were preserved; settings/mounts
+and the original proxy remain. Its approval is complete.
+
+Draft #480 is reconciled onto477 and retains article-name handoffs, company
+Intelligence hierarchy and the real Learn acceptance presentation repair.
+[Combined review](docs/v2/COMPANY-READING-COMBINED-REVIEW.md) and
+[Learn acceptance](docs/v2/LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md) record the
+boundaries. One authorized high-effort request completed at a provider-reported
+USD0.13679; its lesson remains an editable AI draft. No further paid request.
+The current #480 head passes all four checks (6,165 tests), native desktop/phone
+review and fresh isolated preservation. Separate release approval remains.
+Earlier476-base6157-test acceptance stays dated. All original31 definitions/order and human gates remain. Cold loads,
+independent catalog/source and Map decisions and wider Learn source/media quality
+remain in this same active mission.
+
+The [source text preparation child](docs/v2/SOURCE-PROSE-PERFORMANCE-REVIEW.md) follows actual server profiles.
+Its prototype improves both tested cold routes with identical discovery models
+and HTML; 544 affected implementation checks pass. Final acceptance remains.
+The rejected catalog-batch experiment481 is closed and excluded. Neither change
+is included in pending480 approval. All human review decisions remain.
+
 # Active same-thread mission — November 3, 2026
 
 Approved performance #476 is merged and verified live at `50659fcd`, tested head

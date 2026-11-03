@@ -512,7 +512,8 @@ def test_directory_search_and_source_queue_surface_missing_portfolio_names(tmp_p
     queue = client.get("/varieties/candidates?source=ev-hortifrut-genetic-development&berry=berry-blueberry")
     assert queue.status_code == 200
     assert "Prelude" in queue.text and "Sensation" in queue.text
-    assert "Source context, not an approved breeder or owner relationship" in queue.text
+    assert "Companies linked to this source" in queue.text
+    assert "Source links do not prove that each company is named in the article or has a breeder or owner relationship" in queue.text
     assert not (tmp_path / "inbox" / "variety_candidates").exists()
 
 

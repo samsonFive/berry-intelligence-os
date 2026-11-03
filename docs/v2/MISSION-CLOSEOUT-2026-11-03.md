@@ -1,3 +1,17 @@
+# Current closeout continuation — November 3, 2026
+
+#477 is deployed and independently verified at `1ad5084f`. Its approval is
+complete. #480 is frozen at `53dd52e3`, tested and awaiting separate release
+approval. #482 is frozen at `078efa67`, passes all four checks (6,187 tests),
+native desktop/phone review and fresh isolated preservation, and is not
+approved or deployed. The ineffective catalog batch481 was withdrawn.
+
+The one authorized real Learn request completed and remains an editable AI
+draft; no further paid request is authorized. Cold catalog visits remain slow,
+and the independent source/name/role/photo and held Map decisions remain open.
+The [Reader source-link child](READER-SOURCE-DESTINATIONS-REVIEW.md) continues
+NEWS-03 without changing those review gates or either frozen release head.
+
 # Remaining work in the original Berry Intelligence mission
 
 The user explicitly continued this mission here. The open requirements stay in
