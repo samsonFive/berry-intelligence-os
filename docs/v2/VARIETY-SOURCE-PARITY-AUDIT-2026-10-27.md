@@ -54,3 +54,15 @@ The fixed import is deliberately not automatic freshness monitoring or a replace
 Validation: 62 affected source-detail/source-reading, variety-workspace, field-coverage, source-body and publication/static-safety tests pass. Actual authenticated Chromium checks opened all 33 profile routes and verified every one of the 138 rendered values, conditions and source links, demo exclusions and identity notices with zero page errors. Desktop/mobile screenshots were inspected; mobile has no document-width overflow. Canonical record validation passes. This is a scoped validation, not a full-suite or global source-parity acceptance claim.
 
 The isolated static build wrote 1,794 pages and built Pagefind successfully. Draft leakage validation passed; an additional scan of every emitted HTML file found no source-note panel or unique source-note condition text. This build was local validation only, not deployment.
+
+
+## November 3 — primary-source workarounds for limited profiles
+
+Four newly captured primary sources add ten pending rows to the existing source-note import (148 rows across the same 31 real profiles). All four identity holds remain:
+
+- Twilight: Mountain Blue’s named blueberry card supplies a late-season grouping and raw values (weight 3, size 19, Brix 12, firmness 49). Missing units/instrument/trial conditions remain explicit. No protected code is inferred, and USDA’s Twilight blackberry is excluded as a different crop.
+- Victoria: a GCRI-funded researcher report describes Driscoll’s Victoria as an elongated-fruit reference in July 2024 lab/polytunnel robotics work at NIAB/Clockhouse. Vision, alignment, human intervention and teleoperation limitations remain; this is not validated commercial autonomous harvesting or a yield claim.
+- Zara: CFIA’s own DrisStrawFiftyNine description adds a conditional coded dossier from Portugal’s 2019–2020 examination. Its mid-season flowering/ripening, few stolons and foliage-level inflorescences differ from the retained 2021 Chilliwack Zara-reference comparison. Both trial contexts stay visible. The code-to-Zara association, parentage and rights are not approved.
+- BK 6-13: the exact PS-BK3-17.006-13 patent supplies conditional breeding/season/fruit details in central-coast California conditions. That patent does not itself establish the BK 6-13/Rejoice bridge. Its data is not assigned as canonical traits or used to convert a multi-variety platform claim into an individual verified cultivar claim.
+
+Original source captures remain private under `inbox/search-quality-evaluation/variety-recovery-2026-11-03/`. These bounded recoveries reduce visible information gaps without approving identities, aliases, Facts, traits, rights or growing footprints. Complete breeder-sheet/registry reconciliation and maintained global source-to-profile parity remain open. Deployment remains held for user review.

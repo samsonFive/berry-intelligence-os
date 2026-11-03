@@ -1441,3 +1441,6 @@ November 3 UTC source recovery: 37 inaccessible URLs now have official repositor
 
 
 November 3 source-review completion: all 314 new source units have explicit dispositions, with 231 graded and 94 unassessable query/source pairs. Actual Google comparison covers all 20 frozen questions, including 16 prospectively new cases. Open-copy recovery and conservative quotation-scope repairs do not upgrade evidence classes, source independence, trusted traits or source coverage maturity. Broader precision/event coverage acceptance and variety parity remain unverified; deployment held.
+
+
+November 3 limited-variety recovery: four primary captures add ten source-reported rows to the same 31-profile import (148 total). Breeder card, research report, official denomination description and patent lead remain separate evidence scopes. Identity holds and disagreement are retained; no reviewed trait/right/footprint coverage upgrade.

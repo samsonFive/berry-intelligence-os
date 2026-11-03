@@ -20,7 +20,7 @@ def test_real_import_resolves_exact_31_real_profiles_without_canonical_mutation(
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
     assert len(notes) == 31
-    assert sum(len(n['details']) for n in notes.values()) == 138
+    assert sum(len(n['details']) for n in notes.values()) == 148
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
     for variety in varieties:
@@ -57,6 +57,24 @@ def test_specific_numbers_and_cultivar_boundaries():
     assert 'Beatrice' not in values('zara')
     assert all('25358' not in s['url'] for s in notes['variety-bonita']['sources'].values())
     assert 'platform' in values('bk-6-13')
+
+
+def test_recovered_primary_details_keep_identity_and_measurement_limits():
+    payload, varieties = corpus()
+    notes = validate_notes(payload, varieties)
+    for slug in ['twilight', 'victoria', 'zara', 'bk-6-13']:
+        note = notes['variety-'+slug]
+        assert note['status'] == 'identity_hold'
+        assert note['checked_on'] == '2026-11-03'
+    twilight = notes['variety-twilight']
+    assert 'units' in twilight['limitations'].lower()
+    assert 'blackberry' in twilight['limitations'].lower()  # explicitly excluded crop homonym
+    zara = notes['variety-zara']
+    assert any('mid-season' in row['value'] and 'very late' in row['context'] for row in zara['details'])
+    assert 'not approved' in zara['limitations'] or 'unreviewed' in zara['limitations']
+    patent = notes['variety-bk-6-13']
+    assert any('bridge' in row['context'] and 'not established' in row['context'] for row in patent['details'])
+    assert all(not v.get('attributes', {}).get('traits') for v in varieties if v['id'] in notes)
 
 
 def test_private_template_escapes_values_and_preserves_conditions_and_citations():

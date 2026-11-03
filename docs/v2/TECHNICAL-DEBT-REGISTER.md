@@ -3733,3 +3733,6 @@ TD-SEARCH-001 November 3 UTC recovery: legitimate Europe PMC open copies and pub
 
 
 TD-SEARCH-001 November 3 follow-up: all 314 fresh source units dispositioned (231 graded/94 unknown pairs). Twenty real comparable Google captures and 16 prospective questions are preserved; aggregate parity/nDCG/event coverage remain unverified. Five new quotation contexts handled in v11: four withheld and one review moved to background; 17 inspected quotations pass exact fidelity with zero open contexts in this replay. Source-copy label/provenance auditing repaired. UK trial precision and remaining access gaps remain explicit. Current-head full CI and user deployment review remain required; no trusted writes or merge/deployment.
+
+
+TD-VARIETY-SOURCE-PARITY-001 November 3 recovery: ten new pending source-detail rows from four primary sources bring the fixed import to 148 rows. Twilight breeder-card units are unknown; Victoria robotics observations retain technical limits; Zara’s conditional CFIA coded dossier conflicts with the prior comparison; BK 6-13 retains an unresolved patent identity bridge. All four holds and canonical trait gaps remain. No trust promotion or deployment.

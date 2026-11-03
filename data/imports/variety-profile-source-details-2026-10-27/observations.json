@@ -173,15 +173,21 @@
       "berry_ids": [
         "berry-blackberry"
       ],
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-11-03",
       "status": "identity_hold",
-      "limitations": "The existing profile names Rejoice as its brand. The current primary page is platform-wide; BK 6-13-specific measurements and a primary code-to-product sheet remain missing. No new code, alias or rights are approved.",
+      "limitations": "The current Rejoice primary page remains platform-wide and does not identify BK 6-13. An exact PS-BK3-17.006-13 patent supplies a conditional research lead; the connection to BK 6-13 is not approved. Patent conditions and platform claims remain separate; cultivar measurements/rights cannot be transferred across an unresolved identity.",
       "sources": {
         "1": {
           "url": "https://rejoiceblackberry.com/",
           "title": "PSG — Rejoice platform",
           "kind": "Breeder platform marketing",
           "locator": "Platform introduction"
+        },
+        "2": {
+          "url": "https://patents.google.com/patent/USPP34597P2/en",
+          "title": "USPP34597P2 — PS-BK3-17.006-13",
+          "kind": "Breeder-authored patent description; conditional identity lead",
+          "locator": "Abstract; Background; Brief Summary; Tables 5–7"
         }
       },
       "details": [
@@ -190,6 +196,24 @@
           "value": "Rejoice promotes year-round primocane blackberries and low reversion at platform level; not established here for BK 6-13 individually",
           "source_id": "1",
           "context": "Brand/platform scope only. Page describes multiple varieties and does not identify BK 6-13; no platform performance is assigned as a cultivar trait."
+        },
+        {
+          "field": "Conditional patent lead",
+          "value": "USPP34597P2 describes the blackberry denomination PS-BK3-17.006-13",
+          "context": "The BK 6-13/Rejoice-to-patent bridge is not established by this patent itself and remains unreviewed. This source cannot approve a new alias, ownership, enforceability or current right.",
+          "source_id": "2"
+        },
+        {
+          "field": "Conditional patent fruit and season",
+          "value": "The coded patent reports mid-season primocane production, medium oblong fruit, good skin/flesh firmness and good flavour",
+          "context": "Applies to PS-BK3-17.006-13 in central-coast California trial conditions. Summary gives August–December primocanes and June–August floricanes the following year; not a worldwide year-round production guarantee.",
+          "source_id": "2"
+        },
+        {
+          "field": "Conditional patent breeding context",
+          "value": "Patent describes a 2017 Watsonville cross of BK3 14.046-34 with BK3 14.057-02 and subsequent asexual evaluation",
+          "context": "Do not assign this parentage or patent measurements to BK 6-13 until identity review establishes the bridge. Platform-wide zero-chill/low-reversion claims remain separate and unverified.",
+          "source_id": "2"
         }
       ]
     },
@@ -1318,15 +1342,21 @@
       "berry_ids": [
         "berry-blueberry"
       ],
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-11-03",
       "status": "identity_hold",
-      "limitations": "The current identity does not resolve a protected cultivar code. This source adds a historical label-specific claim, not agronomic measurements. A breeder sheet and identity reconciliation remain gaps.",
+      "limitations": "The breeder now provides a named Twilight blueberry card with season and raw numerical labels. Protected cultivar code and brand-to-denomination reconciliation remain unresolved. Units and protocols are missing. The historical marketer award remains label-specific; USDA Twilight blackberry is a different crop and is not attached here.",
       "sources": {
         "1": {
           "url": "https://www.berryworld.com/en-gb/berries/varieties",
           "title": "BerryWorld — Twilight",
           "kind": "Marketer variety page",
           "locator": "BerryWorld Twilight award entry"
+        },
+        "2": {
+          "url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "title": "Mountain Blue — Blueberries, Twilight card",
+          "kind": "Breeder named-variety card",
+          "locator": "Late Season; Twilight; Average Berry Specs"
         }
       },
       "details": [
@@ -1335,6 +1365,18 @@
           "value": "Marketer reports a two-star 2018 taste award for the BerryWorld Twilight label",
           "source_id": "1",
           "context": "Marketing label and historical award only; cultivar code and exact award-to-cultivar scope are unresolved."
+        },
+        {
+          "field": "Breeder season grouping",
+          "value": "Twilight appears in Mountain Blue’s late-season blueberry group",
+          "context": "Named Twilight card, checked November 3, 2026. The page does not identify a protected denomination, growing site, trial year or chill requirement.",
+          "source_id": "2"
+        },
+        {
+          "field": "Breeder card values — units not supplied",
+          "value": "Twilight card lists weight 3, average berry size 19, Brix 12 and firmness 49",
+          "context": "Transcribed labels and numbers only. Weight/size/firmness units, instrument and test conditions are not stated; do not interpret firmness 49 as grams or infer storage life. Adjacent Midnight has similar values and remains a different named card.",
+          "source_id": "2"
         }
       ]
     },
@@ -1343,15 +1385,21 @@
       "berry_ids": [
         "berry-blackberry"
       ],
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-11-03",
       "status": "identity_hold",
-      "limitations": "No cultivar-specific breeder sheet was located. The guide uses Driscoll Victoria without a protected denomination; source-to-profile identity needs review. Fruit size, yield, chill and postharvest remain unknown.",
+      "limitations": "A primary 2024 robotics report adds named Victoria fruit-shape and research-use observations. The prior Australian pest comparison remains separate. No protected denomination, breeder technical sheet, quantitative yield/chill/postharvest data or official right is established; identity hold retained.",
       "sources": {
         "1": {
           "url": "https://berries.net.au/wp-content/uploads/2024/05/Berry-plant-protection-guide-2023-24-compressed.pdf",
           "title": "NSW Berry Plant Protection Guide 2023–24",
           "kind": "Government extension technical guide",
           "locator": "Printed page 63 / PDF page 65, Biological"
+        },
+        "2": {
+          "url": "https://www.gcritrust.org/wp-content/uploads/2024/12/Report-to-GCRI-Development-of-a-robotic-system-for-harvest-of-blackberries-final-2-Marcello.pdf",
+          "title": "GCRI — Development of a robotic system for harvest of blackberries",
+          "kind": "Researcher grant report",
+          "locator": "PDF pages 4–6; experiments July 15–18, 2024"
         }
       },
       "details": [
@@ -1360,6 +1408,18 @@
           "value": "Guide groups Driscoll Victoria and Chester as more susceptible to redberry mite than Elvira, Loch Ness and Karaka",
           "source_id": "1",
           "context": "Australian extension context; comparative susceptibility statement, not a quantified test or a treatment recommendation."
+        },
+        {
+          "field": "Research use and fruit shape",
+          "value": "Researchers used Driscoll’s Victoria fruit from Clockhouse Farm as the lab-model reference and describe its elongated shape and clear principal axis",
+          "context": "July 2024 NIAB/East Malling and Clockhouse Farm, Maidstone, UK. This is a named commercial-variety research observation, not a protected-denomination match or a size/yield measurement.",
+          "source_id": "2"
+        },
+        {
+          "field": "Robotic harvesting limitations",
+          "value": "At Clockhouse, the elongated fruit improved pose calculation; later user verification and teleoperation were still required, with sporadic successful ingestion",
+          "context": "The report documents vision/lighting and alignment bottlenecks. It does not establish reliable fully autonomous commercial harvesting, cultivar yield, shelf life or general machine-harvest suitability.",
+          "source_id": "2"
         }
       ]
     },
@@ -1368,15 +1428,21 @@
       "berry_ids": [
         "berry-strawberry"
       ],
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-11-03",
       "status": "identity_hold",
-      "limitations": "CFIA names Zara as DrisStrawFiftyNine in a comparison. This association remains unreviewed and is not added as a canonical alias. The report’s main plant/fruit description and rights belong to Beatrice, not Zara. A Zara breeder sheet remains missing.",
+      "limitations": "Own CFIA DrisStrawFiftyNine description is now available conditionally alongside the Zara reference comparison. Its season/stolon/inflorescence account differs from the 2021 comparison. Keep both trial contexts and the unreviewed code-to-Zara mapping; no canonical alias, parentage, trait or right is approved.",
       "sources": {
         "1": {
           "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011966e.shtml",
           "title": "CFIA — DrisStrawSeventyFour comparison",
           "kind": "Official variety-comparison report",
           "locator": "Summary; reference DrisStrawFiftyNine (Zara); tests and trials"
+        },
+        "2": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011211e.shtml",
+          "title": "CFIA — DrisStrawFiftyNine own variety description",
+          "kind": "Official denomination description; conditional identity lead",
+          "locator": "Variety Description; Origin & Breeding History; Tests & Trials"
         }
       },
       "details": [
@@ -1397,6 +1463,24 @@
           "value": "Strongly uneven surface, as a reference cultivar in this comparison",
           "source_id": "1",
           "context": "Chilliwack, British Columbia, 2021 trial; planted April 2020; three replicates of ten plants per variety. These are Zara reference comparisons, not the main Beatrice description."
+        },
+        {
+          "field": "Conditional coded-record description",
+          "value": "DrisStrawFiftyNine is described as fully remontant, semi-upright, medium vigour, with very large conical firm fruit",
+          "context": "Conditional dossier only: another CFIA comparison names Zara as DrisStrawFiftyNine, but that mapping is not approved here. Own description derives from Portugal’s Escaroupim examination in 2019–2020, CPVO application 2018/2736.",
+          "source_id": "2"
+        },
+        {
+          "field": "Season and morphology conflict",
+          "value": "Own DrisStrawFiftyNine record says mid-season flowering/ripening, few stolons and inflorescences at foliage level",
+          "context": "The existing 2021 Chilliwack Zara-reference comparison says very late season, many stolons and inflorescences beneath foliage. Different trials/identity ambiguity remain visible; neither account silently overwrites the other.",
+          "source_id": "2"
+        },
+        {
+          "field": "Conditional breeding history",
+          "value": "Own coded record reports a 2012 Kent, UK cross and selection in the Netherlands, followed by propagation/testing through 2016",
+          "context": "Reported parents are UUKE 116-003 and UUKE 167-027. These are attributed to the coded record, not newly approved Zara parentage or aliases. Rights metadata and current legal status require separate review.",
+          "source_id": "2"
         }
       ]
     },
