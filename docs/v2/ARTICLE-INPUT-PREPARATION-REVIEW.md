@@ -1,4 +1,8 @@
-# Reuse unchanged private article preparation
+# Article preparation experiment — excluded from release
+
+The final implementation preserves all eight complete outputs but makes the
+Company workflow slower. It is excluded from release and retained only on the
+experimental branch. No code from this experiment is merged or deployed.
 
 Company Varieties and Candidates rebuild the same complete private article
 selection on consecutive pages. This change reuses that selection within the
@@ -35,16 +39,29 @@ a claim that cold loading is solved.
 
 The implementation avoids duplicate stat calls for ordinary files while
 retaining link/target checks, preserves alias structure in its key and limits
-reuse to platforms with POSIX change-time semantics. Final-code full-workflow
-measurement is running. Its result must support release independently of the
-prototype. TD-122 remains open.
+reuse to platforms with POSIX change-time semantics. The exact-module comparison
+then measures Company cold 4.616 → 5.187 seconds and its two-page workflow
+6.013 → 6.434. Candidates cold is 4.595 → 4.742, while its workflow improves
+slightly from 6.231 → 6.103. These mixed/regressing results do not justify a
+release. The admitted memo occupies 9,271,581 bytes on the tested copy. Creating
+and validating that additional representation costs too much on the first visit.
+TD-122 remains open; faster later-page figures do not override this result.
+
+The measured runtime module SHA-256 is
+`c0f687c62d1eded5e42f8df0437ff0b517469b3e693530e148a2766ad0cd097b`;
+the private final result SHA-256 is
+`cb19e70d9a44bf5524d288cc875acd8c1297b9aa09681f6579d26f47d3b06d50`.
+Complete typed article bundles, the unfiltered universe, complete typed contexts
+and HTML match; source-copy bytes and healthy live state remain unchanged.
 
 Initial local validation passes 108 checks with three POSIX-only skips and zero
 attempted external connections. An additional fictional-source probe matches
 the original selector across 15 input and file changes, including capture
 deletion, image edits, consent fallback and pending review changes. Further
-Source Fidelity decision and concurrent-change cases, Linux CI, desktop/phone
-review and fresh production-copy preservation remain before release approval.
+Source Fidelity decision cases pass locally; five cache-specific cases remain
+POSIX-only. The final local memo file passes 17 cases with those five skips and
+zero external attempts. Linux CI, browser and release rehearsal were not pursued
+after the whole-workflow measurement rejected the implementation.
 
 The separate offline restart-model experiment also preserves all 16 complete
 outputs and improves reuse after a worker restart. It writes only inside a
