@@ -3546,8 +3546,17 @@ Approved #476 is verified live at50659fcd with backup/rollback and all state
 preserved. The user explicitly continues this mission here. The new isolated
 company-tab change avoids News/location models on tabs that do not render them;
 Overview retains both, News retains every News field and Regions retains every
-location field. All76 affected checks pass. Complete HTML/active-context and
-next-click workflow measurements remain before a new speed/release claim.
+location field. The first head passes all four required checks; 76 affected
+local tests and a fresh isolated production-copy review pass. All64 complete
+responses and active/other contexts match, with the 16-request workflow
+21.41s → 18.89s. First Splendor Varieties remains essentially flat at5.9s;
+global News is slightly slower. This does not close the cold-load issue.
+
+Phone review also exposes excessive secondary context above the selected tab.
+The same draft groups the existing research destinations under a collapsed menu
+and compacts header spacing (first panel178px higher at412×915). Its intentional
+template/style changes require renewed final-head tests, native review and fresh
+production-copy checks. Earlier exact-head evidence is retained separately.
 
 A bounded production-copy experiment compared63,113 text predicates including
 15,761 positives. Reordering UI checks or using a literal-union regex preserved

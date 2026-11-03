@@ -38,12 +38,22 @@ times are diagnostic, not baseline/candidate latency measurements.
 
 An initial article-availability predicate probe encountered no article-body text
 checks in the public fixture. That empty population is not acceptance or speed
-evidence. A bounded test on the retained offline production-data copy therefore
-compares actual text checks, including positive consent/access examples. It
-exports counts/timings only, preserves all copied original files and makes no
-provider requests or production changes. Any retained implementation must still
-pass complete page and Reader comparisons, current-edit/trust checks and the full
-workflow, not just its text-predicate timing.
+evidence. The subsequent bounded offline production-copy probe checks 63,113
+actual text predicates, including 15,761 positive controls. Both proposed
+algorithms preserve decisions but fail to improve consistently, so both are
+rejected. No Reader predicate change is retained. No provider requests or
+production changes occur.
+
+Draft #477 instead prepares News and regions only on the company tabs that
+display them. The first head passes all four checks and a fresh isolated
+production-copy comparison: all 64 complete responses and active/other context
+match, with the 16-request workflow 21.41s → 18.89s. This is measured evidence,
+not a claim that the remaining cold-load issue is solved. A phone review then
+identified excess header height: existing secondary research links are grouped
+under a collapsed menu and spacing is tightened, bringing the selected tab's
+content 178px higher. This expanded head requires renewed tests, browser review,
+CI and fresh-copy preservation. See `COMPANY-TAB-PREPARATION-REVIEW.md` for the
+scope, measured limits and evidence boundaries.
 
 ## Release and review boundaries
 

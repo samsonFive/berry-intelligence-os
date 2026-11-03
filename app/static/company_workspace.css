@@ -16,3 +16,26 @@
 .company-research{scroll-margin-top:90px}.company-research-previous{border-top:1px solid #cfddc6;padding-top:12px;margin-top:10px}.company-research-previous>summary{font-size:.85rem;color:#536752}
 .company-research-anchor{position:relative;top:-85px;height:0}@media(max-width:800px){.company-research-anchor{top:-150px}}
 .company-varieties-empty{padding:10px 16px}.company-varieties-empty h2{font-size:1.05rem;margin:0}.company-varieties-empty .digest-toolbar{margin:0}
+
+/* Put company identity and the selected tab ahead of secondary research links. */
+.company-profile-heading{padding:0 0 6px;column-gap:12px}
+.company-back-row{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.company-identity{gap:10px;margin:4px 0}
+.company-identity img,.company-identity .company-large{width:48px;height:48px;border-radius:10px}
+.company-identity .eyebrow{font-size:.68rem;line-height:1.25;letter-spacing:.05em;margin:0}
+.company-profile-actions{gap:6px;margin:4px 0}
+.company-profile-heading>.company-socials{gap:10px;margin:2px 0}
+.company-tabs{padding:6px 0;gap:4px}
+.company-tabs>a{display:inline-flex;align-items:center;min-height:36px;padding:5px 10px;line-height:1.3}
+.company-context-menu{position:relative;flex:none}
+.company-context-menu>summary{display:flex;align-items:center;min-height:44px;padding:6px 10px;border:1px solid #aec3a3;border-radius:7px;background:#f6faf1;font-size:.8rem;cursor:pointer;list-style:none}
+.company-context-menu>summary::-webkit-details-marker{display:none}
+.company-context-menu>summary:after{content:'▾';margin-left:8px;font-size:.75em}
+.company-context-menu[open]>summary:after{content:'▴'}
+.company-context-panel{position:absolute;top:calc(100% + 4px);right:0;z-index:30;display:grid;gap:4px;width:min(340px,calc(100vw - 48px));max-height:min(28rem,calc(100dvh - 180px));overflow:auto;padding:8px;border:1px solid #9fb995;border-radius:10px;background:#fbfdf8;box-shadow:0 10px 28px #23432124;overflow-wrap:anywhere}
+.company-context-menu:not([open])>.company-context-panel{display:none}
+.company-context-panel>a,.company-context-panel .lw-entity-material>a{display:flex;align-items:center;min-height:44px;padding:6px 8px;font-size:.84rem;text-decoration:none;border-radius:5px}
+.company-context-panel a:hover{background:#e7f1df}
+.company-context-panel .lw-entity-material{padding:0;margin:0;border:0;box-shadow:none;background:transparent}
+.company-context-panel [data-lw-entity-items] p{margin:3px 8px;font-size:.8rem}
+@media(max-width:800px){.company-profile-heading h1{font-size:1.45rem}.company-profile-heading .company-profile-actions{gap:6px}.company-profile-heading .company-identity p{line-height:1.3}.company-profile-heading>.company-socials{gap:6px 10px}.company-profile-heading>.company-socials a{display:inline-flex;align-items:center;min-height:30px}.company-back-row{gap:6px}}

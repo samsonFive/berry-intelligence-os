@@ -10,8 +10,11 @@ are retained. The #476 approval is complete and must not be requested again.
 The user explicitly continued the remaining requirements in this mission/thread.
 [Current closeout work](docs/v2/MISSION-CLOSEOUT-2026-11-03.md) covers performance,
 catalog/source depth, human decisions, held Map figures and real-provider Learn
-acceptance. The new isolated active-tab performance change is not a release;
-76 affected tests pass and complete page/workflow acceptance is in progress.
+acceptance. Draft #477 prepares only visible company-tab models; its first head
+passes all four checks and fresh production-copy preservation with a 12% faster
+complete workflow. Phone review also prompted a compact header and grouped
+secondary research links. The expanded head is undergoing renewed acceptance;
+no new release is approved.
 All original 31 definitions/order and the governing guide remain unchanged.
 
 # Live News performance and remaining closeout — November 2, 2026

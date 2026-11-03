@@ -302,6 +302,70 @@ def test_profile_tabs_preserve_backbone_and_shared_reader(tmp_path, monkeypatch)
     assert not list(tmp_path.iterdir())
 
 
+@pytest.mark.parametrize("authoring,static", [(True, False), (False, False), (True, True)])
+def test_company_secondary_research_keeps_destinations_and_public_boundary(tmp_path, monkeypatch, authoring, static):
+    from html.parser import HTMLParser
+
+    class CompanyNavigation(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.menu = None
+            self.in_menu = False
+            self.destinations = []
+            self.workspace_hook = False
+            self.workspace_items = False
+            self.tabs = []
+            self.in_tabs = False
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'details' and attrs.get('class') == 'company-context-menu':
+                self.menu = attrs
+                self.in_menu = True
+            if self.in_menu:
+                if tag == 'a':
+                    self.destinations.append(attrs.get('href'))
+                self.workspace_hook |= 'data-lw-entity-material' in attrs
+                self.workspace_items |= 'data-lw-entity-items' in attrs
+            if tag == 'nav' and attrs.get('aria-label') == 'Company sections':
+                self.in_tabs = True
+            if self.in_tabs and tag == 'a':
+                self.tabs.append((attrs.get('href'), attrs.get('aria-current')))
+
+        def handle_endtag(self, tag):
+            if tag == 'details':
+                self.in_menu = False
+            if tag == 'nav':
+                self.in_tabs = False
+
+    # Exercise a real canonical profile, including its seed/dossier resolver.
+    monkeypatch.undo()
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
+    monkeypatch.setattr(main, 'AUTHORING_MODE', authoring)
+    # Render the actual route context, including its authoring/read-only gates.
+    from starlette.requests import Request
+    request = Request({'type': 'http', 'app': main.app, 'method': 'GET', 'scheme': 'http',
+                       'path': '/entities/company/company-planasa', 'query_string': b'tab=details',
+                       'headers': [], 'server': ('fixture.local', 80), 'client': ('127.0.0.1', 1), 'root_path': ''})
+    response = main.entity_detail(request, 'company', 'company-planasa')
+    assert response.status_code == 200
+    context = dict(response.context, static_build=static)
+    html = main.templates.env.get_template('feed_first_company.html').render(context)
+    navigation = CompanyNavigation()
+    navigation.feed(html)
+    if authoring and not static:
+        assert navigation.menu is not None and 'open' not in navigation.menu
+        assert navigation.destinations == ['/workspaces?entity=company-planasa', '/social?entity=company-planasa',
+                                           '/landscapes/explorer?countries=&focus=company-planasa']
+        assert navigation.workspace_hook and navigation.workspace_items
+    else:
+        assert navigation.menu is None and not navigation.destinations
+        assert not navigation.workspace_hook and not navigation.workspace_items
+    assert navigation.tabs == [('?tab=' + tab, 'page' if tab == 'details' else None)
+                               for tab in ['overview', 'news', 'intelligence', 'varieties', 'regions', 'people', 'details']]
+    assert not list(tmp_path.iterdir())
+
+
 def test_directory_list_rename_retains_existing_person_member(tmp_path, monkeypatch):
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     monkeypatch.setattr(main, "living_catalog", lambda: list(ENTITIES.values()))
