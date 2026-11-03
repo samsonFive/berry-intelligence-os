@@ -293,7 +293,7 @@ def test_profile_tabs_preserve_backbone_and_shared_reader(tmp_path, monkeypatch)
     assert overview.status_code == 200 and 'company_workspace.css' in overview.text
     assert 'Company sections' in overview.text and 'Profile &amp; links' in overview.text
     intelligence = client.get(base+'?tab=intelligence')
-    assert 'Canonical portfolio' in intelligence.text and 'Canonical corporate relationships' in intelligence.text
+    assert 'Recorded portfolio' in intelligence.text and 'Recorded company relationships' in intelligence.text
     assert 'Blue Manila' in client.get(base+'?tab=varieties').text
     assert 'Map Explorer' in client.get(base+'?tab=regions').text
     assert 'Add a person' in client.get(base+'?tab=people').text

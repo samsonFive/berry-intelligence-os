@@ -3572,3 +3572,6 @@ company handoffs. Original portfolio rows, exact-source identity and current
 human decisions remain. No canonical entity, role, footprint, subscription or
 review decision is created. Final acceptance remains; CAT-01/TD-116 and TD-122
 stay open. This is not a worldwide completeness or performance claim.
+### November 3 — Company Intelligence presentation follow-up
+
+[The UI-03/INT-01 follow-up](COMPANY-DOSSIER-READABILITY-REVIEW.md) moves registry metadata and record IDs into closed disclosures, humanizes profile codes for display only and keeps questions, literal reviewed statements, source quotations and assessment prerequisites intact. Native/final checks and separate release approval remain. This does not close broader UI review, TD-122 cold loads or any catalog/source/rights/Map/Learn human decision. No provider call or data addition.

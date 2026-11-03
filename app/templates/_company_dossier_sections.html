@@ -2,7 +2,7 @@
         <div class="bos-section-heading">
           <p class="bos-kicker">Snapshot</p>
           <h2>Current operating picture</h2>
-          <p class="bos-note">Entity metadata and explicitly confirmed statements only. Missing evidence stays visible.</p>
+          <p class="bos-note">Company profile, reviewed statements and recorded relationships. Gaps are shown where evidence is missing.</p>
         </div>
         <div class="bos-snapshot-grid">
           <article class="is-identity">
@@ -10,7 +10,7 @@
             <h3>{{ name }}</h3>
             <p>{{ profile.seed_entity_type if profile and profile.seed_entity_type else entity.entity_type or 'Entity type unresolved' }} · {{ status }}</p>
             <p>{% if official_website %}<a href="{{ official_website }}" rel="noopener noreferrer">Official website</a>{% else %}<span class="bos-gap-text">Headquarters / official site evidence incomplete</span>{% endif %}</p>
-            <p class="bos-meta">Entity metadata · not an analytical claim</p>
+            <p class="bos-meta">Company profile · separate from reviewed statements</p>
           </article>
           {% if 'berry-value-chain' in dossier.applicable_section_ids %}
           <article class="is-activity">
@@ -24,8 +24,8 @@
           {% if 'competitive-assessment' in dossier.applicable_section_ids %}
           <article class="is-analysis">
             <p class="bos-kicker">Competitive posture</p>
-            <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
-            <p>{{ dossier.assessment.conclusion }}</p>
+            <p class="bos-assessment-state">No approved competitive assessment</p>
+            <p class="bos-note">{{ 'More reviewed statements are needed before analysis can be prepared.' if dossier.assessment.state == 'insufficient_evidence' else 'Reviewed statements are available for an analyst to assess.' }}</p>
             <p class="bos-meta">{{ dossier.assessment.prerequisite_status }}</p>
           </article>
           <article class="is-vulnerability">
@@ -40,36 +40,35 @@
             {% if dossier.recent_changes %}
             <p>{{ dossier.recent_changes[0].statement_text }}</p>
             <a href="/today?item={{ dossier.recent_changes[0].feed_item_id }}">Open originating feed item</a>
-            {% else %}<p class="bos-gap-text">No confirmed recent change yet. Pending extractions never appear here.</p>{% endif %}
+            {% else %}<p class="bos-gap-text">No reviewed change recorded yet.</p>{% endif %}
           </article>
         </div>
       </section>
 
       <section id="recent-changes" class="bos-dossier-section">
-        <div class="bos-section-heading"><p class="bos-kicker">Recent Changes</p><h2>Feed-to-dossier impact</h2></div>
+        <div class="bos-section-heading"><p class="bos-kicker">Recent changes</p><h2>Latest reviewed developments</h2></div>
         {% if dossier.recent_changes %}
         <div class="bos-change-list">
           {% for row in dossier.recent_changes %}
           <article class="bos-fact-block">
             <p>{{ row.statement_text }}</p>
             <p class="bos-meta">Confirmed {{ row.confirmed_at or row.updated_at }} · {{ row.origin|replace('_', ' ') }}</p>
-            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
             {% if row.feed_item_id %}<a href="/today?item={{ row.feed_item_id }}">Open source reader</a>{% endif %}
-            <details><summary>Evidence</summary><blockquote>{{ row.supporting_passages[0] if row.supporting_passages else 'Support unavailable' }}</blockquote></details>
+            <details class="bos-record-details"><summary>Evidence & record details</summary><blockquote>{{ row.supporting_passages[0] if row.supporting_passages else 'Support unavailable' }}</blockquote><p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p></details>
           </article>
           {% endfor %}
         </div>
-        {% else %}<p class="bos-empty">No confirmed changes. Personal feedback does not approve intelligence. Reviewed statements appear here when available.</p>{% endif %}
+        {% else %}<p class="bos-empty">No reviewed developments recorded yet.</p>{% endif %}
       </section>
 
       <section id="identity-structure" class="bos-dossier-section">
-        <div class="bos-section-heading"><p class="bos-kicker">Identity & Structure</p><h2>Canonical record</h2></div>
+        <div class="bos-section-heading"><p class="bos-kicker">Identity & structure</p><h2>Company record</h2></div>
         <dl class="bos-dossier-dl">
-          <dt>Canonical name</dt><dd>{{ name }}</dd>
+          <dt>Name</dt><dd>{{ name }}</dd>
           <dt>Status</dt><dd>{{ status }}</dd>
           <dt>Verification</dt><dd>{{ verification_label }}</dd>
           <dt>Aliases</dt><dd>{{ aliases|join(', ') if aliases else 'None captured' }}</dd>
-          <dt>Registry boundary</dt><dd>{{ 'Source system · excluded from competitor counts' if is_registry else 'Operating entity' }}</dd>
+          <dt>Record type</dt><dd>{{ 'Source system · excluded from competitor counts' if is_registry else 'Operating entity' }}</dd>
         </dl>
       </section>
 
@@ -83,17 +82,17 @@
       ] %}
       {% if section_id in dossier.applicable_section_ids %}
       <section id="{{ section_id }}" class="bos-dossier-section">
-        <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>{{ title }}</h2></div>
+        <div class="bos-section-heading"><p class="bos-kicker">Reviewed statements & recorded relationships</p><h2>{{ title }}</h2></div>
         {% set rows = dossier.statement_groups.get(section_id, []) %}
         {% if rows %}
           {% for row in rows %}
           <article class="bos-fact-block">
             <p>{{ row.statement_text }}</p>
-            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
-            <details><summary>Inspect evidence</summary><blockquote>{{ row.supporting_passages[0] }}</blockquote></details>
+            <p class="bos-meta">Reviewed statement</p>
+            <details class="bos-record-details"><summary>Evidence & record details</summary><blockquote>{{ row.supporting_passages[0] }}</blockquote><p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p></details>
           </article>
           {% endfor %}
-        {% else %}<p class="bos-gap-text">No confirmed statements mapped to this section.</p>{% endif %}
+        {% else %}<p class="bos-gap-text">No reviewed statements recorded here yet.</p>{% endif %}
         {% if section_id == 'genetics-cultivars' and growing_profile and growing_profile.has_any %}
         <p class="bos-note">Learner context is educational context, not a Fact or competitive score.</p>
         <ul>{% for row in growing_profile.rows %}<li><a href="{{ row.href }}">{{ row.name }}</a>{% if row.trait_names %} · {{ row.trait_names|join(', ') }}{% endif %}</li>{% endfor %}</ul>
@@ -101,7 +100,7 @@
 
         {% if section_id == 'genetics-cultivars' and dossier.backbone and dossier.backbone.portfolio and dossier.backbone.portfolio.variety_rows %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Canonical portfolio · {{ dossier.backbone.portfolio.variety_rows|length }} variet{{ 'y' if dossier.backbone.portfolio.variety_rows|length == 1 else 'ies' }}</p>
+          <h3>Recorded portfolio · {{ dossier.backbone.portfolio.variety_rows|length }} variet{{ 'y' if dossier.backbone.portfolio.variety_rows|length == 1 else 'ies' }}</h3>
           <ul class="bos-portfolio-list">
             {% for row in dossier.backbone.portfolio.variety_rows %}
             <li>
@@ -114,13 +113,13 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="bos-meta">Canonical Relationship/Variety record · <a href="/entities/company/{{ entity_id }}/portfolio">Full portfolio</a></p>
+          <p class="bos-meta">Roles are recorded for each variety. <a href="/entities/company/{{ entity_id }}/portfolio">Full portfolio →</a></p>
         </div>
         {% endif %}
 
         {% if section_id == 'genetics-cultivars' and dossier.backbone and dossier.backbone.breeding_programs %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Breeding programs</p>
+          <h3>Breeding programs</h3>
           <ul>
             {% for program in dossier.backbone.breeding_programs %}
             <li>
@@ -130,7 +129,7 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="bos-meta">Real entity co-occurring with this Company across trusted Evidence</p>
+          <p class="bos-meta">These programs and this company appear in the same reviewed sources; this alone does not establish a relationship.</p>
         </div>
         {% endif %}
 
@@ -138,7 +137,7 @@
         {% set geo_rows = dossier.backbone.corporate_relationships|selectattr('party.entity_type', 'equalto', 'geography')|list %}
         {% if geo_rows %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Canonical footprint</p>
+          <h3>Recorded operating regions</h3>
           <ul>
             {% for row in geo_rows %}
             <li>
@@ -148,7 +147,7 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="bos-meta">Canonical Relationship record</p>
+          <p class="bos-meta">Recorded relationships · not a measure of acreage or market share</p>
         </div>
         {% endif %}
         {% endif %}
@@ -157,7 +156,7 @@
         {% set corp_rows = dossier.backbone.corporate_relationships|rejectattr('party.entity_type', 'equalto', 'geography')|list %}
         {% if corp_rows %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Canonical corporate relationships</p>
+          <h3>Recorded company relationships</h3>
           <ul>
             {% for row in corp_rows %}
             <li>
@@ -168,7 +167,8 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="bos-meta">Canonical Relationship record · roles beyond Breeder / Owner / Licensee / Marketer / Grower / Distributor (e.g. propagator, nursery, applicant, titleholder) are not yet distinct predicates in this schema</p>
+          <p class="bos-note">Only the recorded roles are shown. Other roles have not been established here.</p>
+          <details class="bos-record-details"><summary>Role coverage details</summary><p class="bos-meta">Canonical Relationship record · roles beyond Breeder / Owner / Licensee / Marketer / Grower / Distributor (e.g. propagator, nursery, applicant, titleholder) are not yet distinct predicates in this schema</p></details>
         </div>
         {% endif %}
         {% endif %}
@@ -176,7 +176,7 @@
         {% if section_id == 'scale-performance' and dossier.backbone and dossier.backbone.portfolio %}
         {% set coverage = dossier.backbone.portfolio.coverage %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Canonical portfolio coverage</p>
+          <h3>Portfolio evidence coverage</h3>
           <dl class="bos-dossier-dl">
             <dt>Varieties captured</dt><dd>{{ coverage.total_varieties }}</dd>
             <dt>With rights/IP filings</dt><dd>{{ coverage.varieties_with_rights }}</dd>
@@ -190,7 +190,7 @@
 
         {% if section_id == 'history' and dossier.backbone and dossier.backbone.portfolio and dossier.backbone.portfolio.recent_moves %}
         <div class="bos-backbone-block">
-          <p class="bos-kicker">Canonical recent portfolio moves</p>
+          <h3>Recent recorded portfolio moves</h3>
           <ul>
             {% for move in dossier.backbone.portfolio.recent_moves %}
             <li>{{ move.date }} · {{ move.kind }} · {{ move.title }}{% if move.variety_name %} ({{ move.variety_name }}){% endif %}{% if move.href %} · <a href="{{ move.href }}">source</a>{% endif %}</li>
@@ -204,10 +204,11 @@
 
       {% if 'competitive-assessment' in dossier.applicable_section_ids %}
       <section id="competitive-assessment" class="bos-dossier-section bos-analysis-block">
-        <div class="bos-section-heading"><p class="bos-kicker">Analysis · dated object</p><h2>Competitive Assessment</h2></div>
-        <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
-        <p>{{ dossier.assessment.conclusion }}</p>
-        <p class="bos-meta">Generated {{ dossier.assessment.generated_at or 'not yet' }} · confidence {{ dossier.assessment.confidence }} · supporting claims {{ dossier.assessment.supporting_statement_ids|length }}</p>
+        <div class="bos-section-heading"><p class="bos-kicker">Analyst interpretation</p><h2>Competitive Assessment</h2></div>
+        <p class="bos-assessment-state">No approved competitive assessment</p>
+        <p>{{ 'At least three reviewed statements are required before analysis can be prepared.' if dossier.assessment.state == 'insufficient_evidence' else 'Reviewed statements are available, but an analyst has not approved a competitive conclusion.' }}</p>
+        <p class="bos-meta">{{ dossier.assessment.prerequisite_status }}</p>
+        <details class="bos-record-details"><summary>Assessment status & details</summary><p>{{ dossier.assessment.conclusion }}</p><p class="bos-meta">{{ dossier.assessment.state|replace('_', ' ') }} · Generated {{ dossier.assessment.generated_at or 'not yet' }} · confidence {{ dossier.assessment.confidence }} · supporting claims {{ dossier.assessment.supporting_statement_ids|length }}</p></details>
       </section>
       {% endif %}
 
@@ -217,17 +218,17 @@
       </section>
 
       <section id="evidence-gaps" class="bos-dossier-section">
-        <div class="bos-section-heading"><p class="bos-kicker">Evidence, Gaps & Conflicts</p><h2>Progressive question coverage</h2><p class="bos-note">Inspect the questions, supporting sources and remaining research gaps.</p></div>
+        <div class="bos-section-heading"><p class="bos-kicker">Evidence, gaps & conflicts</p><h2>What we know & what needs research</h2><p class="bos-note">Inspect the questions, supporting sources and remaining research gaps. Profile answers are labeled separately from reviewed statements.</p></div>
         <div class="bos-question-list">
           {% for question in dossier.questions %}
           <article data-question-id="{{ question.id }}" data-answer-state="{{ question.answer_state }}">
-            <p class="bos-meta">Wave {{ question.wave }} · {{ question.section }} · {{ question.criticality }}</p>
             <h3>{{ question.question }}</h3>
             <p><span class="bos-state-pill is-{{ question.answer_state }}">{{ question.answer_state|replace('_', ' ') }}</span></p>
-            {% if question.answer %}<p>{{ question.answer }}</p>{% endif %}
+            {% if question.answer %}<p class="bos-question-answer">{{ question.display_answer }}</p><p class="bos-meta">{{ 'Company profile · not a reviewed statement' if question.answer_basis == 'profile' else 'Reviewed statement' }}</p>{% endif %}
             {% if question.answer_state in ['not_yet_researched', 'unknown', 'stale', 'conflicting'] %}
             <button class="bos-btn" type="button" data-launch-gap-research="{{ question.id }}">Research this gap</button>
             {% endif %}
+            <details class="bos-record-details"><summary>Question details</summary><dl class="bos-dossier-dl"><dt>Registry question</dt><dd>{{ question.id }}</dd><dt>Wave</dt><dd>{{ question.wave }}</dd><dt>Section</dt><dd>{{ question.section }}</dd><dt>Priority</dt><dd>{{ question.criticality }}</dd>{% if question.display_answer != question.answer %}<dt>Original profile value</dt><dd>{{ question.answer }}</dd>{% endif %}</dl></details>
           </article>
           {% endfor %}
         </div>
