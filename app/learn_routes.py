@@ -5,7 +5,7 @@ from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
-from app.services import learn_research, learner
+from app.services import learn_research, learner, learner_visuals
 from app.services.ai_gateway.credentials import MissingCredentialError, resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_deep_research import DeepResearchClient, ResearchError
 
@@ -136,9 +136,20 @@ def lesson_page(request: Request, key: str):
     row = store["lessons"].get(key)
     if not row:
         raise HTTPException(404, "This lesson is unavailable")
+    concepts = learner.all_concepts()
+    selected = row["request"].get("concept_id")
+    teaching_concept = next((concept for concept in concepts if concept["id"] == selected), None)
+    if not selected:
+        # Reuse a known visual only for one literal title/alias match. Never
+        # infer a concept from generated prose or rewrite the saved request.
+        matches = learner.glossary_hits_for_text(row["title"], limit=2)
+        if len(matches) == 1:
+            teaching_concept = next((concept for concept in concepts if concept["slug"] == matches[0]["slug"]), None)
+    if teaching_concept:
+        teaching_concept = learner_visuals.presentation(teaching_concept)
     return main.templates.TemplateResponse(request=request, name="learn_lesson.html", context={
-        "lesson": row, "job": store["jobs"][row["job_id"]], "blocks": learn_research.reading_blocks(row["text"], row["citations"]),
-        "teaching_concept": next((concept for concept in learner.all_concepts() if concept["id"] == row["request"].get("concept_id")), None),
+        "lesson": row, "job": store["jobs"][row["job_id"]], "blocks": learn_research.lesson_reading_blocks(row["text"], row["citations"], title=row["title"]),
+        "teaching_concept": teaching_concept,
         "pillar_label": learner.PILLAR_LABELS[row["request"]["pillar"]],
         "class_label": learner.KNOWLEDGE_CLASS_LABELS[row["request"]["knowledge_class"]],
         "return_to": learn_research.return_path(request.query_params.get("return_to") or row["request"]["return_to"]),

@@ -1,13 +1,21 @@
-# Combined company reading candidate — November 3, 2026
+# Live477 and remaining integrated review — November 3, 2026
 
-Verified live #476 remains unchanged. This review branch combines tested company
-tabs/navigation #477, captured-article variety handoffs #478 and company
-Intelligence readability #479. [Combined review and remaining work](COMPANY-READING-COMBINED-REVIEW.md)
-records the integration boundaries. Final combined-head tests, browser review,
-fresh isolated preservation and separate release approval remain. All original31
-definitions/order, existing records/edits and human review gates are preserved.
-The goal stays active here; cold loads, catalog/source and Map decisions, and real
-Learn-provider acceptance are not declared complete.
+Approved #477 is merged and independently verified live at `1ad5084f`, tested
+`0ff4c5d6`. Fresh backup/rollback, all five accounts, 65 profiles, 10,539 existing
+JSON records, four databases and private research were preserved; settings/mounts
+and the original proxy remain. Its approval is complete.
+
+Draft #480 is reconciled onto477 and retains article-name handoffs, company
+Intelligence hierarchy and the real Learn acceptance presentation repair.
+[Combined review](COMPANY-READING-COMBINED-REVIEW.md) and
+[Learn acceptance](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md) record the
+boundaries. One authorized high-effort request completed at a provider-reported
+USD0.13679; its lesson remains an editable AI draft. No further paid request.
+The 92 affected Learn checks pass; current combined-head CI, native/fresh review
+and separate release approval remain. Earlier476-base6157-test acceptance stays
+dated. All original31 definitions/order and human gates remain. Cold loads,
+independent catalog/source and Map decisions and wider Learn source/media quality
+remain in this same active mission.
 
 # Active same-thread mission — November 3, 2026
 

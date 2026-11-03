@@ -1303,3 +1303,10 @@ company source observations. One retained capture now yields its missing lead;
 the original33 company portfolio rows remain. This adds no source, canonical
 variety, role, footprint, reviewed fact or recall qualification. Independent
 human expected names and broader current/historical catalog coverage remain open.
+
+November 3 Learn acceptance: one explicitly authorized public-topic high-effort
+request completed, preserving the prior two jobs/two lessons and producing one
+editable AI draft. Reported cost was USD0.13679. Its83 captured links are not83
+verified sources or a recall score. Two OSU guides were checked; blocked
+paper/video checks remain disclosed. [Acceptance and presentation repair](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md)
+do not add competitive Evidence, canonical sources, traits or review decisions.

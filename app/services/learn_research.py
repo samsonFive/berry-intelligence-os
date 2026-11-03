@@ -237,7 +237,7 @@ def edit_lesson(inbox_dir, key, *, revision, title, text, review_by):
 def reading_inline(text, citations=()):
     refs = {tag: row for row in citations for tag in row.get("reference_ids", [])}
     allowed = {row["url"] for row in citations if safe_url(row.get("url"))}
-    pattern = re.compile(r"\[web:\d+\]|\[([^\]\n]{1,500})\]\((https?://[^\s)]+)\)|\*\*([^*\n]+)\*\*")
+    pattern = re.compile(r"\[web:\d+\]|\[([^\]\n]{1,500})\]\((https?://[^\s)]+)\)|\*\*([^*\n]+)\*\*|(?<!\*)\*([^*\n]+)\*(?!\*)")
     rendered, start = [], 0
     for match in pattern.finditer(text):
         rendered.append(str(escape(text[start:match.start()])))
@@ -250,10 +250,12 @@ def reading_inline(text, citations=()):
                 rendered.append('<span class="learn-source-gap">Source link unavailable</span>')
         elif raw.startswith("**"):
             rendered.append("<strong>" + str(escape(match[3])) + "</strong>")
+        elif raw.startswith("*"):
+            rendered.append("<em>" + str(escape(match[4])) + "</em>")
         elif safe_url(match[2]) and match[2] in allowed:
-            rendered.append('<a href="' + str(escape(match[2])) + '" target="_blank" rel="noopener noreferrer">' + str(escape(match[1])) + "</a>")
+            rendered.append('<a href="' + str(escape(match[2])) + '" target="_blank" rel="noopener noreferrer">' + str(reading_inline(match[1], citations)) + "</a>")
         else:
-            rendered.append(str(escape(match[1])) + " (link not verified)")
+            rendered.append(str(reading_inline(match[1], citations)) + " (link not verified)")
         start = match.end()
     rendered.append(str(escape(text[start:])))
     return Markup("".join(rendered))
@@ -261,15 +263,19 @@ def reading_inline(text, citations=()):
 
 def reading_blocks(text, citations=()):
     """Small safe Markdown view. Jinja escapes text; never render raw HTML."""
-    blocks, paragraph, bullets = [], [], []
+    blocks, paragraph, bullets, numbers = [], [], [], []
 
     def flush():
         if paragraph:
             blocks.append({"kind": "paragraph", "text": reading_inline(" ".join(paragraph), citations)})
             paragraph.clear()
         if bullets:
-            blocks.append({"kind": "list", "items": [reading_inline(item, citations) for item in bullets]})
+            block = {"kind": "ordered_list" if numbers else "list", "items": [reading_inline(item, citations) for item in bullets]}
+            if numbers:
+                block["numbers"] = list(numbers)
+            blocks.append(block)
             bullets.clear()
+            numbers.clear()
 
     lines, number = text.splitlines(), 0
     while number < len(lines):
@@ -286,14 +292,19 @@ def reading_blocks(text, citations=()):
             blocks.append({"kind": "table", "headers": headers, "rows": rows})
             continue
         heading = re.match(r"^#{1,6}\s+(.+)", line)
-        bullet = re.match(r"^\s*(?:[-*]|\d+\.)\s+(.+)", line)
+        bullet = re.match(r"^\s*[-*]\s+(.+)", line)
+        ordered = re.match(r"^\s*(\d{1,6})\.\s+(.+)", line)
         if heading:
             flush()
             blocks.append({"kind": "heading", "text": reading_inline(heading[1], citations)})
-        elif bullet:
-            if paragraph:
+        elif bullet or ordered:
+            if paragraph or (bullets and bool(numbers) != bool(ordered)):
                 flush()
-            bullets.append(bullet[1])
+            if ordered:
+                numbers.append(int(ordered[1]))
+                bullets.append(ordered[2])
+            else:
+                bullets.append(bullet[1])
         elif not line.strip():
             flush()
         else:
@@ -301,6 +312,16 @@ def reading_blocks(text, citations=()):
                 flush()
             paragraph.append(line)
     flush()
+    return blocks
+
+
+def lesson_reading_blocks(text, citations=(), *, title):
+    """Omit only an identical opening title in the view; retain the saved text."""
+    blocks = reading_blocks(text, citations)
+    if blocks and blocks[0]["kind"] == "heading":
+        heading = " ".join(blocks[0]["text"].striptags().split()).casefold()
+        if heading == " ".join(title.split()).casefold():
+            return blocks[1:]
     return blocks
 
 

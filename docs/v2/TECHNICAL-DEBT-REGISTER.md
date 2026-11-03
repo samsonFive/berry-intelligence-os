@@ -3575,3 +3575,15 @@ stay open. This is not a worldwide completeness or performance claim.
 ### November 3 — Company Intelligence presentation follow-up
 
 [The UI-03/INT-01 follow-up](COMPANY-DOSSIER-READABILITY-REVIEW.md) moves registry metadata and record IDs into closed disclosures, humanizes profile codes for display only and keeps questions, literal reviewed statements, source quotations and assessment prerequisites intact. Native/final checks and separate release approval remain. This does not close broader UI review, TD-122 cold loads or any catalog/source/rights/Map/Learn human decision. No provider call or data addition.
+
+### November 3 — Real Learn acceptance and visual reading gap
+
+[One authorized real-provider run](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md)
+completed at reported USD0.13679, with no duplicate POST or trust promotion.
+The actual result exposed absent default visual context, a duplicate title and
+raw emphasis/numbered-list presentation. The same draft reuses canonical visuals
+only for one literal title/alias match, keeps explicit selections, and preserves
+every saved text/request/source/edit. All92 affected checks pass. Fresh combined
+acceptance and separate release approval remain. Unknown/ambiguous topics do not
+guess a diagram. No provider field, acquisition, source identity or qualification
+change. Broader media/source review and TD-122 remain open.
