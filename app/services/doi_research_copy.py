@@ -29,7 +29,10 @@ def publisher_doi(url):
         journal=parts[0]
         if journal not in _MDPI or not all(re.fullmatch(r'\d{1,5}',s) for s in parts[1:4]):return None
         return '10.3390/'+_MDPI[journal]+parts[1]+parts[2].zfill(2)+parts[3].zfill(4)
-    if host in {'doi.org','dx.doi.org'}:candidate=path.lstrip('/')
+    if host=='api.crossref.org':
+        match=re.fullmatch(r'/works/(10\..+)',path)
+        candidate=match[1]if match else ''
+    elif host in {'doi.org','dx.doi.org'}:candidate=path.lstrip('/')
     elif (host=='onlinelibrary.wiley.com' or host.endswith('.onlinelibrary.wiley.com')
           or host in {'journals.sagepub.com','www.tandfonline.com','www.cabidigitallibrary.org'}):
         match=re.fullmatch(r'/doi/(?:full/|abs/|pdf/|epdf/)?(10\..+)',path)

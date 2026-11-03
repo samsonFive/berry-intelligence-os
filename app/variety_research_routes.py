@@ -95,10 +95,10 @@ def search_client():
         primary=PerplexitySearchClient(credential)
     except MissingCredentialError:
         credential='';primary=None
-    from app.services.public_research_search import registered_primary_sources
+    from app.services.public_research_search import registered_primary_sources,registered_primary_terms
     entities=main.entity_index()
     return ResilientTopicSearchClient(primary,credential=credential,entities=entities,
-        primary_sources=registered_primary_sources(main.DATA_DIR,entities))
+        primary_sources=registered_primary_sources(main.DATA_DIR,entities),primary_terms=registered_primary_terms(main.DATA_DIR,entities))
 
 
 def relevant_hit(hit, *, query, target=None, known_hosts=()):
@@ -120,11 +120,12 @@ def relevant_hit(hit, *, query, target=None, known_hosts=()):
 
 def render(request, *, query='', entity_id='', hits=(), error='', omitted=0, scoped=True, fallback_used=False):
     from app import main
+    from app.services.resilient_topic_search import credit_free_mode
     entity = main.entity_index().get(entity_id)
     if entity_id and (not entity or entity.get('entity_type') not in {'variety', 'company', 'brand', 'breeding_program'}):
         raise HTTPException(404, 'Research target not found')
     return main.templates.TemplateResponse(request=request, name='entity_research.html', context={
-        'authoring_mode': True, 'static_build': False, 'query': query, 'target': entity,
+        'authoring_mode': True, 'static_build': False, 'query': query, 'target': entity, 'credit_free_only':credit_free_mode(),
         'hits': hits, 'error': error, 'omitted':omitted,'scoped':scoped, 'fallback_used':fallback_used, 'reviewer': main.session_username(request) or main.review_username() or 'analyst',
     })
 

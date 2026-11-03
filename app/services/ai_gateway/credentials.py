@@ -20,10 +20,17 @@ class MissingCredentialError(RuntimeError):
     """The required runtime credential is not present."""
 
 
+def credit_free_research_enabled(env=None):
+    source=os.environ if env is None else env
+    return str(source.get('BIOS_RESEARCH_CREDIT_FREE_ONLY','')).strip().casefold()in {'1','true','yes'}
+
+
 def resolve_perplexity_api_key(env: dict[str, str] | None = None) -> str:
     """Reads PERPLEXITY_API_KEY from the environment; never prompts, never logs it."""
 
     source = env if env is not None else os.environ
+    if credit_free_research_enabled(source):
+        raise MissingCredentialError('Perplexity is disabled by BIOS_RESEARCH_CREDIT_FREE_ONLY; use the credit-free research routes.')
     value = (source.get(PERPLEXITY_API_KEY_ENV) or "").strip()
     if not value:
         raise MissingCredentialError(

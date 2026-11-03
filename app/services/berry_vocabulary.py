@@ -1,11 +1,11 @@
-"""Unambiguous Polish/Portuguese crop names shared by collection and retrieval."""
+"""Unambiguous native crop terms shared by collection and retrieval."""
 import re
 
 EXTRA_CROP_TERMS = {
     'blueberry': ('mirtilo', 'mirtilos', 'borówka', 'borówki', 'borówek', 'borowka', 'borowki'),
     'strawberry': ('morango', 'morangos', 'truskawka', 'truskawki', 'truskawek'),
     'raspberry': ('framboesa', 'framboesas', 'malina', 'maliny', 'malin'),
-    'blackberry': ('amora-preta', 'amoras-pretas', 'amora preta', 'amoras pretas', 'jeżyna', 'jeżyny', 'jeżyn', 'jezyna', 'jezyny'),
+    'blackberry': ('amora-preta', 'amoras-pretas', 'amora preta', 'amoras pretas', 'jeżyna', 'jeżyny', 'jeżyn', 'jezyna', 'jezyny', 'zarzamora', 'zarzamoras'),
 }
 NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', 'licencja', 'licencje',
                          'variedade', 'variedades', 'melhoramento', 'licenciamento', 'produção', 'cultivo')

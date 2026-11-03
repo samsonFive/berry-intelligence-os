@@ -22,6 +22,9 @@ from app.services.feed_first_reader import _bounded_public_response, is_public_h
 
 _OPENAIRE_REQUESTS=deque()
 _OPENAIRE_LOCK=threading.Lock()
+_MWMBL_LOCK=threading.Lock()
+_MWMBL_LAST=0.0
+_MWMBL_BLOCKED_UNTIL=0.0
 
 
 def _reserve_openaire(now):
@@ -42,7 +45,7 @@ def registered_primary_sources(data_dir, entities):
     from app.services.variety_profile_sources import all_profile_source_details
     varieties=[e for e in entities.values() if e.get('entity_type')=='variety']
     notes=all_profile_source_details(data_dir,varieties=varieties)
-    sources={key:[{'url':s['url'],'title':s['title']} for s in note['sources'].values()
+    sources={key:[{'url':s['url'],'title':s['title']}for s in note['sources'].values()
                  if is_public_http_url(s['url'])]
             for key,note in notes.items() if note['status'] in {'source_reported','limited'}}
     # Canonical varieties may predate identity-review metadata and already have
@@ -63,10 +66,30 @@ def registered_primary_sources(data_dir, entities):
     return sources
 
 
+def registered_primary_terms(data_dir,entities):
+    """Local candidate index, never an external search payload or trait proof.
+
+    Only the public, attributed import is indexed. Private analyst notes,
+    source bodies, identity-held material and user annotations are excluded.
+    """
+    from app.services.variety_profile_sources import all_profile_source_details
+    from app.services.topic_retrieval import normalize
+    notes=all_profile_source_details(data_dir,varieties=[e for e in entities.values()if e.get('entity_type')=='variety'])
+    terms={}
+    for note in notes.values():
+        if note['status']not in {'source_reported','limited'}:continue
+        for row in note['details']:
+            url=note['sources'][row['source_id']]['url']
+            if is_public_http_url(url):
+                terms.setdefault(url,set()).update(normalize(' '.join(str(row.get(k)or'')for k in ('field','value','context'))).split())
+    return {url:sorted(words)for url,words in terms.items()}
+
+
 @dataclass
 class PublicResearchSearchClient:
     entities: dict = field(default_factory=dict)
     primary_sources: dict = field(default_factory=dict)
+    primary_terms: dict = field(default_factory=dict)
     get: object = None
     primary_get: object = None
     failures: list = field(default_factory=list)
@@ -93,6 +116,7 @@ class PublicResearchSearchClient:
         # enforces quoted phrases; this does not rewrite or approve aliases.
         positive = normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)', '', query))
         out = []
+        named=False
         for entity in self.entities.values():
             if entity.get('entity_type') != 'variety':continue
             if (entity.get('attributes') or {}).get('catalog_removed'):continue
@@ -101,6 +125,7 @@ class PublicResearchSearchClient:
             crop = {v.removeprefix('berry-') for v in entity.get('berry_ids') or []}
             asked = set(plan.terms)&{'blueberry','raspberry','strawberry','blackberry'}
             if asked and not crop&asked:continue
+            named=True
             review = (entity.get('attributes') or {}).get('identity_review') or {}
             url = review.get('source_url')
             if url and is_public_http_url(url):
@@ -108,6 +133,25 @@ class PublicResearchSearchClient:
             for source in self.primary_sources.get(entity['id'],[]):
                 if is_public_http_url(source.get('url')):
                     out.append(SearchHit(source.get('title') or entity['name'],source['url'],'Attributed technical-source lead; claims and dates require source inspection.'))
+        if not named and not plan.phrases:
+            # Match existing cited research notes locally, without exporting
+            # their values to a search provider or treating them as traits.
+            # This lets a cane/condition query find a primary lead even when
+            # the analyst does not already know the cultivar name.
+            asked=set(plan.terms)&{'blueberry','raspberry','strawberry','blackberry'}
+            concepts=set(plan.terms)-asked-{'breeder','technical','sheet','sheets','variety','research','trial','breeding'}
+            scored=[]
+            for key,sources in self.primary_sources.items():
+                entity=self.entities.get(key,{})
+                if not asked or not asked&{v.removeprefix('berry-')for v in entity.get('berry_ids',[])}:continue
+                if (entity.get('attributes')or{}).get('catalog_removed'):continue
+                if any(normalize(n)in plan.exclusions for n in [entity.get('name')or'',*(entity.get('aliases')or[])]):continue
+                for source in sources:
+                    overlap=concepts&(set(normalize(source.get('title','')).split())|set(self.primary_terms.get(source.get('url'),[])))
+                    if overlap and is_public_http_url(source.get('url')):
+                        scored.append((len(overlap),source['url'],source))
+            for _,_,source in sorted(scored,key=lambda row:(-row[0],row[1])):
+                out.append(SearchHit(source['title'],source['url'],'Locally cited technical-source lead; source-reported notes are not verified classification.'))
         # Relevant titles affect only which known URLs get acquired. Final
         # passage ranking still enforces the complete original query.
         words=set(plan.terms)
@@ -143,7 +187,8 @@ class PublicResearchSearchClient:
     def _primary_links(self, query, seeds):
         """Find named sheets on already registered public catalog pages.
 
-        Two same-host pages, no recursive crawl, no inferred cultivar aliases.
+        Two same-host pages and their advertised public WordPress search APIs,
+        no recursive crawl, no inferred cultivar aliases.
         Each linked candidate still needs independent body/scope inspection.
         """
         if self.get is not None and self.primary_get is None:return []
@@ -152,8 +197,8 @@ class PublicResearchSearchClient:
         names={normalize(n) for e in self.entities.values() for n in [e.get('name')or'',*(e.get('aliases')or[])]
                if e.get('entity_type')=='variety' and len(normalize(n))>=4 and re.search(r'(?<!\w)'+re.escape(normalize(n))+r'(?!\w)',positive)}
         out=[]
-        for seed in seeds[:2]:
-            if urlsplit(seed.url).path.lower().endswith(('.pdf','.epub','.zip')):continue
+        pages=[seed for seed in seeds if not urlsplit(seed.url).path.lower().endswith(('.pdf','.epub','.zip'))]
+        for seed in pages[:2]:
             with self._lock:self.primary_page_requests+=1
             try:
                 if self.primary_get is not None:raw=self.primary_get(seed.url)
@@ -173,6 +218,32 @@ class PublicResearchSearchClient:
                     if any(re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',text)for name in names):
                         out.append(SearchHit(label or seed.title,target,'Named link from registered primary catalog; identity, claims and dates require inspection.'))
                     if len(out)>=4:return out
+                # Search only an API explicitly advertised by the publisher.
+                # No guessed CMS endpoints, admin calls or arbitrary host hops.
+                apis=root.xpath('//link[@rel="https://api.w.org/"]/@href')
+                if apis:
+                    api=urljoin(seed.url,apis[0])
+                    if (is_public_http_url(api)and urlsplit(api).hostname==urlsplit(seed.url).hostname
+                            and urlsplit(api).path.endswith('/wp-json/')and not urlsplit(api).query):
+                        from app.services.topic_retrieval import plan_query
+                        plan=plan_query(query)
+                        terms=' '.join(plan.phrases)if plan.phrases else' '.join(t for t in plan.terms if t not in {'blackberry','blueberry','raspberry','strawberry','breeder','technical','sheet','sheets'})
+                        if not terms:continue
+                        target=urljoin(api,'wp/v2/search')+'?'+urlencode({'search':terms[:240],'per_page':8,'type':'post'})
+                        with self._lock:self.primary_page_requests+=1
+                        if self.primary_get is not None:payload=json.loads(self.primary_get(target))
+                        else:
+                            with httpx.Client(timeout=4,follow_redirects=False)as client:
+                                final,raw,_,_,status,limited=_bounded_public_response(target,client,limit=512000)
+                            if status!=200 or limited or urlsplit(final).hostname!=urlsplit(api).hostname:
+                                raise ValueError('PrimarySiteSearchUnavailable')
+                            payload=json.loads(raw)
+                        if not isinstance(payload,list):raise ValueError('InvalidPrimarySiteSearch')
+                        for result in payload[:8]:
+                            target=result.get('url')if isinstance(result,dict)else None
+                            if target and is_public_http_url(target)and urlsplit(target).hostname==urlsplit(seed.url).hostname:
+                                out.append(SearchHit(_text(result.get('title'))or seed.title,target,'Publisher public-search lead; independently captured body and original query scope remain required.'))
+                                if len(out)>=4:return out
             except Exception as exc:
                 # A source-page parse/access failure is not a global outage.
                 self.primary_page_failures.append(type(exc).__name__)
@@ -211,6 +282,42 @@ class PublicResearchSearchClient:
         if root.tag!='rss':raise ValueError('Not an RSS response')
         return [SearchHit(x.findtext('title')or'',x.findtext('link')or'',_text(x.findtext('description'))) for x in root.findall('./channel/item')[:count]]
 
+    def _mwmbl(self, query, count):
+        """Documented anonymous general-web API; no key or billing path.
+
+        The provider hard-caps anonymous IP usage at 1,000/month and 1/sec.
+        Serialize this process's calls and cool down on failures; never rotate
+        hosts, identities or keys to evade quotas. Results remain metadata.
+        """
+        global _MWMBL_LAST,_MWMBL_BLOCKED_UNTIL
+        from app.services.topic_retrieval import plan_query
+        plan=plan_query(query)
+        pieces=re.split(r'(-"[^"]+"|"[^"]+")',plan.interpreted_query)
+        for i in range(0,len(pieces),2):
+            pieces[i]=re.sub(r'\b(?:technical\s+sheets?|developments?|breeder)\b','',pieces[i],flags=re.I)
+            pieces[i]=re.sub(r'\b\d{4}-\d{2}-\d{2}\b|\b(?:through|between|until)\b','',pieces[i])
+        text=' '.join(''.join(pieces).split())
+        if self.get is None:
+            with _MWMBL_LOCK:
+                now=time.monotonic()
+                if now<_MWMBL_BLOCKED_UNTIL:raise GatewayUnavailableError('Anonymous web search cooling down')
+                delay=max(0.0,1.05-(now-_MWMBL_LAST))
+                if delay:time.sleep(delay)
+                _MWMBL_LAST=time.monotonic()
+                try:
+                    raw=self._read('https://api.mwmbl.org/api/v2/search/?'+urlencode({'q':text}),'api.mwmbl.org')
+                    payload=json.loads(raw)
+                    if not isinstance(payload,dict)or not isinstance(payload.get('results'),list):raise ValueError('Invalid web-search response')
+                except Exception:
+                    _MWMBL_BLOCKED_UNTIL=time.monotonic()+300
+                    raise
+        else:
+            raw=self._read('https://api.mwmbl.org/api/v2/search/?'+urlencode({'q':text}),'api.mwmbl.org')
+            payload=json.loads(raw)
+        if not isinstance(payload,dict)or not isinstance(payload.get('results'),list):raise ValueError('Invalid web-search response')
+        return [SearchHit(_text(r.get('title'))[:500],r['url'],_text(r.get('content'))[:600])
+                for r in payload['results'][:count]if isinstance(r,dict)and is_public_http_url(r.get('url'))]
+
     def _openaire(self, query, count):
         # Public, unauthenticated Graph v4. Repository instance links can lead
         # to editions not surfaced by the biomedical/deposited-abstract lanes.
@@ -233,9 +340,9 @@ class PublicResearchSearchClient:
     def search(self, query, *, max_results=10, **kwargs):
         if not query.strip() or not 1<=max_results<=20:raise ValueError('Invalid public metadata query')
         started=time.monotonic();count=min(max_results,10)
-        lanes=[('openaire',self._openaire),('europe_pmc',self._pmc),('crossref',self._crossref),('google_news_rss',self._news)]
+        lanes=[('mwmbl_web',self._mwmbl),('openaire',self._openaire),('europe_pmc',self._pmc),('crossref',self._crossref),('google_news_rss',self._news)]
         results=[];errors=[]
-        with ThreadPoolExecutor(max_workers=4) as pool:
+        with ThreadPoolExecutor(max_workers=len(lanes)) as pool:
             futures=[pool.submit(fn,query,count)for _,fn in lanes]
             for (name,_),future in zip(lanes,futures):
                 try:results.append((name,future.result()))

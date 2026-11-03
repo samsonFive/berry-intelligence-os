@@ -20,7 +20,7 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
     assert len(notes) == 75
-    assert sum(len(n['details']) for n in notes.values()) == 259
+    assert sum(len(n['details']) for n in notes.values()) == 261
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 3
     for variety in varieties:

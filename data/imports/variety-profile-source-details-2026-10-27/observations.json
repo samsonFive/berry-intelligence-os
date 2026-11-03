@@ -2215,6 +2215,12 @@
           "title": "Meet 'Ervin' Blackberry - Blackberry and Raspberry Information Portal | NC State Extension",
           "kind": "Primary breeder page",
           "locator": "Introduction and cultivar characteristics, paragraphs 2 and 5–10"
+        },
+        "2": {
+          "url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "title": "GPG — Introducing Ervin (September 1, 2026)",
+          "kind": "Primary licensee development announcement",
+          "locator": "Floricane identity and outside-US licensing paragraphs; productivity wording"
         }
       },
       "details": [
@@ -2235,6 +2241,18 @@
           "value": "Yield described as moderate; vigor and disease resistance compared with Von.",
           "source_id": "1",
           "context": "Breeder regional account; not a quantified resistance assay or a claim of high yield."
+        },
+        {
+          "field": "International development milestone",
+          "value": "GPG announced on September 1, 2026 that Ervin was licensed to it for development outside the United States.",
+          "source_id": "2",
+          "context": "A separate milestone from NC State’s February introduction. Development licensing does not establish sales or planting in every territory; no company role or current right is approved."
+        },
+        {
+          "field": "Productivity qualification",
+          "value": "GPG promotes strong yield potential, while NC State’s introduction describes moderate yield.",
+          "source_id": "2",
+          "context": "Different source assertions remain visible. No quantified replicated comparison resolves the difference; neither marketing wording nor regional breeder observations become a universal yield trait."
         }
       ]
     },

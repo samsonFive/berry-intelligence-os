@@ -13,6 +13,7 @@ from app.services.topic_retrieval import plan_query
 
 def metadata(url):
     p=urlsplit(url);params=parse_qs(p.query)
+    if p.hostname=='api.mwmbl.org':return b'{"results":[]}'
     if p.hostname=='api.openaire.eu':return b'{"results":[]}'
     if p.hostname=='api.crossref.org':
         assert params['rows']==['10']
@@ -27,7 +28,7 @@ def test_public_routes_interleave_without_promoting_metadata_to_body():
     client=PublicResearchSearchClient(get=metadata)
     rows=client.search('strawberry trial').hits
     assert [r.url for r in rows]==['https://pmc.ncbi.nlm.nih.gov/articles/PMC456/','https://doi.org/10.1234/example','https://publisher.example/trial']
-    assert client.requests==4 and client.failures==[]
+    assert client.requests==5 and client.failures==[]
     assert all(not hasattr(r,'article')for r in rows)
 
 
@@ -58,7 +59,7 @@ def test_total_public_outage_is_failure_even_with_registered_seed():
     def fail(url):raise TimeoutError('private transport detail')
     client=PublicResearchSearchClient(get=fail)
     with pytest.raises(GatewayUnavailableError):client.search('strawberry trial')
-    assert client.requests==4 and all('private'not in x for x in client.failures)
+    assert client.requests==5 and all('private'not in x for x in client.failures)
 
 
 def test_openaire_repository_leads_are_public_metadata_only():

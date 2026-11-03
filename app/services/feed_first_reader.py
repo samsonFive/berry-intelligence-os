@@ -176,7 +176,7 @@ def sanitize_reader_html(html: str) -> str:
     return _JS_URL_RE.sub("", cleaned)
 
 
-def paragraphs_from_html(html: str, *, limit: int | None = 96) -> list[str]:
+def paragraphs_from_html(html: str, *, limit: int | None = 96, source_url: str = '') -> list[str]:
     cleaned = sanitize_reader_html(html)
     # Keep publisher section titles in their original order, never invent them
     # from sentence length, question marks, or model-generated summaries.
@@ -193,6 +193,16 @@ def paragraphs_from_html(html: str, *, limit: int | None = 96) -> list[str]:
         for node in tree.xpath("//*[@role='dialog' or @aria-modal='true' or @id='onetrust-banner-sdk' or @id='didomi-host' or @id='cookie-banner' or @id='cookie-consent']"):
             node.drop_tree()
         roots = tree.xpath("//article") or tree.xpath("//main")
+        if not roots:
+            # SIDOF's direct government-document endpoint uses legacy divs,
+            # not article/main. Its tables are owned notice content; this
+            # exception never applies to a portal/search page or another host.
+            source=urlparse(source_url)
+            if (source.scheme=='https' and source.hostname=='sidof.segob.gob.mx'
+                    and not source.username and source.port in (None,443)
+                    and re.fullmatch(r'/notas/docFuente/\d+',source.path)
+                    and tree.xpath('//h1') and tree.xpath('//table')):
+                roots=tree.xpath('//body')
         cleaned = "\n".join(html_parser.tostring(node, encoding="unicode") for node in roots) if roots else html_parser.tostring(tree, encoding="unicode")
         # Technical results often live in lists and tables rather than prose.
         # Only semantic article/main owners admit these blocks: an unscoped
@@ -552,17 +562,18 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             canonical_url = final
         from app.services.patent_reader import patent_document
         document = patent_document(html, final)
-        passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else _paragraphs_from_html(html)
+        passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else paragraphs_from_html(html,source_url=final)
         from app.services.article_structure import publisher_heading_levels
         heading_levels = publisher_heading_levels(html, passages) if not document else {}
-        passage_limited = not document and len(paragraphs_from_html(html, limit=None)) > len(passages)
+        passage_limited = not document and len(paragraphs_from_html(html, limit=None,source_url=final)) > len(passages)
         images = extract_article_images(html, page_url=final)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
+        legacy_notice=(urlparse(final).hostname=='sidof.segob.gob.mx'and bool(re.fullmatch(r'/notas/docFuente/\d+',urlparse(final).path)))
         if not passages and looks_like_interstitial(decode_html_text(sanitize_reader_html(html))):
             availability = "blocked"
         document_limited = bool(document and document["truncated"])
-        if (limited or document_limited or passage_limited or document) and availability == "full":
+        if (limited or document_limited or passage_limited or document or legacy_notice) and availability == "full":
             availability = "partial"
         modes = ["structured_fallback"]
         if availability in {"full", "partial", "excerpt_only"}:
@@ -573,7 +584,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "url": final,
             "ok": availability in {"full", "partial", "excerpt_only"},
             "availability": availability,
-            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "" if availability != "error" else f"http-{status_code}",
+            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "Government notice headings and tables; prose may be incomplete" if legacy_notice else "" if availability != "error" else f"http-{status_code}",
             "truncated": limited or document_limited or passage_limited,
             "headline": headline,
             "published_date": publication_date,
@@ -586,7 +597,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "document_blocks": document["blocks"] if document else [],
             "frame_allowed": allowed,
             "reader_modes": modes,
-            "method": "direct_http",
+            "method": "direct_http_government_document_tables" if legacy_notice else "direct_http",
             "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "status_code": status_code,
         }

@@ -112,6 +112,14 @@ def fetch_topic_source(url):
     """Keep direct capture failures visible if no verified open copy exists."""
     import httpx
     from app.services.feed_first_reader import fetch_public_article, FETCH_TIMEOUT, USER_AGENT
+    if urlsplit(url).hostname=='api.crossref.org':
+        # JSON envelopes are not article prose. Read the exact DOI deposit
+        # through the same identity/edition/date checks as publisher fallbacks.
+        from app.services.doi_research_copy import fetch_doi_abstract
+        from app.services.feed_first_reader import empty_capture
+        with httpx.Client(timeout=FETCH_TIMEOUT,follow_redirects=False,headers={'User-Agent':USER_AGENT})as client:
+            recovered=fetch_doi_abstract(url,client=client)
+        return recovered or empty_capture(url,reason='deposited-abstract-unavailable')
     direct = fetch_public_article(url)
     text=' '.join(direct.get('passages') or [])
     if urlsplit(url).hostname in {'actahort.org','www.actahort.org','ishs.org','www.ishs.org','journals.ashs.org'} and direct.get('content_kind')!='pdf':
