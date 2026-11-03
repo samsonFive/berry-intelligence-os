@@ -1,3 +1,13 @@
+# Reader source-link follow-up — November 3, 2026
+
+The [source destination repair](docs/v2/READER-SOURCE-DESTINATIONS-REVIEW.md)
+follows tested #482. It corrects misleading Google News publisher labels,
+validates exact-source successful saved destinations and keeps publisher
+websites visible when the article remains unresolved. The initial 112 focused
+checks pass; final acceptance remains. No original URL/data/review decision is
+rewritten, and feed browsing adds no capture-body or discovery reads. Frozen
+#480/#482 retain their existing approval scopes. #477 is already live.
+
 # Live477 and remaining integrated review — November 3, 2026
 
 Approved #477 is merged and independently verified live at `1ad5084f`, tested

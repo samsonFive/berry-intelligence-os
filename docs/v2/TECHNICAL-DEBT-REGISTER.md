@@ -3599,3 +3599,7 @@ cold routes. The isolated implementation changes two runtime files; 544 affected
 Reader/News/article/source-fidelity checks pass. Final acceptance and separate
 release approval remain.
 TD-122 stays open; no coverage or human decision is upgraded.
+
+### November 3 — NEWS-03 publisher navigation clarity
+
+[The source destination child](READER-SOURCE-DESTINATIONS-REVIEW.md) corrects Google News links described as publisher articles and rejects failed/mismatched/consent/homepage capture destinations. It preserves recorded URLs, source bodies and human decisions. Initial 112 focused checks pass; desktop/phone, final CI and release review remain. The feed stays metadata-only; opaque wrappers with no existing resolution still require publisher navigation. This does not close TD-122 or source/body availability and fidelity review.

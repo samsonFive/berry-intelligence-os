@@ -169,7 +169,7 @@ async def digest_complete_selected(request: Request):
 
 def reader_context(request: Request, record: dict):
     from app import main
-    from app.services.feed_first_reader import load_capture, merge_capture, display_reader_passages, is_public_http_url
+    from app.services.feed_first_reader import load_capture, merge_capture, display_reader_passages
     from app.services.intelligence_feed import article_paragraphs
     from app.services.source_body import reader_content
     from app.services.news_workspace import source_reviewed, escalations
@@ -193,23 +193,16 @@ def reader_context(request: Request, record: dict):
     document_blocks = record.get("reader_document_blocks", []) if main.AUTHORING_MODE and paragraphs else []
     from app.services.article_structure import display_article_blocks
     article_blocks = display_article_blocks(record, paragraphs)
-    card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
-    from app.services.google_news_url import resolve_google_news_url, is_google_news_wrapper
-    source_url = card["source_url"]
-    direct_url = resolve_google_news_url(source_url)
-    if capture and (capture.get("requested_url") or capture.get("url")) == source_url:
-        final_url = str(capture.get("url") or "")
-        if is_public_http_url(final_url) and not is_google_news_wrapper(final_url) and urlsplit(final_url).hostname not in {"consent.google.com", "accounts.google.com"}:
-            direct_url = final_url
-    card["source_url"] = direct_url if is_public_http_url(direct_url) else source_url
-    card["source_link_label"] = "Open source link" if is_google_news_wrapper(card["source_url"]) else "Read original at publisher"
-    home = str(record.get("origin_publisher_url") or "")
-    card["publisher_home_url"] = home if is_public_http_url(home) and home != card["source_url"] and is_google_news_wrapper(card["source_url"]) else ""
-    if not card["publisher_home_url"] and is_google_news_wrapper(card["source_url"]):
-        source = next((row for row in main.load_sources() if row.get("id") == record.get("source_id")), {})
-        home = str(source.get("url") or "")
-        if is_public_http_url(home) and not is_google_news_wrapper(home):
-            card["publisher_home_url"] = home
+    from app.services.reader_source_links import source_links
+    from app.services.publisher_coverage import cached_publisher_target
+    links = source_links(record, capture=capture)
+    if links["source_link_unresolved"]:
+        cached = cached_publisher_target(main.INBOX_DIR, record) if main.AUTHORING_MODE else ""
+        source = (next((row for row in main.load_sources() if row.get("id") == record.get("source_id")), {})
+                  if not links["publisher_home_url"] else {})
+        links = source_links(record, capture=capture, publisher_url=source.get("url"), resolved_url=cached)
+    card.update(links)
+    card["source_url"] = links["source_link_url"]  # Display projection only; record retains its original URL.
     entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
     statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
     article_varieties = []

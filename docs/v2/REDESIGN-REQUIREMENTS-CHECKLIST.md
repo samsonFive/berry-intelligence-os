@@ -1,3 +1,15 @@
+# Current Reader continuation — November 3, 2026
+
+Approved #477 is deployed at `1ad5084f`; that approval is complete. #480 remains
+tested and awaiting its own release approval. #482 passes all four checks
+(6,187 tests), native desktop/phone review and fresh isolated preservation; it
+has no release approval. The [NEWS-03 source destination follow-up](READER-SOURCE-DESTINATIONS-REVIEW.md)
+keeps original URLs/review history while correcting unresolved Google News
+labels and publisher navigation. Initial 112 focused checks pass; final
+acceptance remains. All original 31 requirement definitions/order and human
+source/name/role/photo/Map review gates remain unchanged. Earlier status notes
+below retain their dated scope; none supersede these release boundaries.
+
 # Active same-thread mission — November 3, 2026
 
 Approved performance #476 is merged and verified live at `50659fcd`, tested head

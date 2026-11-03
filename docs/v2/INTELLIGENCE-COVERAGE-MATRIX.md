@@ -1318,3 +1318,7 @@ canonical variety, approved identity, photo permission or recall qualification.
 Prior coverage classes, counts, current/historical gaps and independent human
 expected-name requirements remain. The unrelated catalog-batch experiment481
 is withdrawn and excluded from this child.
+
+### November 3 — existing-source link presentation
+
+[Reader source destinations](READER-SOURCE-DESTINATIONS-REVIEW.md) improve navigation to existing captured publisher articles and honestly label unresolved Google News links. No source is onboarded, recovered, reviewed or counted as new coverage. There are no acquisition calls or canonical/catalog additions; source/body availability and worldwide recall remain unproven.
