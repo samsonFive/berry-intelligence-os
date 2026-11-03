@@ -142,6 +142,21 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
                            and record.get("media_format") == "web_article")
         if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
             continue
+        # An explicit company scope can rule out unrelated records before the
+        # expensive general-news screen. Reuse the same conservative link/
+        # reviewed-source mention rules and retain the original error path for
+        # malformed legacy rows that the news screen may itself exclude.
+        early_company_links = None
+        if filters["company"]:
+            try:
+                candidate_links = company_source_scope.links(record, subjects)
+                in_company_scope = filters["company"] in candidate_links[0]
+            except (AttributeError, TypeError, ValueError):
+                pass
+            else:
+                if not in_company_scope:
+                    continue
+                early_company_links = candidate_links
         if not (filters['topic'] and classification['topics']) and not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             continue
@@ -159,7 +174,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
             continue
         if (query.country_codes and not scope) or (scope and not scope.intersection(record_geography_ids(record))):
             continue
-        linked, mentions = company_source_scope.links(record, subjects)
+        linked, mentions = (early_company_links if early_company_links is not None
+                            else company_source_scope.links(record, subjects))
         if filters["favorites"] == "1" and not any((state.get("entity_favorites") or {}).get(key) for key in linked):
             continue
         if filters["company"] and filters["company"] not in linked:

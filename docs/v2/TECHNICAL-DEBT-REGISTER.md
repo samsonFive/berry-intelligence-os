@@ -3527,3 +3527,14 @@ The actual Coverage handler still spends substantial time copying cached builtin
 ### November 2, 2026 — Learn's deep-research provider fidelity
 
 The requirement audit found LEARN-02 used `preset=medium` despite the current provider documenting `effort=high` for deep, source-heavy research. The isolated Learn correction uses the current field, records effective submission settings and the returned effort/version, preserves historical jobs/edits and duplicate-charge protections, and retains medium depth for Company/Map callers. Historical medium responses are not high-depth runs. See [contract and evidence](LEARN-DEEP-RESEARCH-CONTRACT-2026-11-02.md). This is an implemented draft repair, pending exact-head CI, native review and separately approved release; not a claim of live deployment or a new extraction qualification.
+
+
+### November 2 — TD-122 narrow company/text preparation follow-up
+
+See [measured candidate](COLD-LOAD-PREPARATION-REVIEW.md). Company-scoped News
+uses unchanged conservative scope before expensive general screening; Candidates
+uses existing request-local lookup; literal decoding has bounded short-string
+reuse. All363 affected checks pass. Reader/source selection, discovery grammar,
+data and human gates remain. Development-copy cold Candidates and company views
+improve, but global News is flat and deeper first visits remain slow. Final-head
+CI/native/fresh acceptance and separate release review remain; TD-122 stays open.

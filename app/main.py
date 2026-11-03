@@ -3571,6 +3571,12 @@ def variety_external_identity_lead(request: Request, baseline_id: str = Form(...
 def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
+    from app.services.identity_read_model import identity_read_model_scope
+    with identity_read_model_scope():
+        return _render_variety_candidates_page(request)
+
+
+def _render_variety_candidates_page(request: Request) -> HTMLResponse:
     _varieties, candidates, _report = variety_candidate_universe()
     source_text_report = None
     if request.query_params.get('discovery') == 'source-text' and request.query_params.get('source'):
