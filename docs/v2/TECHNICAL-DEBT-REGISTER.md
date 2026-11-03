@@ -3562,3 +3562,13 @@ A bounded production-copy experiment compared63,113 text predicates including
 15,761 positives. Reordering UI checks or using a literal-union regex preserved
 all decisions but produced no useful improvement; both variants are rejected.
 No Reader/source/discovery/identity changes are retained. TD-122 remains open.
+### November 3 — CAT-01 captured-article handoff gap
+
+The retained Hortifrut article is readable but its explicit Vicentina raspberry
+wording produces zero mentions; Company Varieties also ignores article candidates.
+See [bounded repair](COMPANY-ARTICLE-NAME-HANDOFF-REVIEW.md). This draft recognizes
+an adjacent-crop possessive declaration and reuses article mentions for private
+company handoffs. Original portfolio rows, exact-source identity and current
+human decisions remain. No canonical entity, role, footprint, subscription or
+review decision is created. Final acceptance remains; CAT-01/TD-116 and TD-122
+stay open. This is not a worldwide completeness or performance claim.

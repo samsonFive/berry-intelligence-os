@@ -6,7 +6,8 @@ from app.services.variety_universe.coverage import BERRY_LABELS
 from app.services.variety_portfolio_coverage import _public_url, observation_company_ids, source_company_ids
 
 
-def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), error=""):
+def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), error="",
+                               article_mentions=(), candidates=(), article_context=None, catalog_variety_ids=()):
     selected = [source for source in sources if entity_id in source_company_ids(source)]
     grouped, linked, rejected = {}, set(), set()
     for source in selected:
@@ -71,12 +72,18 @@ def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), er
         row["search"] = " ".join(row.pop("search_terms")).casefold()
         row["notes"] = sorted(set(row["notes"]))
         row["sources"] = list({(item["id"], item["href"]): item for item in row["sources"]}.values())
+    from app.services.company_article_varieties import article_name_rows
+    article_rows, article_count = article_name_rows(entity_id=entity_id,
+        mentions=article_mentions, candidates=candidates, source_context=article_context or {},
+        linked_variety_ids=linked_variety_ids, catalog_variety_ids=catalog_variety_ids)
+    displayed = rows + article_rows
     return {
         "rows": rows, "source_count": len(selected), "linked_count": len(linked),
+        "article_rows": article_rows, "article_count": article_count,
         "rejected_count": len(rejected), "error": bool(error),
         "follow_up_count": sum(bool(source.get("needs_follow_up")) for source in selected),
-        "letters": sorted({row["letter"] for row in rows}),
-        "berries": sorted({(row["berry_id"], row["berry"]) for row in rows}, key=lambda item: item[1]),
+        "letters": sorted({row["letter"] for row in displayed}),
+        "berries": sorted({(row["berry_id"], row["berry"]) for row in displayed}, key=lambda item: item[1]),
         "coverage_href": "/varieties/coverage?" + urlencode({"company": entity_id}),
         "review_href": "/varieties/candidates?" + urlencode({"company": entity_id}),
     }

@@ -1868,6 +1868,15 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
     )
     if article_counts is not None:
         report["article_sources"] = article_counts
+        company_ids = {row['id'] for row in entities if row.get('entity_type') in {'company','brand','breeding_program'}}
+        # Body-free metadata from the already-selected exact-identity article
+        # inventory. Reuse it for private company handoffs without another scan.
+        report['article_source_context'] = {row['id']: {
+            'company_ids': [key for key in row.get('entity_ids') or [] if key in company_ids],
+            'title': row.get('title') or '', 'source_name': row.get('source_name') or '',
+            'source_url': row.get('source_url') or '', 'published_date': row.get('published_date') or '',
+            'reviewed': row.get('status') == 'published',
+        } for row in article_sources}
     visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     if AUTHORING_MODE:
         from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
@@ -1892,6 +1901,9 @@ def company_source_varieties(entity_id: str, portfolio: dict | None) -> dict | N
         _varieties, _candidates, report = variety_candidate_universe()
     return company_variety_discoveries(
         entity_id=entity_id, sources=report.get("portfolio_sources", []),
+        article_mentions=report.get('mentions', []), candidates=_candidates,
+        article_context=report.get('article_source_context', {}),
+        catalog_variety_ids={row['id'] for row in _varieties},
         linked_variety_ids={row["id"] for row in (portfolio or {}).get("variety_rows", [])},
         error=report.get("portfolio_error", ""),
     )
