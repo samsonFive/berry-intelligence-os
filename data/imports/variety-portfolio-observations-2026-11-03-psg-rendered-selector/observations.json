@@ -959,7 +959,8 @@
           "capture_status": "unreadable",
           "names": [],
           "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
-          "retained_file_sha256": "bf266eb44de5ab74d0dcedbe4028f8460befcd841ca819cb67ee482d3181a52b"
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
         },
         "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
         "reuse_permission_verified": false
@@ -1346,7 +1347,8 @@
           "capture_status": "unreadable",
           "names": [],
           "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
-          "retained_file_sha256": "bf266eb44de5ab74d0dcedbe4028f8460befcd841ca819cb67ee482d3181a52b"
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
         },
         "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
         "reuse_permission_verified": false
@@ -1445,7 +1447,8 @@
           "capture_status": "unreadable",
           "names": [],
           "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
-          "retained_file_sha256": "bf266eb44de5ab74d0dcedbe4028f8460befcd841ca819cb67ee482d3181a52b"
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
         },
         "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
         "reuse_permission_verified": false

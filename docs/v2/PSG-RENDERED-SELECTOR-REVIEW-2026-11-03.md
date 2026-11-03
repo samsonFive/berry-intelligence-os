@@ -7,8 +7,8 @@ blackberry. Two detail-page related lists supply another 17 occurrences. The
 review candidates, bringing the combined public-source candidate set from
 1,315 to 1,333 while retaining every earlier key.
 
-This is a source-data proposal on deployed platform #486 (`b8b8b008`), separate
-from News reliability #487 and documentation #485. It does not add approved
+This source-data proposal follows deployed platform #487 (`892f84db`), retaining
+#486. It remains separate from documentation #485. It does not add approved
 varieties or change application behavior. CI, desktop/phone review and a fresh
 isolated live-data preservation check are release gates. No release approval
 has been given for this proposal.
@@ -78,8 +78,11 @@ connections, including the full-corpus replay check for all 1,315 earlier keys.
 Native desktop and 412px phone review confirms concise source cards, separate
 060 code rows, the original blackberry claim link and explicit session-only
 photo loading. The preview is an isolated fixture, not a production login.
-Required current-head CI and fresh live-data preservation remain separate
-evidence.
+The first Linux CI run exposed a Windows-dependent historical-file hash
+(6,272 other tests passed). Its corrected digest explicitly uses UTF-8/LF,
+matching the retained Git blob, and the corrected check passes locally.
+Earlier browser/preservation evidence was on the #486 base. Required fresh
+current-head CI and live-#487 preservation remain separate release gates.
 
 Canonical varieties, Facts, Evidence, relationships, roles, rights, schemas,
 source/name/photo review decisions and provider configuration are unchanged.

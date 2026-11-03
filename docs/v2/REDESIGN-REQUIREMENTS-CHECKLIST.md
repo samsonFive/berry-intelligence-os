@@ -7,8 +7,8 @@ occurrences, 34 distinct printed names/codes and 34 held photo references. All
 to 1,333. The bounded corpus has 539 sections, 2,073 occurrences, 175 text
 matches, 1,898 review needs, 11 unreadable sections and 143 follow-ups. The
 77-subject plan and all human review gates are unchanged. This is not global
-completeness or approved identities. Platform #486 is live at `b8b8b008`; this
-source proposal and News #487 are separate and unapproved. Earlier dated
+completeness or approved identities. Platform #487 is live at `892f84db`, retaining #486; this
+source proposal remains unapproved. Earlier dated
 release statements below retain their historical scope. TD-122, source depth,
 independent recall and held Map decisions remain open in this mission.
 

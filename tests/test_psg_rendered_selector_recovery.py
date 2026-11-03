@@ -33,7 +33,9 @@ def test_recovered_country_selection_preserves_historical_gaps_and_explicit_scop
         reference = source['capture_reference']
         assert reference['selected_country'] == 'United States of America'
         assert reference['selected_region'] == '-All Regions-' and reference['selected_type'] == '-All Types-'
-        assert reference['previous_capture']['retained_file_sha256'] == hashlib.sha256(OLD.read_bytes()).hexdigest()
+        assert reference['previous_capture']['retained_file_hash_basis'] == 'UTF-8 with LF newlines, matching the retained Git blob'
+        assert reference['previous_capture']['retained_file_sha256'] == hashlib.sha256(
+            OLD.read_text(encoding='utf-8').encode('utf-8')).hexdigest()
         assert len(reference['detail_pages']) == count
         assert all(not d['linked_sheet_bodies_checked'] and not d['current_legal_status_verified']
                    for d in reference['detail_pages'])
