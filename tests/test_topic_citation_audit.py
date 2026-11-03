@@ -18,6 +18,18 @@ def test_real_report_quotes_are_bound_to_the_captured_source():
  assert result['passed'] and result['quoted_sources_checked']==1
 
 
+def test_copy_label_is_audited_and_provenance_cannot_be_changed():
+ packet,source=fixture()
+ provenance={'method':'official_europe_pmc_api','copy_scope':'open repository full text',
+             'original_url':'https://example.org/original'}
+ source['capture_provenance']=dict(provenance)
+ packet['topic_sources'][0]['capture_provenance']=dict(provenance)
+ sections=topic_sections(packet)
+ assert audit_topic_citations(packet,sections,{'web-a':source})['passed']
+ packet['topic_sources'][0]['capture_provenance']['copy_scope']='publisher-deposited abstract'
+ assert not audit_topic_citations(packet,sections,{'web-a':source})['passed']
+
+
 def test_known_citation_id_cannot_launder_fabricated_prose_or_changed_source():
  packet,source=fixture();sections=topic_sections(packet)
  findings=next(s for s in sections if s.section_id=='topic_findings')

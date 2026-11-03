@@ -91,3 +91,45 @@ def test_named_company_question_requires_company_in_quoted_passage():
     entities={'company-synthetic':{'id':'company-synthetic','entity_type':'company','name':'Synthetic Breeder'}}
     row=match_record(record,plan_query('Strawberry Synthetic Breeder licensing Spain'),entities=entities)
     assert 'Synthetic Breeder' in row['passage']
+
+
+def test_regional_trial_request_cannot_borrow_international_licensing():
+    record=source(['A new floricane blackberry was licensed outside the United States following trials.'])
+    row=match_record(record,plan_query('Blackberry floricane varieties Mediterranean trials'))
+    assert not row or row['support_status']=='scope_unverified'
+    positive=source(['Floricane blackberry trials in the Mediterranean compared crop yield.'])
+    row=match_record(positive,plan_query('Blackberry floricane varieties Mediterranean trials'))
+    assert row and row['support_status']=='body_supported'
+
+
+def test_ventilation_question_does_not_quote_soil_advice():
+    record=source(['Raspberry plants in high tunnels need well-drained soil and nitrogen.',
+                   'A raspberry high tunnel trial compared summer ventilation using roof vents and measured air exchange.'])
+    row=match_record(record,plan_query('Raspberry high tunnel summer ventilation trials'))
+    assert row and 'roof vents' in row['passage']
+
+
+def test_heat_stress_requires_temperature_and_experimental_location():
+    query=plan_query('Raspberry crop heat stress experiments Scotland')
+    wrong=source(['Raspberry stress experiments in Scotland used heatmaps to assess root infection and water deficit.'])
+    row=match_record(wrong,query)
+    assert not row or row['support_status']=='scope_unverified'
+    positive=source(['Raspberry heat stress experiments in Scotland compared heating treatments and crop growth.'])
+    row=match_record(positive,query)
+    assert row and row['support_status']=='body_supported'
+
+
+def test_unheaded_numbered_bibliography_is_not_owned_trial_prose():
+    record=source(['Resources', '14. Example, A. (2020). Raspberry high tunnel ventilation trials. Journal 18:123.'])
+    assert not any('Example, A.' in text for _,text in record_passages(record))
+    index=source(['Research resources',
+                  'Selected publications related to raspberry ventilation trials',
+                  'Example A. Raspberry ventilation trials. Journal 2020.'])
+    assert not any('ventilation trials' in text for _,text in record_passages(index) if _ not in {'title','summary','snippet'})
+
+
+def test_recent_review_does_not_make_its_cited_trials_new():
+    record=source(['Strawberry disease resistant cultivar trials were reported in 2021 and 2023.'],
+                  'Strawberry disease resistance: current status and future directions')
+    row=match_record(record,plan_query('Strawberry disease resistant cultivar trials'))
+    assert row and row['relevance']=='background'

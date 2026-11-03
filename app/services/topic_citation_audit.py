@@ -65,7 +65,11 @@ def audit_topic_citations(packet, sections, captured_records):
             actual=hashlib.sha256(body.encode()).hexdigest() if body else None
             if not row.get('source_version') or actual!=row['source_version']:
                 fail('captured source version mismatch');continue
-            expected=f"[{source_id}] {row.get('source_name') or 'Source'} ({row.get('published_date') or 'publication date unknown'}) — source excerpt: “{row['passage']}”\n{row.get('source_url') or ''}"
+            provenance=row.get('capture_provenance') or {}
+            if provenance != (original.get('capture_provenance') or {}):
+                fail('published-copy provenance changed');continue
+            label=provenance.get('copy_scope') or 'source'
+            expected=f"[{source_id}] {row.get('source_name') or 'Source'} ({row.get('published_date') or 'publication date unknown'}) — {label} excerpt: “{row['passage']}”\n{row.get('source_url') or ''}"
             if expected not in section.prose:
                 fail('report quotation or attribution changed');continue
             if row.get('source_url')!=original.get('source_url') or row.get('published_date')!=original.get('published_date'):

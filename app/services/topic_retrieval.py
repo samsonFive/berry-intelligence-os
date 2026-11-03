@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v10"
+VERSION = "topic-retrieval-v11"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -239,6 +239,8 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     if re.search(r"\b(guide|prun\w*|growing|cultivars for)\b", title, re.I) and not re.search(r"\b(releas\w*|licen[sc]\w*|trial\w*)\b", title, re.I):
         event = False
     if pruning and body_matches:event=True
+    if re.search(r'\b(?:review|current status|future directions)\b',title,re.I):
+        event=False  # Publication of a review does not re-date its cited trials.
     score = 10 * len(set(plan.terms) & words) + 5 * event + 20 * bool(_EVENT.search(title)) + (2 if locator not in {"title", "snippet", "summary"} else 0)
     relevance = "direct" if event else "background"
     if reproduced_study_year and str(record.get('published_date') or '')[:4].isdigit() and reproduced_study_year<int(record['published_date'][:4]):

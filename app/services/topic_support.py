@@ -13,13 +13,19 @@ def passage_intent_supported(text, plan):
     from app.services.topic_retrieval import normalize
     words=set(plan.terms)
     plain=normalize(text)
+    if any(t.startswith('ventilat') for t in words):
+        if not re.search(r'\b(?:vent\w*|air exchange|airflow|air flow)\b',plain):return False
+    if 'heat' in words and 'stress' in words:
+        if not re.search(r'\b(?:heat\w*|thermal|high\w* temperatur\w*|increas\w* temperatur\w*)\b',plain):return False
+        # A heatmap is a plotting method, not a temperature treatment.
+        if not re.search(r'\b(?:heat(?!map)\w*|thermal|temperatur\w*)\b',plain):return False
     if any(t.startswith('prun') for t in words):
         if not re.search(r'\b(?:prun\w*|tipp\w*|thin\w*|cut\w*|remov\w*|train\w*)\b',plain):return False
         if 'trial' not in words and not re.search(r'\b(?:should|must|recommend\w*|cut|remove|winter|spring|summer|after harvest)\b',plain):return False
     if {'root','zone'} <= words and any(t.startswith('cool') for t in words):
         if not re.search(r'\broot zone\b',plain):return False
         if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
-    if 'trial' in words:
+    if any(t.startswith(('trial','experiment')) for t in words):
         if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
         if 'field' in words and not re.search(r'\b(?:field|outdoor)\b',plain):return False
     if any(t.startswith('robot') for t in words) and any(t.startswith('harvest') for t in words):
@@ -56,7 +62,7 @@ def support_context(plan, entities, identifiers):
         if any(len(name)>=4 and re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',positive) for name in names):
             organizations.append(names)
     places=[]
-    if 'trial' in plan.terms:
+    if any(t.startswith(('trial','experiment')) for t in plan.terms):
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]
@@ -64,6 +70,14 @@ def support_context(plan, entities, identifiers):
             if any(name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',positive) for name in names):
                 if entity.get('name')=='United Kingdom':names.extend(['England','Scotland','Wales','Northern Ireland','Britain'])
                 places.append(tuple(filter(None,(normalize(name) for name in names))))
+        # Geographic scope vocabulary does not create registry entities or
+        # equate a climate with a country. Unresolved regional requests stay
+        # literal, including subdivisions absent from the country registry.
+        for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland',
+                     'Central America','South America','North America','Southeast Asia'):
+            term=normalize(name)
+            if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',positive):
+                places.append((term,))
     return {'identities':list(identities.values()),'trial_places':places,'organizations':organizations}
 
 
