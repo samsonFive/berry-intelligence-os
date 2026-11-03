@@ -5,7 +5,7 @@ Original captures and their paragraph indices remain unchanged.
 """
 import re
 
-_RECOMMENDATIONS = {'related articles', 'related posts', 'recommended articles', 'you may also like', 'read next'}
+_RECOMMENDATIONS = {'related articles', 'related posts', 'recommended articles', 'you may also like', 'read next', 'references', 'bibliography', 'recommended citation'}
 
 
 def owned_article_passages(rows):

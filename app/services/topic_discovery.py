@@ -20,15 +20,16 @@ from app.services.ai_gateway.credentials import resolve_perplexity_api_key, Miss
 from app.services.ai_gateway.perplexity_search import PerplexitySearchClient
 from app.services.article_dedup import normalize_canonical_url
 from app.services.feed_first_reader import fetch_public_article, is_public_http_url
+from app.services.open_research_copy import fetch_topic_source
 from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v5'  # Quotation scope and attribution-footer boundaries changed.
+CAPTURE_VERSION = 'topic-capture-v6'  # Identity-checked, explicitly attributed open repository copies.
 MAX_CAPTURE_CANDIDATES = 40
 
 
-def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_public_article, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None) -> dict[str, Any]:
+def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     identity_basis = [{k:e.get(k) for k in ('id','name','aliases','berry_ids')} for e in (entities or {}).values() if e.get('entity_type')=='variety']
     key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id'])], sort_keys=True).encode()).hexdigest()
@@ -101,6 +102,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 identity = normalize_canonical_url(canonical)
                 locators = captured.get('passage_locators') or []
                 paragraphs = [{'index':i,'text':str(p), **({'locator':locators[i]} if i<len(locators) else {})} for i,p in enumerate(body)]
+                row['capture_provenance'] = {k:captured[k] for k in ('method','copy_scope','original_url','repository_identifiers','original_capture_status','original_capture_reason') if k in captured}
                 return {**row, "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "source_url": canonical, "search_date": row.get("published_date") or "", "published_date": captured.get("published_date") or "", "publication_date_basis": captured.get("published_date_basis") if captured.get("published_date") else "unknown", "article": {"paragraphs": paragraphs}, "capture_status": captured.get("availability") or "metadata_only", "capture_reason": captured.get("reason") or "", "source_version": hashlib.sha256("\n".join(str(p) for p in body).encode()).hexdigest() if body else None}
             except Exception as exc:
                 return {**row, "search_date": row.get("published_date") or "", "published_date": "", "publication_date_basis": "unknown", "capture_status": "snippet_only", "capture_reason": type(exc).__name__}

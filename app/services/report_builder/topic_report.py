@@ -41,7 +41,7 @@ def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entit
         varieties = [str(e.get("name")) for e in entities.values() if e.get("entity_type") == "variety" and (not scope.berry_id or scope.berry_id in (e.get("berry_ids") or []))]
         web = discover_topic(plan, inbox_dir=inbox_dir, entities=entities, constraints={"public_labels": public_labels, "required_label_groups": required, "public_variety_names": varieties}) if scope.source_scope == "combined" else {"items": [], "status": "not_requested", "failures": [], "queries_this_request": 0}
         # Keep only the matched passage + identity/provenance on the report.
-        web_rows = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "provider", "retrieved_at", "capture_status", "capture_reason", "source_version", "support_status", "source_review_hold")} | {"origin": "web", "trust_class": "LIVE / UNREVIEWED"} for row in web.get("items") or []]
+        web_rows = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "publication_date_basis", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "provider", "retrieved_at", "capture_status", "capture_reason", "capture_provenance", "source_version", "support_status", "source_review_hold")} | {"origin": "web", "trust_class": "LIVE / UNREVIEWED"} for row in web.get("items") or []]
         from app.services.research_event_groups import event_groups
         groups = event_groups([*(packet.get('topic_matches') or []), *(web.get('items') or [])],entities)
         research = {"plan": plan.as_dict(), "source_scope": scope.source_scope, "retrieval_trace": packet.get("retrieval_trace"), "local": local, "web": web_rows, "discovery": {k: v for k, v in web.items() if k != "items"},
@@ -72,7 +72,7 @@ def topic_sections(packet: dict[str, Any], *, as_of: date | None = None) -> list
     background = [r for r in supported if r not in recent and r.get("published_date")][:4]
     undated = [r for r in supported if not r.get("published_date")]
     def excerpts(items):
-        return "\n\n".join(f"[{r['id']}] {r.get('source_name') or 'Source'} ({r.get('published_date') or 'publication date unknown'}) — source excerpt: “{r['passage']}”\n{r.get('source_url') or ''}" for r in items)
+        return "\n\n".join(f"[{r['id']}] {r.get('source_name') or 'Source'} ({r.get('published_date') or 'publication date unknown'}) — {((r.get('capture_provenance') or {}).get('copy_scope') or 'source')} excerpt: “{r['passage']}”\n{r.get('source_url') or ''}" for r in items)
     prose = excerpts(recent)
     if not prose:
         prose = "No inspected, dated direct development supports the recent-findings section within this scope. Review discovery status, older context and undated leads separately; no unsupported narrative was generated."

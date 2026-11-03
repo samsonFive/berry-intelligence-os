@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v9"
+VERSION = "topic-retrieval-v10"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -87,7 +87,16 @@ def record_passages(record: Mapping[str, Any]) -> list[tuple[str, str]]:
         if isinstance(record.get(key), str) and record[key].strip():
             passages.extend((key, p) for p in re.split(r"\n\s*\n", record[key]) if p.strip())
     # Bounded overlapping chunks keep long sources searchable beyond the lead.
-    return [(locator, text[offset:offset + 1200]) for locator, text in passages for offset in range(0, len(text), 1000)]
+    chunks=[]
+    for locator,text in passages:
+        for offset in range(0,len(text),1000):
+            excerpt=text[offset:offset+1200]
+            if offset+1200<len(text):
+                endings=list(re.finditer(r'[.!?](?:["\u201d\u2019])?(?=\s|$)',excerpt))
+                if endings and endings[-1].end()>=300:
+                    excerpt=excerpt[:endings[-1].end()]
+            chunks.append((locator,excerpt))
+    return chunks
 
 
 def _query_identifiers(plan, entities):
@@ -132,7 +141,14 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         if not stamp or (plan.start and stamp < plan.start) or (plan.end and stamp > plan.end):
             return None
     identifiers=_query_identifiers(plan,entities) if _identifiers is None else _identifiers
-    from app.services.topic_support import support_context, identity_in_passage, cane_in_passage, trial_location_in_passage
+    # Unknown identifiers remain literal too: generic releases cannot stand in
+    # for a requested cultivar code merely by meeting token-coverage thresholds.
+    codes=re.findall(r'(?<!\w)(?:[A-Z]{2,8}[ -]?\d{2,6}[A-Za-z]?|[A-Za-z]{2,8}-\d{2,6}[A-Za-z]?)(?!\w)',plan.raw_query)
+    for code in codes:
+        if any(i['pattern'].fullmatch(code) for i in identifiers):continue
+        pattern=r'\s*'.join(re.escape(t) for t in re.findall(r'[a-z]+|\d+',normalize(code)))
+        if not re.search(r'(?<!\w)'+pattern+r'(?!\w)',text):return None
+    from app.services.topic_support import support_context, identity_in_passage, cane_in_passage, trial_location_in_passage, passage_intent_supported, organizations_in_passage
     support=support_context(plan,entities,identifiers) if _support_context is None else _support_context
     for identifier in identifiers:
         literal=bool(identifier['pattern'].search(text))
@@ -180,10 +196,13 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
                     and (cane_in_passage(p,plan.cane_type) or evidence_traits)
                     and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
                     and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities']))
-                    and trial_location_in_passage(p,support['trial_places'])]
+                    and trial_location_in_passage(p,support['trial_places'])
+                    and organizations_in_passage(p,support['organizations'])
+                    and passage_intent_supported(p,plan)]
     matching = body_matches or [(loc,p) for loc,p in passages if loc in metadata_fields]
     milestone=re.compile(r'\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*|establish\w*|debut\w*|trial\w*|evaluat\w*|experiment\w*|results)\b',re.I)
-    locator, passage = max(matching, key=lambda p: (bool(milestone.search(p[1])),sum(t in normalize(p[1]).split() for t in plan.terms)), default=("", ""))
+    pruning=any(t.startswith('prun') for t in plan.terms)
+    locator, passage = max(matching, key=lambda p: (sum(t in normalize(p[1]).split() for t in plan.terms) if pruning else bool(milestone.search(p[1])),sum(t in normalize(p[1]).split() for t in plan.terms)), default=("", ""))
     support_status='body_supported' if body_matches else 'scope_unverified'
     from app.services.research_source_holds import source_quote_hold
     quote_hold=source_quote_hold(record)
@@ -193,17 +212,37 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     position = next((i for i, p in enumerate(passages) if p == (locator, passage)), -1)
     if position >= 0 and locator not in metadata_fields and position + 1 < len(passages):
         next_locator, next_passage = passages[position + 1]
-        if next_locator not in metadata_fields and next_passage.strip() not in passage and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
+        if next_locator != locator and next_locator not in metadata_fields and next_passage.strip() not in passage and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
             passage += "\n\n" + next_passage
             locator += ";" + next_locator
+    # Preserve a short framing statement (e.g. the year of a reproduced study)
+    # through intervening Abstract headings. The publisher date alone does not
+    # date the underlying research.
+    reproduced_study_year=None
+    if position > 0 and locator not in metadata_fields:
+        context=[]
+        for previous_locator,previous in reversed(passages[max(0,position-2):position]):
+            if previous_locator in metadata_fields or previous_locator==locator:break
+            if len(previous)<250 and (re.search(r'\b(?:19|20)\d{2}\b',previous) or previous.strip().casefold()=='abstract'):
+                context.insert(0,(previous_locator,previous))
+            else:break
+        if any(re.search(r'\b(?:19|20)\d{2}\b',p) for _,p in context):
+            passage='\n\n'.join([*(p for _,p in context),passage])
+            locator=';'.join([*(loc for loc,_ in context),locator])
+            framing=' '.join(p for _,p in context)
+            year=re.search(r'\b((?:19|20)\d{2})\s+(?:study|research|paper)\b',framing,re.I)
+            if year:reproduced_study_year=int(year[1])
     title = str(record.get("title") or "")
     event = bool(_EVENT.search(title) or re.search(r"\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*)\b", passage, re.I))
     if 'license' in plan.terms:
         event = event and any(loc not in metadata_fields and re.search(r'\blicen[sc]\w*\b',p,re.I) for loc,p in passages)
     if re.search(r"\b(guide|prun\w*|growing|cultivars for)\b", title, re.I) and not re.search(r"\b(releas\w*|licen[sc]\w*|trial\w*)\b", title, re.I):
         event = False
+    if pruning and body_matches:event=True
     score = 10 * len(set(plan.terms) & words) + 5 * event + 20 * bool(_EVENT.search(title)) + (2 if locator not in {"title", "snippet", "summary"} else 0)
     relevance = "direct" if event else "background"
+    if reproduced_study_year and str(record.get('published_date') or '')[:4].isdigit() and reproduced_study_year<int(record['published_date'][:4]):
+        relevance='background'
     if support_status != "body_supported":relevance="adjacent"
     if plan.cane_type == "floricane" and "primocane" in normalize(str(record.get("title") or "")).split():
         # A primocane release may mention floricanes only as a comparison.

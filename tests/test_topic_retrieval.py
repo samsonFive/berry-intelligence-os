@@ -145,19 +145,22 @@ def test_report_preview_generate_reload_and_workspace_capture(monkeypatch, tmp_p
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     monkeypatch.setattr(main, "maybe_untrusted_completer", lambda: None)
     calls = []
+    provenance={"method":"official_crossref_api","copy_scope":"publisher-deposited abstract","original_url":"https://example.org/original"}
     def discovery(plan, **kwargs):
         calls.append(plan.raw_query)
-        return {"items": [{**source(), "passage": "Synthetic fixture: Ervin blackberry was introduced as a floricane cultivar.", "passage_locator": "article:0", "source_version": "fixture-sha", "relevance": "direct", "match_reason": "Matched source passage", "capture_status": "full", "retrieved_at": "2026-10-26T00:00:00Z"}], "status": "complete", "failures": []}
+        return {"items": [{**source(), "passage": "Synthetic fixture: Ervin blackberry was introduced as a floricane cultivar.", "passage_locator": "article:0", "source_version": "fixture-sha", "relevance": "direct", "match_reason": "Matched source passage", "capture_status": "excerpt_only", "capture_provenance":provenance, "retrieved_at": "2026-10-26T00:00:00Z"}], "status": "complete", "failures": []}
     monkeypatch.setattr("app.services.report_builder.topic_report.discover_topic", discovery)
     client = TestClient(main.app)
     preview = client.post("/reports/new", data={"step": "interpret", "request_text": "Blackberry Floricans", "source_scope": "combined"})
     assert preview.status_code == 200 and "Discovered evidence" in preview.text and "Synthetic fixture" in preview.text
+    assert 'publisher-deposited abstract' in preview.text
     response = client.post("/reports/new", data={"step": "generate", "research_query": "Blackberry Floricans", "source_scope": "combined", "berry": "berry-blackberry"}, follow_redirects=False)
     assert response.status_code == 303
     url = response.headers["location"]
     before = len(calls)
     report = client.get(url)
     assert report.status_code == 200 and "Attributed source findings" in report.text
+    assert 'publisher-deposited abstract' in report.text
     assert len(calls) == before  # saved source version, no paid replay on reload
     saved = client.post(url + "/topic-source/fixture-introduction/save", follow_redirects=False)
     assert saved.status_code == 303
@@ -165,6 +168,9 @@ def test_report_preview_generate_reload_and_workspace_capture(monkeypatch, tmp_p
     assert again.status_code == 303
     items = Store(tmp_path).rows("item")
     assert len(items) == 1 and items[0]["verification_state"] == "unverified"
+    snapshots=Store(tmp_path).rows('source')
+    assert len(snapshots)==1 and snapshots[0]['capture_provenance']==provenance
+    assert snapshots[0]['source_version']=='fixture-sha'
 
 
 def test_archive_only_report_never_calls_provider(monkeypatch, tmp_path):

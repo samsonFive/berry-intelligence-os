@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "kind": "Inspected handling of seven known context flags, not independent all-report semantic acceptance",
+  "retrieval_version": "topic-retrieval-v10",
+  "original_run_sha256": "615e6e36d33449159db8ae23fba6559b52670cb95d7b2652e0bdccdb4a8c5936",
+  "scope": "Offline replay of frozen source bodies using the current registry. Original captures, blind labels and metrics unchanged. No network or model calls.",
+  "flag_count": 7,
+  "dispositions": [
+    {
+      "original_flag": "C08",
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "source_id": "web-b868c2254f258658",
+      "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+      "original_source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+      "original_excerpt_sha256": "c8551938f89dfd45fd391fffda11e666233e6159821b6667fd29bcf9a13fb6db",
+      "original_section_sha256": "ffe07936306055b006ebe50974ba7a074019504f43e0d7dc46ff137123048cf9",
+      "new_excerpt_sha256": "09d31bed303e2d1185b27ce5401102049664b7375632396dff9bf56f8637c1c6",
+      "new_locator": "article:0;article:1;article:2",
+      "support_status": "body_supported",
+      "sections": [
+        {
+          "id": "topic_background",
+          "sha256": "851d21e8e1ce5298749f6c13d17ef0db2c1a6b976fda004983ea068c09fc6ebd"
+        }
+      ],
+      "disposition": "background with original 2018 study framing",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C10",
+      "query": "Strawberry Planasa licensing Spain",
+      "source_id": "web-bb0e730cd85e2353",
+      "source_url": "https://www.freshplaza.com/north-america/article/159501/Spain-Up-to-11-million-Euro-paid-in-royalties-each-strawberry-campaign/",
+      "original_source_version": "7cd8502e6febc2a9f1bf6c1f8b6ff513be0995e1b8c8b884a30832e73b4b186e",
+      "original_excerpt_sha256": "cc02b84bd365ba69be7b2dbe1975f83698705baee5955e5e9e8ee7c5e502c1dc",
+      "original_section_sha256": "66007824f7f96e24c57b80050314dc75ce1580e0c2c5c10bf8ea6578ba900472",
+      "new_excerpt_sha256": "d4cfd6878ad3cfb76762c28f66244495cb60bdd2eca7605c786f62a9c84e7df0",
+      "new_locator": "snippet",
+      "support_status": "scope_unverified",
+      "sections": [
+        {
+          "id": "topic_verification_leads",
+          "sha256": "54c1d4ad7e0dc8d7e5a349ef172839b87639bb8509c54a732f1ada3adc435e78"
+        }
+      ],
+      "disposition": "withheld; no body passage establishes the named company",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C16",
+      "query": "Blackberry floricane pruning",
+      "source_id": "web-c18696ee4c09df36",
+      "source_url": "https://news.uark.edu/articles/69431/arkansas-fruit-breeding-program-releases-new-late-season-blackberry",
+      "original_source_version": "3b308d181e62ddf30c50359acb4fce6da4bd50890a5d017d213546f0c3180f39",
+      "original_excerpt_sha256": "67d507cd742e63bb037ea9eb4438a11956f1cb6c8f5dcebe7975c7801483a530",
+      "original_section_sha256": "d63cfdb2edd75b74f9830b08e3553206b08cb0009a5e922ea762fee6737a745f",
+      "new_excerpt_sha256": "12297826a616bca9aa7a926bcf6d9f4a3e52fa08a8963be99c995df6ad5dc8b3",
+      "new_locator": "snippet",
+      "support_status": "scope_unverified",
+      "sections": [
+        {
+          "id": "topic_verification_leads",
+          "sha256": "2894353e375fdd9eb1477a1b4d55f607e60f569f104528f9e8fe6ab539515612"
+        }
+      ],
+      "disposition": "withheld; no body-owned pruning instruction meets scope",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C19",
+      "query": "Strawberry robotic harvesting research",
+      "source_id": "web-319f14880711dae7",
+      "source_url": "https://ph04.tci-thaijo.org/index.php/abe/article/view/9842",
+      "original_source_version": "2e66b4d385ee1dce7fd347087fa76e6c9ceb373f5baf05c6b9e61f72cc393a79",
+      "original_excerpt_sha256": "882f2d9e157370efa997502ac774fcfd92e493f9d53be9b0b7ad92bd07fa1b1b",
+      "original_section_sha256": "b299cdce3f6b5abdb65465d38a11bf3164c78389f09d2aebb104e658ab45dcb2",
+      "new_excerpt_sha256": "3821a0b6399e949e7c4f25835df4e28cdb6a9e73161d54b740dcf7ce44430442",
+      "new_locator": "article:3",
+      "support_status": "body_supported",
+      "sections": [
+        {
+          "id": "topic_background",
+          "sha256": "5d4e8a6a579bcd3279e19b53ced1cfb3127f7a5af4548f264f965b5b8db28725"
+        }
+      ],
+      "disposition": "replaced bibliography reference with source-owned abstract",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C26",
+      "query": "Floricane blackberry developments",
+      "source_id": "web-b868c2254f258658",
+      "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+      "original_source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+      "original_excerpt_sha256": "c8551938f89dfd45fd391fffda11e666233e6159821b6667fd29bcf9a13fb6db",
+      "original_section_sha256": "696a2746afc39b2041f9dc2923b618aa751cd1076d36c3c57cd8da54aadd1012",
+      "new_excerpt_sha256": "09d31bed303e2d1185b27ce5401102049664b7375632396dff9bf56f8637c1c6",
+      "new_locator": "article:0;article:1;article:2",
+      "support_status": "body_supported",
+      "sections": [
+        {
+          "id": "topic_background",
+          "sha256": "e213f68f82df098ea24c458047b7e7f8c5440e3efcb8300d044b16cdaa107c45"
+        }
+      ],
+      "disposition": "background with original 2018 study framing",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C32",
+      "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+      "source_id": "web-524d4aa56a0bba8c",
+      "source_url": "https://www.neoteo.com/en/ctaex-presented-agrhound-its-agricultural-robot-project",
+      "original_source_version": "e4e595d5378bc8f00c18c68224aa4a7d62ce690847dd0d0d7dc47a7a26a14c3e",
+      "original_excerpt_sha256": "34ad3f92e73a25fc23a2f23d4b6eb556af8317592c5c9e5a198a8e2492ae620f",
+      "original_section_sha256": "ed90ec0a01991822a589301f05db1cc0f60877c68b764f8eebfdfb615483e3c5",
+      "new_excerpt_sha256": "a3a9b996e87086d31e8fd2c03ddd4f6f55295e230ca3fd593dd2a510c6eee440",
+      "new_locator": "snippet",
+      "support_status": "scope_unverified",
+      "sections": [
+        {
+          "id": "topic_verification_leads",
+          "sha256": "eeb047c14f9d87860a26c64e626bf0cb960b4d450faa2b20f9bf9ae64539a939"
+        }
+      ],
+      "disposition": "withheld; monitoring trial is not harvesting",
+      "semantic_disposition_reviewed": true
+    },
+    {
+      "original_flag": "C35",
+      "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+      "source_id": "web-7c7b2b81899ed306",
+      "source_url": "https://www.hortidaily.com/article/9640005/this-kind-of-technology-has-been-a-long-time-coming/",
+      "original_source_version": "3cfc2258bfd8e8b2b950e24c35f2d4f18f7669e3e49ca1dcebafccef25acafc5",
+      "original_excerpt_sha256": "18854e67913dd254b8a76bb3ecf9f1b32c494b87baa0c90b7da195270f126586",
+      "original_section_sha256": "ed90ec0a01991822a589301f05db1cc0f60877c68b764f8eebfdfb615483e3c5",
+      "new_excerpt_sha256": "b9aca258f620efd75430c7f3be32bec4dedb8da95bd8f47cc580d9c593d74cc0",
+      "new_locator": "snippet",
+      "support_status": "scope_unverified",
+      "sections": [
+        {
+          "id": "topic_verification_leads",
+          "sha256": "eeb047c14f9d87860a26c64e626bf0cb960b4d450faa2b20f9bf9ae64539a939"
+        }
+      ],
+      "disposition": "withheld; strawberry harvesting does not prove blackberry harvesting",
+      "semantic_disposition_reviewed": true
+    }
+  ],
+  "quotation_fidelity": {
+    "query_count": 20,
+    "quotations_checked": 26,
+    "failure_count": 0
+  }
+}

@@ -4,6 +4,35 @@ import re
 CROPS={'blackberry','blueberry','raspberry','strawberry'}
 
 
+def passage_intent_supported(text, plan):
+    """Require the requested operation, rather than borrowing its title.
+
+    These are quotation eligibility checks, not an entailment/truth score.
+    Related sources can remain visible as verification leads.
+    """
+    from app.services.topic_retrieval import normalize
+    words=set(plan.terms)
+    plain=normalize(text)
+    if any(t.startswith('prun') for t in words):
+        if not re.search(r'\b(?:prun\w*|tipp\w*|thin\w*|cut\w*|remov\w*|train\w*)\b',plain):return False
+        if 'trial' not in words and not re.search(r'\b(?:should|must|recommend\w*|cut|remove|winter|spring|summer|after harvest)\b',plain):return False
+    if {'root','zone'} <= words and any(t.startswith('cool') for t in words):
+        if not re.search(r'\broot zone\b',plain):return False
+        if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
+    if 'trial' in words:
+        if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
+        if 'field' in words and not re.search(r'\b(?:field|outdoor)\b',plain):return False
+    if any(t.startswith('robot') for t in words) and any(t.startswith('harvest') for t in words):
+        crops=words & CROPS
+        for crop in crops:
+            stem=crop.removesuffix('y')
+            fruit=stem+r'(?:y|ies)'
+            operation=r'(?:harvest\w*|pick\w*)'
+            qualifiers=r'(?:(?:the|ripe|delicate|fresh)\s+){0,2}'
+            if not re.search(r'\b'+fruit+r'\s+(?:(?:robotic|robot assisted|mechanical)\s+)?'+operation+r'\b|\b'+operation+r'\s+(?:of\s+)?'+qualifiers+fruit+r'\b',plain):return False
+    return True
+
+
 def support_context(plan, entities, identifiers):
     from app.services.topic_retrieval import normalize
     positive=normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)','',plan.raw_query))
@@ -20,6 +49,12 @@ def support_context(plan, entities, identifiers):
             if len(term)<4 or not set(term.split())-CROPS:continue
             if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',positive):
                 identities[entity['id']]=entity
+    organizations=[]
+    for entity in (entities or {}).values():
+        if entity.get('entity_type')!='company':continue
+        names=tuple(filter(None,(normalize(n) for n in [entity.get('name') or '',*(entity.get('aliases') or [])])))
+        if any(len(name)>=4 and re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',positive) for name in names):
+            organizations.append(names)
     places=[]
     if 'trial' in plan.terms:
         for entity in (entities or {}).values():
@@ -29,7 +64,13 @@ def support_context(plan, entities, identifiers):
             if any(name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',positive) for name in names):
                 if entity.get('name')=='United Kingdom':names.extend(['England','Scotland','Wales','Northern Ireland','Britain'])
                 places.append(tuple(filter(None,(normalize(name) for name in names))))
-    return {'identities':list(identities.values()),'trial_places':places}
+    return {'identities':list(identities.values()),'trial_places':places,'organizations':organizations}
+
+
+def organizations_in_passage(text, groups):
+    from app.services.topic_retrieval import normalize
+    plain=normalize(text)
+    return all(any(re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',plain) for name in names) for names in groups)
 
 
 def identity_in_passage(text, entity):
