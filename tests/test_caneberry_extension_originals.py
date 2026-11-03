@@ -82,7 +82,7 @@ def test_only_four_named_credited_photos_are_referenced_and_permission_stays_unk
         assert not candidate['proposed_relationships'] and not candidate['auto_confirmed']
 
 
-def test_private_candidate_handoff_retains_credit_without_default_image_requests(monkeypatch,tmp_path):
+def test_private_candidate_handoff_retains_credit_without_default_image_requests(monkeypatch,tmp_path,pre_admission_catalog):
     monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
     monkeypatch.setattr(main,'AUTHORING_MODE',True)
     client=TestClient(main.app)
