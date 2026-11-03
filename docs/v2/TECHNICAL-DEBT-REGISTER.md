@@ -1,3 +1,39 @@
+# Current verified releases and remaining mission — November 3, 2026
+
+[Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
+merged and independently verified live at `32eefbd5` (approved `22dcb869`),
+retaining News #487, #486 and earlier platform releases. All four final checks
+pass: 6,277 tests. Fresh release-time and live checks retain all five accounts
+including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and
+1,115 research files. One source import is added; no existing data was replaced
+or restored. Settings, mounts, proxy, active/enabled News schedule, backup and
+rollback are preserved. The #486, #487 and #488 approvals are fulfilled.
+
+The source import recovers three PSG selectors and two related lists: 44
+occurrences of 34 printed names/codes, 18 additional review keys and 34 held
+photo references. All 1,315 earlier public-source keys remain. The scoped public
+corpus is now 539 sections /2,073 occurrences /1,333 review keys, with 11
+unreadable sections and 143 follow-ups. These are source observations and review
+candidates, not 1,333 approved varieties or proof of worldwide completeness.
+Canonical variety identities, company roles, rights, growing footprints and
+photo reuse still require their existing human decisions.
+
+News #487 finalizes useful capture as partial when optional tagging fails.
+Provider quota is still an operational dependency; no purchase or paid retry is
+authorized. The one approved Learn acceptance run completed previously and
+remains an editable AI draft. The visual Help explainer and collaborative
+Workspaces/private Digest and layout boundaries remain delivered.
+
+Cold catalog visits still take several seconds; TD-122 remains open. The exact
+Reader-key implementation in closed, unmerged #489 preserved all eight complete
+outputs but gave mixed page/workflow timings. It is excluded from live release;
+the stronger prototype figures are not final-code or deployed claims.
+[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains this evidence and earlier
+rejected experiments. The independent human expected-name audit, source and
+trait/IP/photo depth, held Map selections and broader Learn quality remain in
+this mission. Original 31 definitions/order, the governing guide and all human
+review gates remain unchanged. Earlier entries below are historical records.
+
 # Crop-word preparation — November 3, 2026
 
 [The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.

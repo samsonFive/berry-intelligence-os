@@ -130,6 +130,12 @@ _NAMED_ITEM = rf"['‘’\"“”]?{_NAMED_TOKEN}['‘’\"“”]?"
 _DECLARATION_HINT_RE = re.compile(
     r"varieties|cultivars|denominations|selection|variedades|odmiany", re.IGNORECASE,
 )
+# The source path also accepts singular variety/cultivar fields and sentences.
+# These are necessary prefixes only; positives retain every original parser.
+# Extend this gate whenever a supported declaration introduces new syntax.
+_SOURCE_DECLARATION_HINT_RE = re.compile(
+    r"variet|cultivar|denomination|selection|variedades|odmiany", re.IGNORECASE,
+)
 _EXPLICIT_LIST_RE = re.compile(
     rf"\b(?:(?P<species>(?i:blueberry|strawberry|raspberry|blackberry))\s+)?"
     rf"(?i:varieties|cultivars|denominations)\s*(?i:including|include|named|such as|are|:)\s*"
@@ -502,6 +508,17 @@ def _declared_names(summary, record, blocked, *, source_text=False):
         # Profile fields may use an explicit crop in the captured source title,
         # or a short nearby profile heading. Publication tags are not a substitute.
         title_crops = paragraph_crop_ids((record.get("article") or {}).get("title") or "")
+        if (type(summary) is str and type(record) is dict and "|" not in summary
+                and "İ" not in summary and "ı" not in summary
+                and not _SOURCE_DECLARATION_HINT_RE.search(summary)):
+            berry_values = record.get("berry_ids")
+            if ((berry_values is None or (type(berry_values) in (list, tuple)
+                    and all(type(value) in (str, type(None)) for value in berry_values)))
+                    and type(record.get("berry_id")) in (str, type(None))):
+                # No supported declaration or review exclusion can arise.
+                # Keep malformed metadata and Unicode crop errors on their
+                # existing path; source title validation has already run.
+                return [], []
         document_crops = paragraph_crop_ids(summary)
         if any(crop not in title_crops for crop in document_crops):
             # A multi-crop article title cannot scope every later profile field.
