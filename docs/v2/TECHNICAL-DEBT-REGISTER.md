@@ -3587,3 +3587,15 @@ every saved text/request/source/edit. All92 affected checks pass. Fresh combined
 acceptance and separate release approval remain. Unknown/ambiguous topics do not
 guess a diagram. No provider field, acquisition, source identity or qualification
 change. Broader media/source review and TD-122 remain open.
+
+### November 3 — TD-122 source text preparation
+
+The catalog-batch experiment #481 is withdrawn: preservation passed but fresh
+production-copy pages were flat. Its code is excluded. A subsequent server
+profile identifies source-text preparation and article declaration checks as
+larger costs. The [source-prose prototype](SOURCE-PROSE-PERFORMANCE-REVIEW.md)
+preserves complete typed discovery models and HTML while improving both tested
+cold routes. The isolated implementation changes two runtime files; 544 affected
+Reader/News/article/source-fidelity checks pass. Final acceptance and separate
+release approval remain.
+TD-122 stays open; no coverage or human decision is upgraded.

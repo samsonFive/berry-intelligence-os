@@ -1310,3 +1310,11 @@ editable AI draft. Reported cost was USD0.13679. Its83 captured links are not83
 verified sources or a recall score. Two OSU guides were checked; blocked
 paper/video checks remain disclosed. [Acceptance and presentation repair](LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md)
 do not add competitive Evidence, canonical sources, traits or review decisions.
+
+November 3 source preparation: [the performance child](SOURCE-PROSE-PERFORMANCE-REVIEW.md)
+reduces repeated text work with unchanged assertions, exclusions, typed discovery
+output and source/identity review boundaries. Its measurements add no source,
+canonical variety, approved identity, photo permission or recall qualification.
+Prior coverage classes, counts, current/historical gaps and independent human
+expected-name requirements remain. The unrelated catalog-batch experiment481
+is withdrawn and excluded from this child.

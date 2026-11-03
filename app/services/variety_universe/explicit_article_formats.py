@@ -14,6 +14,7 @@ _CROPS = {
 }
 _CROP = r"blueberry|strawberry|raspberry|blackberry"
 _CROP_WORDS = re.compile(r"\b(" + "|".join(_CROPS) + r")\b", re.IGNORECASE)
+_DECLARATION_WORDS = re.compile(r"\b(?:variet(?:y|ies)|cultivars?)\b", re.IGNORECASE)
 _LICENSE = re.compile(
     r"\blicen[cs]es?\b[^.!?\n:]{0,80}\bvarieties\s*:\s*", re.IGNORECASE)
 _ATTRIBUTION = re.compile(
@@ -94,6 +95,10 @@ def declared_article_list_rows(text, *, name_token, title_crop_ids=()):
 
 def explicit_article_formats(text, *, name_token, profile_crop_ids=()):
     """Return source assertions of names, never roles/traits/rights or aliases."""
+    # Every supported format below requires an explicit variety/cultivar word.
+    # Do not prepare its patterns or crop context for unrelated paragraphs.
+    if not _DECLARATION_WORDS.search(text):
+        return [], []
     leads, excluded = [], []
     quoted = rf"(?:'{name_token}'|\"{name_token}\"|‘{name_token}’|“{name_token}”)"
     item = re.compile(quoted)

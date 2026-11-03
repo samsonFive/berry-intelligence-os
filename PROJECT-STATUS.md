@@ -11,11 +11,17 @@ Intelligence hierarchy and the real Learn acceptance presentation repair.
 [Learn acceptance](docs/v2/LEARN-REAL-PROVIDER-ACCEPTANCE-2026-11-03.md) record the
 boundaries. One authorized high-effort request completed at a provider-reported
 USD0.13679; its lesson remains an editable AI draft. No further paid request.
-The 92 affected Learn checks pass; current combined-head CI, native/fresh review
-and separate release approval remain. Earlier476-base6157-test acceptance stays
-dated. All original31 definitions/order and human gates remain. Cold loads,
+The current #480 head passes all four checks (6,165 tests), native desktop/phone
+review and fresh isolated preservation. Separate release approval remains.
+Earlier476-base6157-test acceptance stays dated. All original31 definitions/order and human gates remain. Cold loads,
 independent catalog/source and Map decisions and wider Learn source/media quality
 remain in this same active mission.
+
+The [source text preparation child](docs/v2/SOURCE-PROSE-PERFORMANCE-REVIEW.md) follows actual server profiles.
+Its prototype improves both tested cold routes with identical discovery models
+and HTML; 544 affected implementation checks pass. Final acceptance remains.
+The rejected catalog-batch experiment481 is closed and excluded. Neither change
+is included in pending480 approval. All human review decisions remain.
 
 # Active same-thread mission — November 3, 2026
 

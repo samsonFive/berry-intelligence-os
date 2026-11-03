@@ -5,6 +5,7 @@ This module does not fetch URLs and does not invent article text.
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -64,6 +65,20 @@ READER_UI_SIGNALS = (
 
 
 def reader_ui_message(text: str) -> bool:
+    """Reuse exact short-text decisions; edits and long/opaque inputs stay fresh."""
+    if type(text) is str and len(text) <= 768:
+        return _short_reader_ui_message(text)
+    return _reader_ui_message(text)
+
+
+@lru_cache(maxsize=2048)
+def _short_reader_ui_message(text: str) -> bool:
+    # At most 2,048 strings of 768 characters, process-local only. No record,
+    # source identity, review status or mutable result is retained here.
+    return _reader_ui_message(text)
+
+
+def _reader_ui_message(text: str) -> bool:
     """Recognize consent/access/first-visit UI, preserving article discussions."""
     normalized = " ".join(decode_html_text(text).casefold().split())
     if normalized.strip(" .!:…") in {"accept all", "reject all", "accept cookies", "cookie settings", "privacy settings"}:
