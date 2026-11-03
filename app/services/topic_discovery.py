@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v10'  # Include existing attributed technical-source leads.
+CAPTURE_VERSION = 'topic-capture-v11'  # Public citations, OpenAIRE and partial-route cache TTL.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -101,8 +101,9 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         if path.is_file() and time.time() - path.stat().st_mtime < CACHE_SECONDS:
             try:
                 cached=json.loads(path.read_text(encoding="utf-8"))
-                counters={k:0 for k in ('primary_requests_this_request','fallback_requests_this_request') if k in cached}
-                return {**cached, **counters, "cache_hit": True, "queries_this_request": 0}
+                if time.time()-path.stat().st_mtime < min(CACHE_SECONDS,cached.get('cache_ttl_seconds',CACHE_SECONDS)):
+                    counters={k:0 for k in ('primary_requests_this_request','fallback_requests_this_request') if k in cached}
+                    return {**cached, **counters, "cache_hit": True, "queries_this_request": 0}
             except (OSError, ValueError):
                 pass
         if client is None:
@@ -211,7 +212,11 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         result = {"items": rows, "status": "partial" if (failures or degraded) and successes else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search", **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.
-        if not failures and not diagnostics.get('fallback_failures'):
+        if not failures:
+            # A working fallback with one unavailable index is still a useful
+            # partial result. Briefly reuse it to avoid repeated free requests;
+            # a total search failure remains immediately retryable.
+            result['cache_ttl_seconds']=120 if diagnostics.get('fallback_failures') else CACHE_SECONDS
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_suffix(".tmp")
             temporary.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")

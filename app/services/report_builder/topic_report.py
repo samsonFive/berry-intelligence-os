@@ -65,7 +65,10 @@ def topic_sections(packet: dict[str, Any], *, as_of: date | None = None) -> list
     rows = packet.get("topic_sources") or []
     from app.services.research_source_holds import source_quote_hold
     held = [r for r in rows if r.get('source_review_hold') or source_quote_hold(r)]
-    unverified = [r for r in rows if r.get('support_status')=='scope_unverified']
+    from app.services.topic_support import passage_intent_supported
+    quote_plan=plan_query(plan['raw_query'])
+    # Saved research snapshots may have been ranked before current safeguards.
+    unverified = [r for r in rows if r.get('support_status')=='scope_unverified' or (r.get('passage') and not passage_intent_supported(r['passage'],quote_plan))]
     supported = [r for r in rows if r not in held and r not in unverified and r.get("passage") and r.get("relevance") != "adjacent" and r.get("passage_locator") not in {"summary", "snippet", "title"} and (r["origin"] == "collected" or r.get("source_version"))]
     threshold = ((as_of or date.today()) - timedelta(days=365)).isoformat()
     recent = [r for r in supported if r.get("relevance") == "direct" and r.get("published_date") and (plan.get("start") or r["published_date"] >= threshold)]
@@ -78,7 +81,7 @@ def topic_sections(packet: dict[str, Any], *, as_of: date | None = None) -> list
         prose = "No inspected, dated direct development supports the recent-findings section within this scope. Review discovery status, older context and undated leads separately; no unsupported narrative was generated."
     scope_text = f"Query: {plan['raw_query']}\nInterpretation: {plan['interpreted_query']}\nSources: {research['source_scope']}\nPublication window: {plan.get('start') or 'unrestricted'} to {plan.get('end') or 'present'}\nWeb discovery: {research['discovery']['status']}\nSource statements remain attributed; web discoveries are unreviewed. Recent developments and older context retain their original publication dates."
     if research['discovery'].get('fallback_used'):
-        scope_text += '\nPerplexity is unavailable. Credit-free scholarly indexes, Google News RSS and registered primary-source leads were used instead. Coverage is narrower than full web discovery; this is not proof of complete recall.'
+        scope_text += '\nPerplexity is unavailable. Credit-free scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and registered primary-source leads were used instead. Coverage is narrower than full web discovery; this is not proof of complete recall.'
     sections = [SectionDraft("scope_method", "Research scope and coverage", scope_text, (), "structured", None, None), SectionDraft("topic_findings", "Attributed source findings — recent developments", prose, tuple(r["id"] for r in recent), "structured", None, None)]
     if background:
         sections.append(SectionDraft("topic_background", "Older developments and background", excerpts(background), tuple(r["id"] for r in background), "structured", None, None))

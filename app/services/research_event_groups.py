@@ -2,6 +2,7 @@
 import hashlib
 import re
 from datetime import date
+from urllib.parse import unquote,urlsplit
 
 from app.services.story_threads import items_form_thread
 from app.services.topic_retrieval import record_passages, normalize
@@ -55,6 +56,16 @@ def event_groups(rows, entities):
     varieties = [e for e in entities.values() if e.get('entity_type') == 'variety']
     matchers = matchers_from_entities(varieties,'variety')
     signatures = {r['id']:_license_signature(r,entities,varieties,matchers) for r in rows}
+    def work_id(row):
+        # Only the source's own DOI route, never a DOI in its bibliography.
+        url=urlsplit(row.get('source_url')or'')
+        path=unquote(url.path)
+        if url.hostname in {'doi.org','dx.doi.org'}:candidate=path.lstrip('/')
+        elif url.hostname=='api.crossref.org' and path.startswith('/works/'):candidate=path[7:]
+        elif url.hostname in {'journals.sagepub.com','onlinelibrary.wiley.com','www.tandfonline.com'} and '/doi/'in path:candidate=path.split('/doi/',1)[1].removeprefix('full/').removeprefix('abs/').removeprefix('pdf/')
+        else:return None
+        return candidate.casefold() if re.fullmatch(r'10\.\d{4,9}/\S{1,180}',candidate) else None
+    works={r['id']:work_id(r)for r in rows}
     def kind(row):
         if signatures[row['id']]:
             return 'licensing'
@@ -64,6 +75,7 @@ def event_groups(rows, entities):
         title = normalize(row.get('title') or '')
         return 'introduction' if re.search(r'\b(introduc\w*|releas\w*|launch\w*)\b',title) else 'other'
     def together(left,right):
+        if works[left['id']] and works[left['id']]==works[right['id']]:return True
         try:
             gap = abs((date.fromisoformat((left.get('published_date') or left.get('date') or '')[:10])-date.fromisoformat((right.get('published_date') or right.get('date') or '')[:10])).days)
         except ValueError:
@@ -85,5 +97,5 @@ def event_groups(rows, entities):
             group.append(row)
     return [{'id':'research-event-'+hashlib.sha256('|'.join(sorted(r['id'] for r in group)).encode()).hexdigest()[:16],
              'member_ids':[r['id'] for r in group], 'members':group,
-             'reason':'Same named variety, licensee, territory and nearby publication dates' if signatures[group[0]['id']] else 'Existing conservative Story Thread match',
+             'reason':'Same published work DOI; alternate editions are not independent confirmation' if len(group)>1 and works[group[0]['id']] and all(works[r['id']]==works[group[0]['id']]for r in group) else 'Same named variety, licensee, territory and nearby publication dates' if signatures[group[0]['id']] else 'Existing conservative Story Thread match',
              'label':'Related coverage · independence not established'} for group in groups]

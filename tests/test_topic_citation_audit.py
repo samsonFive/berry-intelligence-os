@@ -19,6 +19,21 @@ def test_real_report_quotes_are_bound_to_the_captured_source():
  assert result['passed'] and result['quoted_sources_checked']==1
 
 
+@pytest.mark.parametrize('body',[
+ 'Blueberry variety metabolites changed during cold storage in Mexico.',
+ 'Blueberry and raspberry wines differed in alcohol concentration.',
+ 'The blueberry variety Duke was propagated in pots in Mexico.',
+ 'Blueberry bagasse was added to probiotic formulations for mouse experiments.'
+])
+def test_saved_licensing_snapshot_cannot_quote_unrelated_background(body):
+ packet,source=fixture();row=packet['topic_sources'][0]
+ row.update(passage=body,relevance='background',support_status='body_supported')
+ packet['topic_research']['plan'].update(raw_query='Blueberry cultivar licensing Mexico',interpreted_query='Blueberry cultivar licensing Mexico')
+ sections=topic_sections(packet)
+ assert not any(row['id']in s.citation_ids for s in sections if s.section_id in {'topic_findings','topic_background'})
+ assert row['id']in next(s for s in sections if s.section_id=='topic_verification_leads').citation_ids
+
+
 @pytest.mark.parametrize('url',['https://europepmc.org/articles/PMC12608649','https://pmc.ncbi.nlm.nih.gov/articles/PMC12608649/'])
 def test_conflicting_glen_dee_breeder_account_is_visible_but_not_quoted(url):
  from app.services.research_source_holds import source_quote_hold

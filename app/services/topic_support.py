@@ -13,6 +13,26 @@ def passage_intent_supported(text, plan):
     from app.services.topic_retrieval import normalize
     words=set(plan.terms)
     plain=normalize(text)
+    if 'license' in words:
+        # Article copyright and open-access licences are not cultivar deals.
+        licensing=re.search(r'\b(?:licen[sc](?:e|es|ed|ing)\s+(?:to|for|in|across|outside|agreement|arrangement|rights|territory|territories)|licen[sc](?:e|es|ed|ing)\s+(?:the\s+)?(?:blackberry|blueberry|raspberry|strawberry|variety)|(?:licen[sc]e|licen[sc]ing)\s+(?:agreement|deal|partner|program|programme)|(?:propagation|growing|commercialisation|commercialization)\s+rights)\b',plain)
+        # A cultivar's separate introduction can remain attributed background;
+        # it never establishes its licensing milestone (classified downstream).
+        crop=r'(?:variety|floricane|primocane|blackberry|raspberry|blueberry|strawberry)'
+        introduction=re.search(r'\b(?:introduc\w*|releas\w*|launch\w*)\b[^.!?]{0,65}\b'+crop+r'\b|\b'+crop+r'\b[^.!?]{0,65}\b(?:introduc\w*|releas\w*|launch\w*)\b',plain)
+        if not licensing and not introduction:return False
+    requirements=[
+        ({'salt','stress'},r'\b(?:salin\w*|salt stress|nacl)\b'),
+        ({'silicon'},r'\b(?:silicon|silica|sio\s*2|sinps)\b'),
+        ({'cold','storage'},r'\b(?:cold stor\w*|chill\w* stor\w*|stor\w*[^.!?]{0,35}\b(?:cold|[0-9]+\s*(?:c|degrees)))\b'),
+        ({'tray'},r'\btray\w*\b'),
+        ({'bruising'},r'\b(?:bruis\w*|damag\w*|injur\w*)\b'),
+        ({'mechanical'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*)\b'),
+        ({'netting'},r'\b(?:netting|netted|exclusion nets?)\b'),
+        ({'pollination'},r'\b(?:pollinat\w*|bumblebee\w*)\b'),
+    ]
+    for required,pattern in requirements:
+        if required<=words and not re.search(pattern,plain):return False
     if 'ultraviolet' in words or words&{'uv','uvc','uvb'}:
         if not re.search(r'\b(?:ultraviolet|uv(?:[ -]?[abc])?)\b',plain):return False
     if words&{'greenhouse','glasshouse'}:
@@ -73,7 +93,7 @@ def support_context(plan, entities, identifiers):
             organizations.append(names)
     places=[]
     place_terms=set()
-    if any(t.startswith(('trial','experiment','evaluat','research')) for t in plan.terms):
+    if 'license' in plan.terms or any(t.startswith(('trial','experiment','evaluat','research')) for t in plan.terms):
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]
@@ -128,9 +148,9 @@ def cane_in_passage(text, cane):
     return bool(re.search(r'\b(?:fruit\w*|crop|yield\w*|flower\w*|produc\w*)\b[^.!?]{0,65}\b'+cane+r'\b',text,re.I))
 
 
-def trial_location_in_passage(text, places):
+def trial_location_in_passage(text, places, *, require_trial=True):
     from app.services.topic_retrieval import normalize
     if not places:return True
     text=normalize(text)
-    if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
-    return all(any(re.search(r'\b(?:in|at|across|within|near) (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:trial|evaluation|experiment)',text) for place in group) for group in places)
+    if require_trial and not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
+    return all(any(re.search(r'\b(?:in|at|across|within|near|for|throughout|outside) (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:trial|evaluation|experiment|licen[sc]\w*|territor\w*|agreement)',text) for place in group) for group in places)

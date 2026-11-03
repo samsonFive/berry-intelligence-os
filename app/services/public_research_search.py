@@ -4,6 +4,7 @@ These public indexes are narrower than a general web search. Candidates still
 pass through the shared reader and all original query/scope checks.
 """
 from concurrent.futures import ThreadPoolExecutor
+from collections import deque
 from dataclasses import dataclass, field
 import json
 import re
@@ -19,6 +20,18 @@ from app.services.ai_gateway.errors import GatewayUnavailableError
 from app.services.article_dedup import normalize_canonical_url
 from app.services.feed_first_reader import _bounded_public_response, is_public_http_url
 
+_OPENAIRE_REQUESTS=deque()
+_OPENAIRE_LOCK=threading.Lock()
+
+
+def _reserve_openaire(now):
+    # Anonymous allowance is 60/hour. Keep headroom for other local clients;
+    # upstream 429s remain ordinary partial-route failures across processes.
+    with _OPENAIRE_LOCK:
+        while _OPENAIRE_REQUESTS and now-_OPENAIRE_REQUESTS[0]>=3600:_OPENAIRE_REQUESTS.popleft()
+        if len(_OPENAIRE_REQUESTS)>=50:raise GatewayUnavailableError('Public research hourly budget reached')
+        _OPENAIRE_REQUESTS.append(now)
+
 
 def _text(value):
     return ' '.join(html.fragment_fromstring(str(value or ''), create_parent='div').itertext()).strip()
@@ -29,9 +42,25 @@ def registered_primary_sources(data_dir, entities):
     from app.services.variety_profile_sources import all_profile_source_details
     varieties=[e for e in entities.values() if e.get('entity_type')=='variety']
     notes=all_profile_source_details(data_dir,varieties=varieties)
-    return {key:[{'url':s['url'],'title':s['title']} for s in note['sources'].values()
+    sources={key:[{'url':s['url'],'title':s['title']} for s in note['sources'].values()
                  if is_public_http_url(s['url'])]
             for key,note in notes.items() if note['status'] in {'source_reported','limited'}}
+    # Canonical varieties may predate identity-review metadata and already have
+    # inspected public citations. Reuse explicit published links, not fuzzy
+    # entity-name matches or private note text, as discovery leads.
+    from pathlib import Path
+    for entity in varieties:
+        if (notes.get(entity['id']) or {}).get('status')=='identity_hold':continue
+        for eid in entity.get('evidence_ids') or []:
+            if not re.fullmatch(r'[a-zA-Z0-9_-]+',eid):continue
+            path=Path(data_dir)/'evidence'/f'{eid}.json'
+            try:record=json.loads(path.read_text(encoding='utf8'))
+            except (OSError,ValueError):continue
+            if record.get('status')!='published' or entity['id'] not in record.get('entity_ids',[]):continue
+            url=record.get('source_url')
+            if url and is_public_http_url(url):
+                sources.setdefault(entity['id'],[]).append({'url':url,'title':record.get('title')or entity['name']})
+    return sources
 
 
 @dataclass
@@ -44,7 +73,7 @@ class PublicResearchSearchClient:
     _lock: object = field(default_factory=threading.Lock, repr=False)
 
     def _read(self, url, host):
-        # Three fixed public hosts; redirects are preflighted by the reader.
+        # Fixed public metadata hosts; redirects are preflighted by the reader.
         with self._lock:self.requests += 1
         if self.get is not None:
             return self.get(url)
@@ -140,12 +169,31 @@ class PublicResearchSearchClient:
         if root.tag!='rss':raise ValueError('Not an RSS response')
         return [SearchHit(x.findtext('title')or'',x.findtext('link')or'',_text(x.findtext('description'))) for x in root.findall('./channel/item')[:count]]
 
+    def _openaire(self, query, count):
+        # Public, unauthenticated Graph v4. Repository instance links can lead
+        # to editions not surfaced by the biomedical/deposited-abstract lanes.
+        # Titles/descriptions remain metadata until separately captured.
+        if self.get is None:_reserve_openaire(time.monotonic())
+        text=re.sub(r'\b\d{4}-\d{2}-\d{2}\b','',query)
+        text=re.sub(r'\b(?:through|between|until)\b','',text,flags=re.I)
+        params={'search':text,'pageSize':count,'filter':'type:publication'}
+        records=json.loads(self._read('https://api.openaire.eu/graph/v4/research-products?'+urlencode(params),'api.openaire.eu'))['results']
+        out=[]
+        for record in records[:count]:
+            urls=[u for instance in record.get('instances')or[] for u in instance.get('urls')or[] if is_public_http_url(u)]
+            # Prefer a repository/publisher edition over another DOI redirect.
+            urls.sort(key=lambda u:urlsplit(u).hostname in {'doi.org','dx.doi.org'})
+            if not urls:
+                urls=['https://doi.org/'+quote(p['value'],safe='/')for p in record.get('pids')or[]if p.get('scheme')=='doi'and re.fullmatch(r'10\.\d{4,9}/\S{1,180}',p.get('value')or'')]
+            if urls:out.append(SearchHit(_text(record.get('mainTitle')),urls[0],'OpenAIRE Graph metadata lead (CC BY); inspect the linked source.'))
+        return out
+
     def search(self, query, *, max_results=10, **kwargs):
         if not query.strip() or not 1<=max_results<=20:raise ValueError('Invalid public metadata query')
         started=time.monotonic();count=min(max_results,10)
-        lanes=[('europe_pmc',self._pmc),('crossref',self._crossref),('google_news_rss',self._news)]
+        lanes=[('openaire',self._openaire),('europe_pmc',self._pmc),('crossref',self._crossref),('google_news_rss',self._news)]
         results=[];errors=[]
-        with ThreadPoolExecutor(max_workers=3) as pool:
+        with ThreadPoolExecutor(max_workers=4) as pool:
             futures=[pool.submit(fn,query,count)for _,fn in lanes]
             for (name,_),future in zip(lanes,futures):
                 try:results.append((name,future.result()))

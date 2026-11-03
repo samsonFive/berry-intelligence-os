@@ -1398,8 +1398,8 @@
         "berry-blackberry"
       ],
       "checked_on": "2026-11-03",
-      "status": "identity_hold",
-      "limitations": "A primary 2024 robotics report adds named Victoria fruit-shape and research-use observations. The prior Australian pest comparison remains separate. No protected denomination, breeder technical sheet, quantitative yield/chill/postharvest data or official right is established; identity hold retained.",
+      "status": "limited",
+      "limitations": "CFIA explicitly lists Victoria as the trade name of DrisBlackSix, resolving the missing primary denomination link for these pending notes. Canonical aliases and reviewed traits are not changed. Canadian comparative observations, UK robotics observations and Australian pest guidance retain their separate places, seasons and methods. No current legal-rights status or universal performance is approved.",
       "sources": {
         "1": {
           "url": "https://berries.net.au/wp-content/uploads/2024/05/Berry-plant-protection-guide-2023-24-compressed.pdf",
@@ -1412,6 +1412,12 @@
           "title": "GCRI — Development of a robotic system for harvest of blackberries",
           "kind": "Researcher grant report",
           "locator": "PDF pages 4–6; experiments July 15–18, 2024"
+        },
+        "3": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bla/app00009468e.shtml",
+          "title": "CFIA — DrisBlackSix, trade name Victoria",
+          "kind": "Official variety description and comparative trial",
+          "locator": "Denomination / Trade name; Variety Description; Tests & Trials"
         }
       },
       "details": [
@@ -1432,6 +1438,24 @@
           "value": "At Clockhouse, the elongated fruit improved pose calculation; later user verification and teleoperation were still required, with sporadic successful ingestion",
           "context": "The report documents vision/lighting and alignment bottlenecks. It does not establish reliable fully autonomous commercial harvesting, cultivar yield, shelf life or general machine-harvest suitability.",
           "source_id": "2"
+        },
+        {
+          "field": "Official denomination link",
+          "value": "CFIA lists DrisBlackSix with the trade name Victoria.",
+          "source_id": "3",
+          "context": "Source-reported identity bridge only; no canonical alias or current rights approval. The record was last modified September 18, 2023."
+        },
+        {
+          "field": "Canadian comparative description",
+          "value": "Previous-year cane bearing; late fruit ripening; medium ovate black fruit; no dormant-cane spines.",
+          "source_id": "3",
+          "context": "CFIA description under the DrisBlackSix denomination. It does not supply quantified fruit weight, shelf life or universal harvest dates; UK robotics shape wording remains separately attributed."
+        },
+        {
+          "field": "Comparative trial conditions",
+          "value": "Chilliwack, British Columbia, 2016: three replicates of three plants per variety, compared with Carmel and Cowles.",
+          "source_id": "3",
+          "context": "Planted spring 2014; approximately 1.2 m in-row and 2.5 m between rows. Trial description, not a yield measurement or evidence of current commercial acreage."
         }
       ]
     },

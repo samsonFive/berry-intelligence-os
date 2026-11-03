@@ -20,9 +20,9 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
     assert len(notes) == 70
-    assert sum(len(n['details']) for n in notes.values()) == 240
+    assert sum(len(n['details']) for n in notes.values()) == 243
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
-    assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
+    assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 3
     for variety in varieties:
         assert profile_source_details('data', variety, varieties=varieties) == notes.get(variety['id'])
     assert varieties == before
@@ -61,10 +61,15 @@ def test_specific_numbers_and_cultivar_boundaries():
 def test_recovered_primary_details_keep_identity_and_measurement_limits():
     payload, varieties = corpus()
     notes = validate_notes(payload, varieties)
-    for slug in ['twilight', 'victoria', 'zara', 'bk-6-13']:
+    for slug in ['twilight', 'zara', 'bk-6-13']:
         note = notes['variety-'+slug]
         assert note['status'] == 'identity_hold'
         assert note['checked_on'] == '2026-11-03'
+    victoria=notes['variety-victoria']
+    assert victoria['status']=='limited'
+    assert 'app00009468e.shtml'in victoria['sources']['3']['url']
+    assert any('DrisBlackSix'in r['value']for r in victoria['details'])
+    assert 'no canonical alias'in victoria['details'][-3]['context'].lower()
     twilight = notes['variety-twilight']
     assert 'units' in twilight['limitations'].lower()
     assert 'blackberry' in twilight['limitations'].lower()  # explicitly excluded crop homonym

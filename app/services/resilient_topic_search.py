@@ -45,4 +45,4 @@ class ResilientTopicSearchClient:
                     fallback_failures=list(self.fallback.failures),
                     primary_requests_this_request=self.primary_requests,
                     fallback_requests_this_request=self.fallback.requests,
-                    coverage_limit='Credit-free scholarly indexes, Google News RSS and registered primary-source leads; not equivalent to full web discovery.' if self.used_fallback else '')
+                    coverage_limit='Credit-free scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and registered primary-source leads; not equivalent to full web discovery.' if self.used_fallback else '')

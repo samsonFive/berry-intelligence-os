@@ -13,6 +13,7 @@ from app.services.topic_retrieval import plan_query
 
 def metadata(url):
     p=urlsplit(url);params=parse_qs(p.query)
+    if p.hostname=='api.openaire.eu':return b'{"results":[]}'
     if p.hostname=='api.crossref.org':
         assert params['rows']==['10']
         return json.dumps({'message':{'items':[{'DOI':'10.1234/example','title':['Synthetic strawberry field trial'],'abstract':'<p>Metadata only.</p>'}]}}).encode()
@@ -26,7 +27,7 @@ def test_public_routes_interleave_without_promoting_metadata_to_body():
     client=PublicResearchSearchClient(get=metadata)
     rows=client.search('strawberry trial').hits
     assert [r.url for r in rows]==['https://pmc.ncbi.nlm.nih.gov/articles/PMC456/','https://doi.org/10.1234/example','https://publisher.example/trial']
-    assert client.requests==3 and client.failures==[]
+    assert client.requests==4 and client.failures==[]
     assert all(not hasattr(r,'article')for r in rows)
 
 
@@ -44,7 +45,30 @@ def test_total_public_outage_is_failure_even_with_registered_seed():
     def fail(url):raise TimeoutError('private transport detail')
     client=PublicResearchSearchClient(get=fail)
     with pytest.raises(GatewayUnavailableError):client.search('strawberry trial')
-    assert client.requests==3 and all('private'not in x for x in client.failures)
+    assert client.requests==4 and all('private'not in x for x in client.failures)
+
+
+def test_openaire_repository_leads_are_public_metadata_only():
+    def get(url):
+        if 'api.openaire.eu'in url:
+            return json.dumps({'results':[{'mainTitle':'Synthetic strawberry field trial','instances':[{'urls':['http://127.0.0.1/private','https://doi.org/10.1234/work','https://repository.example/study']}]}]}).encode()
+        return metadata(url)
+    client=PublicResearchSearchClient(get=get)
+    lead=client.search('strawberry field trial').hits[0]
+    assert lead.url=='https://repository.example/study' and 'OpenAIRE Graph'in lead.snippet
+    assert not hasattr(lead,'article')
+
+
+def test_openaire_anonymous_budget_recovers_after_hour_without_network():
+    from app.services.public_research_search import _OPENAIRE_REQUESTS,_reserve_openaire
+    saved=list(_OPENAIRE_REQUESTS);_OPENAIRE_REQUESTS.clear()
+    try:
+        for _ in range(50):_reserve_openaire(10)
+        with pytest.raises(GatewayUnavailableError):_reserve_openaire(11)
+        _reserve_openaire(3610)
+        assert list(_OPENAIRE_REQUESTS)==[3610]
+    finally:
+        _OPENAIRE_REQUESTS.clear();_OPENAIRE_REQUESTS.extend(saved)
 
 
 def test_technical_source_leads_are_scoped_deduplicated_and_not_claims():
@@ -71,6 +95,34 @@ def test_primary_source_loader_does_not_expose_identity_holds():
     assert 'variety-twilight'not in leads and 'variety-zara'not in leads
     assert any('niab.com/news' in s['url'] for s in leads['variety-malling-champion-22fb8a80'])
     assert all(set(s)=={'url','title'}for rows in leads.values()for s in rows)
+    assert any('app00011977e.shtml'in s['url']for s in leads['variety-drisbluetwentythree'])
+
+
+def test_partial_public_failure_is_briefly_cached_without_hiding_recovery(tmp_path):
+    import os,time
+    def get(url):
+        if 'api.crossref.org'in url:raise TimeoutError()
+        return metadata(url)
+    client=ResilientTopicSearchClient(None,fallback=PublicResearchSearchClient(get=get))
+    fetch=lambda url:dict(headline='Strawberry trial',passages=['Strawberry field trials compared fruit quality.'],published_date='2026-01-01',availability='full')
+    plan=plan_query('strawberry field trial')
+    first=discover_topic(plan,inbox_dir=tmp_path,client=client,fetcher=fetch)
+    assert first['status']=='partial' and first['cache_ttl_seconds']==120
+    count=client.fallback.requests
+    warm=discover_topic(plan,inbox_dir=tmp_path,client=client,fetcher=fetch)
+    assert warm['cache_hit'] and warm['fallback_requests_this_request']==0
+    assert client.fallback.requests==count
+    for p in (tmp_path/'topic_research_cache').glob('*.json'):os.utime(p,(time.time()-121,)*2)
+    retry=discover_topic(plan,inbox_dir=tmp_path,client=client,fetcher=fetch)
+    assert not retry['cache_hit'] and client.fallback.requests>count
+
+
+def test_requested_document_format_does_not_reject_owned_variety_description():
+    from app.services.topic_retrieval import match_record
+    entity=dict(id='v',entity_type='variety',name='Synthetic Scarlet',berry_ids=['berry-strawberry'])
+    record=dict(id='x',title='Synthetic Scarlet variety description',article={'paragraphs':[{'index':0,'text':'The strawberry variety Synthetic Scarlet was bred by Synthetic Breeder. The variety has firm fruit.'}]})
+    assert match_record(record,plan_query('strawberry "Synthetic Scarlet" breeder technical sheet'),entities={'v':entity})['support_status']=='body_supported'
+    assert match_record(record,plan_query('strawberry "technical sheet" "Synthetic Scarlet"'),entities={'v':entity}) is None
 
 
 def test_primary_auth_fault_circuits_across_queries_and_resets_after_cooldown():

@@ -35,6 +35,15 @@ def test_unknown_license_parties_do_not_merge_even_with_identical_titles():
  assert len(event_groups([row('a',company='Unknown Nursery'),row('b',company='Other Nursery')],ENTITIES))==2
 
 
+def test_same_doi_editions_group_across_dates_but_cited_dois_do_not():
+ a={**row('a',day='2013-01-01'),'source_url':'https://doi.org/10.1234/work'}
+ b={**row('b',day=''),'source_url':'https://api.crossref.org/works/10.1234%2Fwork'}
+ groups=event_groups([a,b],{})
+ assert len(groups)==1 and 'Same published work DOI'in groups[0]['reason']
+ c={**row('c',day='2026-01-01'),'article':{'paragraphs':[{'index':0,'text':'References include DOI 10.1234/work.'}]}}
+ assert len(event_groups([a,c],{}))==2
+
+
 def test_report_group_membership_survives_saved_snapshot_without_research_replay(tmp_path,monkeypatch):
  import hashlib
  from app.services.report_builder.scope import ResolvedScope
