@@ -78,6 +78,23 @@ Chris.H, 65 profiles, 10,537 existing protected JSON records, four databases and
 | LEARN-01 / LEARN-02: deep visual learning | Retain the delivered 27 visual lessons and selected-text research workflow. The one authorized real-provider run is complete at reported USD0.13679 and remains an editable draft; #486 retains its presentation repair. Continue source-linked visual depth without another paid request. | Wider citation/media quality and lesson depth, original lesson/edit/history preservation and human review. The single successful provider request does not prove universal provider quality or availability. |
 | Whole-thread completion | Reconcile every original requirement and subsequent prompt against current code, UI, receipts and actual stored content. | Requirement-by-requirement proof. Open acceptance/content/human items remain open; no handoff or scope reduction substitutes for completion. |
 
+## November 3 source-availability check
+
+The two retained Miyoshi gaps remain open after a direct original-page browser
+check. The [former group history page](https://www.miyoshi-group.co.jp/75th/product_history/strawberry/)
+now displays the publisher's October 16 suspension notice instead of its
+strawberry history. The publisher attributes the suspension to unauthorized
+access and says rebuilding is under way; this is its own report, not independent
+confirmation of the incident or its effects. The separate
+[cultivar page](https://miyoshi-strawberry.jp/cultivars/) displays a database
+connection error. Its cause is not established by the group notice.
+
+No cultivar, code, role, trait, right or image is inferred from indexed search
+excerpts. Current primary text and historical portfolio coverage remain
+unavailable. This check changes the next acquisition step to revisiting restored
+publisher pages; it does not reduce the 11 unreadable sections or approve new
+catalog observations. Existing source files and operator decisions remain.
+
 ## Current performance investigation
 
 The isolated branch `perf/catalog-cold-path-20261103` starts at deployed `50659fcd`.

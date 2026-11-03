@@ -208,6 +208,24 @@ The original prototype harness's copied-global catalog-cap failure is retained;
 its corrected live-global harness passes 603 checks. That correction is not used
 to hide the final implementation's measured regressions.
 
+## Repository result copying: excluded
+
+A private copy-only variant reuses the existing class-restricted snapshot
+mechanism for large plain JSON repository results. It adds no persistent cache,
+source filter, storage change or production setting. Ten fixture comparisons
+preserve filters, current nested edits, deletions, new unreviewed records,
+caller ownership and original nonfinite-value identity. All 821 affected
+repository, request-corpus, snapshot and catalog tests pass with zero attempted
+external connections.
+
+The separate eight-process comparison preserves all 24 complete responses,
+source-copy bytes and healthy live state, but regresses: Company-first cold is
+4.166 →4.612 seconds and its three-page workflow 8.314 →8.970; Candidates-first
+cold is 4.131 →4.469 and its workflow 8.069 →8.842. Both fresh-news visits also
+slow down. The representation/validation cost outweighs the copy saving, so the
+prototype is excluded and no runtime change is retained. Its result SHA-256 is
+`ec2e5d38cbb90c4f9770334aaa893467259ae4eb855323eb2221253eae19f9c8`.
+
 ## Work still needed to finish this mission
 
 - **Cold-page engineering:** profile the complete current request and next-click
