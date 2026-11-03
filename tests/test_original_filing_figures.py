@@ -19,7 +19,7 @@ def test_comparison_photos_do_not_give_a_catalog_variety_the_other_subjects_clai
     expected={'Bella':'USPP26173P3','Bonita':'USPP28358P3','Dina':'USPP33138P3',
         'Elaina':'USPP30934P3','Julieta':'USPP25858P3','Magnifica':'USPP27142P3','Olivia':'USPP32897P3'}
     for label,number in expected.items():
-        variety=next(v for v in varieties if v['name']==label)
+        variety=next(v for v in varieties if v['name']==label and v['berry_ids']==['berry-blueberry'])
         refs=original_patent_references(variety=variety,varieties=varieties,entities=[],candidates=[],sources=sources)
         assert [r['number']for r in refs]==[number]
         assert refs[0]['claim_url'].endswith('#page='+str(next(s for s in sources
@@ -32,6 +32,11 @@ def test_comparison_photos_do_not_give_a_catalog_variety_the_other_subjects_clai
     other=next(n for n in comparison if n['candidate_name']=='EB 8-46')
     assert 'on the right' in other['photos'][0]['caption']
     assert not other.get('grant_number')and not other.get('source_company_ids')
+    # Julieta also names an admitted raspberry. Filesystem iteration order
+    # cannot choose which crop receives a blueberry filing or its figures.
+    raspberry=next(v for v in varieties if v['name']=='Julieta' and v['berry_ids']==['berry-raspberry'])
+    assert not original_patent_references(variety=raspberry,varieties=varieties,entities=[],candidates=[],sources=sources)
+    assert not source_photos(raspberry,sources=sources,varieties=varieties)
     assert varieties==before
 
 def test_later_comparisons_and_inconsistent_labels_survive_without_becoming_aliases_or_focal_patents():
