@@ -225,3 +225,31 @@ def test_navigation_pages_larger_catalog_without_losing_letter_filters():
     assert last['catalog_page']==3 and len(last['variety_rows'])==35
     assert not {row['id'] for row in first['variety_rows']}.intersection(row['id'] for row in second['variety_rows'])
     assert 'page=' not in second['letter_urls']['E']
+
+
+def test_large_directory_opens_without_full_source_audit_but_search_retains_it(tmp_path,monkeypatch):
+    from app.services import variety_portfolio_coverage
+    original=main.living_catalog()
+    records=[{**deepcopy(VARIETY),'id':f'variety-large-{i:03}','name':f'Large {i:03}'} for i in range(135)]
+    entities=[row for row in original if row.get('entity_type')!='variety']+records
+    monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
+    monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    monkeypatch.setattr(main,'living_catalog',lambda:entities)
+    monkeypatch.setattr(main,'entity_index',lambda:{row['id']:row for row in entities})
+    monkeypatch.setattr(variety_portfolio_coverage,'load_portfolio_observations',lambda _data:[])
+    def forbidden():
+        raise AssertionError('Full source audit must not block opening a large catalog')
+    monkeypatch.setattr(main,'variety_candidate_universe',forbidden)
+    client=TestClient(main.app)
+    page=client.get('/entities/variety?berry=')
+    assert page.status_code==200 and len(page.context['variety_rows'])==100
+    assert page.context['catalog_discovery_deferred'] and page.context['universe'] is None
+    assert 'Review unresolved source names' in page.text
+    calls=[]
+    def source_audit():
+        calls.append(True)
+        return records,[],{}
+    monkeypatch.setattr(main,'variety_candidate_universe',source_audit)
+    searched=client.get('/entities/variety?berry=&q=Large+000')
+    assert searched.status_code==200 and len(searched.context['variety_rows'])==1
+    assert calls==[True] and not searched.context['catalog_discovery_deferred']

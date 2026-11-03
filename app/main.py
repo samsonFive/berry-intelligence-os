@@ -2972,9 +2972,17 @@ def entity_list(
         )
         varieties_all = [e for e in entities_idx.values() if e.get("entity_type") == "variety"]
         from app.services.identity_read_model import identity_read_model_scope
-        with identity_read_model_scope():
-            _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
-        context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
+        # A large paged catalog does not need a full source-recall audit before
+        # showing its first hundred records. Searches/company scopes retain the
+        # existing discovered-name handoff; full review remains one link away.
+        context["catalog_discovery_deferred"] = bool(len(varieties_all) > 100 and variety_view == "index" and view != "legacy" and not q and not company)
+        if context["catalog_discovery_deferred"]:
+            visible_candidates = []
+            context["universe"] = None
+        else:
+            with identity_read_model_scope():
+                _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
+            context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
         if variety_view == "index":
             index_model = present_variety_index(
                 varieties=filtered,

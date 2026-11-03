@@ -77,5 +77,19 @@ page latency or worldwide catalog-completeness claims.
 Local browser automation currently reports disabled in Work settings. The
 operator selected enabling browser access; the tool continued to report it
 disabled. Do not claim a native visual review until it actually succeeds.
-Final CI, final isolated workflow/preservation, visual review and any required
-scoped release decision remain to be recorded before calling this live.
+The operator subsequently chose the automated/HTTP alternative rather than
+changing browser settings. No native visual review is claimed. Final CI, fresh
+production-copy preservation and any required scoped release decision remain
+to be recorded before calling this live.
+
+Final local acceptance: 172 broad checks passed; the subsequent large-directory
+change passed all 53 affected checks. The final isolated plan again preserved
+all 2,935 existing JSON files and added 1,240 entity records in 5.94 seconds.
+The running-app check exercised 100 distinct records per page, the original
+57 active varieties, source/organization connections, and fictional creation,
+field persistence, removal (410), restoration and removal again. It retained
+1,232 visible varieties. The large directory first load improved from 19.258
+to 3.430 seconds by deferring its full source-name audit until a search or the
+existing review page; name/company searches still retain that audit. A first
+company-filtered source audit took 13.148 seconds and remains slower. These are
+local measurements; no production latency claim is made.
