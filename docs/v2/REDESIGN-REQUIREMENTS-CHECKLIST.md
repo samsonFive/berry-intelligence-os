@@ -1,3 +1,14 @@
+# Crop-word preparation — November 3, 2026
+
+[The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
+It retains the full global source corpus and original Unicode matcher, skipping
+only scans with no necessary crop prefix. The eight-process prototype preserves
+complete typed models/HTML and improves the two measured route medians by about
+12% and 6%; final-code acceptance remains. Initial 112 focused tests pass.
+No cache, grammar, canonical identity, source addition or human decision changes.
+TD-122, source/catalog/photo and held Map reviews remain open. Original 31
+definitions/order and the governing guide remain unchanged. #477 remains live.
+
 # Declaration preparation continuation — November 3, 2026
 
 Frozen #483 (`d8a28e31`) passes all four PR and canonical-base checks, 6,214 tests,

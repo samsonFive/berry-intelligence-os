@@ -14,6 +14,9 @@ _CROPS = {
 }
 _CROP = r"blueberry|strawberry|raspberry|blackberry"
 _CROP_WORDS = re.compile(r"\b(" + "|".join(_CROPS) + r")\b", re.IGNORECASE)
+# A necessary literal prefix, never a crop decision: positives still use the
+# original Unicode word-boundary matcher and original source text below.
+_CROP_HINTS = tuple(dict.fromkeys(word.casefold()[:5] for word in _CROPS))
 _DECLARATION_WORDS = re.compile(r"\b(?:variet(?:y|ies)|cultivars?)\b", re.IGNORECASE)
 _LICENSE = re.compile(
     r"\blicen[cs]es?\b[^.!?\n:]{0,80}\bvarieties\s*:\s*", re.IGNORECASE)
@@ -25,6 +28,12 @@ _PROFILE_HEADING = re.compile(
 
 
 def paragraph_crop_ids(text):
+    # IGNORECASE also accepts dotted/dotless I, whose casefold differs from
+    # ASCII i. Keep their exact original behavior, including malformed keys.
+    if type(text) is str and "İ" not in text and "ı" not in text:
+        folded = text.casefold()
+        if not any(hint in folded for hint in _CROP_HINTS):
+            return []
     return sorted({_CROPS[m.group(1).casefold()] for m in _CROP_WORDS.finditer(text)})
 
 

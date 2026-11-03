@@ -1,3 +1,14 @@
+# Crop-word preparation — November 3, 2026
+
+[The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
+It retains the full global source corpus and original Unicode matcher, skipping
+only scans with no necessary crop prefix. The eight-process prototype preserves
+complete typed models/HTML and improves the two measured route medians by about
+12% and 6%; final-code acceptance remains. Initial 112 focused tests pass.
+No cache, grammar, canonical identity, source addition or human decision changes.
+TD-122, source/catalog/photo and held Map reviews remain open. Original 31
+definitions/order and the governing guide remain unchanged. #477 remains live.
+
 # November 2 competitive source-review coverage
 
 The [source-review receipt](COMPETITIVE-EVALUATION-SOURCE-REVIEW-2026-11-02.md) updates the private 166-entity population to 4,122 rows / 932 source-ledger entries across 48 inputs. Mapping review: 3,983 accepted structure, 135 context only, four unresolved. Eligible cells: 395, comprising 15 Provisional and 380 Unknown. Eleven additional narrow proposals preserve historical trial periods and new observation dates separately. The original 855-URL technical audit and 31 manually inspected URLs have distinct meanings; neither is a count of verified independent facts. Thirteen selected source references yield 24 retained News metadata captures after URL deduplication. Published Evidence/Atomic Fact counts and the frozen inventory are unchanged. Earlier coverage accounts below are historical.
