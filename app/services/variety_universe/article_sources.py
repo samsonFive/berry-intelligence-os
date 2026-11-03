@@ -6,16 +6,112 @@ candidate persistence, canonical writes or publication/claim approvals.
 from __future__ import annotations
 
 from pathlib import Path
+from functools import wraps
+from io import BytesIO
+from threading import RLock
+import hashlib
+import os
+import pickle
+import stat
 
 from app.services.feed_first import SAFE_ID_RE
-from app.services.feed_first_reader import capture_path, load_capture, merge_capture
+from app.services.feed_first_reader import CAPTURE_SUBDIR, capture_path, load_capture, merge_capture
+from app.services.feed_first_live import CACHE_SUBDIR
 from app.services.personal_digest import source_records
+from app.services.presentation_memo import ByteMemo, _BuiltinPickler
 from app.services.publication_sources import active_publication_record, inactive_publication_record
 from app.services.source_body import article_full_text, reader_content
 from app.services.source_reading import reviewed_original_for_reading
 
 MAX_CAPTURE_BYTES = 2_000_000
 MAX_ARTICLE_CHARS = 200_000
+
+
+def _file_token(path):
+    own = path.lstat()
+    # Ordinary files need one syscall. Links/reparse points additionally need
+    # their target state: editing or replacing either must invalidate reuse.
+    actual = path.stat() if (stat.S_ISLNK(own.st_mode)
+                             or getattr(own, 'st_reparse_tag', 0)) else own
+    return tuple((row.st_ino, row.st_size, row.st_mtime_ns, row.st_ctime_ns,
+                  row.st_mode, row.st_uid, row.st_gid) for row in (own, actual))
+
+
+def _article_file_inputs(root):
+    locations = ((root / CACHE_SUBDIR, '????-??-??.json'),
+                 (root / 'news_packets' / 'captures', 'packet-*.json'),
+                 (root / CAPTURE_SUBDIR, '*.json'),
+                 (root / CAPTURE_SUBDIR / 'previews', '*.json'),
+                 (root / 'source_fidelity' / 'artifacts', '*.json'))
+    rows = []
+    for folder, pattern in locations:
+        try:
+            folder_token = _file_token(folder)
+        except FileNotFoundError:
+            folder_token = None
+        # Keep enumeration order: the original readers use it to break ties.
+        rows.append((str(folder), folder_token,
+                     [(path.name, _file_token(path)) for path in folder.glob(pattern)]))
+    return rows
+
+
+def _article_dependencies():
+    # Replacing a selector (for example in a fixture) must also replace its
+    # memo. Retain the references so object IDs cannot be recycled underneath it.
+    from app.services import personal_digest, feed_first_reader
+    return (article_source_records, source_records, reviewed_original_for_reading,
+            capture_path, load_capture, merge_capture, article_full_text,
+            reader_content, active_publication_record, inactive_publication_record,
+            personal_digest.retained_news, feed_first_reader.attach_capture_previews)
+
+
+def _memo_article_sources(function):
+    memo = ByteMemo(max_bytes=32_000_000, max_entries=2, max_item=16_000_000)
+    dependencies = ()
+    lock = RLock()
+
+    @wraps(function)
+    def wrapped(published, inbox_dir, *, pending=None):
+        nonlocal memo, dependencies
+        # Windows ctime can mean creation time rather than metadata-change
+        # time. Keep its original path rather than weakening edit freshness.
+        if os.name != 'posix':
+            return function(published, inbox_dir, pending=pending)
+        current = _article_dependencies()
+        with lock:
+            if (len(current) != len(dependencies)
+                    or any(left is not right for left, right in zip(current, dependencies))):
+                dependencies = current
+                memo = ByteMemo(max_bytes=32_000_000, max_entries=2, max_item=16_000_000)
+            active_memo = memo
+        try:
+            root = Path(inbox_dir).resolve()
+            before = _article_file_inputs(root)
+            stream = BytesIO()
+            # Exact builtin graph, including tuple/list distinctions and alias
+            # structure. Classes/reducers are rejected before any execution.
+            _BuiltinPickler(stream, protocol=5).dump((str(root), published, pending, before))
+            payload = stream.getvalue()
+            if len(payload) > 32_000_000:
+                return function(published, inbox_dir, pending=pending)
+            key = hashlib.sha256(payload).hexdigest()
+        except (OSError, ValueError, TypeError, AttributeError, RecursionError, pickle.PicklingError):
+            return function(published, inbox_dir, pending=pending)
+        cached = active_memo.get(key)
+        if cached is not None:
+            try:
+                if before == _article_file_inputs(root):
+                    return cached
+            except OSError:
+                pass
+        result = function(published, inbox_dir, pending=pending)
+        try:
+            if before == _article_file_inputs(root):
+                active_memo.put(key, result)
+        except OSError:
+            pass
+        return result
+    return wrapped
 
 
 def article_source_records(published: list[dict], inbox_dir: Path, *, pending=None) -> dict[str, dict]:
@@ -41,6 +137,7 @@ def article_source_records(published: list[dict], inbox_dir: Path, *, pending=No
     return records
 
 
+@_memo_article_sources
 def available_article_sources(published: list[dict], inbox_dir: Path, *, pending=None) -> tuple[list[dict], dict]:
     """Known published/retained news and optional active publication drafts.
 
