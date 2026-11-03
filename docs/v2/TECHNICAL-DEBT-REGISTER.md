@@ -3538,3 +3538,14 @@ reuse. All363 affected checks pass. Reader/source selection, discovery grammar,
 data and human gates remain. Development-copy cold Candidates and company views
 improve, but global News is flat and deeper first visits remain slow. Final-head
 CI/native/fresh acceptance and separate release review remain; TD-122 stays open.
+
+### November 3 — CAT-01 captured-article handoff gap
+
+The retained Hortifrut article is readable but its explicit Vicentina raspberry
+wording produces zero mentions; Company Varieties also ignores article candidates.
+See [bounded repair](COMPANY-ARTICLE-NAME-HANDOFF-REVIEW.md). This draft recognizes
+an adjacent-crop possessive declaration and reuses article mentions for private
+company handoffs. Original portfolio rows, exact-source identity and current
+human decisions remain. No canonical entity, role, footprint, subscription or
+review decision is created. Final acceptance remains; CAT-01/TD-116 and TD-122
+stay open. This is not a worldwide completeness or performance claim.

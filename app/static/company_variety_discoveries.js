@@ -15,7 +15,7 @@ document.querySelectorAll('[data-company-source-varieties]').forEach(function (s
         (term && !row.dataset.search.toLocaleLowerCase().includes(term));
       if (!row.hidden) count += 1;
     });
-    section.querySelector('[data-source-count]').textContent = count + ' of ' + rows.length + ' names shown';
+    section.querySelector('[data-source-count]').textContent = count + ' of ' + rows.length + ' entries shown';
     section.querySelector('[data-source-empty]').hidden = count > 0;
     tools.querySelectorAll('[data-source-letter]').forEach(function (button) {
       button.setAttribute('aria-pressed', String(button.dataset.sourceLetter === letter));

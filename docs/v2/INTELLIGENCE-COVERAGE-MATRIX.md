@@ -1294,3 +1294,12 @@ October8 social quality audit: a fixed30-caption stratified diagnostic sample ex
 October 8 social source follow-up: bounded Atomus X search returned five supplied-English posts with reported dates in the requested October7–8 window; shared private normalization/replay succeeded. This is partial source access, not qualified consumer/market coverage, native-source fidelity or health-claim evidence. Rights/deletion refresh remain open; collection disabled. See SOCIAL-APIFY-TRIAL.md for exact scope and charges.
 
 October 12 manual social production: [manual collection](SOCIAL-MANUAL-PRODUCTION.md) adds operator-triggered, bounded funded discovery across berries and corporate/agtech/consumer search scopes. Corporate scope is a search target, not author ownership. Facebook remains two known company pages; Instagram hashtag scope and provider-dependent dates remain explicit. New coverage must be measured from real collection receipts; funding alone does not upgrade access or recall qualification.
+
+November 3 variety recall repair: the retained Hortifrut July30 article names
+Vicentina / raspberry but previously produces zero private variety mentions.
+The [bounded handoff draft](COMPANY-ARTICLE-NAME-HANDOFF-REVIEW.md) recognizes an
+explicit crop/name declaration and surfaces already-derived article names beside
+company source observations. One retained capture now yields its missing lead;
+the original33 company portfolio rows remain. This adds no source, canonical
+variety, role, footprint, reviewed fact or recall qualification. Independent
+human expected names and broader current/historical catalog coverage remain open.

@@ -1,4 +1,4 @@
-"""Bounded quoted cultivar declarations in an explicitly selected paragraph.
+"""Bounded explicit cultivar declarations in a selected article paragraph.
 
 No acquisition, title-case guessing, publication-tag crop assignment, or writes.
 Paragraph context supplies a crop only when it names exactly one supported crop.
@@ -125,6 +125,22 @@ def explicit_article_formats(text, *, name_token, profile_crop_ids=()):
     # hyphens remain in the source name; no code/brand alias is inferred.
     single_token = name_token.replace(r"\-", r"\-\u2010\u2011")
     profile_name = rf"(?:'{single_token}'|\"{single_token}\"|‘{single_token}’|“{single_token}”|{single_token})"
+    # A literal possessive declaration can put the name before the crop:
+    # "Example Grower's New Dawn raspberry variety". The adjacent singular
+    # crop and variety/cultivar wording establish identity scope. The owner
+    # phrase is context only; never turn it into a breeder/rights relationship.
+    owner = r"[A-ZÀ-ÖØ-Þ][\w&.+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w&.+\-]*){0,5}"
+    possessive = re.compile(
+        rf"\b{owner}['’]s\s+(?P<name>{profile_name})\s+"
+        rf"(?P<crop>(?i:{_CROP}))\s+(?i:variety|cultivar)\b")
+    for match in possessive.finditer(text):
+        prefix = re.split(r"[.!?\n]", text[:match.start('name')])[-1]
+        if re.search(r"\b(?:no|not|never|without|could|might|may|perhaps)\b", prefix, re.I):
+            continue
+        leads.append({"name": match.group('name').strip("'\"‘’“”"),
+                      "berry_id": _CROPS[match.group('crop').casefold()],
+                      "kind": "article_possessive_cultivar_declaration",
+                      "context": match.group(0).strip()[:240]})
     profile_code = r"[A-Za-z][A-Za-z0-9. \-]{0,59}"
     field = re.compile(
         rf"\s*(?:(?P<crop>(?i:{_CROP}))\s+)?(?i:variety|cultivar)\s+(?i:name)\s*:\s*"

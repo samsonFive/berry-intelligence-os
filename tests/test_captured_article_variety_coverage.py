@@ -109,6 +109,50 @@ def test_same_name_keeps_each_article_review_status_and_primary_source():
         assert not row["proposed_relationships"] and not row["auto_confirmed"]
 
 
+@pytest.mark.parametrize('crop', ['blueberry', 'strawberry', 'raspberry', 'blackberry'])
+@pytest.mark.parametrize('apostrophe', ["'", '’'])
+def test_possessive_article_declaration_uses_adjacent_crop_without_approving_owner(crop, apostrophe):
+    text = f"Example Grower{apostrophe}s Golden Dawn {crop} variety received an award."
+    row = story(article={'full_text': text}, berry_ids=['berry-blueberry', 'berry-blackberry'])
+    before = deepcopy(row)
+    result = scan([row])
+    assert [(m['candidate_name'], m['berry_id']) for m in result['mentions']] == [('Golden Dawn', 'berry-'+crop)]
+    candidate = result['candidates'][0]
+    assert candidate['candidate_name'] == 'Golden Dawn'
+    assert candidate['breeder_owner'] == '' and candidate['proposed_relationships'] == []
+    assert not candidate['auto_confirmed'] and not candidate['human_gated']
+    assert candidate['knowledge']['source_publication_reviewed'] is True
+    assert row == before
+
+
+@pytest.mark.parametrize('text', [
+    "Example Grower's Golden Dawn programme received an award for raspberries.",
+    "Example Grower's Golden Dawn blueberry family is a group of varieties.",
+    "Example Grower's Golden Dawn variety is discussed beside raspberry production.",
+    "Example Grower's Golden Dawn raspberry flavour is popular.",
+    "Perhaps Example Grower's Golden Dawn raspberry variety will be introduced.",
+    "Not Example Grower's Golden Dawn raspberry variety, but an unnamed selection.",
+])
+def test_possessive_article_rule_does_not_guess_a_name_from_brand_family_or_uncertain_prose(text):
+    assert scan([story(article={'full_text': text})])['mentions'] == []
+
+
+def test_hortifrut_style_literal_name_is_not_lost_in_a_multi_crop_article(tmp_path):
+    row = story(entity_ids=['company-hortifrut'], berry_ids=['berry-blueberry', 'berry-raspberry', 'berry-blackberry'])
+    capture(tmp_path, row, "Hortifrut’s Vicentina raspberry variety was exhibited in the United Kingdom.\n\n"
+            "The article also discusses an unnamed blueberry collaboration and blackberry research.")
+    selected, _ = available_article_sources([row], tmp_path)
+    result = scan(selected)
+    assert [(m['candidate_name'], m['berry_id']) for m in result['mentions']] == [('Vicentina', 'berry-raspberry')]
+    assert result['candidates'][0]['knowledge']['mention_context'] == "Hortifrut’s Vicentina raspberry variety"
+    rejected = deepcopy(result['candidates'][0])
+    rejected.update(status='rejected', identity_state='rejected', human_gated=True, review_notes='Keep this decision')
+    repeat = scan(selected, candidates=[rejected])
+    assert repeat['candidates'] == []
+    assert repeat['already_candidate'][0]['existing_candidate_id'] == rejected['id']
+    assert rejected['review_notes'] == 'Keep this decision'
+
+
 def test_audit_defaults_to_published_summaries_and_private_opt_in_is_body_free(tmp_path):
     from scripts.audit_variety_catalog_coverage import audit
     data = tmp_path / "data"
