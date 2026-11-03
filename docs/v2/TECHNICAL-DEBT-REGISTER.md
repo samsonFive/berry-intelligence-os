@@ -3538,3 +3538,27 @@ reuse. All363 affected checks pass. Reader/source selection, discovery grammar,
 data and human gates remain. Development-copy cold Candidates and company views
 improve, but global News is flat and deeper first visits remain slow. Final-head
 CI/native/fresh acceptance and separate release review remain; TD-122 stays open.
+
+
+### November 3 — TD-122 same-thread catalog continuation
+
+Approved #476 is verified live at50659fcd with backup/rollback and all state
+preserved. The user explicitly continues this mission here. The new isolated
+company-tab change avoids News/location models on tabs that do not render them;
+Overview retains both, News retains every News field and Regions retains every
+location field. The first head passes all four required checks; 76 affected
+local tests and a fresh isolated production-copy review pass. All64 complete
+responses and active/other contexts match, with the 16-request workflow
+21.41s → 18.89s. First Splendor Varieties remains essentially flat at5.9s;
+global News is slightly slower. This does not close the cold-load issue.
+
+Phone review also exposes excessive secondary context above the selected tab.
+The same draft groups the existing research destinations under a collapsed menu
+and compacts header spacing (first panel178px higher at412×915). Its intentional
+template/style changes require renewed final-head tests, native review and fresh
+production-copy checks. Earlier exact-head evidence is retained separately.
+
+A bounded production-copy experiment compared63,113 text predicates including
+15,761 positives. Reordering UI checks or using a literal-union regex preserved
+all decisions but produced no useful improvement; both variants are rejected.
+No Reader/source/discovery/identity changes are retained. TD-122 remains open.

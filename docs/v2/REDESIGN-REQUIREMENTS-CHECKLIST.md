@@ -1,14 +1,21 @@
-# Narrow cold-load follow-up — November 2, 2026
+# Active same-thread mission — November 3, 2026
 
-Live #475 remains verified at6c2feaf1. Draft #476 now retains only company-scoped
-News, request-local Candidates preparation and bounded literal-text decoding.
-The final363 affected checks pass. Reader/source selection and discovery grammar
-remain byte-for-byte unchanged; the larger Reader/discovery experiments are not
-included. [The measured review](COLD-LOAD-PREPARATION-REVIEW.md) records development
-copy gains and the unchanged global News control. Frozen-head CI, browser and
-fresh isolated acceptance remain before a new release decision. TD-122 and the
-content/human gaps in [the closeout audit](MISSION-CLOSEOUT-2026-11-02.md) stay open.
-All original31 definitions/order and the governing guide are retained.
+Approved performance #476 is merged and verified live at `50659fcd`, tested head
+`06255cfc`. All four checks /6,109 tests, desktop/phone review, fresh isolated
+preservation and independent live image/HTTPS/proxy verification pass. Five
+accounts including Chris.H, 65 profiles, 10,537 existing JSON records, four
+databases, stored research, settings and mounts are preserved; backup and rollback
+are retained. The #476 approval is complete and must not be requested again.
+
+The user explicitly continued the remaining requirements in this mission/thread.
+[Current closeout work](MISSION-CLOSEOUT-2026-11-03.md) covers performance,
+catalog/source depth, human decisions, held Map figures and real-provider Learn
+acceptance. Draft #477 prepares only visible company-tab models; its first head
+passes all four checks and fresh production-copy preservation with a 12% faster
+complete workflow. Phone review also prompted a compact header and grouped
+secondary research links. The expanded head is undergoing renewed acceptance;
+no new release is approved.
+All original 31 definitions/order and the governing guide remain unchanged.
 
 # Verified live #475 and remaining closeout — November 2, 2026
 
@@ -752,7 +759,7 @@ table and implementation sequence below are preserved.
 | REPORT-01 | One Reports & Briefings home; executive view, selected briefs, editable reports, snapshots and news packets distinguished | Reports & Briefings task home unifies Executive view, briefs, editable reports, snapshots and packets without flattening their distinct outputs (M7/13/15/24/28/29). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | REPORT-02 | Rename War Room to Meeting Prep, keep its scope, saved takeaways and handoffs | Meeting Prep replaces War Room presentation; scope, saved takeaways, question/refresh actions, history and human handoffs retained (M7). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | REPORT-03 | Reports and exports must read as designed documents: takeaway first, clear hierarchy, no generated internal ID dumps, readable linked sources | Refined takeaway-first PDF/editor, numbered outlined findings, readable linked Source references and named appendix; literal edits/qualifications retained. #300 four checks green; five PDF pages and phone reviewed. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| LAND-01 | Landscape configurable by what/where to include | Multi-subject/place and included-section selections, source-date ranges, private saved views and Reader/report/brief handoffs (M8), four checks green. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
+| LAND-01 | Landscape configurable by what/where to include | Multi-subject/place and included-section selections, source-date ranges, shared analyst-only saved views and Reader/report/brief handoffs (M8), four checks green. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | LAND-02 | Evidence-backed multi-berry Landscape, dense narrative, source/variety and dossier handoffs, comparison, saved views and complete visual exports | Blueberry continuation approved October 12. Tested release398 implements all four crops, All berries, paired comparison, shared company marks/lists, cited traits, revision-checked saved views and complete PDF/HTML/SVG/CSV exports. Browser light/dark/412px checks, saved update/archive/restore/copy, restart preservation and full selected-evidence exports pass. The guide explains the workflow and reporting choices. | Platform release #398 is merged at a2a6b4ad and verified live after the approved continuation. Comprehensive source/catalog coverage and actual human trust decisions stay open under CAT-01/CAT-02. |
 | LEARN-01 | Top-level expanded Learn, detailed visual lessons/research first, pictures/diagrams/video links, interactive exploration | All27 existing lessons have interactive teaching explanations, including22 new source-linked explorations and five schematic designs; two verified photos and existing video links retain individual credits/rights. These curriculum additions are now live in approved440; original records and human edits remain. | Wider detailed lessons, attributed photos, diagrams, video/source depth and explicit research remain ongoing enrichment; educational content never approves scientific or competitive-intelligence claims. |
 | LEARN-02 | Select/highlight content -> research/add to Learn -> explicit Perplexity deep research -> new learning content | Selected-text/Reader Learn actions, explicit context, durable research jobs and editable cited drafts are delivered. Approved #473 repairs high-depth requests while preserving legacy medium jobs, original lessons, run IDs, user edits and history. Company/Map research remains medium depth. Fixture lifecycle and desktop/phone checks pass. | Actual high-depth provider quality, availability and cost remain unverified; no paid acceptance call was made. Educational output never approves a scientific or competitive claim. |
@@ -760,7 +767,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The visual explainer is live through approved #474, merge7fa7dd53. It retains twelve site-section cards, four analyst steps, prior reporting choices and shared Workspaces guidance, and now explains company comparisons, retained coverage and accurate saved-comparison JSON/CSV behavior. All four checks pass/6,091 tests; desktop/phone, fresh isolated preservation and live verification pass. | The requested visual explainer and follow-up are delivered. Wider educational/media depth and human source/catalog decisions remain open; no new approval is needed for completed #474. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved platform #468, combined Learn/catalog/Map #473, Help/checklist #474 and News performance #475 are deployed. Current merge6c2feaf1 retains the earlier stack. Fresh preservation and live verification retain five accounts including Chris.H,65 profiles,10,536 existing JSON records,four databases,private research,unchanged settings/mounts,backup and rollback. | These approved releases are complete; do not re-request their approvals. The separate cold-load prototype needs complete-workflow measurements, exact-head checks, browser/preservation review and its own release decision. Comprehensive content and human source/name/rights/photo/figure/qualification decisions remain open; see MISSION-CLOSEOUT-2026-11-02.md. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved stack through #476 is independently verified live at50659fcd, tested06255cfc. All four checks /6,109 tests, desktop/phone and fresh isolated/live preservation pass for all five accounts including Chris.H,65 profiles,10,537 existing JSON records,four databases and stored research. Original proxy/settings/mounts, backup and rollback are retained. | These approved releases are complete; do not re-request their approvals. Remaining performance, catalog/source/identity/role/rights/photo/figure work and real-provider Learn quality/cost acceptance continue here under MISSION-CLOSEOUT-2026-11-03.md. New code heads require their own tested release review. |
 
 ## Historical implementation sequence
 
