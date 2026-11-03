@@ -39,6 +39,28 @@
           "locator": "January 5 2026 article introduction and Key Details; university authors"
         }
       ]
+    },
+    {
+      "id": "glen-dee-breeder-conflict-europepmc",
+      "source_url": "https://europepmc.org/articles/PMC12608649",
+      "checked_source_version": "09d89bf357bdbc45ac8ff5332890ccf0842b221bf205256aea42b0a398d2b726",
+      "reason": "This paper's Glen Dee paragraph attributes development to the Jackman Humanities Institute at the University of Toronto in Inverurie, Canada. The official CFIA variety account identifies a cross and selection at the James Hutton Institute, Dundee, UK. Withhold automatic quotations from this conflicting source pending source review; keep the research lead visible. This hold does not invalidate unrelated experiments or approve any breeder role or trait.",
+      "comparison_source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "comparison_locator": "Origin & Breeding History",
+      "disposition": "exclude_quotes_source_contradiction",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "breeder_attribution_conflicts_with_official_variety_account"
+    },
+    {
+      "id": "glen-dee-breeder-conflict-pmc",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12608649/",
+      "checked_source_version": "09d89bf357bdbc45ac8ff5332890ccf0842b221bf205256aea42b0a398d2b726",
+      "reason": "This paper's Glen Dee paragraph attributes development to the Jackman Humanities Institute at the University of Toronto in Inverurie, Canada. The official CFIA variety account identifies a cross and selection at the James Hutton Institute, Dundee, UK. Withhold automatic quotations from this conflicting source pending source review; keep the research lead visible. This hold does not invalidate unrelated experiments or approve any breeder role or trait.",
+      "comparison_source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "comparison_locator": "Origin & Breeding History",
+      "disposition": "exclude_quotes_source_contradiction",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "breeder_attribution_conflicts_with_official_variety_account"
     }
   ]
 }

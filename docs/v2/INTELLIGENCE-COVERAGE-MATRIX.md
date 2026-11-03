@@ -1460,3 +1460,5 @@ November 3 provider-credit workaround: existing public metadata routes and regis
 
 
 November 3 research-panel continuity: the existing variety/company public-search panel now shares the same disclosed credit-free fallback as topic research. GET remains inert, only the entered public query is submitted, results remain unreviewed and no canonical record is written. Five focused route tests pass. Full exact-head CI and user release review remain required; deployment held.
+
+November 3 final citation replay: the Glen Dee secondary account's breeder attribution conflicts with the official CFIA origin. Both inspected repository URL editions are held from automatic quotations while remaining visible for review. This is a negative source-quality gate, not a new approved breeder relationship, source maturity upgrade or complete variety-coverage claim. The separate entity web-search route preserves the imported patent catalog. Deployment remains held.

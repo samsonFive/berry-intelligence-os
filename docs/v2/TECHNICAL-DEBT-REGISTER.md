@@ -3758,3 +3758,5 @@ TD-VARIETY-SOURCE-PARITY-001 November 3 recovered-profile follow-up: primary CFI
 
 
 November 3 research-panel continuity: the existing variety/company public-search panel now shares the same disclosed credit-free fallback as topic research. GET remains inert, only the entered public query is submitted, results remain unreviewed and no canonical record is written. Five focused route tests pass. Full exact-head CI and user release review remain required; deployment held.
+
+November 3 final citation replay: a published Glen Dee breeder attribution conflicts with the official CFIA variety account. Negative quotation holds cover the inspected Europe PMC and PMC editions; the source remains a visible verification lead and unrelated experiments are not adjudicated. The public entity-research panel uses a distinct route after canonical imported-patent research introduced a URL collision. Full final-head CI and broader source/event/Google parity remain required; deployment held.

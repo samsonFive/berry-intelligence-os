@@ -2,6 +2,7 @@ from dataclasses import replace
 import hashlib
 from app.services.topic_citation_audit import audit_topic_citations
 from app.services.report_builder.topic_report import topic_sections
+import pytest
 
 
 def fixture():
@@ -16,6 +17,19 @@ def test_real_report_quotes_are_bound_to_the_captured_source():
  packet,source=fixture()
  result=audit_topic_citations(packet,topic_sections(packet),{'web-a':source})
  assert result['passed'] and result['quoted_sources_checked']==1
+
+
+@pytest.mark.parametrize('url',['https://europepmc.org/articles/PMC12608649','https://pmc.ncbi.nlm.nih.gov/articles/PMC12608649/'])
+def test_conflicting_glen_dee_breeder_account_is_visible_but_not_quoted(url):
+ from app.services.research_source_holds import source_quote_hold
+ packet,source=fixture();row=packet['topic_sources'][0]
+ row.update(source_url=url,title='Glen Dee research account')
+ hold=source_quote_hold(row)
+ assert hold and 'James Hutton' in hold['reason'] and 'Jackman' in hold['reason']
+ sections=topic_sections(packet)
+ assert not any(row['id'] in s.citation_ids for s in sections if s.section_id in {'topic_findings','topic_background'})
+ lead=next(s for s in sections if s.section_id=='topic_verification_leads')
+ assert row['id'] in lead.citation_ids and hold['reason'] in lead.prose
 
 
 def test_copy_label_is_audited_and_provenance_cannot_be_changed():
