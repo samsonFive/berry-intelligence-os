@@ -18,6 +18,12 @@ def _pre_admission_catalog(tmp_path_factory):
     # Exclude only explicit admissions while copying into the isolated test catalog.
     shutil.copytree(root / 'data', target, ignore=lambda folder, names: admitted_files.intersection(names)
                     if Path(folder) == root / 'data/entities/varieties' else [])
+    # Later research notes may refer to admitted identities. Keep this historic
+    # fixture internally consistent without relaxing production validation.
+    notes_path = target / 'imports/variety-profile-source-details-2026-10-27/observations.json'
+    notes = json.loads(notes_path.read_text(encoding='utf8'))
+    notes['profiles'] = [row for row in notes['profiles'] if row['variety_id'] + '.json' not in admitted_files]
+    notes_path.write_text(json.dumps(notes, ensure_ascii=False), encoding='utf8')
     return target
 
 
