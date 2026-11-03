@@ -21,6 +21,42 @@ def source(names, **extra):
 ENTITIES = [{"id": "company-a", "entity_type": "company", "name": "Alpha"}]
 
 
+@pytest.mark.parametrize('source_ids', [None, set(), {'portfolio-test'}, {'other-source'}])
+@pytest.mark.parametrize('include_candidates', [True, False])
+def test_batched_reconciliation_preserves_every_field_and_human_decision(
+        monkeypatch, source_ids, include_candidates):
+    from app.services import variety_portfolio_coverage as coverage
+    from app.services.identity_read_model import identity_read_model_scope
+    from app.services.variety_universe.identity import resolve_identity
+
+    varieties = [{'id': f'v-{i}', 'name': name, 'entity_type': 'variety',
+                  'berry_ids': ['berry-strawberry'], 'aliases': [], 'attributes': {}}
+                 for i, name in enumerate(['Earlier', 'Shared', 'Shared', 'New', 'Reference'])]
+    sources = [source([{'candidate_name': name, 'berry_id': 'berry-strawberry'}
+                       for name in ['Earlier', 'Shared', 'New', 'Unknown']],
+                      observed_at='2026-10-07T00:00:00Z'),
+               source([{'candidate_name': 'Reference', 'berry_id': 'berry-strawberry'}],
+                      id='other-source', observed_at='2026-10-07T00:00:00Z')]
+    candidates = [
+        {'id': 'rejected', 'candidate_name': 'Earlier', 'berry_id': 'berry-strawberry',
+         'status': 'rejected', 'identity_state': 'rejected', 'human_gated': True,
+         'review_notes': 'Keep this decision', 'knowledge': {'notes': 'User text'}},
+        {'id': 'distinct', 'candidate_name': 'New', 'berry_id': 'berry-strawberry',
+         'status': 'reviewed', 'identity_state': 'distinct', 'human_gated': True,
+         'reviewer': 'Human', 'candidate_canonical_match': None}]
+    kwargs = dict(sources=sources, varieties=varieties, entities=ENTITIES,
+                  candidates=candidates, source_ids=source_ids,
+                  include_candidates=include_candidates, today=date(2026, 10, 7))
+    before = deepcopy(kwargs)
+    actual = coverage.reconcile_portfolios.__wrapped__(**kwargs)
+    monkeypatch.setattr(coverage, 'resolve_identity_batch',
+                        lambda matcher, queries, rows: [resolve_identity(q, rows) for q in queries])
+    with identity_read_model_scope():
+        expected = coverage.reconcile_portfolios.__wrapped__(**kwargs)
+    assert actual == expected
+    assert kwargs == before
+
+
 def reconcile(sources, varieties=None, candidates=None):
     return reconcile_portfolios(sources=sources, varieties=varieties or [], entities=ENTITIES,
                                candidates=candidates or [], today=date(2026, 10, 7))

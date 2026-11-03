@@ -222,3 +222,65 @@ def test_equal_numbers_of_different_types_keep_original_identity_strings():
             query = {'candidate_name': str(value)}
             assert identity.resolve_identity(query, rows) == identity.resolve_identity.__wrapped__(query, rows)
         assert scope.catalog_count == 0
+
+
+@pytest.mark.parametrize('berry,order', list(product(
+    ['', 'berry-blueberry', 'berry-strawberry', 'berry-blackberry', 'berry-raspberry'],
+    ['normal', 'reversed', 'duplicate'])))
+def test_batch_preserves_complete_original_results_and_input_order(berry, order):
+    rows = catalog()
+    if order == 'reversed':
+        rows.reverse()
+    elif order == 'duplicate':
+        rows.insert(1, deepcopy(rows[0]))
+    queries = [{**row, 'berry_id': berry} for row in QUERIES]
+    before = deepcopy((rows, queries))
+    matcher = identity.resolve_identity.__wrapped__
+    assert lookup.resolve_identity_batch(matcher, queries, rows) == [matcher(q, rows) for q in queries]
+    assert (rows, queries) == before
+
+
+def test_batch_rebuilds_after_nested_edits_and_never_shares_results():
+    rows = catalog()
+    queries = [{'candidate_name': 'Mérida Dawn'}, {'registration_id': 'PP12'}]
+    matcher = identity.resolve_identity.__wrapped__
+    with lookup.identity_read_model_scope():
+        first = lookup.resolve_identity_batch(matcher, queries, rows)
+        first[0]['matches'].clear()
+        first[1]['matches'][0]['variety_name'] = 'Mutated output'
+        assert lookup.resolve_identity_batch(matcher, queries, rows) == [matcher(q, rows) for q in queries]
+        rows[0]['name'] = rows[1]['name'] = 'Changed cultivar'
+        rows[0]['aliases'][:] = ['New alias']
+        rows[0]['attributes']['patent_number'] = 'PP13'
+        assert lookup.resolve_identity_batch(matcher, queries, rows) == [matcher(q, rows) for q in queries]
+        assert not lookup.resolve_identity_batch(matcher, queries, rows)[1]['matches']
+
+
+def test_batch_opaque_input_keeps_original_sequential_coercions():
+    class Name:
+        calls = 0
+        def __str__(self):
+            self.calls += 1
+            return 'Mérida Dawn'
+    name = Name()
+    rows = catalog()
+    result = lookup.resolve_identity_batch(identity.resolve_identity.__wrapped__,
+        [{'candidate_name': name}], rows)
+    assert result[0]['matches'] and name.calls == 1
+
+
+def test_batch_does_not_preconsume_alias_iterators():
+    rows = catalog()
+    expected = identity.resolve_identity.__wrapped__({'aliases': iter(['Mérida Dawn'])}, rows)
+    result = lookup.resolve_identity_batch(identity.resolve_identity.__wrapped__,
+        [{'aliases': iter(['Mérida Dawn'])}], rows)
+    assert result == [expected]
+
+
+def test_batch_numeric_identity_values_fall_back_without_type_collisions():
+    rows = catalog()
+    matcher = identity.resolve_identity.__wrapped__
+    for value in (1, True, 1.0):
+        rows[0]['aliases'] = [value]
+        queries = [{'candidate_name': str(value)}]
+        assert lookup.resolve_identity_batch(matcher, queries, rows) == [matcher(q, rows) for q in queries]

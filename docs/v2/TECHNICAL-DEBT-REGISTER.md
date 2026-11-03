@@ -3587,3 +3587,14 @@ every saved text/request/source/edit. All92 affected checks pass. Fresh combined
 acceptance and separate release approval remain. Unknown/ambiguous topics do not
 guess a diagram. No provider field, acquisition, source identity or qualification
 change. Broader media/source review and TD-122 remain open.
+
+### November 3 — TD-122 single-batch identity preparation
+
+[The isolated portfolio batching child](PORTFOLIO-BATCH-PERFORMANCE-REVIEW.md)
+retains the original identity matcher and all ordinary freshness checks, but
+prepares one privately owned catalog for a synchronous reconciliation batch.
+Complete public-fixture models, current edits and saved human decisions remain;
+532 affected checks pass. Complete route HTML/context comparisons pass; component
+samples improve, but whole-page timing varies and final release acceptance
+remains. No source, schema, data or human decision
+is added. This is separate from pending480 and does not close TD-122.

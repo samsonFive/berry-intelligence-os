@@ -110,6 +110,41 @@ class IdentityReadModelScope:
         return matcher(candidate, rows)
 
 
+def _plain_json(value):
+    """Check without invoking user methods or consuming iterators."""
+    if type(value) in (str, int, float, bool, type(None)):
+        return True
+    if type(value) is list:
+        return all(_plain_json(item) for item in value)
+    if type(value) is dict:
+        return all(type(key) is str and _plain_json(item) for key, item in value.items())
+    return False
+
+
+def resolve_identity_batch(matcher, candidates, varieties):
+    """Resolve one synchronous batch against a fresh, privately owned catalog.
+
+    No prepared object escapes this call and no result is cached. Unlike the
+    request scope, callers cannot mutate the owned rows between lookups. The
+    ordinary per-call freshness checks remain unchanged for every other caller.
+    Non-JSON/opaque inputs retain the original sequential matcher behavior.
+    """
+    from app.services.variety_universe import identity
+
+    catalog = None
+    if (type(candidates) in (list, tuple) and type(varieties) in (list, tuple)
+            and len(varieties) > _SMALL_CATALOG):
+        try:
+            if (_plain_json(list(varieties)) and _plain_json(list(candidates))
+                    and all(identity._index_candidate_supported(row) for row in candidates)):
+                catalog = _Catalog(varieties, identity)
+        except (AttributeError, TypeError, ValueError, RecursionError):
+            pass
+    if catalog is None:
+        return [matcher(candidate, varieties) for candidate in candidates]
+    return [matcher(candidate, catalog.relevant_rows(candidate, identity)) for candidate in candidates]
+
+
 @contextmanager
 def identity_read_model_scope():
     """Opt in for one read-only render; never retain state across requests."""

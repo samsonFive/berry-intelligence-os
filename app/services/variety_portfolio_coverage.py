@@ -15,6 +15,7 @@ from app.services import company_directory
 from app.services.source_body import classify_source_body
 from app.services.variety_universe.coverage import BERRY_LABELS, BERRY_ORDER
 from app.services.variety_universe.identity import fold_identity, resolve_identity
+from app.services.identity_read_model import resolve_identity_batch
 from app.services.variety_universe.registry_import import build_candidate
 
 
@@ -327,6 +328,11 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     source_rows, additions = [], []
     provenance = {}
     pair_notes = _identity_pair_notes(sources)
+    identity_results = iter(resolve_identity_batch(resolve_identity.__wrapped__, [
+        {key: observation.get(key, "") for key in ("candidate_name", "denomination", "breeder_code", "berry_id")}
+        for source in sources if source_ids is None or source["id"] in source_ids
+        for observation in source.get("names", [])
+    ], varieties))
     for source in sources:
         if source_ids is not None and source["id"] not in source_ids:
             continue
@@ -338,8 +344,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             entry_companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
                                 "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
                                for cid in observation_company_ids(source, observation) if cid in entity_index]
-            query = {k: observation.get(k, "") for k in ("candidate_name", "denomination", "breeder_code", "berry_id")}
-            result = resolve_identity(query, varieties)
+            result = next(identity_results)
             exact_ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
             catalog_id = next(iter(exact_ids)) if len(exact_ids) == 1 else None
             identity_notes = pair_notes.get((source["id"], _key(observation),
