@@ -1,0 +1,36 @@
+{
+  "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+  "created": [
+    {
+      "candidate_id": "vcand-dfaf96c657c2",
+      "variety_id": "variety-glen-dee-873549e4",
+      "name": "Glen Dee",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "source_tier": "tier_1_registry"
+    },
+    {
+      "candidate_id": "vcand-349b75a3cd50",
+      "variety_id": "variety-cascade-delight-cdab4130",
+      "name": "Cascade Delight",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_url": "https://puyallup.wsu.edu/smallfruit/raspberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-69839a325932",
+      "variety_id": "variety-autumn-bliss-166ac20d",
+      "name": "Autumn Bliss",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+      "source_tier": "tier_2_technical_sheet"
+    }
+  ],
+  "held": []
+}

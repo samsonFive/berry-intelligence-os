@@ -19,8 +19,8 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 54
-    assert sum(len(n['details']) for n in notes.values()) == 198
+    assert len(notes) == 59
+    assert sum(len(n['details']) for n in notes.values()) == 214
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
     for variety in varieties:
@@ -98,6 +98,26 @@ def test_primary_expansion_keeps_records_conditions_and_disagreements_scoped():
             note = notes[variety['id']]
             assert len(note['sources']) == 2
             assert any(r['field'] == 'Release-date discrepancy' for r in note['details'])
+
+
+def test_recovered_variety_details_keep_experiment_and_disease_scope():
+    payload, varieties = corpus()
+    notes = validate_notes(payload, varieties)
+    manifest = json.loads(Path('data/imports/variety-catalog-admission-2026-11-03-r2/manifest.json').read_text(encoding='utf8'))
+    by_name = {v['name']: v for v in varieties}
+    assert {r['name'] for r in manifest['created']} == {'Glen Dee', 'Cascade Delight', 'Autumn Bliss'}
+    for row in manifest['created']:
+        record = by_name[row['name']]
+        assert record['status'] == 'unverified' and not record['aliases']
+        assert not record['fact_ids'] and not record['relationship_ids']
+    cascade = notes[by_name['Cascade Delight']['id']]
+    assert any('moderate' in row['value'] for row in cascade['details'])
+    assert any('WSU describes resistance' in row['value'] for row in cascade['details'])
+    autumn = notes[by_name['Autumn Bliss']['id']]
+    assert any('1994 and 1995' in row['value'] for row in autumn['details'])
+    assert any('different outcomes' in row['context'] for row in autumn['details'])
+    champion = notes[by_name['Malling Champion']['id']]
+    assert all('12–14' not in row['value'] for row in champion['details'])
 
 
 def test_private_template_escapes_values_and_preserves_conditions_and_citations():

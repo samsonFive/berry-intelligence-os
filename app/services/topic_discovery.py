@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v8'  # Exact DOI copies and registered cultivar-code formatting.
+CAPTURE_VERSION = 'topic-capture-v9'  # Disclosed credit-free metadata fallback.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -95,14 +95,19 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
     with _LOCK:
         if path.is_file() and time.time() - path.stat().st_mtime < CACHE_SECONDS:
             try:
-                return {**json.loads(path.read_text(encoding="utf-8")), "cache_hit": True, "queries_this_request": 0}
+                cached=json.loads(path.read_text(encoding="utf-8"))
+                counters={k:0 for k in ('primary_requests_this_request','fallback_requests_this_request') if k in cached}
+                return {**cached, **counters, "cache_hit": True, "queries_this_request": 0}
             except (OSError, ValueError):
                 pass
         if client is None:
+            from app.services.resilient_topic_search import ResilientTopicSearchClient
             try:
-                client = PerplexitySearchClient(api_key=resolve_perplexity_api_key(), timeout_seconds=20)
+                credential=resolve_perplexity_api_key()
+                primary=PerplexitySearchClient(api_key=credential, timeout_seconds=20)
             except MissingCredentialError:
-                return {"items": [], "status": "unavailable", "failures": ["PERPLEXITY_API_KEY is not configured"], "queries_this_request": 0, "cache_hit": False}
+                credential='';primary=None
+            client=ResilientTopicSearchClient(primary,credential=credential,entities=entities)
         started = time.monotonic()
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         variants = [plan.raw_query, plan.interpreted_query]
@@ -196,10 +201,12 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         if required_groups:
             from app.services.topic_retrieval import normalize, record_passages
             rows = [r for r in rows if all(any(normalize(label) in normalize(" ".join(p for _, p in record_passages(r))) for label in group) for group in required_groups)]
-        result = {"items": rows, "status": "partial" if failures and successes else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "perplexity_search"}
+        diagnostics=client.diagnostics() if hasattr(client,'diagnostics') else {}
+        degraded=bool(diagnostics.get('fallback_used'))
+        result = {"items": rows, "status": "partial" if (failures or degraded) and successes else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search", **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.
-        if not failures:
+        if not failures and not diagnostics.get('fallback_failures'):
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_suffix(".tmp")
             temporary.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")

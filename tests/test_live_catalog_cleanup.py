@@ -18,7 +18,7 @@ def test_live_catalog_has_no_seed_records_or_dangling_seed_links():
         text = path.read_text(encoding='utf-8')
         assert not any(key in text for key in SEED_IDS), path
     notes = json.loads(Path('data/imports/variety-profile-source-details-2026-10-27/observations.json').read_text(encoding='utf-8'))
-    assert len(notes['profiles']) == 54
+    assert len(notes['profiles']) == 59
     assert not any(n['variety_id'] in SEED_IDS for n in notes['profiles'])
 
 

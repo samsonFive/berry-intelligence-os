@@ -77,6 +77,8 @@ def topic_sections(packet: dict[str, Any], *, as_of: date | None = None) -> list
     if not prose:
         prose = "No inspected, dated direct development supports the recent-findings section within this scope. Review discovery status, older context and undated leads separately; no unsupported narrative was generated."
     scope_text = f"Query: {plan['raw_query']}\nInterpretation: {plan['interpreted_query']}\nSources: {research['source_scope']}\nPublication window: {plan.get('start') or 'unrestricted'} to {plan.get('end') or 'present'}\nWeb discovery: {research['discovery']['status']}\nSource statements remain attributed; web discoveries are unreviewed. Recent developments and older context retain their original publication dates."
+    if research['discovery'].get('fallback_used'):
+        scope_text += '\nPerplexity is unavailable. Credit-free scholarly indexes, Google News RSS and registered primary-source leads were used instead. Coverage is narrower than full web discovery; this is not proof of complete recall.'
     sections = [SectionDraft("scope_method", "Research scope and coverage", scope_text, (), "structured", None, None), SectionDraft("topic_findings", "Attributed source findings — recent developments", prose, tuple(r["id"] for r in recent), "structured", None, None)]
     if background:
         sections.append(SectionDraft("topic_background", "Older developments and background", excerpts(background), tuple(r["id"] for r in background), "structured", None, None))

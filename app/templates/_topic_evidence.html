@@ -5,6 +5,7 @@
   <p>Searching for {{ research.plan.interpreted_query }} · {{ research.source_scope }} scope</p>
   {% if research.plan.corrected %}<p>Original wording: {{ research.plan.raw_query }}. Edit the question to use different wording.</p>{% endif %}
   <p>Publication dates: {{ research.plan.start or 'unrestricted' }} to {{ research.plan.end or 'present' }}. {{ research.local|length }} collected · {{ research.web|length }} web discoveries. Web status: {{ research.discovery.status }}.</p>
+  {% if research.discovery.fallback_used %}<p role="status">Perplexity is unavailable. Searching scholarly indexes, Google News and registered primary sources instead. This fallback has narrower coverage; missing results do not establish that no relevant source exists.</p>{% endif %}
   {% if research.discovery.candidate_count is defined %}<p>Source acquisition: {{ research.discovery.capture_count }} captures with text from {{ research.discovery.candidate_count }} discovered candidates. Capture health is separate from topical relevance. {% if research.discovery.cache_hit %}Cached search; no new provider query on this request.{% endif %}</p>{% endif %}
   {% for reason in research.discovery.failures %}<p role="status">Partial coverage: {{ reason }}. Check provider credentials or retry the source check.</p>{% endfor %}
   {% if research.source_scope == 'archive' %}<p>Web was not searched. Change Source scope to Collected + web to widen discovery.</p>{% endif %}

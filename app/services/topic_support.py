@@ -13,6 +13,16 @@ def passage_intent_supported(text, plan):
     from app.services.topic_retrieval import normalize
     words=set(plan.terms)
     plain=normalize(text)
+    if 'ultraviolet' in words or words&{'uv','uvc','uvb'}:
+        if not re.search(r'\b(?:ultraviolet|uv(?:[ -]?[abc])?)\b',plain):return False
+    if words&{'greenhouse','glasshouse'}:
+        if not re.search(r'\b(?:greenhouse|glasshouse|protected cultivation|high tunnel)\b',plain):return False
+    if 'nursery' in words and not re.search(r'\b(?:nursery|nurseries|transplant\w*)\b',plain):return False
+    if 'anthracnose' in words and not re.search(r'\b(?:anthracnose|colletotrichum)\b',plain):return False
+    if {'powdery','mildew'} <= words:
+        if not re.search(r'\b(?:powdery mildew|podosphaera aphanis|sphaerotheca macularis)\b',plain):return False
+    if 'resistance' in words and not re.search(r'\b(?:resistan\w*|toleran\w*|susceptib\w*)\b',plain):return False
+    if 'disease' in words and not re.search(r'\b(?:disease\w*|pathogen\w*|fung\w*|mildew|botrytis|anthracnose)\b',plain):return False
     if any(t.startswith('ventilat') for t in words):
         if not re.search(r'\b(?:vent\w*|air exchange|airflow|air flow)\b',plain):return False
     if 'heat' in words and 'stress' in words:
@@ -63,7 +73,7 @@ def support_context(plan, entities, identifiers):
             organizations.append(names)
     places=[]
     place_terms=set()
-    if any(t.startswith(('trial','experiment','evaluat')) for t in plan.terms):
+    if any(t.startswith(('trial','experiment','evaluat','research')) for t in plan.terms):
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]
@@ -104,6 +114,7 @@ def identity_in_passage(text, entity):
         name=re.escape(name)
         # Explicit cultivar grammar prevents a person's namesake becoming a trait.
         if re.search(r'\b(?:variety|cultivar|blackberry|raspberry|blueberry|strawberry|named|called|introduce\w*)\s+(?:the\s+)?'+name+r'(?!\w)',text):return True
+        if re.search(r'\b(?:includes?|including|such as)\s+(?:the\s+)?(?:variety|cultivar)\s+[^.!?]{0,350}(?<!\w)'+name+r'(?!\w)',text):return True
         if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+(?:a\s+)?(?:new\s+)?|(?:a|the)\s+)?(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
     return False
 
@@ -120,5 +131,5 @@ def trial_location_in_passage(text, places):
     from app.services.topic_retrieval import normalize
     if not places:return True
     text=normalize(text)
-    if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*)\b',text):return False
+    if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
     return all(any(re.search(r'\b(?:in|at|across|within|near) (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:trial|evaluation|experiment)',text) for place in group) for group in places)

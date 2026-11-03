@@ -12,14 +12,14 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v14"
+VERSION = "topic-retrieval-v15"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
 
 
 def normalize(text: str) -> str:
-    text = unicodedata.normalize("NFKC", text).casefold().translate(str.maketrans({"’": "'", "‘": "'", "–": "-", "—": "-", "‑": "-"}))
+    text = unicodedata.normalize("NFKC", re.sub('[™®℠]','',text)).casefold().translate(str.maketrans({"’": "'", "‘": "'", "–": "-", "—": "-", "‑": "-"}))
     text = re.sub(r"(?<!\w)'|'(?!\w)",'',text)
     from app.services.berry_vocabulary import canonicalize_crop_words, canonicalize_industry_words
     text = canonicalize_industry_words(canonicalize_crop_words(text))
@@ -44,7 +44,7 @@ class QueryPlan:
 
 @lru_cache(maxsize=256)
 def plan_query(raw: str, *, use_original: bool = False) -> QueryPlan:
-    interpreted = unicodedata.normalize("NFKC", raw).strip()
+    interpreted = unicodedata.normalize("NFKC", re.sub('[™®℠]','',raw)).strip()
     # Corrections are narrow domain vocabulary; unknown names stay literal.
     if not use_original and re.search(r"\bblackberr(?:y|ies)\b", interpreted, re.I):
         pieces = re.split(r'("[^"]*")', interpreted)
@@ -89,9 +89,12 @@ def record_passages(record: Mapping[str, Any]) -> list[tuple[str, str]]:
     # Bounded overlapping chunks keep long sources searchable beyond the lead.
     chunks=[]
     for locator,text in passages:
-        for offset in range(0,len(text),1000):
-            excerpt=text[offset:offset+1200]
-            if offset+1200<len(text):
+        # A complete scientific abstract often defines a disease abbreviation
+        # near its start and reports field validation near its end. Keep that
+        # owned context together without joining unrelated paragraphs.
+        for offset in range(0,len(text),2000):
+            excerpt=text[offset:offset+2400]
+            if offset+2400<len(text):
                 endings=list(re.finditer(r'[.!?](?:["\u201d\u2019])?(?=\s|$)',excerpt))
                 if endings and endings[-1].end()>=300:
                     excerpt=excerpt[:endings[-1].end()]
@@ -230,7 +233,7 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     position = next((i for i, p in enumerate(passages) if p == (locator, passage)), -1)
     if position >= 0 and locator not in metadata_fields and position + 1 < len(passages):
         next_locator, next_passage = passages[position + 1]
-        if next_locator != locator and next_locator not in metadata_fields and next_passage.strip() not in passage and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
+        if next_locator != locator and next_locator not in metadata_fields and next_passage.strip() not in passage and passage_intent_supported(next_passage,plan) and trial_location_in_passage(next_passage,support['trial_places']) and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
             passage += "\n\n" + next_passage
             locator += ";" + next_locator
     # Preserve a short framing statement (e.g. the year of a reproduced study)

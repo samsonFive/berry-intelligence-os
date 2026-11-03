@@ -2293,6 +2293,227 @@
           "context": "PDF pages 2 and 10; disease management influenced reported outcomes. No immunity claim or pesticide-use recommendation is made."
         }
       ]
+    },
+    {
+      "variety_id": "variety-glen-dee-873549e4",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed source assertions await review. No universal performance, current-rights, alias, company-role or commercial growing-footprint approval.",
+      "sources": {
+        "1": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+          "title": "Canadian Food Inspection Agency - Glen Dee",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Origin & Breeding History; Plant; Tests & Trials"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeding history",
+          "value": "Cross at the James Hutton Institute, Dundee, UK, on 7 April 2004; selection on 20 November 2007.",
+          "source_id": "1",
+          "context": "CFIA identifies parents 00123A5 and 0019B11; parent codes are not Glen Dee aliases."
+        },
+        {
+          "field": "Fruiting & habit",
+          "value": "Summer fruiting on previous-season canes; arching habit; spineless canes.",
+          "source_id": "1",
+          "context": "Official variety description under examination conditions; relative ripening season is not a universal climate calendar."
+        },
+        {
+          "field": "Examination conditions",
+          "value": "Hannover, Germany, in 2016–2017; technical-examination application 2014/0627.",
+          "source_id": "1",
+          "context": "CFIA account of the UPOV report purchased from CPVO. Examination location is not a commercial growing footprint or current-rights determination."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-cascade-delight-cdab4130",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed source assertions await review. No universal performance, current-rights, alias, company-role or commercial growing-footprint approval. Disease descriptions differ across sources and conditions; retain both pending review.",
+      "sources": {
+        "1": {
+          "url": "https://puyallup.wsu.edu/smallfruit/raspberries/",
+          "title": "Raspberries | Small Fruit Breeding & Genetics | Washington State University",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Cascade Delight named cultivar paragraph"
+        },
+        "2": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "Raspberry cultivars for the Pacific Northwest | OSU Extension Service",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Cascade Delight row, Pacific Northwest cultivar table"
+        },
+        "3": {
+          "url": "https://ishs.org/ishs-article/946_46/",
+          "title": "ROOT TRAITS ASSOCIATED WITH PHYTOPHTHORA ROOT ROT RESISTANCE IN RED RASPBERRY - ishs",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Abstract, root-trait experiment"
+        }
+      },
+      "details": [
+        {
+          "field": "Release & market",
+          "value": "WSU reports release in 2003; late-season, large, firm fruit for fresh market.",
+          "source_id": "1",
+          "context": "Breeder regional description; no universal yield or storage-day claim."
+        },
+        {
+          "field": "Root-rot description",
+          "value": "WSU describes resistance to Phytophthora root rot.",
+          "source_id": "1",
+          "context": "Breeder assertion; not immunity and not a quantified resistance assay."
+        },
+        {
+          "field": "Regional disease assessment",
+          "value": "OSU rates Cascade Delight as having moderate root-rot resistance.",
+          "source_id": "2",
+          "context": "Retain this more qualified regional assessment alongside the WSU wording; methods and environments differ."
+        },
+        {
+          "field": "Root-rot trial context",
+          "value": "Cascade Delight was among seven cultivars studied at WSU Puyallup in a field with a history of root rot.",
+          "source_id": "3",
+          "context": "The abstract reports root imaging begun in August 2009 and qPCR infection assessment. Group-level resistant-cultivar results are not a cultivar-specific numerical effect size."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-autumn-bliss-166ac20d",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed source assertions await review. No universal performance, current-rights, alias, company-role or commercial growing-footprint approval.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "Raspberry cultivars for the Pacific Northwest | OSU Extension Service",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Autumn Bliss row, Pacific Northwest cultivar table"
+        },
+        "2": {
+          "url": "https://researchportal.ulisboa.pt/en/publications/pruning-date-and-cane-density-affect-primocane-development-and-yi/",
+          "title": "Pruning date and cane density affect primocane development and yield of 'autumn bliss' red raspberry - University of Lisbon",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Owned abstract, pruning-date and cane-density study"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & regional assessment",
+          "value": "OSU lists Autumn Bliss as an early primocane-fruiting cultivar, with medium yield and good root-rot resistance.",
+          "source_id": "1",
+          "context": "Pacific Northwest cultivar guide; comparative ratings are regional and not a universal resistance guarantee."
+        },
+        {
+          "field": "Pruning experiment",
+          "value": "Greenhouse study in 1994 and 1995 compared three July pruning dates and densities of 8, 16, 24 and 32 canes per metre.",
+          "source_id": "2",
+          "context": "University of Lisbon repository abstract. These are historical experiment conditions, not current universal management recommendations."
+        },
+        {
+          "field": "Conditional yield response",
+          "value": "Delayed pruning reduced yield per cane and row; 16 and 24 canes per metre gave the highest fruit yield in this study.",
+          "source_id": "2",
+          "context": "Highest yield per cane occurred at the lowest density. Row yield and per-cane yield are different outcomes; light conditions affected productivity."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-aurora-e5e96c2d",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed source assertions await review. No universal performance, current-rights, alias, company-role or commercial growing-footprint approval.",
+      "sources": {
+        "1": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00004657e.shtml",
+          "title": "Canadian Food Inspection Agency - Aurora",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "Origin & Breeding History; variety description"
+        },
+        "2": {
+          "url": "https://msu-prod.dotcmscloud.com/news/building_a_better_blueberry_a_spartan_breeder_perfects_one_of_michigans_fin",
+          "title": "Building a better blueberry: A Spartan breeder perfects one of Michigan's finest fruits - AgBioResearch",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "MSU breeding history and Aurora release listing"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeding origin",
+          "value": "1991 cross at Michigan State University; selected in 1997 from 54 siblings at Benton Harbor, Michigan.",
+          "source_id": "1",
+          "context": "CFIA identifies Brigitta and Elliott as parents and reports eleven years of evaluation; parent names are not Aurora aliases."
+        },
+        {
+          "field": "Release history",
+          "value": "MSU lists Aurora as a 2004 release and identifies James Hancock as its breeder.",
+          "source_id": "2",
+          "context": "Historical breeder account; does not determine current legal protection or availability."
+        },
+        {
+          "field": "Fruit & season",
+          "value": "CFIA describes medium-to-large fruit, medium firmness, medium sweetness, medium-to-high acidity and very late ripening.",
+          "source_id": "1",
+          "context": "Official examination description; relative ripening and quality depend on growing conditions. No storage-duration number was supplied."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-malling-champion-22fb8a80",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed source assertions await review. No universal performance, current-rights, alias, company-role or commercial growing-footprint approval.",
+      "sources": {
+        "1": {
+          "url": "https://www.niab.com/news-views/news/news-niab-emr-launches-new-strawberry-varieties",
+          "title": "NEWS: NIAB EMR launches new strawberry varieties | Niab",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "NIAB launch announcement, 2019 Fruit Focus; Champion paragraph"
+        },
+        "2": {
+          "url": "https://projectbluearchive.blob.core.windows.net/media/Default/Imported%20Publication%20Docs/AHDB%20Horticulture%20/StrawberryVariety2135_WEB.pdf",
+          "title": "New varieties from the East Malling Strawberry Breeding Club ...",
+          "kind": "Primary breeder, official examination or technical research source",
+          "locator": "PDF page 3, Malling Champion section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder & release",
+          "value": "NIAB EMR reports launch at the 2019 Fruit Focus event from the East Malling Strawberry Breeding Programme.",
+          "source_id": "1",
+          "context": "Malling Champion is distinguished from the separately described Malling Allure."
+        },
+        {
+          "field": "Fruiting & quality",
+          "value": "Ever-bearer; NIAB describes a high proportion of Class 1 fruit and useful disease resistance.",
+          "source_id": "1",
+          "context": "Qualitative breeder statement; unspecified disease resistance is not approval of resistance to a particular pathogen."
+        },
+        {
+          "field": "Season context",
+          "value": "AHDB describes an early everbearer peaking in July and picking steadily through August.",
+          "source_id": "2",
+          "context": "UK technical-sheet conditions; not a calendar for every region. Adjacent Allure June-bearer and 12–14-day timing statements are excluded."
+        }
+      ]
     }
   ]
 }
