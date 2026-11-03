@@ -19,12 +19,13 @@
 .company-dossier .bos-fact-block > p:first-child { font-size: 1rem; line-height: 1.55; }
 .company-dossier .bos-question-list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 10px; align-items: start; }
 .company-dossier .bos-question-list > article { background: #fcfdf8; border-color: #b6c9ae; margin: 0; }
+.company-dossier .bos-question-list h3 { font-size: 1.12rem; font-weight: 750; color: #203e2f; }
 .company-dossier .bos-question-list > article[data-answer-state="answered"] { border-top: 3px solid #548443; }
 .company-dossier .bos-question-list > article[data-answer-state="not_applicable"] { background: #f3f5ef; }
 .company-dossier .bos-state-pill { display: inline-block; border: 1px solid #c5cfb8; border-radius: 5px; padding: 2px 7px; font-size: .72rem; font-weight: 650; color: #4a5739; background: #eef2e5; }
 .company-dossier .bos-state-pill.is-answered { color: #275139; border-color: #b4cfad; background: #e8f2df; }
 .company-dossier .bos-state-pill.is-unknown, .company-dossier .bos-state-pill.is-not_yet_researched { color: #6c5123; border-color: #dbc79d; background: #faf1dc; }
-.company-dossier .bos-question-answer { font-size: 1.03rem; font-weight: 600; line-height: 1.45; margin-top: 9px; }
+.company-dossier .bos-question-answer { font-size: 1rem; font-weight: 500; line-height: 1.45; margin-top: 9px; color: #31563b; }
 .company-dossier .bos-question-list .bos-btn { min-height: 44px; border: 1px solid #809c74; border-radius: 6px; padding: 7px 11px; background: #fff; color: #244c32; font-weight: 600; margin-top: 5px; }
 .company-dossier .bos-record-details { border-top: 1px solid #d5dfcc; padding-top: 5px; margin-top: 10px; font-size: .82rem; color: #4d624c; }
 .company-dossier .bos-record-details summary { cursor: pointer; padding: 6px 0; font-weight: 550; }
