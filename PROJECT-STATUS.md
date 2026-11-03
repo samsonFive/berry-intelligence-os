@@ -1,3 +1,15 @@
+# Narrow cold-load follow-up — November 2, 2026
+
+Live #475 remains verified at6c2feaf1. Draft #476 now retains only company-scoped
+News, request-local Candidates preparation and bounded literal-text decoding.
+The final363 affected checks pass. Reader/source selection and discovery grammar
+remain byte-for-byte unchanged; the larger Reader/discovery experiments are not
+included. [The measured review](docs/v2/COLD-LOAD-PREPARATION-REVIEW.md) records development
+copy gains and the unchanged global News control. Frozen-head CI, browser and
+fresh isolated acceptance remain before a new release decision. TD-122 and the
+content/human gaps in [the closeout audit](docs/v2/MISSION-CLOSEOUT-2026-11-02.md) stay open.
+All original31 definitions/order and the governing guide are retained.
+
 # Live News performance and remaining closeout — November 2, 2026
 
 Approved #475 is live at `6c2feaf1` /tested `c666a481`, retaining #474 and all
