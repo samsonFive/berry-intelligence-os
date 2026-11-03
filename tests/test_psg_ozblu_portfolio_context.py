@@ -12,8 +12,7 @@ def sources():
     # of these publishers (which legitimately add more sources).
     import json
     path = DATA / 'imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json'
-    ids = {s['id'] for s in json.loads(path.read_text(encoding='utf-8'))['sources']}
-    return [s for s in load_portfolio_observations(DATA) if s['id'] in ids]
+    return json.loads(path.read_text(encoding='utf-8'))['sources']
 
 def test_catalog_failure_is_a_gap_and_consumer_grades_are_not_cultivars():
     rows, candidates = reconcile_portfolios(sources=sources(), varieties=[], entities=[], candidates=[])

@@ -1,0 +1,2009 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-psg-selection-strawberry",
+      "title": "Plant Sciences Genetics — strawberry selections for the United States",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 19 cards rendered in the observed United States / all regions / all types state. This is a scoped selection, not a worldwide portfolio or planting census.",
+      "limitations": "These are source observations, not approved cultivar identities or company roles. Full printed codes and literal headings are retained separately; short numeric labels do not create additional cultivars. The selectors were checked with United States of America, all regions and all types selected. Other countries, historical selections and future site changes are outside this capture. A suitability or catalog listing does not establish actual planting, current availability, territory or market share. Publication dates are not inferred from retrieval. All photos remain attributed references with unknown reuse permission and unconfirmed botanical identity. No image is loaded by default; any existing private-session preview remains an explicit user action. Numbers printed on company detail pages are publisher patent references only; current rights and claim scope are not determined. The retained original patent and company material are different source types, not interchangeable proof.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "BG-10.3169",
+          "display_label": "'3169'",
+          "breeder_code": "BG-10.3169",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=67DC8215-839F-692F-3D75-43D55C7BFA47&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3169/Images/01_fruit_solo.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-10.3169",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3169' / BG-10.3169",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-10.3181",
+          "display_label": "'3181'",
+          "breeder_code": "BG-10.3181",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=06787B8A-755B-52E9-B403-670C085BA7C4&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3181/Images/01_fruit_solo.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-10.3181",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3181' / BG-10.3181",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-4.367",
+          "display_label": "'367'",
+          "breeder_code": "BG-4.367",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=7A257B6F-358A-4E32-7760-C22F6B50EBEE&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-4.367/Images/01_fruit_solo.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-4.367",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '367' / BG-4.367",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-9.3128",
+          "display_label": "'3128'",
+          "breeder_code": "BG-9.3128",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2EE07784-4931-746B-A7DB-3C0A12DBAAF4&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3128/Images/01_B5-BG-9.3128-4.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-9.3128",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3128' / BG-9.3128",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Inspire",
+          "display_label": "Inspire",
+          "breeder_code": "BG-9.3142",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3142/Images/01_fruit_solo.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Inspire",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Inspire / BG-9.3142",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PE-13.119.024",
+          "display_label": "'119'",
+          "breeder_code": "PE-13.119.024",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=58173F4E-8C6E-F719-B60B-864E2927492D&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-13.119.024/Images/1_Fig%201.%20119.024%20IMG_8388%20-%201024%20x%20768.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PE-13.119.024",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "PSG source card: '119' / PE-13.119.024",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PE-14.145.059",
+          "display_label": "'145'",
+          "breeder_code": "PE-14.145.059",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=9EED1E98-ED61-0F97-3CD0-E61516FA6D03&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-14.145.059/Images/1_Fig%201.%2014.145.059%20-%20IMG_1925%20-%201024%20x%20768.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PE-14.145.059",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "PSG source card: '145' / PE-14.145.059",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PE-7.2059",
+          "display_label": "'2059'",
+          "breeder_code": "PE-7.2059",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B124864C-170A-6915-77FF-73613BC836C1&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-7.2059/Images/1_7.2059fruit.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PE-7.2059",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '2059' / PE-7.2059",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PEP-12.6010",
+          "display_label": "'6010'",
+          "breeder_code": "PEP-12.6010",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=C6A99A8F-FC74-39DA-D934-554949C721AD&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PEP-12.6010/Images/1_Fig%201.%2012.6010%20IMG_3414.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PEP-12.6010",
+              "berry_id": "berry-strawberry",
+              "kind": "plant",
+              "caption": "PSG source card: '6010' / PEP-12.6010",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PS-13.467.089",
+          "display_label": "'089'",
+          "breeder_code": "PS-13.467.089",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=F264859D-F8F0-8FC4-C3E7-4836B59847BE&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PS-13.467.089/Images/01_fruit_solo.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PS-13.467.089",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '089' / PS-13.467.089",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Nina",
+          "display_label": "Nina",
+          "breeder_code": "SB_10_86-107",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=70FA7F9F-3363-FD39-1030-8358F67D2856&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_10_86-107/Images/1_fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Nina",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Nina / SB_10_86-107",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Pinta",
+          "display_label": "Pinta",
+          "breeder_code": "SB_12_100-041",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=CBC9AE32-C1B5-2D94-0FAC-5BC39B98AF27&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_100-041/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Pinta",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Pinta / SB_12_100-041",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Santa Maria",
+          "display_label": "Santa Maria",
+          "breeder_code": "SB_12_102-056",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=4C043F28-5EFB-5BB7-C8C9-5BC541195ED9&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_102-056/Images/1_Fig.%202.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Santa Maria",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Santa Maria / SB_12_102-056",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Bounty",
+          "display_label": "Bounty",
+          "breeder_code": "SB_13_164-030",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=DFF7B02C-A73D-B58C-68CC-DDF31562EC45&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-030/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Bounty",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Bounty / SB_13_164-030",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Discovery",
+          "display_label": "Discovery",
+          "breeder_code": "SB_13_164-042",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2B3DCC81-B9C7-DA83-1815-DDF1AD785CD9&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-042/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Discovery",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Discovery / SB_13_164-042",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "SB_14_028-025",
+          "display_label": "'025'",
+          "breeder_code": "SB_14_028-025",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=20772702-74F4-5888-1CEB-349C96DF6BCB&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_14_028-025/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "SB_14_028-025",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '025' / SB_14_028-025",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Resolution",
+          "display_label": "Resolution",
+          "breeder_code": "SB_14_169-039",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_14_169-039/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Resolution",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Resolution / SB_14_169-039",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "SP-17.5936-049",
+          "display_label": "'049'",
+          "breeder_code": "SP-17.5936-049",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=0089738c-396e-436b-8bde-40c9b928339d&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SP-17.5936-049/Images/Screenshot%202026-08-04%20at%202.28.41%E2%80%AFPM.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "SP-17.5936-049",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '049' / SP-17.5936-049",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "VS-17.5417-060",
+          "display_label": "'060'",
+          "breeder_code": "VS-17.5417-060",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=31C2E790-302B-98AC-4B13-636B833C9B70&cropName=Strawberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/VS-17.5417-060/Images/Screenshot%202026-08-04%20at%202.32.26%E2%80%AFPM.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "VS-17.5417-060",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '060' / VS-17.5417-060",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 19,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_rendered_cards_and_exact_detail_navigation",
+        "final_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+        "selected_country": "United States of America",
+        "selected_region": "-All Regions-",
+        "selected_type": "-All Types-",
+        "literal_cards": [
+          {
+            "code": "BG-10.3169",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3169/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'3169'"
+          },
+          {
+            "code": "BG-10.3181",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3181/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'3181'"
+          },
+          {
+            "code": "BG-4.367",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-4.367/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'367'"
+          },
+          {
+            "code": "BG-9.3128",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3128/Images/01_B5-BG-9.3128-4.jpg"
+              }
+            ],
+            "label": "'3128'"
+          },
+          {
+            "code": "BG-9.3142",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3142/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "Inspire"
+          },
+          {
+            "code": "PE-13.119.024",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-13.119.024/Images/1_Fig%201.%20119.024%20IMG_8388%20-%201024%20x%20768.JPG"
+              }
+            ],
+            "label": "'119'"
+          },
+          {
+            "code": "PE-14.145.059",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-14.145.059/Images/1_Fig%201.%2014.145.059%20-%20IMG_1925%20-%201024%20x%20768.jpg"
+              }
+            ],
+            "label": "'145'"
+          },
+          {
+            "code": "PE-7.2059",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PE-7.2059/Images/1_7.2059fruit.jpg"
+              }
+            ],
+            "label": "'2059'"
+          },
+          {
+            "code": "PEP-12.6010",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PEP-12.6010/Images/1_Fig%201.%2012.6010%20IMG_3414.jpg"
+              }
+            ],
+            "label": "'6010'"
+          },
+          {
+            "code": "PS-13.467.089",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/PS-13.467.089/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'089'"
+          },
+          {
+            "code": "SB_10_86-107",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_10_86-107/Images/1_fig.%203.jpg"
+              }
+            ],
+            "label": "Nina"
+          },
+          {
+            "code": "SB_12_100-041",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_100-041/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Pinta"
+          },
+          {
+            "code": "SB_12_102-056",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_102-056/Images/1_Fig.%202.jpg"
+              }
+            ],
+            "label": "Santa Maria"
+          },
+          {
+            "code": "SB_13_164-030",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-030/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Bounty"
+          },
+          {
+            "code": "SB_13_164-042",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-042/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Discovery"
+          },
+          {
+            "code": "SB_14_028-025",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_14_028-025/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "'025'"
+          },
+          {
+            "code": "SB_14_169-039",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_14_169-039/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Resolution"
+          },
+          {
+            "code": "SP-17.5936-049",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SP-17.5936-049/Images/Screenshot%202026-08-04%20at%202.28.41%E2%80%AFPM.png"
+              }
+            ],
+            "label": "'049'"
+          },
+          {
+            "code": "VS-17.5417-060",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/VS-17.5417-060/Images/Screenshot%202026-08-04%20at%202.32.26%E2%80%AFPM.png"
+              }
+            ],
+            "label": "'060'"
+          }
+        ],
+        "publication_date_precision": "No publication date established",
+        "detail_pages": [
+          {
+            "label": "'3169'",
+            "code": "BG-10.3169",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=67DC8215-839F-692F-3D75-43D55C7BFA47&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP32,435"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'3181'",
+            "code": "BG-10.3181",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=06787B8A-755B-52E9-B403-670C085BA7C4&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP31,960"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'367'",
+            "code": "BG-4.367",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=7A257B6F-358A-4E32-7760-C22F6B50EBEE&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP25,865"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'3128'",
+            "code": "BG-9.3128",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2EE07784-4931-746B-A7DB-3C0A12DBAAF4&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP31,148"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Inspire",
+            "code": "BG-9.3142",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP29,794"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'119'",
+            "code": "PE-13.119.024",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=58173F4E-8C6E-F719-B60B-864E2927492D&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,168"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'145'",
+            "code": "PE-14.145.059",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=9EED1E98-ED61-0F97-3CD0-E61516FA6D03&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,657"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'2059'",
+            "code": "PE-7.2059",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B124864C-170A-6915-77FF-73613BC836C1&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP28,756"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'6010'",
+            "code": "PEP-12.6010",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=C6A99A8F-FC74-39DA-D934-554949C721AD&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP33,760"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'089'",
+            "code": "PS-13.467.089",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=F264859D-F8F0-8FC4-C3E7-4836B59847BE&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP36,647"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Nina",
+            "code": "SB_10_86-107",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=70FA7F9F-3363-FD39-1030-8358F67D2856&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP33,475"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Pinta",
+            "code": "SB_12_100-041",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=CBC9AE32-C1B5-2D94-0FAC-5BC39B98AF27&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP33,512"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Santa Maria",
+            "code": "SB_12_102-056",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=4C043F28-5EFB-5BB7-C8C9-5BC541195ED9&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP33,476"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Bounty",
+            "code": "SB_13_164-030",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=DFF7B02C-A73D-B58C-68CC-DDF31562EC45&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP34,738"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Discovery",
+            "code": "SB_13_164-042",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2B3DCC81-B9C7-DA83-1815-DDF1AD785CD9&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,179"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'025'",
+            "code": "SB_14_028-025",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=20772702-74F4-5888-1CEB-349C96DF6BCB&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,703"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Resolution",
+            "code": "SB_14_169-039",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP34,750"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'049'",
+            "code": "SP-17.5936-049",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=0089738c-396e-436b-8bde-40c9b928339d&cropName=Strawberry",
+            "publisher_patent_references": [],
+            "datasheet_links": [
+              {
+                "label": "PSG SP-49 Sell Sheet-v1.0",
+                "url": "https://d2k77fjtkmmyni.cloudfront.net/Varieties/Strawberry/SP-17.5936-049/Datasheets/PSG_SP-49_Sell%20Sheet-v1.0.pdf"
+              }
+            ],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'060'",
+            "code": "VS-17.5417-060",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=31C2E790-302B-98AC-4B13-636B833C9B70&cropName=Strawberry",
+            "publisher_patent_references": [],
+            "datasheet_links": [
+              {
+                "label": "PSG VS-17.5417-060 Sell Sheet-General",
+                "url": "https://d2k77fjtkmmyni.cloudfront.net/Varieties/Strawberry/VS-17.5417-060/Datasheets/PSG_VS-17.5417-060_Sell%20Sheet-General.pdf"
+              }
+            ],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          }
+        ],
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "capture_status": "unreadable",
+          "names": [],
+          "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
+        },
+        "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-psg-selection-raspberry",
+      "title": "Plant Sciences Genetics — raspberry selections for the United States",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 7 cards rendered in the observed United States / all regions / all types state. This is a scoped selection, not a worldwide portfolio or planting census.",
+      "limitations": "These are source observations, not approved cultivar identities or company roles. Full printed codes and literal headings are retained separately; short numeric labels do not create additional cultivars. The selectors were checked with United States of America, all regions and all types selected. Other countries, historical selections and future site changes are outside this capture. A suitability or catalog listing does not establish actual planting, current availability, territory or market share. Publication dates are not inferred from retrieval. All photos remain attributed references with unknown reuse permission and unconfirmed botanical identity. No image is loaded by default; any existing private-session preview remains an explicit user action. Numbers printed on company detail pages are publisher patent references only; current rights and claim scope are not determined. The retained original patent and company material are different source types, not interchangeable proof.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "PS-08.019-25",
+          "display_label": "'19-25'",
+          "breeder_code": "PS-08.019-25",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=CF25889D-5731-C049-9AEC-AF6C0B903C23&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-08.019-25/Images/1_Fig%202%2008.019-25.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PS-08.019-25",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '19-25' / PS-08.019-25",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Endurance",
+          "display_label": "Endurance",
+          "breeder_code": "PS-08.056-18",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=10F1F3DA-255F-3BB5-D17C-AF6BB1789F06&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-08.056-18/Images/1_Untitled%203.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Endurance",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Endurance / PS-08.056-18",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Nobility",
+          "display_label": "Nobility",
+          "breeder_code": "PS-09.082-06",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=3D4EFE1A-EA5D-8F8C-F389-4ADDF24C2E0C&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-09.082-06/Images/Figure%201%2009.082-06.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Nobility",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Nobility / PS-09.082-06",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Majestic",
+          "display_label": "Majestic",
+          "breeder_code": "PS-10.028-58",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2CB13713-B811-F913-6CF3-02E6BAE5E465&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-10.028-58/Images/1%20Fig%202%2010.028-58.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Majestic",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Majestic / PS-10.028-58",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PS-10.062-11",
+          "display_label": "'62-11'",
+          "breeder_code": "PS-10.062-11",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=FFD54B4A-C454-B26A-529A-CCEF4D163FB2&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-10.062-11/Images/1_Untitled%203.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PS-10.062-11",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '62-11' / PS-10.062-11",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "PS-15.031-85",
+          "display_label": "'31-85'",
+          "breeder_code": "PS-15.031-85",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=9633BE10-21DC-59C4-23F0-88C89D9788CA&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-15.031-85/Images/1%203185%20fruit.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PS-15.031-85",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '31-85' / PS-15.031-85",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Resonance",
+          "display_label": "Resonance",
+          "breeder_code": "VR-16.004-68",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=281A80A3-368B-A21E-48C3-9618EB05FACE&cropName=Raspberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/VR-16.004-68/Images/1_Untitled%203.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Resonance",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Resonance / VR-16.004-68",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_rendered_cards_and_exact_detail_navigation",
+        "final_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+        "selected_country": "United States of America",
+        "selected_region": "-All Regions-",
+        "selected_type": "-All Types-",
+        "literal_cards": [
+          {
+            "code": "PS-08.019-25",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-08.019-25/Images/1_Fig%202%2008.019-25.JPG"
+              }
+            ],
+            "label": "'19-25'"
+          },
+          {
+            "code": "PS-08.056-18",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-08.056-18/Images/1_Untitled%203.png"
+              }
+            ],
+            "label": "Endurance"
+          },
+          {
+            "code": "PS-09.082-06",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-09.082-06/Images/Figure%201%2009.082-06.JPG"
+              }
+            ],
+            "label": "Nobility"
+          },
+          {
+            "code": "PS-10.028-58",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-10.028-58/Images/1%20Fig%202%2010.028-58.JPG"
+              }
+            ],
+            "label": "Majestic"
+          },
+          {
+            "code": "PS-10.062-11",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-10.062-11/Images/1_Untitled%203.png"
+              }
+            ],
+            "label": "'62-11'"
+          },
+          {
+            "code": "PS-15.031-85",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-15.031-85/Images/1%203185%20fruit.jpg"
+              }
+            ],
+            "label": "'31-85'"
+          },
+          {
+            "code": "VR-16.004-68",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/VR-16.004-68/Images/1_Untitled%203.png"
+              }
+            ],
+            "label": "Resonance"
+          }
+        ],
+        "publication_date_precision": "No publication date established",
+        "detail_pages": [
+          {
+            "label": "'19-25'",
+            "code": "PS-08.019-25",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=CF25889D-5731-C049-9AEC-AF6C0B903C23&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP30,774"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Endurance",
+            "code": "PS-08.056-18",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=10F1F3DA-255F-3BB5-D17C-AF6BB1789F06&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP33,735"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Nobility",
+            "code": "PS-09.082-06",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=3D4EFE1A-EA5D-8F8C-F389-4ADDF24C2E0C&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP32,269"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Majestic",
+            "code": "PS-10.028-58",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2CB13713-B811-F913-6CF3-02E6BAE5E465&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP31,716"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'62-11'",
+            "code": "PS-10.062-11",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=FFD54B4A-C454-B26A-529A-CCEF4D163FB2&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,901"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "'31-85'",
+            "code": "PS-15.031-85",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=9633BE10-21DC-59C4-23F0-88C89D9788CA&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,900"
+            ],
+            "datasheet_links": [],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          },
+          {
+            "label": "Resonance",
+            "code": "VR-16.004-68",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=281A80A3-368B-A21E-48C3-9618EB05FACE&cropName=Raspberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: PP35,977"
+            ],
+            "datasheet_links": [
+              {
+                "label": "PSG VR -16.004-68 Sell Sheet",
+                "url": "https://d2k77fjtkmmyni.cloudfront.net/Varieties/Caneberry/VR-16.004-68/Datasheets/PSG_VR%20-16.004-68%20_Sell%20Sheet.pdf"
+              }
+            ],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          }
+        ],
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "capture_status": "unreadable",
+          "names": [],
+          "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
+        },
+        "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-psg-selection-blackberry",
+      "title": "Plant Sciences Genetics — blackberry selections for the United States",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Blackberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 1 cards rendered in the observed United States / all regions / all types state. This is a scoped selection, not a worldwide portfolio or planting census.",
+      "limitations": "These are source observations, not approved cultivar identities or company roles. Full printed codes and literal headings are retained separately; short numeric labels do not create additional cultivars. The selectors were checked with United States of America, all regions and all types selected. Other countries, historical selections and future site changes are outside this capture. A suitability or catalog listing does not establish actual planting, current availability, territory or market share. Publication dates are not inferred from retrieval. All photos remain attributed references with unknown reuse permission and unconfirmed botanical identity. No image is loaded by default; any existing private-session preview remains an explicit user action. Numbers printed on company detail pages are publisher patent references only; current rights and claim scope are not determined. The retained original patent and company material are different source types, not interchangeable proof.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "PS-BK3-17.006-13",
+          "display_label": "'BK6-13'",
+          "breeder_code": "PS-BK3-17.006-13",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=D238EDF7-78E7-C7B9-9A86-5FDA953D1748&cropName=Blackberry",
+          "portfolio_context": "US selection",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-BK3-17.006-13/Images/1_Berries.png",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Blackberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "PS-BK3-17.006-13",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "caption": "PSG source card: 'BK6-13' / PS-BK3-17.006-13",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_rendered_cards_and_exact_detail_navigation",
+        "final_url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Blackberry",
+        "selected_country": "United States of America",
+        "selected_region": "-All Regions-",
+        "selected_type": "-All Types-",
+        "literal_cards": [
+          {
+            "code": "PS-BK3-17.006-13",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Caneberry/PS-BK3-17.006-13/Images/1_Berries.png"
+              }
+            ],
+            "label": "'BK6-13'"
+          }
+        ],
+        "publication_date_precision": "No publication date established",
+        "detail_pages": [
+          {
+            "label": "'BK6-13'",
+            "code": "PS-BK3-17.006-13",
+            "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=D238EDF7-78E7-C7B9-9A86-5FDA953D1748&cropName=Blackberry",
+            "publisher_patent_references": [
+              "United States Plant Patent No.: US PP34,597"
+            ],
+            "datasheet_links": [
+              {
+                "label": "PSG rejoice BK6-13 Sell Sheet-ENG-v1.0 (English)",
+                "url": "https://d2k77fjtkmmyni.cloudfront.net/Varieties/Caneberry/PS-BK3-17.006-13/Datasheets/PSG_rejoice_BK6-13_Sell%20Sheet-ENG-v1.0.pdf"
+              }
+            ],
+            "linked_sheet_bodies_checked": false,
+            "current_legal_status_verified": false
+          }
+        ],
+        "previous_capture": {
+          "checked_on": "2026-10-07",
+          "capture_status": "unreadable",
+          "names": [],
+          "retained_file": "data/imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json",
+          "retained_file_sha256": "2372c29449d2f83a93c595ada3878e3d3a0f151fa3b2d0d376b6bbcdaa7a6901",
+          "retained_file_hash_basis": "UTF-8 with LF newlines, matching the retained Git blob"
+        },
+        "loading_context": "The initial shell did not contain cards. Names were recorded only after rendered country/crop results appeared; no guessed endpoints or hidden application state were used.",
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-psg-inspire-related",
+      "title": "Plant Sciences Genetics — names shown beside Inspire",
+      "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 8 rendered Related Varieties cards on this single detail page. These entries do not inherit the US selector scope or establish geographic presence.",
+      "limitations": "These are source observations, not approved cultivar identities or company roles. Full printed codes and literal headings are retained separately; short numeric labels do not create additional cultivars. The selectors were checked with United States of America, all regions and all types selected. Other countries, historical selections and future site changes are outside this capture. A suitability or catalog listing does not establish actual planting, current availability, territory or market share. Publication dates are not inferred from retrieval. All photos remain attributed references with unknown reuse permission and unconfirmed botanical identity. No image is loaded by default; any existing private-session preview remains an explicit user action. Numbers printed on company detail pages are publisher patent references only; current rights and claim scope are not determined. The retained original patent and company material are different source types, not interchangeable proof.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "BG-10.3181",
+          "display_label": "'3181'",
+          "breeder_code": "BG-10.3181",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=06787B8A-755B-52E9-B403-670C085BA7C4&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "BG-9.3128",
+          "display_label": "'3128'",
+          "breeder_code": "BG-9.3128",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2EE07784-4931-746B-A7DB-3C0A12DBAAF4&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "BG-10.3169",
+          "display_label": "'3169'",
+          "breeder_code": "BG-10.3169",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=67DC8215-839F-692F-3D75-43D55C7BFA47&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "BG-4.352",
+          "display_label": "'352'",
+          "breeder_code": "BG-4.352",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-4.352/Images/1_4.352fruit.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-4.352",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '352' / BG-4.352",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-4.367",
+          "display_label": "'367'",
+          "breeder_code": "BG-4.367",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=7A257B6F-358A-4E32-7760-C22F6B50EBEE&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "BG-12.3258",
+          "display_label": "'3258'",
+          "breeder_code": "BG-12.3258",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-12.3258/Images/01_B10-BG-12.3258-08.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-12.3258",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3258' / BG-12.3258",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-6.3024",
+          "display_label": "'3024'",
+          "breeder_code": "BG-6.3024",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-6.3024/Images/1_IMG_2577.JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-6.3024",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3024' / BG-6.3024",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "BG-9.3147",
+          "display_label": "'3147'",
+          "breeder_code": "BG-9.3147",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+          "portfolio_context": "Listed beside Inspire",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3147/Images/01_Fig%203.%20IMG_3701%20(640x480).JPG",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "BG-9.3147",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '3147' / BG-9.3147",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_detail_related_cards",
+        "final_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B07CDB23-68B3-86B5-AEDF-3C08A4AB94E1&cropName=Strawberry",
+        "parent_code": "BG-9.3142",
+        "literal_cards": [
+          {
+            "code": "BG-10.3181",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3181/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'3181'"
+          },
+          {
+            "code": "BG-9.3128",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3128/Images/01_B5-BG-9.3128-4.jpg"
+              }
+            ],
+            "label": "'3128'"
+          },
+          {
+            "code": "BG-10.3169",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-10.3169/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'3169'"
+          },
+          {
+            "code": "BG-4.352",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-4.352/Images/1_4.352fruit.JPG"
+              }
+            ],
+            "label": "'352'"
+          },
+          {
+            "code": "BG-4.367",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-4.367/Images/01_fruit_solo.jpg"
+              }
+            ],
+            "label": "'367'"
+          },
+          {
+            "code": "BG-12.3258",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-12.3258/Images/01_B10-BG-12.3258-08.jpg"
+              }
+            ],
+            "label": "'3258'"
+          },
+          {
+            "code": "BG-6.3024",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-6.3024/Images/1_IMG_2577.JPG"
+              }
+            ],
+            "label": "'3024'"
+          },
+          {
+            "code": "BG-9.3147",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/BG-9.3147/Images/01_Fig%203.%20IMG_3701%20(640x480).JPG"
+              }
+            ],
+            "label": "'3147'"
+          }
+        ],
+        "publication_date_precision": "No publication date established",
+        "related_is_not_identity_or_company_role": true,
+        "same_publisher_not_independent_corroboration": true,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-psg-resolution-related",
+      "title": "Plant Sciences Genetics — names shown beside Resolution",
+      "url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 9 rendered Related Varieties cards on this single detail page. These entries do not inherit the US selector scope or establish geographic presence.",
+      "limitations": "These are source observations, not approved cultivar identities or company roles. Full printed codes and literal headings are retained separately; short numeric labels do not create additional cultivars. The selectors were checked with United States of America, all regions and all types selected. Other countries, historical selections and future site changes are outside this capture. A suitability or catalog listing does not establish actual planting, current availability, territory or market share. Publication dates are not inferred from retrieval. All photos remain attributed references with unknown reuse permission and unconfirmed botanical identity. No image is loaded by default; any existing private-session preview remains an explicit user action. Numbers printed on company detail pages are publisher patent references only; current rights and claim scope are not determined. The retained original patent and company material are different source types, not interchangeable proof.",
+      "review_warnings": [],
+      "review_warning_scopes": [],
+      "names": [
+        {
+          "candidate_name": "SB_15_001-011",
+          "display_label": "'011'",
+          "breeder_code": "SB_15_001-011",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_15_001-011/Images/1_Fig%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "SB_15_001-011",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '011' / SB_15_001-011",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Constitution",
+          "display_label": "Constitution",
+          "breeder_code": "SB_12_101-108",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_101-108/Images/1_Fig.%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "Constitution",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: Constitution / SB_12_101-108",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "SB_14_028-025",
+          "display_label": "'025'",
+          "breeder_code": "SB_14_028-025",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=20772702-74F4-5888-1CEB-349C96DF6BCB&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "Discovery",
+          "display_label": "Discovery",
+          "breeder_code": "SB_13_164-042",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=2B3DCC81-B9C7-DA83-1815-DDF1AD785CD9&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "Santa Maria",
+          "display_label": "Santa Maria",
+          "breeder_code": "SB_12_102-056",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=4C043F28-5EFB-5BB7-C8C9-5BC541195ED9&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "SB_15_089-060",
+          "display_label": "'060'",
+          "breeder_code": "SB_15_089-060",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role.",
+          "photos": [
+            {
+              "image_url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_15_089-060/Images/1_Fig%203.jpg",
+              "source_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+              "credit": "Plant Sciences Genetics · Photographer not credited",
+              "named_variety": "SB_15_089-060",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "caption": "PSG source card: '060' / SB_15_089-060",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-11-03",
+              "reuse_note": "The original card pairs this image with the displayed label and full code. Image-specific reuse permission and independent cultivar authentication are unconfirmed. No default loading or reuse approval."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Nina",
+          "display_label": "Nina",
+          "breeder_code": "SB_10_86-107",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=70FA7F9F-3363-FD39-1030-8358F67D2856&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "Pinta",
+          "display_label": "Pinta",
+          "breeder_code": "SB_12_100-041",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=CBC9AE32-C1B5-2D94-0FAC-5BC39B98AF27&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        },
+        {
+          "candidate_name": "Bounty",
+          "display_label": "Bounty",
+          "breeder_code": "SB_13_164-030",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=DFF7B02C-A73D-B58C-68CC-DDF31562EC45&cropName=Strawberry",
+          "portfolio_context": "Listed beside Resolution",
+          "source_company_ids": [
+            "company-plant-sciences-genetics"
+          ],
+          "source_company_context": "Shown on the Plant Sciences Genetics website; this listing does not establish a breeder, owner or licensee role."
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_detail_related_cards",
+        "final_url": "https://www.plantsciencesgenetics.com/variety-details?varietyId=B0CEDFAB-9C65-CC59-7CEA-DDEEA6F1DAE0&cropName=Strawberry",
+        "parent_code": "SB_14_169-039",
+        "literal_cards": [
+          {
+            "code": "SB_15_001-011",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_15_001-011/Images/1_Fig%203.jpg"
+              }
+            ],
+            "label": "'011'"
+          },
+          {
+            "code": "SB_12_101-108",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_101-108/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Constitution"
+          },
+          {
+            "code": "SB_14_028-025",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_14_028-025/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "'025'"
+          },
+          {
+            "code": "SB_13_164-042",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-042/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Discovery"
+          },
+          {
+            "code": "SB_12_102-056",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_102-056/Images/1_Fig.%202.jpg"
+              }
+            ],
+            "label": "Santa Maria"
+          },
+          {
+            "code": "SB_15_089-060",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_15_089-060/Images/1_Fig%203.jpg"
+              }
+            ],
+            "label": "'060'"
+          },
+          {
+            "code": "SB_10_86-107",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_10_86-107/Images/1_fig.%203.jpg"
+              }
+            ],
+            "label": "Nina"
+          },
+          {
+            "code": "SB_12_100-041",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_12_100-041/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Pinta"
+          },
+          {
+            "code": "SB_13_164-030",
+            "images": [
+              {
+                "alt": "",
+                "url": "https://d29stwo0adtx19.cloudfront.net/450x600/Varieties/Strawberry/SB_13_164-030/Images/1_Fig.%203.jpg"
+              }
+            ],
+            "label": "Bounty"
+          }
+        ],
+        "publication_date_precision": "No publication date established",
+        "related_is_not_identity_or_company_role": true,
+        "same_publisher_not_independent_corroboration": true,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}
