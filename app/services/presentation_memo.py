@@ -128,6 +128,12 @@ def json_call_memo(function):
     memo = ByteMemo(max_bytes=32_000_000, max_entries=4, max_item=16_000_000)
     @wraps(function)
     def wrapped(*args, **kwargs):
+        from app.services.derived_model_scope import current_scope, NOT_HANDLED
+        scope = current_scope()
+        if scope is not None:
+            result = scope.execute(function, args, kwargs, memo)
+            if result is not NOT_HANDLED:
+                return result
         try:
             raw = json.dumps([datetime.now(UTC).date().isoformat(), args, kwargs], sort_keys=True,
                              ensure_ascii=False, default=lambda x: x.isoformat()).encode('utf-8')

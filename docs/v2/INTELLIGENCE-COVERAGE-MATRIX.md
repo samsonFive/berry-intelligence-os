@@ -1,5 +1,11 @@
 # Current verified releases and remaining mission — November 3, 2026
 
+Implementation continuation: the [private derived-model work](AUTHENTICATED-DERIVED-MODELS-REVIEW.md)
+is default-off and not accepted for release. Its 35 Linux unit contracts and
+621 affected Windows tests do not prove end-to-end speed; actual preparation
+cost and exact implementation comparisons remain. No source, canonical record,
+human decision, coverage count, schema or provider setting changes.
+
 [Performance #490](https://github.com/samsonFive/berry-intelligence-os/pull/490)
 is merged and independently verified live at `3ffe5bad` (approved exact head
 `10d49757`). It retains catalog #488, News #487 and the earlier platform stack.

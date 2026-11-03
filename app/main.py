@@ -1843,6 +1843,10 @@ def all_facts() -> list[dict[str, Any]]:
     return _social_eligible_outputs(get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list())
 
 
+from app.services.derived_model_scope import private_catalog_models
+
+
+@private_catalog_models
 def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     """Read-only mix of inbox candidates and corpus-discovered names.
 

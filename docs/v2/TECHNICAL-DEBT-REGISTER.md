@@ -3686,3 +3686,16 @@ news. Its runtime/test edits are archived and reverted. No new cache, matcher,
 source filtering, provider call, data write or human decision is introduced.
 TD-122 remains open; source/catalog/photo/Map and independent recall review
 remain separate unfinished requirements in this mission.
+
+### November 3 — TD-122 private derived-model implementation, not accepted
+
+[The opt-in implementation](AUTHENTICATED-DERIVED-MODELS-REVIEW.md) adds an
+authenticated bounded store, private request scope and explicit offline
+preparation command for the two existing catalog calculations. All 35 exact
+Linux unit contracts pass; the affected Windows suite passes 621 tests with
+17 POSIX skips and zero external attempts. Complete current inputs and human
+decisions remain authoritative. The feature defaults off, readers never write,
+and no production configuration changes. Actual command creation cost, exact
+whole-workflow gain, full current-head CI, browser review and fresh preservation
+remain required. Prototype reuse gains are not implementation or live claims.
+TD-122 remains open; no source or human review requirement is closed.
