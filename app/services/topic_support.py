@@ -14,6 +14,8 @@ def passage_intent_supported(text, plan):
     words=set(plan.terms)
     plain=normalize(text)
     if 'breeder'in words and not re.search(r'\b(?:breeder|breeding|bred|origin\w*|parentage|cross\w*|select\w*)\b',plain):return False
+    asks_bumble=bool(words&{'bumblebee','bumblebees'}or ('bumble'in words and words&{'bee','bees'}))
+    if asks_bumble and not re.search(r'\b(?:bumble\s*bee\w*|bombus)\b',plain):return False
     if 'license' in words:
         # Article copyright and open-access licences are not cultivar deals.
         licensing=re.search(r'\b(?:licen[sc](?:e|es|ed|ing)\s+(?:to|for|in|across|outside|agreement|arrangement|rights|territory|territories)|licen[sc](?:e|es|ed|ing)\s+(?:the\s+)?(?:blackberry|blueberry|raspberry|strawberry|variety)|(?:licen[sc]e|licen[sc]ing)\s+(?:agreement|deal|partner|program|programme)|(?:propagation|growing|commercialisation|commercialization)\s+rights)\b',plain)
@@ -58,7 +60,11 @@ def passage_intent_supported(text, plan):
         if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
     if any(t.startswith(('trial','experiment','evaluat')) for t in words):
         if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
-        if 'field' in words and not re.search(r'\b(?:field|outdoor)\b',plain):return False
+        if 'field' in words:
+            # Field capacity is a substrate-water measure, not a field site.
+            if not re.search(r'\b(?:field(?! capacity)|outdoor)\b',plain):return False
+            # Proposed field work cannot establish a completed field result.
+            if re.search(r'\b(?:should|must|will|future|needs? to)\b[^.!?]{0,240}\b(?:field(?! capacity)|outdoor)\b',plain):return False
     if any(t.startswith('robot') for t in words) and any(t.startswith('harvest') for t in words):
         crops=words & CROPS
         for crop in crops:

@@ -214,3 +214,11 @@ def test_owned_abstract_keeps_disease_definition_with_field_validation():
     match=match_record(row,plan_query('strawberry powdery mildew resistance cultivar field trials'))
     assert match['support_status']=='body_supported'
     assert match['passage'] in body and len(match['passage'])<=2400
+
+
+def test_field_capacity_and_future_pollination_work_cannot_be_field_evidence():
+    from app.services.topic_support import passage_intent_supported
+    plan=plan_query('blueberry pollination bumblebee fruit set field experiment')
+    assert not passage_intent_supported('Blueberry plants were tested at 80% field capacity. Honeybees were used in controlled pollination experiments.',plan)
+    assert not passage_intent_supported('Blueberry volatiles were tested on Bombus terrestris in laboratory experiments. The compounds should be evaluated under greenhouse and open-field conditions for fruit set.',plan)
+    assert passage_intent_supported('A blueberry field experiment compared bumblebee visitation and fruit set in replicated plots.',plan)
