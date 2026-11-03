@@ -2514,6 +2514,371 @@
           "context": "UK technical-sheet conditions; not a calendar for every region. Adjacent Allure June-bearer and 12–14-day timing statements are excluded."
         }
       ]
+    },
+    {
+      "variety_id": "variety-draper-a753ce75",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+          "title": "OSU — Blueberry Cultivars for the Pacific Northwest",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Table 1, Draper row; regional cold-hardiness and cultivar-selection sections"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant & management",
+          "value": "Young plants can produce many whips; pruning demand and premature fruit drop in some northern regions are noted.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Fruit & harvest",
+          "value": "Variable medium-to-very-large fruit; firm and crisp; concentrated ripening and strong storage quality.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Regional limits & filing references",
+          "value": "High regional yield rating. Historical table reference: U.S. Plant Patent 15,103; present legal status not checked.",
+          "source_id": "1",
+          "context": "Extension table assertion, not a current patent or performance determination. Legacy cold advice concerns the specified inland Pacific Northwest regions."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-liberty-dc3c1bec",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+          "title": "OSU — Blueberry Cultivars for the Pacific Northwest",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Table 1, Liberty row; regional cold-hardiness and cultivar-selection sections"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant & management",
+          "value": "Vigorous upright plants require trellising and more pruning; northern cane-disease susceptibility is noted.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Fruit & harvest",
+          "value": "Medium-to-large firm berries can soften in heat; some small berries may occur.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Regional limits & filing references",
+          "value": "High regional yield rating, with variable warm-weather fruit quality. Historical table reference: U.S. Plant Patent 15,146; present legal status not checked.",
+          "source_id": "1",
+          "context": "Extension table assertion, not a current patent or performance determination. Legacy cold advice concerns the specified inland Pacific Northwest regions."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-bluecrop-13179e4f",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+          "title": "OSU — Blueberry Cultivars for the Pacific Northwest",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Table 1, Bluecrop row; regional cold-hardiness and cultivar-selection sections"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant & management",
+          "value": "Vigorous, open habit; insufficient pruning can lead to overcropping.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Fruit & harvest",
+          "value": "Medium-to-large fruit; early picking, excess crop or heat may produce tart or partly colored berries.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Regional limits & filing references",
+          "value": "Medium-to-high regional yield rating; the table describes machine-harvest suitability.",
+          "source_id": "1",
+          "context": "Extension table assertion, not a current patent or performance determination. Legacy cold advice concerns the specified inland Pacific Northwest regions."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-legacy-1cb6810d",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+          "title": "OSU — Blueberry Cultivars for the Pacific Northwest",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Table 1, Legacy row; regional cold-hardiness and cultivar-selection sections"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant & management",
+          "value": "Very vigorous, sometimes weeping habit requires trellising; late-winter pruning is discussed.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Fruit & harvest",
+          "value": "Firm medium-to-large berries and a long fruiting season.",
+          "source_id": "1",
+          "context": "Pacific Northwest technical-table conditions. Yield ratings are regional comparisons, not a guaranteed yield or a global cultivar ranking."
+        },
+        {
+          "field": "Regional limits & filing references",
+          "value": "Very-high regional yield rating. The guidance warns against Legacy in particularly cold inland production regions.",
+          "source_id": "1",
+          "context": "Extension table assertion, not a current patent or performance determination. Legacy cold advice concerns the specified inland Pacific Northwest regions."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-crimson-beauty-ee9138c1",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell Center for Technology Licensing — Fruit Varieties",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Raspberries, Crimson Beauty section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit & source claim",
+          "value": "Large glossy red fruit; the breeder describes raspberry flavor with tropical notes.",
+          "source_id": "1",
+          "context": "Breeder sensory description, not a measured consumer panel or a universal harvest calendar."
+        },
+        {
+          "field": "Season & production context",
+          "value": "Late-summer to early-fall harvest; upright open canes; bred for high tunnels.",
+          "source_id": "1",
+          "context": "Breeder sensory description, not a measured consumer panel or a universal harvest calendar."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-crimson-blush-d2192b50",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell Center for Technology Licensing — Fruit Varieties",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Raspberries, Crimson Blush section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit & source claim",
+          "value": "Large blush-pink to light-red fruit; described as sweet and juicy.",
+          "source_id": "1",
+          "context": "Breeder season and production-system description; transfer to other climates is untested here."
+        },
+        {
+          "field": "Season & production context",
+          "value": "Developed for open fields, also suitable for high tunnels; September–November ripening.",
+          "source_id": "1",
+          "context": "Breeder season and production-system description; transfer to other climates is untested here."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-crimson-treasure",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell Center for Technology Licensing — Fruit Varieties",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Raspberries, Crimson Treasure section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit & source claim",
+          "value": "Firm bright-red conical fruit, with a reported average size of 4–6 g.",
+          "source_id": "1",
+          "context": "The 4–6 g statement is a breeder average under unspecified conditions, not a universal mean or an individual record fruit."
+        },
+        {
+          "field": "Season & production context",
+          "value": "Fall bearing; the breeder describes high yield and easy fruit detachment.",
+          "source_id": "1",
+          "context": "The 4–6 g statement is a breeder average under unspecified conditions, not a universal mean or an individual record fruit."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-crimson-giant-db503569",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell Center for Technology Licensing — Fruit Varieties",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Raspberries, Crimson Giant section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit & source claim",
+          "value": "Firm bright-red conical fruit; a maximum approaching 12 g is reported.",
+          "source_id": "1",
+          "context": "The near-12 g figure is a maximum, not an average. Root-rot mitigation is source guidance, not immunity or treatment approval."
+        },
+        {
+          "field": "Season & production context",
+          "value": "Late-fall ripening; some root-rot susceptibility; raised beds or soilless culture are discussed.",
+          "source_id": "1",
+          "context": "The near-12 g figure is a maximum, not an average. Root-rot mitigation is source guidance, not immunity or treatment approval."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-navaho-75e81b9a",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "title": "OSU — Blackberry Cultivars for Oregon",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Named cultivar figure caption; Erect Blackberries section"
+        }
+      },
+      "details": [
+        {
+          "field": "Growth habit",
+          "value": "Erect blackberry, explicitly named in the source caption.",
+          "source_id": "1",
+          "context": "Cultivar classification is source-reported and remains pending review; no canonical trait was changed."
+        },
+        {
+          "field": "Cane management context",
+          "value": "Summer tipping of primocanes encourages branching and fruit on second-year floricanes.",
+          "source_id": "1",
+          "context": "Oregon type-level extension guidance, not a variety-specific pruning experiment or a universal phenology calendar."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-ouachita",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "title": "OSU — Blackberry Cultivars for Oregon",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Named cultivar figure caption; Erect Blackberries section"
+        }
+      },
+      "details": [
+        {
+          "field": "Growth habit",
+          "value": "Erect blackberry, explicitly named in the source caption.",
+          "source_id": "1",
+          "context": "Cultivar classification is source-reported and remains pending review; no canonical trait was changed."
+        },
+        {
+          "field": "Cane management context",
+          "value": "Summer tipping of primocanes encourages branching and fruit on second-year floricanes.",
+          "source_id": "1",
+          "context": "Oregon type-level extension guidance, not a variety-specific pruning experiment or a universal phenology calendar."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-triple-crown-1905936a",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Attributed breeder/extension account only. Regional performance and qualitative fruit descriptions are not universal measurements. No reviewed trait, alias, current right, company role or commercial footprint is approved.",
+      "sources": {
+        "1": {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "title": "OSU — Blackberry Cultivars for Oregon",
+          "kind": "Primary university breeder or extension technical account",
+          "locator": "Named cultivar figure caption; Semierect Blackberries section"
+        }
+      },
+      "details": [
+        {
+          "field": "Growth habit",
+          "value": "Semierect blackberry, explicitly named in the source caption.",
+          "source_id": "1",
+          "context": "Cultivar classification is source-reported and remains pending review; no canonical trait was changed."
+        },
+        {
+          "field": "Cane management context",
+          "value": "Trellising and summer primocane pruning are described for second-year floricane production.",
+          "source_id": "1",
+          "context": "Oregon type-level extension guidance, not a variety-specific pruning experiment or a universal phenology calendar."
+        }
+      ]
     }
   ]
 }

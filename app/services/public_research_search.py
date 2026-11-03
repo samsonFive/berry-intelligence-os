@@ -24,9 +24,20 @@ def _text(value):
     return ' '.join(html.fragment_fromstring(str(value or ''), create_parent='div').itertext()).strip()
 
 
+def registered_primary_sources(data_dir, entities):
+    """Reuse attributed profile citations as leads, never their trait claims."""
+    from app.services.variety_profile_sources import all_profile_source_details
+    varieties=[e for e in entities.values() if e.get('entity_type')=='variety']
+    notes=all_profile_source_details(data_dir,varieties=varieties)
+    return {key:[{'url':s['url'],'title':s['title']} for s in note['sources'].values()
+                 if is_public_http_url(s['url'])]
+            for key,note in notes.items() if note['status'] in {'source_reported','limited'}}
+
+
 @dataclass
 class PublicResearchSearchClient:
     entities: dict = field(default_factory=dict)
+    primary_sources: dict = field(default_factory=dict)
     get: object = None
     failures: list = field(default_factory=list)
     requests: int = 0
@@ -52,6 +63,7 @@ class PublicResearchSearchClient:
         out = []
         for entity in self.entities.values():
             if entity.get('entity_type') != 'variety':continue
+            if (entity.get('attributes') or {}).get('catalog_removed'):continue
             names = [entity.get('name') or '', *(entity.get('aliases') or [])]
             if not any(len(normalize(n)) >= 4 and re.search(r'(?<!\w)'+re.escape(normalize(n))+r'(?!\w)', positive) for n in names):continue
             crop = {v.removeprefix('berry-') for v in entity.get('berry_ids') or []}
@@ -61,7 +73,18 @@ class PublicResearchSearchClient:
             url = review.get('source_url')
             if url and is_public_http_url(url):
                 out.append(SearchHit(review.get('source_label') or entity['name'],url,'Registered identity-source lead; not a verified claim.'))
-        return out[:4]
+            for source in self.primary_sources.get(entity['id'],[]):
+                if is_public_http_url(source.get('url')):
+                    out.append(SearchHit(source.get('title') or entity['name'],source['url'],'Attributed technical-source lead; claims and dates require source inspection.'))
+        # Relevant titles affect only which known URLs get acquired. Final
+        # passage ranking still enforces the complete original query.
+        words=set(plan.terms)
+        out.sort(key=lambda hit:sum(w in normalize(hit.title).split() for w in words),reverse=True)
+        seen=set();unique=[]
+        for hit in out:
+            key=normalize_canonical_url(hit.url)
+            if key not in seen:seen.add(key);unique.append(hit)
+        return unique[:4]
 
     def _crossref(self, query, count):
         from app.services.topic_retrieval import plan_query
@@ -134,7 +157,7 @@ class PublicResearchSearchClient:
         registry=self._registry(query)
         # Interleave scholarly/news lanes so one fuzzy index cannot consume the
         # acquisition budget. Preserve ordering within each provider lane.
-        rows=registry[:2]
+        rows=registry[:4]
         for i in range(count):
             rows.extend(items[i]for _,items in results if i<len(items))
         seen=set();hits=[]

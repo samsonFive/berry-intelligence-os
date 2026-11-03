@@ -95,7 +95,10 @@ def search_client():
         primary=PerplexitySearchClient(credential)
     except MissingCredentialError:
         credential='';primary=None
-    return ResilientTopicSearchClient(primary,credential=credential,entities=main.entity_index())
+    from app.services.public_research_search import registered_primary_sources
+    entities=main.entity_index()
+    return ResilientTopicSearchClient(primary,credential=credential,entities=entities,
+        primary_sources=registered_primary_sources(main.DATA_DIR,entities))
 
 
 def relevant_hit(hit, *, query, target=None, known_hosts=()):

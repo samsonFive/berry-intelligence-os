@@ -127,6 +127,19 @@ def fetch_topic_source(url):
         from app.services.feed_first_reader import empty_capture
         direct=empty_capture(url,reason='redirect-interstitial')
     if direct.get('ok') and direct.get('passages'):
+        # An undated readable NCBI HTML page can conceal its exact JATS date.
+        # Prefer the already-supported, identity-checked official edition;
+        # never borrow search dates, reference-list dates or modified dates.
+        if not direct.get('published_date') and urlsplit(url).hostname in {'pmc.ncbi.nlm.nih.gov','pubmed.ncbi.nlm.nih.gov'}:
+            try:
+                with httpx.Client(timeout=FETCH_TIMEOUT,follow_redirects=False,headers={'User-Agent':USER_AGENT}) as client:
+                    recovered=fetch_open_research_copy(url,client=client)
+                if recovered and recovered.get('published_date'):
+                    recovered['original_capture_status']=direct.get('availability')
+                    recovered['original_capture_reason']='Readable original copy has no verified publication date'
+                    return recovered
+            except httpx.HTTPError:
+                pass
         return direct
     try:
         with httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={'User-Agent': USER_AGENT}) as client:

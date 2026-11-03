@@ -47,6 +47,32 @@ def test_total_public_outage_is_failure_even_with_registered_seed():
     assert client.requests==3 and all('private'not in x for x in client.failures)
 
 
+def test_technical_source_leads_are_scoped_deduplicated_and_not_claims():
+    entity=dict(id='v',entity_type='variety',name='Synthetic Scarlet',berry_ids=['berry-strawberry'],attributes={})
+    sources={'v':[{'url':'https://breeder.example/release','title':'Strawberry release'},
+                  {'url':'https://breeder.example/release','title':'Duplicate'},
+                  {'url':'http://127.0.0.1/private','title':'Private'}]}
+    client=PublicResearchSearchClient(entities={'v':entity},primary_sources=sources,get=metadata)
+    hits=client.search('strawberry Synthetic Scarlet release').hits
+    assert hits[0].url=='https://breeder.example/release'
+    assert 'claims and dates require source inspection'in hits[0].snippet
+    assert sum(h.url=='https://breeder.example/release'for h in hits)==1
+    assert not client._registry('blueberry Synthetic Scarlet')
+    assert not client._registry('strawberry -"Synthetic Scarlet"')
+    entity['attributes']['catalog_removed']=True
+    assert not client._registry('strawberry Synthetic Scarlet')
+
+
+def test_primary_source_loader_does_not_expose_identity_holds():
+    from pathlib import Path
+    from app.services.public_research_search import registered_primary_sources
+    entities={r['id']:r for p in Path('data/entities/varieties').glob('*.json')for r in [json.loads(p.read_text(encoding='utf8'))]}
+    leads=registered_primary_sources('data',entities)
+    assert 'variety-twilight'not in leads and 'variety-zara'not in leads
+    assert any('niab.com/news' in s['url'] for s in leads['variety-malling-champion-22fb8a80'])
+    assert all(set(s)=={'url','title'}for rows in leads.values()for s in rows)
+
+
 def test_primary_auth_fault_circuits_across_queries_and_resets_after_cooldown():
     _CIRCUITS.clear();calls=[];now=[0]
     class Primary:
@@ -97,6 +123,9 @@ def test_trademark_punctuation_and_explicit_cultivar_list_preserve_identity():
     assert normalize('Synthetic™ Champion®')==normalize('Synthetic Champion')
     r=dict(id='x',title='Strawberries',article={'paragraphs':[{'index':0,'text':'The strawberry breeding programme includes the varieties Synthetic™ Champion and Other Scarlet.'}]})
     assert match_record(r,plan_query('strawberry Synthetic Champion breeder'),entities=entities)['support_status']=='body_supported'
+    from app.services.topic_support import identity_in_passage
+    assert identity_in_passage('Synthetic Champion is a new ever-bearer variety with firm fruit.',entities['v'])
+    assert not identity_in_passage('Synthetic Champion is a new comedy film about a breeder.',entities['v'])
 
 
 def test_scholarly_date_filters_are_not_literal_title_words():

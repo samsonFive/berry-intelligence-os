@@ -17,7 +17,7 @@ from app.services.topic_discovery import discover_topic
 from app.services.topic_retrieval import plan_query
 
 
-def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entities: dict, inbox_dir: Path) -> dict[str, Any]:
+def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entities: dict, inbox_dir: Path, data_dir: Path | None = None) -> dict[str, Any]:
     if not scope.research_query:
         return packet
     plan = plan_query(scope.research_query, use_original=scope.use_original_query)
@@ -39,7 +39,7 @@ def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entit
             public_labels.append(scope.berry_id.removeprefix("berry-"))
         required = [[str(name) for eid in ids if eid in entities for name in [entities[eid].get("name"), *(entities[eid].get("aliases") or [])] if name] for ids in (scope.geography_ids, scope.company_ids, scope.variety_ids) if ids]
         varieties = [str(e.get("name")) for e in entities.values() if e.get("entity_type") == "variety" and (not scope.berry_id or scope.berry_id in (e.get("berry_ids") or []))]
-        web = discover_topic(plan, inbox_dir=inbox_dir, entities=entities, constraints={"public_labels": public_labels, "required_label_groups": required, "public_variety_names": varieties}) if scope.source_scope == "combined" else {"items": [], "status": "not_requested", "failures": [], "queries_this_request": 0}
+        web = discover_topic(plan, inbox_dir=inbox_dir, entities=entities, **({'data_dir':data_dir} if data_dir is not None else {}), constraints={"public_labels": public_labels, "required_label_groups": required, "public_variety_names": varieties}) if scope.source_scope == "combined" else {"items": [], "status": "not_requested", "failures": [], "queries_this_request": 0}
         # Keep only the matched passage + identity/provenance on the report.
         web_rows = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "publication_date_basis", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "provider", "retrieved_at", "capture_status", "capture_reason", "capture_provenance", "source_version", "support_status", "source_review_hold")} | {"origin": "web", "trust_class": "LIVE / UNREVIEWED"} for row in web.get("items") or []]
         from app.services.research_event_groups import event_groups

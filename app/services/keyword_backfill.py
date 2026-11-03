@@ -169,6 +169,7 @@ def execute(inbox, run_id, data_dir, schemas_dir, *, discoverer=None):
                 discovery = {**job['discovery'], 'items': job['candidates']}
             else:
                 discovery = (discoverer or discover_topic)(plan, inbox_dir=Path(inbox),
+                    **({'data_dir':Path(data_dir),'entities':{e['id']:e for e in entities}} if discoverer is None else {}),
                     constraints={'public_labels': labels, 'public_variety_names': varieties})
                 job['discovery'] = {k: v for k, v in discovery.items() if k != 'items'}
                 if discovery['status'] not in {'failed', 'unavailable'}:

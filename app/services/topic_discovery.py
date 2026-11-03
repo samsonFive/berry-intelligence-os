@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v9'  # Disclosed credit-free metadata fallback.
+CAPTURE_VERSION = 'topic-capture-v10'  # Include existing attributed technical-source leads.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -85,11 +85,16 @@ def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str |
     return None
 
 
-def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None) -> dict[str, Any]:
+def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None) -> dict[str, Any]:
     constraints = constraints or {}
-    identity_basis = [{k:e.get(k) for k in ('id','name','aliases','berry_ids')} for e in (entities or {}).values() if e.get('entity_type')=='variety']
+    from app.services.public_research_search import registered_primary_sources
+    primary_sources=registered_primary_sources(data_dir,entities or {}) if data_dir is not None else {}
+    identity_basis = [{**{k:e.get(k) for k in ('id','name','aliases','berry_ids')},
+        'identity_source':((e.get('attributes') or {}).get('identity_review') or {}).get('source_url'),
+        'removed':bool((e.get('attributes') or {}).get('catalog_removed'))}
+        for e in (entities or {}).values() if e.get('entity_type')=='variety']
     geography_variant = geographic_query_variant(plan, entities)
-    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant], sort_keys=True).encode()).hexdigest()
+    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant,primary_sources], sort_keys=True).encode()).hexdigest()
     path = inbox_dir / "topic_research_cache" / f"{key}.json"
     # Serialize cold starts so repeated requests do not buy the same search.
     with _LOCK:
@@ -107,7 +112,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 primary=PerplexitySearchClient(api_key=credential, timeout_seconds=20)
             except MissingCredentialError:
                 credential='';primary=None
-            client=ResilientTopicSearchClient(primary,credential=credential,entities=entities)
+            client=ResilientTopicSearchClient(primary,credential=credential,entities=entities,primary_sources=primary_sources)
         started = time.monotonic()
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         variants = [plan.raw_query, plan.interpreted_query]

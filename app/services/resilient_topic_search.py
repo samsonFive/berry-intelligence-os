@@ -13,9 +13,9 @@ COOLDOWN_SECONDS=300
 
 
 class ResilientTopicSearchClient:
-    def __init__(self, primary, *, credential='', entities=None, fallback=None, clock=time.monotonic):
+    def __init__(self, primary, *, credential='', entities=None, primary_sources=None, fallback=None, clock=time.monotonic):
         self.primary=primary
-        self.fallback=fallback or PublicResearchSearchClient(entities=entities or {})
+        self.fallback=fallback or PublicResearchSearchClient(entities=entities or {},primary_sources=primary_sources or {})
         self.clock=clock
         self.primary_failure=''
         self.used_fallback=False

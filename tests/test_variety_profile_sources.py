@@ -19,8 +19,8 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 59
-    assert sum(len(n['details']) for n in notes.values()) == 214
+    assert len(notes) == 70
+    assert sum(len(n['details']) for n in notes.values()) == 240
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
     for variety in varieties:
@@ -139,3 +139,22 @@ def test_private_template_escapes_values_and_preserves_conditions_and_citations(
 def test_absent_import_does_not_fetch_or_write(tmp_path):
     assert profile_source_details(tmp_path, {'id': 'variety-unknown'}, varieties=[]) is None
     assert list(tmp_path.iterdir()) == []
+
+
+def test_new_primary_profiles_render_scoped_measurements_and_citations():
+    payload,varieties=corpus();notes=validate_notes(payload,varieties)
+    by_name={v['name']:v for v in varieties}
+    env=Environment(loader=FileSystemLoader('app/templates'),autoescape=True)
+    env.filters['us_date']=str
+    template=env.get_template('_variety_profile_sources.html')
+    for name in ['Draper','Liberty','Bluecrop','Legacy','Crimson Beauty','Crimson Blush','Crimson Treasure','Crimson Giant','Navaho','Ouachita','Triple Crown']:
+        note=notes[by_name[name]['id']]
+        rendered=template.render(authoring_mode=True,static_build=False,variety_profile_sources=note)
+        assert 'Pending review'in rendered and note['sources']['1']['url']in rendered
+        assert all(row['value']in rendered for row in note['details'])
+    giant=notes[by_name['Crimson Giant']['id']]
+    assert any('maximum' in r['value'] and 'not an average' in r['context']for r in giant['details'])
+    treasure=notes[by_name['Crimson Treasure']['id']]
+    assert any('4–6 g' in r['value'] and 'breeder average' in r['context']for r in treasure['details'])
+    liberty=notes[by_name['Liberty']['id']]
+    assert any('15,146'in r['value']and 'present legal status not checked'in r['value']for r in liberty['details'])

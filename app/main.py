@@ -5971,7 +5971,7 @@ async def _finish_research_live(request, payload, scope, entities, started, prog
             topic_plan = replace(topic_plan, start=(date.today() - timedelta(days=scope.window_days)).isoformat(), end=date.today().isoformat())
         geo_groups = [[str(name) for eid in ids if eid in entities for name in [entities[eid].get("name"), *(entities[eid].get("aliases") or [])] if name] for ids in (scope.geography_ids, scope.company_ids, scope.variety_ids) if ids]
         public_labels = [str(entities[e].get("name") or "") for e in (*scope.company_ids, *scope.variety_ids, *scope.geography_ids) if e in entities]
-        discovered = await asyncio.to_thread(discover_topic, topic_plan, inbox_dir=INBOX_DIR, entities=entities, constraints={"public_labels": public_labels, "required_label_groups": geo_groups}, **({"progress":progress} if progress else {}))
+        discovered = await asyncio.to_thread(discover_topic, topic_plan, inbox_dir=INBOX_DIR, entities=entities, data_dir=DATA_DIR, constraints={"public_labels": public_labels, "required_label_groups": geo_groups}, **({"progress":progress} if progress else {}))
         live = {
             **live,
             "query": topic_plan.interpreted_query,
@@ -8347,7 +8347,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
         berry_labels=BERRIES,
     )
     from app.services.report_builder.topic_report import attach_topic_research
-    packet = attach_topic_research(packet, scope, entities=entities, inbox_dir=INBOX_DIR)
+    packet = attach_topic_research(packet, scope, entities=entities, inbox_dir=INBOX_DIR, data_dir=DATA_DIR)
     coverage = report_coverage(
         packet,
         berry_label=BERRIES.get(scope.berry_id or "", ""),

@@ -115,7 +115,8 @@ def identity_in_passage(text, entity):
         # Explicit cultivar grammar prevents a person's namesake becoming a trait.
         if re.search(r'\b(?:variety|cultivar|blackberry|raspberry|blueberry|strawberry|named|called|introduce\w*)\s+(?:the\s+)?'+name+r'(?!\w)',text):return True
         if re.search(r'\b(?:includes?|including|such as)\s+(?:the\s+)?(?:variety|cultivar)\s+[^.!?]{0,350}(?<!\w)'+name+r'(?!\w)',text):return True
-        if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+(?:a\s+)?(?:new\s+)?|(?:a|the)\s+)?(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
+        descriptors=r'(?:(?:ever bearer|everbearer|primocane fruiting|floricane fruiting|thornless|early|late|midseason)\s+){0,3}'
+        if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+(?:a\s+)?(?:new\s+)?|(?:a|the)\s+)?'+descriptors+r'(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
     return False
 
 

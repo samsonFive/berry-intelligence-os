@@ -117,3 +117,22 @@ def test_redirect_notice_is_not_mistaken_for_readable_article(monkeypatch):
     monkeypatch.setattr(reader,'fetch_public_article',lambda url:{'ok':True,'passages':['Click here if you are not automatically redirected after 5 seconds.']})
     row=fetch_topic_source('https://publisher.example/blocked')
     assert row['ok']is False and row['reason']=='redirect-interstitial' and row['passages']==[]
+
+
+def test_readable_undated_ncbi_copy_can_recover_exact_repository_date(monkeypatch):
+    from app.services import open_research_copy as service,feed_first_reader as reader
+    direct={'ok':True,'passages':['Readable original abstract.'],'availability':'full','published_date':None}
+    recovered={'ok':True,'passages':['Identity-checked repository abstract.'],'published_date':'2020-05-07',
+        'published_date_basis':'repository_jats_publication_date','canonical_url':'https://europepmc.org/articles/PMC456','copy_scope':'open repository full text'}
+    calls=[]
+    monkeypatch.setattr(reader,'fetch_public_article',lambda u:dict(direct))
+    monkeypatch.setattr(service,'fetch_open_research_copy',lambda u,**kw:(calls.append(u)or dict(recovered)))
+    row=fetch_topic_source('https://pmc.ncbi.nlm.nih.gov/articles/PMC456/')
+    assert row['published_date']=='2020-05-07'and row['copy_scope']=='open repository full text'
+    assert row['original_capture_status']=='full'and 'no verified publication date'in row['original_capture_reason']
+    direct['published_date']='2020-01-01'
+    assert fetch_topic_source('https://pmc.ncbi.nlm.nih.gov/articles/PMC456/')['published_date']=='2020-01-01'
+    assert len(calls)==1
+    direct['published_date']=None
+    recovered['published_date']=None
+    assert fetch_topic_source('https://pmc.ncbi.nlm.nih.gov/articles/PMC456/')['passages']==direct['passages']
