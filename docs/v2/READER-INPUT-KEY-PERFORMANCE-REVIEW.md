@@ -1,4 +1,8 @@
-# Reader input keys and cold catalog loading
+# Reader input key experiment — excluded from release
+
+The implemented change preserves complete outputs but does not consistently
+improve the tested workflow. It is excluded from release and retained only on
+the experimental branch. No runtime change from this experiment is deployed.
 
 Company Varieties and Candidates repeatedly prepare the same stored article
 content. Their private Reader memo currently serializes every selected input
@@ -38,11 +42,21 @@ identically; source dates and human state were retained.
 | Candidates then Company, total | 6.629 s | 5.869 s |
 
 These are prototype measurements on the tested copy, not deployed performance
-claims. Final-code measurement, CI, native desktop/phone review and a fresh
-preservation check remain before a release request. The experiment used one
+claims. The experiment used one
 CPU, 1 GiB memory, no swap, no network or exposed ports and a 240-second bound.
 Two samples per variant are limited evidence; cold loading still takes several
 seconds. TD-122 remains open.
+
+The subsequent exact-module comparison also preserves every complete typed
+article bundle, unfiltered universe, typed context and HTML across eight fresh
+processes. It verifies module SHA-256
+`54c1d6d4bdaf0042c1fb11eeaf31ad099f5593fafa8462f55db23929ac381e01`.
+Company cold loading is essentially flat (4.774 → 4.765 seconds) and its
+two-page workflow is slightly worse (6.217 → 6.310). Candidates cold loading
+improves modestly (4.512 → 4.355), as does its workflow (6.108 → 5.819).
+These mixed results do not justify a release. The stronger prototype figures
+must not be used as final-code or live claims. No repeated benchmark was used
+to select a more favorable outcome.
 
 The implementation passes 89 focused checks, including all existing snapshot
 copy-isolation and Reader coverage tests. New cases check all seven selected
