@@ -20,14 +20,19 @@ def test_public_research_get_is_inert_and_post_uses_only_the_entered_query(monke
             calls.append((query,kwargs))
             return SimpleNamespace(hits=[SimpleNamespace(url='https://breeder.org/sheet',title='Rafiki <script>bad</script>',snippet='Rafiki raspberry Mediterranean hydroponics',published_date=None),SimpleNamespace(url='javascript:bad',title='Unsafe',snippet='no',published_date=None)])
     monkeypatch.setattr(routes,'search_client',lambda:Search())
-    assert client.get('/varieties/research?q=Rafiki').status_code==200 and not calls
-    response=client.post('/varieties/research',data={'query':'Rafiki raspberry technical sheet'})
+    page=client.get('/research/entities?q=Rafiki')
+    assert page.status_code==200 and not calls
+    assert page.template.name=='entity_research.html'
+    assert 'action="/research/entities"' in page.text and 'Public web query' in page.text
+    imported=client.get('/varieties/research')
+    assert imported.status_code==200 and imported.template.name=='variety_research.html'
+    response=client.post('/research/entities',data={'query':'Rafiki raspberry technical sheet'})
     assert response.status_code==200
     assert calls==[('Rafiki raspberry technical sheet',{'max_results':10})]
     assert 'javascript:bad' not in response.text and '<script>bad</script>' not in response.text
     assert 'Send to publication review' in response.text and 'Unreviewed search result' in response.text
     assert not list((tmp_path/'data').rglob('*.json'))
-    assert client.post('/varieties/research',data={'query':'Rafiki'},headers={'origin':'https://elsewhere.org'}).status_code==403
+    assert client.post('/research/entities',data={'query':'Rafiki'},headers={'origin':'https://elsewhere.org'}).status_code==403
 
 
 def test_public_search_suppresses_name_collisions_and_keeps_native_crop_context():
@@ -45,7 +50,7 @@ def test_public_research_discloses_fallback_without_promoting_search_hits(monkey
         def search(self,query,**kwargs):return SimpleNamespace(hits=[])
         def diagnostics(self):return {'fallback_used':True}
     monkeypatch.setattr(routes,'search_client',lambda:Search())
-    response=client.post('/varieties/research',data={'query':'strawberry cultivar trial'})
+    response=client.post('/research/entities',data={'query':'strawberry cultivar trial'})
     assert response.status_code==200 and 'credit-free fallback' in response.text
     assert 'narrower coverage' in response.text
     assert not list((tmp_path/'data').rglob('*.json'))

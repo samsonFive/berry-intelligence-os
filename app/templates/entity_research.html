@@ -5,7 +5,7 @@
 <h1>Research {{ target.name if target else 'varieties & companies' }}</h1>
 <p>Search breeder pages, technical sheets, awards, news and original filings. Only the public query below is sent to search services when you click Search public web. Perplexity is preferred; public scholarly indexes, Google News and registered primary-source leads provide a fallback. No implicit date restriction is applied.</p>
 {% if fallback_used %}<p role="status">Perplexity is unavailable. These results use the credit-free fallback, which has narrower coverage. Missing results do not establish that no relevant source exists.</p>{% endif %}
-<form method="post" action="/varieties/research"><input type="hidden" name="entity_id" value="{{ target.id if target else '' }}">
+<form method="post" action="/research/entities"><input type="hidden" name="entity_id" value="{{ target.id if target else '' }}">
 <label for="entity-public-query">Public web query</label><textarea id="entity-public-query" name="query" rows="3" maxlength="1200" required>{{ query }}</textarea>
 <label for="entity-result-scope">Result relevance</label><select id="entity-result-scope" name="scope_results"><option value="1" {% if scoped %}selected{% endif %}>Match the selected identity and berry context</option><option value="0" {% if not scoped %}selected{% endif %}>Show all returned results · unscoped</option></select>
 <div class="entity-research-actions"><button type="submit">Search public web</button><a href="/research?q={{ query|urlencode }}">Ask Berry · saved intelligence & AI</a></div></form>

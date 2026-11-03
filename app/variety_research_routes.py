@@ -126,7 +126,7 @@ def render(request, *, query='', entity_id='', hits=(), error='', omitted=0, sco
     })
 
 
-@router.get('/varieties/research')
+@router.get('/research/entities')
 def research_page(request: Request, q: str = '', entity_id: str = ''):
     from app import main
     if not main.AUTHORING_MODE:
@@ -134,7 +134,7 @@ def research_page(request: Request, q: str = '', entity_id: str = ''):
     return render(request, query=q[:1200], entity_id=entity_id)
 
 
-@router.post('/varieties/research')
+@router.post('/research/entities')
 def research_search(request: Request, query: str = Form(''), entity_id: str = Form(''), scope_results: str = Form('1')):
     require_edit(request)
     query = query.strip()
