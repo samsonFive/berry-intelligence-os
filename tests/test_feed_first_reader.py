@@ -82,3 +82,18 @@ def test_explicit_recommendation_tail_is_not_part_of_article_capture():
     assert paragraphs_from_html('<h2>Related articles</h2><p>A named blackberry cultivar was released with compact architecture for growers.</p>')==[]
     prose='<article><p>A trial compared blackberry varieties after several seasons in replicated plots.</p><h2>Related research</h2><p>Related articles were reviewed by the researchers when planning this blackberry trial.</p></article>'
     assert any('reviewed by the researchers' in p for p in paragraphs_from_html(prose))
+
+
+def test_technical_results_beyond_intro_keep_table_context_and_owned_lists():
+    intro = ''.join(f'<p>Introduction paragraph {i}: the trial compared harvest timing and fruit quality.</p>' for i in range(30))
+    html = ('<nav><li>Menu blackberry trial</li></nav><article>' + intro +
+            '<h2>Results</h2><table><caption>Kent 2024 yield, kg per plant</caption>'
+            '<tr><th>Cultivar</th><th>Yield</th></tr><tr><td>Trial A</td><td>2.4</td></tr></table>'
+            '<ul><li>Trial B: plants were grown under rain covers at the same site.</li></ul>'
+            '<aside><li>Recommended commercial supplier</li></aside></article>')
+    rows = paragraphs_from_html(html)
+    assert rows.index('Kent 2024 yield, kg per plant') < rows.index('Cultivar | Yield') < rows.index('Trial A | 2.4')
+    assert any('Trial B:' in row for row in rows)
+    assert not any('Menu' in row or 'supplier' in row for row in rows)
+    assert len(paragraphs_from_html(html, limit=24)) == 24
+    assert not any('Cultivar | Yield' in row for row in paragraphs_from_html(html.replace('<article>', '<div>').replace('</article>', '</div>')))

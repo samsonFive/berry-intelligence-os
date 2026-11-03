@@ -1447,3 +1447,5 @@ November 3 limited-variety recovery: four primary captures add ten source-report
 
 
 November 3 UK-trial recovery: bounded geography-alias discovery and separate place-equivalence matching recover additional trial sources without new publisher subscriptions or approved geography/trait/right claims. Six inspected top-ten sources in the consumed-query diagnostic do not upgrade global recall maturity or establish contemporaneous Google parity.
+
+November 3 final evaluation preparation: article-owned list/table extraction and a 96-passage bound address missing technical results, retaining source order and table context. This changes acquisition coverage, not source maturity, verified traits, rights or identity approvals. New private recovery captures and a fresh frozen comparison will remain separate from previous sealed evaluations. Deployment held.

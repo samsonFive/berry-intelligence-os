@@ -3739,3 +3739,5 @@ TD-VARIETY-SOURCE-PARITY-001 November 3 recovery: ten new pending source-detail 
 
 
 TD-SEARCH-001 November 3 UK repair: registered country aliases now supply one bounded discovery variant, and multiword country tokens no longer preempt the trial-location check. Post-inspection UK diagnostic improves from two to six inspected direct top-ten sources (one unknown); AHDB recovered as rank-11 verification lead. Frozen acceptance unchanged, aggregate parity unverified. Cumulative paid search 127/128; warm rerun zero. Full CI required on final head; deployment held.
+
+TD-SEARCH-001 final evaluation preparation: measured extraction omitted article-owned list/table results and stopped after 24 paragraphs. The bounded reader now retains up to 96 passages, ordered captions/cell boundaries and owned list items, excluding navigation/recommendation tails. Topic capture cache version advances; partial captures stay partial. Sixty-five focused reader tests pass. A separate final evaluation must assess this candidate without rewriting earlier seals. Full CI and deployment review remain required.

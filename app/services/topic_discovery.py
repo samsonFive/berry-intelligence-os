@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v6'  # Identity-checked, explicitly attributed open repository copies.
+CAPTURE_VERSION = 'topic-capture-v7'  # Owned list/table results and bounded longer article capture.
 MAX_CAPTURE_CANDIDATES = 40
 
 

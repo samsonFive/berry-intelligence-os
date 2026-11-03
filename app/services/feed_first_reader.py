@@ -32,7 +32,7 @@ MAX_BYTES = 800_000
 MAX_PDF_BYTES = 5_000_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 8
+CAPTURE_VERSION = 9
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
@@ -176,11 +176,12 @@ def sanitize_reader_html(html: str) -> str:
     return _JS_URL_RE.sub("", cleaned)
 
 
-def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
+def paragraphs_from_html(html: str, *, limit: int | None = 96) -> list[str]:
     cleaned = sanitize_reader_html(html)
     # Keep publisher section titles in their original order, never invent them
     # from sentence length, question marks, or model-generated summaries.
     from lxml import etree, html as html_parser
+    technical_rows = set()
     try:
         tree = html_parser.fromstring(cleaned)
         for node in tree.xpath("//nav | //aside | //footer | //template | //*[@hidden] | //*[@aria-hidden='true']"):
@@ -193,11 +194,30 @@ def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
             node.drop_tree()
         roots = tree.xpath("//article") or tree.xpath("//main")
         cleaned = "\n".join(html_parser.tostring(node, encoding="unicode") for node in roots) if roots else html_parser.tostring(tree, encoding="unicode")
+        # Technical results often live in lists and tables rather than prose.
+        # Only semantic article/main owners admit these blocks: an unscoped
+        # page's menus must not become source evidence. Serialize rows with
+        # cell boundaries and retain their preceding caption/header rows.
+        if roots:
+            scoped = html_parser.fromstring('<div>' + cleaned + '</div>')
+            for node in scoped.xpath('.//li[not(ancestor::li)] | .//tr | .//caption'):
+                if node.xpath('ancestor::tr | ancestor::caption'):
+                    continue
+                if node.tag == 'li' and node.xpath('.//p | .//table | .//ul | .//ol'):
+                    continue
+                cells = node.xpath('./th | ./td') if node.tag == 'tr' else []
+                text = ' | '.join(' '.join(cell.text_content().split()) for cell in cells) if cells else ' '.join(node.text_content().split())
+                if text:
+                    technical_rows.add(text)
+                    replacement = html_parser.Element('p')
+                    replacement.text = text
+                    node.getparent().replace(node, replacement)
+            cleaned = html_parser.tostring(scoped, encoding='unicode')
     except (etree.ParserError, ValueError):
         pass
     found = [(tag.lower(), decode_html_text(chunk)) for tag, chunk in _ARTICLE_BLOCK_RE.findall(cleaned)]
-    has_body = any(tag == 'p' and len(row) >= 40 for tag, row in found)
-    raw_passages = [row for tag, row in found if has_body and (len(row) >= 40 if tag == 'p' else 0 < len(row) <= 500)]
+    has_body = bool(technical_rows) or any(tag == 'p' and len(row) >= 40 for tag, row in found)
+    raw_passages = [row for tag, row in found if has_body and (len(row) >= 40 or row in technical_rows if tag == 'p' else 0 < len(row) <= 500)]
     from app.services.source_passage_scope import owned_article_passages
     had_passages = bool(raw_passages)
     raw_passages = [text for _,text in owned_article_passages(enumerate(raw_passages))]
