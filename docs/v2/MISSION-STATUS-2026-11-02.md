@@ -1,14 +1,21 @@
-# Narrow cold-load follow-up — November 2, 2026
+# Active same-thread mission — November 3, 2026
 
-Live #475 remains verified at6c2feaf1. Draft #476 now retains only company-scoped
-News, request-local Candidates preparation and bounded literal-text decoding.
-The final363 affected checks pass. Reader/source selection and discovery grammar
-remain byte-for-byte unchanged; the larger Reader/discovery experiments are not
-included. [The measured review](COLD-LOAD-PREPARATION-REVIEW.md) records development
-copy gains and the unchanged global News control. Frozen-head CI, browser and
-fresh isolated acceptance remain before a new release decision. TD-122 and the
-content/human gaps in [the closeout audit](MISSION-CLOSEOUT-2026-11-02.md) stay open.
-All original31 definitions/order and the governing guide are retained.
+Approved performance #476 is merged and verified live at `50659fcd`, tested head
+`06255cfc`. All four checks /6,109 tests, desktop/phone review, fresh isolated
+preservation and independent live image/HTTPS/proxy verification pass. Five
+accounts including Chris.H, 65 profiles, 10,537 existing JSON records, four
+databases, stored research, settings and mounts are preserved; backup and rollback
+are retained. The #476 approval is complete and must not be requested again.
+
+The user explicitly continued the remaining requirements in this mission/thread.
+[Current closeout work](MISSION-CLOSEOUT-2026-11-03.md) covers performance,
+catalog/source depth, human decisions, held Map figures and real-provider Learn
+acceptance. Draft #477 prepares only visible company-tab models; its first head
+passes all four checks and fresh production-copy preservation with a 12% faster
+complete workflow. Phone review also prompted a compact header and grouped
+secondary research links. The expanded head is undergoing renewed acceptance;
+no new release is approved.
+All original 31 definitions/order and the governing guide remain unchanged.
 
 # Live News performance and remaining closeout — November 2, 2026
 
