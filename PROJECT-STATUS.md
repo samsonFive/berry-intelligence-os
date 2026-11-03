@@ -1,3 +1,14 @@
+# Catalog authoring and population — November 3, 2026
+
+The operator explicitly continued CAT-01/CAT-02: the spreadsheet-image and
+source work must become an editable catalog, including commercial connections,
+all profile fields and whole-variety removal. [Current implementation and
+acceptance](docs/v2/EDITABLE-VARIETY-CATALOG-2026-11-03.md) separates real persistent
+unverified catalog records from independently reviewed claims. The isolated
+plan expands 65 varieties to 1,232 without rewriting existing records; it is
+not deployed. Final checks and release evidence remain required. Earlier
+release counts below are dated preservation records, not expansion completion.
+
 # Current verified releases and remaining mission — November 3, 2026
 
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
