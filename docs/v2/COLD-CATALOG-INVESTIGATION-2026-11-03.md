@@ -1,9 +1,11 @@
 # Cold catalog loading and mission closeout
 
-Company Varieties and Candidates still take roughly 4.5–5 seconds on the tested
-server copy. The latest final-code experiments preserve the information but do not produce
-a consistent page-level improvement. They are rejected, not release candidates.
-TD-122 remains open.
+Company Varieties and Candidates still take several seconds on the tested
+server copy. Approved #490 is independently live at `3ffe5bad`, retaining #488
+and earlier releases. Its necessary-syntax guard improves the tested complete
+workflow modestly; Company cold loading remains essentially flat. Later source
+index and identity-lookup experiments below fail the workflow criterion and are
+excluded. TD-122 remains open.
 
 ## What is live and what is ready
 
@@ -12,7 +14,18 @@ TD-122 remains open.
 | [#486](https://github.com/samsonFive/berry-intelligence-os/pull/486) | Earlier deployed `b8b8b008`; approved head `8c330d8f`, retained in live #488 | Company article-name handoffs, company hierarchy, visual presentation of the completed Learn request, honest Reader publisher destinations and source/declaration/crop preparation. All four final checks pass: 6,267 tests, desktop/phone review and fresh preservation. |
 | [#477](https://github.com/samsonFive/berry-intelligence-os/pull/477) | Earlier deployed release `1ad5084f`, retained in #486 | Company tab preparation and compact profile header. Its approval is complete. |
 | [#487](https://github.com/samsonFive/berry-intelligence-os/pull/487) | Approved `30861d83`; earlier deployed `892f84db`, retained in live #488 | Fixes News completion after optional tagging failure. All four final checks /6,271 tests, desktop/phone review and fresh preservation pass. Schedule and exact proxy restored; no data or provider changes. |
-| [#488](https://github.com/samsonFive/berry-intelligence-os/pull/488) | Approved `22dcb869`; merged and independently verified live at `32eefbd5` | Five scoped PSG sections, 44 occurrences /34 printed names or codes, 18 extra review keys and 34 held photo references. All four final checks /6,277 tests, desktop/phone and fresh release-time preservation pass. Five accounts, 65 profiles, 10,539 existing JSON records, four databases and 1,115 research files remain; one source file added. No canonical identities or runtime code changes. |
+| [#488](https://github.com/samsonFive/berry-intelligence-os/pull/488) | Approved `22dcb869`; earlier deployed `32eefbd5`, retained in live #490 | Five scoped PSG sections, 44 occurrences /34 printed names or codes, 18 extra review keys and 34 held photo references. All four final checks /6,277 tests, desktop/phone and fresh release-time preservation pass. Five accounts, 65 profiles, 10,539 existing JSON records, four databases and 1,115 research files remain; one source file added. No canonical identities or runtime code changes. |
+| [#490](https://github.com/samsonFive/berry-intelligence-os/pull/490) | Approved `10d49757`; independently verified live `3ffe5bad` | Necessary-syntax preparation in one runtime file. All four final checks /6,324 tests, desktop/phone and fresh release-time preservation pass. Five accounts, 65 profiles, 10,540 existing JSON records, four databases and 1,115 research files remain; zero data additions or changes. |
+
+#490's exact-code Company-first cold median is 4.658 →4.633 seconds and its
+three-page workflow 9.137 →8.764; Candidates-first cold is 4.610 →4.321 and its
+workflow 9.073 →8.526. All 24 complete typed article/universe/context/HTML
+responses match, including a fictional fresh Unreviewed story. These are
+two-sample-per-variant measurements on the tested copy, not universal live
+latency claims. Its fresh archive, exact proxy, settings/data mounts, retained
+rollback and active/enabled News timer are verified. #490's approval is fulfilled.
+Documentation-only #485 is closed unmerged after its six documents were
+verified identical in live #490; it is not an outstanding deployment.
 
 Superseded #480/#482/#483/#484 are closed without merging. Their exact commits,
 branches and evidence are retained in #486; their earlier approval requests
@@ -138,6 +151,62 @@ The result hash is
 `cb19e70d9a44bf5524d288cc875acd8c1297b9aa09681f6579d26f47d3b06d50`.
 The restart-model result hash is
 `c1037a9bb69ef92038189d8e4614ab81063dd2e253c2393b672aa1ceda8011e7`.
+
+## Source preparation indexes: excluded after full workflow tests
+
+Both private index variants preserve all 36 complete typed responses in their
+own twelve-process comparisons. Both retain the original selector, current
+source/review inputs, source-copy bytes and healthy live state. No index is
+installed in production and no provider request is made.
+
+| Variant | Company-first workflow, baseline → initial /prepared | Candidates-first workflow, baseline → initial /prepared | Decision |
+| --- | --- | --- | --- |
+| Individual entry files | 8.492 →9.880 /9.406 s | 8.146 →10.169 /8.776 s | Reject: both creation and prepared workflows regress. |
+| One bounded bulk snapshot | 8.651 →9.205 /8.367 s | 8.886 →9.119 /8.779 s | Reject: preparation increases work and the Candidates visit after new news regresses from 2.586 to 2.820 s. |
+
+The bulk experiment also preserves 15 source-selector lifecycle cases, including
+capture edits/deletion/failure, operator body precedence, consent fallback,
+preview updates, URL identity and pending review edits. Each variant passes 332
+affected tests. Correct outputs do not justify a slower runtime path.
+
+A separate caller profile disproves the proposed capture-merge bottleneck:
+126 Reader calls from capture merging account for only 0.030 instrumented
+seconds in the tested three-page workflow. Direct article selection and
+downstream discovery dominate those Reader calls. Profiler times include
+instrumentation overhead and must not be reported as page latency.
+
+## Identity lookup: exact implementation excluded
+
+The next experiment restricts crop-compatibility checks to possible indexed
+name/code matches while retaining the original matcher, exact-match priority,
+row order, complete catalog freshness checks and unsupported-input fallback.
+Adding a bounded request-local result memo regresses the measured workflow and
+is rejected at the prototype stage.
+
+The defer-only implementation passes 605 affected checks with zero attempted
+external connections. Its separate exact-module comparison preserves all 24
+complete typed article bundles, unfiltered universes, contexts and HTML across
+eight fresh processes, including new Unreviewed news, with unchanged source-copy
+bytes and healthy live state. It still fails the workflow criterion:
+
+| Route order | Cold visit, baseline →exact code | Visit after new news | Complete three-page workflow |
+| --- | --- | --- | --- |
+| Company first | 4.441 →4.289 s | 2.735 →2.883 s | 8.756 →8.692 s |
+| Candidates first | 4.321 →4.133 s | 2.541 →2.640 s | 8.486 →8.377 s |
+
+The roughly 0.7–1.3% total-workflow differences are too small to justify the
+fresh-news regressions. The edited runtime module and tests are archived
+privately and reverted; no runtime PR or deployment follows. These limited
+two-sample measurements are retained as a rejection, without rerunning to select
+a favorable sample. The stronger prototype figures are not final-code claims.
+
+The exact candidate module SHA-256 is
+`e6379ce356ec94fa6074b098cbb3a412c3d807d3b6349e990406398202831ab0`;
+the final result SHA-256 is
+`d4a4b7c28338899a917f6088f861379172d8bcb38c2fe055fa5e5bf550498d5d`.
+The original prototype harness's copied-global catalog-cap failure is retained;
+its corrected live-global harness passes 603 checks. That correction is not used
+to hide the final implementation's measured regressions.
 
 ## Work still needed to finish this mission
 

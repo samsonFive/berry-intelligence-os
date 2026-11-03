@@ -1,38 +1,38 @@
 # Current verified releases and remaining mission — November 3, 2026
 
-[Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
-merged and independently verified live at `32eefbd5` (approved `22dcb869`),
-retaining News #487, #486 and earlier platform releases. All four final checks
-pass: 6,277 tests. Fresh release-time and live checks retain all five accounts
-including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and
-1,115 research files. One source import is added; no existing data was replaced
-or restored. Settings, mounts, proxy, active/enabled News schedule, backup and
-rollback are preserved. The #486, #487 and #488 approvals are fulfilled.
+[Performance #490](https://github.com/samsonFive/berry-intelligence-os/pull/490)
+is merged and independently verified live at `3ffe5bad` (approved exact head
+`10d49757`). It retains catalog #488, News #487 and the earlier platform stack.
+All four final checks pass: 6,324 tests. Fresh release-time and live checks
+preserve all five accounts including Chris.H, 65 profile files, 10,540 existing
+JSON records, four databases and 1,115 stored research files. There are no data
+additions or review-decision changes. Settings, data mounts, exact proxy,
+active/enabled News schedule, fresh backup and rollback remain. Its approval is
+fulfilled; no repeated approval or deployment is needed for #490.
 
-The source import recovers three PSG selectors and two related lists: 44
-occurrences of 34 printed names/codes, 18 additional review keys and 34 held
-photo references. All 1,315 earlier public-source keys remain. The scoped public
-corpus is now 539 sections /2,073 occurrences /1,333 review keys, with 11
-unreadable sections and 143 follow-ups. These are source observations and review
-candidates, not 1,333 approved varieties or proof of worldwide completeness.
-Canonical variety identities, company roles, rights, growing footprints and
-photo reuse still require their existing human decisions.
+The necessary-syntax source guard avoids work without changing the existing
+declaration grammar or dropping sources. Final-code tests preserve all 24
+complete responses, including new unreviewed news. On the tested copy, the
+three-page workflow improves about 4–6%; Company cold loading is essentially
+flat. Deep cold catalog visits still take several seconds. TD-122 stays open;
+these limited measurements are not universal live-speed claims.
 
-News #487 finalizes useful capture as partial when optional tagging fails.
-Provider quota is still an operational dependency; no purchase or paid retry is
-authorized. The one approved Learn acceptance run completed previously and
-remains an editable AI draft. The visual Help explainer and collaborative
-Workspaces/private Digest and layout boundaries remain delivered.
+The retained catalog #488 import adds 44 occurrences of 34 printed names/codes,
+18 review keys and 34 held photo references. The scoped public corpus remains
+539 sections /2,073 occurrences /1,333 derived review keys, with 11 unreadable
+sections and 143 follow-ups. These are source observations, not 1,333 approved
+varieties or proof of worldwide completeness. Source/name/role/rights/photo and
+growing-region decisions, the independent human expected-name audit and held
+Map selections remain open in this mission.
 
-Cold catalog visits still take several seconds; TD-122 remains open. The exact
-Reader-key implementation in closed, unmerged #489 preserved all eight complete
-outputs but gave mixed page/workflow timings. It is excluded from live release;
-the stronger prototype figures are not final-code or deployed claims.
-[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains this evidence and earlier
-rejected experiments. The independent human expected-name audit, source and
-trait/IP/photo depth, held Map selections and broader Learn quality remain in
-this mission. Original 31 definitions/order, the governing guide and all human
-review gates remain unchanged. Earlier entries below are historical records.
+The visual Help explainer, collaborative Workspaces, private Digest/layout
+boundaries and the completed bounded Learn request remain delivered. Provider
+quota is still an operational dependency; no additional paid research request,
+purchase or manual retry is authorized. Wider source, visual and lesson quality
+remain explicit. [The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md)
+records rejected experiments separately from deployed gains. Original 31
+requirement definitions/order, the governing guide, protected schemas and all
+human gates remain unchanged. Earlier entries below are historical records.
 
 # Current closeout continuation — November 3, 2026
 
@@ -71,11 +71,11 @@ Chris.H, 65 profiles, 10,537 existing protected JSON records, four databases and
 
 | Requirement | Next work | Evidence required for completion |
 | --- | --- | --- |
-| TD-122: daily-use speed | Continue from the deployed #476 base; profile first company/catalog visits and the full next-click workflow. Reject displaced cost and regressions. | Complete output and current-edit parity, real cold/warm workflow measurements, required checks, browser review and fresh production-copy preservation. Slow first visits remain open; a microbenchmark alone cannot close the item. |
+| TD-122: daily-use speed | Continue from live #490; profile first company/catalog visits and the full next-click workflow. Reject displaced cost and regressions. | Complete output and current-edit parity, real cold/warm workflow measurements, required checks, browser review and fresh production-copy preservation. Slow first visits remain open; a microbenchmark alone cannot close the item. |
 | CAT-01 / VAR-01: supplied names and independent recall | Retain the 143 photo candidates /144 associations, 32 unclear cells and two identity holds; recover source gaps and route actual name/role decisions through review. Complete the independent 32-source audit without using detector answers as its gold set. | Source passages, independently supplied expected names and actual human decisions. Occurrences/candidate keys are not approved varieties or proven company roles. |
-| CAT-02 / VAR-02: useful variety depth | Work through the retained 77-subject current/historical source plan, 14 unreadable sections and 146 follow-ups; author cited traits, growing regions, original rights/patent references and attributed images. | Accounted source sections, explicit historical/current scope, readable provenance, reviewed canonical identities and disclosed gaps. Never infer comprehensive worldwide coverage from the 537 sections or 1,315 source-derived keys. |
+| CAT-02 / VAR-02: useful variety depth | Work through the retained 77-subject current/historical source plan, 11 unreadable sections and 143 follow-ups; author cited traits, growing regions, original rights/patent references and attributed images. | Accounted source sections, explicit historical/current scope, readable provenance, reviewed canonical identities and disclosed gaps. Never infer comprehensive worldwide coverage from the 539 sections or 1,333 source-derived keys. |
 | MAP-02: useful market context | Review the 24 country/crop references and 51 original-unit figures across eight countries; recover stronger evidence where possible, retaining the two UK discrepancy holds. | Human selections, explicit period/unit/geographic/crop scope, original source links and resolved or visibly held conflicts. No automatic trusted figure selection. |
-| LEARN-01 / LEARN-02: deep visual learning | Verify the delivered 27 visual lessons and selected-text research workflow, then perform an explicitly authorized bounded real-provider acceptance test and repair any actual defects. Continue source-linked visual depth. | Actual provider settings/output, cited lesson quality, availability and cost, original lesson/edit/history preservation and human review. Fixture lifecycle tests do not prove real-provider quality. |
+| LEARN-01 / LEARN-02: deep visual learning | Retain the delivered 27 visual lessons and selected-text research workflow. The one authorized real-provider run is complete at reported USD0.13679 and remains an editable draft; #486 retains its presentation repair. Continue source-linked visual depth without another paid request. | Wider citation/media quality and lesson depth, original lesson/edit/history preservation and human review. The single successful provider request does not prove universal provider quality or availability. |
 | Whole-thread completion | Reconcile every original requirement and subsequent prompt against current code, UI, receipts and actual stored content. | Requirement-by-requirement proof. Open acceptance/content/human items remain open; no handoff or scope reduction substitutes for completion. |
 
 ## Current performance investigation

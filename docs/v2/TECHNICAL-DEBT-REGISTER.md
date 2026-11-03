@@ -3668,3 +3668,21 @@ fail; there is no paid retry, provider/configuration change, data migration or
 review promotion. Separate final tests and release approval remain required.
 The provider's exhausted quota is an operational dependency, not repaired by
 this code. TD-122 cold catalog work remains open.
+
+### November 3 — TD-122 live #490 and rejected follow-ups
+
+Approved performance #490 is independently live at `3ffe5bad`, exact reviewed
+head `10d49757`. All four checks /6,324 tests, desktop/phone and fresh isolated
+preservation pass; five accounts, 65 profiles, 10,540 existing JSON records,
+four databases and 1,115 research files remain with zero data changes. Its
+necessary-syntax guard gives modest complete-workflow gains on the tested copy;
+Company cold loading is essentially flat. The approval is fulfilled.
+
+[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) records two
+rejected source-index variants and a rejected exact identity-filter reorder.
+The latter passes 605 affected checks and preserves all 24 complete responses,
+but its 0.7–1.3% workflow differences do not justify slower visits after new
+news. Its runtime/test edits are archived and reverted. No new cache, matcher,
+source filtering, provider call, data write or human decision is introduced.
+TD-122 remains open; source/catalog/photo/Map and independent recall review
+remain separate unfinished requirements in this mission.
