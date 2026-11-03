@@ -1,38 +1,38 @@
 # Current verified releases and remaining mission — November 3, 2026
 
-[Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
-merged and independently verified live at `32eefbd5` (approved `22dcb869`),
-retaining News #487, #486 and earlier platform releases. All four final checks
-pass: 6,277 tests. Fresh release-time and live checks retain all five accounts
-including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and
-1,115 research files. One source import is added; no existing data was replaced
-or restored. Settings, mounts, proxy, active/enabled News schedule, backup and
-rollback are preserved. The #486, #487 and #488 approvals are fulfilled.
+[Performance #490](https://github.com/samsonFive/berry-intelligence-os/pull/490)
+is merged and independently verified live at `3ffe5bad` (approved exact head
+`10d49757`). It retains catalog #488, News #487 and the earlier platform stack.
+All four final checks pass: 6,324 tests. Fresh release-time and live checks
+preserve all five accounts including Chris.H, 65 profile files, 10,540 existing
+JSON records, four databases and 1,115 stored research files. There are no data
+additions or review-decision changes. Settings, data mounts, exact proxy,
+active/enabled News schedule, fresh backup and rollback remain. Its approval is
+fulfilled; no repeated approval or deployment is needed for #490.
 
-The source import recovers three PSG selectors and two related lists: 44
-occurrences of 34 printed names/codes, 18 additional review keys and 34 held
-photo references. All 1,315 earlier public-source keys remain. The scoped public
-corpus is now 539 sections /2,073 occurrences /1,333 review keys, with 11
-unreadable sections and 143 follow-ups. These are source observations and review
-candidates, not 1,333 approved varieties or proof of worldwide completeness.
-Canonical variety identities, company roles, rights, growing footprints and
-photo reuse still require their existing human decisions.
+The necessary-syntax source guard avoids work without changing the existing
+declaration grammar or dropping sources. Final-code tests preserve all 24
+complete responses, including new unreviewed news. On the tested copy, the
+three-page workflow improves about 4–6%; Company cold loading is essentially
+flat. Deep cold catalog visits still take several seconds. TD-122 stays open;
+these limited measurements are not universal live-speed claims.
 
-News #487 finalizes useful capture as partial when optional tagging fails.
-Provider quota is still an operational dependency; no purchase or paid retry is
-authorized. The one approved Learn acceptance run completed previously and
-remains an editable AI draft. The visual Help explainer and collaborative
-Workspaces/private Digest and layout boundaries remain delivered.
+The retained catalog #488 import adds 44 occurrences of 34 printed names/codes,
+18 review keys and 34 held photo references. The scoped public corpus remains
+539 sections /2,073 occurrences /1,333 derived review keys, with 11 unreadable
+sections and 143 follow-ups. These are source observations, not 1,333 approved
+varieties or proof of worldwide completeness. Source/name/role/rights/photo and
+growing-region decisions, the independent human expected-name audit and held
+Map selections remain open in this mission.
 
-Cold catalog visits still take several seconds; TD-122 remains open. The exact
-Reader-key implementation in closed, unmerged #489 preserved all eight complete
-outputs but gave mixed page/workflow timings. It is excluded from live release;
-the stronger prototype figures are not final-code or deployed claims.
-[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains this evidence and earlier
-rejected experiments. The independent human expected-name audit, source and
-trait/IP/photo depth, held Map selections and broader Learn quality remain in
-this mission. Original 31 definitions/order, the governing guide and all human
-review gates remain unchanged. Earlier entries below are historical records.
+The visual Help explainer, collaborative Workspaces, private Digest/layout
+boundaries and the completed bounded Learn request remain delivered. Provider
+quota is still an operational dependency; no additional paid research request,
+purchase or manual retry is authorized. Wider source, visual and lesson quality
+remain explicit. [The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md)
+records rejected experiments separately from deployed gains. Original 31
+requirement definitions/order, the governing guide, protected schemas and all
+human gates remain unchanged. Earlier entries below are historical records.
 
 # Catalog source continuation — November 3, 2026
 
@@ -862,7 +862,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The visual explainer is live through approved #474, merge7fa7dd53. It retains twelve site-section cards, four analyst steps, prior reporting choices and shared Workspaces guidance, and now explains company comparisons, retained coverage and accurate saved-comparison JSON/CSV behavior. All four checks pass/6,091 tests; desktop/phone, fresh isolated preservation and live verification pass. | The requested visual explainer and follow-up are delivered. Wider educational/media depth and human source/catalog decisions remain open; no new approval is needed for completed #474. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved #488 is independently verified live at `32eefbd5`,tested `22dcb869`, retaining #487/#486 and earlier deliveries. All four final checks pass: 6,277 tests, desktop/phone and fresh isolated/live preservation for five accounts including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and 1,115 research files. One source file is added; backup, rollback, settings, mounts, proxy and active/enabled schedule remain. | These approved releases are complete; do not re-request their approvals. #480/#482/#483/#484 were superseded by fulfilled #486; #489 is closed unmerged. Cold performance and human/source/identity/role/rights/photo/Map/independent recall work continue here. A new code release needs its own tested review; no additional paid Learn acceptance request is approved. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved #490 is independently live at `3ffe5bad`, tested exact head `10d49757`, retaining #488/#487/#486. All four checks pass /6,324 tests; desktop/phone and fresh isolated/live preservation retain five accounts including Chris.H, 65 profiles, 10,540 JSON records, four databases and 1,115 research files, with zero data changes. Fresh backup, rollback, settings, mounts, proxy and active/enabled schedule remain. | These approved releases are complete. #489 and #485 are closed unmerged; #485 documentation is retained in live #490. Cold-load work and human/source/identity/role/rights/photo/Map/independent recall remain here. New code releases need their own tested review and approval; no additional paid Learn run is approved. |
 
 ## Historical implementation sequence
 
