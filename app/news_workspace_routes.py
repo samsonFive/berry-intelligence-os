@@ -244,7 +244,13 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
         # Provider details and exception traces belong in operations, never UI.
         result.update(status="failed", error_count=1, message="News could not be refreshed. Another collection may be running; try again.")
     if result.get('status') in {'ready', 'partial'}:
-        classify_stored_tags()
+        try:
+            classify_stored_tags()
+        except Exception:
+            # Tagging is optional. Its job retains the failure separately;
+            # completed news capture must still get an honest final status.
+            result.update(status='partial', error_count=result.get('error_count', 0) + 1,
+                          message='News capture completed. Article tag updates could not finish; existing tags are retained.')
     result["completed_at"] = datetime.now(UTC).isoformat()
     atomic_json(refresh_path(inbox_dir), result)
     atomic_json(inbox_dir / "operations" / "pipelines" / "news_workspace_refresh" / "runs" / (started.strftime("%Y%m%dT%H%M%S%fZ") + ".json"), {

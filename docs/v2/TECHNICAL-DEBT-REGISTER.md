@@ -3618,3 +3618,17 @@ TD-122 stays open; no coverage or human decision is upgraded.
 ### November 3 — TD-122 empty declaration preparation
 
 [The empty-declaration child](EMPTY-DECLARATION-PERFORMANCE-REVIEW.md) skips only base-parser paths that cannot contain an existing declaration. The isolated prototype preserves all complete typed outputs/HTML across eight fresh processes, with modest variable gains. All 294 affected checks pass. No grammar, source, canonical identity, human decision or cache change; final current-code acceptance remains. Frozen #483 retains its separate approval scope. TD-122 stays open.
+
+### November 3 — News refresh finalization after optional tagging failure
+
+A live scheduled refresh completed source capture but optional semantic tag
+classification raised a provider quota/auth error. The collector exited and
+released its lease; the News status stayed `running` because completion and the
+run receipt were written after the unhandled optional step. This also blocked
+a release drain without an active collector. The bounded repair finalizes the
+useful capture as partial, retains its story count and existing classifier-job
+failure, and writes the normal completion receipt. Collection failures still
+fail; there is no paid retry, provider/configuration change, data migration or
+review promotion. Separate final tests and release approval remain required.
+The provider's exhausted quota is an operational dependency, not repaired by
+this code. TD-122 cold catalog work remains open.

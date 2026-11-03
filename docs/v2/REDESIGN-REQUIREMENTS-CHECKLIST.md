@@ -1,3 +1,15 @@
+# News refresh completion follow-up — November 3, 2026
+
+Combined #486 is approved and merged at `b8b8b008`; its deployment remains in
+progress. A scheduled News run exposed an independent failure: optional AI tag
+classification exhausted provider quota and left an otherwise completed capture
+marked `running`. The separate repair finalizes useful capture as partial,
+retains story counts and the classifier failure, and writes the run receipt.
+All 79 affected tests pass with zero attempted external connections. No paid
+retry, source review, canonical identity or saved-user-data change is included.
+Final CI, browser review, preservation and separate release approval remain.
+Cold catalog work and source/name/photo/Map human decisions remain open here.
+
 # Crop-word preparation — November 3, 2026
 
 [The crop-word child](CROP-WORD-PERFORMANCE-REVIEW.md) follows separately tested, unapproved #483/#484.
