@@ -1,14 +1,18 @@
-# Narrow cold-load follow-up — November 2, 2026
+# Active same-thread mission — November 3, 2026
 
-Live #475 remains verified at6c2feaf1. Draft #476 now retains only company-scoped
-News, request-local Candidates preparation and bounded literal-text decoding.
-The final363 affected checks pass. Reader/source selection and discovery grammar
-remain byte-for-byte unchanged; the larger Reader/discovery experiments are not
-included. [The measured review](COLD-LOAD-PREPARATION-REVIEW.md) records development
-copy gains and the unchanged global News control. Frozen-head CI, browser and
-fresh isolated acceptance remain before a new release decision. TD-122 and the
-content/human gaps in [the closeout audit](MISSION-CLOSEOUT-2026-11-02.md) stay open.
-All original31 definitions/order and the governing guide are retained.
+Approved performance #476 is merged and verified live at `50659fcd`, tested head
+`06255cfc`. All four checks /6,109 tests, desktop/phone review, fresh isolated
+preservation and independent live image/HTTPS/proxy verification pass. Five
+accounts including Chris.H, 65 profiles, 10,537 existing JSON records, four
+databases, stored research, settings and mounts are preserved; backup and rollback
+are retained. The #476 approval is complete and must not be requested again.
+
+The user explicitly continued the remaining requirements in this mission/thread.
+[Current closeout work](MISSION-CLOSEOUT-2026-11-03.md) covers performance,
+catalog/source depth, human decisions, held Map figures and real-provider Learn
+acceptance. The new isolated active-tab performance change is not a release;
+76 affected tests pass and complete page/workflow acceptance is in progress.
+All original 31 definitions/order and the governing guide remain unchanged.
 
 # Verified live #475 and remaining closeout — November 2, 2026
 
@@ -760,7 +764,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The visual explainer is live through approved #474, merge7fa7dd53. It retains twelve site-section cards, four analyst steps, prior reporting choices and shared Workspaces guidance, and now explains company comparisons, retained coverage and accurate saved-comparison JSON/CSV behavior. All four checks pass/6,091 tests; desktop/phone, fresh isolated preservation and live verification pass. | The requested visual explainer and follow-up are delivered. Wider educational/media depth and human source/catalog decisions remain open; no new approval is needed for completed #474. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved platform #468, combined Learn/catalog/Map #473, Help/checklist #474 and News performance #475 are deployed. Current merge6c2feaf1 retains the earlier stack. Fresh preservation and live verification retain five accounts including Chris.H,65 profiles,10,536 existing JSON records,four databases,private research,unchanged settings/mounts,backup and rollback. | These approved releases are complete; do not re-request their approvals. The separate cold-load prototype needs complete-workflow measurements, exact-head checks, browser/preservation review and its own release decision. Comprehensive content and human source/name/rights/photo/figure/qualification decisions remain open; see MISSION-CLOSEOUT-2026-11-02.md. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved stack through #476 is independently verified live at50659fcd, tested06255cfc. All four checks /6,109 tests, desktop/phone and fresh isolated/live preservation pass for all five accounts including Chris.H,65 profiles,10,537 existing JSON records,four databases and stored research. Original proxy/settings/mounts, backup and rollback are retained. | These approved releases are complete; do not re-request their approvals. Remaining performance, catalog/source/identity/role/rights/photo/figure work and real-provider Learn quality/cost acceptance continue here under MISSION-CLOSEOUT-2026-11-03.md. New code heads require their own tested release review. |
 
 ## Historical implementation sequence
 

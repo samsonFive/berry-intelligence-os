@@ -3538,3 +3538,18 @@ reuse. All363 affected checks pass. Reader/source selection, discovery grammar,
 data and human gates remain. Development-copy cold Candidates and company views
 improve, but global News is flat and deeper first visits remain slow. Final-head
 CI/native/fresh acceptance and separate release review remain; TD-122 stays open.
+
+
+### November 3 — TD-122 same-thread catalog continuation
+
+Approved #476 is verified live at50659fcd with backup/rollback and all state
+preserved. The user explicitly continues this mission here. The new isolated
+company-tab change avoids News/location models on tabs that do not render them;
+Overview retains both, News retains every News field and Regions retains every
+location field. All76 affected checks pass. Complete HTML/active-context and
+next-click workflow measurements remain before a new speed/release claim.
+
+A bounded production-copy experiment compared63,113 text predicates including
+15,761 positives. Reordering UI checks or using a literal-union regex preserved
+all decisions but produced no useful improvement; both variants are rejected.
+No Reader/source/discovery/identity changes are retained. TD-122 remains open.
