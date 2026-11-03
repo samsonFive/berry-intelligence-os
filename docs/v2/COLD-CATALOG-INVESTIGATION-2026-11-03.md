@@ -106,6 +106,39 @@ its private final result SHA-256 is
 `d6bad81b8dcd5afcfedbdb251eb3285a173135fe36c4f7486373f14713a7b12a`.
 These identify the rejected artifact, not an approved release.
 
+## Reusing work across pages and fresh workers
+
+A bounded restart-model prototype preserves complete typed article bundles,
+unfiltered universes, typed contexts and HTML across 16 fresh-process runs.
+It measures first creation and subsequent fresh-worker reuse separately in two
+replicates of each route order. Reuse cold medians improve from 4.611 → 2.979
+seconds for Company and 4.477 → 2.865 for Candidates. It writes only inside the
+disposable container's temporary directory; source-copy bytes and healthy live
+state remain unchanged. This is evidence of reusable calculation cost, not a
+first-install speed claim or a deployed persistent cache. A secure, bounded
+implementation with exact input/code invalidation remains necessary before a
+release proposal. Existing data mounts and human gates cannot be weakened.
+
+The process-only article-preparation experiment targets ordinary next-click
+navigation without a disk cache. Its 15 fictional-source probes match the
+original selector for capture/preview/archive edits, deletions, changed URLs,
+consent fallback and pending review changes, with no read-side writes or network
+attempts. The implemented source also adds decision/concurrency cases and a
+POSIX-only timestamp contract. Local affected checks pass; cache-only POSIX
+cases are explicitly skipped on Windows, where the original path remains.
+
+The exact implementation still fails the workflow criterion: Company cold is
+4.616 → 5.187 seconds and Company→Candidates 6.013 → 6.434. Candidates cold is
+4.595 → 4.742, while its total improves slightly from 6.231 → 6.103. All eight
+complete outputs match, and the private memo admits 9,271,581 bytes. The first
+representation/validation cost outweighs the Company navigation gain. The
+branch `perf/article-input-preparation-20261103` is retained unmerged at
+`39dfbb8b`; no release PR or runtime deployment follows that failed measurement.
+The result hash is
+`cb19e70d9a44bf5524d288cc875acd8c1297b9aa09681f6579d26f47d3b06d50`.
+The restart-model result hash is
+`c1037a9bb69ef92038189d8e4614ab81063dd2e253c2393b672aa1ceda8011e7`.
+
 ## Work still needed to finish this mission
 
 - **Cold-page engineering:** profile the complete current request and next-click
