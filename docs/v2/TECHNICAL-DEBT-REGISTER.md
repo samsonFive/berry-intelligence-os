@@ -3538,3 +3538,7 @@ reuse. All363 affected checks pass. Reader/source selection, discovery grammar,
 data and human gates remain. Development-copy cold Candidates and company views
 improve, but global News is flat and deeper first visits remain slow. Final-head
 CI/native/fresh acceptance and separate release review remain; TD-122 stays open.
+
+### November 3 — Company Intelligence presentation follow-up
+
+[The UI-03/INT-01 follow-up](COMPANY-DOSSIER-READABILITY-REVIEW.md) moves registry metadata and record IDs into closed disclosures, humanizes profile codes for display only and keeps questions, literal reviewed statements, source quotations and assessment prerequisites intact. Native/final checks and separate release approval remain. This does not close broader UI review, TD-122 cold loads or any catalog/source/rights/Map/Learn human decision. No provider call or data addition.

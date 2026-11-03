@@ -1,0 +1,40 @@
+/* Company Intelligence: conclusions and answers first, provenance on demand. */
+.company-dossier {
+  color: #203e2f;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.company-dossier .bos-dossier-section { padding: 14px 16px; margin: 12px 0; }
+.company-dossier .bos-section-heading { border-bottom: 1px solid #c9d8c3; margin-bottom: 12px; padding-bottom: 9px; }
+.company-dossier .bos-section-heading h2 { color: #193d2a; font-size: 1.35rem; font-weight: 750; line-height: 1.2; margin: 3px 0 6px; }
+.company-dossier h3 { color: #284c34; font-size: 1.04rem; font-weight: 700; line-height: 1.35; margin: 0 0 9px; }
+.company-dossier p { margin: 6px 0; }
+.company-dossier .bos-kicker { font-size: .68rem; letter-spacing: .065em; }
+.company-dossier .bos-note { margin: 5px 0 0; }
+.company-dossier article, .company-dossier .bos-backbone-block { padding: 12px; margin: 8px 0; }
+.company-dossier .bos-snapshot-grid { gap: 10px; }
+.company-dossier .bos-snapshot-grid article { margin: 0; background: #f1f6e9; }
+.company-dossier .bos-assessment-state { font-weight: 700; color: #4b5131; }
+.company-dossier .bos-fact-block { border-left: 3px solid #548443; background: #f7fbf2; }
+.company-dossier .bos-fact-block > p:first-child { font-size: 1rem; line-height: 1.55; }
+.company-dossier .bos-question-list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 10px; align-items: start; }
+.company-dossier .bos-question-list > article { background: #fcfdf8; border-color: #b6c9ae; margin: 0; }
+.company-dossier .bos-question-list > article[data-answer-state="answered"] { border-top: 3px solid #548443; }
+.company-dossier .bos-question-list > article[data-answer-state="not_applicable"] { background: #f3f5ef; }
+.company-dossier .bos-state-pill { display: inline-block; border: 1px solid #c5cfb8; border-radius: 5px; padding: 2px 7px; font-size: .72rem; font-weight: 650; color: #4a5739; background: #eef2e5; }
+.company-dossier .bos-state-pill.is-answered { color: #275139; border-color: #b4cfad; background: #e8f2df; }
+.company-dossier .bos-state-pill.is-unknown, .company-dossier .bos-state-pill.is-not_yet_researched { color: #6c5123; border-color: #dbc79d; background: #faf1dc; }
+.company-dossier .bos-question-answer { font-size: 1.03rem; font-weight: 600; line-height: 1.45; margin-top: 9px; }
+.company-dossier .bos-question-list .bos-btn { min-height: 44px; border: 1px solid #809c74; border-radius: 6px; padding: 7px 11px; background: #fff; color: #244c32; font-weight: 600; margin-top: 5px; }
+.company-dossier .bos-record-details { border-top: 1px solid #d5dfcc; padding-top: 5px; margin-top: 10px; font-size: .82rem; color: #4d624c; }
+.company-dossier .bos-record-details summary { cursor: pointer; padding: 6px 0; font-weight: 550; }
+.company-dossier .bos-record-details[open] summary { margin-bottom: 6px; }
+.company-dossier .bos-record-details blockquote { border-left: 3px solid #a4bc96; margin: 9px 0; padding: 8px 12px; background: #fff; color: #304632; }
+.company-dossier .bos-record-details .bos-dossier-dl { margin: 6px 0; grid-template-columns: minmax(100px, 1fr) minmax(0, 2fr); }
+@media (max-width: 600px) {
+  .company-dossier .bos-dossier-section { padding: 12px; }
+  .company-dossier .bos-section-heading h2 { font-size: 1.23rem; }
+  .company-dossier .bos-record-details summary { min-height: 44px; display: list-item; box-sizing: border-box; }
+  .company-dossier .bos-record-details .bos-dossier-dl { grid-template-columns: 1fr; gap: 3px; }
+  .company-dossier .bos-record-details dd { margin-bottom: 6px; }
+}
