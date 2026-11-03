@@ -80,7 +80,7 @@ def test_company_rows_show_original_sheet_code_and_do_not_turn_categories_into_v
     assert 'sakura' in row['search'] and '19fag-1' in row['search']
     html = main.templates.env.get_template('_company_variety_discoveries.html').render(
         authoring_mode=True,static_build=False,company_source_varieties=miyoshi)
-    assert '1 additional name to check' in html and 'from 3 source sections' in html
+    assert '1 source entry to check' in html and 'from 3 source sections' in html
     assert '3 checked source sections' not in html
     assert not company_variety_discoveries(entity_id='company-unrelated',sources=rows)['rows']
     assert all(not s['accounting_view']['issues'] for s in rows)

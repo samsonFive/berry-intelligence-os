@@ -135,7 +135,7 @@ def test_routes_keep_scope_periods_conflicts_and_original_links_without_get_writ
         ('company-singrow',5,['Crystal','Ruby','Rouge','Winterbelle','Blush']),
         ('company-surexport',9,['Candonga','Sabrina','Splendour','Virtue','Victoria','Glen Lyon','Tulameen','Radiance','Grandeur'])]:
         profile = client.get('/entities/company/'+company,params={'tab':'varieties'})
-        assert profile.status_code==200 and str(count)+' additional names to check' in profile.text
+        assert profile.status_code==200 and str(count)+' source entries to check' in profile.text
         assert all(name in profile.text for name in names)
         assert 'Name needs review' in profile.text and 'source sections still need follow-up' in profile.text
     assert not list(tmp_path.rglob('*.json'))
