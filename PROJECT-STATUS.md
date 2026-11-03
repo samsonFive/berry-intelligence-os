@@ -1,3 +1,14 @@
+# Combined company reading candidate — November 3, 2026
+
+Verified live #476 remains unchanged. This review branch combines tested company
+tabs/navigation #477, captured-article variety handoffs #478 and company
+Intelligence readability #479. [Combined review and remaining work](docs/v2/COMPANY-READING-COMBINED-REVIEW.md)
+records the integration boundaries. Final combined-head tests, browser review,
+fresh isolated preservation and separate release approval remain. All original31
+definitions/order, existing records/edits and human review gates are preserved.
+The goal stays active here; cold loads, catalog/source and Map decisions, and real
+Learn-provider acceptance are not declared complete.
+
 # Active same-thread mission — November 3, 2026
 
 Approved performance #476 is merged and verified live at `50659fcd`, tested head
