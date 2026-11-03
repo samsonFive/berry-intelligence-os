@@ -19,8 +19,8 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 72
-    assert sum(len(n['details']) for n in notes.values()) == 251
+    assert len(notes) == 75
+    assert sum(len(n['details']) for n in notes.values()) == 259
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 3
     for variety in varieties:
@@ -183,3 +183,25 @@ def test_promyk_and_alice_render_pending_scoped_details_without_canonical_mutati
     promyk = notes['variety-promyk-3fb5c2e4']
     assert any('spider-mite susceptibility' in r['value'] for r in promyk['details'])
     assert any('Husaria' in r['context'] and 'Maryna' in r['context'] for r in promyk['details'])
+
+
+def test_post_evaluation_sources_keep_provisional_resistance_and_historical_rights_limits():
+    payload, varieties = corpus(); notes = validate_notes(payload, varieties)
+    baya = notes['variety-baya-solara-c89953da']
+    assert any('still to be confirmed' in r['value'] for r in baya['details'])
+    assert any('STR14' in r['value'] and 'STR6' in r['value'] and 'Different comparators' in r['context'] for r in baya['details'])
+    assert 'HTTP capture remains blocked' in baya['limitations']
+    aketzali = notes['variety-aketzali-049da825']
+    assert aketzali['status'] == 'limited' and 'agronomic sheet' in aketzali['limitations']
+    assert any('not a new sale of rights' in r['context'] for r in aketzali['details'])
+    titania = notes['variety-titania-eb4ee7e8']
+    assert any('Grant edition differs' in r['context'] for r in titania['details'])
+    assert 'public reproduction' in titania['limitations'] and 'blackcurrant' in titania['limitations']
+    env = Environment(loader=FileSystemLoader('app/templates'), autoescape=True)
+    env.filters['us_date'] = str
+    template = env.get_template('_variety_profile_sources.html')
+    for note in [baya, aketzali, titania]:
+        rendered = template.render(authoring_mode=True, static_build=False, variety_profile_sources=note)
+        assert 'Pending review' in rendered and all(row['value'] in rendered for row in note['details'])
+        variety = next(v for v in varieties if v['id'] == note['variety_id'])
+        assert not variety.get('attributes', {}).get('traits') and not variety['aliases']

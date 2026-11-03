@@ -3001,6 +3001,111 @@
           "context": "These are reported test responses, not immunity. Powdery-mildew management remains explicitly necessary; no current legal or pesticide guidance is inferred."
         }
       ]
+    },
+    {
+      "variety_id": "variety-baya-solara-c89953da",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary technical PDF inspected through public research access; direct application HTTP capture remains blocked. Claims await review. Glasshouse/double-crop uses remain under evaluation; potential regions are not planting evidence. No exact publication date, approved alias or universal performance inferred.",
+      "sources": {
+        "1": {
+          "url": "https://www.vegetables.bayer.com/content/dam/bayer-vegetables/english/uk-ireland-nordics/product-sheets-and-pdfs/DeRuiter_Strawberry_technical-sheet_Baya-Solara_EN.pdf",
+          "title": "Bayer De Ruiter — Baya Solara technical sheet",
+          "kind": "Primary breeder technical PDF",
+          "locator": "PDF pages 1–2; resistance footnote, trial captions and current-knowledge qualifications"
+        }
+      },
+      "details": [
+        {
+          "field": "Season & habit",
+          "value": "Early mid-season June-bearing selection with large, firm, regularly conical fruit.",
+          "source_id": "1",
+          "context": "Breeder description; season is local. Shelf-life wording supplies no storage-day measurement."
+        },
+        {
+          "field": "Resistance qualification",
+          "value": "Crown-rot resistance is claimed, but the sheet explicitly says resistances are still to be confirmed.",
+          "source_id": "1",
+          "context": "Phytophthora cactorum; integrated disease management remains necessary. Do not promote the provisional HR label as confirmed immunity."
+        },
+        {
+          "field": "Technical trial context",
+          "value": "Fruit-quality comparison: PCH Belgium 2022 versus STR14; shelf-life comparison: 2024 versus STR6.",
+          "source_id": "1",
+          "context": "Spring table-top trials used tray plants in coir under plastic. Different comparators and years stay separate; graph scores are not storage days."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-titania-eb4ee7e8",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Breeder-authored patent grant inspected in a public reproduction, not a new official registry capture. Raspberry Titania is distinct from blackcurrant Titania and titanium-oxide research. Historical filing statements do not determine current enforceability, ownership or growing footprint.",
+      "sources": {
+        "1": {
+          "url": "https://www.hort.net/pedia/patent/grant/32030/",
+          "title": "PP32,030 — Raspberry plant named Titania",
+          "kind": "Breeder-authored patent grant; public document reproduction",
+          "locator": "Abstract; Background; Detailed Botanical Description; grant edition"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting habit",
+          "value": "Patent describes a primocane raspberry with two crops, mainly ripening on current-year canes in autumn.",
+          "source_id": "1",
+          "context": "Historical description, not a universal harvest calendar or confirmed contemporary commercial performance."
+        },
+        {
+          "field": "Breeding context",
+          "value": "Grant names Vajolet Plus as the female parent and a wild mountain raspberry as pollen parent; cross in 2009, selection in 2010.",
+          "source_id": "1",
+          "context": "Grant edition differs from the earlier application wording Vajolet. Preserve the edition distinction; no parentage relationship or alias is approved."
+        },
+        {
+          "field": "Evaluation conditions",
+          "value": "Patent reports asexual evaluation at Altopiano della Vigolana, Trentino, Italy, under plastic high tunnels in coir.",
+          "source_id": "1",
+          "context": "Source trial setting, not a commercial footprint. Claimed very large fruit and good flavour lack universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-aketzali-049da825",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "limited",
+      "limitations": "Official Mexican historical notice supplies identity and title context, not a cultivar agronomic sheet. Direct application capture returned only the notice introduction; the named official table was inspected through public research access. Fruit, yield, chilling and disease details remain unknown. Current rights and corporate roles require separate review.",
+      "sources": {
+        "1": {
+          "url": "https://sidof.segob.gob.mx/notas/docFuente/5700617",
+          "title": "SNICS / Mexican Official Gazette — July 2023 variety-rights notice",
+          "kind": "Primary government historical registry notice",
+          "locator": "SEGUNDO; row 2: AKETZALI; notice signed August 9, 2023"
+        }
+      },
+      "details": [
+        {
+          "field": "Historical title reference",
+          "value": "Official table identifies AKETZALI as blackberry, title 2136, issued March 27, 2019.",
+          "source_id": "1",
+          "context": "Historical registry transcription only; not a present enforceability, expiry or ownership determination."
+        },
+        {
+          "field": "Recorded corporate-name change",
+          "value": "July 2023 notice records the breeder company name as Black Venture Farm S.A. de C.V. for AKETZALI.",
+          "source_id": "1",
+          "context": "The notice describes a corporate-name change, not a new cultivar or a new sale of rights. No active company relationship or growing location is created."
+        }
+      ]
     }
   ]
 }
