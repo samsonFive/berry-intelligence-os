@@ -52,8 +52,11 @@ def geographic_query_variant(plan: QueryPlan, entities: dict | None) -> str | No
                               and len(owners[n.casefold()]) == 1), None)
             if not alternate:
                 continue
-            # Short aliases must retain their registered case: 'us' is not US.
-            pattern = re.compile(r'(?<![\w-])' + re.escape(name) + r'(?!\w)',
+            # Short aliases retain their registered case ('us' is not US),
+            # and cannot rewrite a code such as UK-821 or UK 821. An ISO date
+            # after the country remains a separate, unchanged date expression.
+            code_suffix = r'|\s+\d+(?![\d-])' if len(name) <= 3 else ''
+            pattern = re.compile(r'(?<![\w-])' + re.escape(name) + r'(?![\w-]' + code_suffix + r')',
                                  0 if len(name) <= 3 else re.I)
             for index in range(0, len(pieces), 2):
                 if pattern.search(pieces[index]):

@@ -18,6 +18,9 @@ def test_registered_place_alternative_preserves_literal_query_boundaries():
     assert 'United Kingdom' in plan.raw_query
     assert geographic_query_variant(plan_query('Raspberry trials "United Kingdom"'), places()) is None
     assert geographic_query_variant(plan_query('Raspberry trials -UK'), places()) is None
+    assert geographic_query_variant(plan_query('Raspberry cultivar UK-821 trials'), places()) is None
+    assert geographic_query_variant(plan_query('Raspberry cultivar UK 821 trials'), places()) is None
+    assert geographic_query_variant(plan_query('Raspberry trials UK 2020-01-01 through 2026-01-01'), places()) == 'Raspberry trials United Kingdom 2020-01-01 through 2026-01-01'
     assert geographic_query_variant(plan_query('show us raspberry trials'), {
         'us': {'id':'us', 'entity_type':'geography', 'status':'active',
                'name':'United States', 'aliases':['US']}}) is None
