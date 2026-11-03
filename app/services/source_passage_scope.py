@@ -18,9 +18,13 @@ def owned_article_passages(rows):
             break
         # Bibliographic indexes can omit a References heading entirely. A
         # numbered author/initial/year citation is not the host's experiment.
-        if (re.match(r'^\s*\d+[.)]\s+[A-Z][\w\u2019\'-]+,\s*[A-Z]\.', str(text))
+        if (re.match(r'^\s*(?:\d+[.)]\s+)?[A-Z][\w\u2019\'-]+,\s*[A-Z]\.', str(text))
                 and re.search(r'\((?:19|20)\d{2}\)\.', str(text))):
             continue
+        if (re.match(r'^\s*[A-Z][\w\u2019\'-]+,\s*[A-Z]\.', str(text))
+                and re.search(r'\((?:19|20)\d{2},\s*[A-Z][a-z]+\s+\d{1,2}\)\.', str(text))
+                and re.search(r'\bRetrieved from https?://', str(text))):
+            continue  # Unnumbered dated reference, not the host's own result.
         # News attribution marks the end of owned prose in flattened captures.
         text=re.split(r'(?:\n|(?<=[.!?])\s+)Source\s*:',str(text),maxsplit=1,flags=re.I)[0]
         yield locator, text

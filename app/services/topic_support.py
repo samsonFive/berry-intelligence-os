@@ -25,7 +25,7 @@ def passage_intent_supported(text, plan):
     if {'root','zone'} <= words and any(t.startswith('cool') for t in words):
         if not re.search(r'\broot zone\b',plain):return False
         if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
-    if any(t.startswith(('trial','experiment')) for t in words):
+    if any(t.startswith(('trial','experiment','evaluat')) for t in words):
         if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
         if 'field' in words and not re.search(r'\b(?:field|outdoor)\b',plain):return False
     if any(t.startswith('robot') for t in words) and any(t.startswith('harvest') for t in words):
@@ -63,7 +63,7 @@ def support_context(plan, entities, identifiers):
             organizations.append(names)
     places=[]
     place_terms=set()
-    if any(t.startswith(('trial','experiment')) for t in plan.terms):
+    if any(t.startswith(('trial','experiment','evaluat')) for t in plan.terms):
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]

@@ -280,6 +280,12 @@
           "title": "Cornell raspberry chart",
           "kind": "University technical sheet",
           "locator": "PDF page 2, cultivar features"
+        },
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 2, primocane crop; captured passage 88"
         }
       },
       "details": [
@@ -306,6 +312,12 @@
           "value": "Home growing, direct retail and freezing",
           "source_id": "1",
           "context": "Cornell cultivar description; chart dates from 2018. Calendar and qualitative performance are contextual, not a yield trial."
+        },
+        {
+          "field": "Regional technical description",
+          "value": "Crimson Night (USPP 24,949) | | Vigorous | Medium size, very dark (“black”) fruit, mild flavor | Low to moderate | 3 (novelty) | yes | yes",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Fall-bearing/primocane table; yield and cold hardiness apply to that crop only. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Large-scale commercial value | Small farm or home garden | Cold hardy. No trial year, sample size or storage protocol is established by this row."
         }
       ]
     },
@@ -1536,6 +1548,281 @@
           "value": "10+ days",
           "source_id": "1",
           "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-prelude-fe9c6b0d",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 43"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Prelude (USPP 11,747) | Resistant to root rot | Moderate vigor | Small size, soft, dull, medium red, good flavor, very early floricane crop, also produces small primocane crop | Low to medium | Fresh | | 3",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-willamette-4160c625",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 48"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Willamette | Susceptible to root rot, immune to RBDV | Vigorous | Medium size, soft, dark red, very good flavor | Medium | Processed | √ | 1",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-chilcotin-82be35a9",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 50"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Chilcotin | Susceptible to root rot, immune to RBDV | Vigorous | Medium size, medium firmness, attractive, bright light red, good flavor | Medium | Fresh | | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-cascade-gold-22ea459c",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 56"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Cascade Gold | Very susceptible to root rot, immune to RBDV | Vigorous | Large size, yellow fruit, excellent flavor, retains good flavor even when picked at firm stage | Medium to high | Fresh | | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-cascade-harvest-ba245d5a",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 58"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Cascade Harvest (USPP 26,369) | Moderate resistance to root rot | Vigorous | Large to very large size, firm, very attractive, bright red, excellent flavor | High | Fresh | | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-cascade-bounty-09c5b9d1",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 59"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Cascade Bounty (USPP 18,246) | Excellent resistance to root rot | Vigorous | Medium size, medium firmness, bright red, fair flavor | High | Processed | √ | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-saanich-b4462a95",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 62"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Saanich | Susceptible to root rot | Vigorous | Medium size, good firmness, dull red, good flavor | Medium | Processed | √ | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-meeker-7b6c9434",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 63"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Meeker | Somewhat sensitive to root rot | Vigorous | Medium size, medium firmness, medium red, good flavor | High | Processed | √ | 1",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-tulameen-b46f6cf4",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 1, floricane crop; captured passage 64"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Tulameen | Very susceptible to root rot | Vigorous | Large to very large size, firm, very attractive, bright red, excellent flavor | Medium | Fresh | | 2",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Summer-bearing/floricane table. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Use | Machine harvest | Large-scale commercial value. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-vintage-e6dfd993",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 2, primocane crop; captured passage 74"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Vintage | Some sensitivity to root rot | Moderate vigor | Large size, firm, attractive, bright red, outstanding flavor | Medium to high | 2 (too new to fully evaluate but expected to be fine) | yes | yes",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Fall-bearing/primocane table; yield and cold hardiness apply to that crop only. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Large-scale commercial value | Small farm or home garden | Cold hardy. No trial year, sample size or storage protocol is established by this row."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-finnberry-b0938762",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Source-reported Pacific Northwest extension guidance; performance varies by site. Relative ratings are not measurements or universal cultivar traits. Patent identifiers mentioned by a table are not a verified current legal status. All details remain unreviewed.",
+      "sources": {
+        "osu-pnw655": {
+          "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "title": "OSU Extension — Raspberry cultivars for the Pacific Northwest",
+          "kind": "University extension technical cultivar table",
+          "locator": "Table 2, primocane crop; captured passage 84"
+        }
+      },
+      "details": [
+        {
+          "field": "Regional technical description",
+          "value": "Finnberry (USPP 35,090) | Susceptible to root rot and RBDV | Vigorous | Large size, firm, attractive, bright red, excellent flavor, very high drupelet cohesion (low crumbling) | High | 2 (too new to fully evaluate but expected to be fine) | yes | yes",
+          "source_id": "osu-pnw655",
+          "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Fall-bearing/primocane table; yield and cold hardiness apply to that crop only. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Large-scale commercial value | Small farm or home garden | Cold hardy. No trial year, sample size or storage protocol is established by this row."
         }
       ]
     }

@@ -97,3 +97,23 @@ def test_technical_results_beyond_intro_keep_table_context_and_owned_lists():
     assert not any('Menu' in row or 'supplier' in row for row in rows)
     assert len(paragraphs_from_html(html, limit=24)) == 24
     assert not any('Cultivar | Yield' in row for row in paragraphs_from_html(html.replace('<article>', '<div>').replace('</article>', '</div>')))
+
+
+def test_unnumbered_dated_bibliography_does_not_become_host_trial():
+    from app.services.source_passage_scope import owned_article_passages
+    prose = 'Researchers compared fruit firmness in a refrigerated storage experiment.'
+    reference = 'Ames, Z. R., Corn, R., & Deltsidis, A. (2025, April 18). Postharvest Quality and Sensory Evaluation of Blackberries. Retrieved from https://smallfruits.org/2025/04/postharvest-quality-and-sensory-evaluation-of-blackberries/'
+    assert list(owned_article_passages(enumerate([prose, reference]))) == [(0, prose)]
+
+
+def test_evaluation_requires_its_operation_and_registered_trial_place():
+    from app.services.topic_retrieval import plan_query
+    from app.services.topic_support import support_context, passage_intent_supported, trial_location_in_passage
+    plan = plan_query('Blackberry refrigerated shelf life evaluation Serbia')
+    entities = {'s': {'id': 's', 'entity_type': 'geography', 'name': 'Serbia', 'aliases': []}}
+    scope = support_context(plan, entities, [])
+    assert scope['trial_places'] == [('serbia',)]
+    prose = 'Blackberries are delicate and easily damaged during storage.'
+    assert not passage_intent_supported(prose, plan)
+    assert not trial_location_in_passage('A storage evaluation was performed in Oregon.', scope['trial_places'])
+    assert trial_location_in_passage('A storage evaluation was performed in Serbia.', scope['trial_places'])

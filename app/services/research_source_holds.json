@@ -3,6 +3,17 @@
   "scope": "Negative quotation holds only. A changed page requires source review; it does not automatically clear a hold or approve any claim.",
   "holds": [
     {
+      "id": "mixed-product-roundup-trial-scope",
+      "source_url": "https://www.freshplaza.com/north-america/article/9698848/the-new-acapella-melon-presented-at-sival-2025/",
+      "checked_source_version": "c9064f939f2eff2dd2a60e58a758a686310aec87d8c9a3ae868e1e7eb683f3db",
+      "reason": "The mixed-product roundup describes planned strawberry trials in France amid melon, onion and tomato coverage. Its selected passage does not establish an East Malling experiment or completed trial results. Retain as a visible research lead; withhold automatic quotations until its crop, organization and trial-site context is separately reviewed. This is a conservative scope hold, not a finding that the publisher's claims are false.",
+      "comparison_source_url": "https://www.freshplaza.com/north-america/article/9698848/the-new-acapella-melon-presented-at-sival-2025/",
+      "comparison_locator": "article:9",
+      "disposition": "exclude_quotes_scope_verification",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "requested_trial_scope_unverified"
+    },
+    {
       "id": "immaculate-conflicting-release-account",
       "source_url": "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate",
       "checked_source_version": "0ece50fcfe642f71c87b1e9c2b0e41feb3634e4c1dd032c0cf11684d76ad2a50",

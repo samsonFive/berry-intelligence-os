@@ -15,12 +15,12 @@ def corpus():
     return payload, varieties
 
 
-def test_real_import_resolves_exact_31_real_profiles_without_canonical_mutation():
+def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 31
-    assert sum(len(n['details']) for n in notes.values()) == 148
+    assert len(notes) == 42
+    assert sum(len(n['details']) for n in notes.values()) == 160
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
     for variety in varieties:
