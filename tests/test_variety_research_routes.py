@@ -38,6 +38,19 @@ def test_public_search_suppresses_name_collisions_and_keeps_native_crop_context(
     assert relevant_hit(SimpleNamespace(title='Rafiki',snippet='',url='https://breeder.org/rafiki'),query='Rafiki raspberry',target=target,known_hosts={'breeder.org'})
 
 
+def test_public_research_discloses_fallback_without_promoting_search_hits(monkeypatch,tmp_path):
+    from app import variety_research_routes as routes
+    main,client=setup(monkeypatch,tmp_path)
+    class Search:
+        def search(self,query,**kwargs):return SimpleNamespace(hits=[])
+        def diagnostics(self):return {'fallback_used':True}
+    monkeypatch.setattr(routes,'search_client',lambda:Search())
+    response=client.post('/varieties/research',data={'query':'strawberry cultivar trial'})
+    assert response.status_code==200 and 'credit-free fallback' in response.text
+    assert 'narrower coverage' in response.text
+    assert not list((tmp_path/'data').rglob('*.json'))
+
+
 def test_view_preferences_are_scoped_to_the_authenticated_analyst(monkeypatch,tmp_path):
     main,client=setup(monkeypatch,tmp_path)
     monkeypatch.setattr(main,'session_username',lambda request:request.headers.get('x-test-actor','one'))

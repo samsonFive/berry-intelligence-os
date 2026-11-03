@@ -88,7 +88,14 @@ async def save_view(request: Request, view_key: str):
 
 
 def search_client():
-    return PerplexitySearchClient(resolve_perplexity_api_key())
+    from app import main
+    from app.services.resilient_topic_search import ResilientTopicSearchClient
+    try:
+        credential=resolve_perplexity_api_key()
+        primary=PerplexitySearchClient(credential)
+    except MissingCredentialError:
+        credential='';primary=None
+    return ResilientTopicSearchClient(primary,credential=credential,entities=main.entity_index())
 
 
 def relevant_hit(hit, *, query, target=None, known_hosts=()):
@@ -108,14 +115,14 @@ def relevant_hit(hit, *, query, target=None, known_hosts=()):
     return any((_BERRY_PATTERNS[key].search(canonicalize_crop_words(text)) or re.search(latin[key],text,re.I)) for key in crops if key in _BERRY_PATTERNS)
 
 
-def render(request, *, query='', entity_id='', hits=(), error='', omitted=0, scoped=True):
+def render(request, *, query='', entity_id='', hits=(), error='', omitted=0, scoped=True, fallback_used=False):
     from app import main
     entity = main.entity_index().get(entity_id)
     if entity_id and (not entity or entity.get('entity_type') not in {'variety', 'company', 'brand', 'breeding_program'}):
         raise HTTPException(404, 'Research target not found')
     return main.templates.TemplateResponse(request=request, name='entity_research.html', context={
         'authoring_mode': True, 'static_build': False, 'query': query, 'target': entity,
-        'hits': hits, 'error': error, 'omitted':omitted,'scoped':scoped, 'reviewer': main.session_username(request) or main.review_username() or 'analyst',
+        'hits': hits, 'error': error, 'omitted':omitted,'scoped':scoped, 'fallback_used':fallback_used, 'reviewer': main.session_username(request) or main.review_username() or 'analyst',
     })
 
 
@@ -139,7 +146,9 @@ def research_search(request: Request, query: str = Form(''), entity_id: str = Fo
     if entity_id and (not target or target.get('entity_type') not in {'variety', 'company', 'brand', 'breeding_program'}):
         raise HTTPException(404, 'Research target not found')
     try:
-        response = search_client().search(query, max_results=10)  # No implicit recency filter.
+        client=search_client()
+        response = client.search(query, max_results=10)  # No implicit recency filter.
+        fallback_used=bool(client.diagnostics().get('fallback_used')) if hasattr(client,'diagnostics') else False
         hits = [];omitted=0;hosts=set()
         if target and target.get('entity_type')=='variety':
             from app.services.variety_profile_sources import profile_source_details
@@ -157,7 +166,7 @@ def research_search(request: Request, query: str = Form(''), entity_id: str = Fo
                 omitted+=1;continue
             hits.append(dict(title=hit.title[:500], url=url, snippet=hit.snippet[:3000], date=hit.published_date,
                              publisher=urlsplit(url).hostname))
-        return render(request, query=query, entity_id=entity_id, hits=hits,omitted=omitted,scoped=scope_results!='0',
+        return render(request, query=query, entity_id=entity_id, hits=hits,omitted=omitted,scoped=scope_results!='0',fallback_used=fallback_used,
                       error='' if hits else 'No results returned for this query. Try a denomination, breeder code or broader wording.')
     except MissingCredentialError:
         return render(request, query=query, entity_id=entity_id, error='Public web search is not configured. Saved intelligence and Ask Berry remain available in the panel.')

@@ -1457,3 +1457,6 @@ November 3 parity continuation: exact registered code formats and official DOI/I
 
 
 November 3 provider-credit workaround: existing public metadata routes and registered primary identity URLs provide a bounded fallback when Perplexity is unavailable; the application and report disclose narrower coverage. This is not full-web parity, new Source approval or independent corroboration. Specific disease/intervention, research geography, trademark-name and owned scientific-paragraph checks address measured false matches and omissions. Three clear identity-only raspberry admissions bring the catalog to 504; pending notes cover 59 profiles/214 rows. Source disagreements and four identity holds remain visible; no trust/rights/footprint maturity upgrade or deployment.
+
+
+November 3 research-panel continuity: the existing variety/company public-search panel now shares the same disclosed credit-free fallback as topic research. GET remains inert, only the entered public query is submitted, results remain unreviewed and no canonical record is written. Five focused route tests pass. Full exact-head CI and user release review remain required; deployment held.
