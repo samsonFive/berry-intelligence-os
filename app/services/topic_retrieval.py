@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v13"
+VERSION = "topic-retrieval-v14"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -110,7 +110,8 @@ def _query_identifiers(plan, entities):
         if entity.get('entity_type')!='variety':
             continue
         for alias in [entity.get('name') or '', *(entity.get('aliases') or [])]:
-            if not re.fullmatch(r'[A-Za-z]{1,5}[ -]?\d{2,6}[A-Za-z]?',alias):
+            alias=alias.strip("'\u2018\u2019\"")
+            if not re.fullmatch(r'[A-Za-z]{1,16}[ -]?\d{1,6}(?:[ -]\d{1,6}){0,2}[A-Za-z]{0,2}',alias):
                 continue
             pattern=re.compile(r'(?<!\w)'+r'[ -]*'.join(re.findall(r'[A-Za-z]+|\d+',alias))+r'(?!\w)',re.I)
             match=pattern.search(positive)
@@ -193,6 +194,9 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     concepts -= set(support['place_terms'])
     concepts -= set().union(*(i['tokens'] for i in identifiers)) if identifiers else set()
     matched = concepts & words
+    # Role intent is a lexical concept, not an entity alias or role approval.
+    if concepts & {'breeder','breeding'} and words & {'breeder','breeding','bred','originator'}:
+        matched.update(concepts & {'breeder','breeding'})
     if concepts and len(matched) / len(concepts) < 0.5:
         return None
     metadata_fields = {"title", "summary", "snippet"}
@@ -203,6 +207,16 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
                     and trial_location_in_passage(p,support['trial_places'])
                     and organizations_in_passage(p,support['organizations'])
                     and passage_intent_supported(p,plan)]
+    # A parent code in an offspring patent is useful lineage context, not a
+    # description of the requested cultivar. Use only explicit denominations;
+    # never guess a patent subject from a nearby number or company name.
+    denomination=re.search(r'\b(?:plant|cultivar|plant variety)\s+named\s+[\'"\u2018\u201c]([^\'"\u2019\u201d]+)[\'"\u2019\u201d]',str(record.get('title')or''),re.I)
+    if denomination and identifiers:
+        compact=lambda value:re.sub(r'[^a-z0-9]','',normalize(value))
+        subject=compact(denomination[1])
+        owners=[next(iter(i['entities'].values())) for i in identifiers if len(i['entities'])==1]
+        if owners and not all(any(compact(name)==subject for name in [owner.get('name')or'',*(owner.get('aliases')or[])]) for owner in owners):
+            body_matches=[]
     matching = body_matches or [(loc,p) for loc,p in passages if loc in metadata_fields]
     milestone=re.compile(r'\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*|establish\w*|debut\w*|trial\w*|evaluat\w*|experiment\w*|results)\b',re.I)
     pruning=any(t.startswith('prun') for t in plan.terms)
@@ -261,6 +275,19 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
 
 def retrieve(records: Iterable[dict[str, Any]], plan: QueryPlan, *, entities: Mapping[str, dict[str, Any]] | None = None, limit: int = 40) -> list[dict[str, Any]]:
     from app.services.article_dedup import normalize_canonical_url
+    from urllib.parse import urlsplit
+    official_hosts=set()
+    for entity in (entities or {}).values():
+        value=(entity.get('attributes')or{}).get('official_domain')
+        if not isinstance(value,str):continue
+        try:
+            parsed=urlsplit(value)
+            if parsed.scheme in {'https','http'} and parsed.hostname and not parsed.username:
+                official_hosts.add(parsed.hostname.casefold().removeprefix('www.'))
+        except ValueError:pass
+    def official_publisher(row):
+        try:return (urlsplit(str(row.get('source_url')or row.get('url')or'')).hostname or '').casefold().removeprefix('www.')in official_hosts
+        except ValueError:return False
     rows = []
     identifiers = _query_identifiers(plan,entities)
     from app.services.topic_support import support_context
@@ -269,7 +296,10 @@ def retrieve(records: Iterable[dict[str, Any]], plan: QueryPlan, *, entities: Ma
         match = match_record(record, plan, entities=entities, _identifiers=identifiers, _support_context=context)
         if match:
             rows.append({**record, **match})
-    rows.sort(key=lambda r: ({"direct": 2, "background": 1, "adjacent": 0}[r["relevance"]], str(r.get("published_date") or ""), r["score"]), reverse=True)
+    # Prefer an existing registered publisher over a repost/index when scope
+    # and publication date tie. This is source provenance, not claim approval
+    # or a newly inferred company/variety relationship.
+    rows.sort(key=lambda r: ({"direct": 2, "background": 1, "adjacent": 0}[r["relevance"]], str(r.get("published_date") or ""), official_publisher(r), r["score"]), reverse=True)
     seen: set[str] = set()
     seen_bodies: set[str] = set()
     unique = []

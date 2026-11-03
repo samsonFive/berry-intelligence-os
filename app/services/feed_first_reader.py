@@ -32,7 +32,7 @@ MAX_BYTES = 800_000
 MAX_PDF_BYTES = 5_000_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 9
+CAPTURE_VERSION = 10
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
@@ -47,8 +47,8 @@ _SKIP_PREVIEW_HOSTS = {
     "news.google.com",
     "news.google",
 }
-_SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.IGNORECASE | re.DOTALL)
-_STYLE_RE = re.compile(r"<style\b[^>]*>.*?</style>", re.IGNORECASE | re.DOTALL)
+_SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?(?:</script\s*>|$)", re.IGNORECASE | re.DOTALL)
+_STYLE_RE = re.compile(r"<style\b[^>]*>.*?(?:</style\s*>|$)", re.IGNORECASE | re.DOTALL)
 _ON_EVENT_RE = re.compile(r"\son\w+\s*=\s*(['\"]).*?\1", re.IGNORECASE | re.DOTALL)
 _JS_URL_RE = re.compile(r"javascript:", re.IGNORECASE)
 _P_RE = re.compile(r"<p\b[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
@@ -422,7 +422,8 @@ def fetch_publisher_home_preview(home_url: str, title: str, *, client: httpx.Cli
 
 def classify_capture(passages: list[str], *, status_code: int) -> str:
     text = " ".join(passages)
-    if status_code in {401, 403, 451} or looks_like_interstitial(text):
+    if (status_code in {401, 403, 451} or looks_like_interstitial(text)
+            or re.match(r'^\s*Request\s+unsuccessful[.\s]+Incapsula\s+incident\s+ID\b',text,re.I)):
         return "blocked"
     if not passages:
         return "metadata_only"

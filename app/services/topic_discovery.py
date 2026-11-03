@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v7'  # Owned list/table results and bounded longer article capture.
+CAPTURE_VERSION = 'topic-capture-v8'  # Exact DOI copies and registered cultivar-code formatting.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -66,6 +66,25 @@ def geographic_query_variant(plan: QueryPlan, entities: dict | None) -> str | No
     return None
 
 
+def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str | None:
+    """Format one unambiguous registered code without editing quoted scope."""
+    from app.services.topic_retrieval import _query_identifiers
+    pieces=re.split(r'(-"[^"]*"|"[^"]*"|(?<!\w)-[\w-]+)',plan.interpreted_query)
+    for identifier in _query_identifiers(plan,entities):
+        if len(identifier['entities'])!=1:continue
+        entity=next(iter(identifier['entities'].values()))
+        aliases=[str(v).strip("'\u2018\u2019\"") for v in [entity.get('name') or '',*(entity.get('aliases')or[])]]
+        canonical=next((v for v in aliases if identifier['pattern'].fullmatch(v) and (' 'in v or '-'in v)),None)
+        if not canonical:continue
+        for i in range(0,len(pieces),2):
+            # Exclusions never become positive discovery queries.
+            if identifier['pattern'].search(pieces[i]):
+                changed=list(pieces);changed[i]=identifier['pattern'].sub(lambda m:canonical,pieces[i],count=1)
+                variant=''.join(changed)
+                if variant!=plan.interpreted_query:return variant
+    return None
+
+
 def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     identity_basis = [{k:e.get(k) for k in ('id','name','aliases','berry_ids')} for e in (entities or {}).values() if e.get('entity_type')=='variety']
@@ -87,6 +106,9 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         started = time.monotonic()
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         variants = [plan.raw_query, plan.interpreted_query]
+        code_variant=cultivar_code_query_variant(plan,entities)
+        if code_variant:
+            variants.append(code_variant)
         if geography_variant:
             variants.append(geography_variant)
         if plan.cane_type:

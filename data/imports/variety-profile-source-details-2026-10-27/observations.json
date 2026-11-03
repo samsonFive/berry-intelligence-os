@@ -1825,6 +1825,474 @@
           "context": "Pacific Northwest extension table; relative ripening/ratings vary by location. Fall-bearing/primocane table; yield and cold hardiness apply to that crop only. Columns: Cultivar | Disease issues | Plant | Fruit | Yield | Large-scale commercial value | Small farm or home garden | Cold hardy. No trial year, sample size or storage protocol is established by this row."
         }
       ]
+    },
+    {
+      "variety_id": "variety-sweet-ark-immaculate-850b3936",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Sweet-Ark Immaculate named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "A-2718T; PP36,781",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2023 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless; floricane fruiting on second-year canes; medium to large fruit; firmness and postharvest handling described qualitatively.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-prime-ark-horizon-847f051c",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Prime-Ark Horizon named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "APF-268; PP34,867",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2020 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Primocane fruiting; large, firm fruit. Breeder describes particularly high yield potential on floricanes and storage potential similar to Prime-Ark 45.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-sweet-ark-caddo-8572da8c",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights. The release year differs between the cited breeder and extension accounts; retain both pending reconciliation.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Sweet-Ark Caddo named section"
+        },
+        "2": {
+          "url": "https://www.facebook.com/arkansas.extension/posts/have-you-heard-about-our-new-caddo-blackberry-variety-caddo-is-a-thornless-black/3505162592842367/",
+          "title": "Have you heard about our new 'Caddo' blackberry variety? Caddo is a thornless blackberry variety released in early 2019 and has exceptional flavor and high yield potential. Learn more about 'Caddo' from world-renowned fruit breeder and Distinguised Professor of Horticulture for the University of Arkansas System Division of Agriculture, Dr. John Clark. Department of Horticulture at the University o",
+          "kind": "Extension publication",
+          "locator": "Named cultivar release statement"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "A-2428T; PP33,115",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2018 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless, erect canes; medium-large sweet fruit; breeder positions it for local markets and home gardens.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release-date discrepancy",
+          "value": "2019 reported by extension; differs from breeder page",
+          "source_id": "2",
+          "context": "Source disagreement is unresolved; neither date has been promoted to a canonical release fact."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-prime-ark-traveler-75a9cf4c",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Prime-Ark Traveler named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "APF-190T; PP28,598",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2016 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Primocane fruiting; thornless, erect canes; medium-large fruit; shipping and storage potential described qualitatively.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-prime-ark-freedom-5238cf18",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights. The release year differs between the cited breeder and extension accounts; retain both pending reconciliation.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Prime-Ark Freedom named section"
+        },
+        "2": {
+          "url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "kind": "Extension publication",
+          "locator": "Named cultivar release statement"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "APF-153T; PP26,990",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2014 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless; primocane fruiting; very large elongated fruit. Breeder positions it for home gardens and local markets.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release-date discrepancy",
+          "value": "2013 reported by extension; differs from breeder page",
+          "source_id": "2",
+          "context": "Source disagreement is unresolved; neither date has been promoted to a canonical release fact."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-osage-cfdda609",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Osage named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "A-2362T; PP26,120",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2013 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless, erect canes; medium-sized sweet fruit; shipping and local-market postharvest quality described qualitatively.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-natchez-c7a01e58",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Natchez named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "A-2241T; PP20,891",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2007 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless; large fruit; breeder describes early ripening before Ouachita and shipping/local-market potential.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-ponca",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights.",
+      "sources": {
+        "1": {
+          "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "title": "Blackberries",
+          "kind": "Primary breeder page",
+          "locator": "Sweet-Ark Ponca named section"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeder identifiers",
+          "value": "A-2538T; PP33,330",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        },
+        {
+          "field": "Release history",
+          "value": "2019 reported by breeder",
+          "source_id": "1",
+          "context": "Historical release date reported by this page; not a date of current approval or availability."
+        },
+        {
+          "field": "Fruiting, habit & market",
+          "value": "Thornless, erect canes; medium-sized sweet fruit; early-market, shipping and local-market potential described qualitatively.",
+          "source_id": "1",
+          "context": "Primary breeder description; no independent trial protocol, quantitative storage duration or universal climate response is established. Code and patent references are source-reported identifiers, not approved aliases or current legal rights."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-eterna",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Company announcement dated 12 March 2024. Award attribution and exceptional-fruit measurements remain source-reported; no independent corroboration or universal performance claim.",
+      "sources": {
+        "1": {
+          "url": "https://costagroup.com.au/2024/03/12/worlds-heaviest-blueberry/",
+          "title": "Costa grows world's heaviest blueberry",
+          "kind": "Primary breeder page",
+          "locator": "Record fruit announcement, paragraphs 1–3 and 8"
+        }
+      },
+      "details": [
+        {
+          "field": "Award / record mention",
+          "value": "Costa reports Guinness World Records recognition of an Eterna blueberry weighing 20.40 g and measuring 39.31 mm.",
+          "source_id": "1",
+          "context": "One exceptional berry picked on 13 November 2023 at Corindi, New South Wales, Australia. This is not a cultivar mean, a typical size range or an independently rechecked Guinness record."
+        },
+        {
+          "field": "Fruit & postharvest",
+          "value": "Costa describes large fruit, crisp texture and long shelf life.",
+          "source_id": "1",
+          "context": "Company qualitative description; no storage day count or handling protocol. Applies to Eterna, not Ridley 1403 or another adjacent variety."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-ervin",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "NC State introduction dated 8 February 2026. Regional breeder assertions remain unreviewed; namesake grower details are not cultivar traits.",
+      "sources": {
+        "1": {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "title": "Meet 'Ervin' Blackberry - Blackberry and Raspberry Information Portal | NC State Extension",
+          "kind": "Primary breeder page",
+          "locator": "Introduction and cultivar characteristics, paragraphs 2 and 5–10"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & trial identity",
+          "value": "NC State describes a thornless, floricane-fruiting blackberry trialed as NC 740.",
+          "source_id": "1",
+          "context": "Breeder introduction focused on the southeastern United States; no new alias approval."
+        },
+        {
+          "field": "Fruit & postharvest",
+          "value": "Breeder describes sweet, low-acid fruit, high soluble solids and firm berries with good postharvest life.",
+          "source_id": "1",
+          "context": "Qualitative statements only; no Brix value or storage protocol is supplied."
+        },
+        {
+          "field": "Yield comparison",
+          "value": "Yield described as moderate; vigor and disease resistance compared with Von.",
+          "source_id": "1",
+          "context": "Breeder regional account; not a quantified resistance assay or a claim of high yield."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-glen-carron-7446efde",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "Official CFIA description; historical identifiers and observations remain attributed. This note does not approve current rights, aliases, commercial locations or universal disease resistance.",
+      "sources": {
+        "1": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00011747e.shtml",
+          "title": "Canadian Food Inspection Agency - Glen Carron",
+          "kind": "Official variety examination",
+          "locator": "Origin & Breeding History; Tests & Trials; plant and fruit descriptions"
+        }
+      },
+      "details": [
+        {
+          "field": "Breeding history",
+          "value": "Controlled cross at the James Hutton Institute, Invergowrie, UK, on 7 April 2004; final selection 25 November 2010.",
+          "source_id": "1",
+          "context": "CFIA reports parents 0030E-12 and 0039F-2; these are parent identifiers, not Glen Carron aliases."
+        },
+        {
+          "field": "Trial conditions",
+          "value": "Technical examination at Wurzen, Germany, during 2016–2017; application 2015/0100.",
+          "source_id": "1",
+          "context": "CFIA account of a UPOV examination purchased from CPVO. Trial geography does not establish a commercial growing footprint or current rights."
+        },
+        {
+          "field": "Fruiting & fruit",
+          "value": "Bears mainly on previous-season canes in summer; spineless canes; firm, conical, medium-red fruit.",
+          "source_id": "1",
+          "context": "Official variety description under the cited examination conditions; relative seasonal timing is not a universal regional calendar."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-malling-ace-2a2662f7",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-11-03",
+      "status": "source_reported",
+      "limitations": "March 2023 technical guide, not a newly replicated experiment. Performance, storage and disease claims remain scoped and unreviewed; no universal climate, current-rights or treatment approval.",
+      "sources": {
+        "1": {
+          "url": "https://www.niab.com/sites/default/files/imce_uploads/MallingFruits/Malling%20Ace%20grower%20guidelines%20March%202023%20final.pdf",
+          "title": "GROWER GUIDELINES",
+          "kind": "Breeder technical grower guide",
+          "locator": "March 2023 grower guidelines, PDF pages 2, 5–6, 9–10"
+        }
+      },
+      "details": [
+        {
+          "field": "Release & fruiting",
+          "value": "Launched at Fruit Focus in July 2021; everbearing strawberry with compact habit and long fruit trusses.",
+          "source_id": "1",
+          "context": "Breeder technical guide; plant response depends on light, chilling and production system."
+        },
+        {
+          "field": "Fruit size & storage",
+          "value": "Guide reports an average fruit weight of 24 g and shelf life up to seven days.",
+          "source_id": "1",
+          "context": "PDF pages 5 and 9; average is source-reported under the guide’s production experience. Storage temperature, packaging and a complete shelf-life protocol are not specified."
+        },
+        {
+          "field": "Propagation & trial conditions",
+          "value": "Delphy BV, Netherlands, investigated light/heavy mini-tray plants (130 cc) and tray plants (250 cc) over three years; guide describes 5–6 plants per linear metre.",
+          "source_id": "1",
+          "context": "PDF pages 4 and 6; differences among plant types and production curves matter. This is trial context, not evidence of every commercial growing location."
+        },
+        {
+          "field": "Disease limitations",
+          "value": "Guide describes susceptibility to powdery mildew; crown-rot tolerance is preliminary.",
+          "source_id": "1",
+          "context": "PDF pages 2 and 10; disease management influenced reported outcomes. No immunity claim or pesticide-use recommendation is made."
+        }
+      ]
     }
   ]
 }

@@ -90,6 +90,9 @@ def test_publisher_deposit_requires_exact_journal_volume_issue_and_first_page():
     assert row['published_date']=='2019-10-29'
     assert row['canonical_url']=='https://api.crossref.org/works/10.21273/synthetic-test'
     assert row['passages']==['A publisher-deposited abstract.']
+    with httpx.Client(transport=crossref_transport()) as client:
+        pdf=fetch_publisher_abstract('https://journals.ashs.org/downloadpdf/view/journals/hortsci/54/12/article-p2231.pdf',client=client)
+    assert pdf['repository_identifiers']==row['repository_identifiers']
 
 
 @pytest.mark.parametrize('overrides',[{'page':'2232-2239'},{'ISSN':['9999-9999']},{'issue':'11'},{'volume':'53'}])

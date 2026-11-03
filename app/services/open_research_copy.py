@@ -114,6 +114,15 @@ def fetch_topic_source(url):
     from app.services.feed_first_reader import fetch_public_article, FETCH_TIMEOUT, USER_AGENT
     direct = fetch_public_article(url)
     text=' '.join(direct.get('passages') or [])
+    if urlsplit(url).hostname in {'actahort.org','www.actahort.org','ishs.org','www.ishs.org','journals.ashs.org'} and direct.get('content_kind')!='pdf':
+        # A citation heading/download footer is metadata, not readable paper
+        # content. It must not prevent the exact publisher-copy fallback.
+        compact=lambda s:re.sub(r'\W+','',s.casefold())
+        title=compact(str(direct.get('headline')or''))
+        body=[p for p in direct.get('passages')or[] if len(p)>=80 and compact(p)!=title
+              and not re.match(r'^(?:Download Adobe|URL www\.|Division |Working Group |Commission )',p)]
+        if not body:
+            direct={**direct,'ok':False,'availability':'metadata_only','reason':'publisher-citation-metadata-only','passages':[]}
     if len(text)<300 and re.search(r'\b(?:automatically redirected|redirecting you)\b',text,re.I):
         from app.services.feed_first_reader import empty_capture
         direct=empty_capture(url,reason='redirect-interstitial')
@@ -121,7 +130,11 @@ def fetch_topic_source(url):
         return direct
     try:
         with httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={'User-Agent': USER_AGENT}) as client:
-            recovered = fetch_open_research_copy(url, client=client) or fetch_publisher_abstract(url, client=client)
+            from app.services.doi_research_copy import fetch_doi_abstract, fetch_ishs_abstract
+            recovered = (fetch_open_research_copy(url, client=client)
+                         or fetch_publisher_abstract(url, client=client)
+                         or fetch_doi_abstract(url, client=client)
+                         or fetch_ishs_abstract(url, client=client))
         if recovered:
             recovered['original_capture_status'] = direct.get('availability')
             recovered['original_capture_reason'] = direct.get('reason')
@@ -140,7 +153,7 @@ def fetch_publisher_abstract(url, *, client):
     parsed=urlsplit(url)
     if parsed.scheme not in {'http','https'} or parsed.hostname!='journals.ashs.org' or parsed.username:
         return None
-    citation=re.fullmatch(r'/view/journals/(hortsci|horttech|jashs)/(\d{1,3})/(\d{1,2})/article-p(\d{1,5})\.(?:xml|pdf)',parsed.path)
+    citation=re.fullmatch(r'/(?:downloadpdf/)?view/journals/(hortsci|horttech|jashs)/(\d{1,3})/(\d{1,2})/article-p(\d{1,5})\.(?:xml|pdf)',parsed.path)
     if not citation:return None
     journal,volume,issue,page=citation.groups()
     issn,base={'hortsci':('0018-5345',1965),'horttech':('1063-0198',1990),'jashs':('0003-1062',1875)}[journal]

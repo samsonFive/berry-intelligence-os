@@ -19,14 +19,13 @@ def test_real_import_resolves_real_profiles_without_canonical_mutation():
     payload, varieties = corpus()
     before = deepcopy(varieties)
     notes = validate_notes(payload, varieties)
-    assert len(notes) == 42
-    assert sum(len(n['details']) for n in notes.values()) == 160
+    assert len(notes) == 54
+    assert sum(len(n['details']) for n in notes.values()) == 198
     assert sum(n['status'] == 'demo_excluded' for n in notes.values()) == 0
     assert sum(n['status'] == 'identity_hold' for n in notes.values()) == 4
     for variety in varieties:
         assert profile_source_details('data', variety, varieties=varieties) == notes.get(variety['id'])
     assert varieties == before
-    assert all(not v.get('attributes', {}).get('traits') for v in varieties if v['id'] in notes)
 
 
 @pytest.mark.parametrize('damage', ['duplicate', 'foreign', 'crop', 'trusted', 'citation', 'javascript', 'credentials', 'demo', 'empty_context'])
@@ -74,7 +73,31 @@ def test_recovered_primary_details_keep_identity_and_measurement_limits():
     assert 'not approved' in zara['limitations'] or 'unreviewed' in zara['limitations']
     patent = notes['variety-bk-6-13']
     assert any('bridge' in row['context'] and 'not established' in row['context'] for row in patent['details'])
-    assert all(not v.get('attributes', {}).get('traits') for v in varieties if v['id'] in notes)
+    assert all(not v.get('attributes', {}).get('traits') for v in varieties
+               if v['id'] in {'variety-twilight', 'variety-victoria', 'variety-zara', 'variety-bk-6-13'})
+
+
+def test_primary_expansion_keeps_records_conditions_and_disagreements_scoped():
+    payload, varieties = corpus()
+    notes = validate_notes(payload, varieties)
+    eterna = notes['variety-eterna']
+    record = next(row for row in eterna['details'] if row['field'] == 'Award / record mention')
+    assert '20.40 g' in record['value']
+    assert 'not a cultivar mean' in record['context']
+    assert '13 November 2023' in record['context']
+    assert 'Germany' in str(notes['variety-glen-carron-7446efde']['details'])
+    assert 'powdery mildew' in str(notes['variety-malling-ace-2a2662f7']['details'])
+    manifest = json.loads(Path('data/imports/variety-catalog-admission-2026-11-03/manifest.json').read_text(encoding='utf8'))
+    assert len(manifest['created']) == 7
+    for row in manifest['created']:
+        variety = next(v for v in varieties if v['id'] == row['variety_id'])
+        assert variety['status'] == 'unverified' and variety['aliases'] == []
+        assert not variety['evidence_ids'] and not variety['relationship_ids']
+        assert not variety.get('attributes', {}).get('traits')
+        if 'Caddo' in row['name'] or 'Freedom' in row['name']:
+            note = notes[variety['id']]
+            assert len(note['sources']) == 2
+            assert any(r['field'] == 'Release-date discrepancy' for r in note['details'])
 
 
 def test_private_template_escapes_values_and_preserves_conditions_and_citations():

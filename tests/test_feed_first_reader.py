@@ -1,3 +1,4 @@
+import pytest
 from app.services.feed_first_reader import (
     bakeoff_report,
     classify_capture,
@@ -117,3 +118,13 @@ def test_evaluation_requires_its_operation_and_registered_trial_place():
     assert not passage_intent_supported(prose, plan)
     assert not trial_location_in_passage('A storage evaluation was performed in Oregon.', scope['trial_places'])
     assert trial_location_in_passage('A storage evaluation was performed in Serbia.', scope['trial_places'])
+
+
+@pytest.mark.parametrize('tag',['script','style'])
+def test_truncated_active_block_cannot_reenter_as_source_body(tag):
+    page='<title>Blueberry trial</title><'+tag+'>Blackberry floricane trial results. '*40
+    assert paragraphs_from_html(page)==[]
+
+
+def test_http_success_does_not_make_incapsula_denial_a_readable_source():
+    assert classify_capture(['Request unsuccessful. Incapsula incident ID: 1234-5678'],status_code=200)=='blocked'

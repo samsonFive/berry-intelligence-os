@@ -13,8 +13,9 @@ def _pre_admission_catalog(tmp_path_factory):
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     target = tmp_path_factory.mktemp('pre-admission-catalog') / 'data'
-    manifest = json.loads((root / 'data/imports/variety-catalog-admission-2026-10-27/manifest.json').read_text(encoding='utf8'))
-    admitted_files = {row['variety_id'] + '.json' for row in manifest['created']}
+    manifests = (root / 'data/imports').glob('variety-catalog-admission-*/manifest.json')
+    admitted_files = {row['variety_id'] + '.json' for path in manifests
+                      for row in json.loads(path.read_text(encoding='utf8'))['created']}
     # Exclude only explicit admissions while copying into the isolated test catalog.
     shutil.copytree(root / 'data', target, ignore=lambda folder, names: admitted_files.intersection(names)
                     if Path(folder) == root / 'data/entities/varieties' else [])

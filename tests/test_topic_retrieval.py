@@ -259,3 +259,34 @@ def test_discovery_uses_local_verified_codes_without_exporting_registry_details(
  assert result['items'] and all('PRIVATE STRATEGY' not in query for query in calls)
  without_alias=discover_topic(plan,inbox_dir=tmp_path,entities={},client=Client(),fetcher=fetch)
  assert not without_alias['cache_hit'] and without_alias['items']==[]
+
+
+def test_long_and_segmented_registered_codes_preserve_subject_identity():
+ from app.services.topic_discovery import cultivar_code_query_variant
+ entities={'v':{'id':'v','entity_type':'variety','name':'Synthetic Jewel','aliases':['Ridley 1403','FCM14-052'],'berry_ids':['berry-blueberry']}}
+ for raw,formatted in [('Ridley1403','Ridley 1403'),('FCM14052','FCM14-052')]:
+  plan=plan_query('Blueberry '+raw+' breeder')
+  assert formatted in cultivar_code_query_variant(plan,entities)
+  own=source(title="Blueberry plant named '"+formatted+"'",article={'paragraphs':[{'index':0,'text':'A new blueberry cultivar '+formatted+' was selected and evaluated in a breeding programme.'}]})
+  parent=source(id='offspring',title="Blueberry plant named 'Another 6789'",article={'paragraphs':[{'index':0,'text':'A new blueberry cultivar Another 6789 originated in a breeding programme from a cross with '+formatted+' as its pollen parent.'}]})
+  assert match_record(own,plan,entities=entities)['support_status']=='body_supported'
+  assert match_record(parent,plan,entities=entities)['support_status']=='scope_unverified'
+ assert cultivar_code_query_variant(plan_query('blueberry "Ridley1403"'),entities)is None
+ assert cultivar_code_query_variant(plan_query('blueberry -Ridley1403'),entities)is None
+ assert cultivar_code_query_variant(plan_query('blueberry XYZ9999'),entities)is None
+ ambiguous={**entities,'other':{**entities['v'],'id':'other'}}
+ assert cultivar_code_query_variant(plan_query('blueberry Ridley1403'),ambiguous)is None
+
+
+def test_registered_publisher_breaks_same_scope_date_tie_without_promoting_claims():
+ entities={'c':{'id':'c','entity_type':'company','name':'Synthetic Breeder','attributes':{'official_domain':'https://www.breeder.example'}}}
+ body={'paragraphs':[{'index':0,'text':'A new blackberry cultivar was released after extensive field trials.'}]}
+ repost=source(id='repost',title='Blackberry cultivar release',source_url='https://trade.example/story',article=body,published_date='2026-01-01')
+ primary={**repost,'id':'primary','source_url':'https://breeder.example/story'}
+ rows=retrieve([repost,primary],plan_query('blackberry cultivar release'),entities=entities)
+ assert [r['id']for r in rows]==['primary','repost']
+ assert 'status'not in primary or primary['status']==repost['status']
+ newer={**repost,'id':'newer','published_date':'2026-01-02'}
+ assert retrieve([primary,newer],plan_query('blackberry cultivar release'),entities=entities)[0]['id']=='newer'
+ impostor={**repost,'id':'impostor','source_url':'https://breeder.example.attacker.test/story'}
+ assert retrieve([impostor,primary],plan_query('blackberry cultivar release'),entities=entities)[0]['id']=='primary'
