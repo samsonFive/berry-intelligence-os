@@ -1,7 +1,7 @@
 """Private article-name handoffs from the existing candidate universe.
 
-No acquisition, matching, mutation or relationship inference. A company/source
-co-mention stays distinct from the portfolio source assertions beside it.
+No acquisition, matching, mutation or relationship inference. Publication company
+links stay distinct from the portfolio source assertions beside them.
 """
 from urllib.parse import quote, urlencode
 
@@ -85,7 +85,7 @@ def article_name_rows(*, entity_id, mentions, candidates, source_context,
                 row['sources'].append(reference)
     rows = sorted(grouped.values(), key=lambda row:(row['name'].casefold(),row['code'],row['berry_id']))
     for row in rows:
-        row['notes'].append('This article also names this company. That does not establish breeding, ownership, licensing or a growing region.')
+        row['notes'].append('This article is linked to this company. That does not establish breeding, ownership, licensing or a growing region.')
         row['search'] = ' '.join([row['name'],row['code'],*row['notes']]).casefold()
         row['letter'] = initial(row['name'])
     return rows, len(used_sources)

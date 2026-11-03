@@ -16,8 +16,11 @@ crop declarations and negated/uncertain prefixes do not qualify.
 The company projection reuses current mentions, candidate decisions and body-free
 metadata from the already-selected exact-source article inventory. It makes no
 second corpus scan, matching decision, capture or provider call. Each article
-keeps its own company co-mentions, URL, publication date and source-review state.
+keeps its own company links, URL, publication date and source-review state.
 Publication review does not approve a variety identity or company relationship.
+Company links come from existing source assignments; they do not prove a literal
+mention in the article. Native review caught an actual linked-but-unnamed company
+in the Hortifrut source, so both the new note and candidate heading say linked.
 
 Private Company Varieties and its detailed portfolio retain their original rows.
 Additional entries say **Named in captured news** and have candidate/catalog,

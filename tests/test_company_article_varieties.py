@@ -169,4 +169,6 @@ def test_each_article_keeps_its_own_company_and_publication_review_context(tmp_p
     other_model=main.company_source_varieties(OTHER['id'],None)
     assert other_model['article_count']==1
     assert [s['id']for s in other_model['article_rows'][0]['sources']]==[other['id']]
+    assert any('is linked to this company' in note for note in other_model['article_rows'][0]['notes'])
+    assert not any('also names this company' in note for note in other_model['article_rows'][0]['notes'])
     assert contents(tmp_path)==before
