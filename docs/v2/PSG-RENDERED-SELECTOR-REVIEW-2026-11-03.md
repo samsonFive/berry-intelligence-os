@@ -73,9 +73,12 @@ Local verification covers all new source rows, two-code collision, accounting,
 historical fixtures, replay, held photo/public-output gates and private routes.
 The initial 89-case run had one outdated exact inventory-total assertion; the
 other 88 cases passed. The corrected inventory assertion passes separately.
-The additional full-corpus replay check preserves all 1,315 earlier keys and
-passes separately. All runs attempted zero external connections. Required
-current-head CI and native browser/preservation acceptance remain separate
+The final 90-case regression set passes with zero attempted external
+connections, including the full-corpus replay check for all 1,315 earlier keys.
+Native desktop and 412px phone review confirms concise source cards, separate
+060 code rows, the original blackberry claim link and explicit session-only
+photo loading. The preview is an isolated fixture, not a production login.
+Required current-head CI and fresh live-data preservation remain separate
 evidence.
 
 Canonical varieties, Facts, Evidence, relationships, roles, rights, schemas,
