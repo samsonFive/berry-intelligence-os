@@ -101,13 +101,33 @@ class ByteMemo:
                 self.bytes -= removed[1]
 
 
+def _record_cache_key(selected):
+    # Locally encoded exact builtin inputs only. No reducers, class lookup,
+    # persistent storage or unpickling is involved in producing this key.
+    try:
+        buffer = BytesIO()
+        writer = _BuiltinPickler(buffer, protocol=5)
+        # Ignore alias identity: Reader calculations depend on values. This
+        # also makes cycles fall back to the original JSON admission path.
+        writer.fast = True
+        writer.dump(selected)
+        payload = buffer.getvalue()
+        if len(payload) <= 128_000:
+            return 'record-p5:' + hashlib.sha256(payload).hexdigest()
+    except (pickle.PicklingError, TypeError, ValueError, AttributeError, RecursionError):
+        pass
+    # Preserve legacy eligibility for inputs such as large Unicode strings
+    # whose JSON character count is smaller than their encoded byte count.
+    return json.dumps(selected, sort_keys=True, ensure_ascii=False)
+
+
 def record_memo(fields):
     def decorate(function):
         memo = ByteMemo()
         @wraps(function)
         def wrapped(record):
             try:
-                key = json.dumps({k: record[k] for k in fields if k in record}, sort_keys=True, ensure_ascii=False)
+                key = _record_cache_key({k: record[k] for k in fields if k in record})
             except (TypeError, ValueError):
                 return function(record)
             if len(key) > 128_000:
