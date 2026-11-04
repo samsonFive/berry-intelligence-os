@@ -176,13 +176,20 @@ def test_shared_private_corpus_respects_corrections_without_public_leakage(corpu
 
 def test_pdf_matches_scoped_projection_and_excludes_demo(corpus):
     from app.services.global_watchlist_pdf import render
+    corpus['entities'][0]['roles'] = ['breeder_developer', 'rights_holder']
+    corpus['evidence'][0]['source_type'] = 'company_website'
+    gw.add_note(corpus['store'], actor='Alice', entity_id='company-a', classification='sourced_claim',
+                text='Keep my literal do_not_rewrite wording.', observed_at='2026-11-04',
+                reference='https://publisher.example/original', entities={r['id']: r for r in corpus['entities']})
     corpus['params'] = {'company': 'company-a'}
     corpus['assessments'] = [{'id': 'assessment-ai', 'entity_ids': ['company-a'], 'title': 'Provisional source interpretation',
                                'ai_proposed': True, 'confidence': 'medium', 'status': 'active'}]
     corpus['relationships'] = [{'id': 'rel-parent', 'subject_id': 'company-b', 'predicate': 'owns', 'object_id': 'company-a', 'status': 'active'}]
     model = gw.build(**corpus)
     model['capabilities'] = None
+    before = deepcopy(model)
     pdf = render(model)
+    assert model == before
     assert pdf.startswith(b'%PDF-')
     # ReportLab compression off solely for a deterministic content assertion.
     import io
@@ -190,6 +197,10 @@ def test_pdf_matches_scoped_projection_and_excludes_demo(corpus):
     reader = PdfReader(io.BytesIO(pdf))
     text = '\n'.join(page.extract_text() for page in reader.pages)
     assert 'Global Watchlist' in text and 'Africa Blue' in text
+    assert 'Company: Africa Blue' in text
+    assert 'Breeder developer' in text and 'Rights holder' in text and 'Company website' in text
+    assert 'Sourced claim / Unreviewed' in text and 'do_not_rewrite' in text
+    assert 'breeder_developer' not in text and 'company_website' not in text
     assert '2020-01-01' in text and '2026-11-04' in text
     assert 'Invented sensory' not in text and 'SECRET draft' not in text
     assert 'Internal / Confidential' in text
@@ -219,6 +230,8 @@ def test_pdf_people_keep_their_source_references_on_the_same_page(corpus):
 def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     from app import main
     from fastapi.testclient import TestClient
+    corpus['entities'][0]['roles'] = ['breeder_developer', 'rights_holder']
+    corpus['evidence'][0]['source_type'] = 'company_website'
     monkeypatch.setattr(main, 'INBOX_DIR', corpus['store'].inbox)
     monkeypatch.setattr(main, 'DATA_DIR', corpus['data_dir'])
     monkeypatch.setattr(main, 'all_entities', lambda: corpus['entities'])
@@ -234,6 +247,10 @@ def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     response = client.get('/global-watchlist')
     assert response.status_code == 200
     assert 'Africa Blue' in response.text
+    assert 'Breeder developer' in response.text and 'Rights holder' in response.text
+    assert 'value="company_website"' in response.text and '>Company website</option>' in response.text
+    assert corpus['entities'][0]['roles'] == ['breeder_developer', 'rights_holder']
+    assert corpus['evidence'][0]['source_type'] == 'company_website'
     assert 'class="digest-card news-card"' in response.text
     assert 'data-open-reader href="/intelligence/ev-reprint?personal=1"' in response.text
     assert '2 retained sources' in response.text

@@ -9,6 +9,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether
 
 from app.services.global_watchlist import real_record, safe_url
+from app.services.stakeholder_ui import humanize_label
 
 
 def render(model):
@@ -49,22 +50,33 @@ def render(model):
              p('Global Watchlist', 'GWTitle'), p('Competitive landscape and captured evidence', 'GWHeading'),
              p('Internal / Confidential - protected workspace export', 'GWMeta'),
              p('Exported ' + model['exported_at'] + '. This is the export time, not the freshness of every source.', 'GWMeta')]
+    def scope_value(key, value):
+        if key in {'company', 'entity', 'market'}:
+            return model['entities'].get(value, {}).get('name') or value
+        if key == 'compare':
+            return ', '.join(model['entities'].get(item, {}).get('name') or item for item in str(value).split(','))
+        if key == 'group' and model.get('selected_group'):
+            return model['selected_group']['name']
+        if key in {'source_type', 'event_type', 'type', 'priority', 'berry'}:
+            return humanize_label(value)
+        return value
+
     scope = [(key, value) for key, value in model['params'].items() if value]
-    story += [p('Selected scope', 'GWHeading'), p('; '.join(f'{key}: {value}' for key, value in scope) or 'All berries and organizations')]
+    story += [p('Selected scope', 'GWHeading'), p('; '.join(f'{humanize_label(key)}: {scope_value(key, value)}' for key, value in scope) or 'All berries and organizations')]
     if model.get('selected_group'):
         group = model['selected_group']
         story.append(p(f"Workspace group: {group['name']} | {len(group['member_ids'])} saved members. Filters do not change membership."))
     story += [p(model['data_note']), p('Coverage is not performance. Genetic potential and commercial adoption are separate. No combined numerical threat score is defined. Internal sensory data is unavailable; no illustrative sensory values are included.')]
     report = model['tier_report']
     story += [p('Classification provenance', 'GWHeading'),
-              p(f"{report['source']} | snapshot {report['snapshot_date']} | {report['review_state']}"),
+              p(f"{report['source']} | snapshot {report['snapshot_date']} | {humanize_label(report['review_state'])}"),
               p(report['caveat']), p(f"{report['source_row_count']} source rows; {len(report['assignments'])} unique berry assignments; {len(report['unmatched'])} unmatched; {len(report['conflicts'])} conflicts.", 'GWMeta'),
               p('Imported regions describe monitoring scope, not proof of market presence. A tier belongs to its selected berry, never a company-wide performance score.', 'GWMeta')]
     rows = model['focus'] or model['rows']
     story += [p(f'Organizations ({len(rows)})', 'GWHeading')]
     if rows:
         story.append(table(['Organization / roles', 'Tier / scope', 'Footprint / assessed confidence'], [[
-            row['name'] + '\n' + ', '.join(row['roles']),
+            row['name'] + '\n' + ', '.join(humanize_label(role) for role in row['roles']),
             row['tier'] + '\nImported scope: ' + (', '.join(row['monitoring_regions']) or 'Unassigned'),
             (', '.join(row['regions']) or 'Geographic evidence insufficient') + '\n' + row['confidence']
         ] for row in rows], [width * .36, width * .27, width * .37]))
@@ -74,8 +86,8 @@ def render(model):
         for row in rows:
             story += [PageBreak(), p(row['name'], 'GWTitle'), p('Connected company evidence', 'GWHeading')]
             story += [p('Captured geographic mentions / presence: ' + (', '.join(g['name'] for g in row['geographies']) or 'Insufficient evidence')),
-                      p('Source monitoring: ' + row['monitoring']['state'].replace('_', ' ') + '. ' + row['monitoring']['detail'], 'GWMeta'),
-                      p('Canonical dossier: ' + row['profile_href'], 'GWMeta')]
+                      p('Source monitoring: ' + humanize_label(row['monitoring']['state']) + '. ' + row['monitoring']['detail'], 'GWMeta'),
+                      p('Company profile: ' + row['profile_href'], 'GWMeta')]
             for assignment in row['tier_details']:
                 story.append(p(f"Imported tier: {assignment['berry']} / {assignment['tier']} / {', '.join(assignment['regions']) or 'Region unspecified'} / effective {assignment.get('effective_date') or 'Unspecified'} / end {assignment.get('end_date') or 'Unspecified'} / source scope {assignment.get('scope') or 'Not further specified'}", 'GWMeta'))
             for relationship in row['relationships']:
@@ -139,7 +151,7 @@ def render(model):
         lead = group['lead']
         heading = [p(f"{number:02d}. {lead.get('title') or lead['id']}", 'GWHeading'), p(group['independence'], 'GWMeta')]
         for source_index, source in enumerate(group['sources']):
-            source_block = [p(f"{source.get('source_name') or 'Publisher unknown'} | {source.get('source_type') or 'Type unknown'} | {source['id']}", 'GWMeta'),
+            source_block = [p(f"{source.get('source_name') or 'Publisher unknown'} | {humanize_label(source.get('source_type')) or 'Type unknown'} | {source['id']}", 'GWMeta'),
                 p(f"Published: {source.get('published_date') or 'Unknown'} | Captured: {source.get('captured_at') or source.get('captured_date') or 'Unknown'}", 'GWMeta'),
                 link(source.get('source_url'), source.get('source_url') or 'Original URL unavailable')]
             story.append(KeepTogether((heading if source_index == 0 else []) + source_block))
@@ -150,7 +162,7 @@ def render(model):
     if model['notes']:
         story += [p('Protected workspace notes', 'GWHeading'), p('Analyst capture, unreviewed. These entries are not verified Facts.')]
         for note in model['notes']:
-            story += [p(note['classification'] + ' / ' + note['review_state'], 'GWHeading'), p(note['text']),
+            story += [p(humanize_label(note['classification']) + ' / ' + humanize_label(note['review_state']), 'GWHeading'), p(note['text']),
                       p(f"{note['author']} | observed {note['observed_at']} | entered {note['created_at']} | visibility {note['visibility']}", 'GWMeta')]
             if note['reference']:
                 story.append(link(note['reference'], note['reference']))

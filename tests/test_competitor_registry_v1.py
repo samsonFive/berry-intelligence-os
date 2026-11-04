@@ -291,6 +291,8 @@ def test_never_run_configured_sources_are_reported_honestly(sources):
 def test_brand_new_roster_entity_with_no_source_is_honest_not_active(sources):
     result = monitoring_state_for_entity("company-agroberries", sources=sources)
     assert result["state"] == "no_supported_source"
+    assert "Collection settings" in result["detail"]
+    assert "linked_competitor_ids" not in result["detail"]
 
 
 # ---------------------------------------------------------------------------

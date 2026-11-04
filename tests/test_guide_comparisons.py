@@ -24,7 +24,12 @@ def test_guide_comparison_availability_does_not_read_or_write_research(tmp_path,
     assert ('href="/competitive-evaluation"' in page.text) is authoring
     assert ('href="/competitive-evaluation?view=saved"' in page.text) is authoring
     assert ('href="/coverage/archive"' in page.text) is authoring
+    assert ('id="global-watchlist-guide"' in page.text) is authoring
+    assert ('id="watchlist-briefing"' in page.text) is authoring
+    assert ('href="/global-watchlist"' in page.text) is authoring
     if authoring:
         assert 'Unknown means there is not enough comparable evidence' in page.text
         assert 'The saved comparison stays fixed when news refreshes.' in page.text
+        assert 'Imported berry-specific tiers keep their source and scope' in page.text
+        assert 'Opening or exporting a Watchlist does not collect fresh news or verify its claims.' in page.text
     assert {str(p.relative_to(tmp_path)): p.read_bytes() for p in tmp_path.rglob('*') if p.is_file()} == before

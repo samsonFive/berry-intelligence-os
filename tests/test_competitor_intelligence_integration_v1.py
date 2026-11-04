@@ -135,7 +135,7 @@ def test_route_uses_canonical_registry_and_labels_pending_relationships() -> Non
     assert response.status_code == 200
     assert "Global Watchlist" in response.text
     assert "internal_competitor_registry_spreadsheet" in response.text
-    assert "Official source blocked" in response.text
+    assert "Source blocked" in response.text
     assert "Pending review" in response.text
     assert "complete 33-entry competitor-universe fixture" not in response.text
 
