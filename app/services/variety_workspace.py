@@ -91,7 +91,7 @@ SOURCE_TYPE_LABEL: dict[str, str] = {
 
 
 def _by_id(entities: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    return {str(entity["id"]): entity for entity in entities if entity.get("id")}
+    return {str(entity["id"]): entity for entity in entities if entity.get("id") and not (entity.get("entity_type") == "variety" and (entity.get("attributes") or {}).get("catalog_removed"))}
 
 
 def _name(entity: dict[str, Any] | None, fallback: str = "") -> str:
@@ -550,6 +550,8 @@ def present_variety_index(
         cards = [card for card in cards if card["has_product_evidence"]]
     if has_signal in {"1", "true", "yes"}:
         cards = [card for card in cards if card["signal_count"] > 0]
+    if str(filters.get("has_recent_intelligence") or "") in {"1", "true", "yes"}:
+        cards = [card for card in cards if card["recent"].get("id")]
     named_obs = sum(
         int(row.get("published") or 0) + int(row.get("draft") or 0)
         for row in indexes["observations"].values()

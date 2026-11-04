@@ -244,6 +244,7 @@ def process_discovered_article(
     always_body_check: bool = False,
     geo_matchers: "list[tuple[str, Any]] | None" = None,
     company_matchers: "list[tuple[str, Any]] | None" = None,
+    acquired_body: ArticleBody | None = None,
 ) -> tuple[OrchestrationResult, dict[str, Any]]:
     """Screen, acquire, and (if relevant) enrich one discovered web_article
     item. Returns (OrchestrationResult, extra_report) -- extra_report carries
@@ -390,7 +391,7 @@ def process_discovered_article(
 
     extra["body_acquisition_attempted"] = True
     try:
-        body = fetch_article(item.get("canonical_url") or "")
+        body = acquired_body if acquired_body is not None else fetch_article(item.get("canonical_url") or "")
     except ArticleAcquisitionError as exc:
         extra["acquisition_failure_category"] = exc.category
         # Only a genuine *access limitation* (bot-block, paywall, or the

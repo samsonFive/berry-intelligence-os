@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% set variety_sheet = true %}
+{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'},{'label':'Compare varieties'}] %}
 {% block title %}Variety Compare{% endblock %}
 {% block content %}
 {% set compare = compare if compare is defined else {} %}

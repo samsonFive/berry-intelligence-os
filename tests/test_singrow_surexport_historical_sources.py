@@ -103,6 +103,7 @@ def test_company_named_source_progress_retains_incomplete_portfolio_states():
     sources, _ = inputs()
     entities = [json.loads(p.read_text(encoding='utf-8')) for p in sorted((DATA/'entities').rglob('*.json'))]
     varieties = [e for e in entities if e.get('entity_type')=='variety']
+    before = deepcopy((varieties,sources))
     report = portfolio_coverage(data_dir=DATA,sources=sources,varieties=varieties,entities=entities,candidates=[])
     assert report['summary']['registry_entries']==77
     # The joined source plan also includes Gem-Pack's independently named interviews.
@@ -111,7 +112,14 @@ def test_company_named_source_progress_retains_incomplete_portfolio_states():
         subject = next(s for s in report['subjects'] if company in s['entity_ids'])
         assert subject['source_status']=='names_found' and subject['checked']
         assert subject['has_source_gaps'] and subject['named_occurrences']==count
-    assert not any(n['catalog_id'] for s in report['sources'] if s['id'] in IDS for n in s['names'])
+    cohort = [s for s in report['sources'] if s['id'] in IDS]
+    # Existing identity admissions can match names; this read cannot approve roles or alter records.
+    assert not any(n['catalog_id'] for s in cohort if s['id'].startswith('portfolio-singrow-') for n in s['names'])
+    matched = {n['candidate_name']:n for s in cohort for n in s['names'] if n['catalog_id']}
+    assert {'Sabrina','Glen Lyon','Tulameen'} <= set(matched)
+    index = {v['id']:v for v in varieties}
+    assert all(n['berry_id'] in index[n['catalog_id']]['berry_ids'] for n in matched.values())
+    assert (varieties,sources) == before
 
 
 def test_routes_keep_scope_periods_conflicts_and_original_links_without_get_writes(monkeypatch,tmp_path):
@@ -125,8 +133,12 @@ def test_routes_keep_scope_periods_conflicts_and_original_links_without_get_writ
     assert 'NUS-Sustainability-Report-2023.pdf#page=25' in sing.text
     sure = client.get('/varieties/candidates',params={'company':'company-surexport','source':'portfolio-surexport-company-interview-2013','berry':'berry-raspberry'})
     assert sure.status_code==200
-    assert all(name in sure.text for name in ['Glen Lyon','Tulameen','Radiance','Grandeur'])
-    assert {row['candidate_name'] for row in sure.context['candidates']} == {'Glen Lyon','Tulameen','Radiance','Grandeur'}
+    assert all(name in sure.text for name in ['Radiance','Grandeur'])
+    assert {row['candidate_name'] for row in sure.context['candidates']} == {'Radiance','Grandeur'}
+    # Admitted identities stay discoverable through source detail, without re-entering review.
+    original = client.get('/varieties/coverage/source/portfolio-surexport-company-interview-2013')
+    assert original.status_code == 200
+    assert all(name in original.text for name in ['Glen Lyon','Tulameen','Radiance','Grandeur'])
     assert all(row['berry_id']=='berry-raspberry' for row in sure.context['candidates'])
     assert '<b>Victoria</b>' not in sure.text and '<b>Candonga</b>' not in sure.text
     source = client.get('/varieties/coverage/source/portfolio-singrow-nus-report-2023')

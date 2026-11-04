@@ -1,3 +1,4 @@
+import pytest
 from app.services.feed_first_reader import (
     bakeoff_report,
     classify_capture,
@@ -15,6 +16,14 @@ def test_rejects_private_and_local_urls():
     assert is_public_http_url("http://localhost/x") is False
     assert is_public_http_url("http://10.0.0.5/x") is False
     assert is_public_http_url("not-a-url") is False
+
+
+def test_epub_archive_bytes_cannot_become_article_passages(monkeypatch):
+    from app.services import feed_first_reader as reader
+    monkeypatch.setattr(reader,'_bounded_public_response',lambda *a,**k:('https://publisher.example/article/epub',b'PK\x03\x04compressed bytes',{'content-type':'application/epub+zip'},'utf8',200,False))
+    capture=reader.fetch_public_article('https://publisher.example/article/epub',client=object())
+    assert not capture['ok'] and capture['passages']==[]
+    assert capture['reason']=='unsupported-archive-format'
 
 
 def test_frame_policy_is_honest():
@@ -73,3 +82,57 @@ def test_unsafe_html_cannot_execute_in_native_reader():
     assert "alert" not in blob
     assert "<script" not in blob
     assert "wish farms" in blob
+
+
+def test_explicit_recommendation_tail_is_not_part_of_article_capture():
+    html='<article><p>A cherry breeding partnership was announced after extensive field evaluation.</p><h2>Related articles</h2><p>A named blackberry cultivar was released with compact architecture for growers.</p></article>'
+    passages=paragraphs_from_html(html)
+    assert len(passages)==1 and 'cherry' in passages[0]
+    assert paragraphs_from_html('<h2>Related articles</h2><p>A named blackberry cultivar was released with compact architecture for growers.</p>')==[]
+    prose='<article><p>A trial compared blackberry varieties after several seasons in replicated plots.</p><h2>Related research</h2><p>Related articles were reviewed by the researchers when planning this blackberry trial.</p></article>'
+    assert any('reviewed by the researchers' in p for p in paragraphs_from_html(prose))
+
+
+def test_technical_results_beyond_intro_keep_table_context_and_owned_lists():
+    intro = ''.join(f'<p>Introduction paragraph {i}: the trial compared harvest timing and fruit quality.</p>' for i in range(30))
+    html = ('<nav><li>Menu blackberry trial</li></nav><article>' + intro +
+            '<h2>Results</h2><table><caption>Kent 2024 yield, kg per plant</caption>'
+            '<tr><th>Cultivar</th><th>Yield</th></tr><tr><td>Trial A</td><td>2.4</td></tr></table>'
+            '<ul><li>Trial B: plants were grown under rain covers at the same site.</li></ul>'
+            '<aside><li>Recommended commercial supplier</li></aside></article>')
+    rows = paragraphs_from_html(html)
+    assert rows.index('Kent 2024 yield, kg per plant') < rows.index('Cultivar | Yield') < rows.index('Trial A | 2.4')
+    assert any('Trial B:' in row for row in rows)
+    assert not any('Menu' in row or 'supplier' in row for row in rows)
+    assert len(paragraphs_from_html(html, limit=24)) == 24
+    assert not any('Cultivar | Yield' in row for row in paragraphs_from_html(html.replace('<article>', '<div>').replace('</article>', '</div>')))
+
+
+def test_unnumbered_dated_bibliography_does_not_become_host_trial():
+    from app.services.source_passage_scope import owned_article_passages
+    prose = 'Researchers compared fruit firmness in a refrigerated storage experiment.'
+    reference = 'Ames, Z. R., Corn, R., & Deltsidis, A. (2025, April 18). Postharvest Quality and Sensory Evaluation of Blackberries. Retrieved from https://smallfruits.org/2025/04/postharvest-quality-and-sensory-evaluation-of-blackberries/'
+    assert list(owned_article_passages(enumerate([prose, reference]))) == [(0, prose)]
+
+
+def test_evaluation_requires_its_operation_and_registered_trial_place():
+    from app.services.topic_retrieval import plan_query
+    from app.services.topic_support import support_context, passage_intent_supported, trial_location_in_passage
+    plan = plan_query('Blackberry refrigerated shelf life evaluation Serbia')
+    entities = {'s': {'id': 's', 'entity_type': 'geography', 'name': 'Serbia', 'aliases': []}}
+    scope = support_context(plan, entities, [])
+    assert scope['trial_places'] == [('serbia',)]
+    prose = 'Blackberries are delicate and easily damaged during storage.'
+    assert not passage_intent_supported(prose, plan)
+    assert not trial_location_in_passage('A storage evaluation was performed in Oregon.', scope['trial_places'])
+    assert trial_location_in_passage('A storage evaluation was performed in Serbia.', scope['trial_places'])
+
+
+@pytest.mark.parametrize('tag',['script','style'])
+def test_truncated_active_block_cannot_reenter_as_source_body(tag):
+    page='<title>Blueberry trial</title><'+tag+'>Blackberry floricane trial results. '*40
+    assert paragraphs_from_html(page)==[]
+
+
+def test_http_success_does_not_make_incapsula_denial_a_readable_source():
+    assert classify_capture(['Request unsuccessful. Incapsula incident ID: 1234-5678'],status_code=200)=='blocked'

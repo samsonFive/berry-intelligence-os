@@ -1,0 +1,625 @@
+{
+  "version": 1,
+  "captured_run_started_at": "2026-11-03T00:19:37.678526+00:00",
+  "audit_kind": "Offline quotation fidelity replay; no source truth, relevance or Google parity claim",
+  "query_count": 20,
+  "quotations_checked": 36,
+  "failure_count": 0,
+  "queries": [
+    {
+      "query": "Blackberry Floricans",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 5,
+      "quotations_checked": 5,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 5,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-e09c9d9df04b4f4d",
+            "disposition": "supported",
+            "reason": "Named floricane Ervin introduction and non-US license; Von is separate and no geography transferred."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-f3daf97f3bf23d5a",
+            "disposition": "supported",
+            "reason": "Primary named Ervin floricane international development; breeder claims remain attributed."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-498c1d46adfd3d8b",
+            "disposition": "supported",
+            "reason": "Primary Ervin introduction explicitly names former trial code NC740; no generalized trait certification."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-bf7fcb16c6a0fdc2",
+            "disposition": "context_only",
+            "reason": "Historical Florida cultivar trials, scoped as background; Freedom yield is not automatically a measured floricane crop."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-628359c8ba7bdb03",
+            "disposition": "context_only",
+            "reason": "Primocane Rejoice comparison only, appropriately background and not a floricane development."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "split": "comparison_repair",
+      "captured_candidates": 8,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 5,
+      "quotations_checked": 5,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 5,
+        "unreviewed": 0,
+        "issues": 1,
+        "items": [
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-e09c9d9df04b4f4d",
+            "disposition": "supported",
+            "reason": "Publication within requested window and named floricane Ervin international development; not sales in every territory."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-f3daf97f3bf23d5a",
+            "disposition": "supported",
+            "reason": "In-window primary Ervin floricane license announcement, distinct from February release."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-498c1d46adfd3d8b",
+            "disposition": "supported",
+            "reason": "In-window primary Ervin introduction/NC740 identity; regional claims attributed."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-b868c2254f258658",
+            "disposition": "needs_review",
+            "reason": "Excerpt omits preceding paragraph identifying the quoted study as2018;2026forum publication can make historical research look contemporary even in background."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-f9a78a85f9b7cc7d",
+            "disposition": "context_only",
+            "reason": "In-window extension cane-cycle explanation; background not a new cultivar milestone."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Strawberry Planasa licensing Spain",
+      "split": "comparison_repair",
+      "captured_candidates": 7,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 4,
+        "unreviewed": 0,
+        "issues": 1,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-bb0e730cd85e2353",
+            "disposition": "needs_review",
+            "reason": "Combined excerpts repeat an overlapping portion of article:0; mechanical fidelity passes concatenation but assembled quotation duplicates text and should be replaced with one continuous excerpt."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-586e3f11d8443f69",
+            "disposition": "context_only",
+            "reason": "Planasa Spanish strawberry adoption background, no licensing terms proven."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-ca5890e050e40759",
+            "disposition": "context_only",
+            "reason": "Spanish breeder field-day context, no license established."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-2e2e50748cc2e489",
+            "disposition": "context_only",
+            "reason": "Attributed water-use trial comparison provides cultivar context only; does not establish licensing and must not become universal9percent saving."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Raspberry breeding Scotland",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 1,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-5497d6ef3337757f",
+            "disposition": "context_only",
+            "reason": "Scottish Hutton consortium directly relevant as programme background, not cultivar efficacy."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Blueberry machine harvesting trials",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 4,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 1,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-e5f1fe4f0722d286",
+            "disposition": "context_only",
+            "reason": "Company machine-harvest breeding strategy, not observed trial results."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Nonexistent cultivar ZZZQX-991 blackberry",
+      "split": "comparison_repair",
+      "captured_candidates": 0,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Blackberry floricane pruning",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 3,
+        "unreviewed": 0,
+        "issues": 1,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-c18696ee4c09df36",
+            "disposition": "needs_review",
+            "reason": "Selected paragraph concerns cultivar counts and license availability, not pruning; the source has better pruning context elsewhere."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-8b48ced007196ac7",
+            "disposition": "context_only",
+            "reason": "Abstract establishes floricane pruning guide topic but no actual instructions; full guide is separate source."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-d901714aa828fcc4",
+            "disposition": "context_only",
+            "reason": "Correct cane-age definition but excerpt omits source pruning instructions; useful background only."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "split": "comparison_repair",
+      "captured_candidates": 4,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Strawberry robotic harvesting research",
+      "split": "comparison_repair",
+      "captured_candidates": 9,
+      "unreadable_candidates": 3,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 1,
+        "unreviewed": 0,
+        "issues": 1,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-319f14880711dae7",
+            "disposition": "needs_review",
+            "reason": "Quoted text is a bibliography entry for Hayashi2010, not owned2025study findings; it should be a follow-source lead, not article-owned research support."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Blueberry heat tolerance breeding",
+      "split": "comparison_repair",
+      "captured_candidates": 6,
+      "unreadable_candidates": 2,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Floricane blackberry developments",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 7,
+      "quotations_checked": 7,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 7,
+        "unreviewed": 0,
+        "issues": 1,
+        "items": [
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-e09c9d9df04b4f4d",
+            "disposition": "supported",
+            "reason": "Named floricane Ervin international development; same event as GPG source, not independent corroboration."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-f3daf97f3bf23d5a",
+            "disposition": "supported",
+            "reason": "Primary floricane Ervin international introduction with scoped licensing."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-498c1d46adfd3d8b",
+            "disposition": "supported",
+            "reason": "Primary Ervin release/NC740 identity with breeder attribution."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-ba11b40b3979269b",
+            "disposition": "context_only",
+            "reason": "Historical2024Immaculate release, quoted as background; evaluative claims attributed, not current new release."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-c18696ee4c09df36",
+            "disposition": "context_only",
+            "reason": "University cultivar release/licensing paragraph, historical background not newly indexed event."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-bf7fcb16c6a0fdc2",
+            "disposition": "context_only",
+            "reason": "Historical Florida trial comparison, crop types and per-acre estimates remain separate."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-b868c2254f258658",
+            "disposition": "needs_review",
+            "reason": "Excerpt omits source paragraph stating2018study; forum2026date does not date the research, and quotation ends mid-sentence without clear truncation."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Ervin blackberry",
+      "split": "comparison_repair",
+      "captured_candidates": 10,
+      "unreadable_candidates": 1,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 3,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-77eee55c1cecd23a",
+            "disposition": "supported",
+            "reason": "Named Ervin license development with Von kept separate."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-f3daf97f3bf23d5a",
+            "disposition": "supported",
+            "reason": "Primary Ervin introduction/non-US development license, not proven international sales."
+          },
+          {
+            "section_id": "topic_findings",
+            "source_id": "web-498c1d46adfd3d8b",
+            "disposition": "supported",
+            "reason": "Primary Ervin introduction and former trial code, regional performance not universal."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Strawberry UV-C powdery mildew field trials",
+      "split": "fresh_holdout",
+      "captured_candidates": 10,
+      "unreadable_candidates": 4,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Malling Ace strawberry field trials Germany",
+      "split": "fresh_holdout",
+      "captured_candidates": 3,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Blueberry drought irrigation sensor trials Peru",
+      "split": "fresh_holdout",
+      "captured_candidates": 7,
+      "unreadable_candidates": 2,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Blueberry cultivar ZZZQX-882 release announcement",
+      "split": "fresh_holdout",
+      "captured_candidates": 1,
+      "unreadable_candidates": 1,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Raspberry root-zone cooling summer production trials",
+      "split": "fresh_holdout",
+      "captured_candidates": 7,
+      "unreadable_candidates": 2,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 1,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-ff9fd8905e9e7850",
+            "disposition": "context_only",
+            "reason": "Roof/misting raspberry trial, not root-zone cooling; background only and excerpt ends at missing objective list."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Rubus idaeus resistance to raspberry bushy dwarf virus",
+      "split": "fresh_holdout",
+      "captured_candidates": 10,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 1,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-69ea97bd3dd64b04",
+            "disposition": "context_only",
+            "reason": "Historical transgenic Meeker composition study, RBDV-resistance context but not all-strain immunity or current market authorization."
+          }
+        ]
+      }
+    },
+    {
+      "query": "Blackberry red drupelet reversion postharvest storage trials",
+      "split": "fresh_holdout",
+      "captured_candidates": 10,
+      "unreadable_candidates": 7,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 0,
+        "unreviewed": 0,
+        "issues": 0,
+        "items": []
+      }
+    },
+    {
+      "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+      "split": "fresh_holdout",
+      "captured_candidates": 4,
+      "unreadable_candidates": 0,
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true,
+      "semantic_review": {
+        "review_scope": "Inspected quotation meaning and section/topic context; not independent source-truth verification",
+        "reviewed": 4,
+        "unreviewed": 0,
+        "issues": 2,
+        "items": [
+          {
+            "section_id": "topic_background",
+            "source_id": "web-524d4aa56a0bba8c",
+            "disposition": "needs_review",
+            "reason": "Excerpt names blackberry trial setting while omitting that AGRHOUND is mobility/monitoring with harvesting not demonstrated; misleading beside harvesting-field-trial query."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-e84f96de614c159b",
+            "disposition": "context_only",
+            "reason": "Force measurements for gripper design, not automated blackberry field-picking success."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-c671d71e14dc1be3",
+            "disposition": "context_only",
+            "reason": "Developing blackberry perception system, not completed autonomous field harvest; planned state explicit."
+          },
+          {
+            "section_id": "topic_background",
+            "source_id": "web-7c7b2b81899ed306",
+            "disposition": "needs_review",
+            "reason": "Mixed-berry farm introduction omits next source paragraph explicitly making Dogtooth trials strawberry-focused; does not support blackberry harvesting trials."
+          }
+        ]
+      }
+    }
+  ],
+  "run_sha256": "615e6e36d33449159db8ae23fba6559b52670cb95d7b2652e0bdccdb4a8c5936",
+  "semantic_review_totals": {
+    "reviewed": 36,
+    "unreviewed": 0,
+    "issues": 7
+  },
+  "semantic_reviews_sha256": "d023d3358673ed89a100c70b2c90b691a28980b15ca7914bbfc60f0042aa7073"
+}

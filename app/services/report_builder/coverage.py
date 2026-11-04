@@ -34,6 +34,15 @@ def report_coverage(
     berry_label: str = "",
     geography_labels: tuple[str, ...] = (),
 ) -> dict[str, Any]:
+    if packet.get("topic_research"):
+        research = packet["topic_research"]
+        counts = {"collected_sources": len(research.get("local") or []), "unreviewed_web_discoveries": len(research.get("web") or [])}
+        gaps = []
+        if not any(counts.values()):
+            gaps.append("No relevant source passed the topic query and explicit restrictions.")
+        if research["discovery"].get("status") in {"unavailable", "failed", "partial"}:
+            gaps.append("Public web coverage is incomplete: " + ", ".join(research["discovery"].get("failures") or []))
+        return {"counts": counts, "gaps": gaps, "dimensions": []}
     if packet.get("strategic_question") is not None:
         sq = packet["strategic_question"]
         counts = {

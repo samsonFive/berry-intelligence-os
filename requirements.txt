@@ -47,3 +47,6 @@ requests==2.32.3
 # be upgraded) -- operators should expect to bump this pin periodically,
 # independent of this project's own release cadence.
 yt-dlp==2026.7.4
+
+# Bounded public PDF text extraction; verified security-patched release.
+pypdf==6.21.3

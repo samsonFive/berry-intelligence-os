@@ -1,0 +1,29 @@
+{
+  "id": "variety-versailles-2f7ea4dc",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Versailles",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-8d82ecb16c99",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:22.262607+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+      "source_label": "Marionnet Label — ten distinct raspberry cards",
+      "candidate_name": "Versailles"
+    }
+  }
+}

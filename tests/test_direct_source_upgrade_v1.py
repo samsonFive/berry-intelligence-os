@@ -84,16 +84,20 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
     # still retires only the duplicate FreshPlaza source.
     # Requested sustainability coverage adds two RSS, one sitemap and one search Source.
     # Gene-editing mission adds 45 manual references and 11 company monitors.
-    # October 28 closeout adds 13 deduplicated manual references; no new feeds.
-    assert len(sources) == 278
-    assert len(discoverable) == 96
-    assert len(eligible) == 92  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
+    # October 27 adds three indexed primary-program sources, all news_search_rss,
+    # with no linked company roles. The direct-source counts remain unchanged.
+    added = {"source-nc-state-rubus-portal", "source-inhort-berry-breeding", "source-embrapa-berry-research"}
+    assert added <= {source["id"] for source in eligible}
+    assert all(source["discovery"]["adapter"] == "news_search_rss" for source in sources if source["id"] in added)
+    assert len(sources) == 281
+    assert len(discoverable) == 99
+    assert len(eligible) == 95  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
     assert len(direct_rss) == 38
     assert len(linked_direct) == 23
-    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 68
-    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 48
-    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 47
-    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 46
+    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 70
+    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 50
+    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 50
+    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 49
 
 
 def test_weekly_cadence_and_never_run_freshness_remain_existing_semantics() -> None:

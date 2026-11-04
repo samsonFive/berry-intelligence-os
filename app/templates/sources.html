@@ -15,6 +15,7 @@
   <div>
     <p class="eyebrow">MONITOR · SOURCE HEALTH</p>
     <h1>Source Health</h1>
+    {% if not static_build %}<p><a href="/settings/collection">Manage collection sources and search terms</a></p>{% endif %}
     <p class="also-known-as">Sources as operational collection health. This is not intelligence recall.</p>
   </div>
 </section>

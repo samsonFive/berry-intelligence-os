@@ -130,6 +130,8 @@ _BERRY_CROP = re.compile(
     r")",
     re.IGNORECASE,
 )
+from app.services.berry_vocabulary import EXTRA_CROP_TERMS, NATIVE_INDUSTRY_TERMS, NATIVE_GENETICS_TERMS
+_BERRY_CROP = re.compile(_BERRY_CROP.pattern + r"|(?<!\w)(?:" + "|".join(re.escape(t) for terms in EXTRA_CROP_TERMS.values() for t in terms) + r")(?!\w)", re.I)
 _BERRY_COLLECTIVE = re.compile(r"\bberr(?:y|ies)\b", re.IGNORECASE)
 _INDUSTRY = re.compile(
     r"(?:"
@@ -153,6 +155,7 @@ _INDUSTRY = re.compile(
     r")",
     re.IGNORECASE,
 )
+_INDUSTRY = re.compile(_INDUSTRY.pattern + r"|\b(?:" + "|".join(NATIVE_INDUSTRY_TERMS) + r")\b", re.I)
 _VARIETY_TERMS = re.compile(
     r"\b("
     r"cultivar|variety|varieties|breeder|breeding|genetics|pbr|"
@@ -160,6 +163,7 @@ _VARIETY_TERMS = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+_VARIETY_TERMS = re.compile(_VARIETY_TERMS.pattern + r"|\b(?:" + "|".join(re.escape(t) for t in NATIVE_GENETICS_TERMS) + r")\b", re.I)
 _COMPETITOR_TERMS = re.compile(
     r"\b(acquisition|merger|partnership|joint venture|unveils|launches|opens|expansion)\b",
     re.IGNORECASE,

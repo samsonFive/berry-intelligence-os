@@ -1,0 +1,1076 @@
+{
+  "version": 1,
+  "reviewed_at_utc": "2026-11-03T03:21:20.101396+00:00",
+  "policy": "Post-seal source-acquisition supplement. Explicit relevance judgments concern the inspected deposited abstract, not unreadable original full text or sealed historical versions. No blind score or historical label is overwritten. Missing abstract concepts are not evidence that the full article lacks them. No publication, Atomic Evidence, trait, identity or right approval.",
+  "original_urls_recovered": 37,
+  "query_source_pairs": 41,
+  "new_search_provider_requests": 0,
+  "rows": [
+    {
+      "original_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10000651/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC10000651&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Microbial Load of Fresh Blueberries Harvested by Different Methods.",
+      "doi": "10.3390/foods12051047",
+      "pmcid": "PMC10000651",
+      "pmid": "36900562",
+      "capture_sha256": "64798472bd19e2ce2dbbb81ea44827fdeb50e4e1db0ff750c46c439cdb49a620",
+      "reviewed_abstract_sha256": "5047e4a0b0e61028899a922db5fd3b5cdf664a3f148d5290f5a587adf4524312",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S301",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "L18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Four harvest methods are compared on a blueberry farm across harvest dates and microbial outcomes.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11988984/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC11988984&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Increased Temperature Effects During Fruit Growth and Maturation on the Fruit Quality, Sensory and Antioxidant Properties of Raspberry (&lt;i&gt;Rubus idaeus&lt;/i&gt; L.) cv. Heritage.",
+      "doi": "10.3390/foods14071201",
+      "pmcid": "PMC11988984",
+      "pmid": "40238340",
+      "capture_sha256": "e090b17297d02a6e2fc72c313ed2a3cad2a2a081ac219a0b24d2cc7ad5733f1d",
+      "reviewed_abstract_sha256": "34d467b91ab15da97d49aa83de2a31a11247b8279d492715ed408fe840463d9f",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T176",
+          "query": "Raspberry root-zone cooling summer production trials",
+          "query_id": "F16",
+          "required_version": null,
+          "grade": 1,
+          "reason": "Ambient heating experiment is not a root-zone cooling intervention.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pubmed.ncbi.nlm.nih.gov/33616425/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A33616425+AND+SRC%3AMED&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "abstract_only",
+      "title": "Use of Ultraviolet Light to Suppress Powdery Mildew in Strawberry Fruit Production Fields.",
+      "doi": "10.1094/pdis-04-20-0781-re",
+      "pmcid": null,
+      "pmid": "33616425",
+      "capture_sha256": "b65400b7568491b2a8d42759658f6293afc13240d21bf49433c368d23e967aae",
+      "reviewed_abstract_sha256": "f9a099010bf857fd50b06edb943644f01880eeee89cb283e959596ef42c2a92d",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T248",
+          "query": "Strawberry UV-C powdery mildew field trials",
+          "query_id": "F12",
+          "required_version": null,
+          "grade": 3,
+          "reason": "UV-C apparatus is evaluated against powdery mildew in commercial and research strawberry fields.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10290139/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC10290139&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Deep learning supported machine vision system to precisely automate the wild blueberry harvester header.",
+      "doi": "10.1038/s41598-023-37087-z",
+      "pmcid": "PMC10290139",
+      "pmid": "37353530",
+      "capture_sha256": "c61387c4f96bb4f6af16e9fe335c0f98ddfbc53c3946c1d5d5529a407afac35a",
+      "reviewed_abstract_sha256": "f1676d553cf321fee4a7daaf08b668f0e87aa3841612f4142bad578da3a595ac",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T134",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "F04",
+          "required_version": "8b5e4166e6f3615ad3ee08dd14a60bbf0e7edc3b87d2ba8a46f3810e84a328da",
+          "grade": 3,
+          "reason": "Wild blueberry harvester header automation is evaluated against manual height adjustment.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pubmed.ncbi.nlm.nih.gov/23856741/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A23856741+AND+SRC%3AMED&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "abstract_only",
+      "title": "Genetic map of the primocane-fruiting and thornless traits of tetraploid blackberry.",
+      "doi": "10.1007/s00122-013-2152-3",
+      "pmcid": null,
+      "pmid": "23856741",
+      "capture_sha256": "78e03e3e50bc699f7cec5872681b1597b70f1869dbf97c883b662bfa1d4ce4b1",
+      "reviewed_abstract_sha256": "bfa6ada6157ceceab9de6a756a4925e9bf82c3b0a98135a2a9924d510ef08df1",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S108",
+          "query": "Primocane blackberry developments",
+          "query_id": "L07",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Primary genetic linkage mapping identifies the primocane-fruiting and thornlessness loci.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4588112/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC4588112&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Breeding blueberries for a changing global environment: a review.",
+      "doi": "10.3389/fpls.2015.00782",
+      "pmcid": "PMC4588112",
+      "pmid": "26483803",
+      "capture_sha256": "73622401f16ff7795d564caea6b8da927e8ede7ed205474e1b6d1c5c2452835e",
+      "reviewed_abstract_sha256": "957c5dbdf6126b4996c883afca057afddd5557ca12da98208babbbd1db3e1caa",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S272",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "L23",
+          "required_version": "8b5e4166e6f3615ad3ee08dd14a60bbf0e7edc3b87d2ba8a46f3810e84a328da",
+          "grade": 2,
+          "reason": "Review describes genetic variability, warming adaptation and selection methods rather than a new cultivar or individual trial.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        },
+        {
+          "cohort": "fresh",
+          "id": "T168",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "F09",
+          "required_version": "8b5e4166e6f3615ad3ee08dd14a60bbf0e7edc3b87d2ba8a46f3810e84a328da",
+          "grade": 2,
+          "reason": "Review describes genetic variability, warming adaptation and selection methods rather than a new cultivar or individual trial.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pubmed.ncbi.nlm.nih.gov/18598047/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A18598047+AND+SRC%3AMED&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "abstract_only",
+      "title": "Comparison of sugar, acids, and volatile composition in raspberry bushy dwarf virus-resistant transgenic raspberries and the wild type 'meeker' (rubus idaeus L.).",
+      "doi": "10.1021/jf800253e",
+      "pmcid": null,
+      "pmid": "18598047",
+      "capture_sha256": "8f73c773080df4fbbff15e57b980f0f6f5e7f3d14f4e270fc2b129476d86324d",
+      "reviewed_abstract_sha256": "81735c56fac3d1e084e7445aa101af04ed484471bae7437793a614a6f4fabd06",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T251",
+          "query": "Rubus idaeus resistance to raspberry bushy dwarf virus",
+          "query_id": "F17",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Primary comparison of RBDV-resistant transgenic Meeker lines and wild type measures fruit composition across sites and seasons.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pubmed.ncbi.nlm.nih.gov/37152437/",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A37152437+AND+SRC%3AMED&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Biologically inspired robotic perception-action for soft fruit harvesting in vertical growing environments.",
+      "doi": "10.1007/s11119-023-10000-4",
+      "pmcid": "PMC10010232",
+      "pmid": "37152437",
+      "capture_sha256": "658961a404bd8a937e48f75607f5cac0af60836ad1ba3eb748e5a541a66fe3a6",
+      "reviewed_abstract_sha256": "f03c5a613e39a7d2571eef289e0aed82fb98bedd6aef4f8216ed2447c8585914",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T191",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "F08",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Robotic strawberry perception and reaching/cutting research includes explicit field trials.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10000651/pdf/foods-12-01047.pdf",
+      "copy_metadata_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC10000651&format=json&resultType=core",
+      "method": "official Europe PMC core metadata/abstract; same PMID/PMCID identity",
+      "availability": "fulltext_xml",
+      "title": "Microbial Load of Fresh Blueberries Harvested by Different Methods.",
+      "doi": "10.3390/foods12051047",
+      "pmcid": "PMC10000651",
+      "pmid": "36900562",
+      "capture_sha256": "97a7667310b675556788cf8cebac227d7a5e705cfdcb8365adb475d6218a3adf",
+      "reviewed_abstract_sha256": "5047e4a0b0e61028899a922db5fd3b5cdf664a3f148d5290f5a587adf4524312",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S109",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "L18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Four harvest methods are compared on a blueberry farm across harvest dates and microbial outcomes.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "jats:p:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/27/10/article-p1111.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Photosynthetic Heat Stability in Highbush Blueberries and the Possibility of Genetic Improvement"
+      ],
+      "doi": "10.21273/hortsci.27.10.1111",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "82fe20c37a1a12e0943e84c8ae95c39c63dba34e06d684dffeb5c7ba5dd50f38",
+      "reviewed_abstract_sha256": "74e32cdd488d93be3fd51de10f75dd20dc543b475c65117b1af681b1b2b8b527",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S160",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "L23",
+          "required_version": null,
+          "grade": 3,
+          "reason": "The experiment identifies heat-tolerant derivative genotypes from Bluecrop crossed with V. darrowi.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        },
+        {
+          "cohort": "fresh",
+          "id": "T118",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "F09",
+          "required_version": null,
+          "grade": 3,
+          "reason": "The experiment identifies heat-tolerant derivative genotypes from Bluecrop crossed with V. darrowi.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/hortsci/60/7/article-p1180.xml",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Breeding for Resistance to Significant Disease and Insect Pests of Red and Black Raspberry (Rubus idaeus and R. occidentalis) in the Pacific Northwest"
+      ],
+      "doi": "10.21273/hortsci18571-25",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "45654e53d804b8682f169bc83a6dd07e381708f4d085d8443b59fa18398d5796",
+      "reviewed_abstract_sha256": "f7442f7df7e4ff91983eff0ed5c933ba2ea02a038bbbcc1ffb4a63b2c43a6918",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T096",
+          "query": "Rubus idaeus resistance to raspberry bushy dwarf virus",
+          "query_id": "F17",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Review of raspberry resistance breeding includes RBDV but is not a new resistance trial.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/hortsci/53/7/article-p1021.xml",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Breeding Trait Priorities of the Blueberry Industry in the United States and Canada"
+      ],
+      "doi": "10.21273/hortsci12964-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "98dd56397e7b1b960bbef3d0e747fa72720f62b2283f6998c8f962c909696cb3",
+      "reviewed_abstract_sha256": "a6b2dd2358e36ca245c0bdf5483489b11f5c0707ee5c43b0a7ca6758a09d65a6",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S063",
+          "query": "Blueberry breeding developments",
+          "query_id": "L10",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Industry trait-priority survey informs breeding rather than reporting a cultivar release.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/56/8/article-p889.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Effect of Harvest Time and Fruit Firmness on Red Drupelet Reversion in Blackberry"
+      ],
+      "doi": "10.21273/hortsci15853-21",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "dee62b358c3e924ecc5f64c3a69d59ac6360d75321ee40f2c5ae02fabf0e890d",
+      "reviewed_abstract_sha256": "96c60c000e41f31dfe55b90228ad29a989a1fc1bcaac94a85e42c8a7d3066730",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T044",
+          "query": "Blackberry red drupelet reversion postharvest storage trials",
+          "query_id": "F18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Two-year genotype and harvest-time experiment measures red drupelet reversion after cold storage.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/53/7/article-p1021.pdf",
+      "copy_metadata_url": "cached bibliographic query",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Breeding Trait Priorities of the Blueberry Industry in the United States and Canada"
+      ],
+      "doi": "10.21273/hortsci12964-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "083ea6eb2d103ad42c19a94971b74f1f31a90608a3177b608916c541c7191ad3",
+      "reviewed_abstract_sha256": "a6b2dd2358e36ca245c0bdf5483489b11f5c0707ee5c43b0a7ca6758a09d65a6",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T121",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "F09",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Trait-priority survey discusses abiotic stress broadly; no heat-tolerance experiment is established here.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/horttech/21/4/article-p429.xml",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Primocane-fruiting Raspberry Production in High Tunnels in a Cold Region of the Upper Midwestern United States"
+      ],
+      "doi": "10.21273/horttech.21.4.429",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "7ed3114dbf2f976a7153875c8ff4681c75ce354a13e26ff6445c13919f06cc30",
+      "reviewed_abstract_sha256": "41616d5f4dbf9edef5cfebd51676198ecb313b1882507229f37fe59065083b06",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T150",
+          "query": "Raspberry root-zone cooling summer production trials",
+          "query_id": "F16",
+          "required_version": null,
+          "grade": 1,
+          "reason": "High-tunnel cold-region production experiment does not establish root-zone cooling.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/horttech/29/3/article-p276.xml",
+      "copy_metadata_url": "cached bibliographic query",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Blackberry Propagation Limitations When Using Floricane Cuttings"
+      ],
+      "doi": "10.21273/horttech04266-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "281a6d66f008dfdbfc0cafba7ffb2f1e68133273f6a3d9144b51e1e0b2c2dc98",
+      "reviewed_abstract_sha256": "064b743fe374852da21fdfcaf75f9b42ea177699b8ef61cca1f23ca48cbd9f36",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S223",
+          "query": "Floricane blackberry licensing outside the United States",
+          "query_id": "L05",
+          "required_version": null,
+          "grade": 1,
+          "reason": "US floricane-cutting propagation experiment does not establish international licensing.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/horttech/26/3/article-p299.xml",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "The Economic Feasibility of Adopting Mechanical Harvesters by the Highbush Blueberry Industry"
+      ],
+      "doi": "10.21273/horttech.26.3.299",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "9f63f521fe3bc026a3138fc1448641245b7a19baeebc7a3a5ee53e91c4360c91",
+      "reviewed_abstract_sha256": "e8e4f3460cf74c83b50d05bac6f75e499e9a3e245551ea80646183057366c6b2",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S139",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "L18",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Economic feasibility model concerns mechanical harvesters; it is not a field performance trial.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        },
+        {
+          "cohort": "fresh",
+          "id": "T093",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "F04",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Economic feasibility model concerns mechanical harvesters; it is not a field performance trial.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/54/12/article-p2231.pdf",
+      "copy_metadata_url": "https://api.crossref.org/works/10.21273/HORTSCI14427-19",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Critical Temperatures and Heating Times for Fruit Damage in Northern Highbush Blueberry"
+      ],
+      "doi": "10.21273/hortsci14427-19",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "a499cc531d543f724400c0a3d551fd97072c6fee17f629b456f88a45e2313440",
+      "reviewed_abstract_sha256": "5a05d5d46c3089123bbfe3aaf6904caa0ba475426827b06594dfc1c643eecf53",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S144",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "L23",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Cultivar heat-damage experiment informs adaptation and cooling but does not test breeding improvement.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/jashs/144/5/article-p339.pdf",
+      "copy_metadata_url": "https://api.crossref.org/works/10.21273/JASHS04650-19",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "High Temperatures during Flowering Reduce Fruit Set in Rabbiteye Blueberry"
+      ],
+      "doi": "10.21273/jashs04650-19",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "fe24fdae594c35ad96d0bf9d20bf309d330d7dd636a931c9a0a19b255e2088ac",
+      "reviewed_abstract_sha256": "3ceb3d6f958483512f633821eb02c43e036def4c18e9918ffca321e2ae6a03f6",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S262",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "L23",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Comparative high-temperature flowering experiments identify resistance thresholds relevant to breeding.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/43/6/article-p1637.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Primocane-fruiting Blackberry Breeding"
+      ],
+      "doi": "10.21273/hortsci.43.6.1637",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "7ba6105e4de8dbe869155d23d044e79c5f0786eb714da4404dd4696472531d5f",
+      "reviewed_abstract_sha256": "d35a9539c7d545e2bd8cd5a3e87fa338b72ff9ae1abbd426c3be4e40167af535",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S294",
+          "query": "Primocane blackberry developments",
+          "query_id": "L07",
+          "required_version": null,
+          "grade": 3,
+          "reason": "The breeder describes the primocane programme, introductions and progress on explicit breeding limitations.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/hortsci/54/12/article-p2231.xml",
+      "copy_metadata_url": "https://api.crossref.org/journals/0018-5345/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Critical Temperatures and Heating Times for Fruit Damage in Northern Highbush Blueberry"
+      ],
+      "doi": "10.21273/hortsci14427-19",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "f3ab1da3744848d3e2898937b066f6d4c4651b52a7e7b663795344cac3dabd88",
+      "reviewed_abstract_sha256": "5a05d5d46c3089123bbfe3aaf6904caa0ba475426827b06594dfc1c643eecf53",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T000",
+          "query": "Blueberry heat tolerance breeding",
+          "query_id": "F09",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Cultivar heat-damage experiment informs adaptation and cooling but does not test breeding improvement.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "http://journals.ashs.org/view/journals/horttech/28/5/article-p578.xml",
+      "copy_metadata_url": "cached bibliographic query",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Harvest, Handling, and Storage Recommendations for Improving Postharvest Quality of Blackberry Cultivars"
+      ],
+      "doi": "10.21273/horttech04062-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "a8366bc495d5d4716cffe0888c12f1056ee6cc28389379c60aa0dd0833ec5d83",
+      "reviewed_abstract_sha256": "897d63d17d4691f53373175c321725860de826001d5de5dac6c5a476143c8c52",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T265",
+          "query": "Blackberry red drupelet reversion postharvest storage trials",
+          "query_id": "F18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Cultivar experiment compares harvest times, delays and cold-storage duration including red reversion.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/28/5/article-p578.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Harvest, Handling, and Storage Recommendations for Improving Postharvest Quality of Blackberry Cultivars"
+      ],
+      "doi": "10.21273/horttech04062-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "eff21c730222cd3920b9ee7e9254052f74b1376a22e6b5422f93cd9059cea986",
+      "reviewed_abstract_sha256": "897d63d17d4691f53373175c321725860de826001d5de5dac6c5a476143c8c52",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T064",
+          "query": "Blackberry red drupelet reversion postharvest storage trials",
+          "query_id": "F18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Cultivar experiment compares harvest times, delays and cold-storage duration including red reversion.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/15/3/article-p491.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Changing Times for Eastern United States Blackberries"
+      ],
+      "doi": "10.21273/horttech.15.3.0491",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "f1710a859a73596e4f93ccae3b5b63d936917647caefa4d8aab49cbc638c9bef",
+      "reviewed_abstract_sha256": "7e4f6122238cbc5ab3a2d2186a402225317620269ca0ce4a21004ce385efd716",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S266",
+          "query": "Primocane blackberry developments",
+          "query_id": "L07",
+          "required_version": null,
+          "grade": 2,
+          "reason": "Historical blackberry production and cultivar development context does not specifically establish primocane advances in the abstract.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/25/4/article-p452.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Uptake and Partitioning of Nutrients in Blackberry and Raspberry and Evaluating Plant Nutrient Status for Accurate Assessment of Fertilizer Requirements"
+      ],
+      "doi": "10.21273/horttech.25.4.452",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "fb873f04a27709c486c5975ef26c5fc6b74bfa031066851b12af710b32e3e56f",
+      "reviewed_abstract_sha256": "ce6444411fba9ae8aa3fbadcf90f9227224e6952940eea164bdf7d0ecdb3aee3",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S170",
+          "query": "NC 740 blackberry",
+          "query_id": "L04",
+          "required_version": null,
+          "grade": 1,
+          "reason": "General Rubus nutrition study does not identify NC 740 in the deposited abstract.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/29/3/article-p276.pdf",
+      "copy_metadata_url": "https://api.crossref.org/journals/1063-0198/works",
+      "method": "publisher-deposited Crossref metadata/abstract; exact journal-volume-issue-first-page identity required",
+      "availability": "abstract_only",
+      "title": [
+        "Blackberry Propagation Limitations When Using Floricane Cuttings"
+      ],
+      "doi": "10.21273/horttech04266-18",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "9d6d58b42671e37ce90f1fba22b3f87b3ebf65957d1a6ce901c5aec99a698abd",
+      "reviewed_abstract_sha256": "064b743fe374852da21fdfcaf75f9b42ea177699b8ef61cca1f23ca48cbd9f36",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S094",
+          "query": "Floricane blackberry licensing outside the United States",
+          "query_id": "L05",
+          "required_version": null,
+          "grade": 1,
+          "reason": "US floricane-cutting propagation experiment does not establish international licensing.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://onlinelibrary.wiley.com/doi/10.1002/rob.22229",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1002/rob.22229",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Modular autonomous strawberry picking robotic system"
+      ],
+      "doi": "10.1002/rob.22229",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "557e561d22cb519f78e068c128ff7c4d0e80e35bb653f9c9b3597e7053064f82",
+      "reviewed_abstract_sha256": "f3f61c39b296195ccefef92b7d0fb5a3b2789d0cb20b8f7a8400ce196b22d9df",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S179",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "L22",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Modular strawberry picking system is tested in commercial and research fields, with reported harvesting outcomes.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        },
+        {
+          "cohort": "fresh",
+          "id": "T236",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "F08",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Modular strawberry picking system is tested in commercial and research fields, with reported harvesting outcomes.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://onlinelibrary.wiley.com/doi/10.1002/rob.22472",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1002/rob.22472",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Development, Integration, and Field Evaluation of a Dual‐Arm Ridge Cultivation Strawberry Autonomous Harvesting Robot"
+      ],
+      "doi": "10.1002/rob.22472",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "142fc66de83fcaa4715a9fcd1c2b587d3aaf9b61794641c244fd294b97cd0540",
+      "reviewed_abstract_sha256": "fe9a010e33243e60f265853d0e15b62a878b44bfecbc118d0c035ac9cb8e6733",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T226",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "F08",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Dual-arm strawberry harvesting robot is evaluated in polytunnels with scenario-specific success and cycle times.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://apsjournals.apsnet.org/doi/10.1094/PDIS-04-20-0781-RE",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1094/PDIS-04-20-0781-RE",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Use of Ultraviolet Light to Suppress Powdery Mildew in Strawberry Fruit Production Fields"
+      ],
+      "doi": "10.1094/pdis-04-20-0781-re",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "9fc6fcd932b0eb34091cdb0cccebe2a7690ecd7a26192738acfc2203afdd63bd",
+      "reviewed_abstract_sha256": "707df4f3559848338353ecedf82e5ab7ec36ca76df4755cc69da88a68591340f",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T188",
+          "query": "Strawberry UV-C powdery mildew field trials",
+          "query_id": "F12",
+          "required_version": null,
+          "grade": 3,
+          "reason": "UV-C strawberry powdery mildew equipment is evaluated in open commercial and research fields.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://www.tib-op.org/ojs/index.php/agripv/article/download/1405/2642/43464",
+      "copy_metadata_url": "https://api.crossref.org/works?query.title=Effects+of+Dynamic+Agrivoltaics+on+Containerized+Raspberry+Plants%3A+Results+of+the+First+Season&rows=3",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Effects of Dynamic Agrivoltaics on Containerized Raspberry Plants: Results of the First Season"
+      ],
+      "doi": "10.52825/agripv.v3i.1405",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "79516c99c308db6bd2f2cce856ac5285d833453700bb98f531572875a91e20ce",
+      "reviewed_abstract_sha256": "b955235195d56699c98f5928e7f07e66576c1379825d0bf27e0543f28da7b683",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T165",
+          "query": "Raspberry root-zone cooling summer production trials",
+          "query_id": "F16",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Agrivoltaic comparison in containerized Kwanza raspberries reports reduced substrate temperatures, summer heat exposure and yield; it is a microclimate treatment, not active root refrigeration.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://apsjournals.apsnet.org/doi/pdf/10.1094/PHP-01-22-0002-RS",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1094/PHP-01-22-0002-RS",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Design, Construction, and Evaluation of Equipment for Nighttime Applications of UV-C for Management of Strawberry Powdery Mildew in Florida and California"
+      ],
+      "doi": "10.1094/php-01-22-0002-rs",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "3f299dc9d9e618ec8c9c02e6cf6f3fa67e67dcb66bbe9159e548b8c8e0138a67",
+      "reviewed_abstract_sha256": "15b3ec67fd062bc9cd701c15b65fe3b181cb64ce8c3e7e46783b6568394cf3fd",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T023",
+          "query": "Strawberry UV-C powdery mildew field trials",
+          "query_id": "F12",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Replicated Florida and California field experiments compare UV-C with fungicide suppression.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://iris.unito.it/retrieve/handle/2318/1822110/879222/agriculture-11-01197-v2.pdf",
+      "copy_metadata_url": "https://api.crossref.org/works?query.title=Mechanized+Blueberry+Harvesting%3A+Preliminary+Results+in+the+Italian+Context&rows=3",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Mechanized Blueberry Harvesting: Preliminary Results in the Italian Context"
+      ],
+      "doi": "10.3390/agriculture11121197",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "d7e718820ea6c7095967a761a592ec1c8c16e6af9f57f01eedb9bd7a76d00c78",
+      "reviewed_abstract_sha256": "3083fee61114e73678ab786bd50d154506221ad11296dbcecc57c91edcc71219",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S038",
+          "query": "Blueberry machine harvesting trials",
+          "query_id": "L18",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Cargo blueberry prototype and commercial mechanical harvesters are compared with manual picking in Italy.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://onlinelibrary.wiley.com/doi/10.1002/rob.70021",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1002/rob.70021",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Towards Damage‐Less Robotic Fragile Fruit Grasping: A Systematic Review on System Design, End Effector, and Visual and Tactile Feedback"
+      ],
+      "doi": "10.1002/rob.70021",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "c8ad62d2986c71993e446a5bb04f33038ed1a1ad42ccc0e329349d7420f7ae20",
+      "reviewed_abstract_sha256": "a6e6ba763310a474bf785ede9a72c1f155533e2de36acc0b5edfe1b97d1ee4d4",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T196",
+          "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+          "query_id": "F19",
+          "required_version": null,
+          "grade": 1,
+          "reason": "General fragile-fruit gripper review does not establish a blackberry field harvesting trial in the requested dates.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://www.mdpi.com/2311-7524/11/9/1042",
+      "copy_metadata_url": "https://api.crossref.org/works?query.title=Advances+in+Berry+Harvesting+Robots&rows=3",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Advances in Berry Harvesting Robots"
+      ],
+      "doi": "10.3390/horticulturae11091042",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "703530a0cbea94eb4ae009e1e3a37e246f3b7eec5b7b8ca5abc1caffa1402669",
+      "reviewed_abstract_sha256": "ce23c2409932e97b85cc4c693b05d179a406c60c2d522260656b678b6a3f0359",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T197",
+          "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+          "query_id": "F19",
+          "required_version": null,
+          "grade": 1,
+          "reason": "Berry robot technology review does not establish an owned dated blackberry field harvesting experiment.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://onlinelibrary.wiley.com/doi/full/10.1002/rob.22229",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1002/rob.22229",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Modular autonomous strawberry picking robotic system"
+      ],
+      "doi": "10.1002/rob.22229",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "167b0d8bd7c6aad80ebe3a5f1b74fa416a510adcd2fc0008ecbe4966c8432f18",
+      "reviewed_abstract_sha256": "f3f61c39b296195ccefef92b7d0fb5a3b2789d0cb20b8f7a8400ce196b22d9df",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S101",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "L22",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Modular strawberry picking system is tested in commercial and research fields with harvesting outcomes.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://apsjournals.apsnet.org/doi/pdf/10.1094/PDIS-04-20-0781-RE",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1094/PDIS-04-20-0781-RE",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "Use of Ultraviolet Light to Suppress Powdery Mildew in Strawberry Fruit Production Fields"
+      ],
+      "doi": "10.1094/pdis-04-20-0781-re",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "6cf9460b10733ddc759ced9ca3c5cb5f2974182188ee7c40f4f78187d8ea0f8e",
+      "reviewed_abstract_sha256": "707df4f3559848338353ecedf82e5ab7ec36ca76df4755cc69da88a68591340f",
+      "judgments": [
+        {
+          "cohort": "fresh",
+          "id": "T018",
+          "query": "Strawberry UV-C powdery mildew field trials",
+          "query_id": "F12",
+          "required_version": null,
+          "grade": 3,
+          "reason": "UV-C strawberry powdery mildew equipment is evaluated in open commercial and research fields.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    },
+    {
+      "original_url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22106",
+      "copy_metadata_url": "https://api.crossref.org/works/10.1002/rob.22106",
+      "method": "publisher-deposited Crossref abstract; exact DOI or normalized title identity",
+      "availability": "abstract_only",
+      "title": [
+        "A strawberry harvest‐aiding system with crop‐transport collaborative robots: Design, development, and field evaluation"
+      ],
+      "doi": "10.1002/rob.22106",
+      "pmcid": null,
+      "pmid": null,
+      "capture_sha256": "9260e96aacda0999011a5d116afd6b672233b35f1b79d9987e06846d095859c8",
+      "reviewed_abstract_sha256": "e0c077eb3ab29f1fc8367b2880510cbb616fa15a11aceded52a6f9f55bc12762",
+      "judgments": [
+        {
+          "cohort": "legacy",
+          "id": "S200",
+          "query": "Strawberry robotic harvesting research",
+          "query_id": "L22",
+          "required_version": null,
+          "grade": 3,
+          "reason": "Commercial strawberry harvest-aid robot trial measures worker efficiency and non-picking time; this is tray transport, not autonomous fruit picking.",
+          "source_checked": true,
+          "reviewed_material": "deposited abstract only",
+          "locator": "publisher-deposited-abstract:0"
+        }
+      ]
+    }
+  ]
+}

@@ -64,6 +64,8 @@ class ExaSearchProvider:
         }
         if query.kind == "unknown_unknown":
             body["category"] = "news"
+        if window == 'all':
+            body.pop('startPublishedDate', None)
         country = iso_country(query.geography)
         if country:
             body["userLocation"] = country

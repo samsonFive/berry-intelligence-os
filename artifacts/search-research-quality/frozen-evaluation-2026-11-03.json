@@ -1,0 +1,1054 @@
+{
+  "version": 1,
+  "kind": "Frozen source-inspected comparison with explicit post-seal annotation corrections; not parity acceptance",
+  "candidate_head": "921b197f2fb1192e6066defc91445ec6e9809941",
+  "frozen_protocol_sha256": "fb718b2c09ea49dffbd082ea5ddd28ad83fa56a6544086892ed8699ea703a8ef",
+  "capture_seal_sha256": "33d232bfa1708a9b696c009f1d63769718d648d4fc740afcfe408e2b4820a7d5",
+  "judgment_seal_sha256": "f7a5c06ae2563316f5ddba51e0011c380dad5daee99019c26f6402186fdb7f4e",
+  "correction_ledger_sha256": "688ab4b9f1c4f2c03c54547459ed6feaa118fdf93bf26711925dacd3d4c90c33",
+  "source_units": 314,
+  "graded_question_source_pairs": 231,
+  "unassessable_question_source_pairs": 94,
+  "unprocessed_units": 0,
+  "google_comparable_queries": 20,
+  "search_requests": 35,
+  "combined_with_prior_search_requests": 116,
+  "method": "Direct means manually graded 3; fixed denominator 10 including exhausted/empty results. Unknown bodies retained as intervals. nDCG only complete pooled questions; event coverage not inferred. Old archive search replays historical code on present public corpus, not original production traffic.",
+  "limitations": [
+    "Same operator captured and inspected rank/origin-masked source packets; not independent human adjudication.",
+    "Two explicit code-identity annotation corrections after scoring: U249 and U310. Original labels/metrics unchanged; corrected edition separate.",
+    "All questions are now consumed; v11 changes are development regressions, not fresh held-out acceptance.",
+    "Signed-in Google UI organic rankings, fixed depth ten or observed exhaustion; actual Tools dates for dated question.",
+    "Source/event grouping and remaining inaccessible bodies prevent aggregate nDCG, development coverage and Google parity acceptance."
+  ],
+  "summary": {
+    "all20": {
+      "old_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.0,
+          0.0
+        ],
+        "complete_top10_queries": 20,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "improved_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.295,
+          0.44
+        ],
+        "complete_top10_queries": 8,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "google": {
+        "mean_direct_precision_at_10_bounds": [
+          0.23,
+          0.565
+        ],
+        "complete_top10_queries": 1,
+        "mean_ndcg_complete_pool_only": null
+      }
+    },
+    "prospective16": {
+      "old_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.0,
+          0.0
+        ],
+        "complete_top10_queries": 16,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "improved_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.23125,
+          0.4
+        ],
+        "complete_top10_queries": 6,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "google": {
+        "mean_direct_precision_at_10_bounds": [
+          0.19375,
+          0.55
+        ],
+        "complete_top10_queries": 0,
+        "mean_ndcg_complete_pool_only": null
+      }
+    },
+    "comparison4": {
+      "old_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.0,
+          0.0
+        ],
+        "complete_top10_queries": 4,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "improved_app": {
+        "mean_direct_precision_at_10_bounds": [
+          0.55,
+          0.6
+        ],
+        "complete_top10_queries": 2,
+        "mean_ndcg_complete_pool_only": null
+      },
+      "google": {
+        "mean_direct_precision_at_10_bounds": [
+          0.375,
+          0.625
+        ],
+        "complete_top10_queries": 1,
+        "mean_ndcg_complete_pool_only": null
+      }
+    },
+    "complete_pools": 0,
+    "unknown_pairs": 94,
+    "google_comparable": 20,
+    "cold_median_seconds": 14.452,
+    "cold_p95_seconds": 36.334,
+    "warm_median_seconds": 0.0275,
+    "warm_zero_requests": true,
+    "acceptance": "NOT ESTABLISHED: unknown source bodies and unverified event grouping prevent aggregate parity acceptance; inspect bounds and individual cases."
+  },
+  "queries": [
+    {
+      "query": "Blackberry floricane pruning",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.7
+          ],
+          "direct_count": 6
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.6,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.6
+          ],
+          "direct_count": 6
+        }
+      }
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": true,
+          "direct_precision_at_10": 0.2,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.2
+          ],
+          "direct_count": 2
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.4
+          ],
+          "direct_count": 3
+        }
+      }
+    },
+    {
+      "query": "Blackberry Floricans",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.8,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.8,
+            0.8
+          ],
+          "direct_count": 8
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.5
+          ],
+          "direct_count": 1
+        }
+      }
+    },
+    {
+      "query": "Ervin blackberry",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.7
+          ],
+          "direct_count": 6
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 5,
+          "direct_precision_at_10_bounds": [
+            0.5,
+            1.0
+          ],
+          "direct_count": 5
+        }
+      }
+    },
+    {
+      "query": "Von blackberry postharvest storage trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.5
+          ],
+          "direct_count": 1
+        }
+      }
+    },
+    {
+      "query": "Blackberry cane blight management research",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.5
+          ],
+          "direct_count": 1
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 3,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.4
+          ],
+          "direct_count": 1
+        }
+      }
+    },
+    {
+      "query": "Blackberry cultivar \"ZZZQX-663\" field evaluation",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 6,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ],
+          "direct_count": 0
+        }
+      }
+    },
+    {
+      "query": "Blackberry floricane varieties Mediterranean trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 5,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ],
+          "direct_count": 0
+        }
+      }
+    },
+    {
+      "query": "Blueberry pollination bumblebee tunnel experiments",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 9,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.3
+          ],
+          "direct_count": 1
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 3,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.6
+          ],
+          "direct_count": 3
+        }
+      }
+    },
+    {
+      "query": "Blueberry machine sorting firmness studies",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.2,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.2
+          ],
+          "direct_count": 2
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.7
+          ],
+          "direct_count": 3
+        }
+      }
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.9,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.9,
+            0.9
+          ],
+          "direct_count": 9
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 3,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.9
+          ],
+          "direct_count": 6
+        }
+      }
+    },
+    {
+      "query": "Blueberry breeding low chilling requirement Florida",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.5
+          ],
+          "direct_count": 3
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.6
+          ],
+          "direct_count": 4
+        }
+      }
+    },
+    {
+      "query": "Raspberry Phytophthora root rot resistant cultivars trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.7,
+            0.9
+          ],
+          "direct_count": 7
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 4,
+          "direct_precision_at_10_bounds": [
+            0.5,
+            0.9
+          ],
+          "direct_count": 5
+        }
+      }
+    },
+    {
+      "query": "Raspberry high tunnel summer ventilation trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 6,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.7
+          ],
+          "direct_count": 1
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 5,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ],
+          "direct_count": 0
+        }
+      }
+    },
+    {
+      "query": "Raspberry cultivar Malling Bella yield trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.4
+          ],
+          "direct_count": 2
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.3
+          ],
+          "direct_count": 2
+        }
+      }
+    },
+    {
+      "query": "Raspberry crop heat stress experiments Scotland",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 5,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 5,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ],
+          "direct_count": 0
+        }
+      }
+    },
+    {
+      "query": "Strawberry Pestalotiopsis disease resistant cultivars trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.8
+          ],
+          "direct_count": 6
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 5,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.9
+          ],
+          "direct_count": 4
+        }
+      }
+    },
+    {
+      "query": "Strawberry tray plant nursery rooting substrate trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 9,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.5,
+            0.7
+          ],
+          "direct_count": 5
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.4
+          ],
+          "direct_count": 2
+        }
+      }
+    },
+    {
+      "query": "Strawberry cultivar \"ZZZQX-775\" release announcement",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 2,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 1,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "direct_count": 0
+        }
+      }
+    },
+    {
+      "query": "Strawberry robotic harvesting polytunnel trials 2023-01-01 through 2026-11-02",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "direct_count": 0
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "unknown_top10": 6,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.6
+          ],
+          "direct_count": 0
+        }
+      }
+    }
+  ]
+}

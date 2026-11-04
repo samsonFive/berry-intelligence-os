@@ -1,4 +1,6 @@
 {% extends "glasshouse_base.html" %}
+{% set variety_sheet = true %}
+{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'},{'label':'Photo imports'}] %}
 {% block title %}Photo imports · Varieties{% endblock %}
 {% block content %}
 <header class="digest-heading"><div><p class="eyebrow">Varieties · photo imports</p><h1>Photo imports</h1><p>{{ total }} candidate names across {{ associations }} company associations. {{ installed }} added for review.</p></div><a class="outline-button" href="/entities/variety">Variety directory</a></header>

@@ -1,0 +1,81 @@
+{
+  "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+  "created": [
+    {
+      "candidate_id": "vcand-a0e24ae9d1c6",
+      "variety_id": "variety-sweet-ark-immaculate-850b3936",
+      "name": "Sweet-Ark Immaculate",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-c17a6dbdfb8c",
+      "variety_id": "variety-prime-ark-horizon-847f051c",
+      "name": "Prime-Ark Horizon",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-26c70ef1685b",
+      "variety_id": "variety-sweet-ark-caddo-8572da8c",
+      "name": "Sweet-Ark Caddo",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-b41156070fba",
+      "variety_id": "variety-prime-ark-traveler-75a9cf4c",
+      "name": "Prime-Ark Traveler",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-011860cdc1ee",
+      "variety_id": "variety-prime-ark-freedom-5238cf18",
+      "name": "Prime-Ark Freedom",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-749876d24f06",
+      "variety_id": "variety-osage-cfdda609",
+      "name": "Osage",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    },
+    {
+      "candidate_id": "vcand-f3eb55bcae41",
+      "variety_id": "variety-natchez-c7a01e58",
+      "name": "Natchez",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "source_tier": "tier_1_breeder_catalog"
+    }
+  ],
+  "held": [
+    {
+      "name": "Prime-Ark 45",
+      "reason": "The catalog admission guard requires individual review of coded names. The breeder page identifies APF-45; code/denomination resolution is retained for review."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "variety-jenkka-d9352cad",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Jenkka",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-46ffc41c3a11",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:50.751773+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.fresh-forward.nl/en/our-varieties/B",
+      "source_label": "Fresh Forward — strawberry navigation portfolio",
+      "candidate_name": "Jenkka"
+    }
+  }
+}

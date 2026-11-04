@@ -64,7 +64,7 @@ def test_cornell_provenance_retains_historical_dates_for_unknown_fixture_identit
     assert not matches[0]['human_gated'] and matches[0]['proposed_relationships'] == []
 
 
-def test_review_get_shows_dates_and_program_profile_without_private_writes(monkeypatch, tmp_path):
+def test_review_get_shows_dates_and_program_profile_without_private_writes(monkeypatch, tmp_path, pre_admission_catalog):
     monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)
     client = TestClient(main.app)

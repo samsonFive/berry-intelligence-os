@@ -1,0 +1,45 @@
+{
+  "frozen_at": "2026-11-03T00:14:02.750163+00:00",
+  "candidate_head": "39ce1ed5020b6bf9c65731d0b43e8d323a1da103",
+  "policy": "No query vocabulary, ranking, thresholds or source holds may be tuned after viewing fresh holdout results. Grade a shuffled URL/source packet with origins, ranks and retrieval labels omitted; reveal metrics only after labels are fixed. Same operator records and inspects sources, so this is not independent human adjudication.",
+  "fresh_holdout_queries": [
+    "Strawberry UV-C powdery mildew field trials",
+    "Malling Ace strawberry field trials Germany",
+    "Blueberry drought irrigation sensor trials Peru",
+    "Blueberry cultivar ZZZQX-882 release announcement",
+    "Raspberry root-zone cooling summer production trials",
+    "Rubus idaeus resistance to raspberry bushy dwarf virus",
+    "Blackberry red drupelet reversion postharvest storage trials",
+    "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02"
+  ],
+  "fresh_holdout_query_sha256": "5801ef2e2cb61c76cd0333b4ad91bc5031ebda08d65d551f3b5b3f073d887073",
+  "repaired_comparison_queries": [
+    "Blackberry Floricans",
+    "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+    "Strawberry Planasa licensing Spain",
+    "Raspberry breeding Scotland",
+    "Blueberry machine harvesting trials",
+    "Nonexistent cultivar ZZZQX-991 blackberry",
+    "Blackberry floricane pruning",
+    "Raspberry primocane trials United Kingdom",
+    "Strawberry robotic harvesting research",
+    "Blueberry heat tolerance breeding"
+  ],
+  "comparison_anchor_queries": [
+    "Floricane blackberry developments",
+    "Ervin blackberry"
+  ],
+  "fresh_holdout_indices": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "search_api_request_budget": 128,
+  "baseline_method": "Actual Google organic h3 links in the existing browser, excluding ads, AI answers and video/image/shopping modules. Top ten unique organic URLs or explicitly observed exhaustion. Capture scope and publication-date restriction separately.",
+  "deployment": "on hold"
+}

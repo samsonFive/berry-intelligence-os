@@ -7,6 +7,8 @@ Semantic wording is intentional: crop name may be absent from the title.
 
 from __future__ import annotations
 
+from app.services.collection_settings import configured
+
 from app.services.industry_pulse.matrix import GEO_EDITIONS, PulseQuery
 
 _EDITION = GEO_EDITIONS["global"]
@@ -45,6 +47,7 @@ UNKNOWN_UNKNOWN_TEXTS: tuple[tuple[str, str, str | None], ...] = (
 )
 
 
+@configured("exa")
 def week_unknown_unknown_queries() -> list[PulseQuery]:
     rows: list[PulseQuery] = []
     for query_id, text, berry in UNKNOWN_UNKNOWN_TEXTS:

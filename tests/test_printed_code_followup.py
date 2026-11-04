@@ -1,4 +1,5 @@
 """Printed labels never silently select a genotype, grant or photo permission."""
+from copy import deepcopy
 import json
 from pathlib import Path
 from app.services.variety_portfolio_coverage import load_portfolio_observations, _identity_pair_notes, _coded_label_keys, _code_comparison_key
@@ -62,6 +63,7 @@ def test_focal_context_does_not_transfer_to_comparisons_or_related_navigation():
 def test_two_ervin_photos_are_attributed_held_and_never_people_portraits():
     sources=batch()
     target=json.loads((ROOT/'data/entities/varieties/variety-ervin.json').read_text())
+    before=deepcopy(target)
     photos=source_photos(target,sources=sources,varieties=[target])
     assert len(photos)==2 and {row['kind'] for row in photos}=={'fruit','plant'}
     assert all(row['named_variety']=='Ervin' and row['reuse']=='unknown' for row in photos)
@@ -69,4 +71,7 @@ def test_two_ervin_photos_are_attributed_held_and_never_people_portraits():
     assert gallery(target,sourced=photos,authoring=False)==[]
     assert all(row['credit']=='NC State Extension; photographer not credited' for row in photos)
     assert all('Ervin_Lineberger' not in row['image_url'] and 'Gina' not in row['image_url'] for row in photos)
-    assert target['aliases']==[]
+    assert target == before
+    # The separately source-backed NC 740 alias is not a photo approval.
+    assert target['aliases'] == ['NC 740']
+    assert target['attributes']['alias_sources'][0]['alias'] == 'NC 740'
