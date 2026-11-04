@@ -226,6 +226,39 @@ slow down. The representation/validation cost outweighs the copy saving, so the
 prototype is excluded and no runtime change is retained. Its result SHA-256 is
 `ec2e5d38cbb90c4f9770334aaa893467259ae4eb855323eb2221253eae19f9c8`.
 
+## Separate preparation: actual cost outweighs reuse
+
+Draft #493 is closed unmerged; its branch, tests and evidence remain. The exact
+implementation's public-seed Linux diagnostic passes all four checks /6,364
+tests, preserving 72 complete typed article/universe/context/HTML comparisons
+in 24 fresh processes and all 2,942 source/schema JSON files. Stable reads hit
+authenticated artifacts, source updates miss them, and ordinary readers never
+write. These are correctness checks, not production-data preservation.
+
+Charging the actual preparation command's startup changes the Company-first
+three-worker total from 4.594 to 5.860 seconds and Candidates-first from 4.872
+to 6.186: about 27% slower despite faster prepared reads. Warm CI filesystems
+and committed public seed do not establish private-data or VPS latency. No
+preparation/background job or runtime change follows this failed criterion.
+The result SHA-256 is
+`dbf923355e8f1bf3da1f895a17b7bf3ccc213a8383fdd1471f48db43d4438fa1`.
+
+A read-only live check at 2026-11-04 02:03 UTC verifies one uvicorn worker,
+healthy live #490 and unchanged image/runtime. The next target is calculation
+inside that worker, rather than cross-worker reuse. The bounded local profile
+finds portfolio identity reconciliation repeats after a new article invalidates
+the outer model, although its portfolio query/catalog inputs did not change.
+Profiler times include overhead and are not request-latency measurements.
+
+The first process-only portfolio-match memo preserves 24 complete responses
+but improves the measured Windows workflow only about 0.6–1.2%, with mixed
+cold results. It is not a release claim. The next unaccepted implementation
+uses one owned catalog snapshot for a pure matching batch, retains the original
+matcher and reapplies current human decisions/provenance on every outer rebuild.
+All 288 focused identity/review checks pass. Full workflow and Linux measurement,
+fresh production-copy preservation, browser review and release approval remain.
+No source scope, saved decision, canonical variety or schema is changed.
+
 ## Work still needed to finish this mission
 
 - **Cold-page engineering:** profile the complete current request and next-click

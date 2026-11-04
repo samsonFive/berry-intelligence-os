@@ -307,6 +307,19 @@ from app.services.presentation_memo import json_call_memo
 
 
 @json_call_memo
+def _portfolio_identity_results(*, queries, varieties):
+    """Pure matches independent of news candidates and saved review decisions.
+
+    Keep complete ordered query/catalog inputs in the existing bounded,
+    process-only memo. The caller still applies current human decisions,
+    cross-source conflicts, source warnings and provenance on every rebuild.
+    """
+    from app.services.identity_read_model import resolve_identity_batch
+    matches = iter(resolve_identity_batch([query for names in queries for query in names], varieties))
+    return [[next(matches) for _query in names] for names in queries]
+
+
+@json_call_memo
 def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None, include_candidates=True):
     """Account for each explicitly enumerated name, retaining source/code identity.
 
@@ -327,19 +340,22 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     source_rows, additions = [], []
     provenance = {}
     pair_notes = _identity_pair_notes(sources)
-    for source in sources:
-        if source_ids is not None and source["id"] not in source_ids:
-            continue
+    selected_sources = [source for source in sources if source_ids is None or source["id"] in source_ids]
+    identity_results = _portfolio_identity_results(
+        queries=[[{key: observation.get(key, "") for key in
+                   ("candidate_name", "denomination", "breeder_code", "berry_id")}
+                  for observation in source.get("names", [])] for source in selected_sources],
+        varieties=varieties,
+    )
+    for source, source_matches in zip(selected_sources, identity_results):
         names = []
         companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
                       "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
                      for cid in sorted(source_company_ids(source)) if cid in entity_index]
-        for observation in source.get("names", []):
+        for observation, result in zip(source.get("names", []), source_matches):
             entry_companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
                                 "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
                                for cid in observation_company_ids(source, observation) if cid in entity_index]
-            query = {k: observation.get(k, "") for k in ("candidate_name", "denomination", "breeder_code", "berry_id")}
-            result = resolve_identity(query, varieties)
             exact_ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
             catalog_id = next(iter(exact_ids)) if len(exact_ids) == 1 else None
             identity_notes = pair_notes.get((source["id"], _key(observation),

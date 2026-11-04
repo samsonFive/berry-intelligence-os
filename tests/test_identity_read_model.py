@@ -55,6 +55,7 @@ def test_complete_results_match_unindexed_oracle(query, berry, order):
     with lookup.identity_read_model_scope():
         actual = identity.resolve_identity(query, rows)
     assert actual == expected
+    assert lookup.resolve_identity_batch([query], rows) == [expected]
     assert actual['auto_confirmed'] is False
     assert rows == before
 
