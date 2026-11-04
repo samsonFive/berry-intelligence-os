@@ -3,6 +3,7 @@ from urllib.parse import urlsplit
 import re
 
 from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi.responses import JSONResponse
 
 from app.personal_digest_routes import require_edit
 from app.services.ai_gateway.credentials import MissingCredentialError, resolve_perplexity_api_key
@@ -67,6 +68,7 @@ def catalog_status(request: Request,variety_id: str,action: str = Form('')):
     return RedirectResponse('/varieties/removed' if action=='remove' else '/entities/variety/'+variety_id,303)
 
 
+@router.get('/api/ui/sheets/{view_key}')
 @router.get('/api/varieties/view-state/{view_key}')
 def saved_view(request: Request, view_key: str):
     from app import main
@@ -74,11 +76,13 @@ def saved_view(request: Request, view_key: str):
     if not main.AUTHORING_MODE:
         raise HTTPException(403, 'Saved views require the analyst workspace')
     try:
-        return variety_view_state.get(main.INBOX_DIR, main.session_username(request) or 'local', view_key)
+        return JSONResponse(variety_view_state.get(main.INBOX_DIR, main.session_username(request) or 'local', view_key),
+            headers={'Cache-Control': 'private, no-store', 'Vary': 'Cookie', 'X-Robots-Tag': 'noindex'})
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
 
 
+@router.post('/api/ui/sheets/{view_key}')
 @router.post('/api/varieties/view-state/{view_key}')
 async def save_view(request: Request, view_key: str):
     from app import main
@@ -87,7 +91,8 @@ async def save_view(request: Request, view_key: str):
     if len(await request.body()) > 20_000:
         raise HTTPException(413, 'Layout is too large')
     try:
-        return variety_view_state.save(main.INBOX_DIR, main.session_username(request) or 'local', view_key, await request.json())
+        return JSONResponse(variety_view_state.save(main.INBOX_DIR, main.session_username(request) or 'local', view_key, await request.json()),
+            headers={'Cache-Control': 'private, no-store', 'Vary': 'Cookie', 'X-Robots-Tag': 'noindex'})
     except (ValueError, TypeError) as exc:
         raise HTTPException(409, str(exc)) from exc
 

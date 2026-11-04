@@ -1,0 +1,6 @@
+{% macro alphabet_nav(letters, urls, active='', label='Alphabetical navigation', extra_class='') -%}
+<nav class="company-alphabet site-alphabet {{ extra_class }}" aria-label="{{ label }}">
+<a href="{{ urls[''] }}"{% if not active %} aria-current="page"{% endif %}>All</a>
+{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<a href="{{ urls[letter] }}"{% if active|upper == letter %} aria-current="page"{% endif %}>{{ letter }}</a>{% else %}<span aria-disabled="true">{{ letter }}</span>{% endif %}{% endfor %}
+</nav>
+{%- endmacro %}

@@ -314,7 +314,13 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
         if params.get('q') and params['q'].casefold().strip() not in ' '.join([row['name'], *row['entity'].get('aliases', [])]).casefold():
             continue
         filtered.append(row)
-    filtered.sort(key=lambda r: (not r['followed'], not bool(r['group_ids']), not r['imported_tier'], r['name'].casefold()))
+    from app.services.company_directory import initial
+    letters = {initial(row['name']) for row in filtered}
+    letter = params.get('letter', '').upper()
+    if (letter and letter not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#') or len(letter) > 1:
+        raise ValueError('Choose an alphabetical quick-navigation letter')
+    if letter:
+        filtered = [row for row in filtered if initial(row['name']) == letter]
     selected = list(dict.fromkeys(x for x in params.get('compare', '').split(',') if x))
     by_id = {r['id']: r for r in all_rows}
     if len(selected) > 4 or any(x not in by_id for x in selected):
@@ -334,7 +340,7 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
     news = grouped_news(news_records)
     notes = [n for n in store.rows(KINDS['note']) if n['entity_id'] in focus_ids]
     return {'rows': filtered, 'all_rows': all_rows, 'focus': focus, 'selected': selected, 'company': company,
-        'entities': entities, 'news': news, 'notes': notes, 'corrections': corrections, 'groups': group_rows,
+        'entities': entities, 'news': news, 'notes': notes, 'corrections': corrections, 'groups': group_rows, 'letters': letters,
         'selected_group': selected_group, 'tier_report': report, 'params': params, 'berry_options': BERRIES,
         'tier_options': TIER_STATUS_VALUES, 'region_options': list(dict.fromkeys([*REGIONS, 'DOTA', 'DEMEA', 'DOA_DANZ',
             *[region for row in all_rows for region in row['monitoring_regions']]])),

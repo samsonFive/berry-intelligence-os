@@ -48,3 +48,16 @@ Both commands use the application's configured runtime paths. Omitting `--apply`
 - Districts, jobs, awards, relationship dates, comparability context and current capability evidence are available only where real records provide them. Missing evidence is never represented as zero performance. Canonical dossiers and research views remain the full-detail workflows.
 - Corrections apply to source associations in the protected shared corpus. They do not rewrite already-reviewed Fact statements, relationship assertions or assessment judgments; those retain their existing explicit review workflows.
 - No production deployment or canonical-branch merge is included. Exact-head repository CI remains the release/merge gate.
+
+
+## November 4 design review follow-up
+
+The watchlist now uses the existing Glasshouse news shell and `_news_cards.html`: publisher visuals or labeled illustrations, review labels, save/feedback controls, company context and the shared slide-over Reader. Grouped sources retain publication/capture dates and independence disclosures. No news model, collection or trust policy changed.
+
+The existing variety column engine is now shared through `glasshouse_base.html`, with compact Workspaces-style grid cells, sticky headers, frozen identity, resize/reorder/hide controls, keyboard resizing and column movement, account-persisted layouts, loaded-row search/sort, text wrapping, keyboard cell navigation and visible-row CSV export. The governed Workspaces and competitive-grid controllers remain responsible for their richer editing workflows. The shared endpoint is an alias over the existing private analyst preference store, including optimistic revisions, actor isolation, same-origin writes and no-store responses. CSV escapes formula-leading cells. Loaded-row controls apply to the rendered sheet; the PDF retains the complete URL-filtered scope.
+
+Alphabetical organization navigation now filters the same server projection used by the news and PDF while preserving berry/region/group filters. Companies, Varieties and Watchlist reuse one alphabet macro. News remains chronological. The site design contract is recorded in `AGENTS.md`.
+
+Validation: 93 related watchlist, company directory, news, shell, variety preparation and Workspaces tests passed. An earlier 36-test run covered watchlist/PDF, preference validation, variety routes/sheets and public static safety. The final route/no-store rerun passed 16 tests. Authenticated Chrome checks exercised 166 organizations, resize/reorder/hide, account layout restoration, wrap, search, alphabetical scope, shared Reader, company/variety compatibility and 390px page overflow, with zero JavaScript errors. Updated screenshots are in `screenshots/design-*.png`.
+
+The authenticated local review preview is running at `http://127.0.0.1:18766/global-watchlist` in the dedicated review Chrome window. It uses isolated review state and disables collectors. Previous-head CI passed; fresh CI is required for this follow-up head. Merge and deployment remain held for review.

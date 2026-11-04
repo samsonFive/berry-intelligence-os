@@ -14,7 +14,9 @@
 <link rel="stylesheet" href="/static/article_visuals.css?v=1">
   <link rel="stylesheet" href="/static/workspace_anchor_offsets.css?v=1">
   <link rel="stylesheet" href="/static/breadcrumbs.css?v=1">
-  {% if variety_sheet %}<link rel="stylesheet" href="/static/variety_sheet.css?v=1"><link rel="stylesheet" href="/static/variety_sheet_columns.css?v=3">{% endif %}
+  {% if variety_sheet %}<link rel="stylesheet" href="/static/variety_sheet.css?v=1">{% endif %}
+  <link rel="stylesheet" href="/static/variety_sheet_columns.css?v=4">
+  <link rel="stylesheet" href="/static/site_sheet.css?v=1">
 </head>
 <body class="glasshouse" data-personal-digest>
   <a class="skip-link" href="#digest-main">Skip to content</a>
@@ -47,7 +49,9 @@
   {% if authoring_mode %}<script src="/static/learn_context.js?v=3"></script><script src="/static/living_capture.js?v=7"></script><script src="/static/statement_reader_review.js?v=1"></script>{% endif %}
   <script src="/static/article_visuals.js?v=1"></script>
   {% if not static_build %}<script src="/static/competitive_coverage.js?v=3"></script>{% endif %}
-  {% if variety_sheet %}<script src="/static/variety_sheet.js?v=1" defer></script><script src="/static/variety_sheet_columns.js?v=2" defer></script>{% endif %}
+  {% if variety_sheet %}<script src="/static/variety_sheet.js?v=1" defer></script>{% endif %}
+  <script src="/static/variety_sheet_columns.js?v=3" defer></script>
+  <script src="/static/site_sheet.js?v=1" data-saved-views="{{ '1' if authoring_mode and not static_build else '0' }}" defer></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

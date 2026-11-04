@@ -1,10 +1,10 @@
 /* Shared sheet interaction: stable column identities and account-backed layouts. */
-(async () => {
- const root=document.querySelector('.variety-sheet-shell');if(!root)return;
+window.BerrySheet = async function(root, shared=false) {
+ if(!root)return;
  const durable=root.dataset.savedViews==='1';
  const empty=()=>({revision:0,widths:{},order:[],hidden:[],filters:{}});
- async function read(key){if(!durable)return empty();const r=await fetch('/api/varieties/view-state/'+key,{cache:'no-store'});if(!r.ok)throw Error('Saved layout unavailable');return r.json();}
- async function write(key,state){if(!durable)return state;const r=await fetch('/api/varieties/view-state/'+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)});const data=await r.json();if(!r.ok)throw Error(data.detail||'Layout not saved');return data;}
+ async function read(key){if(!durable)return empty();const r=await fetch((shared?'/api/ui/sheets/':'/api/varieties/view-state/')+key,{cache:'no-store'});if(!r.ok)throw Error('Saved layout unavailable');return r.json();}
+ async function write(key,state){if(!durable)return state;const r=await fetch((shared?'/api/ui/sheets/':'/api/varieties/view-state/')+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)});const data=await r.json();if(!r.ok)throw Error(data.detail||'Layout not saved');return data;}
  const hash=text=>{let h=2166136261;for(const c of text){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return (h>>>0).toString(36);};
  for(const table of root.querySelectorAll('table')){
   const head=table.tHead;if(!head||head.rows.length!==1)continue;
@@ -12,17 +12,17 @@
   const titles=headers.map(h=>h.dataset.columnLabel||h.textContent.replace(/\s+/g,' ').trim());
   const catalog=table.classList.contains('variety-table');
   const view=catalog?'catalog':location.pathname.includes('/compare')?'compare':location.pathname.includes('/coverage')?'coverage':location.pathname.includes('/regions')?'regions':location.pathname.includes('/entities/variety/')?'profile':'varieties';
-  const key=view+'-'+hash(titles.join('|'));
+  const key=(shared?'sheet-'+hash(location.pathname)+'-':view+'-')+hash(titles.join('|'));
   const ids=titles.map((title,i)=>'c'+i+'-'+hash(title));
-  const defaults=Object.fromEntries(headers.map((h,i)=>[ids[i],Math.max(48,Math.min(1200,Math.round(h.getBoundingClientRect().width)||160))]));
-  const pinned=ids.slice(0,catalog?2:1);
+  const defaults=Object.fromEntries(headers.map((h,i)=>[ids[i],Math.max(48,Math.min(1200,Number(h.dataset.width)||Math.round(h.getBoundingClientRect().width)||160))]));
+  const pinned=ids.slice(0,table.classList.contains('gw-table')?2:catalog?2:1);
   let state=empty(),saveChain=Promise.resolve();
   const toolbar=document.createElement('div');toolbar.className='vs-sheet-tools';
   const menu=document.createElement('details');menu.className='vs-column-menu';const summary=document.createElement('summary');summary.textContent='Columns';menu.append(summary);
   const choices=document.createElement('div');menu.append(choices);
   const reset=document.createElement('button');reset.type='button';reset.textContent='Reset columns';
   const status=document.createElement('span');status.setAttribute('role','status');status.textContent='Loading saved columns…';toolbar.append(menu,reset,status);
-  const scroll=table.closest('.company-table-scroll,.table-wrap,.variety-source-table-wrap');(scroll||table).before(toolbar);
+  const scroll=table.closest('.company-table-scroll,.table-wrap,.variety-source-table-wrap,.site-sheet-scroll,.gw-table-wrap');(scroll||table).before(toolbar);
   try{state=await read(key);status.textContent=state.revision?'Saved columns restored':'Default columns';}catch(e){status.textContent=e.message+' · changes stay in this page';}
   let order=[...pinned,...(state.order||[]).filter(id=>ids.includes(id)&&!pinned.includes(id)),...ids.filter(id=>!pinned.includes(id)&&!(state.order||[]).includes(id))];
   let hidden=new Set((state.hidden||[]).filter(id=>ids.includes(id)&&!pinned.includes(id)));
@@ -65,6 +65,7 @@
    handle.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();handle.setPointerCapture(e.pointerId);const x=e.clientX,start=widths[id];document.body.classList.add('vs-column-resizing');handle.onpointermove=m=>setWidth(start+m.clientX-x);const end=()=>{handle.onpointermove=null;document.body.classList.remove('vs-column-resizing');remember();};handle.onpointerup=end;handle.onlostpointercapture=end;handle.onpointercancel=end;};
    handle.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();setWidth(e.key==='Home'?defaults[id]:widths[id]+(e.key==='ArrowRight'?1:-1)*(e.shiftKey?50:10));remember();};header.append(grip,handle);
   });
+  if(shared) window.BerrySheetTools({table,toolbar,rows,headers,titles,ids,getFilters:()=>state.filters||{},setFilters:filters=>{state.filters=filters;remember();}});
   reset.onclick=()=>{order=[...ids];hidden.clear();widths={...defaults};apply();renderChoices();remember();};apply();renderChoices();
  }
  // Filters are a separate saved view, so column layouts survive Reset filters.
@@ -80,4 +81,5 @@
   filters.addEventListener('submit',async e=>{e.preventDefault();try{await saveFilters(Object.fromEntries(new FormData(filters)));}catch(_){}filters.submit();});
   const reset=Array.from(filters.querySelectorAll('a')).find(a=>a.textContent.trim()==='Reset');reset?.addEventListener('click',async e=>{e.preventDefault();try{await saveFilters({});}catch(_){}location.assign(reset.href+'&reset_view=1');});
  }
-})();
+};
+window.BerrySheet(document.querySelector('.variety-sheet-shell'));

@@ -42,14 +42,29 @@ def model(request):
     result['browse_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items() if k not in clear_keys})
     for row in result['all_rows']:
         row['href'] = '/global-watchlist?' + urlencode({**params, 'company': row['id']})
+    result['letter_urls'] = {letter: '/global-watchlist?' + urlencode({
+        **{k: v for k, v in params.items() if k != 'letter'}, **({'letter': letter} if letter else {})
+    }) + '#gw-results' for letter in ['', *'ABCDEFGHIJKLMNOPQRSTUVWXYZ#']}
     return main, store, actor, result
 
 
 @router.get('/global-watchlist')
 def page(request: Request):
     main, _, _, result = model(request)
+    from app.services import feed_first, news_workspace
+    from app.services.company_source_scope import source_reviewed
+    state = feed_first.load_state(main.INBOX_DIR)
+    support = news_workspace.escalations(main.all_facts())
+    cards = []
+    for story in result['news'][:30]:
+        card = feed_first.present_item(story['lead'], entities_by_id=result['entities'],
+            state=state, filters=feed_first.parse_filters({}))
+        card.update(source_reviewed=source_reviewed(story['lead']),
+            trusted=source_reviewed(story['lead']) and card['id'] in support,
+            coverage_sources=story['sources'], independence=story['independence'])
+        cards.append(card)
     return main.templates.TemplateResponse(request=request, name='global_watchlist.html', context={
-        **result, 'authoring_mode': True, 'static_build': False, 'nav_work_counts': {}})
+        **result, 'cards': cards, 'scoped_news': True, 'authoring_mode': True, 'static_build': False, 'nav_work_counts': {}})
 
 
 @router.get('/global-watchlist/export.pdf')

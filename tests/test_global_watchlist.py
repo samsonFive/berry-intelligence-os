@@ -51,6 +51,26 @@ def test_undated_company_pages_do_not_become_one_event_by_capture_date():
     assert len(gw.grouped_news(pages)) == 2
 
 
+def test_alphabet_scope_preserves_filters_and_pdf(corpus):
+    corpus['entities'].append({'id': 'company-c', 'entity_type': 'company', 'name': 'Élite Berries'})
+    corpus['params'] = {'letter': 'E'}
+    model = gw.build(**corpus)
+    assert [r['name'] for r in model['rows']] == ['Élite Berries']
+    assert model['letters'] == {'A', 'E'}
+    assert model['record_count'] == 0
+    import io
+    from pypdf import PdfReader
+    from app.services.global_watchlist_pdf import render
+    text = '\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(render(model))).pages)
+    assert 'Africa Blue' not in text and 'Élite Berries' in text
+    corpus['params'] = {'letter': 'E', 'q': 'Africa'}
+    assert gw.build(**corpus)['rows'] == []
+    assert gw.build(**corpus)['letters'] == {'A'}
+    corpus['params'] = {'letter': 'AB'}
+    with pytest.raises(ValueError, match='letter'):
+        gw.build(**corpus)
+
+
 def test_groups_persist_across_filters_with_conflicts_and_tombstones(corpus):
     store = corpus['store']
     entities = {e['id']: e for e in corpus['entities']}
@@ -195,6 +215,18 @@ def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     response = client.get('/global-watchlist')
     assert response.status_code == 200
     assert 'Africa Blue' in response.text
+    assert 'class="digest-card news-card"' in response.text
+    assert 'data-open-reader href="/intelligence/ev-reprint?personal=1"' in response.text
+    assert '2 retained sources' in response.text
+    assert 'Captured 2026-11-04' in response.text
+    assert 'Organization alphabetical navigation' in response.text
+    assert 'site_sheet.js' in response.text
+    state = {'revision': 0, 'widths': {'name': 220}, 'order': ['name'], 'hidden': [], 'filters': {'wrap': '1'}}
+    assert client.post('/api/ui/sheets/sheet-test', json=state).status_code == 200
+    assert client.get('/api/ui/sheets/sheet-test').json()['widths'] == {'name': 220}
+    assert client.get('/api/ui/sheets/sheet-test').headers['cache-control'] == 'private, no-store'
+    assert client.post('/api/ui/sheets/sheet-test', json=state).status_code == 409
+    assert client.post('/api/ui/sheets/sheet-test', headers={'origin': 'https://evil.example'}, json=state).status_code == 403
     response = client.post('/global-watchlist/actions', data={'action': 'follow','entity_id': 'company-a'}, follow_redirects=False)
     assert response.status_code == 303
     from app.services.watchlist import load_watches
