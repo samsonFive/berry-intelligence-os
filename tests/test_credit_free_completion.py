@@ -136,3 +136,20 @@ def test_named_program_requires_its_name_in_owned_body_without_becoming_a_variet
     row['article']['paragraphs'][0]['text']='Synthetic Fontana is a new blackberry programme introduced after field trials.'
     assert match_record(row,plan_query('Synthetic Fontana blackberry'),entities=entities)['support_status']=='body_supported'
     assert entities==before and program['entity_type']=='breeding_program'
+
+
+def test_regions_constrain_breeding_and_catalog_questions_without_implying_a_trial():
+    from app.services.topic_retrieval import plan_query,match_record
+    from app.services.topic_support import support_context
+    entities={'peru':{'id':'peru','entity_type':'geography','name':'Peru'},
+              'company':{'id':'company','entity_type':'company','name':'Synthetic Breeder'},
+              'nc':{'id':'nc','entity_type':'geography','name':'North Carolina'},
+              'university':{'id':'university','entity_type':'company','name':'North Carolina State University'}}
+    row={'id':'x','title':'Synthetic Breeder blueberry varieties for Peru','article':{'paragraphs':[{'index':0,'text':'Synthetic Breeder introduced new blueberry varieties for China.'}]}}
+    plan=plan_query('Blueberry Synthetic Breeder Peru')
+    assert match_record(row,plan,entities=entities)['support_status']=='scope_unverified'
+    row['article']['paragraphs'][0]['text']='Synthetic Breeder introduced new blueberry varieties for Peru.'
+    assert match_record(row,plan,entities=entities)['support_status']=='body_supported'
+    row['article']['paragraphs'][0]['text']='A raspberry breeding programme in Scotland introduced new selections.'
+    assert match_record(row,plan_query('Raspberry breeding Scotland'),entities=entities)['support_status']=='body_supported'
+    assert not support_context(plan_query('North Carolina State University blackberry'),entities,[])['trial_places']

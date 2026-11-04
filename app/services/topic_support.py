@@ -113,12 +113,20 @@ def support_context(plan, entities, identifiers):
             organizations.append(names)
     places=[]
     place_terms=set()
-    if 'license' in plan.terms or any(t.startswith(('trial','experiment','evaluat','research')) for t in plan.terms):
+    # An explicit region also constrains ordinary breeding/catalog questions.
+    # Place names inside a requested organization/identity are not a separate
+    # trial-location request (for example North Carolina State University).
+    place_positive=positive
+    identity_names=[[normalize(n)for n in [e.get('name')or'',*(e.get('aliases')or[])]]for e in identities.values()]
+    for names in [*organizations,*identity_names]:
+        for name in sorted(names,key=len,reverse=True):
+            if name:place_positive=re.sub(r'(?<!\w)'+re.escape(name)+r'(?!\w)',' ',place_positive)
+    if place_positive.strip():
         for entity in (entities or {}).values():
             if entity.get('entity_type')!='geography':continue
             names=[entity.get('name') or '',*(entity.get('aliases') or [])]
             if entity.get('name')=='United Kingdom':names.append('U.K.')
-            matched_names=[normalize(name) for name in names if name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',positive)]
+            matched_names=[normalize(name) for name in names if name and re.search(r'(?<!\w)'+re.escape(normalize(name))+r'(?!\w)',place_positive)]
             if matched_names:
                 place_terms.update(word for name in matched_names for word in name.split())
                 if entity.get('name')=='United Kingdom':names.extend(['England','Scotland','Wales','Northern Ireland','Britain'])
@@ -129,7 +137,7 @@ def support_context(plan, entities, identifiers):
         for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland',
                      'Central America','South America','North America','Southeast Asia'):
             term=normalize(name)
-            if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',positive):
+            if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',place_positive):
                 places.append((term,))
                 place_terms.update(term.split())
     return {'identities':list(identities.values()),'trial_places':places,

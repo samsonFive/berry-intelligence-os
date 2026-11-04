@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v22"
+VERSION = "topic-retrieval-v23"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -208,11 +208,12 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     if concepts and len(matched) / len(concepts) < 0.5:
         return None
     metadata_fields = {"title", "summary", "snippet"}
+    requires_trial_location='license'not in plan.terms and any(t.startswith(('trial','experiment','evaluat','research'))for t in plan.terms)
     body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields
                     and (cane_in_passage(p,plan.cane_type) or evidence_traits)
                     and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
                     and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities']))
-                    and trial_location_in_passage(p,support['trial_places'],require_trial='license' not in plan.terms)
+                    and trial_location_in_passage(p,support['trial_places'],require_trial=requires_trial_location)
                     and organizations_in_passage(p,support['organizations'])
                     and passage_intent_supported(p,plan)]
     # A parent code in an offspring patent is useful lineage context, not a
@@ -238,7 +239,7 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     position = next((i for i, p in enumerate(passages) if p == (locator, passage)), -1)
     if position >= 0 and locator not in metadata_fields and position + 1 < len(passages):
         next_locator, next_passage = passages[position + 1]
-        if not locator.startswith('pdf:section:') and not next_locator.startswith('pdf:section:') and next_locator != locator and next_locator not in metadata_fields and next_passage.strip() not in passage and passage_intent_supported(next_passage,plan) and trial_location_in_passage(next_passage,support['trial_places'],require_trial='license' not in plan.terms) and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
+        if not locator.startswith('pdf:section:') and not next_locator.startswith('pdf:section:') and next_locator != locator and next_locator not in metadata_fields and next_passage.strip() not in passage and passage_intent_supported(next_passage,plan) and trial_location_in_passage(next_passage,support['trial_places'],require_trial=requires_trial_location) and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
             passage += "\n\n" + next_passage
             locator += ";" + next_locator
     # Preserve a short framing statement (e.g. the year of a reproduced study)
