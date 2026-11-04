@@ -26,8 +26,14 @@ def test_every_existing_lesson_has_a_visual_without_rewriting_its_record():
         shown = learner_visuals.presentation(raw)
         assert raw == original
         assert all(shown[key] == value for key, value in raw.items() if key != "media")
-        if raw["slug"] in DIAGRAMS:
+        if raw["slug"] in DIAGRAMS and raw["slug"] not in learner_visuals.VIDEOS:
             assert shown.get("media") == raw.get("media")
+        elif raw["slug"] in DIAGRAMS:
+            original_media = raw.get("media") or []
+            assert shown["media"][:len(original_media)] == original_media
+            assert len(shown["media"]) == len(original_media) + (
+                0 if any(item.get("url") == learner_visuals.VIDEOS[raw["slug"]]["url"]
+                         for item in original_media) else 1)
         assert shown["cane_diagram"] or shown["teaching_diagram"]
         assert learner_visuals.presentation(shown) == shown
     assert all(p.read_bytes() == value for p, value in before.items())

@@ -125,6 +125,13 @@ DIAGRAMS = {
 DIAGRAMS.update(CURRICULUM_DIAGRAMS)
 
 VIDEOS = {
+    "harvest-methods": {
+        "title": "Mechanical blueberry harvest · January 2024",
+        "publisher": "Berries Australia · NSW DPI / Gaius Leong",
+        "url": "https://www.youtube.com/watch?v=qZP6kSEL1ao",
+        "source_page": "https://berries.net.au/wp-content/uploads/2024/03/ABJ_Ed-18_AUTUMN_24-BB-Mechanical-Harvesting-in-Blueberries.pdf#page=6",
+        "caption": "Watch an over-the-row harvester working at Jas Benning's farm in Northern NSW. The publisher dates the footage January 2024. This demonstration does not identify a cultivar or establish a general labor-saving or fruit-quality result.",
+    },
     "ipm": {
         "title": "The scientific basis for IPM",
         "publisher": "Pete Goodell · linked by UC IPM",

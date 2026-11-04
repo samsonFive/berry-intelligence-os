@@ -1,3 +1,14 @@
+# Benning harvest source and Learn link — November 4, 2026
+
+The [bounded source/Learn follow-up](BENNING-HARVEST-SOURCE-LEARN-REVIEW.md)
+checks all six original NSW DPI-authored article pages and their captions.
+No cultivar is named; Rabbiteye and KATO260 remain explained exclusions, not
+new candidates. Benning's named-variety gap remains open. The publisher's
+QR-linked demonstration becomes a captioned Learn link, with no copied photos,
+hosted video or new trust decision. Initial 71 affected checks pass; final
+current-head and release acceptance remain. Earlier source counts below retain
+their dated scope. Platform #500 and source #498 are unchanged and separate.
+
 # Nebula original article recapture — November 4, 2026
 
 The [dated Nebula source proposal](NEBULA-ORIGINAL-RECAPTURE-2026-11-04.md)
