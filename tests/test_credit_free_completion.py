@@ -50,7 +50,7 @@ def test_condition_query_can_discover_a_cited_source_without_knowing_the_name():
 
 
 def test_legacy_government_tables_require_exact_document_host_and_path():
-    page='<html><body><h1>AVISO — Synthetic notice</h1><table><tr><th>Crop</th><th>Denomination</th><th>Historical number</th></tr><tr><td>Zarzamora</td><td>Synthetic Berry</td><td>2136</td></tr></table></body></html>'
+    page='<html><body><h1>AVISO â€” Synthetic notice</h1><table><tr><th>Crop</th><th>Denomination</th><th>Historical number</th></tr><tr><td>Zarzamora</td><td>Synthetic Berry</td><td>2136</td></tr></table></body></html>'
     url='https://sidof.segob.gob.mx/notas/docFuente/1234567'
     rows=paragraphs_from_html(page,source_url=url)
     assert 'Zarzamora | Synthetic Berry | 2136'in rows
@@ -123,4 +123,3 @@ def test_company_and_program_public_citations_are_leads_without_exporting_claims
     assert not client._registry('Synthetic Fontana blueberry')
     assert not client._registry('strawberry -"Synthetic Plantik"')
     assert entities['c']['berry_ids']==[]
-
