@@ -48,14 +48,21 @@ photo permission and extraction qualification decisions remain separate gates.
   unmerged. Complete-cost public-seed Linux testing made the separate-preparation
   flow about 27% slower overall, despite faster prepared reads. Its code, tests
   and evidence are retained. No preparation/background job is being deployed.
-- The new owned portfolio identity batch at `b76792c0` passes 288 focused checks.
-  [Linux diagnostic 41760146303](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41760146303)
-  at measurement-only `26c0cd43` preserves 24 complete responses and shows a
-  limited public-seed workflow improvement; it is not a VPS/private-data claim.
-  Its first full suite has 6,335 passes and one stale observer failure. The test
-  observer is corrected without changing the measured runtime; fresh complete
-  checks, browser review and preservation remain. The diagnostic branch must
-  not merge or deploy, and no release acceptance is claimed.
+- Performance [#495](https://github.com/samsonFive/berry-intelligence-os/pull/495)
+  at `90e44b3b` passes all four checks /6,336 tests and native public-seed
+  desktop/phone review. Its unchanged measured runtime preserves 24 complete
+  responses, with a limited public-seed workflow improvement and one slower
+  next click. Private-data performance/preservation and release approval remain.
+- Learn [#496](https://github.com/samsonFive/berry-intelligence-os/pull/496)
+  at `a63a192c` passes all four checks /6,324 tests and native public-seed
+  desktop/phone review. Existing video attribution and historical context are
+  clearer; the generic reference label is “Source page.” Stored user media wins.
+- The combined `release/platform-closeout-20261104` branch carries #495, #496
+  and documentation #491. Its own final-head CI, native review and fresh
+  private-data rehearsal remain release requirements. See the
+  [combined review scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md). It adds no
+  source data and does not include source-only #494. No merge/deploy approval
+  is inferred from component checks or earlier approvals.
 - The server rehearsal remains subject to the existing headroom guard and the
   unanswered specific backup-mirror cleanup request. No backup deletion,
   workaround, relaxed guard or deployment is authorized by internal continuation.
