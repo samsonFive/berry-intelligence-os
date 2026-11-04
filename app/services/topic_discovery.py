@@ -118,7 +118,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 cached=json.loads(path.read_text(encoding="utf-8"))
                 if time.time()-path.stat().st_mtime < min(CACHE_SECONDS,cached.get('cache_ttl_seconds',CACHE_SECONDS)):
                     counters={k:0 for k in ('primary_requests_this_request','fallback_requests_this_request','primary_page_requests_this_request') if k in cached}
-                    return {**cached, **counters,'items':scoped_rows(merge_source_records(cached.get('items',[]),history)),
+                    return {**cached, **counters,'items':scoped_rows(merge_source_records(history,cached.get('items',[]))),
                             'history_status':history_status,'history_candidates_count':len(history),"cache_hit": True, "queries_this_request": 0}
             except (OSError, ValueError):
                 pass
