@@ -104,3 +104,23 @@ def test_external_or_private_advertised_search_api_is_never_called():
         client=PublicResearchSearchClient(get=lambda u:b'{}',primary_get=primary)
         assert not client._primary_links('floricane blackberry',[SearchHit('Catalog','https://breeder.example/catalog','')])
         assert calls==['https://breeder.example/catalog']
+def test_company_and_program_public_citations_are_leads_without_exporting_claims(tmp_path):
+    import json
+    from app.services.public_research_search import registered_primary_sources,PublicResearchSearchClient
+    entities={
+        'c':{'id':'c','entity_type':'company','name':'Synthetic Plantik','aliases':[],'berry_ids':[],'evidence_ids':['pending']},
+        'p':{'id':'p','entity_type':'breeding_program','name':'Synthetic Fontana','berry_ids':['berry-blackberry'],'evidence_ids':['published']},
+    }
+    folder=tmp_path/'imports/gene-editing-test';folder.mkdir(parents=True)
+    (folder/'snapshot.json').write_text(json.dumps({'evidence':[{'id':'pending','status':'in_review','entity_ids':['c'],'title':'Strawberry heat tolerance partnership','source_url':'https://primary.example/heat','summary':'PRIVATE STRATEGY','article':{'full_text':'DO NOT EXPORT'}}]}))
+    pub=tmp_path/'evidence/nested';pub.mkdir(parents=True)
+    (pub/'published.json').write_text(json.dumps({'id':'published','status':'published','entity_ids':['p'],'title':'Synthetic Fontana blackberry introduced','source_url':'https://primary.example/compact'}))
+    leads=registered_primary_sources(tmp_path,entities)
+    assert set(leads)=={'c','p'}and 'PRIVATE'not in str(leads)and 'EXPORT'not in str(leads)
+    client=PublicResearchSearchClient(entities=entities,primary_sources=leads)
+    assert client._registry('Synthetic Plantik strawberry heat tolerance')[0].url=='https://primary.example/heat'
+    assert client._registry('Synthetic Fontana blackberry')[0].url=='https://primary.example/compact'
+    assert not client._registry('Synthetic Fontana blueberry')
+    assert not client._registry('strawberry -"Synthetic Plantik"')
+    assert entities['c']['berry_ids']==[]
+

@@ -52,14 +52,24 @@ def registered_primary_sources(data_dir, entities):
     # inspected public citations. Reuse explicit published links, not fuzzy
     # entity-name matches or private note text, as discovery leads.
     from pathlib import Path
-    for entity in varieties:
+    eligible=[e for e in entities.values()if e.get('entity_type')in {'variety','company','breeding_program'}]
+    published={}
+    for path in (Path(data_dir)/'evidence').rglob('*.json'):
+        try:record=json.loads(path.read_text(encoding='utf8'))
+        except (OSError,ValueError):continue
+        if record.get('status')=='published':published[record.get('id')]=record
+    # Public, attributed research imports already shown in the analyst lens
+    # supply links only. Their pending claims are never indexed or approved.
+    from app.services.gene_editing import load_snapshot
+    try:research=(load_snapshot(data_dir)or{}).get('evidence',[])
+    except (OSError,ValueError,KeyError):research=[]
+    pending={r.get('id'):r for r in research if isinstance(r,dict)and r.get('status')in {'in_review','published'}}
+    for entity in eligible:
         if (notes.get(entity['id']) or {}).get('status')=='identity_hold':continue
         for eid in entity.get('evidence_ids') or []:
             if not re.fullmatch(r'[a-zA-Z0-9_-]+',eid):continue
-            path=Path(data_dir)/'evidence'/f'{eid}.json'
-            try:record=json.loads(path.read_text(encoding='utf8'))
-            except (OSError,ValueError):continue
-            if record.get('status')!='published' or entity['id'] not in record.get('entity_ids',[]):continue
+            record=published.get(eid)or pending.get(eid)or{}
+            if entity['id'] not in record.get('entity_ids',[]):continue
             url=record.get('source_url')
             if url and is_public_http_url(url):
                 sources.setdefault(entity['id'],[]).append({'url':url,'title':record.get('title')or entity['name']})
@@ -118,13 +128,18 @@ class PublicResearchSearchClient:
         out = []
         named=False
         for entity in self.entities.values():
-            if entity.get('entity_type') != 'variety':continue
+            if entity.get('entity_type') not in {'variety','company','breeding_program'}:continue
             if (entity.get('attributes') or {}).get('catalog_removed'):continue
             names = [entity.get('name') or '', *(entity.get('aliases') or [])]
             if not any(len(normalize(n)) >= 4 and re.search(r'(?<!\w)'+re.escape(normalize(n))+r'(?!\w)', positive) for n in names):continue
             crop = {v.removeprefix('berry-') for v in entity.get('berry_ids') or []}
             asked = set(plan.terms)&{'blueberry','raspberry','strawberry','blackberry'}
-            if asked and not crop&asked:continue
+            if asked and not crop&asked:
+                if entity.get('entity_type')=='variety' or crop:continue
+                # Crop-unassigned companies/programs need crop-bearing public
+                # citation metadata. Corporate presence alone is insufficient.
+                leads=self.primary_sources.get(entity['id'],[])
+                if not any(asked&set(normalize(s.get('title','')).split())for s in leads):continue
             named=True
             review = (entity.get('attributes') or {}).get('identity_review') or {}
             url = review.get('source_url')
