@@ -1,6 +1,6 @@
 <fieldset class="ce-entity-picker" data-ce-entity-picker>
   <legend>{{ picker_label }}</legend>
-  <p class="ce-picker-hint">Check several entities. Leave empty to show all.</p>
+  <p class="ce-picker-hint">{{ picker_hint|default("Check several entities. Leave empty to show all.") }}</p>
   <div class="ce-picker-toolbar">
     <input type="search" aria-label="Find entities" placeholder="Find an entity…" data-ce-entity-search>
     <button type="button" data-ce-entity-clear>Clear selection</button>

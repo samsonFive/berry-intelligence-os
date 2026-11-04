@@ -1,5 +1,17 @@
 # Berry Intelligence — requirements and current status
 
+## Evaluation scope follow-up — November 4
+
+The same CO-01 cross-view requirement also applies to Competitive Evaluation.
+Its new shared company filters now scope the live research views and complete
+exports. Captured comparisons keep their resolved cohort after list changes or
+archival, including record CSV; empty scope cannot fall back to unrelated data.
+The existing archived research handoff uses resolved IDs and keeps legacy IDs.
+See [the scoped implementation and validation](EVALUATION-SHARED-COMPANY-SCOPE-2026-11-04.md).
+This remains a separate draft on #512 until current-head and fresh release gates
+pass. #511 and #512 have all four CI checks green (6,741 passed / 11 skipped);
+neither is deployed. All original definitions below are unchanged.
+
 ## Shared tracking follow-up — November 4
 
 The independent Watchlist follow-up addresses the remaining CO-01/UI-03 gap:

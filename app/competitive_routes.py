@@ -18,6 +18,17 @@ from app.services.living_workspaces import Store, Conflict, digest
 
 router = APIRouter()
 
+COMPANY_FILTERS = ('favorites', 'company_tier', 'list')
+SNAPSHOT_FIELDS = ('scope', 'selected', 'assessments', 'captured_at', 'rubrics', 'records',
+                   'jobs', 'graph', 'people_rows', 'timeline', 'events_after',
+                   'assessment_count', 'numeric_count', 'tracking_scope', 'requested_companies', 'empty_cohort')
+
+
+def snapshot_companies(row):
+    snapshot = row.get('snapshot') or {}
+    return set(snapshot.get('selected') or []) | {
+        item.get('entity_id') for field in ('records', 'assessments') for item in snapshot.get(field) or []}
+
 
 def request_params(request):
     params = dict(request.query_params)
@@ -36,11 +47,53 @@ def private(request, mutate=False):
     return main, Store(main.INBOX_DIR), main.session_username(request) or main.review_username() or 'local analyst'
 
 
+def company_scope(main, entities, params):
+    """Resolve shared company marks once, without importing personal Digest state."""
+    from app.services import company_directory, feed_first, personal_digest
+    state = feed_first.load_state(main.INBOX_DIR)
+    shared = {key: state.get(key) or {} for key in ('entity_favorites', 'entity_tiers', 'company_lists')}
+    lists = [{'id': group['id'], 'name': group.get('name') or 'Unnamed company list',
+              'company_ids': group.get('company_ids') or []} for group in personal_digest.company_lists(shared)]
+    filters = {key: str(params.get(key) or '') for key in COMPANY_FILTERS}
+    if filters['favorites'] not in {'', '1'} or filters['company_tier'] not in {'', *company_directory.TIERS}:
+        raise ValueError('Choose supported company filters')
+    group = next((row for row in lists if row['id'] == filters['list']), None)
+    if filters['list'] and group is None:
+        raise ValueError('Company list is unavailable')
+    requested = feed.values(params.get('companies'))
+    if any(key not in entities for key in requested):
+        raise ValueError('Choose canonical entities')
+    if params.get('empty_cohort', '') not in {'', '1'}:
+        raise ValueError('Choose a supported company scope')
+    active = any(filters.values())
+    selected, excluded = requested, []
+    if active:
+        directory_entities = {row['id']: row for row in main.living_catalog()}
+        eligible = set(company_directory.catalog(directory_entities, state=shared)).intersection(entities)
+        members = set(group['company_ids']) if group else None
+        def matches(key):
+            return key in eligible and (members is None or key in members) and company_directory.matches_marks(
+                [key], shared, favorites=filters['favorites'], tier=filters['company_tier'])
+        selected = [key for key in (requested or sorted(eligible)) if matches(key)]
+        excluded = [key for key in requested if key not in selected]
+    if params.get('empty_cohort') == '1':
+        selected, excluded = [], requested
+    labels = (['Favorites'] if filters['favorites'] else [])
+    if filters['company_tier']:
+        labels.append(company_directory.TIERS[filters['company_tier']])
+    if group:
+        labels.append(group['name'])
+    return {'selected': selected, 'requested_companies': requested,
+            'empty_cohort': not selected and (active or params.get('empty_cohort') == '1'),
+            'tracking_scope': {'active': active, 'filters': filters, 'labels': labels, 'excluded_ids': excluded},
+            'company_lists': lists, 'company_tiers': company_directory.TIERS}
+
+
 def comparison(main, store, params):
     entities = {r['id']: r for r in main.all_entities()}
-    selected = feed.values(params.get('companies'))
-    if any(key not in entities for key in selected):
-        raise ValueError('Choose canonical entities')
+    tracking = company_scope(main, entities, params)
+    selected = tracking['selected']
+    scoped = bool(selected or tracking['tracking_scope']['active'] or tracking['empty_cohort'])
     role = params.get('role', '')
     if role and role not in {'breeder', 'grower', 'marketer', 'technology_provider'}:
         raise ValueError('Choose a peer role')
@@ -57,7 +110,7 @@ def comparison(main, store, params):
                 row['publication_age_days'] = (date.today()-date.fromisoformat(str(row['fields'].get('published_date') or '')[:10])).days
             except ValueError:
                 row['publication_age_days'] = None
-    relevant = [r for r in records if not selected or r.get('entity_id') in selected]
+    relevant = [r for r in records if not scoped or r.get('entity_id') in selected]
     if params.get('berry'):
         def crop_matches(row):
             fields = row['fields']
@@ -74,7 +127,7 @@ def comparison(main, store, params):
             r['age_days'] = None
         r['review_after_days'] = 30 if r['kind'] == 'job' else 730 if r['kind'] == 'relationship' else 180
     assessments = [r for r in effective
-                   if (not selected or r['entity_id'] in selected)
+                   if (not scoped or r['entity_id'] in selected)
                    and (not role or r['peer_role'] == role)
                    and (not params.get('berry') or r['berry_id'] in feed.values(params['berry']))
                    and (not params.get('destination') or r['destination_scope'] == params['destination'])]
@@ -113,7 +166,7 @@ def comparison(main, store, params):
         a['stale'] = a['age_days'] > 180
         a['effective_label'] = ('Unknown' if a['rating'] == 'unknown' else 'Not applicable' if a['rating'] == 'not_applicable'
                                 else next(x['label'] for c in ce.catalogue()['capabilities'] if c['capability_id'] == a['capability_id'] for x in c['anchors'] if x['level'] == a['rating']))
-    eligible = len(selected) if selected else len({a['entity_id'] for a in assessments})
+    eligible = len(selected) if scoped else len({a['entity_id'] for a in assessments})
     positions = ce.peer_positions(assessments, eligible)
     by_id = {r['id']: r for r in records}
     for a in assessments:
@@ -139,7 +192,7 @@ def comparison(main, store, params):
     for r in main.all_relationships():
         if params.get('berry') and r.get('berry_ids') and not set(feed.values(params['berry'])).intersection(r['berry_ids']):
             continue
-        if not selected or r.get('subject_id') in selected or r.get('object_id') in selected:
+        if not scoped or r.get('subject_id') in selected or r.get('object_id') in selected:
             graph.append({'id': r['id'], 'subject': r.get('subject_id'), 'object': r.get('object_id'),
                           'predicate': r.get('predicate'), 'status': r.get('status', 'Unknown'),
                           'basis': 'Existing canonical relationship; inspect its Evidence',
@@ -156,11 +209,18 @@ def comparison(main, store, params):
                           'scope': {k:f.get(k, 'Unknown') for k in ('berry_scope','origin_scope','destination_scope','rights_territory','start_date','end_date')}})
     inventory = json.loads((ce.CATALOGUE.parent / 'commercial-entity-inventory.json').read_text(encoding='utf-8'))
     inventory_ids = {r['entity_id'] for r in inventory['entities'] if r['inclusion_status'] != 'out_of_scope'}
-    entity_choices = sorted([row for key,row in entities.items() if key in inventory_ids or key in selected], key=lambda row:row.get('name','').casefold())
+    choice_ids = (inventory_ids.intersection(selected) if tracking['tracking_scope']['active'] else inventory_ids)
+    choice_ids = choice_ids | set(selected) | set(tracking['requested_companies'])
+    entity_choices = sorted([row for key,row in entities.items() if key in choice_ids], key=lambda row:row.get('name','').casefold())
     latest_batches = {}
     for batch in batch_history:
         if batch['batch_id'] not in latest_batches or batch['updated_at'] > latest_batches[batch['batch_id']]['updated_at']:
             latest_batches[batch['batch_id']] = batch
+    if tracking['tracking_scope']['active'] or tracking['empty_cohort']:
+        # Keep original batch totals and immutable snapshot bodies; filter only the index.
+        batch_ids = {row['batch_id'] for row in relevant}
+        latest_batches = {key: row for key, row in latest_batches.items() if key in batch_ids}
+        saved_comparisons = [row for row in saved_comparisons if set(selected).intersection(snapshot_companies(row))]
     today = date.today()
     try:
         default_start = today.replace(year=today.year-2)
@@ -191,7 +251,7 @@ def comparison(main, store, params):
                              'timeline_basis': date_basis})
         people_rows.append(r)
     timeline.sort(key=lambda r: '' if r['timeline_date']=='Unknown' else r['timeline_date'], reverse=True)
-    return {'entities': entities, 'inventory_ids': inventory_ids, 'entity_choices':entity_choices, 'selected': selected, 'assessments': assessments,
+    return {**tracking, 'entities': entities, 'inventory_ids': inventory_ids, 'entity_choices':entity_choices, 'selected': selected, 'assessments': assessments,
             'records': relevant, 'jobs': jobs, 'rubrics': ce.catalogue(), 'graph': graph,
             'people_rows': people_rows, 'timeline': timeline, 'events_after': events_after.isoformat(),
             'batches': list(latest_batches.values()), 'batch_revision_count': len(batch_history), 'saved': saved_comparisons,
@@ -199,6 +259,22 @@ def comparison(main, store, params):
             'numeric_count': sum(isinstance(a['rating'], int) for a in assessments),
             'destinations': sorted({a['destination_scope'] for a in effective}),
             'captured_at': date.today().isoformat()}
+
+
+def saved_model(main, store, saved):
+    """Use captured rows/cohort even when the original shared list changes or is archived."""
+    snapshot = saved['snapshot']
+    frame_scope = {key: value for key, value in snapshot['scope'].items() if key not in COMPANY_FILTERS}
+    frame_scope['companies'] = ','.join(snapshot['selected'])
+    model = comparison(main, store, frame_scope)
+    model.update(snapshot, snapshot_id=saved['id'], snapshot_title=saved['title'])
+    # Older snapshots do not have shared-filter metadata.
+    model['requested_companies'] = snapshot.get('requested_companies', snapshot['selected'])
+    if model['tracking_scope']['active'] or model.get('empty_cohort'):
+        batch_ids = {row['batch_id'] for row in snapshot['records']}
+        model['batches'] = [row for row in model['batches'] if row['batch_id'] in batch_ids]
+        model['saved'] = [row for row in model['saved'] if set(snapshot['selected']).intersection(snapshot_companies(row))]
+    return model
 
 
 @router.get('/competitive-evaluation', response_class=HTMLResponse)
@@ -212,9 +288,7 @@ def evaluation(request: Request):
         saved = store.get(request.query_params.get('saved', '')) if request.query_params.get('saved') else None
         if request.query_params.get('saved') and (not saved or not saved.get('snapshot')):
             raise HTTPException(404, 'Saved comparison not found')
-        model = comparison(main, store, saved['snapshot']['scope'] if saved else params)
-        if saved:
-            model.update(saved['snapshot'], snapshot_id=saved['id'], snapshot_title=saved['title'])
+        model = saved_model(main, store, saved) if saved else comparison(main, store, params)
         record_sheet = None
         if view in {'people','overview','relationships','exposure','imports','saved'}:
             from app.services.competitive_record_sheet import build
@@ -252,7 +326,10 @@ def record_export(request: Request):
         raise HTTPException(422,'Choose a record sheet')
     from app.services.competitive_record_sheet import build
     try:
-        sheet=build(comparison(main,store,params),view,params)
+        saved = store.get(params['saved']) if params.get('saved') else None
+        if params.get('saved') and (not saved or not saved.get('snapshot')):
+            raise HTTPException(404, 'Saved comparison not found')
+        sheet=build(saved_model(main,store,saved) if saved else comparison(main,store,params),view,params)
     except ValueError as exc:
         raise HTTPException(422,str(exc)) from exc
     output=io.StringIO();writer=csv.writer(output)
@@ -307,7 +384,7 @@ async def save(request: Request):
         if not isinstance(params, dict):
             raise ValueError('Comparison scope must be an object')
         model = comparison(main, store, params)
-        snapshot = {k: model[k] for k in ('scope', 'selected', 'assessments', 'captured_at', 'rubrics', 'records', 'jobs', 'graph', 'people_rows', 'timeline', 'events_after', 'assessment_count', 'numeric_count')}
+        snapshot = {k: model[k] for k in SNAPSHOT_FIELDS}
         key = 'comparison-' + digest([str(form.get('title') or 'Comparison'), snapshot, str(form.get('narrative') or '')])[:28]
         with store.transaction() as db:
             if not store.get(key, db):
@@ -328,8 +405,11 @@ def export(request: Request, format: str):
     if saved:
         model = saved['snapshot']
     else:
-        live = comparison(main, store, request_params(request))
-        model = {k:live[k] for k in ('scope','selected','assessments','captured_at','rubrics','records','jobs','graph','people_rows','timeline','events_after','assessment_count','numeric_count')}
+        try:
+            live = comparison(main, store, request_params(request))
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        model = {k:live[k] for k in SNAPSHOT_FIELDS}
     if format == 'json':
         return Response(json.dumps(model, ensure_ascii=False, indent=2, default=str), media_type='application/json',
                         headers={'Content-Disposition': 'attachment; filename="competitive-comparison.json"'})

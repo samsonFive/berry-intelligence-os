@@ -28,7 +28,12 @@
     const bundle=document.getElementById('landscape-bundle');
     if(bundle){try{defaults=JSON.parse(bundle.textContent).filters||{};}catch(e){/* Explicit controls remain available. */}}
     const comparison=document.getElementById('ce-coverage-context');
-    if(comparison){try{defaults={...defaults,...JSON.parse(comparison.textContent)};}catch(e){/* Keep URL scope. */}}
+    if(comparison){try{
+      defaults={...defaults,...JSON.parse(comparison.textContent)};
+      // Evaluation resolves shared filters (or a frozen saved cohort) on the server.
+      // Original URL choices can include excluded companies; never re-add them here.
+      ids.clear();for(const id of defaults.companies||[])if(typeof id==='string'&&id)ids.add(id);
+    }catch(e){/* Keep URL scope. */}}
     if(!ids.size){for(const id of defaults.companies||[])ids.add(id);if(canonical.test(defaults.focus||''))ids.add(defaults.focus);}
     if(ids.size)q.set('companies',[...ids].join(','));
     if(defaults.empty_cohort)q.set('empty_cohort','1');
