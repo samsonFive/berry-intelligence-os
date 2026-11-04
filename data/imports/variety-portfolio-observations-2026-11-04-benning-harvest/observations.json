@@ -1,0 +1,55 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [{
+    "id": "portfolio-benning-dpi-harvest-2024",
+    "title": "Benning blueberry harvest — NSW DPI article, Autumn 2024, pages 53–58",
+    "url": "https://berries.net.au/wp-content/uploads/2024/03/ABJ_Ed-18_AUTUMN_24-BB-Mechanical-Harvesting-in-Blueberries.pdf",
+    "checked_on": "2026-11-04",
+    "observed_at": "2026-11-04T09:41:04.623089+00:00",
+    "company_ids": ["company-denning-blueberries"],
+    "berry_ids": ["berry-blueberry"],
+    "source_type": "industry_technical_report",
+    "capture_status": "names_enumerated",
+    "review_state": "unreviewed",
+    "enumerated_scope": "All six original PDF pages, printed 53–58, including photo captions. No cultivar is named. Rabbiteye is a blueberry type; KATO260 is grading equipment. Neither is a cultivar or selection code. This is a bounded article check, not a complete Benning portfolio.",
+    "limitations": "Autumn 2024 article by Gaius Leong, NSW Department of Primary Industries, about mechanical harvesting at the Benning operation. No named cultivar, alias, breeder/owner role, legal right, approved trait or growing footprint is established. Operational and labor comparisons are attributed observations, not a general benchmark. Photographs are credited to NSW DPI; reuse permission is not established, so they remain in the linked original and are not extracted or hosted as site images. The existing unverified company identifier and earlier About-page capture are unchanged.",
+    "review_warnings": [
+      "No cultivar names are given in this article; the company variety list remains incomplete.",
+      "NSW DPI photo credit is visible, but permission to reuse the photographs is not established. Open the original to inspect them."
+    ],
+    "names": [],
+    "accounting": {"observed_items": 2, "exclusions": [
+      {"label": "Rabbiteye", "reason": "A blueberry type in captions, not an individual cultivar denomination."},
+      {"label": "KATO260", "reason": "Grading equipment in the text, not a breeding or selection code."}
+    ]},
+    "capture_reference": {
+      "method": "direct_original_pdf_capture_and_visual_review",
+      "capture_sha256": "cb50dd7acd6376aa5d3c0a2c9f601a6f1371b96487665518820cd2fb58931bd2",
+      "capture_bytes": 1708263,
+      "final_url": "https://berries.net.au/wp-content/uploads/2024/03/ABJ_Ed-18_AUTUMN_24-BB-Mechanical-Harvesting-in-Blueberries.pdf",
+      "author": "Gaius Leong, Blueberry Development Officer, NSW Department of Primary Industries",
+      "publication_period": "Autumn 2024, Australian Berry Journal, Edition 18",
+      "publication_date_precision": "Season and year only; no day inferred from the upload directory",
+      "pdf_total_pages": 6,
+      "pdf_pages_read": [1, 2, 3, 4, 5, 6],
+      "visually_checked_pages": [1, 2, 3, 4, 5, 6],
+      "printed_pages": [53, 54, 55, 56, 57, 58],
+      "all_pages_read": true,
+      "visually_checked": true,
+      "photo_credit": "NSW DPI",
+      "photo_permission": "Unconfirmed; photographs retained in the publisher's original PDF only",
+      "video_reference": {
+        "qr_pdf_page": 6, "qr_printed_page": 58,
+        "original_qr_url": "https://bit.ly/ABJ-Aut-24-BB-Mechanical-Harvesting?r=qr",
+        "resolved_url": "https://www.youtube.com/watch?v=qZP6kSEL1ao",
+        "publisher": "Berries Australia",
+        "title": "BB Mechanical Harvesting Jan 24",
+        "video_published_date": "2024-02-20",
+        "footage_period": "January 2024, as described by the publisher",
+        "duration_seconds": 117, "checked_on": "2026-11-04",
+        "verification": "QR decoded from the original PDF; native browser resolved it to the publisher channel video. Title, description, date, duration and bounded playback/frame were checked, not the complete film or its performance claims.",
+        "reuse_basis": "Publisher-linked video only; not copied, hosted or autoplayed by Berry Intelligence"
+      }
+    }
+  }]
+}
