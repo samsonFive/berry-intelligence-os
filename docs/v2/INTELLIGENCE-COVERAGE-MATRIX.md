@@ -1,5 +1,14 @@
 # Current verified releases and remaining mission — November 3, 2026
 
+Prepared separately from live #490: [the Well-Pict historical source](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+adds two literal strawberry labels from a March 2012 merchandising page about
+2011 supply. The local seed has 540 sections /2,075 occurrences /1,335 review
+keys, with 11 unreadable sections and 144 follow-ups; live remains 539 /2,073
+/1,333. The current site gap and all identity/role/rights/photo/region gates
+remain. No canonical, provider, schema or human-decision change is included.
+Performance #493 is a separate default-off draft, not a deployed gain. Earlier
+release statements below retain their dated scope.
+
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),
 retaining News #487, #486 and earlier platform releases. All four final checks

@@ -103,7 +103,7 @@ def test_full_source_corpus_retains_every_earlier_candidate_key():
              for s in sources if s['id'] not in ids or s['id'] in historical]
     _, before = reconcile_portfolios(sources=prior, varieties=varieties, entities=entities, candidates=corpus_candidates)
     _, after = reconcile_portfolios(sources=sources, varieties=varieties, entities=entities, candidates=before)
-    assert len(before) == 1315 and len(after) == 1333
+    assert len(before) == 1317 and len(after) == 1335
     assert {c['id'] for c in before} < {c['id'] for c in after}
 
 

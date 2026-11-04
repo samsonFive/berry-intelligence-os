@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2073
+    assert report["summary"]["names"] == 2075
     assert report["summary"]["registry_entries_checked"] == 67
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [7, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 625, "berry-strawberry": 822, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 625, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "names_found" and sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 9 and sunbelle["has_source_gaps"]
@@ -101,6 +101,26 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     assert abz["starting_url"] == "https://www.abzseeds.com/high-tech-greenhouse?hsLang=en"
     assert abz["starting_label"] == "Checked page ↗"
     assert any(s["id"] == "portfolio-abz-booklet" and s["capture_status"] == "unreadable" for s in report["sources"])
+
+
+def test_wellpict_historical_numeric_labels_stay_unreviewed_and_unresolved():
+    sources = load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+    original = next(row for row in sources
+                    if row["id"] == "portfolio-wellpict-merchandising-2012-strawberry-labels")
+    assert original["review_state"] == "unreviewed"
+    assert original["capture_reference"]["publication_period"] == "March 2012"
+    assert original["capture_reference"]["historical_period_in_paragraph"] == "2011"
+    assert original["capture_reference"]["pdf_pages_read"] == [68]
+    assert original["company_ids"] == ["company-well-pict"]
+    assert [row["candidate_name"] for row in original["names"]] == ["#3352", "#4053"]
+    assert all(row["berry_id"] == "berry-strawberry" for row in original["names"])
+    assert all(not row.get("breeder_code") and not row.get("photos") for row in original["names"])
+    rows, candidates = reconcile([original])
+    assert not rows[0]["accounting_view"]["issues"]
+    assert {row["candidate_name"] for row in candidates} == {"#3352", "#4053"}
+    assert all(not row.get("human_gated") and not row.get("auto_confirmed")
+               and not row.get("candidate_canonical_match") for row in candidates)
+    assert next(row for row in sources if row["id"] == "portfolio-gap-wellpict-dns")["capture_status"] == "unreadable"
 
 
 def test_osu_historical_release_list_accounts_for_all_entries_without_inventing_roles():

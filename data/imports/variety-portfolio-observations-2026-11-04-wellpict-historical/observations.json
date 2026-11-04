@@ -1,0 +1,59 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-wellpict-merchandising-2012-strawberry-labels",
+      "title": "Well-Pict — two strawberry labels in the March 2012 merchandising profile",
+      "url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-mar-2012.pdf#page=68",
+      "company_ids": ["company-well-pict"],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-11-03",
+      "observed_at": "2026-11-04T00:53:28.656140+00:00",
+      "source_type": "historical_document_mentions",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The two printed numeric variety labels in the Variety and Availability Guide paragraph on original PDF page 68. The Well-Pict-branded merchandising profile describes a 2011 supply development in its strawberry paragraph; it is not a current or lifetime portfolio.",
+      "limitations": "March 2012 historical commercial material, not independent cultivar authentication. The paragraph prints #3352 and #4053 without a denomination, breeder-code prefix or registry identifier. Keep both literal labels for review; do not infer a code prefix, alias, breeder, owner, licensee, current availability, release date or legal right. The profile's supply, performance and location wording remains an unreviewed company claim, not a verified trait or growing footprint. The generic field, food and pack photographs have no captions identifying either numeric label; no variety photo is assigned. The older current-site access gap remains open. The 2024 upload directory is not a publication date, and no exact publication day is invented.",
+      "review_warnings": [
+        "Historical March 2012 profile describing 2011 supply; current varieties and availability are not established.",
+        "Numeric labels need identity review. No denomination, code prefix, alias or company role is approved."
+      ],
+      "names": [
+        {
+          "candidate_name": "#3352",
+          "display_label": "#3352",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-mar-2012.pdf#page=68",
+          "portfolio_context": "Literal #3352 label in the strawberry supply paragraph on printed page 68 of the March 2012 issue. The paragraph describes 2011; this is a historical review lead, not a current portfolio or a resolved cultivar identity.",
+          "source_company_ids": ["company-well-pict"],
+          "source_company_context": "Well-Pict-branded merchandising profile published by Produce Business. Company association follows the page heading; it does not establish breeding, ownership or licensing."
+        },
+        {
+          "candidate_name": "#4053",
+          "display_label": "#4053",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-mar-2012.pdf#page=68",
+          "portfolio_context": "Literal #4053 label in the strawberry supply paragraph on printed page 68 of the March 2012 issue. The paragraph describes 2011; this is a historical review lead, not a current portfolio or a resolved cultivar identity.",
+          "source_company_ids": ["company-well-pict"],
+          "source_company_context": "Well-Pict-branded merchandising profile published by Produce Business. Company association follows the page heading; it does not establish breeding, ownership or licensing."
+        }
+      ],
+      "accounting": {"observed_items": 2, "exclusions": []},
+      "capture_reference": {
+        "method": "direct_original_pdf_capture_and_visual_review",
+        "http_status": 200,
+        "capture_sha256": "44fa3d6e11c3d070e3cd97acf42550c4f0d4431345305dfef1675507d37654b3",
+        "capture_bytes": 9917469,
+        "final_url": "https://producebusiness.com/wp-content/uploads/2024/08/pb-mar-2012.pdf",
+        "publication_period": "March 2012",
+        "publication_date_precision": "Month and year only; no day invented",
+        "pdf_total_pages": 152,
+        "pdf_pages_read": [68],
+        "printed_page": 68,
+        "section_heading": "VARIETY AND AVAILABILITY GUIDE",
+        "historical_period_in_paragraph": "2011",
+        "image_review": "Generic field, food and pack images are not captioned as either numbered variety; no photo reference added."
+      }
+    }
+  ]
+}

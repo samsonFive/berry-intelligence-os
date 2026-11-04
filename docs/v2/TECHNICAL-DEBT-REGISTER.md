@@ -1,5 +1,13 @@
 # Current verified releases and remaining mission — November 3, 2026
 
+Prepared source-only follow-up: [two historical Well-Pict labels](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+add original printed context without resolving current portfolio, numeric
+identity, role, rights, photo or region questions. CAT-01/CAT-02 and TD-116
+remain open; the scoped follow-up count rises to 144. The 11 unreadable sections
+remain. Live #490 at `3ffe5bad` and separate default-off performance #493 are
+unchanged; no new deployment, provider request or human decision is authorized
+by this draft. Earlier dated release statements below are historical.
+
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),
 retaining News #487, #486 and earlier platform releases. All four final checks
