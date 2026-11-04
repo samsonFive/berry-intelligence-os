@@ -86,8 +86,20 @@ DIAGRAMS = {
 DIAGRAMS.update(CURRICULUM_DIAGRAMS)
 
 VIDEOS = {
-    "ipm": {"title": "The scientific basis for IPM", "publisher": "UC Statewide IPM Program", "url": "https://www.youtube.com/watch?v=BljIAipO2Eg", "source_page": "https://ipm.ucanr.edu/what-is-ipm/", "caption": "UC IPM links this scientist's explanation. Open at the publisher; playback availability has not been verified."},
-    "harvest-robotics": {"title": "Robofruit research demonstration", "publisher": "Robofruit paper authors", "url": "https://www.youtube.com/watch?v=v8gGAvsISXU", "source_page": "https://arxiv.org/abs/2301.03947", "caption": "Video linked by the paper's authors. A research demonstration is not proof of commercial deployment; playback availability has not been verified."},
+    "ipm": {
+        "title": "The scientific basis for IPM",
+        "publisher": "Pete Goodell · linked by UC IPM",
+        "url": "https://www.youtube.com/watch?v=BljIAipO2Eg",
+        "source_page": "https://ipm.ucanr.edu/what-is-ipm/",
+        "caption": "Pete Goodell explains the scientific framework behind IPM. Field decisions need crop- and region-specific guidance.",
+    },
+    "harvest-robotics": {
+        "title": "Robofruit field test · October 2021",
+        "publisher": "Intelligent Manipulation Lab — Open Robotic Lab",
+        "url": "https://www.youtube.com/watch?v=v8gGAvsISXU",
+        "source_page": "https://arxiv.org/abs/2301.03947",
+        "caption": "Historical research demonstration: the video labels the field test October 2021; the linked paper was published in 2023.",
+    },
 }
 
 
