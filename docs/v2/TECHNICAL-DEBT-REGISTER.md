@@ -1,3 +1,11 @@
+# Source intelligence continuation candidate — November 4, 2026
+
+[Bounded collection follow-up](SOURCE-INTELLIGENCE-COLLECTION-CONTINUATION-2026-11-04.md) reproduces and fixes capped-runner starvation and a narrow Spanish blueberry-industry relevance gap. The real November 3 Blueberries TV recording passes local feed/Reader checks as description-only; no current-video draft was delivered to production. Full current-head CI and live preservation remain required before deploying this new follow-up. No recurring collection, transcription or provider routing was activated.
+
+# Source intelligence code release — November 4, 2026 Pacific
+
+[Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) was deployed and verified at canonical `d785c182` after final-head CI (6,654 passed), bounded offline rehearsal and live preservation. Existing 4,552 data files, 17,670 private JSON files, four databases and 1,268 varieties were preserved with no data/Source additions. Media filters expose actual retained podcasts/videos/blogs; source health distinguishes execution from scoped contribution. Existing timer/settings/mounts are preserved and no new recurring lane or STT was activated. Subsequent explicit approval delivered two original transcript artifacts and one unreviewed video draft after a fresh backup. Live Readers verified 1,212/382 segments, retry was identical, and the trusted podcast was unchanged. Delivery made zero acquisition/STT/model calls. Later concurrent runtime changes were retained; the release receipt is time-scoped as other releases advance production. Word accuracy, fresh video access, Exa allowance, sealed analyst evaluation and wider coverage remain open. Earlier candidate holds below are historical, not a new release-permission request.
+
 # Catalog release reconciliation — November 4 UTC, 2026
 
 The user approved release #492. While server headroom was being recovered,
