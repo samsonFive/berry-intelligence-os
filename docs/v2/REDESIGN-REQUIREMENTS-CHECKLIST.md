@@ -50,9 +50,12 @@ photo permission and extraction qualification decisions remain separate gates.
   and evidence are retained. No preparation/background job is being deployed.
 - The new owned portfolio identity batch at `b76792c0` passes 288 focused checks.
   [Linux diagnostic 41760146303](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41760146303)
-  at measurement-only `26c0cd43` is still completing validation. No speed,
-  private-production preservation or release acceptance is claimed yet. The
-  diagnostic branch must not merge or deploy.
+  at measurement-only `26c0cd43` preserves 24 complete responses and shows a
+  limited public-seed workflow improvement; it is not a VPS/private-data claim.
+  Its first full suite has 6,335 passes and one stale observer failure. The test
+  observer is corrected without changing the measured runtime; fresh complete
+  checks, browser review and preservation remain. The diagnostic branch must
+  not merge or deploy, and no release acceptance is claimed.
 - The server rehearsal remains subject to the existing headroom guard and the
   unanswered specific backup-mirror cleanup request. No backup deletion,
   workaround, relaxed guard or deployment is authorized by internal continuation.

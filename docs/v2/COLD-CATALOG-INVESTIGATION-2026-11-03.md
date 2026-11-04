@@ -255,8 +255,29 @@ but improves the measured Windows workflow only about 0.6–1.2%, with mixed
 cold results. It is not a release claim. The next unaccepted implementation
 uses one owned catalog snapshot for a pure matching batch, retains the original
 matcher and reapplies current human decisions/provenance on every outer rebuild.
-All 288 focused identity/review checks pass. Full workflow and Linux measurement,
-fresh production-copy preservation, browser review and release approval remain.
+All 288 focused identity/review checks pass. The exact owned-batch runtime's
+Linux public-seed diagnostic preserves 24 complete typed article bundles,
+universes, contexts and HTML across eight fresh processes, all 2,942 existing
+source/schema JSON files and zero read-side writes or network attempts.
+
+| Public-seed route order | First request, baseline →batch | After new article | Three-page workflow |
+| --- | --- | --- | --- |
+| Company first | 0.819 →0.716 s | 0.629 →0.523 s | 1.754 →1.544 s |
+| Candidates first | 0.748 →0.686 s | 0.614 →0.511 s | 1.688 →1.578 s |
+
+These are two-replicate, one-CPU Linux handler measurements on a warm public-seed
+filesystem, not private-data or VPS speed claims. The Company next click after
+Candidates regresses from 0.326 to 0.381 seconds; the complete workflow improves
+in both route orders. Both the tradeoff and full measurements are retained.
+The diagnostic result SHA-256 is
+`5e9244a6e9b421e4f4bb90ba58ba55732323d460f7c761e42b830a41971d17d8`.
+
+The first full suite has 6,335 passes, 11 skips and one failure: its patent-profile
+scope test observes the previous individual-call boundary. The repaired observer
+checks the same selected-source rule at the batch-query boundary and passes
+locally; the assertion still requires only “Named,” never the unrelated source.
+Runtime code is unchanged from the measured diagnostic. Fresh complete checks,
+production-copy preservation, browser review and release approval remain.
 No source scope, saved decision, canonical variety or schema is changed.
 
 ## Work still needed to finish this mission
