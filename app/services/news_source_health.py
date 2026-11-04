@@ -46,7 +46,7 @@ def model(sources, records, matching_ids, inbox_dir, exclusions=None):
         publications = retained[key]
         excluded = Counter((exclusions or {}).get(item['id']) for item in publications if (exclusions or {}).get(item['id']))
         drafts = sum(item.get('status') == 'unreviewed' for item in publications)
-        transcripts = sum(item.get('transcript_status') in {'ready', 'partial', 'captured', 'available'} for item in publications)
+        transcripts = sum(item.get('transcript_status') in {'ready', 'partial', 'captured', 'available', 'stored'} for item in publications)
         if visible[key]:
             reason = 'Contributes to the current News selection.'
         elif publications:

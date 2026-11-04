@@ -271,7 +271,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         transcript = record.get('transcript') if isinstance(record.get('transcript'), dict) else {}
         transcript_status = record.get('transcript_status') or transcript.get('status')
         card.update(media_kind=kind, media_label=MEDIA_CHOICES[kind],
-                    media_note=('Transcript state: ' + transcript_status if transcript_status in {'ready', 'partial', 'available', 'captured'} else
+                    media_note=('Stored transcript reference · open Reader to inspect' if transcript_status == 'stored' else
+                                'Transcript state: ' + transcript_status if transcript_status in {'ready', 'partial', 'available', 'captured'} else
                                 'Description only · transcript ' + (transcript_status or 'unspecified'))
                     if kind in {'podcast', 'video'} else '')
         if kind in {'podcast', 'video'}:

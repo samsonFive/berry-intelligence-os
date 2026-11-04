@@ -42,3 +42,21 @@ def test_inconsistent_transcript_cannot_replace_description(tmp_path):
     projected = stored_media(record, tmp_path)
     assert projected['summary'] == record['summary']
     assert 'transcript' not in projected and projected['transcript_read_error']
+
+
+def test_legacy_publication_uses_only_explicit_transcript_parent_binding(tmp_path):
+    record = {'id': 'ev-legacy', 'source_id': 'source-show', 'media_format': 'podcast',
+              'transcript': {'status': 'not_available'}}
+    payload = {'item_id': 'discovered-old', 'source_id': 'source-show', 'transcript_id': 'transcript-old',
+               'parent_evidence_id': 'ev-legacy', 'language': 'en',
+               'provenance': {'method': 'auto_generated', 'created_by': 'historical-worker', 'created_at': '2026-08-15'},
+               'segments': [{'text': 'Historical source wording.', 'start_seconds': 5, 'end_seconds': 10}]}
+    write_transcript_artifact(tmp_path, payload)
+    projected = stored_media(record, tmp_path)
+    assert projected['transcript']['text'] == 'Historical source wording.'
+    assert record['transcript']['status'] == 'not_available'
+    assert stored_media({**record, 'source_id': 'source-other'}, tmp_path)['transcript']['status'] == 'not_available'
+    from app.services.media_reader import attach_transcript_metadata
+    metadata = attach_transcript_metadata({'ev-legacy': record}, tmp_path)
+    assert metadata['ev-legacy']['transcript_status'] == 'stored'
+    assert 'text' not in metadata['ev-legacy']['transcript']

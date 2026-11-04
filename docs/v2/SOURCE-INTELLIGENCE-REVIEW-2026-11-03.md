@@ -27,12 +27,28 @@ Initial browser review confirms real podcast cards, distinct declared audio URLs
 
 ## Proposed activation for separate review
 
+### November 4 historical transcription recovery
+
+The user's reminder led to inspection of the original private worktrees. The existing pipeline already completed real local STT and caption acquisition; it was not an unimplemented capability. Commit `9f58c254` introduced faster-whisper acquisition on August 15; `7e860a50` records a live Redagrícola caption/cache proof. The web deployment intentionally installs `requirements-web.txt`, which explicitly excludes faster-whisper and yt-dlp. Full collection workers use `requirements.txt`; the web container was designed to serve exported transcript artifacts.
+
+Recovered original artifacts, unchanged and copied only to the isolated local canary:
+
+| Source | Earlier output | Method / original date | Reuse proof |
+| --- | --- | --- | --- |
+| Lucentlands Ep. 102, Scaling the Blueberry Industry | 1,212 English segments; 2,664.7s transcript end / 2,671s declared audio | faster-whisper small / CPU, August 15 | Explicit normalized parent binding to existing trusted publication; canonical record still unchanged |
+| Redagrícola, El arándano está conquistando a Ica (`TRG0WsxJ1Lw`) | 382 Spanish segments; 982.959s end | YouTube automatic captions, August 16 | Exact discovered-item/source identity; pending draft references original segment hash |
+| Arkansas, How to Pick Blueberries (`RbrDYMP0PHE`) | 78 English segments; 228.127s end | Publisher-provided YouTube captions, August 16 | Original artifact inspected; not yet copied as another runtime delivery |
+
+Both the podcast and Spanish video now pass real artifact → Reader projection → timestamped Blueberry workspace capture → retry → restart/reopen checks. Original file SHA-256 and segment SHA-256 remain in private `source-gap-historical-transcript-reuse.json`; `source-gap-real-capture-reopen.json` records exact passage/timing/version/destination preservation. No retranscription or production delivery occurred. The podcast reports 0.9976 duration coverage; this is a mechanical coverage measure, not word accuracy. Spanish captions retain their auto-generated provenance and short-cue diagnostics. Audio-to-word accuracy and independent quality acceptance remain unverified.
+
+The Reader can resolve a legacy publication only through an explicit matching transcript parent/source header; it does not guess from a title or shared homepage. The private feed reads metadata headers without building transcript bodies and labels stored transcript references separately from validated text. The old canonical `transcript.status: not_available` is preserved on disk; private reading projects the recovered artifact instead. This corrects the continuity gap without changing publication or claim review decisions.
+
 Keep the present production selector until approval. First propose only `news_workspace_refresh` plus a bounded spoken-media lane whose runner uses `--source-allowlist source-business-of-blueberries-podcast --skip-transcription --max-transcriptions 0 --max-items 2 --max-discoveries 2 --no-model-enrichment --json-summary`. Retain the existing daily/source cadence and shared lock. A separately approved article lane can start with Fall Creek only under the same item/discovery limits and deterministic enrichment. Do not enable all registry lanes or all Sources.
 
 Before activation, require a bounded manual production canary, verified due decisions, stable GUID dedup on a second run, backlog/draft yield review and a rollback to the prior selector. Transcription stays manual, caption-only and time-limited until a separate recording-length/CPU/memory/disk/model budget is reviewed. No proposed recurring job has been activated.
 
 ## Remaining acceptance gates
 
-Full exact-head CI, validation/static-private checks and production-copy preservation are pending. Fresh video feed repair, real timed transcript quality and capture/reopen proof for both media classes, accessible-page Reader navigation, provider allowance/auth checks, representative sealed analyst-outcome evaluation and the broader source/variety ledger remain open. Existing failed Google comparisons, identity holds and canonical trait/right/footprint review gates remain unchanged. Existing Exa credential presence is not verified allowance; no provider trial is activated from an unknown balance.
+Final-head CI and production-copy preservation remain pending. Record validation passed; the first candidate's Static public safety, Repository integrity and Change scope checks passed while its full Python suite was still running. Historical real timed transcript reuse and capture/reopen are now established for one podcast and one video; source-audio word accuracy remains open. Fresh video feed repair, accessible-page Reader navigation, provider allowance/auth checks, representative sealed analyst-outcome evaluation and the broader source/variety ledger remain open. Existing failed Google comparisons, identity holds and canonical trait/right/footprint review gates remain unchanged. Existing Exa credential presence is not verified allowance; no provider trial is activated from an unknown balance.
 
 Private runtime data, transcripts, account databases, snapshots and receipts stay outside git/static output. The user's existing untracked report-preview image is preserved. Review code release and recurring activation separately; neither is authorized by this checkpoint.
