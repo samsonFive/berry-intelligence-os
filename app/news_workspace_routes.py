@@ -58,7 +58,7 @@ def news_page(request: Request):
     model['any_tags_href'] = '/today?' + urlencode({**query, 'tag_mode': 'any'})
     model['tag_job'] = news_tags.job_state(main.INBOX_DIR)
     for card in model['cards']:
-        card['reader_href'] = '/intelligence/' + card['id'] + '?' + urlencode({'personal': '1', 'return_to': '/today?' + urlencode(query)})
+        card['full_reader_href'] = '/intelligence/' + card['id'] + '?' + urlencode({'personal': '1', 'return_to': '/today?' + urlencode(query)})
         for tag in card['assigned_tags']:
             tag['filter_href'] = '/today?' + urlencode({**query, 'tag': ','.join(dict.fromkeys([*filter(None, query['tag'].split(',')), tag['id']]))})
     # Switching review lanes or pages always carries the same scope.
