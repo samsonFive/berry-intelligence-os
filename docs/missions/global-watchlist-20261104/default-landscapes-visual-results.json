@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "defaults": [
+    {
+      "name": "Global Blueberry Landscape",
+      "rows": 78,
+      "pdf_pages": 32
+    },
+    {
+      "name": "Global Blackberry Landscape",
+      "rows": 40,
+      "pdf_pages": 8
+    },
+    {
+      "name": "Global Strawberry Landscape",
+      "rows": 55,
+      "pdf_pages": 14
+    },
+    {
+      "name": "Global Raspberry Landscape",
+      "rows": 47,
+      "pdf_pages": 9
+    }
+  ],
+  "checks": [
+    "normal startup seeding",
+    "four global berry scopes",
+    "PDF for every default",
+    "custom copy",
+    "reload persistence",
+    "archive/restore",
+    "mobile overflow"
+  ],
+  "javascript_errors": [],
+  "corpus": "committed local snapshot; not live corpus counts"
+}

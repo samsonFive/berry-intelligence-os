@@ -17,3 +17,14 @@
 ## Storage migration
 
 The existing SQLite `objects` and `history` tables support additive kinds. New kinds use the `global_watchlist_` namespace, with a `schema_version` field; no destructive migration is necessary. Groups are workspace scoped, independently versioned, and use optimistic concurrency. Deletes are tombstones. Filters never write membership. Notes and corrections are private workspace data and are never registered with the static builder.
+
+
+## Four seeded custom Watchlist landscapes
+
+The original Global Watchlist release is live at https://intel.johnnyaceii.com/global-watchlist (canonical `ae22ea07`, tested `ce2b3bc1`). Its HTTPS browser verification covered 244 organizations, the shared sheet/Reader, alphabet navigation, a ten-page Planasa PDF and mobile overflow, with zero JavaScript errors. The release preserved 4,551 substantive data files, saved private state and the account/workspace databases. The deployment manifest changes deliberately with the revision; it is not an intelligence record. Release metadata and rollback remain recorded on the host.
+
+The requested follow-up adds Global Blueberry Landscape, Global Blackberry Landscape, Global Strawberry Landscape and Global Raspberry Landscape as starter saved scopes. Each selects one berry and leaves geography unrestricted. They recompute against current captured records, not frozen organization lists. Scoped PDFs name the selected saved landscape. Monitoring groups, follows, canonical intelligence and tier review states are unchanged.
+
+The existing private `landscape_views.json` store holds the selections and history. A backward-compatible `surface: watchlist` marker routes these views to Global Watchlist; their existing overview kind remains readable by prior app images. Normal authoring startup seeds only absent defaults. Repeated startup preserves edits, custom names, archives and existing views. Users can save, update, copy, archive and restore scopes with revision checks and existing same-origin protection. Existing Workspaces links resolve these same current scopes.
+
+Validation: 77 related Watchlist, Landscape, Workspaces and Reader-return checks pass. Browser verification exercised all four global scopes and their PDF buttons, custom-copy persistence, archive/restore and phone layout with zero JavaScript errors. Screenshots and `default-landscapes-visual-results.json` use the committed local snapshot (166 organizations); the live corpus is larger. Fresh exact-head hosted CI and coordinated release checks remain required for the seeded-landscapes follow-up; it is not yet deployed.
