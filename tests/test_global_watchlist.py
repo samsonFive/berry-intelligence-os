@@ -550,6 +550,8 @@ def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     assert '2 retained sources' in response.text
     assert 'Captured 2026-11-04' in response.text
     assert 'Organization alphabetical navigation' in response.text
+    assert 'class="gw-focus-table" href="#gw-results"' in response.text
+    assert 'Captured coverage · gaps mean unknown' in response.text
     assert 'site_sheet.js' in response.text
     state = {'revision': 0, 'widths': {'name': 220}, 'order': ['name'], 'hidden': [], 'filters': {'wrap': '1'}}
     assert client.post('/api/ui/sheets/sheet-test', json=state).status_code == 200

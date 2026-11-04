@@ -40,14 +40,33 @@ small navigation strip and management controls folded by default. Evaluation
 retains captured comparisons after shared lists change or are archived, and
 its archive handoffs use resolved IDs or an explicit empty marker.
 
+The combined phone review found the organization table starting too far down
+the page. Coverage qualifications are now folded with a visible reminder that
+gaps mean unknown; all qualification text remains available and stays in the
+PDF. Saved-view management and table controls use less vertical space. A
+"Focus table" link brings the table below the fixed navigation. The active
+saved landscape stays visible in the horizontally scrollable phone tabs.
+
 ## Evidence and next gates
 
 182 related tests pass for source collection, News, saved landscapes, shared
 tracking, Evaluation, Workspaces and Help, with zero attempted external
 connections. Two combined-only cases also pass directly for saved-filter
 clearing/workspace/PDF scope and empty/legacy workspace handoffs. Component
-native desktop/390px and PDF evidence is retained; combined-head native/PDF and
-CI remain required. #511/#512 already passed all four checks with 6,741 tests;
+native desktop/390px and PDF evidence is retained. Combined native review
+confirms all four berry selections, explicit filter clearing and a saved
+custom scope without changing the four starter definitions. At 390px, the
+table starts about 260px higher, and Focus table exposes four complete rows
+without page overflow. All three pages of the fictional PDF fixture render
+cleanly with readable saved-view names. A further 32 Watchlist/Help checks
+pass with zero attempted external connections. News images remain visible;
+the offline Reader explicitly reports unavailable source text, keeps the
+summary and publisher link visible, and does not present the summary as the
+full article. This is not a real-publisher fetch acceptance test.
+
+The earlier combined head passed all four CI checks; the density change and
+actual canonical reconciliation require fresh current-head checks.
+#511/#512 already passed all four checks with 6,741 tests;
 #513 has all four checks green, with its exact count recorded in ignored CI
 logs rather than inferred here.
 
@@ -60,6 +79,14 @@ remain. Their copy-recovery journal is
 cleanup receipt is
 `/opt/berry-platform-releases/sourcegap508-extra-copy-cleanup-20261104T221702Z/completed.json`.
 This root performed no remote deletion or release action.
+
+The source owner reports #508 live at canonical `00adb635`, image
+`cc0b542f`, with receipt
+`/opt/berry-platform-releases/sourcegap508-20261104T192943Z/deployed.json`.
+The saved-landscape owner now holds the next release window for #507 alone.
+This draft must retain both final receipts and reconcile their actual
+canonical commits before production-copy acceptance. No approval for either
+peer release authorizes this combined draft.
 
 The expanded photo import makes backups substantially larger. Preserve the
 unchanged resource guard and coordinate reuse/recovery of completed rehearsal
