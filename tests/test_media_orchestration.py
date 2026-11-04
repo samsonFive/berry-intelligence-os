@@ -292,6 +292,7 @@ def test_similar_but_distinct_titles_are_not_treated_as_cross_pipeline_duplicate
     second = _item(
         item_id="media-fixture-second",
         title="Fixture episode two",
+        external_id="episode-2", dedupe_key="episode-2",
         canonical_url="https://example.invalid/second-capture",
     )
     _write_item(inbox, second)
@@ -482,7 +483,7 @@ def test_unresolved_source_and_malformed_staged_item_report_operator_action(tmp_
         service.process(malformed["id"])
 
 
-def test_real_lucentlands_match_resolves_existing_publication_without_writes(tmp_path: Path) -> None:
+def test_advisory_lucentlands_title_match_does_not_resolve_unrelated_recording(tmp_path: Path) -> None:
     live_repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
     parent_id = "ev-lucentlands-scaling-blueberry-industry-2025"
     assert live_repos.evidence.get(parent_id)["evidence_role"] == "publication_artifact"
@@ -502,9 +503,9 @@ def test_real_lucentlands_match_resolves_existing_publication_without_writes(tmp
         transcript_adapter=CountingTranscriptAdapter(None),
     )
     result = service.process(item["id"])
-    assert result.parent_resolution.evidence_id == parent_id
-    assert result.state == "publication_approved"
-    assert not (inbox / "evidence").exists()
+    assert result.parent_resolution.evidence_id is None
+    assert result.state == "awaiting_publication_review"
+    assert (inbox / "evidence").exists()
 
 
 def test_generic_mapping_is_source_and_company_symmetric(tmp_path: Path) -> None:

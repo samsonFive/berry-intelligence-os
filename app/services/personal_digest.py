@@ -94,6 +94,9 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
     if metadata_only:
         from app.services.publication_sources import source_preview
         records = {key: source_preview(row) for key, row in records.items()}
+    if include_private:
+        from app.services.media_reader import attach_transcript_metadata
+        records = attach_transcript_metadata(records, inbox_dir)
     return records
 
 

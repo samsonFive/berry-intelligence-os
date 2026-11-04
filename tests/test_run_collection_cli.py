@@ -31,6 +31,15 @@ def test_data_and_inbox_dir_default_to_none_before_resolution() -> None:
     assert args.inbox_dir is None
 
 
+def test_allowlisted_lane_rejects_unknown_source_before_network(tmp_path, monkeypatch, capsys):
+    monkeypatch.setenv('BIOS_RUNTIME_DIR', str(tmp_path))
+    code = run_collection.main(['--pipeline-scope', 'spoken-media', '--source-allowlist', 'source-unknown',
+                                '--skip-transcription', '--max-items', '2', '--max-discoveries', '2', '--json'])
+    assert code == 2
+    assert 'eligible for this pipeline' in json.loads(capsys.readouterr().out)['error']
+    assert not (tmp_path / 'inbox/discovered_media').exists()
+
+
 def test_main_honors_runtime_dir_env_var_for_data_and_inbox(monkeypatch, tmp_path: Path, capsys) -> None:
     runtime = tmp_path / "runtime"
     monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
