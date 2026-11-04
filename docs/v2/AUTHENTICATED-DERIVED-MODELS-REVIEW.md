@@ -2,8 +2,8 @@
 
 The current live release remains approved #490 at `3ffe5bad`. This branch adds
 an opt-in private calculation store and an explicit preparation command. It is
-not a release candidate: exact implementation timings, full current-head CI,
-native review and fresh preservation remain. TD-122 is open. The separate
+not a release candidate: exact implementation timings, native review and fresh
+preservation remain. New commits need their own checks. TD-122 is open. The separate
 ready documentation #491 is retained here without approving either merge.
 
 ## Implemented boundary
@@ -86,17 +86,27 @@ Generated-clock control in a benchmark is not evidence of new source chronology.
 
 ## Evidence so far
 
-The earlier pushed `782a2237` passes all four checks /6,359 tests. The subsequent
-local-day and real-catalog regression refinements need their own current-head
-checks; the earlier totals do not approve that changed implementation. The
-latest focused run has 39 tests: 22 pass on Windows and 17 POSIX cases skip.
-Those skipped cases were covered in the earlier 35-case Linux run; final
-current-head CI and actual command/workflow measurement remain necessary.
+Pushed `10a80034` passes all four checks /6,363 tests, including local-day and
+real-catalog refinements. Its focused set has 39 tests: 22 pass on Windows and
+17 POSIX cases skip; Linux CI covers the native cases. A further process-boundary
+test runs the real offline command and a fresh private reader against committed
+public seed data, checking two filesystem artifact hits, complete typed output,
+unchanged sources/schemas and zero reader writes. Its own current-head results
+must be checked; older totals are not evidence for a changed head.
 
 Three new tests execute the actual corpus calculation through the integration,
 not an imitation. They retain saved decisions/dates/notes/aliases, unreviewed
 source status, caller ownership and current body/URL/review/deletion results
 without reader writes or automatic catalog/statement promotion.
+
+A separate public-seed comparison recreates both model memos between every
+variant, rather than accidentally measuring warm memory. All four complete typed
+universes match: 64 catalog rows, 1,333 visible candidate keys and 539 portfolio
+sections. A caller mutation does not change the next reader's result. Both fresh
+readers use two artifact hits, zero calculations and zero writes; 2,942 source
+and schema JSON files remain unchanged. That comparison uses an in-memory store
+adapter. It does not prove filesystem performance, account preservation or live
+coverage. The public seed's 64 rows are distinct from the live 65 profile files.
 
 - All 35 exact Linux unit contracts pass, with no skips: filesystem integrity,
   private scope, complete input/day/code/context invalidation, ownership,
