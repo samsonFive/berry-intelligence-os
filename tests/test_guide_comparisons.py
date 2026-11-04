@@ -25,6 +25,7 @@ def test_guide_comparison_availability_does_not_read_or_write_research(tmp_path,
     assert ('href="/competitive-evaluation?view=saved"' in page.text) is authoring
     assert ('href="/coverage/archive"' in page.text) is authoring
     assert ('id="global-watchlist-guide"' in page.text) is authoring
+    assert ('href="#global-watchlist-guide"' in page.text) is authoring
     assert ('id="watchlist-briefing"' in page.text) is authoring
     assert ('href="/global-watchlist"' in page.text) is authoring
     if authoring:

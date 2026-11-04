@@ -2,3 +2,8 @@
 .gw-table-wrap{max-height:780px;overscroll-behavior:contain}.gw-table thead{position:sticky;top:0;z-index:1}.gw-table th:first-child{min-width:64px;white-space:nowrap}.gw-table th{white-space:normal}@media(max-width:800px){.gw-table-wrap{max-height:600px}}
 
 .gw-news-section{margin:30px 0}.gw-news-section .news-card .icon-action{padding:0;border:0;background:transparent}.gw-news-section .news-coverage{border-top:1px solid #e2e8df;padding-top:6px;margin:10px 0}.gw-news-section .news-coverage p{font-size:11px}.gw-bottom-grid{display:block}.gw-bottom-grid>aside{display:grid;grid-template-columns:1fr 1fr;gap:24px}.gw .site-sheet-shell{margin-top:0}.gw .site-sheet-scroll{margin:0}.gw .site-sheet-controls input{width:auto}.gw .site-sheet td .gw-badge{padding:1px 4px;font-size:10px}@media(max-width:700px){.gw-bottom-grid>aside{grid-template-columns:1fr}}
+
+/* Keep the status distinct from its explanation and anchors below the shell. */
+.gw-monitoring-status{display:block;font-size:13px;line-height:1.45;color:#234d3b}
+.gw-profile dd>small{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:#65746d}
+#gw-results{scroll-margin-top:var(--glass-anchor-offset,140px)}

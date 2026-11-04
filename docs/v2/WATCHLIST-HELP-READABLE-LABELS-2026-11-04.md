@@ -18,6 +18,13 @@ PDF scope uses known company, geography and group names while preserving source
 URLs, reference IDs, original text and user-written notes. No stored record,
 schema, account, permission or collection setting is changed.
 
+Phone review found a status running into its secondary explanation and a result
+anchor hidden beneath the shared header. The status now has its own clear line,
+the explanation is visually secondary, and result jumps use the measured shell
+offset. Help also links directly to its Watchlist explanation from the section
+shortcuts. The Watchlist stylesheet version changes so existing browsers receive
+the corrected spacing.
+
 ## Validation
 
 - 67 affected checks pass across Watchlist HTML/PDF, Help privacy, stakeholder

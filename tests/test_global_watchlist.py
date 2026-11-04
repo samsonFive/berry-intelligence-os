@@ -251,6 +251,9 @@ def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     assert 'value="company_website"' in response.text and '>Company website</option>' in response.text
     assert corpus['entities'][0]['roles'] == ['breeder_developer', 'rights_holder']
     assert corpus['evidence'][0]['source_type'] == 'company_website'
+    profile = client.get('/global-watchlist?company=company-a')
+    assert '<strong class="gw-monitoring-status">No monitoring source</strong>' in profile.text
+    assert 'linked_competitor_ids' not in profile.text
     assert 'class="digest-card news-card"' in response.text
     assert 'data-open-reader href="/intelligence/ev-reprint?personal=1"' in response.text
     assert '2 retained sources' in response.text
