@@ -39,23 +39,39 @@ photo permission and extraction qualification decisions remain separate gates.
 
 ## Prepared work and experiments
 
-- Source-only [#494](https://github.com/samsonFive/berry-intelligence-os/pull/494)
-  at `0b60c5fe` passes all four checks /6,325 tests and public-seed desktop/phone
-  review. It adds two explicitly historical Well-Pict labels as unreviewed leads,
-  without replacing existing records. Fresh production-copy rehearsal and a
-  separate release approval remain; its proposed counts are not live counts.
-- [#493](https://github.com/samsonFive/berry-intelligence-os/pull/493) is closed
-  unmerged. Complete-cost public-seed Linux testing made the separate-preparation
-  flow about 27% slower overall, despite faster prepared reads. Its code, tests
-  and evidence are retained. No preparation/background job is being deployed.
-- The new owned portfolio identity batch at `b76792c0` passes 288 focused checks.
-  [Linux diagnostic 41760146303](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41760146303)
-  at measurement-only `26c0cd43` is still completing validation. No speed,
-  private-production preservation or release acceptance is claimed yet. The
-  diagnostic branch must not merge or deploy.
-- The server rehearsal remains subject to the existing headroom guard and the
-  unanswered specific backup-mirror cleanup request. No backup deletion,
-  workaround, relaxed guard or deployment is authorized by internal continuation.
+- Source-only [#498](https://github.com/samsonFive/berry-intelligence-os/pull/498)
+  at `c3e22384` passes all four checks /6,328 tests and desktop/390px review.
+  It retains the two historical Well-Pict labels from superseded #494 and
+  completes the original Nebula article capture using the existing source ID.
+  Old imports, candidate IDs and decisions are unchanged. Proposed counts stay
+  540 sections /2,075 occurrences /1,335 review keys; these are not live counts.
+  #494 is closed unmerged with its branch and evidence retained.
+- Platform [#500](https://github.com/samsonFive/berry-intelligence-os/pull/500)
+  at `02df0341` passes all four checks /6,373 tests and desktop/390px review.
+  It retains the performance/video work and credited Learn photos, adds the
+  existing collection-to-identity-review handoff for all four checked crop
+  scopes, and keeps mixed/unknown taxonomy held. All 2,942 source/schema JSON
+  files, all 2,998 copied public files and existing user decisions are preserved.
+  Superseded #497 and #499 are closed unmerged; branches/evidence remain.
+  See the [crop-handoff review](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md),
+  [photo review](LEARN-TEACHING-PHOTOS-2026-11-04.md) and retained
+  [combined platform scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md).
+- The two further cold-load prototypes are excluded. The owned candidate-builder
+  experiment has uneven Windows results; the source-loader cache's Linux
+  Company-first workflow and both cold-page medians regress. Complete outputs
+  match, but neither experiment supplies an application change or speed claim.
+  The diagnostic branch is not a release proposal. See the
+  [measured investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md#november-4--current-head-calculation-and-source-loader-probes).
+- Documentation #491 remains retained. Source-only #498 stays separate from
+  the platform release. No approval for a new head is inferred from #490.
+- Rejected separate-preparation experiment #493 remains closed unmerged:
+  complete-cost public-seed Linux testing made it about 27% slower overall.
+  No preparation/background job is being deployed.
+- Both current proposals still require a fresh consistent production-data
+  rehearsal under the unchanged server resource guard, then separate exact-head
+  merge/deploy approval. The specific backup-mirror cleanup question remains
+  unanswered. No deletion, workaround, relaxed guard or deployment is authorized
+  by an internal continuation. Public-seed evidence is not private-data acceptance.
 
 [The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains
 deployed gains separately from rejected experiments. Source gaps, human reviews
