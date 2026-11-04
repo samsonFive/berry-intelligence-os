@@ -293,9 +293,10 @@ def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     assert "<h1>Varieties</h1>" in page.text
     assert "catalog varieties" in page.text
     assert "variety-table" in page.text
-    assert "Zara" in page.text
-    assert "Victoria" in page.text
-    assert "DrisBlueSeventeen" in page.text
+    # The complete index retains these varieties even when their alphabetical
+    # rows are on later pages of the expanded directory.
+    assert {"Zara", "Victoria", "DrisBlueSeventeen"} <= {row["name"] for row in page.context["variety_cards"]}
+    assert len(page.context["variety_rows"]) <= 100
     blackberry_count = sum("berry-blackberry" in row.get("berry_ids", []) for row in main.living_catalog() if row.get("entity_type") == "variety")
     assert f"Blackberry {blackberry_count}" in page.text
     assert "(thin)" not in page.text
@@ -391,7 +392,8 @@ def test_context_bar_filters_variety_index() -> None:
     client.cookies.set("bios_berry", "berry-strawberry")
     page = client.get("/entities/variety")
     assert page.status_code == 200
-    assert "Zara" in page.text
+    assert any(row["name"] == "Zara" for row in page.context["entities"])
+    assert all("berry-strawberry" in row.get("berry_ids", []) for row in page.context["entities"])
     assert "DrisBlueSeventeen" not in page.text
     assert page.context["discovered_names"]
     assert all(row["berry_id"] == "berry-strawberry" for row in page.context["discovered_names"])

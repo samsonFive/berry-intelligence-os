@@ -52,13 +52,18 @@ def removed_varieties(request: Request):
 def catalog_status(request: Request,variety_id: str,action: str = Form('')):
     from app import main
     from fastapi.responses import RedirectResponse
-    from app.services.variety_catalog_management import set_removed
+    from app.services import variety_catalog
     require_edit(request)
     if action not in {'remove','restore'}:raise HTTPException(422,'Choose remove or restore')
     repo=main.get_repositories(main.DATA_DIR,main.SCHEMAS_DIR).entities
     record=repo.get(variety_id)
     if not record or record.get('entity_type')!='variety':raise HTTPException(404,'Variety not found')
-    repo.update(variety_id,set_removed(record,removed=action=='remove',actor=main.session_username(request) or 'local analyst'))
+    try:
+        variety_catalog.remove_or_restore(main.INBOX_DIR,main.DATA_DIR,main.SCHEMAS_DIR,variety_id,
+            expected=variety_catalog.revision(record),actor=main.session_username(request) or 'local analyst',
+            restore=action=='restore',confirmation=record['name'])
+    except ValueError as exc:
+        raise HTTPException(409,str(exc)) from exc
     return RedirectResponse('/varieties/removed' if action=='remove' else '/entities/variety/'+variety_id,303)
 
 

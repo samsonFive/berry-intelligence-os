@@ -1405,15 +1405,14 @@ def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
 
 def all_entities() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
-    if corpus is not None:
-        return corpus.entities
-    return get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
+    records = corpus.entities if corpus is not None else get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
+    return [row for row in records if AUTHORING_MODE or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"]
 
 
 def entity_index() -> dict[str, dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
-        return corpus.entity_index
+        return {key: row for key, row in corpus.entity_index.items() if AUTHORING_MODE or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"}
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
 
 
@@ -1691,6 +1690,9 @@ def filter_entities(
                     str(attrs.get("trade_name", "")),
                     str(attrs.get("commercial_name", "")),
                     str(attrs.get("denomination", "")),
+                    " ".join(str(row.get("note") or "") for row in attrs.get("catalog_sources", [])),
+                    " ".join(str(row.get("number") or "") for row in attrs.get("catalog_rights", [])),
+                    " ".join(str(row.get("name") or "") for row in attrs.get("catalog_connections", [])),
                 ]
             )
             return text_matches(needle, haystack)
@@ -1705,6 +1707,11 @@ def filter_entities(
 
     if company:
         related = related_entity_ids(company, all_relationships_list)
+        if AUTHORING_MODE and any(e.get("entity_type") == "variety" for e in results):
+            from app.services.variety_catalog_import import effective_record, imported_enrichment
+            enrichment = imported_enrichment(INBOX_DIR)
+            related = set(related) | {e["id"] for e in results if e.get("entity_type") == "variety"
+                and any(row.get("entity_id") == company for row in effective_record(e, enrichment).get("attributes", {}).get("catalog_connections", []))}
         results = [e for e in results if e["id"] in related]
 
     return results
@@ -2867,6 +2874,7 @@ def entity_list(
     has_recent_intelligence: str | None = None,
     market: str | None = None,
     ip_and_observation: str | None = None,
+    catalog_status: str | None = None,
 ) -> HTMLResponse:
     all_of_type = sorted(
         (e for e in living_catalog() if e.get("entity_type") == entity_type),
@@ -2875,7 +2883,7 @@ def entity_list(
     if entity_type == "company" and view != "legacy":
         from app.company_routes import company_directory_page
         return company_directory_page(request)
-    if not all_of_type:
+    if not all_of_type and entity_type != "variety":
         raise HTTPException(status_code=404, detail=f"No entities found for type '{entity_type}'")
 
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
@@ -2890,8 +2898,10 @@ def entity_list(
         from app.services.variety_keyword_search import search_varieties
         from app.services.variety_profile_sources import all_profile_source_details
         from app.services.variety_source_reading import stored_source_reading
+        from app.services.variety_catalog_import import effective_record, imported_enrichment
+        search_enrichment = imported_enrichment(INBOX_DIR) if AUTHORING_MODE else {}
         try:
-            variety_keyword_hits = search_varieties(q, varieties=all_of_type,
+            variety_keyword_hits = search_varieties(q, varieties=[effective_record(row, search_enrichment) for row in all_of_type],
                 records=[*evidence, *(list_drafts_metadata() if AUTHORING_MODE else [])],
                 notes=all_profile_source_details(DATA_DIR, varieties=[v for v in entities_idx.values() if v.get('entity_type') == 'variety']) if AUTHORING_MODE else {},
                 facts=all_facts(), names_only=request.query_params.get('search_scope') == 'names',
@@ -2903,6 +2913,11 @@ def entity_list(
     )
     if variety_keyword_hits is not None:
         filtered = [v for v in filtered if v['id'] in variety_keyword_hits]
+    if entity_type == "variety" and catalog_status:
+        from app.services.variety_catalog import STATUSES
+        if catalog_status not in STATUSES:
+            raise HTTPException(422, "Choose an available catalog status")
+        filtered = [row for row in filtered if row.get("status") == catalog_status]
     companies = sorted(
         ({"id": e["id"], "name": e["name"]} for e in living_catalog() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
@@ -2929,6 +2944,7 @@ def entity_list(
             "has_recent_intelligence": has_recent_intelligence or "",
             "market": market or "",
             "ip_and_observation": ip_and_observation or "",
+            "catalog_status": catalog_status or "",
         },
         "authoring_mode": AUTHORING_MODE,
         "ui_context": ui,
@@ -2957,9 +2973,17 @@ def entity_list(
         )
         varieties_all = [e for e in entities_idx.values() if e.get("entity_type") == "variety"]
         from app.services.identity_read_model import identity_read_model_scope
-        with identity_read_model_scope():
-            _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
-        context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
+        # A large paged catalog does not need a full source-recall audit before
+        # showing its first hundred records. Searches/company scopes retain the
+        # existing discovered-name handoff; full review remains one link away.
+        context["catalog_discovery_deferred"] = bool(len(varieties_all) > 100 and variety_view == "index" and view != "legacy" and not q and not company and not berry and not request.query_params.get("letter"))
+        if context["catalog_discovery_deferred"]:
+            visible_candidates = []
+            context["universe"] = None
+        else:
+            with identity_read_model_scope():
+                _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
+            context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
         if variety_view == "index":
             index_model = present_variety_index(
                 varieties=filtered,
@@ -3015,6 +3039,13 @@ def entity_list(
                 context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
+            from app.services.variety_catalog_import import effective_record, imported_enrichment
+            catalog_enrichment = imported_enrichment(INBOX_DIR) if AUTHORING_MODE else {}
+            for card in context["variety_rows"]:
+                catalog_record = effective_record(entities_idx.get(card["id"], {}), catalog_enrichment)
+                card["catalog_status"] = catalog_record.get("status", "unverified")
+                from app.services.variety_catalog import present_connections
+                card["catalog_connections"] = present_connections(catalog_record.get("attributes", {}).get("catalog_connections", []), entities_idx)
             if AUTHORING_MODE:
                 from app.services import variety_photos, company_directory
                 from app.services.variety_portfolio_coverage import load_portfolio_observations
@@ -4062,6 +4093,12 @@ def variety_name_review(request: Request, entity_id: str) -> HTMLResponse:
 
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
+    if entity_type == "variety":
+        from app.services.variety_catalog import visible
+        corpus = get_request_corpus()
+        stored = corpus.entity_index.get(entity_id) if corpus is not None else get_repositories(DATA_DIR, SCHEMAS_DIR).entities.get(entity_id)
+        if stored and not visible(stored, private=AUTHORING_MODE):
+            raise HTTPException(410 if AUTHORING_MODE else 404, "This variety has been removed from the catalog" if AUTHORING_MODE else "Variety not found")
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
     survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
@@ -4080,7 +4117,13 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
         private_research_entity = private_entity(INBOX_DIR, entity_type, entity_id)
     for entity in [*all_entities(), *([private_research_entity] if private_research_entity else [])]:
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
+            if AUTHORING_MODE and entity_type == "variety":
+                from app.services.variety_catalog_import import effective_record, imported_enrichment
+                entity = effective_record(entity, imported_enrichment(INBOX_DIR))
             entities = {**entity_index(), entity_id: entity}
+            if AUTHORING_MODE and entity_type == "variety":
+                from app.services.variety_catalog import present_connections
+                entity.setdefault("attributes", {})["catalog_connections"] = present_connections(entity.get("attributes", {}).get("catalog_connections", []), entities)
             linked_evidence = linked_evidence_for_entity(entity, published_evidence(), entities=entities)
             independent_sources = {r.get("source_name") for r in linked_evidence if r.get("source_name")}
             last_updated = linked_evidence[0].get("published_date") or linked_evidence[0].get("captured_date") if linked_evidence else None
@@ -11225,6 +11268,8 @@ from app.company_routes import router as company_router
 app.include_router(company_router)
 from app.variety_photo_routes import router as variety_photo_router
 app.include_router(variety_photo_router)
+from app.variety_catalog_routes import router as variety_catalog_router
+app.include_router(variety_catalog_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.landscape_explorer_routes import router as landscape_explorer_router

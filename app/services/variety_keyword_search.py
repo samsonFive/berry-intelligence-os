@@ -57,7 +57,8 @@ def search_varieties(query, *, varieties, records=(), notes=None, facts=(), name
     evidence_links = {}
     for v in varieties:
         key = v['id'];href = '/entities/variety/' + key
-        add(key, 'Name / identity', ' '.join([v['name'], *(v.get('aliases') or [])]), href)
+        from app.services.variety_universe.identity import _identity_strings
+        add(key, 'Name / identity', ' '.join(text for text, _role in _identity_strings(v)), href)
         if names_only:
             continue
         attrs={k:value for k,value in (v.get('attributes') or {}).items() if k not in {'catalog_removal','catalog_removed','catalog_candidate_id','identity_review'}}
