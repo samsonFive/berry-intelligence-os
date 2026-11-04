@@ -88,6 +88,8 @@ def stored_media(record, inbox_dir):
         payload = load_transcript_artifact(inbox_dir, key)
         if payload.get('item_id', payload.get('discovered_item_id', key)) != key:
             raise ValueError('transcript lineage mismatch')
+        if payload.get('source_id') is not None and payload['source_id'] != record.get('source_id'):
+            raise ValueError('transcript source mismatch')
         if payload.get('parent_evidence_id') not in {None, record['id']}:
             raise ValueError('transcript parent mismatch')
         transcript = TranscriptArtifact.from_dict({**payload, 'parent_evidence_id': record['id']})

@@ -28,6 +28,8 @@ def main(argv=None):
         if existing:
             if (existing.get('item_id') or existing.get('discovered_item_id')) != args.item:
                 raise ValueError('Stored transcript identity mismatch')
+            if existing.get('source_id') is not None and existing['source_id'] != item.get('source_id'):
+                raise ValueError('Stored transcript source mismatch')
             from app.services.transcript_evidence import TranscriptArtifact
             from app.services.media_orchestration import publication_draft_id
             artifact = TranscriptArtifact.from_dict({**existing, 'parent_evidence_id': existing.get('parent_evidence_id') or publication_draft_id(item)})

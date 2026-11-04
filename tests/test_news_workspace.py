@@ -55,6 +55,15 @@ def test_media_filters_reuse_scope_relevance_and_trust():
         project(rows, {'media': 'invalid'})
 
 
+def test_spanish_recording_requires_crop_and_industry_metadata():
+    relevant = article('ev-spanish-video', source_type='discovered_media', media_format='video',
+        title='El arándano está conquistando a Ica', summary='Experiencias productivas y agricultura de exportación.',
+        source_url='https://www.youtube.com/watch?v=abcdefghijk', source_name='Redagrícola', entity_ids=[])
+    noise = article('ev-spanish-food', source_type='discovered_media', media_format='video',
+        title='El arándano y la salud', summary='Una receta de postre para la familia.', entity_ids=[])
+    assert ids(project([relevant, noise], {'media': 'video'})) == ['ev-spanish-video']
+
+
 def test_media_health_links_keep_scope_and_get_stays_inert(workspace, monkeypatch):
     def forbidden(*args, **kwargs):
         raise AssertionError('Page loads must not acquire media')
