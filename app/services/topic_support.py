@@ -25,8 +25,8 @@ def passage_intent_supported(text, plan):
         introduction=re.search(r'\b(?:introduc\w*|releas\w*|launch\w*)\b[^.!?]{0,65}\b'+crop+r'\b|\b'+crop+r'\b[^.!?]{0,65}\b(?:introduc\w*|releas\w*|launch\w*)\b',plain)
         if not licensing and not introduction:return False
     requirements=[
-        ({'breeding'},r'\b(?:breed\w*|bred|genetic\w*|genomic\w*|cross\w*|select\w*)\b'),
-        ({'variety'},r'\b(?:variet\w*|cultivar\w*|breed\w*|selection\w*|genotyp\w*)\b'),
+        ({'breeding'},r'\b(?:breed\w*|bred|genetic\w*|genomic\w*|cross\w*|select\w*)\b|\b(?:cultivar\w*|variet\w*)\b.{0,100}\b(?:introduc\w*|releas\w*|launch\w*)\b'),
+        ({'variety'},r'\b(?:variet\w*|cultivar\w*|breed\w*|selection\w*|genotyp\w*)\b|\b(?:blackberry|blueberry|raspberry|strawberry) (?:field )?(?:trial\w*|evaluat\w*)\b'),
         ({'calcium'},r'\b(?:calcium|ca)\b'),
         ({'foliar'},r'\b(?:foliar|leaf spray\w*|preharvest spray\w*)\b'),
         ({'firmness'},r'\b(?:firm\w*|texture|soften\w*)\b'),
