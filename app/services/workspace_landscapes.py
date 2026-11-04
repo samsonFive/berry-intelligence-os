@@ -85,7 +85,19 @@ def resolve(main, request, keys):
             sources = {s["id"]: s for c in model["companies"] for s in c["sources"]}
         else:
             view = landscape_workspace.load_views(main.INBOX_DIR)["views"][key]
-            if view.get("kind") == "explorer":
+            if view.get('surface') == 'watchlist':
+                from app.services import global_watchlist
+                from app.services.watchlist import load_watches
+                model = global_watchlist.build(entities=main.all_entities(), evidence=main.published_evidence(),
+                    relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
+                    data_dir=main.DATA_DIR, store=living.Store(main.INBOX_DIR), watches=load_watches(main.INBOX_DIR),
+                    params=landscape_workspace.watchlist_scope(view), sources=main.load_sources())
+                data = {'filters': view['filters'], 'scope': {'companies': ','.join(row['id'] for row in model['rows']),
+                    'berry': view['filters'].get('berry', '')},
+                    'companies': [{field: row[field] for field in ('id', 'name', 'roles', 'tier', 'confidence', 'regions')} for row in model['rows']],
+                    'coverage_note': model['data_note']}
+                sources = {source['id']: source for group in model['news'] for source in group['sources']}
+            elif view.get("kind") == "explorer":
                 from app.landscape_explorer_routes import context
                 _, _, bundle, _, _ = context(request, {"saved_view": key})
                 data = {"filters": bundle["filters"], "nodes": bundle["nodes"], "edges": bundle["edges"]}

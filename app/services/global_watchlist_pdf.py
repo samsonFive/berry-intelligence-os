@@ -51,6 +51,8 @@ def render(model):
              p('Exported ' + model['exported_at'] + '. This is the export time, not the freshness of every source.', 'GWMeta')]
     scope = [(key, value) for key, value in model['params'].items() if value]
     story += [p('Selected scope', 'GWHeading'), p('; '.join(f'{key}: {value}' for key, value in scope) or 'All berries and organizations')]
+    if model.get('selected_saved_view'):
+        story.append(p('Saved landscape: ' + model['selected_saved_view']['name']))
     if model.get('selected_group'):
         group = model['selected_group']
         story.append(p(f"Workspace group: {group['name']} | {len(group['member_ids'])} saved members. Filters do not change membership."))

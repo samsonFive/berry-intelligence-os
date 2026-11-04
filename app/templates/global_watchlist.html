@@ -1,6 +1,6 @@
 {% extends 'glasshouse_base.html' %}
 {% block title %}Global Watchlist · Berry OS{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/global_watchlist.css?v=2"><link rel="stylesheet" href="/static/news_workspace.css?v=8">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/global_watchlist.css?v=3"><link rel="stylesheet" href="/static/news_workspace.css?v=8">{% endblock %}
 {% block content %}
 {% macro hidden(action) %}<input type="hidden" name="action" value="{{ action }}"><input type="hidden" name="return_to" value="{{ return_to }}">{% endmacro %}
 {% macro group_control(row) %}
@@ -13,10 +13,26 @@
 <header class="gw-header"><div><p class="gw-eyebrow">BERRY OS / COMPETITIVE INTELLIGENCE</p><h1>Global Watchlist</h1><p class="gw-subtitle">The organizations, genetics and markets worth watching.</p></div><a class="gw-primary" href="{{ export_href }}">Export PDF ↓</a></header>
 <div class="gw-context"><span>CAPTURED INTELLIGENCE</span><p>{{ data_note }}</p></div>
 <nav class="gw-navigation" aria-label="Connected intelligence"><a href="{{ browse_href }}">Company watchlist</a><a href="/landscapes">Executive landscape</a><a href="/geographies">Regions & markets</a><a href="/entities/variety">Varieties & brands</a><a href="/competitive-evaluation">Capability research</a></nav>
+<section class="gw-saved-landscapes" aria-labelledby="gw-saved-title">
+<p class="gw-eyebrow" id="gw-saved-title">CUSTOM WATCHLIST LANDSCAPES</p>
+<nav aria-label="Saved watchlist landscapes">{% for view in saved_watchlist_views %}<a href="{{ view.href }}"{% if selected_saved_view and selected_saved_view.id == view.id %} aria-current="page"{% endif %}>{{ view.name }}</a>{% else %}<span class="gw-muted">No saved watchlist landscapes yet.</span>{% endfor %}</nav>
+{% if not focus %}<details><summary>{{ 'Manage ' ~ selected_saved_view.name if selected_saved_view else 'Save this landscape' }}</summary>
+<p class="gw-muted">Saved landscapes reopen with the latest captured intelligence. Apply filters first, then save the scope you want to return to.</p>
+<form method="post" action="/global-watchlist/views" class="gw-save-landscape">
+{% for field in watchlist_fields %}<input type="hidden" name="{{ field }}" value="{{ params.get(field, '') }}">{% endfor %}
+{% if selected_saved_view %}<input type="hidden" name="view_id" value="{{ selected_saved_view.id }}"><input type="hidden" name="revision" value="{{ selected_saved_view.revision }}">{% endif %}
+<label>Landscape name<input name="name" maxlength="80" required value="{{ selected_saved_view.name if selected_saved_view else '' }}" placeholder="e.g. European blueberry breeders"></label>
+<button name="action" value="save">{{ 'Update saved landscape' if selected_saved_view else 'Save landscape' }}</button>
+{% if selected_saved_view %}<button name="action" value="copy">Save as new landscape</button>{% endif %}
+</form>
+{% if selected_saved_view %}<form method="post" action="/global-watchlist/views"><input type="hidden" name="view_id" value="{{ selected_saved_view.id }}"><input type="hidden" name="revision" value="{{ selected_saved_view.revision }}"><button name="action" value="archive">Archive landscape</button></form>{% endif %}
+{% if archived_watchlist_views %}<details><summary>Archived landscapes</summary>{% for view in archived_watchlist_views %}<form method="post" action="/global-watchlist/views"><input type="hidden" name="view_id" value="{{ view.id }}"><input type="hidden" name="revision" value="{{ view.revision }}"><span>{{ view.name }}</span> <button name="action" value="restore">Restore</button></form>{% endfor %}</details>{% endif %}
+</details>{% endif %}
+</section>
 <div class="gw-stats"><div><strong>{{ corpus_count }}</strong><span>Organizations in corpus</span></div><div><strong>{{ focus|length if focus else rows|length }}</strong><span>{{ 'Organizations in focus' if focus else 'In this watchlist view' }}</span></div><div><strong>{{ record_count }}</strong><span>Scoped captured sources</span></div><div><strong>{{ groups|length }}</strong><span>Workspace monitoring groups</span></div></div>
 
 <form class="gw-filters" method="get" action="/global-watchlist" aria-label="Watchlist filters">
-{% for key in ['company','compare','priority','type'] if params.get(key) %}<input name="{{ key }}" type="hidden" value="{{ params[key] }}">{% endfor %}
+{% for key in ['company','compare','priority','type','saved_view'] if params.get(key) %}<input name="{{ key }}" type="hidden" value="{{ params[key] }}">{% endfor %}
 <label>Company search<input name="q" type="search" placeholder="Name or canonical alias" value="{{ params.get('q','') }}"></label>
 <label>Berry<select name="berry"><option value="">All berries</option>{% for berry in berry_options %}<option value="{{ berry }}" {% if params.get('berry') == berry %}selected{% endif %}>{{ berry|title }}</option>{% endfor %}</select></label>
 <label>Berry-specific tier<select name="tier"><option value="">All tiers / unassigned</option>{% for tier in tier_options %}<option {% if params.get('tier') == tier %}selected{% endif %}>{{ tier }}</option>{% endfor %}</select></label>
