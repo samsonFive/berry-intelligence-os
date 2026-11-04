@@ -1,6 +1,6 @@
 # Source intelligence continuation — implementation review
 
-Status: undeployed candidate on `feature/source-intelligence-gap-v1`. No recurring lane or paid routing activation. This checkpoint does not close the full mission or the original failed retrieval-quality target.
+November 4 update: the reviewed code is deployed as [release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md), with fresh final-head CI and bounded/live preservation passed. Earlier candidate/approval/disk holds below are historical and superseded for that scoped release. No new recurring lane or paid routing was activated. Historical transcript artifact delivery, word accuracy and the broader mission remain open; the original failed retrieval-quality target is not relabeled.
 
 ## Inherited state verified
 

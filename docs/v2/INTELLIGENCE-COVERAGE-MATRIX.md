@@ -1,3 +1,7 @@
+# Source intelligence live coverage boundary — November 4, 2026 Pacific
+
+[Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) connects existing production formats to News: 8 podcast, 3 video and 10 blog cards in their respective filters. These are matching publication counts, not complete recall/freshness or verified claims. All 1,268 varieties present in the fresh release-time baseline were retained; this release added no variety or Source rows. Real historical English Whisper/Spanish-caption artifacts passed timed capture/reopen locally, but production preflight finds both normalized files missing and the video draft absent; no bulk inbox delivery occurred. Additive artifact/draft delivery and bounded recurring-source activation remain separate review steps. Original failed Google cohorts, word-accuracy/access limitations and wider trait/right/footprint/identity holds remain unchanged.
+
 # Catalog release reconciliation — November 4 UTC, 2026
 
 The user approved release #492. While server headroom was being recovered,
