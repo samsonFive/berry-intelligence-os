@@ -111,6 +111,14 @@ class ScopeTests(unittest.TestCase):
                 json_call_memo(model)(values=["source"])
             self.assertEqual(scope.counts["calculations"], 1)
 
+    def test_local_midnight_invalidates_freshness_even_in_the_same_utc_day(self):
+        with patch("app.services.derived_model_scope.local_day", return_value="2026-11-03"):
+            self.prepare(["source"])
+        with patch("app.services.derived_model_scope.local_day", return_value="2026-11-04"), model_scope(self.scope()) as scope:
+            json_call_memo(model)(values=["source"])
+        self.assertEqual(scope.counts["calculations"], 1)
+        self.assertEqual(scope.counts["writes"], 0)
+
     def test_function_defaults_are_bound_to_the_artifact(self):
         self.prepare(["source"])
         with patch.object(model, "__kwdefaults__", {"label": "changed default"}), model_scope(self.scope()) as scope:

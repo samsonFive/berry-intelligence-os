@@ -29,7 +29,9 @@ decoder or third-party serialization dependency is introduced. Result snapshots
 retain their normal sharing and caller-owned copy semantics.
 
 The key binds the function's semantic code and defaults, the immutable app/schema
-image, Python version, UTC day and runtime context. A test exposed that `marshal`
+image, Python version/optimization flags, UTC/local freshness days and runtime
+context. Local-midnight invalidation prevents stale freshness labels while the
+UTC date stays unchanged. A test exposed that `marshal`
 reference flags can vary after ordinary retained results; the implementation
 instead serializes immutable semantic code fields, including nested code and
 sorted frozenset constants. Worker hash-seed and reference-count checks cover it.
@@ -83,6 +85,18 @@ publication/event/capture dates and saved candidate timestamps are untouched;
 Generated-clock control in a benchmark is not evidence of new source chronology.
 
 ## Evidence so far
+
+The earlier pushed `782a2237` passes all four checks /6,359 tests. The subsequent
+local-day and real-catalog regression refinements need their own current-head
+checks; the earlier totals do not approve that changed implementation. The
+latest focused run has 39 tests: 22 pass on Windows and 17 POSIX cases skip.
+Those skipped cases were covered in the earlier 35-case Linux run; final
+current-head CI and actual command/workflow measurement remain necessary.
+
+Three new tests execute the actual corpus calculation through the integration,
+not an imitation. They retain saved decisions/dates/notes/aliases, unreviewed
+source status, caller ownership and current body/URL/review/deletion results
+without reader writes or automatic catalog/statement promotion.
 
 - All 35 exact Linux unit contracts pass, with no skips: filesystem integrity,
   private scope, complete input/day/code/context invalidation, ownership,

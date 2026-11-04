@@ -34,6 +34,12 @@ def utc_day():
     return datetime.now(UTC).date().isoformat()
 
 
+def local_day():
+    # Portfolio freshness uses date.today(). Bind that day as well as UTC so
+    # a configured non-UTC runtime cannot reuse yesterday's freshness labels.
+    return datetime.now().date().isoformat()
+
+
 class _BoundedBuffer(BytesIO):
     def write(self, value):
         if self.tell() + len(value) > _MAX_INPUT:
@@ -86,7 +92,8 @@ def executing_code_digest(code):
 @lru_cache(maxsize=4)
 def code_version(repo_root: Path):
     """Immutable application image plus schemas; never source/runtime files."""
-    digest = hashlib.sha256(b"berry-private-derived-models-v1\0" + sys.version.encode())
+    runtime = (sys.version, sys.implementation.cache_tag, sys.flags.optimize)
+    digest = hashlib.sha256(b"berry-private-derived-models-v1\0" + repr(runtime).encode())
     for folder in (repo_root / "app", repo_root / "schemas"):
         for path in sorted(folder.rglob("*")):
             if path.is_file() and path.suffix in {".py", ".json"}:
@@ -114,7 +121,7 @@ class DerivedModelScope:
         if expected_type is None or function.__closure__:
             return NOT_HANDLED
         try:
-            input_digest = hashlib.sha256(_input_bytes((args, kwargs))).hexdigest()
+            input_digest = hashlib.sha256(_input_bytes((local_day(), args, kwargs))).hexdigest()
             executing_code = hashlib.sha256(self.code_digest.encode() + b"\0"
                 + executing_code_digest(function.__code__)
                 + _input_bytes((function.__defaults__, function.__kwdefaults__))).hexdigest()
