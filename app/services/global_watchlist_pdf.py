@@ -122,12 +122,15 @@ def render(model):
         story += [p('People, public activity and hiring history', 'GWHeading'),
                   p('Retained research observations; source inspection is separate from claim review. Captured jobs are not assumed active. No hiring or capability-growth inference is generated.')]
         for person in model.get('people', []):
-            story += [p(f"{person['company']} | {person['name']} | {person['type']}", 'GWHeading'),
+            person_block = [p(f"{person['company']} | {person['name']} | {person['type']}", 'GWHeading'),
                       p(f"{person['role']} | {person['status']} | {person['location']}"),
                       p(f"{person['date_basis']}: {person['date']} | scope {person['scope']}", 'GWMeta'),
                       p(person['detail']), p(f"Mapping: {person['resolution']} | sources: {person['source_state']}", 'GWMeta')]
             for source in person.get('sources', []):
-                story.append(link(source['fields'].get('original_url'), source['fields'].get('original_url') or source['id']))
+                person_block.append(link(source['fields'].get('original_url'), source['fields'].get('original_url') or source['id']))
+            # Keep a record and its citations together when they fit a page.
+            # ReportLab can still split an exceptionally long record.
+            story.append(KeepTogether(person_block))
         if not model.get('people'):
             story.append(p('No structured people or job research retained for this selection.', 'GWMeta'))
     story += [PageBreak(), p('News & source register', 'GWTitle'),

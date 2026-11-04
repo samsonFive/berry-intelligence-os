@@ -40,3 +40,10 @@ Alphabetical organization navigation now filters the same server projection used
 Validation: 93 related watchlist, company directory, news, shell, variety preparation and Workspaces tests passed. An earlier 36-test run covered watchlist/PDF, preference validation, variety routes/sheets and public static safety. The final route/no-store rerun passed 16 tests. Authenticated Chrome checks exercised 166 organizations, resize/reorder/hide, account layout restoration, wrap, search, alphabetical scope, shared Reader, company/variety compatibility and 390px page overflow, with zero JavaScript errors. Updated screenshots are in `screenshots/design-*.png`.
 
 The authenticated local review preview is running at `http://127.0.0.1:18766/global-watchlist` in the dedicated review Chrome window. It uses isolated review state and disables collectors. Previous-head CI passed; fresh CI is required for this follow-up head. Merge and deployment remain held for review.
+
+
+## Approved release verification
+
+The user approved deployment on November 4 after reviewing the feature and PDF export. All four hosted checks passed on `bd96a7bc` (6,634 tests passed, 11 skipped). An isolated candidate on the configured host passed against its richer published corpus (244 organizations; 30 scoped news cards; a nine-page Planasa export), with authentication, alphabetical scope, private preference revisions/CSRF, News, Workspaces, Companies and Varieties checked. The host runtime/configuration backup was created and verified before any switch.
+
+Visual inspection of all nine production-corpus PDF pages caught people/hiring records separating from their citations across a page break. The release follow-up wraps those blocks together where they fit. A 20-record regression reproduced the defect before the fix and passes after it; all 12 watchlist tests pass. This formatting-only fix requires fresh exact-head CI and a regenerated candidate before merge/deployment. Approval continues to cover the requested release; no trust promotion or new source acquisition is involved.

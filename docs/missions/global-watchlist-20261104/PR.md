@@ -10,3 +10,6 @@ The existing tier snapshot retains its `unreviewed_import` status and original t
 
 
 Follow-up validation: 93 related regressions passed; 36 earlier focused checks covered preference validation and public safety; the final private-route rerun passed 16 tests. Authenticated Chrome verified saved columns, resize/reorder/hide, wrap, row search, alphabetical filtering, shared Reader, directory compatibility and mobile overflow with zero JavaScript errors. Fresh exact-head CI is required for this update.
+
+
+Production-corpus export review also keeps each people/hiring entry with its source references when it fits on a page. A deterministic 20-record regression reproduces the prior split and verifies the fix. All 12 watchlist checks pass locally; renewed exact-head CI remains required.

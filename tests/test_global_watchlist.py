@@ -197,6 +197,25 @@ def test_pdf_matches_scoped_projection_and_excludes_demo(corpus):
     assert 'African Farms | owns | Africa Blue' in text
 
 
+def test_pdf_people_keep_their_source_references_on_the_same_page(corpus):
+    import io
+    from pypdf import PdfReader
+    from app.services.global_watchlist_pdf import render
+    corpus['params'] = {'company': 'company-a'}
+    model = gw.build(**corpus)
+    model['people'] = [{
+        'company': 'Africa Blue', 'name': f'Person Record {i:02d}', 'type': 'Person observation',
+        'role': 'Research director', 'status': 'Source-reported role; current continuity unverified',
+        'location': 'United Kingdom', 'date_basis': 'Last observed', 'date': '2026-11-04',
+        'scope': 'Blueberry breeding', 'detail': 'Public research presentation and source-attributed role. ' * 4,
+        'resolution': 'accepted_structure', 'source_state': 'unverified',
+        'sources': [{'id': f'source-{i}', 'fields': {'original_url': f'https://publisher.example/people/record-{i:02d}'}}]
+    } for i in range(20)]
+    pages = [page.extract_text() for page in PdfReader(io.BytesIO(render(model))).pages]
+    for i in range(20):
+        assert any(f'Person Record {i:02d}' in page and f'https://publisher.example/people/record-{i:02d}' in page for page in pages)
+
+
 def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     from app import main
     from fastapi.testclient import TestClient
