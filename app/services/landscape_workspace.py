@@ -18,6 +18,40 @@ SECTIONS = {"companies": "Companies", "varieties": "Varieties", "sources": "Late
 FIELDS = ("berry", "company", "variety", "countries", "list", "tier", "favorites", "window", "start", "end", "section")
 EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit", "favorites", "tier", "list")
 VIEW_FILE = "landscape_views.json"
+WATCHLIST_FIELDS = ("berry", "q", "tier", "group", "region", "market", "entity", "followed", "source_type", "event_type", "priority", "type", "letter")
+DEFAULT_WATCHLIST_BERRIES = ("blueberry", "blackberry", "strawberry", "raspberry")
+
+
+def watchlist_scope(row):
+    """Use canonical crop IDs in the shared store and watchlist URL values on read."""
+    filters = {key: str(value) for key, value in row['filters'].items() if key in WATCHLIST_FIELDS and value}
+    if filters.get('berry'):
+        filters['berry'] = filters['berry'].removeprefix('berry-')
+    return filters
+
+
+@serialized_write
+def seed_watchlist_views(inbox_dir):
+    """Add missing starter selections; never reset edits or archived defaults."""
+    state = load_views(inbox_dir)
+    changed = False
+    for berry in DEFAULT_WATCHLIST_BERRIES:
+        key = 'lview-watchlist-global-' + berry
+        name = 'Global ' + berry.title() + ' Landscape'
+        if key in state['views'] or any(row['name'].casefold() == name.casefold() for row in state['views'].values()):
+            continue
+        filters = {field: '' for field in WATCHLIST_FIELDS}
+        filters['berry'] = 'berry-' + berry
+        # Keep the existing overview kind readable by older app images.
+        row = {'id': key, 'kind': 'overview', 'surface': 'watchlist', 'name': name,
+               'filters': filters, 'revision': 1, 'archived': False, 'seeded_default': True,
+               'updated_at': datetime.now(UTC).isoformat()}
+        state['views'][key] = row
+        state['history'].append({'view_id': key, 'before': {'revision': 0}, 'after': row})
+        changed = True
+    if changed:
+        atomic_json(Path(inbox_dir) / VIEW_FILE, state)
+    return [row for row in state['views'].values() if row.get('surface') == 'watchlist']
 
 
 def values(params, key):
@@ -204,11 +238,18 @@ def load_views(inbox_dir):
 
 
 @serialized_write
-def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=False, kind=None):
+def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=False, kind=None, surface=None):
     state = load_views(inbox_dir)
     if view_id and view_id not in state["views"]:
         raise ValueError("Saved Landscape view is unavailable")
     before = state["views"].get(view_id) or {"revision": 0}
+    before_surface = before.get('surface', '')
+    if (view_id and surface is not None and surface != before_surface
+            or before_surface == 'watchlist' and kind is not None and surface != 'watchlist'):
+        raise ValueError("Open this saved view in its original Landscape surface before updating it")
+    surface = before_surface if surface is None else surface
+    if surface not in {'', 'watchlist'}:
+        raise ValueError('Choose a supported Landscape surface')
     kind = kind or before.get("kind", "overview")
     if kind not in {"overview", "explorer"} or view_id and kind != before.get("kind", "overview"):
         raise ValueError("Open this saved view in its original Landscape surface before updating it")
@@ -220,11 +261,21 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
     if not archive and any(key != view_id and not row.get("archived") and row["name"].casefold() == name.casefold() for key, row in state["views"].items()):
         raise ValueError("This view name already exists; choose it to update its scope")
     key = view_id or "lview-" + uuid4().hex
-    fields = EXPLORER_FIELDS if kind == "explorer" else FIELDS
+    fields = WATCHLIST_FIELDS if surface == 'watchlist' else EXPLORER_FIELDS if kind == "explorer" else FIELDS
+    if surface == 'watchlist':
+        if kind != 'overview' or filters.get('berry', '') not in {'', *('berry-' + berry for berry in DEFAULT_WATCHLIST_BERRIES)}:
+            raise ValueError('Choose a supported watchlist berry scope')
+        if any(len(str(filters.get(field) or '')) > 400 for field in fields):
+            raise ValueError('Saved landscape filters must contain at most 400 characters each')
     row = {"id": key, "name": name, "filters": {field: str(filters.get(field) or "") for field in fields},
            "revision": before["revision"] + 1, "archived": archive, "updated_at": datetime.now(UTC).isoformat()}
     if kind == "explorer":
         row["kind"] = kind
+    if surface:
+        row['kind'] = kind
+        row['surface'] = surface
+    if before.get('seeded_default'):
+        row['seeded_default'] = True
     state["views"][key] = row
     state["history"].append({"view_id": key, "before": before, "after": row})
     atomic_json(Path(inbox_dir) / VIEW_FILE, state)
@@ -232,6 +283,8 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
 
 
 def view_href(row):
+    if row.get('surface') == 'watchlist':
+        return '/global-watchlist?' + urlencode({'saved_view': row['id']})
     if row.get("kind") == "explorer":
         return "/landscapes/explorer?" + urlencode({"saved_view": row["id"]})
     return "/landscapes?" + urlencode({**row["filters"], "configured": "1", "saved_view": row["id"]})
