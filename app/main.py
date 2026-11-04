@@ -3622,16 +3622,16 @@ def variety_coverage_source_page(request: Request, source_id: str) -> HTMLRespon
 
 
 @app.post("/varieties/external/identity-lead")
-def variety_external_identity_lead(request: Request, baseline_id: str = Form(...), name: str = Form(...), input_sha256: str = Form(...)) -> RedirectResponse:
+def variety_external_identity_lead(request: Request, baseline_id: str = Form(...), name: str = Form(...), input_sha256: str = Form(...), genus: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(403, "Identity leads require the analyst workspace")
     from app.personal_digest_routes import require_edit
-    from app.services.variety_external_coverage import load_external_baselines, prepare_blueberry_identity_lead
+    from app.services.variety_external_coverage import load_external_baselines, prepare_external_identity_lead
     require_edit(request)
     varieties, candidates, _report = variety_candidate_universe()
     try:
-        plan = prepare_blueberry_identity_lead(baselines=load_external_baselines(DATA_DIR), baseline_id=baseline_id,
-            name=name, input_sha256=input_sha256, varieties=varieties, candidates=candidates)
+        plan = prepare_external_identity_lead(baselines=load_external_baselines(DATA_DIR), baseline_id=baseline_id,
+            name=name, input_sha256=input_sha256, varieties=varieties, candidates=candidates, genus=genus)
     except (ValueError, KeyError, TypeError, OSError) as exc:
         raise HTTPException(422, "The source lead needs checking. Refresh the comparison and verify its crop before continuing.") from exc
     if plan["candidate"]:

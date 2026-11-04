@@ -110,6 +110,31 @@ class IdentityReadModelScope:
         return matcher(candidate, rows)
 
 
+def resolve_identity_batch(candidates, varieties):
+    """Match one owned batch with the unchanged resolver and catalog index.
+
+    Unlike independent lookups, this explicit pure calculation snapshots its
+    complete inputs once. It never retains that catalog across calls: edits in
+    the next batch are reloaded. Unsupported inputs use the original matcher
+    without extra coercion or iterator consumption during preparation.
+    """
+    from app.services.variety_universe import identity
+    matcher = identity.resolve_identity.__wrapped__
+    if (type(candidates) not in (list, tuple)
+            or type(varieties) not in (list, tuple)
+            or len(varieties) <= _SMALL_CATALOG
+            or not all(identity._index_candidate_supported(row) for row in candidates)):
+        return [matcher(row, varieties) for row in candidates]
+    try:
+        catalog = _Catalog(varieties, identity)
+        queries = deepcopy(candidates)
+        if list(varieties) != catalog.records:
+            return [matcher(row, varieties) for row in candidates]
+    except (AttributeError, TypeError, ValueError):
+        return [matcher(row, varieties) for row in candidates]
+    return [matcher(row, catalog.relevant_rows(row, identity)) for row in queries]
+
+
 @contextmanager
 def identity_read_model_scope():
     """Opt in for one read-only render; never retain state across requests."""

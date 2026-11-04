@@ -3,6 +3,7 @@ from urllib.parse import urlsplit
 import re
 
 from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
 from app.services.ai_gateway.credentials import MissingCredentialError, resolve_perplexity_api_key
@@ -42,29 +43,23 @@ def promote_candidate(request: Request, candidate_id: str, decision_digest: str 
 
 @router.get('/varieties/removed')
 def removed_varieties(request: Request):
-    from app import main
-    if not main.AUTHORING_MODE:raise HTTPException(403,'Catalog management requires the analyst workspace')
-    rows=[r for r in main.all_entities() if r.get('entity_type')=='variety' and (r.get('attributes') or {}).get('catalog_removed')]
-    return main.templates.TemplateResponse(request=request,name='variety_removed.html',context={'rows':rows,'authoring_mode':True,'static_build':False})
+    require_edit(request)
+    return RedirectResponse('/varieties/catalog/removed', status_code=307)
 
 
 @router.post('/varieties/{variety_id}/catalog-status')
 def catalog_status(request: Request,variety_id: str,action: str = Form('')):
     from app import main
-    from fastapi.responses import RedirectResponse
-    from app.services import variety_catalog
     require_edit(request)
     if action not in {'remove','restore'}:raise HTTPException(422,'Choose remove or restore')
     repo=main.get_repositories(main.DATA_DIR,main.SCHEMAS_DIR).entities
     record=repo.get(variety_id)
     if not record or record.get('entity_type')!='variety':raise HTTPException(404,'Variety not found')
-    try:
-        variety_catalog.remove_or_restore(main.INBOX_DIR,main.DATA_DIR,main.SCHEMAS_DIR,variety_id,
-            expected=variety_catalog.revision(record),actor=main.session_username(request) or 'local analyst',
-            restore=action=='restore',confirmation=record['name'])
-    except ValueError as exc:
-        raise HTTPException(409,str(exc)) from exc
-    return RedirectResponse('/varieties/removed' if action=='remove' else '/entities/variety/'+variety_id,303)
+    # Old forms did not carry an opened-record revision or typed confirmation.
+    # Never synthesize either from today's record: open the current editor so
+    # its existing revision/confirmation workflow owns the actual mutation.
+    anchor='catalog-restore' if (record.get('attributes') or {}).get('catalog_removed') else 'catalog-removal'
+    return RedirectResponse('/varieties/catalog/'+variety_id+'/edit#'+anchor, status_code=303)
 
 
 @router.get('/api/varieties/view-state/{view_key}')

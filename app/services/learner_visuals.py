@@ -28,6 +28,45 @@ BLUEBERRY_PHOTO = {
     "verified_at": "2026-10-28",
 }
 
+CURRICULUM_PHOTOS = {
+    "plasticulture": {
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Plasticulture.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+        "url": "https://commons.wikimedia.org/wiki/File:Plasticulture.jpg",
+        "title": "Strawberries in plastic-covered rows",
+        "alt": "Strawberry plants and fruit growing through holes in black plastic-covered rows",
+        "publisher": "Bn100 · Wikimedia Commons",
+        "license": "Public domain · creator dedication",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Plasticulture.jpg#Summary",
+        "caption": "Look for the planting holes and plastic-covered rows. This photograph shows the surface layout; it does not establish irrigation below the cover, soil treatment or the farm's production calendar.",
+        "attribution": "Bn100 · public domain · displayed without cropping or other changes",
+        "verified_at": "2026-11-04",
+    },
+    "spotted-wing-drosophila": {
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/D_suzukii_male1.jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:D_suzukii_male1.jpg",
+        "title": "Male spotted-wing drosophila",
+        "alt": "A small brown fly with red eyes and dark spots near its wing tips",
+        "publisher": "Martin Hauser (Phycus) · Wikimedia Commons",
+        "license": "CC BY 3.0 DE",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "caption": "Notice the dark wing-tip spots on this adult male. Females lack these spots. Use a regional identification guide: this teaching image does not establish an infestation or identify every small fly.",
+        "attribution": "Martin Hauser (Phycus) · CC BY 3.0 DE · displayed without cropping or other changes",
+        "verified_at": "2026-11-04",
+    },
+    "botrytis": {
+        "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Botrytis_on_strawberries.png/330px-Botrytis_on_strawberries.png?utm_campaign=index&utm_content=thumbnail&utm_source=commons.wikimedia.org",
+        "url": "https://commons.wikimedia.org/wiki/File:Botrytis_on_strawberries.png",
+        "title": "Gray growth on strawberry fruit",
+        "alt": "Strawberries in a clear punnet, with gray fuzzy growth on one fruit",
+        "publisher": "Ninjatacoshell · Wikimedia Commons",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "caption": "Look at the gray growth on the fruit. The source identifies it as Botrytis. A photograph alone cannot diagnose another fruit or establish a named farm's disease status.",
+        "attribution": "Ninjatacoshell · CC BY-SA 3.0 · Commons thumbnail; no cropping or further changes",
+        "verified_at": "2026-11-04",
+    },
+}
+
 # Original teaching sequences, not copied publisher graphics or quantitative models.
 # Sources checked October 2, 2026; the original educational record stays unchanged.
 DIAGRAMS = {
@@ -86,8 +125,20 @@ DIAGRAMS = {
 DIAGRAMS.update(CURRICULUM_DIAGRAMS)
 
 VIDEOS = {
-    "ipm": {"title": "The scientific basis for IPM", "publisher": "UC Statewide IPM Program", "url": "https://www.youtube.com/watch?v=BljIAipO2Eg", "source_page": "https://ipm.ucanr.edu/what-is-ipm/", "caption": "UC IPM links this scientist's explanation. Open at the publisher; playback availability has not been verified."},
-    "harvest-robotics": {"title": "Robofruit research demonstration", "publisher": "Robofruit paper authors", "url": "https://www.youtube.com/watch?v=v8gGAvsISXU", "source_page": "https://arxiv.org/abs/2301.03947", "caption": "Video linked by the paper's authors. A research demonstration is not proof of commercial deployment; playback availability has not been verified."},
+    "ipm": {
+        "title": "The scientific basis for IPM",
+        "publisher": "Pete Goodell · linked by UC IPM",
+        "url": "https://www.youtube.com/watch?v=BljIAipO2Eg",
+        "source_page": "https://ipm.ucanr.edu/what-is-ipm/",
+        "caption": "Pete Goodell explains the scientific framework behind IPM. Field decisions need crop- and region-specific guidance.",
+    },
+    "harvest-robotics": {
+        "title": "Robofruit field test · October 2021",
+        "publisher": "Intelligent Manipulation Lab — Open Robotic Lab",
+        "url": "https://www.youtube.com/watch?v=v8gGAvsISXU",
+        "source_page": "https://arxiv.org/abs/2301.03947",
+        "caption": "Historical research demonstration: the video labels the field test October 2021; the linked paper was published in 2023.",
+    },
 }
 
 
@@ -97,6 +148,8 @@ def presentation(concept):
     row["teaching_figure"] = deepcopy(PHOTO) if row["slug"] == "primocane-floricane" else None
     if row["slug"] in {"bloom", "color"}:
         row["teaching_figure"] = deepcopy(BLUEBERRY_PHOTO)
+    if row["slug"] in CURRICULUM_PHOTOS:
+        row["teaching_figure"] = deepcopy(CURRICULUM_PHOTOS[row["slug"]])
     row["cane_diagram"] = row["slug"] == "primocane-floricane"
     row["teaching_diagram"] = deepcopy(DIAGRAMS.get(row["slug"]))
     row["lesson_clarification"] = None
