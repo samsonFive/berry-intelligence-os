@@ -142,7 +142,10 @@ for step in [order, 'candidates' if order == 'company' else 'company', 'fresh_ne
     route = order if step in {'fresh_news', 'repeat'} else step
     if step == 'fresh_news':
         source_revision = 2
-        fictional_draft['article']['full_text'] = 'Blueberry varieties include Nebula Benchmark and Orchard Benchmark. This is fictional test data, never a market claim.'
+        # A later capture is a new record graph, like reloading edited JSON.
+        # Keep the earlier response's source graph intact for the comparison.
+        fictional_draft = {**fictional_draft, 'article': {
+            'full_text': 'Blueberry varieties include Nebula Benchmark and Orchard Benchmark. This is fictional test data, never a market claim.'}}
     path = '/entities/company/company-hortifrut' if route == 'company' else '/varieties/candidates'
     query = b'tab=varieties' if route == 'company' else b'company=company-hortifrut'
     request = Request({'type': 'http', 'app': main.app, 'method': 'GET', 'scheme': 'http', 'path': path, 'query_string': query, 'headers': [], 'server': ('fixture.local', 80), 'client': ('127.0.0.1', 1), 'root_path': ''})
@@ -157,6 +160,8 @@ for step in [order, 'candidates' if order == 'company' else 'company', 'fresh_ne
     responses[step] = response.body
     models[step] = {key: value for key, value in response.context.items() if key != 'request'}
 if phase == 'updated':
+    assert all('Orchard Benchmark' not in row.get('article', {}).get('full_text', '')
+               for label, value in articles if label == order for row in value[0]), 'A later fixture edit changed an earlier source snapshot'
     assert any((row.get('candidate_name') == 'Nebula Benchmark' for label, value in universes if label == order for row in value[1])), 'The earlier captured article disappeared in a fresh worker'
     assert not any((row.get('candidate_name') == 'Orchard Benchmark' for label, value in universes if label == order for row in value[1])), 'The later update was not genuinely unseen'
     assert any((row.get('candidate_name') == 'Orchard Benchmark' for label, value in universes if label == 'fresh_news' for row in value[1])), 'The newer article body did not exercise discovery'
