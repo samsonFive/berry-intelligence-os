@@ -581,6 +581,9 @@ async def lifespan(app: FastAPI):
         validate_remote_interactive_config()
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
     (INBOX_DIR / "evidence").mkdir(parents=True, exist_ok=True)
+    if "pytest" not in sys.modules and AUTHORING_MODE:
+        from app.services.landscape_workspace import seed_watchlist_views
+        seed_watchlist_views(INBOX_DIR)
     # Never poll external sources during tests -- pytest importing this
     # module must not trigger real network calls. Real deployments always
     # have "pytest" absent from sys.modules. Also gated on

@@ -566,3 +566,12 @@ def test_linked_comparison_coverage_preserves_explicit_scope_without_origin_infe
     assert result['destination_market'] == 'geography-united-states'
     linked[0]['data']['scope'].pop('destination')
     assert coverage_scope({}, linked)['destination_market'] == ''
+def test_empty_linked_company_scope_does_not_broaden_to_its_berry():
+    from app.services.workspace_landscapes import coverage_scope
+    empty = [{'data': {'scope': {'companies': '', 'berry': 'berry-blueberry', 'empty_cohort': True}}}]
+    assert coverage_scope({}, empty) == {'companies': [], 'berry': '', 'destination_market': '', 'empty_cohort': True}
+    assert coverage_scope({'feed': {'berry_ids': ['berry-raspberry']}}, empty)['berry'] == 'berry-raspberry'
+    legacy = [{'data': {'scope': {'companies': 'seed-org-0054', 'berry': 'berry-blueberry'}}}]
+    assert coverage_scope({}, legacy)['companies'] == ['seed-org-0054']
+    combined = coverage_scope({}, empty + legacy)
+    assert combined['companies'] == ['seed-org-0054'] and not combined['empty_cohort']

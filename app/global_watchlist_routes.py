@@ -6,24 +6,36 @@ from fastapi.responses import RedirectResponse, Response
 
 from app.competitive_routes import private, comparison
 from app.services import global_watchlist as gw
+from app.services import landscape_workspace as landscapes
 from app.services.living_workspaces import Conflict
 from app.services.watchlist import load_watches, add_watch, remove_watch
 
 router = APIRouter()
 
 
-def model(request):
+def model(request, supplied_params=None):
     main, store, actor = private(request)
-    params = dict(request.query_params)
-    if request.query_params.getlist('region'):
+    params = dict(request.query_params) if supplied_params is None else dict(supplied_params)
+    if supplied_params is None and request.query_params.getlist('region'):
         params['region'] = ','.join(request.query_params.getlist('region'))
     from app.services import feed_first
     request.state.watchlist_feed_state = feed_first.load_state(main.INBOX_DIR)
     try:
+        saved = landscapes.load_views(main.INBOX_DIR)['views']
+        selected_view = saved.get(params.get('saved_view', ''))
+        if params.get('saved_view'):
+            if not selected_view or selected_view.get('surface') != 'watchlist' or selected_view['archived']:
+                raise ValueError('Saved watchlist landscape is unavailable or archived')
+            params = {**landscapes.watchlist_scope(selected_view), **params}
         result = gw.build(entities=main.all_entities(), evidence=main.published_evidence(),
             relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
             data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources(),
             tracking_state=request.state.watchlist_feed_state)
+        result['selected_saved_view'] = selected_view
+        result['saved_watchlist_views'] = [{**row, 'href': landscapes.view_href(row)} for row in saved.values()
+            if row.get('surface') == 'watchlist' and not row['archived']]
+        result['archived_watchlist_views'] = [row for row in saved.values() if row.get('surface') == 'watchlist' and row['archived']]
+        result['watchlist_fields'] = landscapes.WATCHLIST_FIELDS
         # Reuse the already-governed capability framework and source trace.
         selected = [r['id'] for r in result['focus']]
         result['capabilities'] = comparison(main, store, {'companies': ','.join(selected),
@@ -43,8 +55,8 @@ def model(request):
     result['export_href'] = '/global-watchlist/export.pdf' + ('?' + query if query else '')
     clear_keys = {'company'} if result['company'] and result['selected'] else {'company', 'compare'}
     result['browse_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items() if k not in clear_keys})
-    result['clear_tracking_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items()
-        if k not in {'favorites', 'company_tier', 'list'}})
+    cleared_tracking = {**params, 'favorites': '', 'company_tier': '', 'list': ''}
+    result['clear_tracking_href'] = '/global-watchlist?' + urlencode(cleared_tracking)
     for row in result['all_rows']:
         row['href'] = '/global-watchlist?' + urlencode({**params, 'company': row['id']})
     result['letter_urls'] = {letter: '/global-watchlist?' + urlencode({
@@ -78,6 +90,35 @@ def export_pdf(request: Request):
     from app.services.global_watchlist_pdf import render
     return Response(render(result), media_type='application/pdf', headers={
         'Content-Disposition': 'attachment; filename="global-watchlist.pdf"', 'Cache-Control': 'no-store'})
+
+
+@router.post('/global-watchlist/views')
+async def save_view(request: Request):
+    main, _, _ = private(request, mutate=True)
+    form = dict(await request.form())
+    action = form.get('action', 'save')
+    if action not in {'save', 'copy', 'archive', 'restore'}:
+        raise HTTPException(422, 'Choose a supported saved-landscape action')
+    key = form.get('view_id', '')
+    try:
+        if action in {'archive', 'restore'}:
+            old = landscapes.load_views(main.INBOX_DIR)['views'].get(key)
+            if not old or old.get('surface') != 'watchlist':
+                raise ValueError('Saved watchlist landscape is unavailable')
+            name, filters = old['name'], old['filters']
+        else:
+            params = {field: form.get(field, '') for field in landscapes.WATCHLIST_FIELDS}
+            _, _, _, projection = model(request, params)
+            filters = {field: projection['params'].get(field, '') for field in landscapes.WATCHLIST_FIELDS}
+            if filters.get('berry'):
+                filters['berry'] = 'berry-' + filters['berry']
+            name = form.get('name', '')
+        row = landscapes.save_view(main.INBOX_DIR, name=name, filters=filters,
+            view_id='' if action == 'copy' else key, revision='0' if action == 'copy' else form.get('revision', '0'),
+            archive=action == 'archive', kind='overview' if action in {'save', 'copy'} else None, surface='watchlist')
+    except ValueError as exc:
+        raise HTTPException(409 if 'another window' in str(exc) else 422, str(exc)) from exc
+    return RedirectResponse('/global-watchlist' if action == 'archive' else landscapes.view_href(row), status_code=303)
 
 
 def destination(value):

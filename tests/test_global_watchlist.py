@@ -313,6 +313,188 @@ def test_pdf_people_keep_their_source_references_on_the_same_page(corpus):
         assert any(f'Person Record {i:02d}' in page and f'https://publisher.example/people/record-{i:02d}' in page for page in pages)
 
 
+def test_seeded_landscapes_are_global_durable_and_never_reset_customizations(corpus):
+    from app.services import landscape_workspace as views
+    inbox = corpus['store'].inbox
+    seeded = views.seed_watchlist_views(inbox)
+    assert [row['name'] for row in seeded] == [f'Global {berry.title()} Landscape' for berry in views.DEFAULT_WATCHLIST_BERRIES]
+    assert all(row['filters']['region'] == row['filters']['group'] == '' for row in seeded)
+    path = inbox / views.VIEW_FILE
+    original = path.read_bytes()
+    views.seed_watchlist_views(inbox)
+    assert path.read_bytes() == original
+    first = seeded[0]
+    changed = views.save_view(inbox, view_id=first['id'], revision=1, name='European blueberry research',
+        filters={**first['filters'], 'region': 'Europe'}, kind='overview', surface='watchlist')
+    second = seeded[1]
+    views.save_view(inbox, view_id=second['id'], revision=1, name=second['name'], filters=second['filters'],
+        archive=True, surface='watchlist')
+    customized = path.read_bytes()
+    views.seed_watchlist_views(inbox)
+    assert path.read_bytes() == customized
+    assert views.load_views(inbox)['views'][first['id']] == changed
+    assert views.load_views(inbox)['views'][second['id']]['archived']
+    assert views.watchlist_scope(changed) == {'berry': 'blueberry', 'region': 'Europe'}
+    assert views.view_href(changed) == '/global-watchlist?saved_view=' + first['id']
+    with pytest.raises(ValueError, match='original Landscape surface'):
+        views.save_view(inbox, view_id=first['id'], revision=2, name='Wrong surface', filters={}, kind='overview')
+
+
+def test_seeded_landscapes_preserve_existing_views_and_reject_unreadable_state(tmp_path):
+    from app.services import landscape_workspace as views
+    existing = views.save_view(tmp_path, name='Existing research', filters={'berry': 'berry-blueberry'})
+    views.seed_watchlist_views(tmp_path)
+    assert views.load_views(tmp_path)['views'][existing['id']] == existing
+    path = tmp_path / views.VIEW_FILE
+    path.write_text('{corrupt', encoding='utf-8')
+    with pytest.raises(ValueError):
+        views.seed_watchlist_views(tmp_path)
+    assert path.read_text(encoding='utf-8') == '{corrupt'
+
+
+@pytest.fixture
+def saved_landscape_client(corpus, monkeypatch):
+    from app import main
+    from fastapi.testclient import TestClient
+    from app.services import landscape_workspace as views
+    import app.global_watchlist_routes as routes
+    monkeypatch.setattr(main, 'INBOX_DIR', corpus['store'].inbox)
+    monkeypatch.setattr(main, 'DATA_DIR', corpus['data_dir'])
+    monkeypatch.setattr(main, 'all_entities', lambda: corpus['entities'])
+    monkeypatch.setattr(main, 'published_evidence', lambda: corpus['evidence'])
+    for name in ('all_relationships', 'all_signals', 'all_assessments', 'all_facts', 'load_sources'):
+        monkeypatch.setattr(main, name, lambda: [])
+    monkeypatch.setattr(main, 'AUTHORING_MODE', True)
+    monkeypatch.setenv('BIOS_REMOTE_INTERACTIVE', 'false')
+    monkeypatch.setattr(main.templates, 'context_processors', [])
+    monkeypatch.setattr(routes, 'comparison', lambda *args: {'assessments': [], 'rubrics': {}})
+    views.seed_watchlist_views(main.INBOX_DIR)
+    return TestClient(main.app)
+
+
+def test_all_four_saved_landscapes_scope_current_companies_news_and_pdf(corpus, saved_landscape_client):
+    import io
+    from lxml import html
+    from pypdf import PdfReader
+    from app.services import landscape_workspace as views
+    for berry in ('blackberry', 'strawberry', 'raspberry'):
+        corpus['entities'].append({'id': 'company-' + berry, 'name': berry.title() + ' Organization',
+            'entity_type': 'company', 'berry_ids': ['berry-' + berry]})
+        corpus['evidence'].append({'id': 'ev-' + berry, 'title': berry.title() + ' story', 'status': 'published',
+            'entity_ids': ['company-' + berry], 'berry_ids': ['berry-' + berry], 'published_date': '2026-11-04'})
+    for berry in views.DEFAULT_WATCHLIST_BERRIES:
+        key = 'lview-watchlist-global-' + berry
+        response = saved_landscape_client.get('/global-watchlist', params={'saved_view': key})
+        assert response.status_code == 200
+        doc = html.fromstring(response.text)
+        assert doc.xpath('//select[@name="berry"]/option[@selected]/@value') == [berry]
+        names = doc.xpath('//a[@class="gw-company"]/text()')
+        assert names == (['Africa Blue', 'African Farms'] if berry == 'blueberry' else [berry.title() + ' Organization'])
+        assert len(doc.xpath('//nav[@aria-label="Saved watchlist landscapes"]/a')) == 4
+        pdf = saved_landscape_client.get('/global-watchlist/export.pdf', params={'saved_view': key})
+        assert pdf.status_code == 200
+        text = '\n'.join(page.extract_text() for page in PdfReader(io.BytesIO(pdf.content)).pages)
+        assert f'Global {berry.title()} Landscape' in text
+        for other in ('blackberry', 'strawberry', 'raspberry'):
+            if other != berry:
+                assert other.title() + ' Organization' not in text
+    # Saved scopes use current corpus data rather than frozen membership lists.
+    corpus['entities'].append({'id': 'company-new', 'name': 'New Blueberry Organization',
+        'entity_type': 'company', 'berry_ids': ['berry-blueberry']})
+    response = saved_landscape_client.get('/global-watchlist?saved_view=lview-watchlist-global-blueberry')
+    assert 'New Blueberry Organization' in response.text
+
+
+def test_saved_landscape_edits_conflicts_archives_and_overrides(corpus, saved_landscape_client):
+    from app.services import landscape_workspace as views
+    inbox = corpus['store'].inbox
+    key = 'lview-watchlist-global-blueberry'
+    before = (inbox / views.VIEW_FILE).read_bytes()
+    response = saved_landscape_client.get('/global-watchlist', params={'saved_view': key, 'region': 'Asia'})
+    assert response.status_code == 200 and 'No organizations match' in response.text
+    assert (inbox / views.VIEW_FILE).read_bytes() == before
+    form = {'action': 'save', 'view_id': key, 'revision': '1', 'name': 'European blueberry research',
+            'berry': 'blueberry', 'region': 'Europe'}
+    assert saved_landscape_client.post('/global-watchlist/views', data=form, follow_redirects=False).status_code == 303
+    row = views.load_views(inbox)['views'][key]
+    assert row['filters']['berry'] == 'berry-blueberry' and row['filters']['region'] == 'Europe'
+    assert saved_landscape_client.post('/global-watchlist/views', data=form).status_code == 409
+    assert saved_landscape_client.post('/global-watchlist/views', headers={'origin': 'https://evil.example'}, data=form).status_code == 403
+    archived = {'action': 'archive', 'view_id': key, 'revision': 2}
+    assert saved_landscape_client.post('/global-watchlist/views', data=archived).status_code == 200
+    views.seed_watchlist_views(inbox)
+    assert saved_landscape_client.get('/global-watchlist?saved_view=' + key).status_code == 422
+    assert saved_landscape_client.post('/global-watchlist/views', data={'action': 'restore', 'view_id': key, 'revision': 3}).status_code == 200
+    copy = saved_landscape_client.post('/global-watchlist/views', data={**form, 'name': 'Separate blueberry scope', 'action': 'copy'}, follow_redirects=False)
+    assert copy.status_code == 303
+    assert len(views.load_views(inbox)['views']) == 5
+
+
+def test_saved_watchlist_landscapes_link_to_workspace_with_the_same_scope(corpus, saved_landscape_client):
+    from app import main
+    from app.services import workspace_landscapes
+    key = 'lview-watchlist-global-blueberry'
+    choices = workspace_landscapes.choices(main)
+    assert next(row for row in choices if row['id'] == key)['href'] == '/global-watchlist?saved_view=' + key
+    resolved = workspace_landscapes.resolve(main, None, [key])
+    assert [row['id'] for row in resolved[0]['data']['companies']] == ['company-a', 'company-b']
+    scope = workspace_landscapes.coverage_scope({}, resolved)
+    assert scope['berry'] == 'berry-blueberry' and scope['companies'] == ['company-a', 'company-b']
+    assert all(row['status'] == 'published' for row in resolved[0]['data']['sources'])
+    assert 'Invented sensory' not in json.dumps(resolved)
+
+
+def test_saved_landscape_keeps_shared_company_filters_and_explicit_clear_overrides(corpus, saved_landscape_client):
+    import io
+    from lxml import html
+    from pypdf import PdfReader
+    from app import main
+    from app.services import feed_first, personal_digest, landscape_workspace, workspace_landscapes
+    inbox = corpus['store'].inbox
+    state = feed_first.load_state(inbox)
+    state.update(entity_favorites={'company-a': True}, entity_tiers={'company-a': 'tier1'})
+    feed_first.save_state(inbox, state)
+    company_list = personal_digest.edit_list(inbox, action='create', name='First company peers',
+        company_ids=['company-a'], allowed_companies={'company-a', 'company-b'})
+    saved = saved_landscape_client.post('/global-watchlist/views', data={
+        'name': 'Selected berry peers', 'berry': 'blueberry', 'favorites': '1',
+        'company_tier': 'tier1', 'list': company_list}, follow_redirects=False)
+    assert saved.status_code == 303
+    row = next(r for r in landscape_workspace.load_views(inbox)['views'].values() if r['name'] == 'Selected berry peers')
+    assert {key: row['filters'][key] for key in ('favorites', 'company_tier', 'list')} == {
+        'favorites': '1', 'company_tier': 'tier1', 'list': company_list}
+    page = saved_landscape_client.get(saved.headers['location'])
+    doc = html.fromstring(page.text)
+    assert doc.xpath('//a[@class="gw-company"]/text()') == ['Africa Blue']
+    assert doc.xpath('//input[@name="favorites" and @type="hidden" and @value=""]')
+    assert doc.xpath('//input[@name="followed" and @type="hidden" and @value=""]')
+    linked = workspace_landscapes.resolve(main, None, [row['id']])
+    assert [r['id'] for r in linked[0]['data']['companies']] == ['company-a']
+    before = (inbox / landscape_workspace.VIEW_FILE).read_bytes()
+    # Changing a shared favorite changes a live saved view, never its stored selectors.
+    state = feed_first.load_state(inbox)
+    state['entity_favorites']['company-a'] = False
+    feed_first.save_state(inbox, state)
+    excluded = saved_landscape_client.get('/global-watchlist', params={'saved_view': row['id'], 'company': 'company-a'})
+    clear = html.fromstring(excluded.text).xpath('//a[text()="Clear company filters to restore the selection"]/@href')[0]
+    restored = saved_landscape_client.get(clear)
+    assert restored.status_code == 200 and 'SHARED COMPANY TRACKING' in restored.text
+    assert 'does not match the company filters' not in restored.text
+    unfiltered = saved_landscape_client.get('/global-watchlist', params={
+        'saved_view': row['id'], 'favorites': '', 'company_tier': '', 'list': ''})
+    assert len(html.fromstring(unfiltered.text).xpath('//a[@class="gw-company"]')) == 2
+    assert (inbox / landscape_workspace.VIEW_FILE).read_bytes() == before
+    linked = workspace_landscapes.resolve(main, None, [row['id']])
+    assert linked[0]['data']['companies'] == [] and linked[0]['data']['scope']['empty_cohort']
+    assert linked[0]['data']['sources'] == []
+    handoff = workspace_landscapes.coverage_scope({}, linked)
+    assert handoff['companies'] == [] and handoff['berry'] == '' and handoff['empty_cohort']
+    pdf = saved_landscape_client.get('/global-watchlist/export.pdf', params={
+        'saved_view': row['id'], 'favorites': '', 'company_tier': '', 'list': ''})
+    text = '\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(pdf.content)).pages)
+    assert 'Selected berry peers' in text and row['id'] not in text
+
+
 def test_route_access_csrf_follow_and_export(corpus, monkeypatch):
     from app import main
     from fastapi.testclient import TestClient

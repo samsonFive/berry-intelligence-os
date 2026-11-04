@@ -1,6 +1,6 @@
 {% extends 'glasshouse_base.html' %}
 {% block title %}Global Watchlist · Berry OS{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/global_watchlist.css?v=4"><link rel="stylesheet" href="/static/news_workspace.css?v=8">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/global_watchlist.css?v=5"><link rel="stylesheet" href="/static/news_workspace.css?v=8">{% endblock %}
 {% block content %}
 {% from "_company_controls.html" import tracking with context %}
 {% macro hidden(action) %}<input type="hidden" name="action" value="{{ action }}"><input type="hidden" name="return_to" value="{{ return_to }}">{% endmacro %}
@@ -13,17 +13,33 @@
 <a class="skip-link" href="#gw-results">Skip to watchlist</a>
 <header class="gw-header"><div><p class="gw-eyebrow">BERRY OS / COMPETITIVE INTELLIGENCE</p><h1>Global Watchlist</h1><p class="gw-subtitle">The organizations, genetics and markets worth watching.</p></div><a class="gw-primary" href="{{ export_href }}">Export PDF ↓</a></header>
 <div class="gw-context"><span>CAPTURED INTELLIGENCE</span><p>{{ data_note }}</p></div>
+<section class="gw-saved-landscapes" aria-labelledby="gw-saved-title">
+<p class="gw-eyebrow" id="gw-saved-title">CUSTOM WATCHLIST LANDSCAPES</p>
+<nav aria-label="Saved watchlist landscapes">{% for view in saved_watchlist_views %}<a href="{{ view.href }}"{% if selected_saved_view and selected_saved_view.id == view.id %} aria-current="page"{% endif %}>{{ view.name }}</a>{% else %}<span class="gw-muted">No saved watchlist landscapes yet.</span>{% endfor %}</nav>
+{% if not focus_selection %}<details><summary>{{ 'Manage ' ~ selected_saved_view.name if selected_saved_view else 'Save this landscape' }}</summary>
+<p class="gw-muted">Saved landscapes reopen with the latest captured intelligence. Apply filters first, then save the scope you want to return to.</p>
+<form method="post" action="/global-watchlist/views" class="gw-save-landscape">
+{% for field in watchlist_fields %}<input type="hidden" name="{{ field }}" value="{{ params.get(field, '') }}">{% endfor %}
+{% if selected_saved_view %}<input type="hidden" name="view_id" value="{{ selected_saved_view.id }}"><input type="hidden" name="revision" value="{{ selected_saved_view.revision }}">{% endif %}
+<label>Landscape name<input name="name" maxlength="80" required value="{{ selected_saved_view.name if selected_saved_view else '' }}" placeholder="e.g. European blueberry breeders"></label>
+<button name="action" value="save">{{ 'Update saved landscape' if selected_saved_view else 'Save landscape' }}</button>
+{% if selected_saved_view %}<button name="action" value="copy">Save as new landscape</button>{% endif %}
+</form>
+{% if selected_saved_view %}<form method="post" action="/global-watchlist/views"><input type="hidden" name="view_id" value="{{ selected_saved_view.id }}"><input type="hidden" name="revision" value="{{ selected_saved_view.revision }}"><button name="action" value="archive">Archive landscape</button></form>{% endif %}
+{% if archived_watchlist_views %}<details><summary>Archived landscapes</summary>{% for view in archived_watchlist_views %}<form method="post" action="/global-watchlist/views"><input type="hidden" name="view_id" value="{{ view.id }}"><input type="hidden" name="revision" value="{{ view.revision }}"><span>{{ view.name }}</span> <button name="action" value="restore">Restore</button></form>{% endfor %}</details>{% endif %}
+</details>{% endif %}
+</section>
 
 <div class="gw-stats"><div><strong>{{ corpus_count }}</strong><span>Organizations in corpus</span></div><div><strong>{{ focus|length if focus_selection else rows|length }}</strong><span>{{ 'Organizations in focus' if focus_selection else 'In this watchlist view' }}</span></div><div><strong>{{ record_count }}</strong><span>Scoped captured sources</span></div><div><strong>{{ groups|length }}</strong><span>Workspace monitoring groups</span></div></div>
 
 <details class="gw-filter-panel" data-gw-filter-panel><summary>Filter companies & news{% if params.get("favorites") %} · Favorites{% endif %}{% if params.get("company_tier") %} · {{ company_tiers.get(params.company_tier) }}{% endif %}{% if selected_list %} · {{ selected_list.name }}{% endif %}{% if params.get("berry") %} · {{ params.berry|title }}{% endif %}{% if params.get('q') %} · Search: {{ params.q }}{% endif %}{% if selected_group %} · Group: {{ selected_group.name }}{% endif %}{% if params.get('tier') %} · Imported {{ params.tier }}{% endif %}{% if params.get('region') %} · {{ params.region }}{% endif %}{% if params.get('market') %} · {{ entities.get(params.market, {}).get('name',params.market) }}{% endif %}{% if params.get('entity') %} · {{ entities.get(params.entity, {}).get('name',params.entity) }}{% endif %}{% if params.get('source_type') %} · {{ params.source_type|humanize_label }}{% endif %}{% if params.get('event_type') %} · {{ params.event_type|humanize_label }}{% endif %}{% if params.get('followed') %} · Followed only{% endif %}{% if params.get('priority') %} · Priority: {{ params.priority|humanize_label }}{% endif %}{% if params.get('type') %} · {{ params.type|humanize_label }}{% endif %}</summary>
 <form class="gw-filters" method="get" action="/global-watchlist" aria-label="Watchlist filters">
-{% for key in ['company','compare','priority','type'] if params.get(key) %}<input name="{{ key }}" type="hidden" value="{{ params[key] }}">{% endfor %}
+{% for key in ['company','compare','priority','type','saved_view'] if params.get(key) %}<input name="{{ key }}" type="hidden" value="{{ params[key] }}">{% endfor %}
 <label>Company search<input name="q" type="search" placeholder="Name or canonical alias" value="{{ params.get('q','') }}"></label>
 <label>Berry<select name="berry"><option value="">All berries</option>{% for berry in berry_options %}<option value="{{ berry }}" {% if params.get('berry') == berry %}selected{% endif %}>{{ berry|title }}</option>{% endfor %}</select></label>
 <label>Company list<select name="list"><option value="">All company lists</option>{% for group in lists %}<option value="{{ group.id }}" {% if params.get('list') == group.id %}selected{% endif %}>{{ group.name }}</option>{% endfor %}</select></label>
 <label>Assigned company tier<select name="company_tier"><option value="">All company tiers</option>{% for key,label in company_tiers.items() %}<option value="{{ key }}" {% if params.get('company_tier') == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
-<label class="gw-check"><input type="checkbox" name="favorites" value="1" {% if params.get('favorites') %}checked{% endif %}>Favorites only</label>
+<label class="gw-check"><input type="hidden" name="favorites" value=""><input type="checkbox" name="favorites" value="1" {% if params.get('favorites') %}checked{% endif %}>Favorites only</label>
 <details class="gw-advanced" {% if params.get('tier') or params.get('group') or params.get('region') or params.get('market') or params.get('entity') or params.get('source_type') or params.get('event_type') or params.get('followed') %}open{% endif %}><summary>More filters · monitoring & source scope</summary><div class="gw-filter-grid">
 <label>Berry-specific tier<select name="tier"><option value="">All tiers / unassigned</option>{% for tier in tier_options %}<option {% if params.get('tier') == tier %}selected{% endif %}>{{ tier }}</option>{% endfor %}</select></label>
 <label>Monitoring group<select name="group"><option value="">All organizations</option>{% for group in groups %}<option value="{{ group.id }}" {% if params.get('group') == group.id %}selected{% endif %}>{{ group.name }} ({{ group.member_ids|length }})</option>{% endfor %}</select></label>
@@ -32,7 +48,7 @@
 <label>Entity<select name="entity"><option value="">All entities</option>{% for row in all_rows %}<option value="{{ row.id }}" {% if params.get('entity') == row.id %}selected{% endif %}>{{ row.name }}</option>{% endfor %}</select></label>
 <label>News source type<select name="source_type"><option value="">All source types</option>{% for kind in source_types %}<option value="{{ kind }}" {% if params.get('source_type') == kind %}selected{% endif %}>{{ kind|humanize_label }}</option>{% endfor %}</select></label>
 {% if event_types %}<label>Captured event type<select name="event_type"><option value="">All recorded events</option>{% for kind in event_types %}<option value="{{ kind }}" {% if params.get('event_type') == kind %}selected{% endif %}>{{ kind|humanize_label }}</option>{% endfor %}</select></label>{% endif %}
-<label class="gw-check"><input type="checkbox" name="followed" value="1" {% if params.get('followed') %}checked{% endif %}>Followed only</label></div></details><div class="gw-actions"><button class="gw-primary">Apply filters</button><a href="/global-watchlist">Reset all</a></div>
+<label class="gw-check"><input type="hidden" name="followed" value=""><input type="checkbox" name="followed" value="1" {% if params.get('followed') %}checked{% endif %}>Followed only</label></div></details><div class="gw-actions"><button class="gw-primary">Apply filters</button><a href="/global-watchlist">Reset all</a></div>
 </form><p class="gw-scope-note">Favorites, assigned company tiers and company lists are shared with Companies, News and Map. <a href="/entities/company#company-lists">Manage company lists</a>. Imported berry tiers and monitoring groups retain their own scope.</p></details>
 
 {% if selected_group %}<p class="gw-notice"><strong>{{ selected_group.name }}</strong> · Shared workspace group · {{ selected_group.member_ids|length }} saved members. Filters only change the visible subset.</p>{% endif %}

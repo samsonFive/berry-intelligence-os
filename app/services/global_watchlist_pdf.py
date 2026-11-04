@@ -57,6 +57,8 @@ def render(model):
             return ', '.join(model['entities'].get(item, {}).get('name') or item for item in str(value).split(','))
         if key == 'group' and model.get('selected_group'):
             return model['selected_group']['name']
+        if key == 'saved_view' and model.get('selected_saved_view'):
+            return model['selected_saved_view']['name']
         if key == 'list' and model.get('selected_list'):
             return model['selected_list']['name']
         if key == 'company_tier':
@@ -69,6 +71,8 @@ def render(model):
 
     scope = [(key, value) for key, value in model['params'].items() if value]
     story += [p('Selected scope', 'GWHeading'), p('; '.join(f'{humanize_label(key)}: {scope_value(key, value)}' for key, value in scope) or 'All berries and organizations')]
+    if model.get('selected_saved_view'):
+        story.append(p('Saved landscape: ' + model['selected_saved_view']['name']))
     if model.get('selected_group'):
         group = model['selected_group']
         story.append(p(f"Workspace group: {group['name']} | {len(group['member_ids'])} saved members. Filters do not change membership."))
