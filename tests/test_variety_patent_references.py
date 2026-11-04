@@ -81,14 +81,14 @@ def test_unsafe_urls_are_not_links_and_a_profile_alone_is_not_a_filing():
 
 def test_profile_lookup_does_not_reconcile_unrelated_catalogs(monkeypatch):
     from app.services import variety_portfolio_coverage
-    original = variety_portfolio_coverage.resolve_identity
+    original = variety_portfolio_coverage._portfolio_identity_results
     looked_up = []
 
-    def tracked(query, varieties):
-        looked_up.append(query["candidate_name"])
-        return original(query, varieties)
+    def tracked(*, queries, varieties):
+        looked_up.extend(query["candidate_name"] for names in queries for query in names)
+        return original(queries=queries, varieties=varieties)
 
-    monkeypatch.setattr(variety_portfolio_coverage, "resolve_identity", tracked)
+    monkeypatch.setattr(variety_portfolio_coverage, "_portfolio_identity_results", tracked)
     unrelated = source(id="other-catalog", source_type="nursery_catalog",
                        names=[{"candidate_name": "Unrelated", "berry_id": "berry-blueberry"}])
     assert len(refs([source(), unrelated])) == 1
