@@ -12,6 +12,7 @@
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
 <div class="sh-page">
+{% if not static_build and record.association_corrections %}<details class="sh-note"><summary>Workspace association corrections applied</summary>{% for correction in record.association_corrections %}<p>{{ correction.action }} {{ correction.entity_id }} in {{ correction.field }} · {{ correction.reason }} · {{ correction.updated_by }} · {{ correction.updated_at }}</p>{% endfor %}<p>The original source is retained. This corrects navigation and associations, not the truth status of a source claim.</p></details>{% endif %}
 {% if record.content_notice %}<p class="sh-note" role="status">{{ record.content_notice }}</p>{% endif %}
 <section class="page-heading" data-pagefind-filter="type:evidence" data-pagefind-sort="date:{{ record.published_date or record.captured_date }}"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
 {% if record.auto_captured and not record.validated %}

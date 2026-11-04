@@ -14,6 +14,8 @@ from functools import lru_cache
 import re
 from typing import Any, Iterable
 
+from app.services.association_corrections import excluded
+
 MIN_ALIAS_LENGTH = 4
 TEXT_FIELDS = ("title", "headline", "summary", "excerpt", "why_it_matters")
 
@@ -258,6 +260,8 @@ def match_evidence_to_entity(
 ) -> TextMatch | None:
     """Return the first deterministic fallback match, never an explicit link."""
     entity_id = str(entity.get("id") or "")
+    if excluded(record, entity_id):
+        return None
     if entity_id and entity_id in (record.get("entity_ids") or []):
         return None
     if entity.get("entity_type") == "variety":
@@ -291,6 +295,8 @@ def alias_linked_evidence(
     )
     geography_patterns = _geography_patterns(_entity_map(entities)) if entity_type == "variety" else []
     for record in records:
+        if excluded(record, entity.get('id')):
+            continue
         record_id = record.get("id")
         if not record_id or record_id in already_linked_ids:
             continue

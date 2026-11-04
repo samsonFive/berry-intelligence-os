@@ -1,0 +1,1618 @@
+{
+  "assignments": [
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-advanced-berry-breeding",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-advanced-berry-breeding",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-advanced-berry-breeding",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-advanced-berry-breeding",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agroberries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agroberries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agroberries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agroberries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-australasian-plant-genetics",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-australasian-plant-genetics",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-australasian-plant-genetics",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-australasian-plant-genetics",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-berryworld",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-berryworld",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-berryworld",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-berryworld",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-black-venture-farm",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-black-venture-farm",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-black-venture-farm",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-black-venture-farm",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-california-giant-berry-farms",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-california-giant-berry-farms",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-california-giant-berry-farms",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-california-giant-berry-farms",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-costa-group-holdings",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-costa-group-holdings",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-costa-group-holdings",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-costa-group-holdings",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-denning-blueberries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-denning-blueberries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Present"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-denning-blueberries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-denning-blueberries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-expoberries",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-expoberries",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-expoberries",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-expoberries",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fresh-forward",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fresh-forward",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fresh-forward",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-fresh-forward",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agrovision",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agrovision",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agrovision",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-agrovision",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-gem-pack-berries",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-gem-pack-berries",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-gem-pack-berries",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-gem-pack-berries",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-hortifrut",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Present"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-hortifrut",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-hortifrut",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-hortifrut",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-iq-berries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-iq-berries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-iq-berries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-iq-berries",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-marionnet",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-marionnet",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-marionnet",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-marionnet",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-mountain-blue-orchards",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-mountain-blue-orchards",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-mountain-blue-orchards",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-mountain-blue-orchards",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-oishii",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-oishii",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-oishii",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-oishii",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "brand-ozblu",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "brand-ozblu",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "brand-ozblu",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "brand-ozblu",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-pairwise",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-pairwise",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-pairwise",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-pairwise",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-perfection-fresh",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-perfection-fresh",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-perfection-fresh",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-perfection-fresh",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-planasa",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-planasa",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-planasa",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 3"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-planasa",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-plant-sciences-genetics",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-plant-sciences-genetics",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-plant-sciences-genetics",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-plant-sciences-genetics",
+      "regions": [
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-royakkers",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-royakkers",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-royakkers",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-royakkers",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-smart-berries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-smart-berries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-smart-berries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-smart-berries",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-splendor-produce",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-splendor-produce",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-splendor-produce",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-splendor-produce",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-sunbelle",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-sunbelle",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-sunbelle",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-sunbelle",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-the-berry-collective",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-the-berry-collective",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-the-berry-collective",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-the-berry-collective",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "breeding_program-uc-davis-strawberry",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "breeding_program-uc-davis-strawberry",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "breeding_program-uc-davis-strawberry",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "breeding_program-uc-davis-strawberry",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-arkansas",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-arkansas",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-arkansas",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-arkansas",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-florida",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-florida",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-florida",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-university-of-florida",
+      "regions": [
+        "DOTA"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-well-pict",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-well-pict",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-well-pict",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-well-pict",
+      "regions": [],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "strawberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-wish-farms",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blueberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-wish-farms",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 1"
+    },
+    {
+      "berry": "raspberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-wish-farms",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Unknown/Unassigned"
+    },
+    {
+      "berry": "blackberry",
+      "effective_date": null,
+      "end_date": null,
+      "entity_id": "company-wish-farms",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "scope": null,
+      "source_snapshot_date": "2026-09-15",
+      "tier": "Tier 2"
+    }
+  ],
+  "caveat": "Transcribed directly from the operator-provided spreadsheet screenshot by the agent that built this import; not independently re-verified against the source spreadsheet file. Recommend one human spot-check pass before treating any single cell as authoritative.",
+  "conflicts": [],
+  "id": "gw-tiers-5002c6f7077fbfb5cb9b5920276d727de33857d06e4eb75dc3124bb4c0c7c6f5",
+  "provenance_evidence_id": "ev-competitor-registry-2026-09-15-import",
+  "review_state": "unreviewed_import",
+  "schema_version": 1,
+  "snapshot_date": "2026-09-15",
+  "source": "internal_competitor_registry_spreadsheet",
+  "source_row_count": 33,
+  "tier_definitions": "Definitions not supplied by the retained source; labels are preserved without inferring a scoring methodology.",
+  "unmatched": [],
+  "updated_at": "2026-11-04T08:46:49.465619+00:00",
+  "updated_by": "tier-import",
+  "version": 1
+}

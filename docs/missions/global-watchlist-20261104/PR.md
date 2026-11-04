@@ -1,0 +1,15 @@
+Global Watchlist now provides the integrated competitor dashboard over the real organization corpus. Users can combine imported berry-specific tiers with durable workspace monitoring groups, compare selected companies, traverse existing dossiers and scoped capability research, follow organizations, capture attributed observations, and correct source associations without reprocessing undoing the correction.
+
+The design-review follow-up reuses the established news cards and Reader, adds the shared compact sheet controls with private account layouts, and introduces reusable A–Z directory navigation. Existing Workspaces and competitive sheet editors retain their governed workflows.
+
+The same filtered company/comparison projection exports as a paginated PDF with provenance, publication/capture dates, scoped assessments, explicit evidence gaps and retained source references. Demo records do not contribute to coverage, assessments or exports. Genetic potential remains separate from commercial adoption. Legacy `/competitors` links preserve their query context and redirect into Global Watchlist.
+
+The initial implementation passed 6,620 test cases across the repository run and focused reruns, with 10 skipped. Its hosted CI passed before the design-review follow-up. The one obsolete primary-navigation expectation identified by the full run was updated for Global Watchlist and passed in the final 36-check rerun; see `VALIDATION.md` for the exact breakdown. Canonical record validation passed. The static snapshot generated 2,415 pages with no private draft leaks; Pagefind indexing also passed. An authenticated Chrome walkthrough verified comparison selection, PDF download, zero JavaScript errors and no page overflow at 390px. Screenshots and the repeatable tier-import report are included in `docs/missions/global-watchlist-20261104/`.
+
+The existing tier snapshot retains its `unreviewed_import` status and original transcription caveat: 33 mapped rows, 132 distinct berry assignments, no unmatched IDs or conflicts, and identical repeat-import output/version. The original workbook/independently verified transcription and formal tier definitions remain missing inputs. No private runtime files, source promotion, production deployment or canonical-branch merge are included. Exact-head repository CI remains the release gate.
+
+
+Follow-up validation: 93 related regressions passed; 36 earlier focused checks covered preference validation and public safety; the final private-route rerun passed 16 tests. Authenticated Chrome verified saved columns, resize/reorder/hide, wrap, row search, alphabetical filtering, shared Reader, directory compatibility and mobile overflow with zero JavaScript errors. Fresh exact-head CI is required for this update.
+
+
+Production-corpus export review also keeps each people/hiring entry with its source references when it fits on a page. A deterministic 20-record regression reproduces the prior split and verifies the fix. All 12 watchlist checks pass locally; renewed exact-head CI remains required.
