@@ -1,3 +1,16 @@
+# Nebula original article recapture — November 4, 2026
+
+The [dated Nebula source proposal](NEBULA-ORIGINAL-RECAPTURE-2026-11-04.md)
+uses the existing source ID after visual inspection of both original pages.
+The October text-only capture remains intact. The current read view gains
+scoped source context and a link to credited photographs in the original PDF;
+no extra cultivar, canonical identity, confirmed growing footprint or image
+reuse decision is created. This is a complete article enumeration, not a
+complete Mountain Blue portfolio. It retains source-only #494, excludes
+platform #497 and remains unapproved and undeployed. Its own validation and
+fresh private-data rehearsal remain release gates. Earlier counts below keep
+their dated scope.
+
 # Catalog release reconciliation — November 4 UTC, 2026
 
 The user approved release #492. While server headroom was being recovered,
@@ -43,6 +56,28 @@ JSON records, four databases and 1,115 stored research files. There are no data
 additions or review-decision changes. Settings, data mounts, exact proxy,
 active/enabled News schedule, fresh backup and rollback remain. Its approval is
 fulfilled; no repeated approval or deployment is needed for #490.
+
+**Retained source-branch snapshot (preceding November 3 scope; historical counts):**
+
+Prepared separately from live #490: [the Well-Pict historical source](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+adds two literal strawberry labels from a March 2012 merchandising page about
+2011 supply. The local seed has 540 sections /2,075 occurrences /1,335 review
+keys, with 11 unreadable sections and 144 follow-ups; live remains 539 /2,073
+/1,333. The current site gap and all identity/role/rights/photo/region gates
+remain. No canonical, provider, schema or human-decision change is included.
+Performance #493 is a separate default-off draft, not a deployed gain. Earlier
+release statements below retain their dated scope.
+
+[Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
+merged and independently verified live at `32eefbd5` (approved `22dcb869`),
+retaining News #487, #486 and earlier platform releases. All four final checks
+pass: 6,277 tests. Fresh release-time and live checks retain all five accounts
+including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and
+1,115 research files. One source import is added; no existing data was replaced
+or restored. Settings, mounts, proxy, active/enabled News schedule, backup and
+rollback are preserved. The #486, #487 and #488 approvals are fulfilled.
+
+**Continuation of the dated platform snapshot:**
 
 The necessary-syntax source guard avoids work without changing the existing
 declaration grammar or dropping sources. Final-code tests preserve all 24

@@ -46,8 +46,9 @@ def test_partner_and_selection_context_never_creates_breeder_rights_or_canonical
     assert named['Limvalnera']['source_tier'] == 'tier_2_nursery_catalog'
     assert named['Nebula']['source_tier'] == 'weak_noncanonical_lead'
     nebula = next(s for s in sources() if s['id'].endswith('technical-report'))
-    assert nebula['capture_status'] == 'partial' and not nebula['capture_reference']['visually_checked']
-    assert 'accounting' not in nebula
+    assert nebula['capture_status'] == 'names_enumerated' and nebula['capture_reference']['visually_checked']
+    assert nebula['capture_reference']['all_pages_read']
+    assert nebula['accounting']['exclusions'][0]['label'] == 'Eureka Blueberries'
     for c in candidates:
         assert c['status'] == 'proposed' and not c['auto_confirmed'] and not c['human_gated']
         assert not c['aliases'] and not c['proposed_relationships'] and not c['breeder_owner'] and not c['deployment']
