@@ -9,7 +9,7 @@ The user approved proceeding after the implementation review. The mixed-media fe
 | PR | [#501, merged](https://github.com/samsonFive/berry-intelligence-os/pull/501) |
 | Final approved/rebased head | `36e3c69accc310c6fc2d1099febc37e01d8662d0` |
 | Canonical merge | `d785c182c07872aed96dd1a148b59996e4b3078c` |
-| Exact live image | `sha256:ed6d0f4c2a0be199ebf0621a1f90f005623d21757c0474c3b4668fd50afbf05a` |
+| Image verified at this release | `sha256:ed6d0f4c2a0be199ebf0621a1f90f005623d21757c0474c3b4668fd50afbf05a` |
 | Fresh final-head CI | [41866723209](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41866723209), all four required checks successful |
 | Full suite | 6,654 passed, 11 skipped, two warnings in 961.39 seconds |
 | Package | 4,409 committed files; SHA-256 `591a64a6814c0b9c7b29af316191204a6b53d0403248b57c6d272a7e902f28f9` |
@@ -30,18 +30,24 @@ The previous image, Compose override, fresh backup and rollback receipt remain r
 
 Private operator receipts under `inbox/search-quality-evaluation/` include `source-gap-deployed.json`, `source-gap-rehearsal.json`, `source-gap-rebase-equivalence.json`, `source-gap-copy-reclamation-applied.json`, `source-gap-release-restore-test.json`, `source-gap-candidate-media-check.json`, `source-gap-http-review.json`, and the final CI log. They remain outside Git/static output. The user's pre-existing untracked report-preview image was preserved.
 
-## Transcription continuity: proven locally, separate delivery still required
+## Historical transcription delivery: approved and verified
 
-The earlier tested acquisition pathway was real: faster-whisper produced the Lucentlands episode transcript, and legitimate YouTube captions produced the Spanish Redagrícola transcript. Their original artifacts were hash-checked and reused without retranscription. Both passed stored artifact → Reader → timed workspace capture → idempotent retry → restart/reopen checks in the isolated canary. The complete podcast DOM contains 1,212 segments through 44:23; the video has 382 Spanish segments. Automatic provenance remains visible and claims remain unreviewed. Structural/timing inspection is not source-audio word-accuracy certification.
+The earlier tested pathway was real: faster-whisper produced the Lucentlands episode transcript, and legitimate YouTube captions produced the Spanish Redagrícola transcript. Original artifact and segment hashes were checked and reused without retranscription. Both passed stored artifact → Reader → timed workspace capture → idempotent retry → restart/reopen checks in the isolated canary. Timing coverage does not certify source-audio word accuracy.
 
-The web image intentionally excludes acquisition/STT dependencies and serves exported private artifacts. Deploying code does not copy the operator's inbox. A post-release **read-only** preflight establishes the exact remaining delivery gap:
+After separate explicit user approval, a fresh verified production backup preceded an additive delivery of exactly **two original normalized transcript files and one unreviewed Redagrícola video draft**. Existing identities and conflicts were checked immediately before delivery. No accounts, databases or bulk inbox were copied; no existing record was overwritten or promoted.
 
-| Recording | Production identity | Missing additive material |
+| Recording | Production Reader identity | Live verification |
 | --- | --- | --- |
-| Lucentlands Ep. 102 | Existing trusted publication `ev-lucentlands-scaling-blueberry-industry-2025`; matching Source and retained discovery | Original normalized transcript `discovered-source-lucentlands-podcast-4a4e9cbacb472ce3.json` |
-| Redagrícola, El arándano está conquistando a Ica | Discovery `discovered-source-redagricola-on-the-road-07ead7c38a996b12` exists; no draft/trusted id or exact trusted URL conflict | Original normalized transcript plus unreviewed draft `ev-media-88fbfbc6aa5e4ad6950d` |
+| Lucentlands Ep. 102 | Existing trusted `ev-lucentlands-scaling-blueberry-industry-2025` | HTTP 200; 1,212 English segments through 44:23; `faster-whisper:small` provenance |
+| Redagrícola, El arándano está conquistando a Ica | Unreviewed `ev-media-88fbfbc6aa5e4ad6950d` | HTTP 200; 382 Spanish segments; `youtube-captions:auto:es` provenance |
 
-Neither normalized artifact exists in production. No artifact, draft or account database was delivered by this release. A separate, explicit additive delivery must keep the existing trusted podcast JSON unchanged, use its exact parent/Source binding, preserve original segment/file hashes, and apply the existing identity-gated draft-delivery contract for the video. Re-evaluate conflicts immediately before writing; existing production content and human decisions win. Do not bulk-copy an inbox or recreate a trusted record as a pending draft. The exact original hashes and preflight outcomes are retained privately.
+The trusted podcast JSON still matches the backup exactly. Its explicit parent/Source binding permits the private Reader projection without changing canonical transcript or review fields. The delivery retry returned `ALREADY_PRESENT_IDENTICAL`. Production filters after delivery showed **8 podcasts, 4 videos and 10 blogs**; this is a bounded matching-card observation, not recall or freshness certification.
+
+Import-time checks preserved existing trusted data and all four logical databases. The immediate comparison of preexisting private JSON found only the delivery library's expected update to its `latest.json` audit pointer; the prior immutable audit remains retained. Later concurrent catalog, analyst and scheduled News updates were recorded separately and left unchanged. They were not reverted to force agreement with an older backup.
+
+Private proof is `inbox/search-quality-evaluation/source-gap-transcript-delivery-completed.json`, with the immediate preservation receipt, original hashes, dry run and fresh backup retained alongside it. Delivery and verification made **zero acquisition, STT or model calls**, purchased no credits and activated no new recurring jobs. The web image serves these private exported artifacts; it does not require acquisition dependencies. Original artifacts and pending drafts remain excluded from the public snapshot.
+
+This receipt describes release #501 and its subsequent approved artifact delivery. Other release work has since advanced production; the historical image above is not an assertion that #501 remains the current host image. Further production writes are held during the coordinated integration release checks.
 
 ## Next activation review and open mission work
 
