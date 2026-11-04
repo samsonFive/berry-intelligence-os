@@ -1,6 +1,6 @@
 # Source intelligence bounded collection continuation — November 4, 2026
 
-The reviewed #501 implementation and separately approved historical transcript delivery are deployed; see [the release receipt](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md). The user subsequently authorized deploying ready work and continuing the mission. This follow-up contains two newly reproduced fixes; it is not yet a deployment receipt or recurring activation approval.
+The reviewed #501 implementation and separately approved historical transcript delivery are deployed; see [the release receipt](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md). The user subsequently approved this follow-up as #508, now deployed at canonical `00adb635b6aac084a14b181102728994e6e62e86`; see [its release receipt](SOURCE-INTELLIGENCE-RELEASE-508-2026-11-04.md). The investigation below records the pre-release findings. Recurring activation remains unapproved.
 
 ## Current release boundary
 
