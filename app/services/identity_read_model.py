@@ -49,10 +49,6 @@ class _Catalog:
 
     def relevant_rows(self, candidate, identity):
         berries = identity._berries(candidate)
-        eligible = {
-            index for index in self.valid
-            if not berries or not self.berries[index] or berries & self.berries[index]
-        }
         folds = [identity.fold_identity(text) for text, _role in identity.candidate_query_names(candidate)]
         folds = [value for value in folds if len(value) >= identity._MIN_FOLD]
         exact: set[int] = set()
@@ -60,7 +56,14 @@ class _Catalog:
             exact.update(self.registrations.get(value, ()))
         for value in folds:
             exact.update(self.names.get(value, ()))
-        exact &= eligible
+        # The name/registration maps contain only valid catalog rows. Apply
+        # crop compatibility to that shortlist instead of scanning the full
+        # catalog for every query. An incompatible exact name must still
+        # allow the original matcher's compatible token-overlap fallback.
+        exact = {
+            index for index in exact
+            if not berries or not self.berries[index] or berries & self.berries[index]
+        }
         if exact:
             selected = exact
         else:
@@ -70,7 +73,10 @@ class _Catalog:
             for value in folds:
                 for token in value.split():
                     selected.update(self.tokens.get(token, ()))
-            selected &= eligible
+            selected = {
+                index for index in selected
+                if not berries or not self.berries[index] or berries & self.berries[index]
+            }
         return [self.records[index] for index in sorted(selected)]
 
 

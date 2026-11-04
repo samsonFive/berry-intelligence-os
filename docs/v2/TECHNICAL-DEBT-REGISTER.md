@@ -3789,6 +3789,21 @@ their separate fresh-private and release gates. TD-122, broader catalog/source
 quality and human source/name/rights/photo/Map decisions stay open. Live #490 is
 unchanged; no new provider request, backup cleanup or deployment occurs.
 
+### November 4 — shortlisted crop compatibility
+
+[The isolated identity follow-up](IDENTITY-SHORTLIST-PERFORMANCE-2026-11-04.md)
+applies the existing crop compatibility rule after name/registration/token
+lookup, retaining the unchanged matcher and wrong-crop exact-name fallback.
+The production-copy prototype preserves all 24 complete responses and 25,633
+input files across eight fresh processes, including an in-memory new article.
+Measured three-page workflows improve 6–7% relative to reviewed #506; cold
+first visits remain about five seconds. The prototype passes all 276 existing
+identity-oracle checks, and the actual file passes 288 identity/batch checks.
+One workflow replicate regresses, so further counterbalanced samples are pending.
+Full CI and separate release acceptance
+remain required. This does not change frozen #506, live data, review decisions,
+source scope or any provider configuration. TD-122 remains open.
+
 ## Collection settings review checkpoint — 2026-10-26
 
 - **TD-COLLECTION-UI-001 (open):** the new `/settings/collection` editor holds the shared collection lease and checks per-entry revisions; older `/sources` mutations and optional legacy polling still use whole-registry writes outside that lease. Source snapshots are now atomic, but a full migration of legacy writes to one transaction service remains open. Keep the legacy poller disabled and use the new editor. See `COLLECTION-SETTINGS-V1.md`.
