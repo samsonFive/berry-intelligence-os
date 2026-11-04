@@ -1,7 +1,7 @@
 # One release candidate for the remaining prepared work
 
 This isolated candidate combines four previously tested drafts on canonical
-source-intelligence merge `d785c182` (retaining catalog #492). It does not merge or deploy any of them, authorize an
+Global Watchlist merge `ae22ea07` (retaining source #501 and catalog #492). It does not merge or deploy any of them, authorize an
 import, or complete the broader source and human-review work.
 
 | Component | Exact tested head | Included behavior |
@@ -12,6 +12,9 @@ import, or complete the broader source and human-review work.
 | Checklist #503 | `2a9d48c3d4b3e603698b2c6edefd506410de076a` | All 31 requirements, preserved status/history and seven partial-portfolio source dispositions. |
 
 The runtime scope relative to that canonical base remains twelve app files.
+The overlapping routes preserve both the watchlist preference responses and
+the existing catalog confirmation/redirect safeguards; the main route merge
+retains the dashboard registration and current crop handoff implementation.
 The one overlapping Learn module retains all of #500's checked media and adds
 only #504's harvest-video entry. Six source/README files are retained exactly
 from their tested component heads. Existing canonical data, schemas,
@@ -26,8 +29,9 @@ current combined-catalog completeness or acceptance of this combination.
 
 1. Pass all four checks on this exact combined head and review the combination
    in the authenticated isolated desktop and phone preview.
-2. Preserve the actual live source-intelligence #501 at `d785c182`, whose
-   healthy recorded/running image is `ed6d0f4c`. The completed earlier #492
+2. Preserve actual live Global Watchlist #505 at `ae22ea07`, retaining #501
+   and #492. Its healthy image is `20c8a5a0`; verify that the owner's version
+   receipt is reconciled before the new preservation run. The completed earlier #492
    rehearsal and workflow measurements remain dated prior-head evidence;
    they cannot authorize or accept this new combination.
 3. Run fresh consistent private-data preservation and complete-workflow checks

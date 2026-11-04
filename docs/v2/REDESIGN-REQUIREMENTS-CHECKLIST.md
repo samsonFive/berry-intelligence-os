@@ -1,5 +1,13 @@
 # Berry Intelligence — requirements and current status
 
+## Global Watchlist reconciliation — November 4
+
+Global Watchlist #505 is now merged at `ae22ea07` and its healthy runtime uses image `20c8a5a0`. At the last observation the release owner was still reconciling its version receipt; this integration does not modify that record. The draft preserves the dashboard, shared table controls, scoped Reader links and source corrections. Both response imports are retained where the catalog redirect safeguards meet the new preference endpoints.
+
+The preceding #506 head `53bfc5f5` passed all four checks (6,717 tests), 610 affected checks and native desktop/phone review. The newly reconciled head requires its own checks and current-live preservation. Earlier workflow timings and data counts below remain dated prior-head evidence. The user approved removal of only the earlier redundant #506 test copy; its 25,271 files were rechecked against retained base/delta recovery archives before cleanup. Archives, receipts, images and live data remain.
+
+**Earlier preparation snapshot (retained with its original scope):**
+
 Updated November 4, 2026. All 31 original requirements and their order remain
 verbatim below. The mission remains active; this reconciliation retires no
 requirement or human gate.

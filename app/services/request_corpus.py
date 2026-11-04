@@ -98,6 +98,7 @@ class RequestCorpus:
     data_dir: Path
     schemas_dir: Path
     inbox_dir: Path | None = None
+    include_workspace_corrections: bool = False
     _repos: Any = field(default=None, repr=False)
     _evidence: list[dict[str, Any]] | None = field(default=None, repr=False)
     _published: list[dict[str, Any]] | None = field(default=None, repr=False)
@@ -146,7 +147,13 @@ class RequestCorpus:
 
     @property
     def evidence(self) -> list[dict[str, Any]]:
-        return self._list("_evidence", lambda: self.repos().evidence.list())
+        def load():
+            records = self.repos().evidence.list()
+            if self.include_workspace_corrections:
+                from app.services.association_corrections import apply, load as load_corrections
+                records = apply(records, load_corrections(self.inbox_dir))
+            return records
+        return self._list("_evidence", load)
 
     @property
     def published_evidence(self) -> list[dict[str, Any]]:

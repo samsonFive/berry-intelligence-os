@@ -2,6 +2,12 @@
 
 Local-first, evidence-based competitive intelligence for berry crops.
 
+### Shared site design language
+
+News feeds reuse `_news_cards.html`, `news_workspace.css`, the existing article visuals, personal actions and shared Reader. Preserve source review labels, publication versus capture dates, and grouped-source independence disclosures. Do not introduce plain headline lists as a replacement feed design.
+
+Data tables follow the compact Workspaces/Smartsheet language: full cell gridlines, sticky headers, frozen identity columns, resize/reorder/hide controls, readable full text, sorting/search and account-persisted layouts. `site_sheet.js` and the existing variety column engine provide the shared read-only implementation through `glasshouse_base.html`. Managed Workspaces and competitive grids retain their existing richer controllers; preserve them when extending shared behavior. Canonical intelligence is only editable through its governed controls. Use `_alphabet_nav.html` for alphabetical organization/variety directories and other name-based lists where it helps navigation; chronological news remains chronological.
+
 **Landscape Explorer mission (2026-10-06):** Read `docs/v2/LANDSCAPE-EXPLORER-MISSION.md` and the retained executable brief before continuing `feature/landscape-explorer`. This draft implements the blueberry checkpoint only. The user explicitly requires a stop for feedback before other-berry rollout; do not merge/deploy or call the full mission complete. Keep the canonical evidence, identity and review gates intact; company presence is not a variety growing footprint.
 
 **Expansion phase:** Before planning new acquisition, domain-depth, variety, alternative-data, or UI V2 work, read `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Unresolved platform debt must be recorded in `docs/v2/TECHNICAL-DEBT-REGISTER.md`; source/domain expansion should update `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`. Variety backbone (Workstream C) is `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md`. Trade is `docs/v2/TRADE-INTELLIGENCE-V1.md`. Weather is `docs/v2/WEATHER-CLIMATE-CONTEXT-V1.md`. Independent genetics recall audit is `docs/v2/INDEPENDENT-MISSED-INTELLIGENCE-RECALL-AUDIT-V1.md` — a coverage test, not a monitor; do not auto-onboard Sources from it. Do not alter Variety backend/domain schemas, CPVO registry, `variety_footprint`, `commercial_observation`, Trade/Customs (`trade_observation`, Comtrade adapter), or Weather (`weather_observation`, NASA POWER adapter) unless a genuine blocker is found.
