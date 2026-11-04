@@ -162,9 +162,16 @@ def test_directory_preserves_catalog_ids_and_get_has_no_personal_writes(monkeypa
     monkeypatch.setattr(feed_first_reader, "load_capture", forbidden)
     monkeypatch.setattr(feed_first_reader, "fetch_public_article", forbidden)
     monkeypatch.setattr(map_regions, "edit", forbidden)
-    page = TestClient(main.app).get("/entities/variety?berry=")
+    client = TestClient(main.app)
+    page = client.get("/entities/variety?berry=")
     assert page.status_code == 200
     ids = set(re.findall(r'<tr id="variety-([^"]+)"', page.text))
+    for number in range(2, page.context['catalog_pages'] + 1):
+        following = client.get('/entities/variety?berry=&page=' + str(number))
+        assert following.status_code == 200
+        page_ids = set(re.findall(r'<tr id="variety-([^"]+)"', following.text))
+        assert not ids.intersection(page_ids)
+        ids.update(page_ids)
     expected = {row["id"] for row in main.living_catalog() if row.get("entity_type") == "variety"}
     assert ids == expected
     assert page.text.count('id="v2ReaderOffcanvas"') == 1
