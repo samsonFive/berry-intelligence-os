@@ -10,6 +10,8 @@ The selected feed entries share the publisher's show homepage but retain differe
 
 Private receipt: `inbox/search-quality-evaluation/sourcegap508-local-podcast-canary.json`, with both full cycle logs retained.
 
+A bounded publisher check found the [official episode page](https://ushbc.blueberry.org/news-and-information/podcast/berrysmart-field-insights-automated-blueberry-harvest-technology/) linked from the [official podcast index](https://ushbc.blueberry.org/news-and-information/podcast/), with the matching episode title. Both returned 200. Its embedded player uses a Spotify episode identity, not the RSS GUID; therefore exact cross-platform binding is unverified. This is a verified publisher-page candidate, not an automatic identity rewrite or transcript acquisition. Saved HTML hashes and the missing-binding disposition are in private `sourcegap508-verified-episode-page.json`.
+
 ## Real transcript capture and reopen
 
 An isolated store exercised three actual retained passages from two recordings: the English Lucentlands transcript, the Spanish Redagrícola introduction, and the Spanish passage explicitly naming **variedad biloxi**. Captures retained exact transcript versions and timing, stayed unreviewed, preserved original publication/transcript bytes, and reopened through a newly constructed store. Retrying each request was idempotent; placing the same capture on another page reused its knowledge identity.
