@@ -5,6 +5,54 @@ from __future__ import annotations
 import pytest
 
 
+@pytest.fixture(scope="session")
+def _pre_admission_catalog(tmp_path_factory):
+    """Historical discovery scenarios before the delegated October 27 admissions."""
+    import json
+    import shutil
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    target = tmp_path_factory.mktemp('pre-admission-catalog') / 'data'
+    manifests = (root / 'data/imports').glob('variety-catalog-admission-*/manifest.json')
+    admitted_files = {row['variety_id'] + '.json' for path in manifests
+                      for row in json.loads(path.read_text(encoding='utf8'))['created']}
+    # Exclude only explicit admissions while copying into the isolated test catalog.
+    shutil.copytree(root / 'data', target, ignore=lambda folder, names: admitted_files.intersection(names)
+                    if Path(folder) == root / 'data/entities/varieties' else [])
+    # Later research notes may refer to admitted identities. Keep this historic
+    # fixture internally consistent without relaxing production validation.
+    notes_path = target / 'imports/variety-profile-source-details-2026-10-27/observations.json'
+    notes = json.loads(notes_path.read_text(encoding='utf8'))
+    notes['profiles'] = [row for row in notes['profiles'] if row['variety_id'] + '.json' not in admitted_files]
+    notes_path.write_text(json.dumps(notes, ensure_ascii=False), encoding='utf8')
+    return target
+
+
+@pytest.fixture
+def pre_admission_catalog(monkeypatch, _pre_admission_catalog):
+    from app import main
+    monkeypatch.setattr(main, 'DATA_DIR', _pre_admission_catalog)
+
+
+@pytest.fixture(scope="session")
+def _legacy_seed_catalog(tmp_path_factory):
+    """Retain original seed scenarios strictly inside an isolated test catalog."""
+    import shutil
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    target = tmp_path_factory.mktemp('legacy-seed-catalog') / 'data'
+    shutil.copytree(root / 'data', target)
+    shutil.copytree(root / 'tests/fixtures/legacy_seed/data', target, dirs_exist_ok=True)
+    return target
+
+
+@pytest.fixture
+def legacy_seed_data(monkeypatch, tmp_path, _legacy_seed_catalog):
+    from app import main
+    monkeypatch.setattr(main, 'DATA_DIR', _legacy_seed_catalog)
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path / 'inbox')
+
+
 @pytest.fixture(autouse=True)
 def _stub_feed_first_live_http(monkeypatch, request):
     if request.node.get_closest_marker("live_today"):

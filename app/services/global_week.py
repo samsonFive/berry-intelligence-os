@@ -14,6 +14,8 @@ Publication Review -- the only door back into durable trust.
 
 from __future__ import annotations
 
+from app.services.collection_settings import configured
+
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -173,18 +175,21 @@ def week_apac_focus_queries() -> list[PulseQuery]:
     ]
 
 
+@configured("week")
 def week_queries() -> list[PulseQuery]:
     """Industry Pulse 32-query matrix plus bounded extras for this edition.
 
     Does not change `generate_pulse_queries()` -- Industry Pulse stay at 32.
     Extra rows: language editions, retail, specialist site: hosts, APAC focus.
     """
+    from app.services.default_keyword_monitors import queries as focused_queries
     return [
         *generate_pulse_queries(),
         *regional_language_queries(),
         week_retail_query(),
         *week_specialist_site_queries(),
         *week_apac_focus_queries(),
+        *focused_queries("week"),
     ]
 
 
@@ -195,10 +200,10 @@ def week_catch_net_queries(queries: list[PulseQuery]) -> list[PulseQuery]:
     semantic catch-net is a bounded addition, not a doubled matrix.
     """
     selected: dict[str, PulseQuery] = {
-        query.id: query for query in catch_net_queries(queries) if query.kind != "specialist_site"
+        query.id: query for query in catch_net_queries(queries) if query.kind not in {"specialist_site", "scoped_monitor"}
     }
     for query in queries:
-        if query.kind == "specialist_site":
+        if query.kind in {"specialist_site", "scoped_monitor"}:
             continue
         if query.geography == "apac" or query.kind in {"regional_language", "apac_focus"}:
             selected[query.id] = query

@@ -11,11 +11,13 @@ from __future__ import annotations
 import ipaddress
 import json
 import re
+import subprocess
+import sys
 from time import monotonic
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from threading import Lock, RLock
+from threading import BoundedSemaphore, Lock, RLock
 from weakref import WeakValueDictionary
 from html import unescape
 from urllib.parse import parse_qs, unquote, urljoin, urlparse
@@ -27,12 +29,14 @@ from app.services.source_body import clean_reader_text, google_access_page, look
 
 CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
+MAX_PDF_BYTES = 5_000_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 5
+CAPTURE_VERSION = 10
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
+_pdf_parse_slots = BoundedSemaphore(2)
 USER_AGENT = "BerryIntelligenceOS-Reader/1.0 (+https://github.com/samsonFive/berry-intelligence-os)"
 _SKIP_PREVIEW_HOSTS = {
     "example.test",
@@ -43,8 +47,8 @@ _SKIP_PREVIEW_HOSTS = {
     "news.google.com",
     "news.google",
 }
-_SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.IGNORECASE | re.DOTALL)
-_STYLE_RE = re.compile(r"<style\b[^>]*>.*?</style>", re.IGNORECASE | re.DOTALL)
+_SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?(?:</script\s*>|$)", re.IGNORECASE | re.DOTALL)
+_STYLE_RE = re.compile(r"<style\b[^>]*>.*?(?:</style\s*>|$)", re.IGNORECASE | re.DOTALL)
 _ON_EVENT_RE = re.compile(r"\son\w+\s*=\s*(['\"]).*?\1", re.IGNORECASE | re.DOTALL)
 _JS_URL_RE = re.compile(r"javascript:", re.IGNORECASE)
 _P_RE = re.compile(r"<p\b[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
@@ -172,11 +176,12 @@ def sanitize_reader_html(html: str) -> str:
     return _JS_URL_RE.sub("", cleaned)
 
 
-def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
+def paragraphs_from_html(html: str, *, limit: int | None = 96, source_url: str = '') -> list[str]:
     cleaned = sanitize_reader_html(html)
     # Keep publisher section titles in their original order, never invent them
     # from sentence length, question marks, or model-generated summaries.
     from lxml import etree, html as html_parser
+    technical_rows = set()
     try:
         tree = html_parser.fromstring(cleaned)
         for node in tree.xpath("//nav | //aside | //footer | //template | //*[@hidden] | //*[@aria-hidden='true']"):
@@ -188,12 +193,46 @@ def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
         for node in tree.xpath("//*[@role='dialog' or @aria-modal='true' or @id='onetrust-banner-sdk' or @id='didomi-host' or @id='cookie-banner' or @id='cookie-consent']"):
             node.drop_tree()
         roots = tree.xpath("//article") or tree.xpath("//main")
+        if not roots:
+            # SIDOF's direct government-document endpoint uses legacy divs,
+            # not article/main. Its tables are owned notice content; this
+            # exception never applies to a portal/search page or another host.
+            source=urlparse(source_url)
+            if (source.scheme=='https' and source.hostname=='sidof.segob.gob.mx'
+                    and not source.username and source.port in (None,443)
+                    and re.fullmatch(r'/notas/docFuente/\d+',source.path)
+                    and tree.xpath('//h1') and tree.xpath('//table')):
+                roots=tree.xpath('//body')
         cleaned = "\n".join(html_parser.tostring(node, encoding="unicode") for node in roots) if roots else html_parser.tostring(tree, encoding="unicode")
+        # Technical results often live in lists and tables rather than prose.
+        # Only semantic article/main owners admit these blocks: an unscoped
+        # page's menus must not become source evidence. Serialize rows with
+        # cell boundaries and retain their preceding caption/header rows.
+        if roots:
+            scoped = html_parser.fromstring('<div>' + cleaned + '</div>')
+            for node in scoped.xpath('.//li[not(ancestor::li)] | .//tr | .//caption'):
+                if node.xpath('ancestor::tr | ancestor::caption'):
+                    continue
+                if node.tag == 'li' and node.xpath('.//p | .//table | .//ul | .//ol'):
+                    continue
+                cells = node.xpath('./th | ./td') if node.tag == 'tr' else []
+                text = ' | '.join(' '.join(cell.text_content().split()) for cell in cells) if cells else ' '.join(node.text_content().split())
+                if text:
+                    technical_rows.add(text)
+                    replacement = html_parser.Element('p')
+                    replacement.text = text
+                    node.getparent().replace(node, replacement)
+            cleaned = html_parser.tostring(scoped, encoding='unicode')
     except (etree.ParserError, ValueError):
         pass
     found = [(tag.lower(), decode_html_text(chunk)) for tag, chunk in _ARTICLE_BLOCK_RE.findall(cleaned)]
-    has_body = any(tag == 'p' and len(row) >= 40 for tag, row in found)
-    raw_passages = [row for tag, row in found if has_body and (len(row) >= 40 if tag == 'p' else 0 < len(row) <= 500)]
+    has_body = bool(technical_rows) or any(tag == 'p' and len(row) >= 40 for tag, row in found)
+    raw_passages = [row for tag, row in found if has_body and (len(row) >= 40 or row in technical_rows if tag == 'p' else 0 < len(row) <= 500)]
+    from app.services.source_passage_scope import owned_article_passages
+    had_passages = bool(raw_passages)
+    raw_passages = [text for _,text in owned_article_passages(enumerate(raw_passages))]
+    if had_passages and not raw_passages:
+        return []  # A recommendation-only page must not re-enter via blob fallback.
     passages = display_reader_passages(raw_passages)
     if passages:
         return passages[:limit] if limit is not None else passages
@@ -209,10 +248,29 @@ def _paragraphs_from_html(html: str) -> list[str]:
     return paragraphs_from_html(html)
 
 
+class PdfPassages(list):
+    def __init__(self, rows, *, truncated=False, page_count=None):
+        super().__init__(rows)
+        self.truncated = truncated
+        self.page_count = page_count
+
+
 def extract_pdf_text(raw: bytes) -> list[str]:
-    """Best-effort literals from a public PDF. Never claims a full article."""
+    """Selectable page text, with bounded subprocess parsing; never a full-article claim."""
     if not raw.lstrip().startswith(b"%PDF"):
         return []
+    try:
+        with _pdf_parse_slots:
+            result = subprocess.run([sys.executable,str(Path(__file__).with_name('pdf_text_worker.py'))],
+                input=raw[:MAX_PDF_BYTES],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=6,
+                creationflags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0)
+        parsed = json.loads(result.stdout)
+        pages = parsed.get('pages') or []
+        if pages:
+            return PdfPassages([f"[PDF page {page['page']}]\n{page['text']}" for page in pages], truncated=bool(parsed.get('truncated')), page_count=parsed.get('page_count'))
+    except (OSError,ValueError,subprocess.TimeoutExpired):
+        pass
+    # Keep the existing minimal literal fallback for damaged legacy documents.
     passages: list[str] = []
     for match in _PDF_TJ_RE.finditer(raw[:MAX_BYTES]):
         chunk = match.group(1).decode("latin-1", errors="replace")
@@ -374,7 +432,8 @@ def fetch_publisher_home_preview(home_url: str, title: str, *, client: httpx.Cli
 
 def classify_capture(passages: list[str], *, status_code: int) -> str:
     text = " ".join(passages)
-    if status_code in {401, 403, 451} or looks_like_interstitial(text):
+    if (status_code in {401, 403, 451} or looks_like_interstitial(text)
+            or re.match(r'^\s*Request\s+unsuccessful[.\s]+Incapsula\s+incident\s+ID\b',text,re.I)):
         return "blocked"
     if not passages:
         return "metadata_only"
@@ -451,7 +510,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_BYTES)
+        final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_PDF_BYTES if looks_like_pdf(url) else MAX_BYTES)
         if google_access_page(final):
             return empty_capture(final, reason="blocked")
         if status_code >= 400:
@@ -459,17 +518,24 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             capture["status_code"] = status_code
             return capture
         content_type = str(headers.get("content-type") or headers.get("Content-Type") or "")
+        if raw.startswith(b'PK\x03\x04') or 'application/epub+zip'in content_type.lower():
+            # ZIP/EPUB containers are not HTML. Keep them as explicit format
+            # gaps rather than decoding compressed bytes into source passages.
+            return {**empty_capture(final,reason='unsupported-archive-format'),'content_kind':'archive','status_code':status_code}
         if looks_like_pdf(final, content_type=content_type, body=raw):
             passages = extract_pdf_text(raw)
             availability = "excerpt_only" if passages else "metadata_only"
+            parse_limited = bool(getattr(passages,'truncated',False))
             return {
                 "url": final,
                 "ok": bool(passages),
                 "availability": availability,
-                "reason": "response-size-limit" if limited else "" if passages else "pdf-text-unavailable",
-                "truncated": limited,
+                "reason": "response-size-limit" if limited else 'pdf-text-limit' if parse_limited else "" if passages else "pdf-text-unavailable",
+                "truncated": limited or parse_limited,
+                "pdf_page_count": getattr(passages,'page_count',None),
                 "headline": "",
                 "passages": passages,
+                "passage_locators": [f"pdf:page:{match[1]}" if (match:=re.match(r'^\[PDF page (\d+)\]',p)) else 'pdf:excerpt:page-unknown' for p in passages],
                 "images": [],
                 "content_kind": "pdf",
                 "frame_allowed": False,
@@ -484,19 +550,30 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             html = raw.decode("utf-8", errors="replace")
         title_match = _TITLE_RE.search(html)
         headline = decode_html_text(title_match.group(1)) if title_match else ""
+        from app.services.article_acquisition import publisher_publication_date
+        publication_date, publication_basis = publisher_publication_date(html, final)
+        from lxml import etree, html as html_parser
+        try:
+            canonical_urls = html_parser.fromstring(html).xpath("//link[translate(@rel,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='canonical']/@href")
+        except (etree.ParserError, ValueError):
+            canonical_urls = []
+        canonical_url = urljoin(final, canonical_urls[0]) if len(canonical_urls) == 1 else final
+        if not is_public_http_url(canonical_url) or urlparse(canonical_url).hostname != urlparse(final).hostname:
+            canonical_url = final
         from app.services.patent_reader import patent_document
         document = patent_document(html, final)
-        passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else _paragraphs_from_html(html)
+        passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else paragraphs_from_html(html,source_url=final)
         from app.services.article_structure import publisher_heading_levels
         heading_levels = publisher_heading_levels(html, passages) if not document else {}
-        passage_limited = not document and len(paragraphs_from_html(html, limit=None)) > len(passages)
+        passage_limited = not document and len(paragraphs_from_html(html, limit=None,source_url=final)) > len(passages)
         images = extract_article_images(html, page_url=final)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
+        legacy_notice=(urlparse(final).hostname=='sidof.segob.gob.mx'and bool(re.fullmatch(r'/notas/docFuente/\d+',urlparse(final).path)))
         if not passages and looks_like_interstitial(decode_html_text(sanitize_reader_html(html))):
             availability = "blocked"
         document_limited = bool(document and document["truncated"])
-        if (limited or document_limited or passage_limited or document) and availability == "full":
+        if (limited or document_limited or passage_limited or document or legacy_notice) and availability == "full":
             availability = "partial"
         modes = ["structured_fallback"]
         if availability in {"full", "partial", "excerpt_only"}:
@@ -507,9 +584,12 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "url": final,
             "ok": availability in {"full", "partial", "excerpt_only"},
             "availability": availability,
-            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "" if availability != "error" else f"http-{status_code}",
+            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "Government notice headings and tables; prose may be incomplete" if legacy_notice else "" if availability != "error" else f"http-{status_code}",
             "truncated": limited or document_limited or passage_limited,
             "headline": headline,
+            "published_date": publication_date,
+            "published_date_basis": publication_basis,
+            "canonical_url": canonical_url,
             "passages": [] if availability == "blocked" else passages,
             "heading_levels": {str(index): level for index, level in heading_levels.items()},
             "images": images,
@@ -517,7 +597,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "document_blocks": document["blocks"] if document else [],
             "frame_allowed": allowed,
             "reader_modes": modes,
-            "method": "direct_http",
+            "method": "direct_http_government_document_tables" if legacy_notice else "direct_http",
             "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "status_code": status_code,
         }
@@ -819,6 +899,11 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
             blocks = display_article_blocks(hinted, passages)
             article["paragraphs"] = [{"text": row, **({"heading_level": block["source_level"]} if block["heading"] else {})}
                                      for row, block in zip(passages, blocks)]
+            if capture.get('content_kind') == 'pdf':
+                for paragraph in article['paragraphs']:
+                    match = re.match(r'^\[PDF page (\d+)\]',paragraph['text'])
+                    if match:
+                        paragraph['locator'] = f'pdf:page:{match[1]}'
             merged["article"] = article
             if capture.get("content_kind") == "patent":
                 from app.services.patent_reader import display_document_blocks

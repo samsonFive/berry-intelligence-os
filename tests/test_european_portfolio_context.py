@@ -90,7 +90,10 @@ def test_photo_preview_get_has_no_image_load_or_state_writes(monkeypatch, tmp_pa
         for name in source["names"]:
             if not name.get("photos"):
                 continue
-            page = client.get("/varieties/candidates", params={"source": source["id"], "q": name["candidate_name"], "berry": "berry-strawberry"})
+            from app.services.entity_identity import match_named_entity
+            catalog,_ = match_named_entity(name['candidate_name'], "variety", main.living_catalog(), berry_id="berry-strawberry")
+            path = "/entities/variety/" + catalog["id"] if catalog else "/varieties/candidates"
+            page = client.get(path, params={"source": source["id"], "q": name["candidate_name"], "berry": "berry-strawberry"})
             assert page.status_code == 200
             assert "Ignore permission" in page.text and "Permission unconfirmed" in page.text
             for photo in name["photos"]:

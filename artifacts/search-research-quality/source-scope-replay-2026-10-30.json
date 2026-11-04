@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "scope": "Offline rerank of previously captured development candidates; no fresh discovery, no Google parity claim and no source-truth certification",
+  "run_sha256": "684eb798a5f5f523333f89da53c913188edff39523f9fd48b543a62ada2f4b41",
+  "queries": [
+    {
+      "query": "Floricane blackberry licensing outside the United States",
+      "before_candidate_count": 11,
+      "after_candidate_count": 11,
+      "results": [
+        {
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "source_id": "web-33b0d00ac294cf5f",
+          "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+          "relevance": "direct",
+          "passage_locator": "article:0;article:1"
+        },
+        {
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "source_id": "web-f3daf97f3bf23d5a",
+          "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+          "relevance": "direct",
+          "passage_locator": "article:1;article:2"
+        },
+        {
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "source_id": "web-498c1d46adfd3d8b",
+          "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+          "relevance": "background",
+          "passage_locator": "article:1"
+        },
+        {
+          "source_url": "https://bpb-us-e1.wpmucdn.com/wordpressua.uark.edu/dist/3/599/files/2024/03/Sweet-Ark-Immaculate-A-2718T-Release-Flyer-6867520d1deea77d.pdf",
+          "source_id": "web-e6354ce522683ca1",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.emcocal.com/emcocal-rubus-varieties/",
+          "source_id": "web-2391de7eff22c32f",
+          "source_version": "b181079ca8b003d58c0377b5a51729095752de4980a908565a84a48591b0a9f4",
+          "relevance": "background",
+          "passage_locator": "article:8"
+        },
+        {
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/29/3/article-p276.pdf",
+          "source_id": "web-d0e9557fe8f9580b",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://gcrec.ifas.ufl.edu/media/gcrecifasufledu/docs/pdf/berry-newsletter/BVT-2020-II-v2.pdf",
+          "source_id": "web-4d8e868216c1acfb",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+          "source_id": "web-0204de9fd16f5667",
+          "source_version": "958a336e9175af9e5a91c973fe91c7442329ef273bcf6732e6b2c68aeba838fd",
+          "relevance": "background",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "source_id": "web-a9f3e17ac09e32bd",
+          "source_version": "6d017552a3f3768aaf083787361c18b49cb910263ff4f41e5ea412237a7fe89e",
+          "relevance": "background",
+          "passage_locator": "article:4"
+        },
+        {
+          "source_url": "https://horticulture.mgcafe.uky.edu/sites/horticulture.ca.uky.edu/files/January-February%202026%20Fruit%20Facts-2_AOD.pdf",
+          "source_id": "web-20b3dfdd8f88873a",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://fruitgrowersnews.com/news/columbia-star-blackberry-introduced-oregon-state-university/",
+          "source_id": "web-e28827ba923459bc",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        }
+      ]
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "before_candidate_count": 8,
+      "after_candidate_count": 7,
+      "results": [
+        {
+          "source_url": "https://hortnews.com/fall-creek-signs-exclusive-propagation-and-sales-agreement/",
+          "source_id": "web-0ef355196dfa85b7",
+          "source_version": "91e5f1d276f50e5f63d824e434a5f13eec46fe5322d9527d76dea349fea7393b",
+          "relevance": "direct",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.freshplaza.com/north-america/article/9879343/exclusive-propagation-and-sales-agreement-signed-for-easyrose-raspberry/",
+          "source_id": "web-1eaf039c75eaa242",
+          "source_version": "6fba890d127491791bbabb7197c0ef47920bd1b882b29842409a40436140eeba",
+          "relevance": "direct",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "source_id": "web-33b0d00ac294cf5f",
+          "source_version": "c8baed8405348bb8d7f6d257d44b20e31f337471f225e1ee39f33e6aca2e0128",
+          "relevance": "direct",
+          "passage_locator": "article:0;article:1"
+        },
+        {
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "source_id": "web-f3daf97f3bf23d5a",
+          "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+          "relevance": "direct",
+          "passage_locator": "article:1;article:2"
+        },
+        {
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "source_id": "web-498c1d46adfd3d8b",
+          "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+          "relevance": "direct",
+          "passage_locator": "article:1"
+        },
+        {
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+          "source_id": "web-b868c2254f258658",
+          "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+          "relevance": "background",
+          "passage_locator": "article:2"
+        },
+        {
+          "source_url": "https://www.bloomingexpert.com/garden/blackberry-growing-guide/",
+          "source_id": "web-2ce4d6c55daa2440",
+          "source_version": "ad9a3e6a94ebd557ce63017902fc1a722506a0b2a5b20f6eed2a11a76e5a1d4b",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        }
+      ]
+    },
+    {
+      "query": "Raspberry developments Europe",
+      "before_candidate_count": 15,
+      "after_candidate_count": 10,
+      "results": [
+        {
+          "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPU2otTWxaQTNlOEN2anhyRERtWEtyU0FVWEhuN0x0N2twd19GaXR6bWkzcVZ1SWQ3bndmWnRVNUhhRXQ1a0NOc2NqOHViMlJnWVdfekcwbFo4a0ZtcHdMZXZjX05ua0hQYnF5V0J2YVpEbV90SlNJVVJsTGhxUmwtbGZPN0U1blVTRHVfd182ckh4RDNiMFN0aU1xZEZZTEVZRm9YcUlWMjdKQ2VMd202NDdSNWJUUTgtU0ln?oc=5",
+          "source_id": "ev-20260806173605-adba-raspberries-beat-all-other-fruits-and-be",
+          "source_version": null,
+          "relevance": "direct",
+          "passage_locator": "summary"
+        },
+        {
+          "source_url": "https://www.freshplaza.com/north-america/article/9864848/global-market-overview-raspberries/",
+          "source_id": "web-34213ad3d2228319",
+          "source_version": "21ea067ec9ece1ffc91d49be2b22a293aa4f306d9ff7253eee4644427c715b48",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        },
+        {
+          "source_url": "https://www.freshplaza.com/north-america/article/9775283/raspberries-news-coming-soon-for-the-italian-and-foreign-markets/",
+          "source_id": "web-dfd1279e09effda9",
+          "source_version": "68621f5446d5c955ee06c1b45f1a2cc71a97a7869deabfbc4acc3a268ab32c89",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        },
+        {
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNUTRNclEtZ0oxTXpfOTZhOVczaTM4Y201RklSSDhwdTRPbGNrdklkbWEtaXlyb1UxTmhwbVNKdk9BaUR0TE5pODJwLVRPam9IWVNxRUIxZlBqdnotOEpTcV9waTgtSDYwTVZ0Z1hmRDhHMHhyUHNWWEpoVWR1MHNmLV8xRlM1XzhUX1I1MU5ZeF9TZWhGMGtYakYxeURrVjNWanRLbU1EbTRsOW8zelE?oc=5",
+          "source_id": "ev-20260806173601-bb34-moroccan-blueberry-and-raspberry-product",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "summary"
+        },
+        {
+          "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPQS1najhvVTBGVnhuRlhtRmQybVdMVFByQVQwWkI2Rlk2b19WaTljczVBaFpIeGJKajI5NE10STh2N1g5WVNNUDU2S2xvaG9Od0JEOE1FcDNnNjB0UzRZNnF3ZlVoUDIyazFQUlBGYWhEd0o4SDN4Y3hpZkx0Q0pNXzdOSjY0TXV5NVR2czlMVEh4Z1p4Ump4eTR0SXMtYUhpUGU5N3lB?oc=5",
+          "source_id": "ev-20260806193503-145b-mexican-berry-exports-grow-as-demand-for",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "summary"
+        },
+        {
+          "source_url": "https://www.seedworld.com/europe/2025/01/16/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/",
+          "source_id": "web-96f651274c7c4c2e",
+          "source_version": "62b11559bb27dabd2eb286037bbc61b5ae647fbad1762daac3704380955fe788",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        },
+        {
+          "source_url": "https://www.hortidaily.com/article/9640442/global-market-overview-raspberries/",
+          "source_id": "web-0a348d660f176344",
+          "source_version": "5b2b622acce2f54674052124b70f23ae3a4044abd74ae8ae33aaf51f4840e2fd",
+          "relevance": "background",
+          "passage_locator": "article:2"
+        },
+        {
+          "source_url": "https://www.freshplaza.com/north-america/article/9630023/efforts-to-undercut-raspberry-prices-detected-in-ukraine-and-poland/",
+          "source_id": "web-7482e70a163c39c5",
+          "source_version": "4863c7497721d78da2abf5c697d1940bdc4968e1dd2de14367f0f6b7fe44caa7",
+          "relevance": "background",
+          "passage_locator": "article:6"
+        },
+        {
+          "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOb2pKaVc0cWs4WUVzNTQ0RXFfRjRROF9HRlNrQ3h0TTVhc2tWdERFVXJMQzZ3bDg1TzZYMkVfbDY1NWV0TjhHYVAwbEJGMXo0ZWtRd3U4TjNsX2pkR1FHcVZ1dzRsRXM0c21IbWM0a1RmTlJTck4zMEp0UHBiazRGVkJIYm1Qa29aYm9GZ3J2d1Z6bFBMRHR3RWJKYkxmUTRMc0pTMVJ1M0kySVpXYlRzYjd4eWI3M0puRlHSAbwBQVVfeXFMTnRfQXNIRkRVaFpMRHJ3aXJxS1FTTEhGTjNfckVYWFZ5aEJXcUJuZEs5aUNiRElvcGJBRTFTVVl3cTNKUXhfZUd5YXhsS0ZWbkhfa2FFU3gtLTJnQm82ZkJXVWpQM2otUTg1OEhpMldqZ042aXU4R216R3pGQURCeHdicEx0MnVpRmhCNjBjV1pCYTdGSVJsYjJXQXdFM1Nxb3FHa2RHbDJGWElQWFJLc004TnFOeGI1bHkzczU?oc=5",
+          "source_id": "ev-20260806173539-6e27-how-did-a-bosnian-raspberry-farm-get-a-s",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "title"
+        },
+        {
+          "source_url": "https://nubip.edu.ua/sites/default/files/rich_text_files/Andrusyk_Yurii_Raspberry_PROGRESS_on%20site%20(1)%20(1).pdf",
+          "source_id": "web-da68d7a12bcb4823",
+          "source_version": null,
+          "relevance": "background",
+          "passage_locator": "snippet"
+        }
+      ]
+    },
+    {
+      "query": "Fontana blackberry Pairwise",
+      "before_candidate_count": 11,
+      "after_candidate_count": 10,
+      "results": [
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-sunworld-pitless-cherry",
+          "source_id": "web-de81ad944c2ec968",
+          "source_version": "065ce8a2cdec5e0476f144a4a218f15374feb217a1a30973d177019684fcfd94",
+          "relevance": "direct",
+          "passage_locator": "article:3"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+          "source_id": "web-3b6db65cee74af92",
+          "source_version": "26fcdf5ea33793e8718c61d3cdf13721c558796ae7959fd944574983a203191f",
+          "relevance": "direct",
+          "passage_locator": "article:0"
+        },
+        {
+          "source_url": "https://www.pairwise.com",
+          "source_id": "web-da8f6e8a0856d7dc",
+          "source_version": "da7d0e52cebe6cd7232f800ae956bc008be8bcbd42aef07a911c992fdd5d609d",
+          "relevance": "direct",
+          "passage_locator": "article:15"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/feaured-in-wired-seedless-blackberries-and-cherries-that-grow-on-bushes-vie-to-be-the-future-of-food",
+          "source_id": "web-028a8c34d4dbf1eb",
+          "source_version": "3c4631b4e12460ea1bc6bf85839b33a3fe2d0b7214b5dd82023d64c64b18c4a5",
+          "relevance": "direct",
+          "passage_locator": "article:3;article:4"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-poised-to-revolutionize-agriculture-with-industry-leading-fulcrum-tm-platform-following-40m-series-c-funding",
+          "source_id": "web-d01664757175882f",
+          "source_version": "69a63bf2830270179e36a39156f13e9422befe9cdcee4618de659760ca22f0aa",
+          "relevance": "direct",
+          "passage_locator": "article:9"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-foodtech-500",
+          "source_id": "web-16ba0ffca695734a",
+          "source_version": "1bbf97f8d91b5680a7fbc20492f5f91378b7a72f07905448e03f3cae36565977",
+          "relevance": "direct",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-announces-closing-of-90m-series-b-funding-round",
+          "source_id": "web-88d6745822073f9a",
+          "source_version": "11fb2590526d7e07593f689f5bde39fb2d8d263f51aa9421f52186e51a9464d7",
+          "relevance": "direct",
+          "passage_locator": "snippet"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology",
+          "source_id": "web-bd15e287d359b93f",
+          "source_version": "fbea78cbbf56135dbb69bcb13d7b8dd59efe123182df02867da10d09eca5c882",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026",
+          "source_id": "web-1aa758f1933f85d3",
+          "source_version": "1b0ed6bbaf1c8cc2a238d751bcd903acc7fefd4d4c691bd89a15e71e27f284be",
+          "relevance": "background",
+          "passage_locator": "article:2;article:3"
+        },
+        {
+          "source_url": "https://www.pairwise.com/insights/featured-in-the-economist-a-basket-of-new-fruit-varieties-is-coming-your-way",
+          "source_id": "web-0ed129c4d739e926",
+          "source_version": "5a44032338a90f911b95e81733a5c439e031b321ed18243b068a16414da5578a",
+          "relevance": "background",
+          "passage_locator": "article:0"
+        }
+      ]
+    }
+  ]
+}

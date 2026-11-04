@@ -212,6 +212,8 @@ class Store:
 
     def snapshot(self, record, text, availability):
         value = {"article_id": record["id"], "url": record.get("source_url", ""), "title": record.get("title", ""), "publisher": record.get("source_name", ""), "published_date": record.get("published_date"), "entity_ids": record.get("entity_ids", []), "text": text, "availability": availability}
+        for key in ('capture_provenance','source_version','source_version_basis','passage_locator','publication_date_basis'):
+            if record.get(key):value[key]=deepcopy(record[key])
         value["id"] = "src-" + digest(value)
         return value
 

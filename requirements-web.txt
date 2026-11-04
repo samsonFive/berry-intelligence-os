@@ -29,3 +29,6 @@ trafilatura==2.2.0
 # to install (unlike playwright, which stays local-only), so it works
 # identically in both the full and remote-interactive deployments.
 reportlab==4.2.5
+
+# Bounded public PDF text extraction; verified security-patched release.
+pypdf==6.21.3

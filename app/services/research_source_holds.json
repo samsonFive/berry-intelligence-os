@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "scope": "Negative quotation holds only. A changed page requires source review; it does not automatically clear a hold or approve any claim.",
+  "holds": [
+    {
+      "id": "mixed-product-roundup-trial-scope",
+      "source_url": "https://www.freshplaza.com/north-america/article/9698848/the-new-acapella-melon-presented-at-sival-2025/",
+      "checked_source_version": "c9064f939f2eff2dd2a60e58a758a686310aec87d8c9a3ae868e1e7eb683f3db",
+      "reason": "The mixed-product roundup describes planned strawberry trials in France amid melon, onion and tomato coverage. Its selected passage does not establish an East Malling experiment or completed trial results. Retain as a visible research lead; withhold automatic quotations until its crop, organization and trial-site context is separately reviewed. This is a conservative scope hold, not a finding that the publisher's claims are false.",
+      "comparison_source_url": "https://www.freshplaza.com/north-america/article/9698848/the-new-acapella-melon-presented-at-sival-2025/",
+      "comparison_locator": "article:9",
+      "disposition": "exclude_quotes_scope_verification",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "requested_trial_scope_unverified"
+    },
+    {
+      "id": "immaculate-conflicting-release-account",
+      "source_url": "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate",
+      "checked_source_version": "0ece50fcfe642f71c87b1e9c2b0e41feb3634e4c1dd032c0cf11684d76ad2a50",
+      "reason": "University-authored technical accounts identify a 2023 release and Arkansas late-season floricane production; the February 2024 news account describes initial availability. The breeder flyer depicts black ripe fruit. These conflict with the held account's early-2026 release and unusual color/maturity narrative. Keep this source excluded from quotations pending editorial correction; historical licensing text is not current legal status.",
+      "comparison_source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+      "comparison_locator": "article:2-4",
+      "disposition": "exclude_quotes_source_contradiction",
+      "reviewed_at": "2026-11-02",
+      "verification_state": "contradicted_by_primary_source_accounts",
+      "verification_sources": [
+        {
+          "source_url": "https://bpb-us-e1.wpmucdn.com/wordpressua.uark.edu/dist/3/599/files/2024/03/Sweet-Ark-Immaculate-A-2718T-Release-Flyer-6867520d1deea77d.pdf",
+          "locator": "PDF page 1, introduction, Ripening, Figure 1; visually inspected",
+          "reviewed_text_sha256": "633062ef10c93c3e622393ff6ccfcbb1daa42f0eed753fc334d64045b1ba129a"
+        },
+        {
+          "source_url": "https://horticulture.mgcafe.uky.edu/sites/horticulture.ca.uky.edu/files/January-February%202026%20Fruit%20Facts-2_AOD.pdf",
+          "locator": "PDF pages 5-6, university-authored cultivar account; visually inspected",
+          "reviewed_text_sha256": "4723d7f3491587c0b6ef6b93fe0046f60016d892bf802b35ba3ea846dafc1990"
+        },
+        {
+          "source_url": "https://smallfruits.org/2026/01/sweet-ark-immaculate/",
+          "locator": "January 5 2026 article introduction and Key Details; university authors"
+        }
+      ]
+    },
+    {
+      "id": "glen-dee-breeder-conflict-europepmc",
+      "source_url": "https://europepmc.org/articles/PMC12608649",
+      "checked_source_version": "09d89bf357bdbc45ac8ff5332890ccf0842b221bf205256aea42b0a398d2b726",
+      "reason": "This paper's Glen Dee paragraph attributes development to the Jackman Humanities Institute at the University of Toronto in Inverurie, Canada. The official CFIA variety account identifies a cross and selection at the James Hutton Institute, Dundee, UK. Withhold automatic quotations from this conflicting source pending source review; keep the research lead visible. This hold does not invalidate unrelated experiments or approve any breeder role or trait.",
+      "comparison_source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "comparison_locator": "Origin & Breeding History",
+      "disposition": "exclude_quotes_source_contradiction",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "breeder_attribution_conflicts_with_official_variety_account"
+    },
+    {
+      "id": "glen-dee-breeder-conflict-pmc",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12608649/",
+      "checked_source_version": "09d89bf357bdbc45ac8ff5332890ccf0842b221bf205256aea42b0a398d2b726",
+      "reason": "This paper's Glen Dee paragraph attributes development to the Jackman Humanities Institute at the University of Toronto in Inverurie, Canada. The official CFIA variety account identifies a cross and selection at the James Hutton Institute, Dundee, UK. Withhold automatic quotations from this conflicting source pending source review; keep the research lead visible. This hold does not invalidate unrelated experiments or approve any breeder role or trait.",
+      "comparison_source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "comparison_locator": "Origin & Breeding History",
+      "disposition": "exclude_quotes_source_contradiction",
+      "reviewed_at": "2026-11-03",
+      "verification_state": "breeder_attribution_conflicts_with_official_variety_account"
+    }
+  ]
+}

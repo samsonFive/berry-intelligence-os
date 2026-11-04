@@ -1,4 +1,6 @@
 {% extends "glasshouse_base.html" %}
+{% set variety_sheet = entity.entity_type == 'variety' %}
+{% set breadcrumb_items = [{'label':'Varieties' if entity.entity_type == 'variety' else 'Companies','href':'/entities/' ~ ('variety' if entity.entity_type == 'variety' else 'company')},{'label':entity.name,'href':'/entities/' ~ entity.entity_type ~ '/' ~ entity.id},{'label':'Growing regions' if entity.entity_type == 'variety' else 'Operating regions'}] %}
 {% block title %}{{ entity.name }} · Regions{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/map_workspace.css?v=6">{% endblock %}
 {% block content %}

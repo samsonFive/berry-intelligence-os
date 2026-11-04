@@ -28,7 +28,7 @@
     <p class="v2-meta">
       {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
       {% elif section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
-      {% elif section.status == 'structured' %}<span class="badge badge-muted">From saved records</span>
+      {% elif section.status == 'structured' %}<span class="badge badge-muted">{% if packet.topic_research %}Attributed source material · web discoveries remain unreviewed{% else %}From saved records{% endif %}</span>
       {% elif section.status == 'unsupported' %}<span class="badge badge-muted">Needs more sources</span>
       {% elif section.status == 'unavailable' %}<span class="badge badge-muted">Not drafted yet</span>
       {% endif %}
@@ -90,6 +90,7 @@
 </section>
 {% endif %}
 
+{% include "_topic_evidence.html" %}
 {% include "_report_source_inventory.html" %}
 <details class="v2-card" style="margin:16px 0">
   <summary>Research missing public information</summary>

@@ -1,0 +1,29 @@
+{
+  "id": "variety-calinda-9b8f6574",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Calinda",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-90823b49a70b",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:31.755162+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.fresh-forward.nl/en/our-varieties/B",
+      "source_label": "Fresh Forward — strawberry navigation portfolio",
+      "candidate_name": "Calinda"
+    }
+  }
+}

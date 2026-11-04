@@ -1,0 +1,29 @@
+{
+  "id": "variety-columbia-star-ea4b1a65",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Columbia Star",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-125b04dfaf6a",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:54:28.621701+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022",
+      "source_label": "USDA ARS Corvallis — FY2022 berry program report",
+      "candidate_name": "Columbia Star"
+    }
+  }
+}
