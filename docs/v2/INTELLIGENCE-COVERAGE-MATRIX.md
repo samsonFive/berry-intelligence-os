@@ -1,3 +1,16 @@
+# Nebula original article recapture — November 4, 2026
+
+The [dated Nebula source proposal](NEBULA-ORIGINAL-RECAPTURE-2026-11-04.md)
+uses the existing source ID after visual inspection of both original pages.
+The October text-only capture remains intact. The current read view gains
+scoped source context and a link to credited photographs in the original PDF;
+no extra cultivar, canonical identity, confirmed growing footprint or image
+reuse decision is created. This is a complete article enumeration, not a
+complete Mountain Blue portfolio. It retains source-only #494, excludes
+platform #497 and remains unapproved and undeployed. Its own validation and
+fresh private-data rehearsal remain release gates. Earlier counts below keep
+their dated scope.
+
 # Current verified releases and remaining mission — November 3, 2026
 
 Prepared separately from live #490: [the Well-Pict historical source](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
