@@ -1,0 +1,31 @@
+name: Portfolio loader diagnostic (never merge)
+on:
+  push:
+    branches: [perf/portfolio-loader-probe-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-fixture-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install existing test dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Compare complete public workflows
+        env:
+          BIOS_DIAGNOSTIC_OUT: ${{ runner.temp }}/portfolio-loader-diagnostic
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python scripts/diagnostics/portfolio_loader_probe.py
+      - name: Retain public fixture results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-portfolio-loader-diagnostic
+          path: ${{ runner.temp }}/portfolio-loader-diagnostic
+          retention-days: 7
