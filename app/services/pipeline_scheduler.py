@@ -108,6 +108,7 @@ def run_due_pipelines(
     config_path: Path,
     now: datetime | None = None,
     pipeline_id: str | None = None,
+    pipeline_ids: list[str] | None = None,
     force: bool = False,
     plan_only: bool = False,
     executor: Callable[[list[str]], subprocess.CompletedProcess[str]] = _default_executor,
@@ -115,13 +116,17 @@ def run_due_pipelines(
     instant = (now or datetime.now(UTC)).astimezone(UTC)
     config = json.loads(config_path.read_text(encoding="utf-8"))
     pipelines = config.get("pipelines") or []
-    if pipeline_id and pipeline_id not in {item.get("id") for item in pipelines}:
-        raise ValueError(f"unknown pipeline: {pipeline_id}")
+    if pipeline_id and pipeline_ids is not None:
+        raise ValueError("Use one pipeline selector form")
+    selectors = set(pipeline_ids) if pipeline_ids is not None else {pipeline_id} if pipeline_id else None
+    unknown = (selectors or set()) - {item.get("id") for item in pipelines}
+    if unknown:
+        raise ValueError(f"unknown pipeline: {', '.join(sorted(unknown))}")
     health = build_pipeline_health(data_dir=data_dir, inbox_dir=inbox_dir, config_path=config_path, now=instant)
     health_by_id = {item["pipeline"]: item for item in health["pipelines"]}
     selected: list[dict[str, Any]] = []
     for pipeline in pipelines:
-        if pipeline_id and pipeline.get("id") != pipeline_id:
+        if selectors is not None and pipeline.get("id") not in selectors:
             continue
         if not pipeline.get("enabled") or not pipeline.get("scheduled"):
             continue
@@ -137,12 +142,26 @@ def run_due_pipelines(
             "pipelines": health["pipelines"],
         }
 
+    # Record what this dispatcher actually selected, separately from registry
+    # enabled/scheduled flags. An active timer is not proof of lane execution.
+    dispatch = {'generated_at': _iso(instant), 'selection': 'explicit' if selectors is not None else 'all_enabled_scheduled',
+                'requested_ids': sorted(selectors) if selectors is not None else None,
+                'due_ids': [pipeline['id'] for pipeline in selected], 'state': 'DISPATCHING'}
+    dispatch_path = inbox_dir / 'operations/pipelines/dispatcher.json'
+    _write_json(dispatch_path, dispatch)
+
     results: list[dict[str, Any]] = []
     for pipeline in selected:
         started = datetime.now(UTC)
         monotonic_started = time.monotonic()
         command = [sys.executable, *shlex.split(str(pipeline["runner"]))]
-        completed = executor(command)
+        try:
+            completed = executor(command)
+        except (OSError, subprocess.TimeoutExpired):
+            # One lane failing to launch must not suppress other explicitly
+            # selected lanes. Do not retain exception strings containing args.
+            completed = subprocess.CompletedProcess(command, 1, stdout='{"state":"error"}',
+                stderr='Pipeline process could not start or exceeded its configured time limit.')
         finished = datetime.now(UTC)
         payload = _parse_output(completed.stdout)
         outcome, failure_count = classify_outcome(pipeline["id"], payload, completed.returncode)
@@ -164,4 +183,5 @@ def run_due_pipelines(
         results.append(record)
     outcomes = {result["outcome"] for result in results}
     state = "IDLE" if not results else "FAILED" if "FAILED" in outcomes else "PARTIAL" if "PARTIAL" in outcomes else "SUCCESS"
+    _write_json(dispatch_path, {**dispatch, 'state': state})
     return {"state": state, "generated_at": _iso(instant), "results": results}

@@ -1,90 +1,53 @@
 # Berry Intelligence — requirements and current status
 
-## Combined release preparation — November 4, 2026
+Updated November 4, 2026. All 31 original requirements and their order remain
+verbatim below. The mission remains active; this reconciliation retires no
+requirement or human gate.
 
-The isolated `release/mission-closeout-integration-20261104` candidate
-combines the tested platform #500, source #498, harvest/Learn #504 and
-checklist #503 heads. Their preceding individual results below are
-component evidence, not acceptance of this combination. Combined CI,
-desktop/phone review and fresh private-data/workflow acceptance remain
-pending. The latest read-only observation still finds live #411 healthy;
-catalog #492 is merged but its actual rollout has not been observed.
-No merge, deployment, import or new release approval occurs here.
+## Verified releases and current candidate
 
-Updated November 4, 2026, 10:22 UTC. This is the active checklist. The original
-31 accepted requirements and their order remain below. No requirement is
-removed or declared complete by this status reconciliation. Full preceding
-status/checklist/closeout texts are preserved in
-[history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026--previous-active-status-before-live411-reconciliation).
-
-## Verified live, merged and prepared
-
-| State | Release | Evidence and remaining gate |
+| State | Work | Evidence and next gate |
 | --- | --- | --- |
-| Live | Search/research #411, `34eb23c3` | Independent read-only observation finds the running and recorded image `d8601b96` equal and the app healthy. This is a version/health observation, not a new full live-data census. The delivered redesign, Help explainer and earlier approved platform features remain retained. |
-| Merged, rollout pending | Editable catalog #492, `b7b23212` | Git is merged. Its release owner reports a tested 507→1,259 plan with unverified workspace varieties. This chat has not observed that runtime or population live; do not describe the planned count as deployed. |
-| Tested draft | Platform #500, `15295070` | All four checks pass: 6,679 tests, 11 skipped. Native desktop/390px review passes four collection handoffs, uncertain-crop hold, catalog confirmation/removal/restore, first-login Help and interactive Learn/credited photo rendering. No data/schema additions. Fresh current-live preservation and final-head release approval remain. |
-| Tested draft | Source #498, `d8d94411` | All four checks pass: 6,627 tests, 11 skipped; 44 affected checks and desktop/390px review pass. Four source/README additions retain exact intended bytes. Fresh current-live preservation and separate release approval remain. |
-| Tested draft | Harvest source/Learn #504, `2d7ff4cc` | All four checks pass: 6,626 tests, 11 skipped; 71 affected checks and native desktop/390px review pass. One zero-name Benning source and a credited publisher-video link; 3,440 copied public seed files remain unchanged. No new cultivar, identity, role, photo permission or live-data acceptance is implied. Current-live preservation and separate release approval remain. |
-| Retained component | Removal fix #502, `24911530` | All four checks/6,630 tests, 58 affected checks and native review pass. Its three runtime files are retained exactly in #500. Keep it open until that incorporation is verified on canonical; it is not a separate deployed release. |
+| Live | Source-intelligence #501, `d785c182` | Read-only observation confirms matching recorded/running image `ed6d0f4c` and healthy status. It retains catalog #492. |
+| Completed prior-head evidence | Combined #506, `e0d898c7` | All four checks/6,686 tests, 455 affected checks and native desktop/phone review passed. Fresh private review preserved five accounts, 1,259 profiles, 11,830 existing JSON records, four databases and 1,115 research files; 47 route/PDF checks passed. Six source/README files added, zero existing data changes. |
+| Current draft | Combined #506 reconciled with live #501 | Retains exact platform #500, source #498, harvest/Learn #504 and checklist #503 components plus newer canonical source-intelligence work. Fresh current-head CI, browser and live-copy checks remain required. No approval, merge or deployment. |
 
-Workspaces, company favorites/tiers/lists and saved Explorer views are shared.
-Only Personal Digest and layout settings are account-private. Existing accounts
-including Chris.H, user edits, research, data mounts and human review gates stay
-protected. The last isolated #500 rehearsal on the earlier #411 base retained
-five accounts, 507 profiles, 11,004 JSON records, four databases and 1,115 research
-files. Those are dated copy-test counts, not acceptance of the new combined head.
+Twenty-four complete-response comparisons on the preceding head matched across
+eight fresh processes; all 25,271 isolated runtime files remained unchanged.
+Measured workflows improved about 47–49%; first catalog visits still took
+5.8–6.4 seconds. These are bounded server-copy measurements, not universal live
+timings or acceptance of this revision. Keep TD-122 open.
 
-## What remains to finish here
+## Work remaining here
 
-| Work | Next action | Evidence required to finish |
+| Work | Next action | Completion evidence |
 | --- | --- | --- |
-| Release sequencing | Observe catalog #492's actual final image and population; coordinate the release window if the user grants chat messaging. | Stable recorded/running base, unchanged shared resource and collection locks. No merge or deployment from an obsolete base. |
-| Platform/source release | Run fresh consistent private-data preservation and complete-workflow checks for #500 and #498 against the actual live base. | Preserve accounts, user edits, records, four databases and research; all current-head checks, native review, exact-head approval, release-time backup and retained rollback. No final preservation pass is claimed yet. |
-| Cold-load speed / TD-122 | Measure the final catalog's first visit and next-click workflow; continue only improvements with equal complete outputs and current-edit freshness. | Relevant server-copy measurements. Catalog visits still take several seconds; public-only profiles and rejected prototypes are not deployed gains. |
-| Catalog completeness / CAT-01, CAT-02 | Continue the 77-subject source plan, unreadable originals and cited profile/rights/region/photo depth. | Account for literal source names and exclusions, disclose incomplete coverage and retain original sources and actual human decisions. |
-| Independent review | Retain the 32-source expected-name packet, 32 unclear photographed cells, two organization holds and source/name/code/role/rights/photo decisions. | Independently supplied human answers and explicit decisions. Parser output must not supply its own expected answers. |
-| Map figures / MAP-02 | Review the 24 country/crop references and 51 original-unit figures across eight countries, including two UK discrepancy holds. | Human selection with period, unit, crop, geography and original citation; no automatically trusted statistic or growing footprint. |
-| Learn depth | Preserve the 27 lessons and completed editable acceptance draft while improving source/media/citation quality. | Appropriate attribution, preserved edits/history and human quality review. The single approved provider run is complete; no further paid request or retry is authorized. |
+| Combined release | Validate the revision on actual live #501; then present the tested exact head. | All four checks, native desktop/phone review, consistent private-data/workflow preservation, explicit exact-head approval, fresh release-time backup, retained rollback and verified live behavior. |
+| Cold-load speed / TD-122 | Measure the final catalog's first visit and subsequent workflow; improve only with equal complete responses and fresh edits. | Current-copy timings; rejected disk/reader/source caches remain excluded. |
+| Catalog depth / CAT-01, CAT-02 | Continue the 77-subject plan, 11 unreadable originals and cited profile/role/rights/region/photo depth. | Literal names and exclusions accounted for, original sources and operator edits preserved; no unsupported worldwide-completeness claim. |
+| Independent review | Retain the 32-source expected-name packet, 32 unclear photographed cells, organization holds and name/code/role/rights/photo queues. | Independent human answers and explicit decisions; parser output cannot supply its own answer key. |
+| Map figures / MAP-02 | Review 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. | Human selections retaining crop, geography, period, units and citations; company presence is not a growing footprint. |
+| Learn depth | Retain 27 lessons and the completed editable provider acceptance draft; improve citations/media/scientific quality. | Attribution, preserved edits/history and human quality review. No additional paid call or retry is authorized. |
 
-The visual explanation of site sections, analyst workflow and reporting choices
-is already delivered in Help at `/guide`; it is not an unfinished slide deck.
-News/Reader, Personal Digest, Companies, four-crop Landscape and reporting
-workflows remain delivered. Publication review, statement review, catalog
-identity/authoring, source authenticity and photo permission are separate gates.
+Help at `/guide` already explains sections, analyst workflow and reporting.
+Workspaces, company favorites/tiers/lists and saved Explorer views are shared;
+only Personal Digest and layout settings are private. All accounts including
+Chris.H, data mounts, settings, research and existing edits remain protected.
+Publication review, statement review, source authenticity, catalog identity,
+commercial roles and photo permissions stay separate human decisions.
 
-The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
-identify what is actually missing and what could resolve each row. They distinguish
-unpublished cultivar names, research material, product brands and a possible
-Biogea website mismatch. No row is marked complete, company website corrected,
-benchmark answered or catalog identity approved by that follow-up.
+The prior canonical #492 public audit found 539 source sections/2,073 literal
+occurrences/899 derived candidate keys. These are dated public-seed counts,
+not approved varieties or current private-catalog completeness. The 77-subject
+plan has 67 named, seven partial, one unavailable and two identity holds;
+[partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+retain the exact gaps without automatically correcting identities or websites.
 
-## Current public source denominator
-
-The reproducible audit on canonical `b7b23212` reads only public `data/`, not the
-private runtime: **539 source sections, 2,073 literal name occurrences, 881
-catalog text matches, 1,192 review-needed occurrences and 899 derived candidate
-keys**. The 77 subjects comprise 67 with names, seven partial, one unavailable
-and two identity holds; there are 11 unreadable sections and 143 follow-ups.
-
-Occurrences, candidate keys and catalog records are different counts. The older
-1,333-key figure belongs to an earlier catalog denominator; it is retained in
-history, not presented as a current queue or an independent completeness score.
-Text matches are not approved identities, roles or claims. No world-completeness
-claim is supported by this audit.
-
-## Approval and capacity boundaries
-
-The earlier #500 approval applies to `b2452a89` only. Its stale-base guard stopped
-before backup, merge or switch when #411 became live. The unanswered `7ace95b7`
-question is superseded; neither authorizes `15295070` or source #498.
-The specifically approved four-copy cleanup is complete and does not permit
-further backup deletion. The new rehearsal retains the archive and verifies its
-new construction copy before isolated use; it keeps the 10GiB guard unchanged.
-No additional purchase, paid provider call, import or cleanup is authorized here.
-
-The mission remains active. Previous dated release references below are retained
-delivery evidence; the state table above identifies what is actually current.
+Old #500 approvals are not approval for #506. Existing backup archives and both
+original test copies remain retained. No extra cleanup, bulk import or paid
+provider request is authorized. Keep component PRs open until canonical
+incorporation is verified after an approved release. Earlier active texts are
+preserved in [history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026---checklist-before-live501-reconciliation).
 
 ## Original accepted requirements
 

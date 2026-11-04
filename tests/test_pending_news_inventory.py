@@ -21,8 +21,8 @@ def pending(item_id='ev-pending-news', **changes):
     return row
 
 
-@pytest.mark.parametrize('media_format,visible', [('web_article', True), ('audio', False), ('video', False), ('pdf', False), ('', False)])
-def test_actual_article_pipeline_metadata_admits_web_articles_only(workspace, media_format, visible):
+@pytest.mark.parametrize('media_format,visible', [('web_article', True), ('podcast', True), ('video', True), ('conference_video', True), ('audio', False), ('pdf', False), ('', False)])
+def test_pipeline_metadata_admits_supported_publication_formats(workspace, media_format, visible):
     client, _ = workspace
     row = pending(source_type='discovered_media', media_format=media_format)
     path = write(row)

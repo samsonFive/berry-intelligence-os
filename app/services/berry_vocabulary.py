@@ -8,7 +8,10 @@ EXTRA_CROP_TERMS = {
     'blackberry': ('amora-preta', 'amoras-pretas', 'amora preta', 'amoras pretas', 'jeżyna', 'jeżyny', 'jeżyn', 'jezyna', 'jezyny', 'zarzamora', 'zarzamoras'),
 }
 NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', 'licencja', 'licencje',
-                         'variedade', 'variedades', 'melhoramento', 'licenciamento', 'produção', 'cultivo')
+                         'variedade', 'variedades', 'melhoramento', 'licenciamento', 'produção', 'cultivo',
+                         'producción agrícola', 'produccion agricola', 'agricultura de exportación',
+                         'agricultura de exportacion', 'experiencias productivas',
+                         'mejoramiento genético', 'mejoramiento genetico')
 NATIVE_CONCEPTS = {'variety': ('odmiana', 'odmiany', 'odmian', 'variedade', 'variedades'),
                    'breeding': ('hodowla', 'hodowli', 'melhoramento'),
                    'license': ('licencja', 'licencje', 'licenciamento')}

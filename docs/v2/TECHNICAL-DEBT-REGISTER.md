@@ -1,5 +1,9 @@
 # Catalog release reconciliation — November 4 UTC, 2026
 
+## November 4 live-base reconciliation
+
+The healthy interactive app now runs source-intelligence #501 at `d785c182`, retaining editable catalog #492. The private #506 rehearsal on the preceding #492 base preserved 1,259 profiles and all five accounts; that completed evidence does not accept the newer combination. The draft now incorporates #501 and requires fresh current-head checks, browser review and live-data acceptance before exact-head release approval. The dated accounts below retain their original scope and counts.
+
 The user approved release #492. While server headroom was being recovered,
 Search/research #411 went live at `34eb23c3`. That release also admitted 442
 source-backed variety records. The catalog release is rebased onto it and
@@ -34,6 +38,8 @@ release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
 
+**Retained dated platform/source account:**
+
 Prepared source-only follow-up: [two historical Well-Pict labels](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
 add original printed context without resolving current portfolio, numeric
 identity, role, rights, photo or region questions. CAT-01/CAT-02 and TD-116
@@ -41,6 +47,16 @@ remain open; the scoped follow-up count rises to 144. The 11 unreadable sections
 remain. Live #490 at `3ffe5bad` and separate default-off performance #493 are
 unchanged; no new deployment, provider request or human decision is authorized
 by this draft. Earlier dated release statements below are historical.
+
+**Retained dated source-intelligence account:**
+
+November 4 historical-transcript continuity: the earlier private worktrees retain real faster-whisper podcast and YouTube caption artifacts. Two original artifacts were hash-checked and reused in an isolated Reader/workspace capture/restart canary; no retranscription, production delivery or trust change occurred. The web image deliberately excludes acquisition/STT dependencies. Explicit parent/source linkage and metadata-only transcript reference visibility now address the display disconnect; word-level quality and new recurring-worker activation remain open. See [the updated review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md).
+
+November 3 source-intelligence continuation: an undeployed mixed-media/scheduling/Reader candidate is documented in [the review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md). Real bounded podcast/blog recovery, retained-video visibility, source execution versus feed contribution, explicit source/pipeline allowlists and caption-only job states are under validation. Three sampled YouTube Atom endpoints returned 404; the real caption request hit a platform challenge. Transcript quality, provider allowances, independent analyst evaluation and wider variety coverage remain open. No production schedule, trust decision, account or paid routing was changed.
+
+November 3 scoped release #411: the user explicitly authorized deployment of ready work. Candidate `453097a4` passed fresh CI (6,609 tests; all four checks), merged as `34eb23c3` and is verified live in the interactive app. Fresh backup, bounded offline rehearsal, 3,253 preserved existing data files, four preserved databases, settings/mount comparison and eight authenticated live routes passed; 465 data files / three Source rows were added without replacing existing rows. Paid Perplexity research remains disabled. [Release receipt](SEARCH-RESEARCH-RELEASE-411-2026-11-03.md) distinguishes the running app from the still-running public snapshot rebuild. The mixed-media patch is excluded. The new [mission](SOURCE-INTELLIGENCE-GAP-MISSION.md) and [complete handoff](SOURCE-INTELLIGENCE-GAP-HANDOFF-2026-11-03.md) retain all unresolved work and the failed quality target; earlier hold statements below are historical, not an unresolved release-permission request.
+
+November 3 source/media handoff: [the complete follow-up mission](SOURCE-INTELLIGENCE-GAP-HANDOFF-2026-11-03.md) records a verified main-News format exclusion, not a missing-adapter assumption. Production contains 972 discovered podcasts / 69 videos and 18 podcast / 10 video drafts; default `/today` excludes those formats. Existing Exa credentials are present in production and locally labelled; allowance/auth/routing still need verification. Mixed-media filters, main-feed source health, transcription completion and the no-extension Research Reader remain follow-up work; an untested three-file patch is retained privately and excluded from release #411. Google parity and wider structured variety depth remain unmet. The user's later instruction authorizes deployment of ready work; exact release and preservation outcome belongs in the companion release receipt, not inferred from this note.
 
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),

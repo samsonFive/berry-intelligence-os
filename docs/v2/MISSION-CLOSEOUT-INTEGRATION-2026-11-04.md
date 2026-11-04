@@ -1,7 +1,7 @@
 # One release candidate for the remaining prepared work
 
 This isolated candidate combines four previously tested drafts on canonical
-catalog merge `b7b23212`. It does not merge or deploy any of them, authorize an
+source-intelligence merge `d785c182` (retaining catalog #492). It does not merge or deploy any of them, authorize an
 import, or complete the broader source and human-review work.
 
 | Component | Exact tested head | Included behavior |
@@ -26,10 +26,10 @@ current combined-catalog completeness or acceptance of this combination.
 
 1. Pass all four checks on this exact combined head and review the combination
    in the authenticated isolated desktop and phone preview.
-2. Observe the actual final catalog runtime and coordinate a stable release
-   window. At the November 4 14:32 UTC read-only observation, live still reports
-   healthy #411 with equal recorded/running images; merged #492 is not yet the
-   observed live release. Its planned population is not a verified live count.
+2. Preserve the actual live source-intelligence #501 at `d785c182`, whose
+   healthy recorded/running image is `ed6d0f4c`. The completed earlier #492
+   rehearsal and workflow measurements remain dated prior-head evidence;
+   they cannot authorize or accept this new combination.
 3. Run fresh consistent private-data preservation and complete-workflow checks
    against that actual base, retaining accounts, user edits, research, four
    databases, settings and data mounts. Keep resource/consistency guards intact;

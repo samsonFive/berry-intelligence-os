@@ -1050,6 +1050,7 @@ def _run_tier2_youtube_captions(
     today: Callable[[], date],
     caption_info_fetcher: Callable[[str], dict[str, Any]] | None,
     caption_downloader: Callable[[str], str] | None,
+    diagnostics: dict[str, str] | None = None,
 ) -> TranscriptionOutcome | None:
     """Returns None (not a failure) whenever no legitimate YouTube caption
     result is available -- caller falls through to Tier 3, exactly like
@@ -1064,6 +1065,7 @@ def _run_tier2_youtube_captions(
         force=force,
         info_fetcher=caption_info_fetcher,
         downloader=caption_downloader,
+        diagnostics=diagnostics,
     )
     if result is None:
         return None
@@ -1237,6 +1239,7 @@ def transcribe_discovered_item(
     acquisition_errors = (MediaAcquisitionError, TranscriptionDependencyError, TranscriptionError, RawTranscriptParseError)
 
     outcome: TranscriptionOutcome | None = None
+    caption_diagnostics: dict[str, str] = {}
     if status_value == media_discovery.TRANSCRIPT_PUBLISHER:
         try:
             outcome = _run_tier1(inbox_dir, item, parent_evidence_id=parent_evidence_id, created_by=created_by, today=today)
@@ -1254,6 +1257,7 @@ def transcribe_discovered_item(
             today=today,
             caption_info_fetcher=caption_info_fetcher,
             caption_downloader=caption_downloader,
+            diagnostics=caption_diagnostics,
         )
 
     if outcome is not None:
@@ -1265,6 +1269,7 @@ def transcribe_discovered_item(
             error="expensive local speech-to-text deferred; publisher transcript or captions were not available",
             tier="deferred_expensive_transcription",
             parent_evidence_id=parent_evidence_id,
+            diagnostics=caption_diagnostics,
         )
 
     try:

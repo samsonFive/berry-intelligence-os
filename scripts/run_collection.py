@@ -92,6 +92,8 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument("--max-transcriptions", type=int, help="Maximum uncached transcription attempts in this run")
+    parser.add_argument('--source-allowlist', nargs='+', help='Limit a pipeline scope to these exact registered Source IDs')
+    parser.add_argument('--no-model-enrichment', action='store_true', help='Use deterministic relevance/enrichment only; construct no model completer')
     parser.add_argument("--max-items", type=int, help="Maximum staged items processed in deterministic order")
     parser.add_argument(
         "--max-discoveries",
@@ -308,7 +310,7 @@ def main(argv: list[str] | None = None) -> int:
     article_berries = [record for record in all_entities if record.get("entity_type") == "berry"]
     article_geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
     article_companies = [record for record in all_entities if record.get("entity_type") == "company"]
-    article_completer = maybe_untrusted_completer()
+    article_completer = None if args.no_model_enrichment else maybe_untrusted_completer()
     # Query-provenance corroboration matchers (relevance_screen.py's
     # _query_corroboration_hit) -- reuses the exact same canonical
     # entity-identity matcher this project already uses for draft
@@ -402,6 +404,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         source_ids = None
         schedule: dict[str, object] = {}
+        if args.source_allowlist and not args.pipeline_scope:
+            raise ValueError('--source-allowlist requires --pipeline-scope')
         if args.pipeline_scope:
             spoken_adapters = {"podcast_rss", "youtube_feed"}
             candidate_sources = sorted(
@@ -418,6 +422,12 @@ def main(argv: list[str] | None = None) -> int:
                 ),
                 key=lambda source: source["id"],
             )
+            if args.source_allowlist:
+                allowed = set(args.source_allowlist)
+                unknown = allowed - {source['id'] for source in candidate_sources}
+                if unknown:
+                    raise ValueError('Allowlisted sources must be eligible for this pipeline: ' + ', '.join(sorted(unknown)))
+                candidate_sources = [source for source in candidate_sources if source['id'] in allowed]
             policy_path = args.cadence_policy or args.data_dir / "configuration" / "source_collection_cadence.json"
             if policy_path.is_file():
                 policy = load_cadence_policy(policy_path)
@@ -440,6 +450,8 @@ def main(argv: list[str] | None = None) -> int:
                     "decisions": [decision.as_dict() for decision in decisions],
                 }
             else:
+                if args.source_allowlist:
+                    raise ValueError('An allowlisted scheduled lane requires its cadence policy')
                 # Backward-compatible deployment safety: an older runtime
                 # missing the new additive policy continues the established
                 # group behavior rather than silently starving every Source.

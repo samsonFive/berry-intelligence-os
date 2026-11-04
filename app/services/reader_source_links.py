@@ -32,6 +32,11 @@ def source_links(record, *, capture=None, publisher_url="", resolved_url=""):
     have succeeded; a consent page or publisher homepage is never an article.
     """
     original = _public_url(record.get("source_url"))
+    media = record.get('media_format')
+    if media in {'podcast', 'video', 'conference_video'} or record.get('source_type') == 'industry_podcast':
+        return {'source_link_url': _public_url(record.get('media_url')) or original,
+                'source_link_label': 'Listen at source' if media == 'podcast' or record.get('source_type') == 'industry_podcast' else 'Watch at source',
+                'publisher_home_url': original, 'source_link_unresolved': False}
     target = _public_url(resolve_google_news_url(original)) if original else ""
     if original and _google_destination(target):
         cached = _public_url(resolved_url)

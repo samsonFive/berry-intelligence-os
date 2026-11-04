@@ -1,5 +1,9 @@
 # Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
 
+## November 4 live-base reconciliation
+
+The healthy interactive app now runs source-intelligence #501 at `d785c182`, retaining editable catalog #492. The private #506 rehearsal on the preceding #492 base preserved 1,259 profiles and all five accounts; that completed evidence does not accept the newer combination. The draft now incorporates #501 and requires fresh current-head checks, browser review and live-data acceptance before exact-head release approval. The dated accounts below retain their original scope and counts.
+
 The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
 separate missing public cultivar lists, brand-only pages, research material and
 a possible same-name Biogea website mismatch. No company website, source record,
@@ -70,6 +74,8 @@ release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
 
+**Retained dated platform/source account:**
+
 [Performance #490](https://github.com/samsonFive/berry-intelligence-os/pull/490)
 is merged and independently verified live at `3ffe5bad` (approved exact head
 `10d49757`). It retains catalog #488, News #487 and the earlier platform stack.
@@ -90,6 +96,16 @@ keys, with 11 unreadable sections and 144 follow-ups; live remains 539 /2,073
 remain. No canonical, provider, schema or human-decision change is included.
 Performance #493 is a separate default-off draft, not a deployed gain. Earlier
 release statements below retain their dated scope.
+
+**Retained dated source-intelligence account:**
+
+November 4 historical-transcript continuity: the earlier private worktrees retain real faster-whisper podcast and YouTube caption artifacts. Two original artifacts were hash-checked and reused in an isolated Reader/workspace capture/restart canary; no retranscription, production delivery or trust change occurred. The web image deliberately excludes acquisition/STT dependencies. Explicit parent/source linkage and metadata-only transcript reference visibility now address the display disconnect; word-level quality and new recurring-worker activation remain open. See [the updated review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md).
+
+November 3 source-intelligence continuation: an undeployed mixed-media/scheduling/Reader candidate is documented in [the review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md). Real bounded podcast/blog recovery, retained-video visibility, source execution versus feed contribution, explicit source/pipeline allowlists and caption-only job states are under validation. Three sampled YouTube Atom endpoints returned 404; the real caption request hit a platform challenge. Transcript quality, provider allowances, independent analyst evaluation and wider variety coverage remain open. No production schedule, trust decision, account or paid routing was changed.
+
+November 3 scoped release #411: ready search/Keyword Monitoring/variety implementation is verified in the interactive app at `34eb23c3`, after explicit user release authorization, fresh exact-head CI and preservation checks. Existing sources were retained; three rows were added. [The release receipt](SEARCH-RESEARCH-RELEASE-411-2026-11-03.md) records actual deployment and the separate public snapshot workflow. This does not close Google parity, media discovery/display/transcription, provider-allowance or variety-depth gaps. The new [source intelligence mission](SOURCE-INTELLIGENCE-GAP-MISSION.md) retains those boundaries and the exact production/canary findings.
+
+November 3 source/media handoff: production inventory confirms 8 podcast feeds / 4 YouTube sources, 972 discovered podcast items / 69 videos, and 18 podcast / 10 video drafts. These are raw counts, not relevance, currentness or transcript completion. Default News rejects these media formats despite the existing generic collectors. The [follow-up mission](SOURCE-INTELLIGENCE-GAP-HANDOFF-2026-11-03.md) covers unified feed/filters, source yield/exclusion visibility, real collection and transcription proof, Exa activation under verified allowances, reader/excerpt capture and every remaining search/variety hold. Source registry presence and enabled pipeline configuration do not prove successful execution. A preserved private UI patch is untested and excluded from release #411; no coverage closure is claimed here.
 
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),

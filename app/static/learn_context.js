@@ -7,6 +7,7 @@
   var dismiss = document.createElement("button"); dismiss.type = "button"; dismiss.className = "learn-context-close"; dismiss.textContent = "×"; dismiss.setAttribute("aria-label", "Dismiss learning action");
   panel.append(sample, action, dismiss); document.body.append(panel);
   function selection() {
+    if (document.activeElement && document.activeElement.closest('input, textarea, select, [contenteditable]')) return '';
     var choice = window.getSelection(), anchor = choice && choice.anchorNode, element = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
     // Input fields and private editing forms are deliberately excluded.
     if (!element || !element.closest("#digest-main, #v2ReaderBody") || element.closest("input, textarea, select, form, pre, .learn-provenance, .lw-capture, .learn-context-selection")) return "";

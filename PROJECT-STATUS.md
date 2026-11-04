@@ -1,52 +1,35 @@
 # Berry Intelligence — current mission status
 
-## Combined release preparation — November 4, 2026
+Updated November 4, 2026. The healthy interactive app now runs source-intelligence
+#501 at `d785c182`, with equal recorded/running image `ed6d0f4c`, retaining
+editable catalog #492. The completed private review of the preceding #492 base
+verified all five accounts including Chris.H, 1,259 profiles, 11,830 existing
+protected JSON records, four databases and 1,115 research files. These are dated
+isolated-review counts, not a new census of #501's changing runtime.
 
-The isolated `release/mission-closeout-integration-20261104` candidate
-combines the tested platform #500, source #498, harvest/Learn #504 and
-checklist #503 heads. Their preceding individual results below are
-component evidence, not acceptance of this combination. Combined CI,
-desktop/phone review and fresh private-data/workflow acceptance remain
-pending. The latest read-only observation still finds live #411 healthy;
-catalog #492 is merged but its actual rollout has not been observed.
-No merge, deployment, import or new release approval occurs here.
+Combined draft [#506](https://github.com/samsonFive/berry-intelligence-os/pull/506)
+retains platform #500, source #498, harvest/Learn #504, checklist #503 and now the
+live #501 changes. The preceding exact head `e0d898c7` passed all four checks
+(6,686 tests), 455 affected checks and desktop/390px review. Its 47 private
+route/PDF checks passed, preserving existing data and adding only six source
+and README files. Twenty-four complete-response comparisons matched across
+eight fresh processes; 25,271 isolated runtime files stayed unchanged. The tested
+workflows improved about 47–49%, but first catalog visits still took 5.8–6.4s.
+Those results remain evidence for that head, not acceptance of this revision.
 
-Updated November 4, 2026, 10:22 UTC. The
-[31-requirement checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md) is the active
-source for delivery, remaining work and human gates. Earlier status text remains
-verbatim in [history](PROJECT-STATUS-HISTORY.md#november-4-2026--previous-active-status-before-live411-reconciliation).
+Next: validate the current #506 combination, repeat current-live preservation,
+then request exact-head release approval. Nothing is merged or deployed by this
+integration. Existing archives, original test copies, settings, data mounts,
+operator edits and human decisions remain. No further cleanup or provider call
+is authorized. Old component approvals do not cover this combined release.
 
-**Live:** #411 at `34eb23c3`; independent read-only observation confirms matching
-recorded/running image `d8601b96` and healthy status. Catalog #492 is merged in
-Git at `b7b23212`, but its rollout/population has not been observed live here.
-Its tested 1,259-variety plan is not a live count.
+The dense News/Reader, consolidated navigation, collaborative Workspaces,
+private Digest/layouts, Companies, four-crop Landscape/reporting, 27 visual Learn
+lessons and visual Help explainer remain delivered. The
+[31-requirement checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md) retains every
+accepted requirement and the remaining work. Broader source/profile depth,
+cold-load speed, independent expected-name/photo answers, held Map figures and
+Learn quality remain open. Source occurrences are not approved identities.
 
-**Prepared:** platform #500 at `15295070` passes all four checks/6,679 tests and
-native desktop/phone review. It retains #492 and the #502 removal safeguards.
-Source-only #498 at `d8d94411` passes all four/6,627 tests, 44 affected checks and
-native review. Neither is deployed. Both still require fresh current-live
-preservation and separate exact-head release approval; old #500 approvals do not
-cover the reconciled head. Separate source/Learn #504 at `2d7ff4cc` passes all four
-checks/6,626 tests and native desktop/phone review. It adds one zero-name Benning
-source and a credited publisher-video link, without approving any cultivar or
-photo permission. It also remains undeployed and needs current-live acceptance.
-
-The redesign, consolidated navigation, dense visual News/Reader, collaborative
-Workspaces, private Digest/layouts, four-crop Landscape, reporting, 27 visual Learn
-lessons and visual Help explainer remain delivered. Existing accounts, edits,
-research, mounts and independent human trust decisions remain protected.
-
-Remaining work stays here: final release sequencing/preservation; cold catalog
-speed; the 77-subject source and profile-depth plan; independent expected-name
-answers, unclear photographed labels and other human review queues; held Map
-figure selection; and broader Learn citation/media quality. Public source counts
-are 539 sections/2,073 occurrences/899 derived keys on this exact canonical
-catalog. These are not approved-variety counts or worldwide completeness.
-The [partial-portfolio dispositions](docs/v2/PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
-record the seven unresolved subjects, including a possible same-name Biogea
-website mismatch, without changing their status or canonical organization data.
-
-The one approved paid Learn acceptance run is complete. No additional paid
-request, purchase or backup cleanup is inferred. Rejected performance prototypes
-remain excluded. This status update changes documentation only and does not
-approve, deploy or complete the mission.
+Earlier status text is preserved in
+[history](PROJECT-STATUS-HISTORY.md#november-4-2026---status-before-live501-reconciliation).

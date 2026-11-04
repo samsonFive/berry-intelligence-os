@@ -137,6 +137,24 @@ def _preferred_id(records: list[dict[str, Any]]) -> str | None:
     return ranked[0].get("id") if ranked else None
 
 
+def same_recording(item, record):
+    if record.get('source_id') != item.get('source_id'):
+        return False
+    if item.get('id') and record.get('discovered_item_id') == item['id']:
+        return True
+    provenance = record.get('discovery_provenance') or {}
+    if provenance.get('dedupe_key'):
+        return bool(item.get('dedupe_key') == provenance['dedupe_key'] and
+                    (not provenance.get('dedupe_strategy') or provenance['dedupe_strategy'] == item.get('dedupe_strategy')))
+    # Legacy records have no GUID lineage: require an actual path plus exact
+    # URL, title and publication day together. A homepage is never an episode.
+    url = item.get('canonical_url') or ''
+    return bool(urlsplit(url).path.strip('/') and
+                normalize_canonical_url(url) == normalize_canonical_url(record.get('source_url')) and
+                normalize_title(item.get('title')) == normalize_title(record.get('title')) and
+                item.get('published_date') and str(item['published_date'])[:10] == str(record.get('published_date') or '')[:10])
+
+
 def find_duplicate_article(
     item: dict[str, Any],
     *,
@@ -147,6 +165,11 @@ def find_duplicate_article(
     item), or None. `existing_records` should include both trusted
     published Evidence and pending inbox drafts -- a duplicate of either
     is still a duplicate."""
+    # A spoken-media feed can advertise its show homepage for every episode.
+    # GUID lineage wins; never resolve distinct recordings by that shared URL.
+    if item.get('media_format') in {'podcast', 'video', 'conference_video'}:
+        matches = [record for record in existing_records if same_recording(item, record)]
+        return _preferred_id(matches)
     item_urls = {
         normalize_canonical_url(item.get("canonical_url")),
         normalize_canonical_url(item.get("resolved_canonical_url")),
