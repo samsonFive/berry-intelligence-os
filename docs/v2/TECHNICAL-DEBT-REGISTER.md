@@ -3686,3 +3686,15 @@ news. Its runtime/test edits are archived and reverted. No new cache, matcher,
 source filtering, provider call, data write or human decision is introduced.
 TD-122 remains open; source/catalog/photo/Map and independent recall review
 remain separate unfinished requirements in this mission.
+
+### November 4 — source-scoped collection handoffs
+
+[The comparison follow-up](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md)
+closes the missing strawberry/raspberry/blackberry queue action on the existing
+Coverage page. Checked source species separate raspberry/blackberry namesakes;
+unknown and mixed taxonomy remain visible and held. Individual additions are
+weak unreviewed leads; existing edits/rejections, source references and old
+blueberry IDs remain. No schema, canonical catalog, source import or human
+decision changes. CAT-01/CAT-02/TD-116 remain open for original-source depth,
+independent human recall and actual identity/rights/photo decisions. TD-122,
+fresh private rehearsal and separate release acceptance remain open.

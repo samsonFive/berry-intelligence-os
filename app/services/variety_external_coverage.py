@@ -25,6 +25,18 @@ GRIN_BLUEBERRY_TAXA = {
     "Vaccinium angustifolium Aiton": ("Lowbush blueberry", "40981"),
     "Vaccinium darrowii Camp": ("Darrow's blueberry", "41007"),
 }
+# Exact GDR organism labels cross-checked against GRIN's Nomenclature and
+# Common Names tabs. Authorless R. fruticosus has multiple uses; dewberries,
+# generic hybrids and taxa without a checked crop label deliberately stay held.
+GDR_RUBUS_CROP_TAXA = {
+    "Rubus idaeus": ("berry-raspberry", "Red raspberry", "467361"),
+    "Rubus occidentalis": ("berry-raspberry", "Black raspberry", "32401"),
+    "Rubus argutus": ("berry-blackberry", "Southern blackberry", "104946"),
+    "Rubus laciniatus": ("berry-blackberry", "Evergreen blackberry", "32364"),
+    "Rubus ulmifolius": ("berry-blackberry", "Elm-leaf blackberry", "313548"),
+}
+CROP_LABELS = {"berry-strawberry": "Strawberry", "berry-blueberry": "Blueberry",
+               "berry-raspberry": "Raspberry", "berry-blackberry": "Blackberry"}
 REQUIRED_FIELDS = {"Unique Name", "Type", "Organism", "Cultivar", "Accession", "Institutional Name", "Dataset"}
 
 
@@ -261,6 +273,35 @@ def _catalog_name_index(varieties):
     return index
 
 
+def collection_crop_scope(baseline, entry):
+    """Source taxonomy scopes a lead, never its identity, release or rights.
+
+    Every reference must agree. Do not infer a crop from a familiar cultivar
+    name, a hybrid's parentage, or a majority of its collection records.
+    This projection never rewrites the saved export or its capture date.
+    """
+    refs = entry.get("references") or []
+    genus = entry.get("genus")
+    berry_id, basis, checked_on, taxonomy = "", "", "", []
+    if refs and baseline.get("id") == "grin-vaccinium-cultivars" and baseline.get("source_url") == GRIN_URL:
+        if genus == "Vaccinium" and entry.get("berry_scope") == "blueberry" and all(
+                ref.get("organism", "").strip() in GRIN_BLUEBERRY_TAXA for ref in refs):
+            berry_id, basis = "berry-blueberry", "Checked blueberry species in the source collection"
+    elif refs and baseline.get("id") == "gdr-fragaria-rubus-accessions" and baseline.get("source_url") == GDR_URL:
+        if genus == "Fragaria" and all(ref.get("organism", "").split(" ", 1)[0] == "Fragaria" for ref in refs):
+            berry_id, basis = "berry-strawberry", "Fragaria genus reported by the source collection"
+        elif genus == "Rubus":
+            organisms = sorted({ref.get("organism", "") for ref in refs})
+            scopes = [GDR_RUBUS_CROP_TAXA.get(organism) for organism in organisms]
+            if all(scopes) and len({scope[0] for scope in scopes}) == 1:
+                berry_id, basis, checked_on = scopes[0][0], "Source species cross-checked with USDA GRIN common names", "2026-11-04"
+                taxonomy = [{"organism": organism, "common_name": scope[1],
+                             "url": "https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomydetail.aspx?id=" + scope[2]}
+                            for organism, scope in zip(organisms, scopes)]
+    return {"berry_id": berry_id, "label": CROP_LABELS.get(berry_id, "Crop needs checking"),
+            "basis": basis, "checked_on": checked_on, "taxonomy": taxonomy}
+
+
 def compare_baseline(baseline, *, varieties, candidates, _catalog_index=None):
     """Live exact-name comparison. Text matches suggest review, never sameness."""
     catalog_index = _catalog_name_index(varieties) if _catalog_index is None else _catalog_index
@@ -272,14 +313,17 @@ def compare_baseline(baseline, *, varieties, candidates, _catalog_index=None):
                 candidate_index[folded].append(candidate)
     entries = []
     for entry in baseline["entries"]:
-        berries = (["berry-blueberry"] if entry.get("berry_scope") == "blueberry" else []) if entry["genus"] == "Vaccinium" else GENUS_BERRIES[entry["genus"]]
+        crop_scope = collection_crop_scope(baseline, entry)
+        # Unassigned Rubus retains broad text suggestions for comparison only.
+        # Checked species must not suggest a namesake from the other berry.
+        berries = [crop_scope["berry_id"]] if crop_scope["berry_id"] else GENUS_BERRIES.get(entry["genus"], [])
         catalog = {vid: name for vid, name, scope in catalog_index.get(fold_identity(entry["name"]), [])
                    if berries and (not scope or scope.intersection(berries))}
         found = {candidate["id"]: candidate for candidate in candidate_index.get(fold_identity(entry["name"]), [])
                  if candidate.get("berry_id") in berries}
         status = "crop_scope_needed" if not berries else "catalog_name_found" if catalog else "candidate_name_found" if found else "no_name_match"
         entries.append({**entry, "source_title": baseline["source_title"], "baseline_id": baseline["id"],
-            "input_sha256": baseline["input_sha256"], "status": status,
+            "input_sha256": baseline["input_sha256"], "status": status, "crop_scope": crop_scope,
             "catalog_matches": [{"id": key, "name": value, "href": "/entities/variety/" + key} for key, value in sorted(catalog.items())],
             "candidate_matches": [{"id": key, "name": candidate.get("candidate_name", key), "status": candidate.get("status", "unreviewed"),
                 "human_gated": bool(candidate.get("human_gated")),
@@ -325,6 +369,54 @@ def prepare_blueberry_identity_lead(*, baselines, baseline_id, name, input_sha25
     return {"candidate": candidate, "href": href}
 
 
+def prepare_external_identity_lead(*, baselines, baseline_id, name, input_sha256, varieties, candidates, genus=""):
+    """Add one source-scoped private lead through the existing review contract."""
+    from app.services.variety_universe.registry_import import build_candidate
+    baseline = next((row for row in baselines if row["id"] == baseline_id), None)
+    if baseline is None or baseline.get("input_sha256") != input_sha256:
+        raise ValueError("The saved comparison changed. Refresh it before adding a lead.")
+    if baseline_id == "grin-vaccinium-cultivars" and genus in {"", "Vaccinium"}:
+        entry = next((row for row in baseline["entries"] if row["name"] == name and row.get("berry_scope") == "blueberry"), None)
+        if entry is None or not collection_crop_scope(baseline, entry)["berry_id"]:
+            raise ValueError("The source crop needs checking.")
+        # Keep existing blueberry IDs and replay behaviour exactly compatible.
+        return prepare_blueberry_identity_lead(baselines=baselines, baseline_id=baseline_id, name=name,
+            input_sha256=input_sha256, varieties=varieties, candidates=candidates)
+    if baseline_id != "gdr-fragaria-rubus-accessions" or baseline.get("source_url") != GDR_URL or genus not in GENUS_BERRIES:
+        raise ValueError("Select an explicit crop group from the saved source comparison.")
+    entries = [row for row in baseline["entries"] if row["name"] == name and row["genus"] == genus]
+    if len(entries) != 1:
+        raise ValueError("The source name and crop group need checking.")
+    entry = entries[0]
+    crop_scope = collection_crop_scope(baseline, entry)
+    berry_id = crop_scope["berry_id"]
+    if not berry_id:
+        raise ValueError("The source crop needs checking.")
+    seed = json.dumps([baseline_id, genus, berry_id, name], ensure_ascii=False, separators=(",", ":"))
+    candidate_id = "vcand-" + hashlib.sha256(seed.encode()).hexdigest()[:12]
+    # A renamed, rejected or re-scoped human record must never be replaced by
+    # replay, even when its edited name no longer matches the collection label.
+    retained = next((row for row in candidates if row.get("id") == candidate_id), None)
+    href = "/varieties/candidates?" + urlencode({"q": (retained or {}).get("candidate_name") or name}) + "#" + candidate_id
+    if retained:
+        return {"candidate": None, "href": href}
+    compared = compare_baseline({**baseline, "entries": [entry]}, varieties=varieties, candidates=candidates)["entries"][0]
+    if compared["catalog_matches"]:
+        matches = compared["catalog_matches"]
+        return {"candidate": None, "href": matches[0]["href"] if len(matches) == 1 else "/varieties/coverage?" + urlencode(
+            {"external_q": name, "external_genus": genus, "external_status": ""}) + "#external-coverage"}
+    if compared["candidate_matches"]:
+        matches = compared["candidate_matches"]
+        return {"candidate": None, "href": matches[0]["href"] if len(matches) == 1 else "/varieties/candidates?" + urlencode({"q": name, "berry": berry_id})}
+    candidate = build_candidate({"id": candidate_id, "candidate_name": name, "berry_id": berry_id,
+        "source_url": baseline["source_url"], "source_label": baseline["source_title"],
+        "source_type": "public_germplasm_collection", "source_tier": "weak_noncanonical_lead"}, varieties=varieties)
+    candidate["external_collection"] = {"baseline_id": baseline_id, "checked_on": baseline["checked_on"],
+        "input_sha256": input_sha256, "source_name": name, "references": entry["references"], "crop_scope": crop_scope,
+        "limitations": "Collection label only; release status, aliases, breeder, traits, rights and growing regions need source review."}
+    return {"candidate": candidate, "href": href}
+
+
 def external_coverage_view(*, baselines, varieties, candidates, filters):
     catalog_index = _catalog_name_index(varieties)
     reports = [compare_baseline(row, varieties=varieties, candidates=candidates, _catalog_index=catalog_index) for row in baselines]
@@ -334,7 +426,8 @@ def external_coverage_view(*, baselines, varieties, candidates, filters):
     genus = genus if genus in EXTERNAL_GENERA else ""
     status = filters.get("external_status", "no_name_match")
     status = status if status in {"", "no_name_match", "catalog_name_found", "candidate_name_found", "crop_scope_needed"} else "no_name_match"
-    rows = [row for row in entries if (not genus or genus == row["genus"]) and (not status or status == row["status"])
+    rows = [row for row in entries if (not genus or genus == row["genus"]) and
+            (not status or (not row["crop_scope"]["berry_id"] if status == "crop_scope_needed" else status == row["status"]))
             and (not q or q.casefold() in row["name"].casefold() or any(q.casefold() in ref["unique_name"].casefold()
                      or q.casefold() in ref["accession"].casefold() for ref in row["references"]))]
     rows.sort(key=lambda row: (row["name"].casefold(), row["genus"]))
@@ -349,6 +442,7 @@ def external_coverage_view(*, baselines, varieties, candidates, filters):
     return {"reports": [report for report in reports if not genus or any(row["genus"] == genus for row in report["entries"])],
         "counts": dict(Counter(row["status"] for row in entries)),
         "scope_counts": dict(Counter(row["status"] for row in entries if not genus or row["genus"] == genus)),
+        "crop_scope_needed_count": sum(not row["crop_scope"]["berry_id"] for row in entries if not genus or row["genus"] == genus),
         "filters": {"q": q, "genus": genus, "status": status}, "entries": rows[(page-1)*50:page*50],
         "filtered_count": len(rows), "page": page, "pages": pages,
         "previous_href": href(page-1) if page > 1 else "", "next_href": href(page+1) if page < pages else ""}

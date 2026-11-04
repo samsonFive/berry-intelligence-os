@@ -34,6 +34,19 @@ records rejected experiments separately from deployed gains. Original 31
 requirement definitions/order, the governing guide, protected schemas and all
 human gates remain unchanged. Earlier entries below are historical records.
 
+# Collection crop handoffs — November 4, 2026
+
+The [existing comparison follow-up](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md)
+adds individual unreviewed identity leads for checked strawberry, raspberry
+and blackberry source scope, alongside the compatible blueberry handoff.
+All 2,372 GDR genus/name pairs remain: 2,092 strawberry, 174 raspberry,
+six blackberry and 100 held. All 201 GRIN pairs remain, including 53 held
+hybrid labels. These are collection leads, not newly approved varieties or
+a worldwide recall score. Source records, human edits and decisions are
+unchanged. This retains tested platform #499; source #498 stays separate.
+Current-head checks, fresh private acceptance and release approval remain.
+CAT-01/CAT-02/TD-116 and TD-122 stay open.
+
 # Learn teaching photographs — November 4, 2026
 
 The [photo follow-up](LEARN-TEACHING-PHOTOS-2026-11-04.md) adds file-specific

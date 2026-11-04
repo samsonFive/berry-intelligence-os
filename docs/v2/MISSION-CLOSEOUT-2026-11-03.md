@@ -20,7 +20,7 @@ What remains here:
 2. **Source and variety depth:** continue the 77-subject current/historical plan,
    unreadable originals and cited identity, traits, rights, regions and photos.
    The 1,333 source-derived keys are review leads, not approved varieties or
-   proof of worldwide completeness. Source-only #494 is tested but not live.
+   proof of worldwide completeness. Source-only #498 retains #494 and is tested but not live.
 3. **Human decisions:** independently supplied answers for the 32-source recall
    audit; 32 unclear supplied-photo cells; organization/name/code/role/rights,
    source/statement/photo permissions and held Map selections. No automatic
@@ -34,8 +34,9 @@ What remains here:
    a release-time backup and retained rollback. The unanswered backup-mirror
    cleanup request is not permission; keep the existing server headroom guard.
 
-The rejected separate-preparation draft #493 is closed unmerged. The active
-measurement-only batch branch cannot merge/deploy. No new source or runtime
+The rejected separate-preparation draft #493 is closed unmerged. The rejected measurement-only branch cannot merge/deploy. Platform #499
+passes all four checks /6,340 tests; the current crop-handoff branch retains
+it and has separate acceptance gates. No new source or runtime
 head has release approval. Keep all user edits, account history, private research,
 settings/data mounts, original requirements, governing guide and human gates.
 The ongoing mission remains active in this chat.

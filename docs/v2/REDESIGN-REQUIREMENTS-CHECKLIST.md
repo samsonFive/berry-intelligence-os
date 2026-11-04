@@ -46,21 +46,21 @@ photo permission and extraction qualification decisions remain separate gates.
   Old imports, candidate IDs and decisions are unchanged. Proposed counts stay
   540 sections /2,075 occurrences /1,335 review keys; these are not live counts.
   #494 is closed unmerged with its branch and evidence retained.
-- Platform [#497](https://github.com/samsonFive/berry-intelligence-os/pull/497)
-  at `e49e710c` passes all four checks /6,336 tests and native public-seed review.
-  Its two performance modules and shared Learn template are retained exactly
-  in the `content/learn-teaching-photos-20261104` follow-up. That branch adds
-  credited photos to three existing Learn lessons and keeps the full image
-  visible within the existing card height. It passes 86 affected checks and
-  native desktop/390px image/interaction review, preserving all 2,942 source/
-  schema JSON files and user media. Its own current-head CI and fresh private
-  rehearsal remain gates; parent checks are not substitutes. See the
-  [photo review](LEARN-TEACHING-PHOTOS-2026-11-04.md) and retained
-  [combined platform scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md).
-- The platform follow-up carries documentation #491 and the tested #495/#496
-  content already consolidated into #497. Closed component branches and their
-  original evidence remain retained. Catalog #498 stays separate from the
-  platform release. No approval for a new head is inferred from #490.
+- Platform [#499](https://github.com/samsonFive/berry-intelligence-os/pull/499)
+  at `e26598d0` passes all four checks /6,340 tests and native desktop/390px
+  photo/interaction review. It retains #497 performance/video/docs and adds
+  three credited teaching photos with whole-image display. Superseded #497 is
+  closed unmerged; its branch/evidence remain retained.
+- The `feature/reference-collection-crop-handoffs-20261104` follow-up retains
+  those five runtime files exactly and completes the existing public-collection
+  handoff for source-scoped strawberry, raspberry and blackberry labels.
+  It keeps unknown/mixed taxonomy held, current human edits/rejections intact,
+  and existing blueberry IDs compatible. Original source/schema JSON files
+  remain unchanged. See the [crop-handoff review](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md).
+  Its own full checks, fresh private rehearsal and release approval are required;
+  public-seed browser evidence is not private-data acceptance.
+- Documentation #491 remains retained. Source-only #498 stays separate from
+  the platform release. No approval for a new head is inferred from #490.
 - Rejected separate-preparation experiment #493 remains closed unmerged:
   complete-cost public-seed Linux testing made it about 27% slower overall.
   No preparation/background job is being deployed.
