@@ -123,3 +123,16 @@ def test_company_and_program_public_citations_are_leads_without_exporting_claims
     assert not client._registry('Synthetic Fontana blueberry')
     assert not client._registry('strawberry -"Synthetic Plantik"')
     assert entities['c']['berry_ids']==[]
+
+
+def test_named_program_requires_its_name_in_owned_body_without_becoming_a_variety():
+    from copy import deepcopy
+    from app.services.topic_retrieval import plan_query,match_record
+    program={'id':'p','entity_type':'breeding_program','name':'Synthetic Fontana','berry_ids':['berry-blackberry']}
+    entities={'p':program};before=deepcopy(entities)
+    row={'id':'article','title':'Synthetic Fontana blackberry research','source_url':'https://primary.example/other',
+         'article':{'paragraphs':[{'index':0,'text':'The company introduced another new blackberry after extensive field trials.'}]}}
+    assert match_record(row,plan_query('Synthetic Fontana blackberry'),entities=entities)['support_status']=='scope_unverified'
+    row['article']['paragraphs'][0]['text']='Synthetic Fontana is a new blackberry programme introduced after field trials.'
+    assert match_record(row,plan_query('Synthetic Fontana blackberry'),entities=entities)['support_status']=='body_supported'
+    assert entities==before and program['entity_type']=='breeding_program'

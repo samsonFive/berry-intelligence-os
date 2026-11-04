@@ -107,7 +107,7 @@ def support_context(plan, entities, identifiers):
                 identities[entity['id']]=entity
     organizations=[]
     for entity in (entities or {}).values():
-        if entity.get('entity_type')!='company':continue
+        if entity.get('entity_type')not in {'company','breeding_program'}:continue
         names=tuple(filter(None,(normalize(n) for n in [entity.get('name') or '',*(entity.get('aliases') or [])])))
         if any(len(name)>=4 and re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',positive) for name in names):
             organizations.append(names)
