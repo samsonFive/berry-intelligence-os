@@ -43,6 +43,16 @@ def return_path(value: str) -> str:
     return "/digest" + ("?" + parts.query if parts.query else "")
 
 
+def reader_return_path(value: str) -> str:
+    try:
+        parts = urlsplit(value)
+        if not parts.scheme and not parts.netloc and parts.path in {'/today', '/news', '/digest', '/statements'}:
+            return parts.path + ('?' + parts.query if parts.query else '')
+    except ValueError:
+        pass
+    return '/digest'
+
+
 @router.get("/digest", response_class=HTMLResponse)
 def personal_digest_page(request: Request):
     main, context, records, entities = world()
@@ -220,7 +230,7 @@ def reader_context(request: Request, record: dict):
         )
         article_varieties = source_catalog_coverage(report).get(str(record["id"]), [])
     return_to = request.query_params.get("return_to") or "/digest"
-    return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
+    return_to = reader_return_path(return_to)
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "article_blocks": article_blocks, "document_blocks": document_blocks,
             "auto_capture": bool(main.AUTHORING_MODE and not spoken and not paragraphs and card["source_url"] and not record.get("missing_source")),
             "spoken_media": spoken, "media_transcript": record.get('transcript') if spoken and isinstance(record.get('transcript'), dict) else {},

@@ -97,3 +97,20 @@ def test_dispatch_receipt_distinguishes_effective_allowlist_from_enabled_registr
     receipt = json.loads((inbox / 'operations/pipelines/dispatcher.json').read_text())
     assert receipt['requested_ids'] == ['article_news']
     assert receipt['due_ids'] == ['article_news'] and receipt['state'] == 'SUCCESS'
+
+
+def test_one_process_launch_failure_does_not_suppress_next_allowlisted_lane(tmp_path):
+    config = _config(tmp_path / 'pipelines.json')
+    payload = json.loads(config.read_text())
+    payload['pipelines'][1].update(enabled=True, scheduled=True, cadence_seconds=21600)
+    config.write_text(json.dumps(payload))
+    calls = []
+    def execute(command):
+        calls.append(command)
+        if len(calls) == 1:
+            raise OSError('private token-bearing diagnostics')
+        return subprocess.CompletedProcess(command, 0, stdout='{"queried":1}', stderr='')
+    result = run_due_pipelines(data_dir=tmp_path / 'data', inbox_dir=tmp_path / 'inbox',
+        config_path=config, now=NOW, pipeline_ids=['article_news', 'trade'], executor=execute)
+    assert [row['outcome'] for row in result['results']] == ['FAILED', 'SUCCESS']
+    assert 'private token' not in json.dumps(result)

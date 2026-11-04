@@ -28,3 +28,14 @@ def test_health_corruption_is_visible_and_zero_contribution_is_not_failure(tmp_p
     assert 'current media' in result['health_rows'][1]['reason']
     assert result['health_rows'][1]['execution'] == 'Manual source'
     assert before == sorted(str(p) for p in tmp_path.rglob('*'))
+
+
+def test_malformed_dispatcher_values_cannot_surface_request_urls(tmp_path):
+    folder = tmp_path / 'operations/pipelines'
+    folder.mkdir(parents=True)
+    (folder / 'dispatcher.json').write_text(json.dumps({'selection': 'explicit', 'due_ids': [],
+        'requested_ids': ['https://provider.invalid/?token=PRIVATE'], 'state': 'IDLE',
+        'generated_at': '2026-11-04T08:00:00+00:00'}))
+    result = model([], {}, [], tmp_path)
+    assert result['dispatcher'] == {}
+    assert 'PRIVATE' not in json.dumps(result)

@@ -155,7 +155,13 @@ def run_due_pipelines(
         started = datetime.now(UTC)
         monotonic_started = time.monotonic()
         command = [sys.executable, *shlex.split(str(pipeline["runner"]))]
-        completed = executor(command)
+        try:
+            completed = executor(command)
+        except (OSError, subprocess.TimeoutExpired):
+            # One lane failing to launch must not suppress other explicitly
+            # selected lanes. Do not retain exception strings containing args.
+            completed = subprocess.CompletedProcess(command, 1, stdout='{"state":"error"}',
+                stderr='Pipeline process could not start or exceeded its configured time limit.')
         finished = datetime.now(UTC)
         payload = _parse_output(completed.stdout)
         outcome, failure_count = classify_outcome(pipeline["id"], payload, completed.returncode)
