@@ -485,6 +485,7 @@ def test_real_orchestration_reuses_cached_transcript_binds_parent_and_extracts_i
         "id": "ev-parent", "record_type": "evidence", "status": "published",
         "review_state": "published", "source_type": "industry_podcast",
         "title": "Synthetic approved publication", "source_name": "source-a",
+        "discovered_item_id": "item-a",
         "source_url": "https://example.invalid/item-a", "source_id": "source-a",
         "published_date": "2026-08-15", "captured_date": "2026-08-16",
         "summary": "Synthetic fixture.", "submitted_by": "human-reviewer",

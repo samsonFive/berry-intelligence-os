@@ -28,7 +28,7 @@ PREVIEW_FIELDS = {
     "trust_state", "live", "auto_captured", "validated", "media_type", "media_format", "content_kind",
     "source_language", "original_title", "translated", "translation_pending", "image_url", "image_source_url",
     "preview_image_url", "thumbnail_url", "source_image_url", "origin_publisher_url",
-    "acquisition_lane", "discovery_provenance",
+    "acquisition_lane", "discovery_provenance", "transcript_status", "media_url", "discovered_item_id",
     "destination_market_ids", "origin_market_ids", "scope_resolution", "event_date", "first_seen_at",
     "canonical_url", "syndication_group_id", "competitive_source_ids",
 }
@@ -55,6 +55,12 @@ def active_publication_record(record: dict | None) -> dict | None:
 def source_preview(record: dict) -> dict:
     """A feed card needs preview metadata and one image, never original bodies."""
     preview = {key: value for key, value in record.items() if key in PREVIEW_FIELDS}
+    transcript = record.get('transcript')
+    if isinstance(transcript, dict) and isinstance(transcript.get('status'), str):
+        preview['transcript_status'] = transcript['status']
+    reference = record.get('source_artifact')
+    if isinstance(reference, dict) and reference.get('kind') == 'transcript' and reference.get('status') == 'captured':
+        preview['transcript_status'] = 'captured'
     image = safe_image_url(record)
     if image:
         preview["image_url"] = image
@@ -71,6 +77,7 @@ def _read_preview(path: Path) -> dict:
     field = ""
     depth = 0
     image = ""
+    transcript_reference = {}
     with path.open("rb") as handle:
         for prefix, event, value in ijson.parse(handle, use_float=True):
             if prefix == "" and event == "start_map":
@@ -82,6 +89,10 @@ def _read_preview(path: Path) -> dict:
                 continue
             if prefix in {"article.image_url", "images.item.url"} and event == "string" and not image:
                 image = safe_image_url({"image_url": value})
+            if prefix == 'transcript.status' and event == 'string':
+                preview['transcript_status'] = value
+            if prefix in {'source_artifact.kind', 'source_artifact.status'} and event == 'string':
+                transcript_reference[prefix.rsplit('.', 1)[1]] = value
             if builder is not None:
                 builder.event(event, value)
                 if event in {"start_map", "start_array"}:
@@ -93,6 +104,8 @@ def _read_preview(path: Path) -> dict:
                     builder = None
     if image and not safe_image_url(preview):
         preview["image_url"] = image
+    if transcript_reference == {'kind': 'transcript', 'status': 'captured'}:
+        preview['transcript_status'] = 'captured'
     if len(json.dumps(preview, ensure_ascii=False).encode("utf-8")) > MAX_PREVIEW_BYTES:
         raise ValueError("metadata-size-limit")
     return preview

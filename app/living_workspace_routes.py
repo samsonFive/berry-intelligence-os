@@ -122,10 +122,18 @@ def source_snapshot(main, store, article_id, source_id=None):
         raise HTTPException(404, "Source is unavailable in this account")
     record = reviewed_original_for_reading(record, main.INBOX_DIR)
     record = merge_capture(record, load_capture(main.INBOX_DIR, article_id))
+    from app.services.media_reader import stored_media, transcript_text, SPOKEN
+    record = stored_media(record, main.INBOX_DIR)
     content = reader_content(record)
     # All stored text is rendered as text, never publisher HTML.
     text = content["body"] if content["usable_in_app"] else ""
+    if content['state'] == 'transcript_available':
+        text = transcript_text(record)
+    elif record.get('media_format') in SPOKEN:
+        text = content['summary']
     availability = content["state"]
+    if record.get('media_format') in SPOKEN and not transcript_text(record):
+        availability = 'description_only'
     if availability == "body_available" and ((record.get("reader_capture") or {}).get("availability") in {"partial", "excerpt_only", "blocked"} or (record.get("article") or {}).get("status") in {"partial", "excerpt_only"} or (record.get("article") or {}).get("completeness") == "partial" or (record.get("article") or {}).get("excerpt_kind") == "source_excerpt"):
         availability = "body_partial"
     return store.snapshot(record, text, availability)

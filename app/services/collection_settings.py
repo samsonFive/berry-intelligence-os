@@ -473,8 +473,8 @@ def change_source(repository, *, key, action, revision, label, text, enabled, so
     elif action == "save":
         if not label.strip() or len(label) > 150 or not text.strip() or len(text) > 4000:
             raise ValueError("Enter a source name and feed URLs or search terms.")
-        if source_type not in {"rss", "keyword", "reference"}:
-            raise ValueError("Choose an RSS feed, keyword search, or manual reference.")
+        if source_type not in {"rss", "podcast_rss", "youtube_feed", "keyword", "reference"}:
+            raise ValueError("Choose an article feed, podcast feed, YouTube feed, keyword search, or manual reference.")
         if priority not in {"", "low", "medium", "high"} or cadence not in {"", "realtime", "daily", "weekly", "biweekly", "monthly", "quarterly", "annual", "event_driven"}:
             raise ValueError("Invalid priority or cadence.")
         record = dict(current or {"id": "source-ui-" + uuid.uuid4().hex, "type": source_type,
@@ -500,7 +500,14 @@ def change_source(repository, *, key, action, revision, label, text, enabled, so
             urls = [public_url(url.strip()) for url in text.splitlines() if url.strip()]
             if not urls or len(urls) > 10:
                 raise ValueError("Enter between one and ten public feed URLs, one per line.")
-            discovery["adapter"] = adapter or "article_rss"
+            discovery["adapter"] = adapter or (source_type if source_type in {'podcast_rss', 'youtube_feed'} else "article_rss")
+            if discovery['adapter'] == 'youtube_feed':
+                for url in urls:
+                    parsed = urlsplit(url)
+                    query = parse_qs(parsed.query)
+                    if (parsed.hostname not in {'www.youtube.com', 'youtube.com'} or parsed.path != '/feeds/videos.xml'
+                            or not (bool(query.get('channel_id')) ^ bool(query.get('playlist_id')))):
+                        raise ValueError('Use a public YouTube Atom feed with one channel_id or playlist_id; channel pages are not feeds.')
             discovery.pop("feed_url", None)
             discovery.pop("feed_urls", None)
             discovery["feed_url" if len(urls) == 1 else "feed_urls"] = urls[0] if len(urls) == 1 else urls
@@ -512,7 +519,7 @@ def change_source(repository, *, key, action, revision, label, text, enabled, so
             record["discovery"] = discovery
         record.update(label=label.strip(), enabled=bool(enabled), collection_removed=False,
                       monitoring_priority=priority or None, update_cadence=cadence or None)
-        if current is None and source_type in {"rss", "keyword"}:
+        if current is None and source_type in {"rss", "podcast_rss", "youtube_feed", "keyword"}:
             # Modern discovery is adapter-driven. Keep new entries out of the
             # legacy headline-only loop, which writes directly to data/evidence.
             record["type"] = "reference"
