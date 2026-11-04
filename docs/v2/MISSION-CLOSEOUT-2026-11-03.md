@@ -9,7 +9,9 @@ The visual redesign/consolidation, shared Workspaces, private Digest/layouts,
 News/Reader, four-crop Landscape, reporting and the visual Help explainer are
 delivered. #411 is independently observed live and healthy. #492 is merged in
 Git; its catalog rollout has not been observed live here. #500 and #498 pass
-their current checks and browser review but remain undeployed drafts.
+their current checks and browser review but remain undeployed drafts. Separate
+harvest source/Learn #504 also passes its 6,626-test checks and native review,
+with no new cultivar or human decision; it is not deployed.
 
 To close the full mission, finish:
 
@@ -24,6 +26,11 @@ To close the full mission, finish:
    role/rights/source/statement/Map selections. No automatic substitute is allowed.
 5. Broader Learn scientific, citation and media quality while preserving user
    edits/history; no additional paid request or retry is authorized.
+
+The [partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+now state the concrete source constraint and next useful input for all seven
+partial subjects. None is declared complete. A possible Biogea website mismatch
+remains a review lead, not an automatic organization correction.
 
 The prior #500 `b2452a89` approval and superseded `7ace95b7` question do not cover
 the newer head. The completed four-copy cleanup permits no additional purge.

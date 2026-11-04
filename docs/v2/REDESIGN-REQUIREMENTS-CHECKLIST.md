@@ -1,6 +1,6 @@
 # Berry Intelligence — requirements and current status
 
-Updated November 4, 2026, 09:23 UTC. This is the active checklist. The original
+Updated November 4, 2026, 10:22 UTC. This is the active checklist. The original
 31 accepted requirements and their order remain below. No requirement is
 removed or declared complete by this status reconciliation. Full preceding
 status/checklist/closeout texts are preserved in
@@ -14,6 +14,7 @@ status/checklist/closeout texts are preserved in
 | Merged, rollout pending | Editable catalog #492, `b7b23212` | Git is merged. Its release owner reports a tested 507→1,259 plan with unverified workspace varieties. This chat has not observed that runtime or population live; do not describe the planned count as deployed. |
 | Tested draft | Platform #500, `15295070` | All four checks pass: 6,679 tests, 11 skipped. Native desktop/390px review passes four collection handoffs, uncertain-crop hold, catalog confirmation/removal/restore, first-login Help and interactive Learn/credited photo rendering. No data/schema additions. Fresh current-live preservation and final-head release approval remain. |
 | Tested draft | Source #498, `d8d94411` | All four checks pass: 6,627 tests, 11 skipped; 44 affected checks and desktop/390px review pass. Four source/README additions retain exact intended bytes. Fresh current-live preservation and separate release approval remain. |
+| Tested draft | Harvest source/Learn #504, `2d7ff4cc` | All four checks pass: 6,626 tests, 11 skipped; 71 affected checks and native desktop/390px review pass. One zero-name Benning source and a credited publisher-video link; 3,440 copied public seed files remain unchanged. No new cultivar, identity, role, photo permission or live-data acceptance is implied. Current-live preservation and separate release approval remain. |
 | Retained component | Removal fix #502, `24911530` | All four checks/6,630 tests, 58 affected checks and native review pass. Its three runtime files are retained exactly in #500. Keep it open until that incorporation is verified on canonical; it is not a separate deployed release. |
 
 Workspaces, company favorites/tiers/lists and saved Explorer views are shared.
@@ -40,6 +41,12 @@ is already delivered in Help at `/guide`; it is not an unfinished slide deck.
 News/Reader, Personal Digest, Companies, four-crop Landscape and reporting
 workflows remain delivered. Publication review, statement review, catalog
 identity/authoring, source authenticity and photo permission are separate gates.
+
+The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+identify what is actually missing and what could resolve each row. They distinguish
+unpublished cultivar names, research material, product brands and a possible
+Biogea website mismatch. No row is marked complete, company website corrected,
+benchmark answered or catalog identity approved by that follow-up.
 
 ## Current public source denominator
 

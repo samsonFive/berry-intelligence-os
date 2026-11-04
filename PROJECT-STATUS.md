@@ -1,6 +1,6 @@
 # Berry Intelligence — current mission status
 
-Updated November 4, 2026, 09:23 UTC. The
+Updated November 4, 2026, 10:22 UTC. The
 [31-requirement checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md) is the active
 source for delivery, remaining work and human gates. Earlier status text remains
 verbatim in [history](PROJECT-STATUS-HISTORY.md#november-4-2026--previous-active-status-before-live411-reconciliation).
@@ -15,7 +15,10 @@ native desktop/phone review. It retains #492 and the #502 removal safeguards.
 Source-only #498 at `d8d94411` passes all four/6,627 tests, 44 affected checks and
 native review. Neither is deployed. Both still require fresh current-live
 preservation and separate exact-head release approval; old #500 approvals do not
-cover the reconciled head.
+cover the reconciled head. Separate source/Learn #504 at `2d7ff4cc` passes all four
+checks/6,626 tests and native desktop/phone review. It adds one zero-name Benning
+source and a credited publisher-video link, without approving any cultivar or
+photo permission. It also remains undeployed and needs current-live acceptance.
 
 The redesign, consolidated navigation, dense visual News/Reader, collaborative
 Workspaces, private Digest/layouts, four-crop Landscape, reporting, 27 visual Learn
@@ -28,6 +31,9 @@ answers, unclear photographed labels and other human review queues; held Map
 figure selection; and broader Learn citation/media quality. Public source counts
 are 539 sections/2,073 occurrences/899 derived keys on this exact canonical
 catalog. These are not approved-variety counts or worldwide completeness.
+The [partial-portfolio dispositions](docs/v2/PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+record the seven unresolved subjects, including a possible same-name Biogea
+website mismatch, without changing their status or canonical organization data.
 
 The one approved paid Learn acceptance run is complete. No additional paid
 request, purchase or backup cleanup is inferred. Rejected performance prototypes
