@@ -1,3 +1,10 @@
+# Source intelligence continuation candidate — November 4, 2026
+
+[Bounded collection follow-up](SOURCE-INTELLIGENCE-COLLECTION-CONTINUATION-2026-11-04.md) reproduces and fixes capped-runner starvation and a narrow Spanish blueberry-industry relevance gap. The real November 3 Blueberries TV recording passes local feed/Reader checks as description-only; no current-video draft was delivered to production. Full current-head CI and live preservation remain required before deploying this new follow-up. No recurring collection, transcription or provider routing was activated.
+
+# Source intelligence live coverage boundary — November 4, 2026 Pacific
+
+[Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) connected existing production formats to News: 8 podcast, 3 video and 10 blog cards at code release; 8/4/10 after the separately approved historical delivery. These are matching publication counts, not complete recall/freshness or verified claims. All 1,268 varieties present in the fresh release-time baseline were retained; this release added no variety or Source rows. Real historical English Whisper/Spanish-caption artifacts passed timed capture/reopen locally. A separately approved additive delivery then added two original normalized transcripts and one unreviewed video draft, with live Reader counts of 1,212/382 segments and identical retry. The trusted podcast stayed unchanged; no bulk inbox delivery or acquisition/STT/model call occurred. Bounded recurring-source activation remains a separate review step. Original failed Google cohorts, word-accuracy/access limitations and wider trait/right/footprint/identity holds remain unchanged.
 # Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
 
 ## November 4 live-base reconciliation

@@ -286,6 +286,80 @@ def test_offline_dry_run_has_no_network_or_writes_and_honors_max_items(tmp_path:
     assert not (inbox / "operations").exists()
 
 
+def test_bounded_cycle_prioritizes_current_discovery_over_retained_backlog(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    _stage(inbox, _item("old", "source-a") | {"published_date": "2025-01-01"})
+    _stage(inbox, _item("current", "source-a") | {"published_date": "2026-08-16"})
+    orchestrator = FakeOrchestrator({
+        key: _result(key, "awaiting_publication_review") for key in ("old", "current")
+    })
+    runner = _runner(tmp_path, repos, orchestrator, discover=lambda source_id: DiscoveryRunResult(
+        source_id=source_id, status="ok", new=1, processable_item_ids=["current"],
+    ))
+    runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    assert [call[0] for call in orchestrator.calls] == ["current"]
+
+
+def test_bounded_cycle_does_not_repeat_first_item_forever(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    for key in ("a", "b", "c"):
+        _stage(inbox, _item(key, "source-a"))
+    orchestrator = FakeOrchestrator({
+        key: _result(key, "awaiting_publication_review") for key in ("a", "b", "c")
+    })
+    runner = _runner(tmp_path, repos, orchestrator)
+    for _ in range(3):
+        runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    assert [call[0] for call in orchestrator.calls] == ["a", "b", "c"]
+
+
+@pytest.mark.parametrize("held", [
+    {"failure_class": "operator", "last_error": "Human review required", "retry_count": 0},
+    {"failure_class": "retryable", "retry_count": 1, "next_eligible_retry_at": "2026-08-17T00:00:00+00:00"},
+])
+def test_bounded_cycle_keeps_operator_hold_without_starving_other_item(tmp_path: Path, held: dict) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    for key in ("a-held", "b-ready"):
+        _stage(inbox, _item(key, "source-a"))
+    operations = OperationalStateStore(inbox / "operations")
+    operations.save_item_state("a-held", held)
+    orchestrator = FakeOrchestrator({"b-ready": _result("b-ready", "awaiting_publication_review")})
+    runner = _runner(tmp_path, repos, orchestrator)
+    runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    assert [call[0] for call in orchestrator.calls] == ["b-ready"]
+    assert operations.item_state("a-held") == held
+
+
+def test_bounded_current_discovery_does_not_prefer_new_historical_backlog(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    _stage(inbox, _item("a-backlog", "source-a") | {"historical_backlog": True})
+    _stage(inbox, _item("b-current", "source-a"))
+    orchestrator = FakeOrchestrator({"b-current": _result("b-current", "awaiting_publication_review")})
+    runner = _runner(tmp_path, repos, orchestrator, discover=lambda source_id: DiscoveryRunResult(
+        source_id=source_id, status="ok", processable_item_ids=["a-backlog", "b-current"],
+    ))
+    runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    assert [call[0] for call in orchestrator.calls] == ["b-current"]
+
+
+def test_bounded_cycle_rotates_previously_attempted_items(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    operations = OperationalStateStore(inbox / "operations")
+    for key, stamp in [("a", "2026-08-16T11:00:00+00:00"), ("b", "2026-08-15T11:00:00+00:00")]:
+        _stage(inbox, _item(key, "source-a"))
+        operations.save_item_state(key, {"last_attempted_at": stamp})
+    orchestrator = FakeOrchestrator({key: _result(key, "awaiting_publication_review") for key in ("a", "b")})
+    runner = _runner(tmp_path, repos, orchestrator)
+    runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    runner.run(source_id="source-a", max_items=1, skip_transcription=True)
+    assert [call[0] for call in orchestrator.calls] == ["b", "a"]
+
+
 def test_transcription_cache_skip_and_resource_limits(tmp_path: Path) -> None:
     repos = _repos(tmp_path)
     inbox = tmp_path / "inbox"
