@@ -57,3 +57,23 @@ release approval remain necessary before deployment.
 TD-122 remains open: the first deep catalog visit still takes several seconds.
 Article classification, repeated catalog freshness comparisons and the remaining
 source/profile-depth work are separate outstanding work in the same mission.
+
+
+## Completed confirmation — November 4
+
+The follow-up completed all four counterbalanced replicates per route order:
+16 fresh processes and 48 complete typed article/universe/context/HTML responses
+match, with all 25,633 input files unchanged. The combined median three-page
+workflow improves from 11.70s to 10.91s for Company-first (6.7%) and from 11.33s
+to 10.58s for Candidates-first (6.6%). First-visit medians are 5.52s and 5.10s
+respectively. One Company-first pair regresses 2.6%, and one Candidates-first
+pair 1.7%; this is bounded handler evidence on one existing copy with a warm
+filesystem, not a guarantee of live latency or a release-time rehearsal.
+
+The actual-file draft #509 subsequently passed all four current-head checks
+(6,729 tests, 11 skipped), its 288 local identity/batch checks and native
+desktop/390px review. Failed earlier Windows diagnostics remain retained. Its
+single runtime change is now included in a separate local consolidation with
+Help #510 and shared Watchlist tracking #511. This does not modify the frozen
+heads or grant merging/deployment approval. Fresh combined checks and guarded
+production-copy preservation remain required after the source-release window.
