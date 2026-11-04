@@ -1,3 +1,26 @@
+# Catalog release reconciliation — November 4 UTC, 2026
+
+The user approved release #492. While server headroom was being recovered,
+Search/research #411 went live at `34eb23c3`. That release also admitted 442
+source-backed variety records. The catalog release is rebased onto it and
+retains its search, source-reading, saved table layout, column controls and
+recent-date sorting. No earlier image will overwrite the concurrent release.
+
+The current live snapshot contains 507 varieties. Deduplicating the existing
+spreadsheet/research import against those records plans **752 additional
+unverified workspace varieties**, 73 organizations and private enrichment for
+464 existing profiles: **1,259 varieties** overall. There are 540 held source
+occurrences, not 540 distinct varieties. The earlier 65→1,232 figures below are
+the valid earlier-base proof, not the reconciled release count. Operator release
+authorization persists; current-head checks and fresh preservation are renewed.
+
+Disk headroom is above the 10GiB release minimum. A capacity audit found about
+55GB of release/review artifacts and 42GB of backups, versus about 0.56GB of live
+runtime data. Unused build-cache cleanup retained every image and volume; it
+reported zero reclaimed bytes on that run. No data, backup or rollback image
+was deleted. Artifact retention remains an operations follow-up, not an automatic
+purge or a purchase authorization.
+
 # Catalog authoring and population — November 3, 2026
 
 The operator explicitly continued CAT-01/CAT-02: the spreadsheet-image and

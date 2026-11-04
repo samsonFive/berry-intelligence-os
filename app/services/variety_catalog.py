@@ -215,8 +215,8 @@ def remove_or_restore(inbox_dir, data_dir, schemas_dir, entity_id, *, expected, 
             raise ValueError('This variety changed in another session. Reload before saving.')
         if not restore and confirmation != before['name']:
             raise ValueError('Type the variety name to confirm removal')
-        after = deepcopy(before)
-        after.setdefault('attributes', {})['catalog_removed'] = not restore
+        from app.services.variety_catalog_management import set_removed
+        after = set_removed(before, removed=not restore, actor=actor)
         return _write(inbox_dir, repository, before, after, actor=actor, action='restore' if restore else 'remove')
 
 

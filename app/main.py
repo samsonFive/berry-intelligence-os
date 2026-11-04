@@ -1403,7 +1403,6 @@ def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
 
 
 def all_entities() -> list[dict[str, Any]]:
-    from app.services.variety_catalog import visible
     corpus = get_request_corpus()
     records = corpus.entities if corpus is not None else get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
     return [row for row in records if AUTHORING_MODE or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"]
@@ -1412,7 +1411,6 @@ def all_entities() -> list[dict[str, Any]]:
 def entity_index() -> dict[str, dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
-        from app.services.variety_catalog import visible
         return {key: row for key, row in corpus.entity_index.items() if AUTHORING_MODE or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"}
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
 
@@ -2899,8 +2897,10 @@ def entity_list(
         from app.services.variety_keyword_search import search_varieties
         from app.services.variety_profile_sources import all_profile_source_details
         from app.services.variety_source_reading import stored_source_reading
+        from app.services.variety_catalog_import import effective_record, imported_enrichment
+        search_enrichment = imported_enrichment(INBOX_DIR) if AUTHORING_MODE else {}
         try:
-            variety_keyword_hits = search_varieties(q, varieties=all_of_type,
+            variety_keyword_hits = search_varieties(q, varieties=[effective_record(row, search_enrichment) for row in all_of_type],
                 records=[*evidence, *(list_drafts_metadata() if AUTHORING_MODE else [])],
                 notes=all_profile_source_details(DATA_DIR, varieties=[v for v in entities_idx.values() if v.get('entity_type') == 'variety']) if AUTHORING_MODE else {},
                 facts=all_facts(), names_only=request.query_params.get('search_scope') == 'names',

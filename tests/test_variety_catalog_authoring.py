@@ -158,7 +158,7 @@ def test_authoring_routes_cross_origin_readonly_stale_forms_and_removed_page(run
     current = repo.get(VARIETY['id'])
     service.remove_or_restore(inbox,data,SCHEMAS,current['id'],expected=service.revision(current),actor='Johnny',confirmation=current['name'])
     assert client.get('/entities/variety/' + current['id']).status_code == 410
-    assert current['id'] not in {row['id'] for row in main.all_entities()}
+    assert current['id'] not in {row['id'] for row in main.living_catalog()}
     assert 'Example' in client.get('/varieties/catalog/removed').text
     monkeypatch.setattr(main,'AUTHORING_MODE',False)
     assert client.get('/varieties/catalog/new').status_code == 403
@@ -228,7 +228,7 @@ def test_navigation_pages_larger_catalog_without_losing_letter_filters():
 
 
 def test_large_directory_opens_without_full_source_audit_but_search_retains_it(tmp_path,monkeypatch):
-    from app.services import variety_portfolio_coverage
+    from app.services import variety_portfolio_coverage, variety_profile_sources
     original=main.living_catalog()
     records=[{**deepcopy(VARIETY),'id':f'variety-large-{i:03}','name':f'Large {i:03}'} for i in range(135)]
     entities=[row for row in original if row.get('entity_type')!='variety']+records
@@ -237,6 +237,9 @@ def test_large_directory_opens_without_full_source_audit_but_search_retains_it(t
     monkeypatch.setattr(main,'living_catalog',lambda:entities)
     monkeypatch.setattr(main,'entity_index',lambda:{row['id']:row for row in entities})
     monkeypatch.setattr(variety_portfolio_coverage,'load_portfolio_observations',lambda _data:[])
+    # This isolated catalog has different IDs from the repository's real
+    # source-note fixture; source-note validation is covered separately.
+    monkeypatch.setattr(variety_profile_sources,'all_profile_source_details',lambda *args,**kwargs:{})
     def forbidden():
         raise AssertionError('Full source audit must not block opening a large catalog')
     monkeypatch.setattr(main,'variety_candidate_universe',forbidden)
@@ -251,5 +254,6 @@ def test_large_directory_opens_without_full_source_audit_but_search_retains_it(t
         return records,[],{}
     monkeypatch.setattr(main,'variety_candidate_universe',source_audit)
     searched=client.get('/entities/variety?berry=&q=Large+000')
-    assert searched.status_code==200 and len(searched.context['variety_rows'])==1
+    assert searched.status_code==200, searched.text
+    assert len(searched.context['variety_rows'])==1
     assert calls==[True] and not searched.context['catalog_discovery_deferred']
