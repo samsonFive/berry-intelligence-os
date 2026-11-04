@@ -1,6 +1,6 @@
 # Validation results
 
-Local environment: Windows, Python 3.13.7. The repository's hosted Python 3.12 checks remain required before merge; publishing the branch is awaiting explicit user approval after automatic approval review blocked the upload.
+Local environment: Windows, Python 3.13.7. The repository's hosted Python 3.12 checks on [draft PR #505](https://github.com/samsonFive/berry-intelligence-os/pull/505) remain required before merge.
 
 ## Automated checks
 
@@ -8,6 +8,7 @@ Local environment: Windows, Python 3.13.7. The repository's hosted Python 3.12 c
 - That expectation now requires Global Watchlist in the shared primary navigation and separately verifies that Landscape Explorer remains available in the supporting menu. Both authoring and readonly modes passed in the final **36-test** dashboard/navigation regression run. No application change was needed to resolve this failure.
 - Together, the full run and the successful rerun validate **6,620 distinct passing cases, with 10 skipped**. The full run was not repeated after the assertion-only correction. The final PDF direction/AI-status changes also passed all 10 dashboard tests and the browser download check.
 - Earlier combined coverage: 225 passing registry/profile/comparison/Watch/authentication/alias-recall/correction tests.
+- After reconciling the current canonical catalog-authoring release into the feature branch, all 50 focused dashboard, navigation, registry-integration and catalog-authoring checks passed. The PR runs a new complete check set on the updated head.
 - `scripts/validate_records.py`: all canonical records passed.
 - Static snapshot: 2,415 HTML pages generated; draft leakage check returned `[]`; protected Global Watchlist was not generated into the public output. Pagefind indexed 2,414 eligible pages successfully. Its final subprocess was rerun outside the Windows sandbox after an output-write permission denial; no build-code workaround was introduced.
 
@@ -25,4 +26,4 @@ Authenticated Chrome checked 1440x1000 desktop and 390x844 mobile views. Two-com
 
 The final five-page Planasa/blueberry PDF was rasterized and every page inspected. Its source register, page headers/footers, table, source links and section transitions are legible without overlap or clipping. Company assessments preserve AI PROPOSED versus REVIEWED status; ownership/licensing relationships name both endpoints in their stored direction. Publication and capture dates remain separate, undated catalog pages remain distinct developments, and demo/private draft fixtures are excluded.
 
-No production deployment, canonical merge, remote branch push or pull request creation was performed.
+The user explicitly authorized publishing the feature branch and opening draft PR #505. No production deployment or canonical-branch merge was performed.
