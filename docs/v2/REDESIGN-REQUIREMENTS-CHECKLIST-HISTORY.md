@@ -2273,3 +2273,30 @@ This prior status section is historical; the active checklist owns current state
   workaround, relaxed guard or deployment is authorized by internal continuation.
 
 End of retained prepared-work section.
+
+## November 4, 2026 reconciliation — prior documentation PR 491 prepared status
+
+
+- Source-only [#494](https://github.com/samsonFive/berry-intelligence-os/pull/494)
+  at `0b60c5fe` passes all four checks /6,325 tests and public-seed desktop/phone
+  review. It adds two explicitly historical Well-Pict labels as unreviewed leads,
+  without replacing existing records. Fresh production-copy rehearsal and a
+  separate release approval remain; its proposed counts are not live counts.
+- [#493](https://github.com/samsonFive/berry-intelligence-os/pull/493) is closed
+  unmerged. Complete-cost public-seed Linux testing made the separate-preparation
+  flow about 27% slower overall, despite faster prepared reads. Its code, tests
+  and evidence are retained. No preparation/background job is being deployed.
+- The new owned portfolio identity batch at `b76792c0` passes 288 focused checks.
+  [Linux diagnostic 41760146303](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41760146303)
+  at measurement-only `26c0cd43` is still completing validation. No speed,
+  private-production preservation or release acceptance is claimed yet. The
+  diagnostic branch must not merge or deploy.
+- The server rehearsal remains subject to the existing headroom guard and the
+  unanswered specific backup-mirror cleanup request. No backup deletion,
+  workaround, relaxed guard or deployment is authorized by internal continuation.
+
+[The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains
+deployed gains separately from rejected experiments. Source gaps, human reviews
+and performance remain in this mission; this page is not a handoff or completion.
+
+End of retained prior PR 491 prepared status.

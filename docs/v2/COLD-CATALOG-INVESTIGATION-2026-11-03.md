@@ -306,3 +306,56 @@ The visual Help explainer, shared collaborative workspaces, private Personal
 Digest/layout settings, original 31 requirement definitions and protected schemas
 remain. These remaining items stay in this mission; this record neither hands
 them off nor marks the ongoing goal complete.
+
+## November 4 — current-head calculation and source-loader probes
+
+Tested platform draft #500 at `02df0341` passes its own four checks /6,373 tests
+and native desktop/390px review. It retains the owned portfolio batch and Learn
+improvements; source-only #498 remains separate. Neither draft is deployed.
+All #490 approvals are fulfilled and do not authorize either new release.
+
+A new full-handler Windows profile of #500 uses committed public data and an
+empty private inbox, with all networking denied. Cold Company includes 1,396
+individual identity calls; source observation loading also repeats on subsequent
+pages. The profiler adds overhead: its 3.67-second cold result is diagnostic,
+not a request-latency, VPS or private-data claim. All 2,998 public files remain
+byte-identical. Both subsequent prototypes compare complete typed article bundles,
+unfiltered universes, contexts and HTML in eight fresh processes /24 responses,
+including an in-memory new unreviewed article. No source or human decision changes.
+
+The owned candidate-builder prototype reduces repeated catalog-freshness checks
+inside one pure portfolio calculation, retaining the original matcher. Windows
+Company-first total is 5.534 →5.298 seconds and Candidates-first 6.249 →5.441,
+but one Company pair has no gain and Candidates cold regresses 2.244 →2.398.
+The samples are too uneven for a release decision. It is excluded before any
+production refactor; no new candidate builder or trust path is retained.
+
+The source-loader prototype checks exact path/file/directory metadata and the
+day before reusing an owned, bounded process-only compilation. Its Windows
+samples also vary substantially. A separate
+[Linux diagnostic](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41781890320)
+at diagnostic-only head `ec4e63b5` uses one CPU, a 1 GiB address-space limit,
+the committed public seed and an empty inbox, with two replicates per order and
+variant. The actual complete results are:
+
+| Linux public-seed route order | First request, baseline →prototype | After new article | Three-page workflow |
+| --- | --- | --- | --- |
+| Company first | 1.161 →1.176 s | 0.834 →0.763 s | 2.469 →2.476 s |
+| Candidates first | 1.114 →1.152 s | 0.816 →0.736 s | 2.523 →2.340 s |
+
+The Company-first workflow and both cold medians regress. Faster later visits
+do not satisfy consistent complete-workflow improvement. The cache is excluded;
+no application source file, data mount, setting, schema, provider or human gate
+changes. The diagnostic branch must never merge. These are limited public-seed
+handler measurements, not private/live speed or lifecycle-correctness acceptance.
+The retained result SHA-256 is
+`c8bccdf113a57e365f77afc0e53c8258862e05b8ccf41340dcf50cbeb6a856cd`.
+
+Fresh private-data workflow/profile acceptance remains subject to the unchanged
+server guard. The November 4 05:19 UTC read shows live #490 and 9,454,288,896 free
+bytes, below its 10 GiB floor. Automatic approval review rejected permanent
+deletion of four backup working copies without specific user authorization;
+that question remains unanswered. No cleanup, guard relaxation, alternate test
+transport, stale-copy acceptance, provider retry or deployment follows. Source
+depth and human review work continue separately within this mission; TD-122,
+CAT-01/CAT-02/TD-116 and release acceptance remain open.

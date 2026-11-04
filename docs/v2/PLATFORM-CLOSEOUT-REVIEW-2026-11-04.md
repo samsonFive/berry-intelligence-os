@@ -1,5 +1,12 @@
 # Combined platform review — November 4, 2026
 
+**Retained component record:** this document describes the four-file #497
+candidate, subsequently retained in #499 and tested platform #500. #500 at
+`02df0341` has nine runtime files and its own four passing checks /6,373 tests;
+its fresh private rehearsal and release approval remain outstanding. The
+[active checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) gives the current proposal.
+The component scope and measurements below remain historical evidence.
+
 This candidate combines the tested portfolio matching and Learn presentation
 follow-ups on live #490. It also retains the current checklist consolidation.
 It is a draft for review, not a merged or deployed release. Source-only #494

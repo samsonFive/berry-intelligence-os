@@ -39,6 +39,10 @@ photo permission and extraction qualification decisions remain separate gates.
 
 ## Prepared work and experiments
 
+Platform #500 includes this documentation reconciliation. Its current pull
+request head must pass all four checks; earlier head references below identify
+retained evidence and do not substitute for current-head acceptance.
+
 - Source-only [#498](https://github.com/samsonFive/berry-intelligence-os/pull/498)
   at `c3e22384` passes all four checks /6,328 tests and desktop/390px review.
   It retains the two historical Well-Pict labels from superseded #494 and
@@ -46,19 +50,22 @@ photo permission and extraction qualification decisions remain separate gates.
   Old imports, candidate IDs and decisions are unchanged. Proposed counts stay
   540 sections /2,075 occurrences /1,335 review keys; these are not live counts.
   #494 is closed unmerged with its branch and evidence retained.
-- Platform [#499](https://github.com/samsonFive/berry-intelligence-os/pull/499)
-  at `e26598d0` passes all four checks /6,340 tests and native desktop/390px
-  photo/interaction review. It retains #497 performance/video/docs and adds
-  three credited teaching photos with whole-image display. Superseded #497 is
-  closed unmerged; its branch/evidence remain retained.
-- The `feature/reference-collection-crop-handoffs-20261104` follow-up retains
-  those five runtime files exactly and completes the existing public-collection
-  handoff for source-scoped strawberry, raspberry and blackberry labels.
-  It keeps unknown/mixed taxonomy held, current human edits/rejections intact,
-  and existing blueberry IDs compatible. Original source/schema JSON files
-  remain unchanged. See the [crop-handoff review](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md).
-  Its own full checks, fresh private rehearsal and release approval are required;
-  public-seed browser evidence is not private-data acceptance.
+- Platform [#500](https://github.com/samsonFive/berry-intelligence-os/pull/500)
+  at `02df0341` passes all four checks /6,373 tests and desktop/390px review.
+  It retains the performance/video work and credited Learn photos, adds the
+  existing collection-to-identity-review handoff for all four checked crop
+  scopes, and keeps mixed/unknown taxonomy held. All 2,942 source/schema JSON
+  files, all 2,998 copied public files and existing user decisions are preserved.
+  Superseded #497 and #499 are closed unmerged; branches/evidence remain.
+  See the [crop-handoff review](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md),
+  [photo review](LEARN-TEACHING-PHOTOS-2026-11-04.md) and retained
+  [combined platform scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md).
+- The two further cold-load prototypes are excluded. The owned candidate-builder
+  experiment has uneven Windows results; the source-loader cache's Linux
+  Company-first workflow and both cold-page medians regress. Complete outputs
+  match, but neither experiment supplies an application change or speed claim.
+  The diagnostic branch is not a release proposal. See the
+  [measured investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md#november-4--current-head-calculation-and-source-loader-probes).
 - Documentation #491 remains retained. Source-only #498 stays separate from
   the platform release. No approval for a new head is inferred from #490.
 - Rejected separate-preparation experiment #493 remains closed unmerged:
