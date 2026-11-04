@@ -91,6 +91,10 @@ Pete Goodell's IPM explanation and the Robofruit field test labeled October 2021
 linked by the 2023 research paper. The robotics date is the video's test label,
 not a newly inferred release date or evidence of commercial deployment.
 
+Native review also found that the shared “Publisher’s guide” label pointed to
+a research paper on the robotics card. It now says “Source page,” which describes
+all three destinations without mislabeling the paper. The links are unchanged.
+
 | Lesson | Original publisher link | Observed playback | Context retained |
 | --- | --- | --- | --- |
 | IPM | [UC IPM](https://ipm.ucanr.edu/what-is-ipm/) → [speaker video](https://www.youtube.com/watch?v=BljIAipO2Eg) | 40 seconds of 421 | General framework; field guidance depends on crop and region. |
