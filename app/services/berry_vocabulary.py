@@ -11,6 +11,8 @@ NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', '
                          'variedade', 'variedades', 'melhoramento', 'licenciamento', 'produção', 'cultivo',
                          'producción agrícola', 'produccion agricola', 'agricultura de exportación',
                          'agricultura de exportacion', 'experiencias productivas',
+                         'industria del arándano', 'industria del arandano',
+                         'industria global del arándano', 'industria global del arandano',
                          'mejoramiento genético', 'mejoramiento genetico')
 NATIVE_CONCEPTS = {'variety': ('odmiana', 'odmiany', 'odmian', 'variedade', 'variedades'),
                    'breeding': ('hodowla', 'hodowli', 'melhoramento'),

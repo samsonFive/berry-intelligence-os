@@ -618,6 +618,26 @@ class CollectionRunner:
             processable.append(item)
         items = processable
         if max_items is not None:
+            # A capped recurring pass must not spend every cycle on the
+            # same oldest retained recording (or an operator-held item).
+            # Prefer actionable current discoveries, then unattempted and
+            # least-recently-attempted work. Keep the original stable order
+            # as the tie-breaker, and retain all retry/review gates below.
+            def bounded_priority(item: dict[str, Any]) -> tuple[bool, bool, bool, str]:
+                prior = self._operations.item_state(item["id"])
+                current = (
+                    item["id"] in candidate_ids.get(item["source_id"], set())
+                    and not item.get("historical_backlog")
+                )
+                return (
+                    bool(self._retry_block(prior, retry_operator_items=retry_operator_items)),
+                    not current,
+                    bool(prior),
+                    str(prior.get("last_attempted_at") or ""),
+                )
+
+            if max_items > 0:
+                items.sort(key=bounded_priority)
             items = items[: max(0, max_items)]
         transcription_attempts = 0
         for item in items:

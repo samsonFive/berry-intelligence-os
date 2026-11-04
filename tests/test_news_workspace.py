@@ -64,6 +64,20 @@ def test_spanish_recording_requires_crop_and_industry_metadata():
     assert ids(project([relevant, noise], {'media': 'video'})) == ['ev-spanish-video']
 
 
+@pytest.mark.parametrize('industry', ['industria del arándano', 'industria global del arándano', 'industria del arandano'])
+def test_spanish_blueberry_industry_video_is_visible_without_transcript(industry):
+    recording = article('ev-current-spanish-video', source_type='discovered_media', media_format='video',
+        title='Blueberries Consulting: información técnica para la ' + industry,
+        summary='Conocimiento técnico y comercial para el sector.', entity_ids=[],
+        source_url='https://www.youtube.com/watch?v=abcdefghijk')
+    unrelated = article('ev-spanish-dessert', source_type='discovered_media', media_format='video',
+        title='Arándano: una receta para la familia', summary='Postre de frutas.', entity_ids=[])
+    result = project([recording, unrelated], {'media': 'video'})
+    assert ids(result) == [recording['id']]
+    assert 'description only' in result['cards'][0]['media_note'].lower()
+    assert unrelated['id'] in result['exclusions']
+
+
 def test_media_health_links_keep_scope_and_get_stays_inert(workspace, monkeypatch):
     def forbidden(*args, **kwargs):
         raise AssertionError('Page loads must not acquire media')
