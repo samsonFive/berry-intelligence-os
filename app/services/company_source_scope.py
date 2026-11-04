@@ -4,6 +4,7 @@ Reuse canonical conservative recall; a textual mention is not a reviewed link.
 Never resolve provisional identities or write back inferred associations.
 """
 from app.services.entity_alias_recall import match_evidence_to_entity
+from app.services.association_corrections import excluded
 
 
 def source_reviewed(record):
@@ -34,6 +35,7 @@ def candidates(entities, state, filters, *, subscribed=False):
 
 def links(record, subjects):
     linked = set(record.get("entity_ids") or []) | set(record.get("company_ids") or [])
+    linked = {key for key in linked if not excluded(record, key)}
     mentions = []
     if source_reviewed(record):
         for entity in subjects:

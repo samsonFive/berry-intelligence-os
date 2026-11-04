@@ -28,8 +28,9 @@ def test_map_and_snapshot_keep_the_same_primary_links_and_fresh_news_action(monk
     assert primary_links(snapshot.text) == primary_links(map_page.text)
     links = set(primary_links(snapshot.text))
     assert ("/today?refresh=1" if authoring else "/today") in links
-    for href in ("/workspaces", "/social", "/landscapes/explorer"):
+    for href in ("/workspaces", "/social", "/global-watchlist"):
         assert (href in links) is authoring
+    assert ('href="/landscapes/explorer"' in snapshot.text) is authoring
     assert ('href="/social?view=atlas"' in snapshot.text) is authoring
     assert snapshot.context["query"].params()["countries"] == "iso:FR"
     assert snapshot.context["query"].params()["berry"] == "berry-strawberry"

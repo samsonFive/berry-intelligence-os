@@ -625,7 +625,8 @@ async def request_corpus_middleware(request: Request, call_next):
     path = str(getattr(request.url, "path", "") or "")
     if should_skip_corpus(path):
         return await call_next(request)
-    corpus = RequestCorpus(data_dir=DATA_DIR, schemas_dir=SCHEMAS_DIR, inbox_dir=INBOX_DIR)
+    corpus = RequestCorpus(data_dir=DATA_DIR, schemas_dir=SCHEMAS_DIR, inbox_dir=INBOX_DIR,
+                           include_workspace_corrections=AUTHORING_MODE)
     token = bind_request_corpus(corpus)
     try:
         request.state.corpus = corpus
@@ -957,7 +958,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     # references must not hydrate every article merely to calculate old badges.
     if request.url.path.startswith("/facts/"):
         return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
-    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -6983,10 +6984,12 @@ def open_watch(request: Request, watch_type: str, object_id: str) -> RedirectRes
     if not AUTHORING_MODE:
         raise HTTPException(403, "Watches are private to the analyst workspace")
     known = entity_index().get(object_id)
-    if watch_type in {"company", "variety", "geography"} and (not known or known.get("entity_type") != watch_type):
+    organization_types = {"company", "breeding_program", "brand", "retailer", "nursery", "technology_provider"}
+    correct_type = known and (known.get("entity_type") in organization_types if watch_type == "company" else known.get("entity_type") == watch_type)
+    if watch_type in {"company", "variety", "geography"} and not correct_type:
         raise HTTPException(404, "The watched subject is unavailable; your watch has been retained")
     if watch_type == "company":
-        destination = f"/entities/company/{object_id}"
+        destination = f"/entities/{known['entity_type']}/{object_id}"
     elif watch_type == "variety":
         destination = f"/entities/variety/{object_id}"
     elif watch_type == "geography":
@@ -7899,24 +7902,8 @@ def competitor_landscape(request: Request) -> HTMLResponse:
     facets are resolved from current sources and local operational state.
     This read path does not invent relationships or mutate company truth.
     """
-    multi: dict[str, list[str]] = {}
-    for key, value in request.query_params.multi_items():
-        multi.setdefault(key, []).append(value)
-    filters = parse_filters(multi)
-    adapter = adapter_from_repositories(
-        data_dir=DATA_DIR,
-        inbox_dir=INBOX_DIR,
-        entities=all_entities(),
-        sources=load_sources(),
-        evidence=published_evidence(),
-        relationships=all_relationships(),
-    )
-    context = build_landscape_context(adapter, filters)
-    return templates.TemplateResponse(
-        request=request,
-        name="competitor_landscape.html",
-        context={**context, "authoring_mode": AUTHORING_MODE},
-    )
+    # Preserve old bookmarks and their exact multi-value filter context.
+    return RedirectResponse('/global-watchlist' + ('?' + request.url.query if request.url.query else ''), status_code=307)
 
 @app.get("/landscapes", response_class=HTMLResponse)
 def landscape_all(request: Request) -> HTMLResponse:
@@ -11253,5 +11240,7 @@ from app.living_workspace_routes import router as living_workspace_router
 app.include_router(living_workspace_router)
 from app.competitive_routes import router as competitive_router
 app.include_router(competitive_router)
+from app.global_watchlist_routes import router as global_watchlist_router
+app.include_router(global_watchlist_router)
 from app.variety_research_routes import router as variety_research_router
 app.include_router(variety_research_router)

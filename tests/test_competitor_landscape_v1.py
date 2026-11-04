@@ -215,16 +215,13 @@ def test_clear_all_restores_full_landscape_via_route() -> None:
         params=[("berry", "strawberry"), ("tier", "Tier 1"), ("region", "DEMEA")],
     )
     assert focused.status_code == 200
-    assert "of 33 competitors" in focused.text
-    # Fresh Forward is strawberry Tier 1 DEMEA
+    assert focused.url.path == "/global-watchlist"
     assert "Fresh Forward" in focused.text
-
     cleared = client.get("/competitors")
     assert cleared.status_code == 200
-    assert "<strong>33</strong> of 33 competitors" in cleared.text
-    # Unknown/unassigned commercial still visible
+    assert "Global Watchlist" in cleared.text
+    assert "Organizations in corpus" in cleared.text
     assert "AgroBerries" in cleared.text
-    assert "Splendor Produce" in cleared.text
     assert "University of Florida" in cleared.text
 
 
@@ -239,15 +236,15 @@ def test_company_drilldown_preserves_filters() -> None:
         ],
     )
     assert response.status_code == 200
-    assert "COMPETITOR DETAIL" in response.text
+    assert "COMPANY PROFILE" in response.text
     assert "Fall Creek" in response.text
-    assert "Return to landscape" in response.text
+    assert "Back to filtered watchlist" in response.text
     # Preserve berry/region/tier on return link
-    assert 'href="/competitors?berry=blueberry' in response.text
+    assert 'href="/global-watchlist?berry=blueberry' in response.text
     assert "region=DEMEA" in response.text
     assert "tier=Tier+1" in response.text or "tier=Tier 1" in response.text
     # Does not invent genetics narrative
-    assert "Open company profile" in response.text
+    assert "Open canonical dossier" in response.text
 
 
 def test_pending_incomplete_identities_render_honestly() -> None:
@@ -271,19 +268,13 @@ def test_pending_incomplete_identities_render_honestly() -> None:
 def test_route_renders_desktop_structure_and_mobile_friendly_controls() -> None:
     response = client.get("/competitors")
     assert response.status_code == 200
-    assert 'id="competitor-landscape"' in response.text
-    assert 'id="competitor-landscape-filters"' in response.text
-    assert "competitor-landscape-controls" in response.text
-    assert 'name="berry"' in response.text
-    assert 'name="region"' in response.text
-    assert 'name="tier"' in response.text
-    assert 'name="priority"' in response.text
-    assert 'name="type"' in response.text
-    assert 'name="q"' in response.text
-    assert "Clear all" in response.text
-    # All 33 names appear somewhere in default view
-    for label in EXPECTED_REGISTRY_LABELS:
-        assert label in response.text
+    assert 'id="gw-results"' in response.text
+    assert 'aria-label="Watchlist filters"' in response.text
+    for field in ('berry', 'region', 'tier', 'q', 'group', 'market'):
+        assert f'name="{field}"' in response.text
+    assert "Reset all" in response.text
+    assert "Unknown/Unassigned" in response.text
+    assert "Export PDF" in response.text
 
 
 def test_adapter_from_repositories_marks_known_entities_canonical() -> None:

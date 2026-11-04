@@ -6,6 +6,7 @@
 {%- endif -%}
 {%- endmacro %}
 <div class="sh-page v2-page v2-company">
+{% if not static_build and authoring_mode %}<p><a href="/global-watchlist?company={{ entity.id }}">Global Watchlist · groups, follow & observations →</a></p>{% endif %}
 <a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#what-changed{% endif %}">Skip to {% if competitor_profile is defined and competitor_profile %}profile concerns{% else %}recent activity{% endif %}</a>
 <section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div class="pvs-profile-hero">
