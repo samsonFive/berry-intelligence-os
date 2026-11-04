@@ -2975,7 +2975,7 @@ def entity_list(
         # A large paged catalog does not need a full source-recall audit before
         # showing its first hundred records. Searches/company scopes retain the
         # existing discovered-name handoff; full review remains one link away.
-        context["catalog_discovery_deferred"] = bool(len(varieties_all) > 100 and variety_view == "index" and view != "legacy" and not q and not company)
+        context["catalog_discovery_deferred"] = bool(len(varieties_all) > 100 and variety_view == "index" and view != "legacy" and not q and not company and not berry and not request.query_params.get("letter"))
         if context["catalog_discovery_deferred"]:
             visible_candidates = []
             context["universe"] = None
