@@ -1,3 +1,16 @@
+# Nebula original article recapture — November 4, 2026
+
+The [dated Nebula source proposal](NEBULA-ORIGINAL-RECAPTURE-2026-11-04.md)
+uses the existing source ID after visual inspection of both original pages.
+The October text-only capture remains intact. The current read view gains
+scoped source context and a link to credited photographs in the original PDF;
+no extra cultivar, canonical identity, confirmed growing footprint or image
+reuse decision is created. This is a complete article enumeration, not a
+complete Mountain Blue portfolio. It retains source-only #494, excludes
+platform #497 and remains unapproved and undeployed. Its own validation and
+fresh private-data rehearsal remain release gates. Earlier counts below keep
+their dated scope.
+
 # Catalog release reconciliation — November 4 UTC, 2026
 
 The user approved release #492. While server headroom was being recovered,
@@ -33,6 +46,15 @@ not deployed. Final checks and release evidence remain required. Earlier
 release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
+
+Prepared separately from live #490: [the Well-Pict historical source](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+adds two literal strawberry labels from a March 2012 merchandising page about
+2011 supply. The local seed has 540 sections /2,075 occurrences /1,335 review
+keys, with 11 unreadable sections and 144 follow-ups; live remains 539 /2,073
+/1,333. The current site gap and all identity/role/rights/photo/region gates
+remain. No canonical, provider, schema or human-decision change is included.
+Performance #493 is a separate default-off draft, not a deployed gain. Earlier
+release statements below retain their dated scope.
 
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),
