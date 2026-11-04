@@ -169,9 +169,9 @@ jobs:
       - name: Install test dependencies
         if: needs.change-scope.outputs.docs-only != 'true'
         run: pip install -r requirements-dev.txt
-      - name: Run complete deterministic suite
-        if: needs.change-scope.outputs.docs-only != 'true'
-        run: python -m pytest -q
       - name: Explicit public-seed private-model diagnostic
         if: github.event_name == 'workflow_dispatch' && github.ref_name == 'perf/public-private-model-probe-20261104'
         run: python scripts/benchmark_private_models_public.py --public-seed-only
+      - name: Run complete deterministic suite
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: python -m pytest -q

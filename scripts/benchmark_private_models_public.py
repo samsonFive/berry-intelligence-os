@@ -96,12 +96,17 @@ def main(argv=None):
             BIOS_PUBLIC_PROBE_INBOX=str(inbox), BIOS_PUBLIC_PROBE_ARTIFACT_ROOT=str(artifacts),
             BIOS_PUBLIC_PROBE_BASELINE=str(baseline), PYTHONDONTWRITEBYTECODE="1",
             PYTHONHASHSEED="0", PYTHONIOENCODING="utf-8")
-        # ABBA ordering within each first-visit/reuse pair; two replicates for
-        # each route order. Every process also renders an unseen-article update.
+        # Seed creation, unchanged-worker reuse, then a fresh worker in which an
+        # earlier capture remains present and a newer update arrives. Alternate
+        # the final variant order across replicates; never roll back source state
+        # to manufacture a hit after capture. Nothing is written to the seed.
         for order in ("company", "candidates"):
             for replicate in ("0", "1"):
-                for variant, phase in (("baseline", "initial"), ("candidate", "initial"),
-                                       ("candidate", "reuse"), ("baseline", "reuse")):
+                updated_order = ("baseline", "candidate") if replicate == "0" else ("candidate", "baseline")
+                sequence = [("baseline", "initial"), ("candidate", "initial"),
+                            ("candidate", "reuse"), ("baseline", "reuse")]
+                sequence.extend((variant, "updated") for variant in updated_order)
+                for variant, phase in sequence:
                     assert time.perf_counter() - start < 480, "Bound the whole diagnostic"
                     child_start = time.perf_counter()
                     result = subprocess.run([sys.executable, str(ROOT / "scripts/private_model_public_worker.py"),
@@ -111,12 +116,15 @@ def main(argv=None):
                     row = json.loads(result.stdout.splitlines()[-1])
                     assert (row["variant"], row["order"], row["phase"], row["replicate"]) == (variant, order, phase, replicate)
                     row["diagnostic_process_wall_seconds"] = time.perf_counter() - child_start
-                    assert row["fictional_fresh_news_exercised"]
+                    assert row["fictional_fresh_news_exercised"] == (phase == "updated")
                     for _, counts in row["actual_scope_counts"]:
                         assert counts["writes"] == 0, "Ordinary readers must not write"
-                    if variant == "candidate":
+                    if variant == "candidate" and phase != "updated":
                         assert sum(counts["artifact_hits"] for step, counts in row["actual_scope_counts"]
                                    if step != "fresh_news") >= 2, "Prepared reads did not exercise native artifacts"
+                    if variant == "candidate" and phase == "updated":
+                        assert row["earlier_article_retained_in_fresh_worker"]
+                        assert sum(counts["artifact_hits"] for _, counts in row["actual_scope_counts"]) == 0, "Stale source artifacts were reused"
                         assert sum(counts["calculations"] for step, counts in row["actual_scope_counts"]
                                    if step == "fresh_news") >= 1, "New source did not invalidate the model"
                     runs.append(row)
@@ -125,14 +133,21 @@ def main(argv=None):
     summaries = []
     for order in ("company", "candidates"):
         group = [row for row in runs if row["order"] == order]
-        assert all(row["outputs"] == group[0]["outputs"] for row in group), "Complete outputs differ: " + order
+        phase_summaries = []
+        for phase in ("initial", "reuse", "updated"):
+            phase_rows = [row for row in group if row["phase"] == phase]
+            assert all(row["outputs"] == phase_rows[0]["outputs"] for row in phase_rows), "Complete outputs differ: " + order + "/" + phase
+            phase_summaries.append({"phase": phase, **{variant: statistics.median(
+                row["charged_total_seconds"] for row in phase_rows if row["variant"] == variant)
+                for variant in ("baseline", "candidate")}})
         pairs = {variant: [sum(row["charged_total_seconds"] for row in group
                     if row["variant"] == variant and row["replicate"] == replicate)
                 for replicate in ("0", "1")] for variant in ("baseline", "candidate")}
         summaries.append({"order": order,
-            "baseline_two_worker_workflow_median_seconds": statistics.median(pairs["baseline"]),
-            "candidate_preparation_plus_two_worker_workflow_median_seconds": statistics.median(pairs["candidate"]),
-            "baseline_pairs": pairs["baseline"], "candidate_pairs": pairs["candidate"]})
+            "baseline_three_worker_workflow_median_seconds": statistics.median(pairs["baseline"]),
+            "candidate_preparation_plus_three_worker_workflow_median_seconds": statistics.median(pairs["candidate"]),
+            "baseline_totals": pairs["baseline"], "candidate_totals": pairs["candidate"],
+            "phases": phase_summaries})
     output = {"kind": "public_seed_private_model_diagnostic", "checked_at": datetime.now(timezone.utc).isoformat(),
         "head": git("rev-parse", "HEAD").decode().strip(), "checked_runtime_head": CHECKED_SOURCE,
         "baseline_head": BASE, "runtime_source_sha256": source_hashes,

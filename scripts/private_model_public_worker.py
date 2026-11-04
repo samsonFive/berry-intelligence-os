@@ -1,4 +1,4 @@
-PREPARATION_BOOTSTRAP = "from pathlib import Path\nfrom datetime import datetime,timezone\nimport os,runpy,sys\nroot=Path(os.environ['BIOS_PUBLIC_PROBE_REPO'])\nsys.path.insert(0,str(root))\nfrom app.services.variety_universe import registry_import\nclass ControlledCandidateTime(datetime):\n @classmethod\n def now(cls,tz=None):\n  value=datetime(2026,11,3,12,0,0,tzinfo=timezone.utc)\n  return value.astimezone(tz)if tz else value.replace(tzinfo=None)\nregistry_import.datetime=ControlledCandidateTime\nscript=str(root/'scripts/prepare_private_read_models.py')\nsys.argv=[script,'--prepare']\nrunpy.run_path(script,run_name='__main__')\n"
+PREPARATION_BOOTSTRAP = "from pathlib import Path\nfrom datetime import datetime,timezone\nimport os,runpy,sys\nroot=Path(os.environ['BIOS_PUBLIC_PROBE_REPO'])\nsys.path.insert(0,str(root))\nfrom scripts.prepare_private_read_models import offline_preparation\nwith offline_preparation():\n from app.services.variety_universe import registry_import\n class ControlledCandidateTime(datetime):\n  @classmethod\n  def now(cls,tz=None):\n   value=datetime(2026,11,3,12,0,0,tzinfo=timezone.utc)\n   return value.astimezone(tz)if tz else value.replace(tzinfo=None)\n registry_import.datetime=ControlledCandidateTime\n script=str(root/'scripts/prepare_private_read_models.py')\n sys.argv=[script,'--prepare']\n runpy.run_path(script,run_name='__main__')\n"
 'Controlled cold/next-click experiment on one disposable read-only copy.'
 from pathlib import Path
 from datetime import date, datetime, timezone
@@ -7,19 +7,14 @@ ROOT = Path(__file__).resolve().parents[1]
 PROBE_HOME = Path(os.environ['BIOS_PUBLIC_PROBE_HOME']).resolve()
 assert PROBE_HOME.parent == Path(tempfile.gettempdir()).resolve()
 assert PROBE_HOME.name.startswith('berry-public-model-probe-')
-assert json.loads((PROBE_HOME / 'public-seed-only.json').read_text()) == {
-    'repo': str(ROOT), 'checked_source': '0cec711590f97653d9e5a5f368fb822b232537fe',
-    'purpose': 'public-seed-measurement-only'}
-for setting, leaf in [('BIOS_PUBLIC_PROBE_INBOX', 'inbox'),
-                      ('BIOS_PUBLIC_PROBE_ARTIFACT_ROOT', 'artifacts'),
-                      ('BIOS_PUBLIC_PROBE_BASELINE', 'baseline')]:
+assert json.loads((PROBE_HOME / 'public-seed-only.json').read_text()) == {'repo': str(ROOT), 'checked_source': '0cec711590f97653d9e5a5f368fb822b232537fe', 'purpose': 'public-seed-measurement-only'}
+for setting, leaf in [('BIOS_PUBLIC_PROBE_INBOX', 'inbox'), ('BIOS_PUBLIC_PROBE_ARTIFACT_ROOT', 'artifacts'), ('BIOS_PUBLIC_PROBE_BASELINE', 'baseline')]:
     assert Path(os.environ[setting]).resolve() == PROBE_HOME / leaf
-assert not any(path.is_file() for path in (PROBE_HOME / 'inbox').rglob('*'))
+assert not any((path.is_file() for path in (PROBE_HOME / 'inbox').rglob('*')))
 for key in list(os.environ):
     if key.endswith(('_API_KEY', '_API_TOKEN')):
         os.environ[key] = ''
 os.environ.update(BIOS_DATA_DIR=str(ROOT / 'data'), BIOS_INBOX_DIR=os.environ['BIOS_PUBLIC_PROBE_INBOX'], BIOS_REMOTE_INTERACTIVE='false', BIOS_MODE='authoring', ENABLE_SOURCE_POLLING='false', ENABLE_PERPLEXITY_PULSE='false', BIOS_SOCIAL_MANUAL_COLLECTION='false', PYTHONHASHSEED='0')
-
 network_attempts = 0
 
 def denied(*args, **kwargs):
@@ -30,6 +25,7 @@ socket.socket.connect = socket.socket.connect_ex = socket.create_connection = so
 sys.path.insert(0, str(ROOT))
 variant, order, phase, replicate = sys.argv[1:]
 assert variant in {'baseline', 'candidate'} and order in {'company', 'candidates'}
+assert phase in {'initial', 'reuse', 'updated'} and replicate in {'0', '1'}
 os.environ['BIOS_PRIVATE_READ_MODELS'] = 'true' if variant == 'candidate' else 'false'
 os.environ['BIOS_SESSION_SECRET'] = 'offline-only-private-model-fixture-secret-32'
 artifact_root = Path(os.environ['BIOS_PUBLIC_PROBE_ARTIFACT_ROOT']) / (order + '-' + replicate)
@@ -66,15 +62,15 @@ class ControlledCandidateTime(datetime):
 
     @classmethod
     def now(cls, tz=None):
-        value = datetime(2026, 11, 3, 12, 10 if globals().get('fresh_update', False) else 0, 0, tzinfo=timezone.utc)
+        value = datetime(2026, 11, 3, 12, 10 * source_revision, 0, tzinfo=timezone.utc)
         return value.astimezone(tz) if tz else value.replace(tzinfo=None)
 registry_import.datetime = ControlledCandidateTime
-fresh_update = False
+source_revision = 1 if phase == 'updated' else 0
 original_drafts = main.list_drafts
 fictional_draft = {'id': 'ev-offline-fresh-news-fixture', 'status': 'in_review', 'evidence_role': 'publication_artifact', 'source_type': 'company_website', 'source_id': 'fixture-offline-only', 'source_name': 'Fictional offline performance publisher', 'source_url': 'https://example.test/offline-news-update', 'title': 'Fictional parsing fixture', 'summary': 'An invented article used only in an offline performance comparison.', 'published_date': '2026-11-03', 'captured_date': '2026-11-03', 'berry_ids': ['berry-blueberry'], 'entity_ids': ['company-hortifrut'], 'article': {'full_text': 'Blueberry varieties include Nebula Benchmark. This is fictional test data, never a market claim.'}}
 
 def drafts_with_update():
-    return [*original_drafts(), fictional_draft] if fresh_update else original_drafts()
+    return [*original_drafts(), fictional_draft] if source_revision else original_drafts()
 main.list_drafts = drafts_with_update
 universes = []
 articles = []
@@ -142,10 +138,11 @@ if variant == 'candidate':
 timings = {}
 responses = {}
 models = {}
-for step in [order, 'candidates' if order == 'company' else 'company', 'fresh_news']:
-    route = order if step == 'fresh_news' else step
+for step in [order, 'candidates' if order == 'company' else 'company', 'fresh_news' if phase == 'updated' else 'repeat']:
+    route = order if step in {'fresh_news', 'repeat'} else step
     if step == 'fresh_news':
-        fresh_update = True
+        source_revision = 2
+        fictional_draft['article']['full_text'] = 'Blueberry varieties include Nebula Benchmark and Orchard Benchmark. This is fictional test data, never a market claim.'
     path = '/entities/company/company-hortifrut' if route == 'company' else '/varieties/candidates'
     query = b'tab=varieties' if route == 'company' else b'company=company-hortifrut'
     request = Request({'type': 'http', 'app': main.app, 'method': 'GET', 'scheme': 'http', 'path': path, 'query_string': query, 'headers': [], 'server': ('fixture.local', 80), 'client': ('127.0.0.1', 1), 'root_path': ''})
@@ -159,9 +156,14 @@ for step in [order, 'candidates' if order == 'company' else 'company', 'fresh_ne
     assert response.status_code == 200
     responses[step] = response.body
     models[step] = {key: value for key, value in response.context.items() if key != 'request'}
-assert any((row.get('candidate_name') == 'Nebula Benchmark' for label, value in universes if label == 'fresh_news' for row in value[1])), 'Fictional new source did not exercise discovery'
-assert any((row.get('id') == 'ev-offline-fresh-news-fixture' and row.get('status') == 'unreviewed' for label, value in articles if label == 'fresh_news' for row in value[0])), 'Fresh source is missing or its unreviewed status changed'
+if phase == 'updated':
+    assert any((row.get('candidate_name') == 'Nebula Benchmark' for label, value in universes if label == order for row in value[1])), 'The earlier captured article disappeared in a fresh worker'
+    assert not any((row.get('candidate_name') == 'Orchard Benchmark' for label, value in universes if label == order for row in value[1])), 'The later update was not genuinely unseen'
+    assert any((row.get('candidate_name') == 'Orchard Benchmark' for label, value in universes if label == 'fresh_news' for row in value[1])), 'The newer article body did not exercise discovery'
+    assert any((row.get('id') == 'ev-offline-fresh-news-fixture' and row.get('status') == 'unreviewed' for label, value in articles if label == 'fresh_news' for row in value[0])), 'New source review state changed'
+else:
+    assert not any((row.get('id') == 'ev-offline-fresh-news-fixture' for _, value in articles for row in value[0]))
 assert artifact_hashes() == before_artifacts, 'Ordinary reader changed artifact files'
 assert network_attempts == 0, 'A worker attempted an external connection'
 outputs = {step: {'HTML': hashlib.sha256(body).hexdigest(), 'typed_context': signature(models[step]), 'complete_universes': [signature(value) for label, value in universes if label == step], 'complete_article_bundles': [signature(value) for label, value in articles if label == step]} for step, body in responses.items()}
-print(json.dumps({'variant': variant, 'order': order, 'seconds': timings, 'workflow_seconds': sum(timings.values()), 'preparation_seconds': preparation_seconds, 'charged_total_seconds': preparation_seconds + sum(timings.values()), 'preparation_receipt': preparation_receipt, 'actual_scope_counts': [(label, scope.counts) for label, scope in model_scopes], 'outputs': outputs, 'phase': phase, 'replicate': replicate, 'model_counts': globals().get('model_counts', {}), 'repository_copy_counts': {}, 'identity_lookup_counts': {}, 'reader_key_paths': globals().get('key_counts', {}), 'parser_counts': globals().get('parser_counts', {}), 'source_gate_counts': globals().get('source_gate_counts', {}), 'fictional_fresh_news_exercised': True, 'source_records': [len(value[0]) for _, value in articles]}))
+print(json.dumps({'variant': variant, 'order': order, 'seconds': timings, 'workflow_seconds': sum(timings.values()), 'preparation_seconds': preparation_seconds, 'charged_total_seconds': preparation_seconds + sum(timings.values()), 'preparation_receipt': preparation_receipt, 'actual_scope_counts': [(label, scope.counts) for label, scope in model_scopes], 'outputs': outputs, 'phase': phase, 'replicate': replicate, 'fictional_fresh_news_exercised': phase == 'updated', 'earlier_article_retained_in_fresh_worker': phase == 'updated', 'source_records': [len(value[0]) for _, value in articles]}))
