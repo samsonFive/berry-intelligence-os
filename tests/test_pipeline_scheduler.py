@@ -80,3 +80,20 @@ def test_explicit_allowlist_is_validated_and_empty_is_inert(tmp_path):
     with pytest.raises(ValueError, match='unknown pipeline'):
         run_due_pipelines(**kwargs, pipeline_ids=['typo'])
     assert not (tmp_path / 'inbox').exists()
+
+
+def test_dispatch_receipt_distinguishes_effective_allowlist_from_enabled_registry(tmp_path):
+    config = _config(tmp_path / 'pipelines.json')
+    payload = json.loads(config.read_text())
+    payload['pipelines'][1].update(enabled=True, scheduled=True, cadence_seconds=21600)
+    config.write_text(json.dumps(payload))
+    inbox = tmp_path / 'inbox'
+    kwargs = dict(data_dir=tmp_path / 'data', inbox_dir=inbox, config_path=config, now=NOW,
+                  pipeline_ids=['article_news'])
+    run_due_pipelines(**kwargs, plan_only=True)
+    assert not inbox.exists()
+    run_due_pipelines(**kwargs, executor=lambda command: subprocess.CompletedProcess(command, 0,
+        stdout=json.dumps({'counts': {'sources_succeeded': 1}}), stderr=''))
+    receipt = json.loads((inbox / 'operations/pipelines/dispatcher.json').read_text())
+    assert receipt['requested_ids'] == ['article_news']
+    assert receipt['due_ids'] == ['article_news'] and receipt['state'] == 'SUCCESS'

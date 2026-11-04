@@ -142,6 +142,14 @@ def run_due_pipelines(
             "pipelines": health["pipelines"],
         }
 
+    # Record what this dispatcher actually selected, separately from registry
+    # enabled/scheduled flags. An active timer is not proof of lane execution.
+    dispatch = {'generated_at': _iso(instant), 'selection': 'explicit' if selectors is not None else 'all_enabled_scheduled',
+                'requested_ids': sorted(selectors) if selectors is not None else None,
+                'due_ids': [pipeline['id'] for pipeline in selected], 'state': 'DISPATCHING'}
+    dispatch_path = inbox_dir / 'operations/pipelines/dispatcher.json'
+    _write_json(dispatch_path, dispatch)
+
     results: list[dict[str, Any]] = []
     for pipeline in selected:
         started = datetime.now(UTC)
@@ -169,4 +177,5 @@ def run_due_pipelines(
         results.append(record)
     outcomes = {result["outcome"] for result in results}
     state = "IDLE" if not results else "FAILED" if "FAILED" in outcomes else "PARTIAL" if "PARTIAL" in outcomes else "SUCCESS"
+    _write_json(dispatch_path, {**dispatch, 'state': state})
     return {"state": state, "generated_at": _iso(instant), "results": results}

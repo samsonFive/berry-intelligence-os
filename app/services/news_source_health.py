@@ -1,5 +1,6 @@
 """Read-only source operations alongside explicitly scoped News contribution."""
 import json
+import re
 from collections import Counter, defaultdict
 
 from app.services.chronology import parse_stamp
@@ -9,6 +10,23 @@ from app.services.source_lifecycle import lifecycle_state
 
 
 def model(sources, records, matching_ids, inbox_dir, exclusions=None):
+    from app.services.media_reader import transcript_headers
+    stored_transcripts = Counter(row.get('source_id') for row in transcript_headers(inbox_dir))
+    dispatcher = {}
+    try:
+        path = inbox_dir / 'operations/pipelines/dispatcher.json'
+        if not path.is_symlink() and path.stat().st_size <= 32_000:
+            raw = json.loads(path.read_text(encoding='utf-8'))
+            if (isinstance(raw, dict) and raw.get('selection') in {'explicit', 'all_enabled_scheduled'}
+                    and isinstance(raw.get('due_ids'), list) and len(raw['due_ids']) <= 128
+                    and (raw.get('requested_ids') is None or isinstance(raw['requested_ids'], list) and len(raw['requested_ids']) <= 128)
+                    and raw.get('state') in {'DISPATCHING', 'IDLE', 'SUCCESS', 'PARTIAL', 'FAILED'}
+                    and parse_stamp(raw.get('generated_at'))
+                    and all(isinstance(key, str) and re.fullmatch(r'[a-z][a-z0-9_]{0,63}', key)
+                            for key in [*raw['due_ids'], *(raw.get('requested_ids') or [])])):
+                dispatcher = {key: raw.get(key) for key in ('generated_at', 'selection', 'requested_ids', 'due_ids', 'state')}
+    except (OSError, ValueError):
+        pass
     discovered = defaultdict(list)
     issues = 0
     for path in (inbox_dir / 'discovered_media').glob('*.json'):
@@ -41,9 +59,11 @@ def model(sources, records, matching_ids, inbox_dir, exclusions=None):
             execution = {'label': 'Runtime state unreadable'}
             freshness = {'label': 'Unknown', 'last_checked_at': None, 'last_success_at': None}
         items = discovered[key]
-        dated = [item for item in items if parse_stamp(item.get('published_date'))]
-        latest = max(dated, key=lambda item: parse_stamp(item['published_date']).timestamp(), default={})
         publications = retained[key]
+        dated = [item for item in [*items, *publications] if parse_stamp(item.get('published_date'))]
+        latest = max(dated, key=lambda item: parse_stamp(item['published_date']).timestamp(), default={})
+        feed_failures = len(state.get('feed_failures', [])) if isinstance((state or {}).get('feed_failures'), list) else 0
+        item_failures = len(state.get('item_failures', [])) if isinstance((state or {}).get('item_failures'), list) else 0
         excluded = Counter((exclusions or {}).get(item['id']) for item in publications if (exclusions or {}).get(item['id']))
         drafts = sum(item.get('status') == 'unreviewed' for item in publications)
         transcripts = sum(item.get('transcript_status') in {'ready', 'partial', 'captured', 'available', 'stored'} for item in publications)
@@ -69,6 +89,7 @@ def model(sources, records, matching_ids, inbox_dir, exclusions=None):
                          last_attempt=freshness.get('last_checked_at'), last_success=freshness.get('last_success_at'),
                          latest_title=latest.get('title'), latest_date=latest.get('published_date'),
                          discovered=len(items), drafts=drafts, transcripts=transcripts,
+                         stored_transcripts=stored_transcripts[key], feed_failures=feed_failures, item_failures=item_failures,
                          visible=visible[key], reason=reason))
         rows[-1]['exclusions'] = [{'reason': reason, 'count': count} for reason, count in sorted(excluded.items())]
-    return {'health_rows': sorted(rows, key=lambda row: row['label'].casefold()), 'health_issues': issues}
+    return {'health_rows': sorted(rows, key=lambda row: row['label'].casefold()), 'health_issues': issues, 'dispatcher': dispatcher}
