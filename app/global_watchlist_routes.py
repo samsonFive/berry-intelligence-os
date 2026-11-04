@@ -17,10 +17,13 @@ def model(request):
     params = dict(request.query_params)
     if request.query_params.getlist('region'):
         params['region'] = ','.join(request.query_params.getlist('region'))
+    from app.services import feed_first
+    request.state.watchlist_feed_state = feed_first.load_state(main.INBOX_DIR)
     try:
         result = gw.build(entities=main.all_entities(), evidence=main.published_evidence(),
             relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
-            data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources())
+            data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources(),
+            tracking_state=request.state.watchlist_feed_state)
         # Reuse the already-governed capability framework and source trace.
         selected = [r['id'] for r in result['focus']]
         result['capabilities'] = comparison(main, store, {'companies': ','.join(selected),
@@ -40,6 +43,8 @@ def model(request):
     result['export_href'] = '/global-watchlist/export.pdf' + ('?' + query if query else '')
     clear_keys = {'company'} if result['company'] and result['selected'] else {'company', 'compare'}
     result['browse_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items() if k not in clear_keys})
+    result['clear_tracking_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items()
+        if k not in {'favorites', 'company_tier', 'list'}})
     for row in result['all_rows']:
         row['href'] = '/global-watchlist?' + urlencode({**params, 'company': row['id']})
     result['letter_urls'] = {letter: '/global-watchlist?' + urlencode({
@@ -53,7 +58,7 @@ def page(request: Request):
     main, _, _, result = model(request)
     from app.services import feed_first, news_workspace
     from app.services.company_source_scope import source_reviewed
-    state = feed_first.load_state(main.INBOX_DIR)
+    state = request.state.watchlist_feed_state
     support = news_workspace.escalations(main.all_facts())
     cards = []
     for story in result['news'][:30]:

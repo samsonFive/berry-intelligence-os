@@ -57,6 +57,12 @@ def render(model):
             return ', '.join(model['entities'].get(item, {}).get('name') or item for item in str(value).split(','))
         if key == 'group' and model.get('selected_group'):
             return model['selected_group']['name']
+        if key == 'list' and model.get('selected_list'):
+            return model['selected_list']['name']
+        if key == 'company_tier':
+            return model.get('company_tiers', {}).get(value, value)
+        if key == 'favorites':
+            return 'Favorites only'
         if key in {'source_type', 'event_type', 'type', 'priority', 'berry'}:
             return humanize_label(value)
         return value
@@ -72,11 +78,15 @@ def render(model):
               p(f"{report['source']} | snapshot {report['snapshot_date']} | {humanize_label(report['review_state'])}"),
               p(report['caveat']), p(f"{report['source_row_count']} source rows; {len(report['assignments'])} unique berry assignments; {len(report['unmatched'])} unmatched; {len(report['conflicts'])} conflicts.", 'GWMeta'),
               p('Imported regions describe monitoring scope, not proof of market presence. A tier belongs to its selected berry, never a company-wide performance score.', 'GWMeta')]
-    rows = model['focus'] or model['rows']
+    rows = model['focus'] if model.get('focus_selection', bool(model['focus'])) else model['rows']
+    if model.get('excluded_focus'):
+        story.append(p('Excluded by company filters: ' + ', '.join(row['name'] for row in model['excluded_focus']) + '. Clear company filters to restore the selection.'))
     story += [p(f'Organizations ({len(rows)})', 'GWHeading')]
     if rows:
         story.append(table(['Organization / roles', 'Tier / scope', 'Footprint / assessed confidence'], [[
-            row['name'] + '\n' + ', '.join(humanize_label(role) for role in row['roles']),
+            row['name'] + '\n' + ', '.join(humanize_label(role) for role in row['roles']) +
+            ('\nCompany tracking: ' + row['tracking']['tier_label'] + (' / Favorite' if row['tracking']['favorite'] else '') +
+             '\nLists: ' + (', '.join(group['name'] for group in row['tracking']['lists']) or 'None') if row.get('tracking') else ''),
             row['tier'] + '\nImported scope: ' + (', '.join(row['monitoring_regions']) or 'Unassigned'),
             (', '.join(row['regions']) or 'Geographic evidence insufficient') + '\n' + row['confidence']
         ] for row in rows], [width * .36, width * .27, width * .37]))

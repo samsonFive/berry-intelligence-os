@@ -1,5 +1,20 @@
 # Berry Intelligence — requirements and current status
 
+## Shared tracking follow-up — November 4
+
+The independent Watchlist follow-up addresses the remaining CO-01/UI-03 gap:
+shared company favorites, assigned tiers and custom lists now filter its table,
+profiles, comparisons, captured news and PDF; profile edits reuse Companies'
+existing controls and protected writes. Imported berry tiers and monitoring
+groups remain separate. Empty explicit selections cannot fall back to unrelated
+news. The layout is denser, with active scope visible while controls are folded.
+52 affected checks and native desktop/390px/PDF review pass; CI and fresh release
+acceptance remain required. See
+[the scoped implementation and evidence](WATCHLIST-SHARED-COMPANY-TRACKING-2026-11-04.md).
+No release approval is inferred from implementation or browser review. The
+pending exact #506 release remains unchanged. All original definitions below
+are retained verbatim, along with their dated evidence.
+
 ## Global Watchlist reconciliation — November 4
 
 Global Watchlist #505 is now merged at `ae22ea07` and its healthy runtime uses image `20c8a5a0`. At the last observation the release owner was still reconciling its version receipt; this integration does not modify that record. The draft preserves the dashboard, shared table controls, scoped Reader links and source corrections. Both response imports are retained where the catalog redirect safeguards meet the new preference endpoints.

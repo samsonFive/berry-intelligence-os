@@ -32,5 +32,6 @@ def test_guide_comparison_availability_does_not_read_or_write_research(tmp_path,
         assert 'Unknown means there is not enough comparable evidence' in page.text
         assert 'The saved comparison stays fixed when news refreshes.' in page.text
         assert 'Imported berry-specific tiers keep their source and scope' in page.text
+        assert 'same shared favorites, assigned company tiers and custom lists' in page.text
         assert 'Opening or exporting a Watchlist does not collect fresh news or verify its claims.' in page.text
     assert {str(p.relative_to(tmp_path)): p.read_bytes() for p in tmp_path.rglob('*') if p.is_file()} == before

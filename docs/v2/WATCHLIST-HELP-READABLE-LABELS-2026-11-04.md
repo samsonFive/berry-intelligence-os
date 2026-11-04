@@ -53,3 +53,11 @@ requirement that company marks and lists carry into every view. Add those shared
 filters to Watchlist without discarding existing groups, imported classifications
 or edits; do not silently merge records that have different meanings. This stays
 in the original mission and is not claimed complete by the Help change.
+
+
+## Subsequent implementation
+
+The remaining shared tracking gap described above is implemented by the separate
+[Watchlist company-tracking follow-up](WATCHLIST-SHARED-COMPANY-TRACKING-2026-11-04.md).
+It also tightens the Watchlist layout. This does not retroactively change #510's
+scope or imply deployment; the follow-up retains its own checks and release gate.
