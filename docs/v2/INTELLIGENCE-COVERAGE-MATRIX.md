@@ -1,3 +1,15 @@
+# Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
+
+The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+separate missing public cultivar lists, brand-only pages, research material and
+a possible same-name Biogea website mismatch. No company website, source record,
+canonical variety, candidate, identity hold, human decision or maturity status
+changes through this documentation follow-up. The canonical public-only counts
+remain 539 sections/2,073 occurrences/899 derived keys; pending source/Learn #504
+has a separate 540-section audit with unchanged name/key counts. All seven
+subjects remain partial. No worldwide-completeness or independent-recall score
+is claimed. Earlier dated coverage and release statements remain below.
+
 # Benning harvest source and Learn link — November 4, 2026
 
 The [bounded source/Learn follow-up](BENNING-HARVEST-SOURCE-LEARN-REVIEW.md)

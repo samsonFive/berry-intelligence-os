@@ -1,43 +1,49 @@
 # Remaining work in this mission
 
-Updated November 4, 2026 (UTC). The active
-[31-requirement checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) is the current
-source for delivery and open work. The full previous closeout text is retained
-in [history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026-consolidation--previous-active-records).
-No older “awaiting approval” sentence in that history creates a new release request.
+## Combined release preparation — November 4, 2026
 
-Approved performance #490 is merged and independently verified live at `3ffe5bad`.
-Its approval is fulfilled; no repeated deployment is needed. The visual redesign,
-consolidation, collaborative Workspaces, personal-only Digest/layouts, News/Reader,
-four-crop Landscape, reporting and visual Help explainer remain delivered.
+The isolated `release/mission-closeout-integration-20261104` candidate
+combines the tested platform #500, source #498, harvest/Learn #504 and
+checklist #503 heads. Their preceding individual results below are
+component evidence, not acceptance of this combination. Combined CI,
+desktop/phone review and fresh private-data/workflow acceptance remain
+pending. The latest read-only observation still finds live #411 healthy;
+catalog #492 is merged but its actual rollout has not been observed.
+No merge, deployment, import or new release approval occurs here.
 
-What remains here:
+Updated November 4, 2026. Follow the active
+[31-requirement checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) for exact current
+release state and completion evidence. Full preceding closeout text is retained
+in [history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026--previous-active-status-before-live411-reconciliation).
 
-1. **Daily-use speed:** deep cold catalog loads still take several seconds.
-   [The investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) records full
-   workflow measurements, rejected variants and the tested owned batch plus excluded later prototypes.
-   Public-seed timings cannot close private/live latency or preservation gates.
-2. **Source and variety depth:** continue the 77-subject current/historical plan,
-   unreadable originals and cited identity, traits, rights, regions and photos.
-   The 1,333 source-derived keys are review leads, not approved varieties or
-   proof of worldwide completeness. Source-only #498 retains #494 and is tested but not live.
-3. **Human decisions:** independently supplied answers for the 32-source recall
-   audit; 32 unclear supplied-photo cells; organization/name/code/role/rights,
-   source/statement/photo permissions and held Map selections. No automatic
-   promotion or invented answer substitutes for these decisions.
-4. **Learn depth:** preserve the 27 visual lessons, selected-text research and
-   completed editable acceptance draft. Continue source/media quality without
-   another paid request. Bounded playback checks do not establish full scientific
-   review, perpetual availability or permission to copy a video.
-5. **Final release review:** required checks, native desktop/phone review,
-   fresh production-copy preservation, explicit final-head release approval,
-   a release-time backup and retained rollback. The unanswered backup-mirror
-   cleanup request is not permission; keep the existing server headroom guard.
+The visual redesign/consolidation, shared Workspaces, private Digest/layouts,
+News/Reader, four-crop Landscape, reporting and the visual Help explainer are
+delivered. #411 is independently observed live and healthy. #492 is merged in
+Git; its catalog rollout has not been observed live here. #500 and #498 pass
+their current checks and browser review but remain undeployed drafts. Separate
+harvest source/Learn #504 also passes its 6,626-test checks and native review,
+with no new cultivar or human decision; it is not deployed.
 
-The rejected separate-preparation draft #493 is closed unmerged. The rejected measurement-only branch cannot merge/deploy. Platform #500 at `02df0341` passes its own four checks /6,373 tests and
-native desktop/390px review, retaining the earlier platform/Learn work. Source
-#498 remains separate. Fresh private rehearsal and separate release approvals
-remain required; neither later performance prototype is included. No new source or runtime
-head has release approval. Keep all user edits, account history, private research,
-settings/data mounts, original requirements, governing guide and human gates.
-The ongoing mission remains active in this chat.
+To close the full mission, finish:
+
+1. Release sequencing, fresh private-data preservation and complete-workflow
+   checks on the actual final catalog, then exact-head approval, fresh backup,
+   guarded deployment and live verification with rollback retained.
+2. Cold catalog speed, using full first-visit and next-click measurements with
+   unchanged complete outputs and fresh user edits; deep visits still take seconds.
+3. Source/catalog/profile depth and unreadable originals in the 77-subject plan,
+   without treating occurrences or text matches as approved identities or claims.
+4. Independent human expected-name answers and the held photo/name/organization,
+   role/rights/source/statement/Map selections. No automatic substitute is allowed.
+5. Broader Learn scientific, citation and media quality while preserving user
+   edits/history; no additional paid request or retry is authorized.
+
+The [partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+now state the concrete source constraint and next useful input for all seven
+partial subjects. None is declared complete. A possible Biogea website mismatch
+remains a review lead, not an automatic organization correction.
+
+The prior #500 `b2452a89` approval and superseded `7ace95b7` question do not cover
+the newer head. The completed four-copy cleanup permits no additional purge.
+No code, data, review decision, deployment or mission completion occurs through
+this documentation update. All original 31 requirements remain intact.

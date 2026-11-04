@@ -1,113 +1,103 @@
 # Berry Intelligence — requirements and current status
 
-Updated November 4, 2026 (UTC). This is the active checklist. The complete
-[previous records](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026-consolidation--previous-active-records)
-remain in history; dated “current” headings there do not supersede this page.
-No accepted requirement is deleted or marked complete by this consolidation.
+## Combined release preparation — November 4, 2026
 
-## What is live
+The isolated `release/mission-closeout-integration-20261104` candidate
+combines the tested platform #500, source #498, harvest/Learn #504 and
+checklist #503 heads. Their preceding individual results below are
+component evidence, not acceptance of this combination. Combined CI,
+desktop/phone review and fresh private-data/workflow acceptance remain
+pending. The latest read-only observation still finds live #411 healthy;
+catalog #492 is merged but its actual rollout has not been observed.
+No merge, deployment, import or new release approval occurs here.
 
-Approved [#490](https://github.com/samsonFive/berry-intelligence-os/pull/490),
-tested head `10d49757`, is merged and independently verified live at `3ffe5bad`.
-Its approval is fulfilled. It retains the redesign, consolidated navigation,
-four-crop Landscape, dense image-rich News/Reader, company/variety workflows,
-reporting, 27 visual Learn lessons and the visual Help explainer.
+Updated November 4, 2026, 10:22 UTC. This is the active checklist. The original
+31 accepted requirements and their order remain below. No requirement is
+removed or declared complete by this status reconciliation. Full preceding
+status/checklist/closeout texts are preserved in
+[history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026--previous-active-status-before-live411-reconciliation).
+
+## Verified live, merged and prepared
+
+| State | Release | Evidence and remaining gate |
+| --- | --- | --- |
+| Live | Search/research #411, `34eb23c3` | Independent read-only observation finds the running and recorded image `d8601b96` equal and the app healthy. This is a version/health observation, not a new full live-data census. The delivered redesign, Help explainer and earlier approved platform features remain retained. |
+| Merged, rollout pending | Editable catalog #492, `b7b23212` | Git is merged. Its release owner reports a tested 507→1,259 plan with unverified workspace varieties. This chat has not observed that runtime or population live; do not describe the planned count as deployed. |
+| Tested draft | Platform #500, `15295070` | All four checks pass: 6,679 tests, 11 skipped. Native desktop/390px review passes four collection handoffs, uncertain-crop hold, catalog confirmation/removal/restore, first-login Help and interactive Learn/credited photo rendering. No data/schema additions. Fresh current-live preservation and final-head release approval remain. |
+| Tested draft | Source #498, `d8d94411` | All four checks pass: 6,627 tests, 11 skipped; 44 affected checks and desktop/390px review pass. Four source/README additions retain exact intended bytes. Fresh current-live preservation and separate release approval remain. |
+| Tested draft | Harvest source/Learn #504, `2d7ff4cc` | All four checks pass: 6,626 tests, 11 skipped; 71 affected checks and native desktop/390px review pass. One zero-name Benning source and a credited publisher-video link; 3,440 copied public seed files remain unchanged. No new cultivar, identity, role, photo permission or live-data acceptance is implied. Current-live preservation and separate release approval remain. |
+| Retained component | Removal fix #502, `24911530` | All four checks/6,630 tests, 58 affected checks and native review pass. Its three runtime files are retained exactly in #500. Keep it open until that incorporation is verified on canonical; it is not a separate deployed release. |
 
 Workspaces, company favorites/tiers/lists and saved Explorer views are shared.
-Only Personal Digest and layout settings are account-private. All five accounts,
-including Chris.H, were preserved; review logins do not consume a real account's
-first-login Help behavior. The #490 release retained 65 profiles, 10,540 existing
-JSON records, four databases and 1,115 stored research files, with no data or
-human-decision changes. These are release-time counts, not a fresh current census.
+Only Personal Digest and layout settings are account-private. Existing accounts
+including Chris.H, user edits, research, data mounts and human review gates stay
+protected. The last isolated #500 rehearsal on the earlier #411 base retained
+five accounts, 507 profiles, 11,004 JSON records, four databases and 1,115 research
+files. Those are dated copy-test counts, not acceptance of the new combined head.
 
-## Work still open
+## What remains to finish here
 
-| Area | Remaining work | Completion evidence |
+| Work | Next action | Evidence required to finish |
 | --- | --- | --- |
-| Daily-use speed / TD-122 | Deep cold catalog pages still take several seconds. Continue full-request and next-click optimization from live #490. | Consistent complete-workflow improvement, current-edit/output parity, browser review, all four checks and fresh production-copy preservation. |
-| Catalog coverage / CAT-01, CAT-02 | Work through the 77-subject current/historical source plan, unavailable originals and disclosed portfolio gaps. Add cited identity/trait/rights/region/photo depth without inferring canonical facts. | Accounted original passages, disclosed coverage limits and actual human decisions. The 32-source expected-name audit needs independently supplied human answers. |
-| Supplied photos / VAR-01 | Keep 143 candidates /144 associations, 32 unclear cells and two organization holds in review. | Human spelling, identity and role decisions; a spreadsheet association does not prove a breeder/owner role. |
-| Map / MAP-02 | Review the 24 country/crop references and 51 original-unit figures across eight countries; retain two UK discrepancy holds. | Human selections, period/unit/crop/geographic scope and linked originals. No automatically trusted figure or growing footprint. |
-| Learn / LEARN-01, LEARN-02 | Expand source-linked visual depth and citation/media quality. The one authorized provider acceptance run is complete and remains an editable AI draft. | Preserved user edits/history, appropriate media attribution and human review. No additional paid research request or retry is authorized. |
-| Release / REL-01 | Prepare each useful final change for review; preserve data, settings, mounts and rollback. | Current-head checks, native review, fresh preservation and separate explicit merge/deploy approval. |
+| Release sequencing | Observe catalog #492's actual final image and population; coordinate the release window if the user grants chat messaging. | Stable recorded/running base, unchanged shared resource and collection locks. No merge or deployment from an obsolete base. |
+| Platform/source release | Run fresh consistent private-data preservation and complete-workflow checks for #500 and #498 against the actual live base. | Preserve accounts, user edits, records, four databases and research; all current-head checks, native review, exact-head approval, release-time backup and retained rollback. No final preservation pass is claimed yet. |
+| Cold-load speed / TD-122 | Measure the final catalog's first visit and next-click workflow; continue only improvements with equal complete outputs and current-edit freshness. | Relevant server-copy measurements. Catalog visits still take several seconds; public-only profiles and rejected prototypes are not deployed gains. |
+| Catalog completeness / CAT-01, CAT-02 | Continue the 77-subject source plan, unreadable originals and cited profile/rights/region/photo depth. | Account for literal source names and exclusions, disclose incomplete coverage and retain original sources and actual human decisions. |
+| Independent review | Retain the 32-source expected-name packet, 32 unclear photographed cells, two organization holds and source/name/code/role/rights/photo decisions. | Independently supplied human answers and explicit decisions. Parser output must not supply its own expected answers. |
+| Map figures / MAP-02 | Review the 24 country/crop references and 51 original-unit figures across eight countries, including two UK discrepancy holds. | Human selection with period, unit, crop, geography and original citation; no automatically trusted statistic or growing footprint. |
+| Learn depth | Preserve the 27 lessons and completed editable acceptance draft while improving source/media/citation quality. | Appropriate attribution, preserved edits/history and human quality review. The single approved provider run is complete; no further paid request or retry is authorized. |
 
-The live scoped public source corpus is 539 sections /2,073 literal occurrences
-and 1,333 derived review keys, with 11 unreadable sections and 143 follow-ups.
-These are not 1,333 approved varieties, complete portfolios or worldwide recall.
-Canonical name/code/role/rights/trait/region, source authenticity, statement,
-photo permission and extraction qualification decisions remain separate gates.
+The visual explanation of site sections, analyst workflow and reporting choices
+is already delivered in Help at `/guide`; it is not an unfinished slide deck.
+News/Reader, Personal Digest, Companies, four-crop Landscape and reporting
+workflows remain delivered. Publication review, statement review, catalog
+identity/authoring, source authenticity and photo permission are separate gates.
 
-## Prepared work and experiments
+The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+identify what is actually missing and what could resolve each row. They distinguish
+unpublished cultivar names, research material, product brands and a possible
+Biogea website mismatch. No row is marked complete, company website corrected,
+benchmark answered or catalog identity approved by that follow-up.
 
-Platform #500 includes this documentation reconciliation. Its current pull
-request head must pass all four checks; earlier head references below identify
-retained evidence and do not substitute for current-head acceptance.
+## Current public source denominator
 
-- Source-only [#498](https://github.com/samsonFive/berry-intelligence-os/pull/498)
-  at `c3e22384` passes all four checks /6,328 tests and desktop/390px review.
-  It retains the two historical Well-Pict labels from superseded #494 and
-  completes the original Nebula article capture using the existing source ID.
-  Old imports, candidate IDs and decisions are unchanged. Proposed counts stay
-  540 sections /2,075 occurrences /1,335 review keys; these are not live counts.
-  #494 is closed unmerged with its branch and evidence retained.
-- Platform [#500](https://github.com/samsonFive/berry-intelligence-os/pull/500)
-  at `02df0341` passes all four checks /6,373 tests and desktop/390px review.
-  It retains the performance/video work and credited Learn photos, adds the
-  existing collection-to-identity-review handoff for all four checked crop
-  scopes, and keeps mixed/unknown taxonomy held. All 2,942 source/schema JSON
-  files, all 2,998 copied public files and existing user decisions are preserved.
-  Superseded #497 and #499 are closed unmerged; branches/evidence remain.
-  See the [crop-handoff review](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md),
-  [photo review](LEARN-TEACHING-PHOTOS-2026-11-04.md) and retained
-  [combined platform scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md).
-- The two further cold-load prototypes are excluded. The owned candidate-builder
-  experiment has uneven Windows results; the source-loader cache's Linux
-  Company-first workflow and both cold-page medians regress. Complete outputs
-  match, but neither experiment supplies an application change or speed claim.
-  The diagnostic branch is not a release proposal. See the
-  [measured investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md#november-4--current-head-calculation-and-source-loader-probes).
-- Documentation #491 remains retained. Source-only #498 stays separate from
-  the platform release. No approval for a new head is inferred from #490.
-- Rejected separate-preparation experiment #493 remains closed unmerged:
-  complete-cost public-seed Linux testing made it about 27% slower overall.
-  No preparation/background job is being deployed.
-- Both current proposals still require a fresh consistent production-data
-  rehearsal under the unchanged server resource guard, then separate exact-head
-  merge/deploy approval. The specific backup-mirror cleanup question remains
-  unanswered. No deletion, workaround, relaxed guard or deployment is authorized
-  by an internal continuation. Public-seed evidence is not private-data acceptance.
+The reproducible audit on canonical `b7b23212` reads only public `data/`, not the
+private runtime: **539 source sections, 2,073 literal name occurrences, 881
+catalog text matches, 1,192 review-needed occurrences and 899 derived candidate
+keys**. The 77 subjects comprise 67 with names, seven partial, one unavailable
+and two identity holds; there are 11 unreadable sections and 143 follow-ups.
 
-[The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains
-deployed gains separately from rejected experiments. Source gaps, human reviews
-and performance remain in this mission; this page is not a handoff or completion.
+Occurrences, candidate keys and catalog records are different counts. The older
+1,333-key figure belongs to an earlier catalog denominator; it is retained in
+history, not presented as a current queue or an independent completeness score.
+Text matches are not approved identities, roles or claims. No world-completeness
+claim is supported by this audit.
 
-## Later prompts retained
+## Approval and capacity boundaries
 
-Floating candidate A–Z navigation, original patent/claims links, attributed
-variety-photo references with session-only reveal, one-click latest News,
-consent-text rejection and a clear publisher route are implemented. Article/body
-availability remains source-dependent; unresolved Google wrappers are disclosed.
-Original source URLs and literal authored text are preserved.
+The earlier #500 approval applies to `b2452a89` only. Its stale-base guard stopped
+before backup, merge or switch when #411 became live. The unanswered `7ace95b7`
+question is superseded; neither authorizes `15295070` or source #498.
+The specifically approved four-copy cleanup is complete and does not permit
+further backup deletion. The new rehearsal retains the archive and verifies its
+new construction copy before isolated use; it keeps the 10GiB guard unchanged.
+No additional purchase, paid provider call, import or cleanup is authorized here.
 
-Help provides the requested visual explanation of site sections, the analyst's
-Capture → Connect → Brief workflow and reporting choices. This is delivered in
-the app, rather than an unfinished slide deck. Provider availability, reviewed
-source status and statement truth remain distinct.
+The mission remains active. Previous dated release references below are retained
+delivery evidence; the state table above identifies what is actually current.
 
 ## Original accepted requirements
 
-All 31 IDs, definitions and ordering below are unchanged. Delivery references
-may name earlier releases retained in #490; read remaining limits with the
-current status above. Earlier intermediate release requests are historical,
-not pending approvals.
+All 31 IDs, definitions and ordering are unchanged. Updated evidence/status
+cells do not change the accepted requirements or mark their open reviews done.
 
 | ID | Accepted requirement | Delivery evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Live #488 at `32eefbd5` retains the source-specific company/name handoffs and the captured-article handoff delivered in #486. Companies now reuse explicit article mentions, including the retained Vicentina repair, alongside portfolio observations. The scoped public source view has 1,333 derived review keys across 539 sections; all 1,315 earlier keys and saved decisions remain. Source additions never create canonical varieties. | Human source/name/role/catalog decisions, 32 unclear photographed cells, two organization labels and the independent 32-source expected-name audit remain. Article handoff release acceptance is complete; it does not prove all article names are detected or globally comprehensive coverage. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Live scoped public seed: 539 sections / 2,073 literal occurrences / 175 catalog text matches / 1,898 review needs / 1,333 derived keys. The 77-subject source plan has 67 named, seven partial, one unavailable and two identity holds. Eleven unreadable sections and 143 follow-ups remain explicit. #488 adds 44 occurrences of 34 printed names/codes and 34 held attributed photo references, without approving an identity or reuse right. | Current/historical completeness, current rights, reviewed identities/canonical authoring, cited traits/growing regions and photo permissions remain open. Source occurrences and text matches are not distinct approved varieties; named-source progress is not full portfolio coverage. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Source-specific company/article/name handoffs are retained in live #411. The current canonical public-data audit accounts for 2,073 source occurrences across 539 sections; 881 are catalog text matches and 1,192 require review. Candidate keys are counted separately: 899 in this public-only calculation. | Source matching is not an identity approval or proof that every article name is detected. The independent 32-source expected-name audit and actual source/name/role decisions remain open. Editable catalog #492 is merged but was not observed deployed; #500 retains its editor and consolidates removal confirmation. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current canonical public-only audit: 539 sections, 2,073 literal occurrences, 899 derived review keys. The 77-subject plan has 67 named, seven partial, one unavailable and two identity holds; 11 sections are unreadable and 143 have follow-ups. Counts follow this exact catalog and exclude the private inbox. | Complete current/historical portfolios, readable originals, independently reviewed identities, traits, rights, growing regions and photo permission remain open. Pending source #498 adds two literal historical labels and complete Nebula context; it does not approve a variety, role or region. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures remain. Deployed #442 retains every source row with smaller HTML. #486 delivers the Company Intelligence hierarchy and source-text preparation follow-ups; #487/#488 retain them. Desktop/412px,required checks and fresh preservation pass for those approved releases. | The approved rendering and company/Reader presentation releases are complete. Broader TD-122 cold loading remains open. The later Reader-key experiment #489 is closed unmerged after mixed final timings; neither prototype gains nor passing output tests are a live-speed claim. Source/body completeness and human decisions remain separate. |
+| UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Dense headings, card/table hierarchy, folded secondary context and the deployed Company/Reader readability work remain retained in live #411. The #500 combined desktop/390px review passes its crop handoffs, catalog removal confirmation and interactive Learn/photo presentation. | Deep cold catalog loading remains open under TD-122. A browser review or passing page render does not prove full article availability, every advanced form or scientific/source completeness. |
 | NEWS-01 | Primary news-reader experience, image previews, newest first, multi-berry and country scope, custom dates and 7/30 days/YTD | Shared newest-first publication chronology, multi-berry/country/company/list/mark/date scope; 7/30 days, YTD and custom ranges; M29–31 source preview and compact phone filters verified. Desktop-review correction adds publisher-first shared visuals, labeled crop illustrations on missing/broken images, scoped retained-thumbnail capture and WebP delivery; native 36-story check found two publisher thumbnails. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | NEWS-02 | Trusted versus Unreviewed; useful/not-relevant/save/publisher icons, descriptive accessible names, delayed hover tooltips | Trusted requires reviewed source plus active escalated information; raw lane keeps actual source labels. SVG actions, accessible names and two-second hover descriptions retained. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | NEWS-03 | Right-side overlay that closes back to unchanged grid; original article within Reader and separate publisher option | Shared right-side Article/Brief overlay; publisher option, selected-source capture, independent positions and return-to-origin. M30 real article/image and M31 safe bounded capture verified. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
@@ -127,10 +117,10 @@ not pending approvals.
 | REPORT-03 | Reports and exports must read as designed documents: takeaway first, clear hierarchy, no generated internal ID dumps, readable linked sources | Refined takeaway-first PDF/editor, numbered outlined findings, readable linked Source references and named appendix; literal edits/qualifications retained. #300 four checks green; five PDF pages and phone reviewed. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | LAND-01 | Landscape configurable by what/where to include | Multi-subject/place and included-section selections, source-date ranges, shared analyst-only saved views and Reader/report/brief handoffs (M8), four checks green. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | LAND-02 | Evidence-backed multi-berry Landscape, dense narrative, source/variety and dossier handoffs, comparison, saved views and complete visual exports | Blueberry continuation approved October 12. Tested release398 implements all four crops, All berries, paired comparison, shared company marks/lists, cited traits, revision-checked saved views and complete PDF/HTML/SVG/CSV exports. Browser light/dark/412px checks, saved update/archive/restore/copy, restart preservation and full selected-evidence exports pass. The guide explains the workflow and reporting choices. | Platform release #398 is merged at a2a6b4ad and verified live after the approved continuation. Comprehensive source/catalog coverage and actual human trust decisions stay open under CAT-01/CAT-02. |
-| LEARN-01 | Top-level expanded Learn, detailed visual lessons/research first, pictures/diagrams/video links, interactive exploration | All27 existing lessons have interactive teaching explanations, including22 new source-linked explorations and five schematic designs; two verified photos and existing video links retain individual credits/rights. These curriculum additions are now live in approved440; original records and human edits remain. | Wider detailed lessons, attributed photos, diagrams, video/source depth and explicit research remain ongoing enrichment; educational content never approves scientific or competitive-intelligence claims. |
+| LEARN-01 | Top-level expanded Learn, detailed visual lessons/research first, pictures/diagrams/video links, interactive exploration | The 27 visual interactive lessons and existing credited media remain delivered. Pending #500 adds presentation improvements and three credited photographs; its current head passes 6,679 tests and desktop/phone review. | Broader source/citation/media depth and scientific quality review remain in this mission. Pending #500 still needs current-live preservation and release approval; education never promotes a scientific or competitive claim. |
 | LEARN-02 | Select/highlight content -> research/add to Learn -> explicit Perplexity deep research -> new learning content | Selected-text/Reader Learn actions, explicit context, durable high-effort research jobs and editable cited drafts are delivered. #473 repairs high-depth requests while retaining legacy medium jobs. #486 also delivers the actual-result presentation repair and deterministic visual-context fallback, retaining saved texts, request settings, run IDs, user edits and history. | The single authorized real high-effort request completed at provider-reported USD0.13679 and remains an editable AI draft. #480 is superseded by fulfilled live #486; no release approval is still needed for that repair. Broader citation,media and lesson-quality review remains. No further paid request is authorized; education never approves a scientific/competitive claim. |
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The visual explainer is live through approved #474, merge7fa7dd53. It retains twelve site-section cards, four analyst steps, prior reporting choices and shared Workspaces guidance, and now explains company comparisons, retained coverage and accurate saved-comparison JSON/CSV behavior. All four checks pass/6,091 tests; desktop/phone, fresh isolated preservation and live verification pass. | The requested visual explainer and follow-up are delivered. Wider educational/media depth and human source/catalog decisions remain open; no new approval is needed for completed #474. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Approved #490 is independently live at `3ffe5bad`, tested exact head `10d49757`, retaining #488/#487/#486. All four checks pass /6,324 tests; desktop/phone and fresh isolated/live preservation retain five accounts including Chris.H, 65 profiles, 10,540 JSON records, four databases and 1,115 research files, with zero data changes. Fresh backup, rollback, settings, mounts, proxy and active/enabled schedule remain. | These approved releases are complete. #489 and #485 are closed unmerged; #485 documentation is retained in live #490. Cold-load work and human/source/identity/role/rights/photo/Map/independent recall remain here. New code releases need their own tested review and approval; no additional paid Learn run is approved. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | At the November 4 09:23 UTC read-only observation, live #411 at 34eb23c3 has matching recorded/running image d8601b96 and healthy status. Catalog #492 is merged in Git. Platform #500 at 15295070 passes all four checks/6,679 tests; source #498 at d8d94411 passes all four/6,627 tests. Both pass desktop/phone review. | Neither draft is deployed. Their fresh current-live preservation checks and separate exact-head release approvals remain. The old #500 b2452a89 approval stopped at its stale-base guard; the unanswered 7ace95b7 question is superseded. No new approval, data import, provider call or additional cleanup is inferred. Keep backups, rollback, settings and data mounts. |
