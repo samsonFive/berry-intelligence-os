@@ -1,5 +1,16 @@
 # Berry Intelligence — requirements and current status
 
+## Final reconciliation preparation — November 4
+
+The [new combined preparation](FINAL-MISSION-RECONCILIATION-2026-11-04.md) retains
+#506/#509–#513 and the exact separately approved source #508/saved-landscape #507
+patches. Its integration fixes preserve shared company filters when saved views
+reopen or feed linked Workspaces; empty selections remain empty, and saved view
+names stay readable in PDF. 182 related checks and both direct combined-only
+regressions pass. Component checks/reviews do not substitute for combined-head
+CI, actual-live reconciliation or fresh guarded release acceptance. No merge,
+deployment, remote cleanup or human trust decision is implied.
+
 ## Evaluation scope follow-up — November 4
 
 The same CO-01 cross-view requirement also applies to Competitive Evaluation.
