@@ -3668,3 +3668,44 @@ fail; there is no paid retry, provider/configuration change, data migration or
 review promotion. Separate final tests and release approval remain required.
 The provider's exhausted quota is an operational dependency, not repaired by
 this code. TD-122 cold catalog work remains open.
+
+### November 3 — TD-122 live #490 and rejected follow-ups
+
+Approved performance #490 is independently live at `3ffe5bad`, exact reviewed
+head `10d49757`. All four checks /6,324 tests, desktop/phone and fresh isolated
+preservation pass; five accounts, 65 profiles, 10,540 existing JSON records,
+four databases and 1,115 research files remain with zero data changes. Its
+necessary-syntax guard gives modest complete-workflow gains on the tested copy;
+Company cold loading is essentially flat. The approval is fulfilled.
+
+[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) records two
+rejected source-index variants and a rejected exact identity-filter reorder.
+The latter passes 605 affected checks and preserves all 24 complete responses,
+but its 0.7–1.3% workflow differences do not justify slower visits after new
+news. Its runtime/test edits are archived and reverted. No new cache, matcher,
+source filtering, provider call, data write or human decision is introduced.
+TD-122 remains open; source/catalog/photo/Map and independent recall review
+remain separate unfinished requirements in this mission.
+
+### November 4 — source-scoped collection handoffs
+
+[The comparison follow-up](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md)
+closes the missing strawberry/raspberry/blackberry queue action on the existing
+Coverage page. Checked source species separate raspberry/blackberry namesakes;
+unknown and mixed taxonomy remain visible and held. Individual additions are
+weak unreviewed leads; existing edits/rejections, source references and old
+blueberry IDs remain. No schema, canonical catalog, source import or human
+decision changes. CAT-01/CAT-02/TD-116 remain open for original-source depth,
+independent human recall and actual identity/rights/photo decisions. TD-122,
+fresh private rehearsal and separate release acceptance remain open.
+
+### November 4 — TD-122 further prototypes excluded
+
+The current-head profile and two complete-output prototypes are recorded in
+[the cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md#november-4--current-head-calculation-and-source-loader-probes).
+Owned candidate construction has uneven Windows results; the bounded Linux
+source-loader cache regresses Company-first total and both cold medians. Neither
+becomes an application change. Tested platform #500 and source-only #498 retain
+their separate fresh-private and release gates. TD-122, broader catalog/source
+quality and human source/name/rights/photo/Map decisions stay open. Live #490 is
+unchanged; no new provider request, backup cleanup or deployment occurs.

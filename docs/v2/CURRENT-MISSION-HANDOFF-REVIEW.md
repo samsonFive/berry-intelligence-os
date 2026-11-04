@@ -1,5 +1,15 @@
 # Current mission handoff and preserved requirements
 
+**Current reconciliation, November 3:** approved #490 is independently live at
+`3ffe5bad`; its release approval is fulfilled. The original blueberry checkpoint
+was approved and the all-crop rollout delivered. The later historical
+blueberry-stop wording below is not a current gate. See the
+[current closeout record](MISSION-CLOSEOUT-2026-11-03.md) and
+[cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) for unfinished
+work. TD-122, source/catalog depth and actual human name/role/rights/photo/Map
+decisions remain open. Further tested releases still require their own explicit
+approval; the goal remains active in this mission.
+
 The current work and review gates were buried beneath hundreds of dated progress
 updates. The status and requirements documents now lead with the remaining work,
 the evidence required to finish it and the decisions still reserved for a human.
