@@ -71,11 +71,18 @@ def test_view_preferences_are_scoped_to_the_authenticated_analyst(monkeypatch,tm
 
 def test_remove_restore_preserves_the_source_record_and_catalog_metadata(monkeypatch,tmp_path):
     from app.services.variety_catalog_management import canonical_record
+    from app.services.variety_catalog import revision
     main,client=setup(monkeypatch,tmp_path)
     row=canonical_record(dict(id='candidate-one',candidate_name='Sourceberry',berry_id='berry-blueberry',identity_state='distinct',status='proposed',source_tier='tier_1_breeder_catalog',source_url='https://breeder.org/sourceberry'),varieties=[],actor='analyst',authorization='explicit test action')
     repo=main.get_repositories(main.DATA_DIR,main.SCHEMAS_DIR).entities;repo.create(row)
-    assert client.post('/varieties/'+row['id']+'/catalog-status',data={'action':'remove'},follow_redirects=False).status_code==303
+    opened=client.post('/varieties/'+row['id']+'/catalog-status',data={'action':'remove'},follow_redirects=False)
+    assert opened.status_code==303 and opened.headers['location'].endswith('/edit#catalog-removal')
+    assert repo.get(row['id'])==row
+    assert client.post('/varieties/catalog/'+row['id']+'/remove',data={'revision':revision(row),'confirmation':row['name'],'editor':'analyst'},follow_redirects=False).status_code==303
     removed=repo.get(row['id']);assert removed['attributes']['catalog_removed'] and removed['attributes']['identity_review']==row['attributes']['identity_review']
     assert not main.living_catalog()
-    assert client.post('/varieties/'+row['id']+'/catalog-status',data={'action':'restore'},follow_redirects=False).status_code==303
+    opened=client.post('/varieties/'+row['id']+'/catalog-status',data={'action':'restore'},follow_redirects=False)
+    assert opened.status_code==303 and opened.headers['location'].endswith('/edit#catalog-restore')
+    assert repo.get(row['id'])==removed
+    assert client.post('/varieties/catalog/'+row['id']+'/restore',data={'revision':revision(removed),'editor':'analyst'},follow_redirects=False).status_code==303
     assert len(main.living_catalog())==1 and repo.get(row['id'])['status']=='unverified'

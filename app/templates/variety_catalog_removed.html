@@ -1,0 +1,3 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Removed varieties{% endblock %}
+{% block content %}<div class="company-workspace"><a href="/entities/variety">← Variety directory</a><h1>Removed varieties</h1><p>Open a removed record to restore its page and directory row.</p><ul>{% for row in removed_rows %}<li><a href="/varieties/catalog/{{ row.record.id }}/edit">{{ row.record.name }}</a></li>{% else %}<li>No varieties have been removed.</li>{% endfor %}</ul></div>{% endblock %}

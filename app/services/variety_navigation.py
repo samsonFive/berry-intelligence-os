@@ -103,10 +103,22 @@ def directory(cards, *, params, state, entities, relationships, regions):
         # Stable date sorting keeps equal dates alphabetical, and missing dates last.
         dated.sort(key=lambda pair: pair[0], reverse=filters['sort'] == 'recent_desc')
         rows = [row for _, row in dated] + undated
+    matching_count = len(rows)
+    try:
+        page = max(1, int(params.get('page') or 1))
+    except (ValueError, TypeError) as exc:
+        raise ValueError('Choose a valid catalog page') from exc
+    page_size = 100
+    pages = max(1, (matching_count + page_size - 1) // page_size)
+    page = min(page, pages)
+    rows = rows[(page - 1) * page_size:page * page_size]
     query = {**dict(params), **filters, "view": "index"}
     query.pop("berry_choice", None)
+    query.pop("page", None)
     return {"variety_rows": rows, "letters": letters, "directory_filters": filters, "tiers": company_directory.TIERS,
             "recent_sort_url": '/entities/variety?' + urlencode({**query, 'sort': 'recent_asc' if filters['sort'] == 'recent_desc' else 'recent_desc'}) + '#variety-directory-results',
+            "catalog_matching_count": matching_count, "catalog_page": page, "catalog_pages": pages,
+            "catalog_page_urls": {p: '/entities/variety?' + urlencode({**query, 'page': p}) + '#variety-directory-results' for p in {max(1, page - 1), min(pages, page + 1)}},
             "lists": groups, "letter_urls": {letter: "/entities/variety?" + urlencode({**query, "letter": letter}) + "#variety-directory-results" for letter in ["", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"]}}
 
 
