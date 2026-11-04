@@ -64,12 +64,25 @@ def registered_primary_sources(data_dir, entities):
     try:research=(load_snapshot(data_dir)or{}).get('evidence',[])
     except (OSError,ValueError,KeyError):research=[]
     pending={r.get('id'):r for r in research if isinstance(r,dict)and r.get('status')in {'in_review','published'}}
+    eligible_ids={e['id']for e in eligible}
+    for record in [*published.values(),*pending.values()]:
+        url=record.get('source_url')
+        if not is_public_http_url(url):continue
+        for key in record.get('entity_ids',[]):
+            if key in eligible_ids and (notes.get(key)or{}).get('status')!='identity_hold':
+                sources.setdefault(key,[]).append({'url':url,'title':record.get('title')or entities[key]['name']})
     for entity in eligible:
         if (notes.get(entity['id']) or {}).get('status')=='identity_hold':continue
         for eid in entity.get('evidence_ids') or []:
             if not re.fullmatch(r'[a-zA-Z0-9_-]+',eid):continue
             record=published.get(eid)or pending.get(eid)or{}
-            if entity['id'] not in record.get('entity_ids',[]):continue
+            linked=entity['id']in record.get('entity_ids',[])
+            if not linked and entity.get('entity_type')=='breeding_program':
+                from app.services.topic_retrieval import normalize
+                title=normalize(record.get('title',''));name=normalize(entity.get('name',''))
+                crops={c.removeprefix('berry-')for c in entity.get('berry_ids',[])}
+                linked=bool(len(name)>=4 and re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',title)and crops&set(title.split()))
+            if not linked:continue
             url=record.get('source_url')
             if url and is_public_http_url(url):
                 sources.setdefault(entity['id'],[]).append({'url':url,'title':record.get('title')or entity['name']})

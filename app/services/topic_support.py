@@ -25,6 +25,19 @@ def passage_intent_supported(text, plan):
         introduction=re.search(r'\b(?:introduc\w*|releas\w*|launch\w*)\b[^.!?]{0,65}\b'+crop+r'\b|\b'+crop+r'\b[^.!?]{0,65}\b(?:introduc\w*|releas\w*|launch\w*)\b',plain)
         if not licensing and not introduction:return False
     requirements=[
+        ({'breeding'},r'\b(?:breed\w*|bred|genetic\w*|genomic\w*|cross\w*|select\w*)\b'),
+        ({'variety'},r'\b(?:variet\w*|cultivar\w*|breed\w*|selection\w*|genotyp\w*)\b'),
+        ({'calcium'},r'\b(?:calcium|ca)\b'),
+        ({'foliar'},r'\b(?:foliar|leaf spray\w*|preharvest spray\w*)\b'),
+        ({'firmness'},r'\b(?:firm\w*|texture|soften\w*)\b'),
+        ({'leakage'},r'\b(?:leak\w*|leaky|juice loss)\b'),
+        ({'postharvest'},r'\b(?:postharvest|post harvest|after harvest|fruit stor\w*)\b'),
+        ({'chilling'},r'\b(?:chill\w*|vernali[sz]\w*|cold treatment\w*)\b'),
+        ({'flowering'},r'\b(?:flower\w*|bloom\w*|floral|bud break)\b'),
+        ({'controlled','environment'},r'\b(?:controlled environment\w*|greenhouse\w*|glasshouse\w*|growth chamber\w*|climate chamber\w*)\b'),
+        ({'phytophthora'},r'\bphytophthora\b'),
+        ({'root','rot'},r'\b(?:root rot|phytophthora)\b'),
+        ({'night'},r'\b(?:night\w*|after sunset|after dark|evening)\b'),
         ({'salt','stress'},r'\b(?:salin\w*|salt stress|nacl)\b'),
         ({'silicon'},r'\b(?:silicon|silica|sio\s*2|sinps)\b'),
         ({'cold','storage'},r'\b(?:cold stor\w*|chill\w* stor\w*|stor\w*[^.!?]{0,35}\b(?:cold|[0-9]+\s*(?:c|degrees)))\b'),

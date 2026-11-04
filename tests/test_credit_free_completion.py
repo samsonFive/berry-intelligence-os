@@ -108,13 +108,13 @@ def test_company_and_program_public_citations_are_leads_without_exporting_claims
     import json
     from app.services.public_research_search import registered_primary_sources,PublicResearchSearchClient
     entities={
-        'c':{'id':'c','entity_type':'company','name':'Synthetic Plantik','aliases':[],'berry_ids':[],'evidence_ids':['pending']},
+        'c':{'id':'c','entity_type':'company','name':'Synthetic Plantik','aliases':[],'berry_ids':[],'evidence_ids':[]},
         'p':{'id':'p','entity_type':'breeding_program','name':'Synthetic Fontana','berry_ids':['berry-blackberry'],'evidence_ids':['published']},
     }
     folder=tmp_path/'imports/gene-editing-test';folder.mkdir(parents=True)
     (folder/'snapshot.json').write_text(json.dumps({'evidence':[{'id':'pending','status':'in_review','entity_ids':['c'],'title':'Strawberry heat tolerance partnership','source_url':'https://primary.example/heat','summary':'PRIVATE STRATEGY','article':{'full_text':'DO NOT EXPORT'}}]}))
     pub=tmp_path/'evidence/nested';pub.mkdir(parents=True)
-    (pub/'published.json').write_text(json.dumps({'id':'published','status':'published','entity_ids':['p'],'title':'Synthetic Fontana blackberry introduced','source_url':'https://primary.example/compact'}))
+    (pub/'published.json').write_text(json.dumps({'id':'published','status':'published','entity_ids':['c'],'title':'Synthetic Fontana blackberry introduced','source_url':'https://primary.example/compact'}))
     leads=registered_primary_sources(tmp_path,entities)
     assert set(leads)=={'c','p'}and 'PRIVATE'not in str(leads)and 'EXPORT'not in str(leads)
     client=PublicResearchSearchClient(entities=entities,primary_sources=leads)

@@ -5,6 +5,25 @@ from app.services.report_builder.topic_report import topic_sections
 import pytest
 
 
+@pytest.mark.parametrize('query,unrelated,supported',[
+ ('blueberry winter chilling flowering controlled environment','Blueberry allergy was examined in a clinical food challenge.','Blueberry plants flowered after chilling in a controlled environment growth chamber.'),
+ ('blueberry breeding developments','Blueberries contain anthocyanins with reported health effects.','Blueberry genomic selection improved breeding predictions.'),
+ ('blueberry fruit firmness calcium foliar field experiment','Calcium in blueberry soil was measured in a field experiment.','A blueberry field experiment compared foliar calcium sprays and fruit firmness.'),
+ ('raspberry root rot phytophthora resistant cultivar breeding','Raspberry phenolics differed among cultivars.','Raspberry breeding selected cultivars resistant to Phytophthora root rot.'),
+ ('strawberry powdery mildew uv-c night treatment trial','A strawberry trial used UV-C for powdery mildew in daytime.','A strawberry trial used UV-C against powdery mildew after sunset.'),
+ ('blackberry cold storage leakage postharvest cultivar trials','Blackberry canes were cold stored before greenhouse forcing trials.','A postharvest blackberry cultivar trial measured leakage after cold storage.'),
+])
+def test_saved_report_requires_requested_conditions_in_its_actual_quotation(query,unrelated,supported):
+ from app.services.topic_support import passage_intent_supported
+ from app.services.topic_retrieval import plan_query
+ assert not passage_intent_supported(unrelated,plan_query(query))
+ assert passage_intent_supported(supported,plan_query(query))
+ packet,source=fixture();row=packet['topic_sources'][0]
+ row.update(passage=unrelated,relevance='background',support_status='body_supported')
+ packet['topic_research']['plan'].update(raw_query=query,interpreted_query=query)
+ assert not any(row['id']in s.citation_ids for s in topic_sections(packet)if s.section_id in {'topic_findings','topic_background'})
+
+
 def fixture():
  body='This floricane blackberry was introduced following field trials.'
  source={'id':'web-a','title':'New blackberry cultivar','source_name':'Breeder','source_url':'https://example.org/a','published_date':'2026-09-01','article':{'paragraphs':[{'index':0,'text':body}]}}
