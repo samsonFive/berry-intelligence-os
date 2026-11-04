@@ -230,4 +230,3 @@ def test_post_is_additive_replay_preserves_bytes_and_requires_same_origin_and_au
     assert len(list(main.INBOX_DIR.rglob("*.json"))) == 1
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert client.post("/varieties/external/identity-lead", data=form, follow_redirects=False).status_code == 403
-
