@@ -34,6 +34,10 @@ release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
 
+November 3 scoped release #411: ready search/Keyword Monitoring/variety implementation is verified in the interactive app at `34eb23c3`, after explicit user release authorization, fresh exact-head CI and preservation checks. Existing sources were retained; three rows were added. [The release receipt](SEARCH-RESEARCH-RELEASE-411-2026-11-03.md) records actual deployment and the separate public snapshot workflow. This does not close Google parity, media discovery/display/transcription, provider-allowance or variety-depth gaps. The new [source intelligence mission](SOURCE-INTELLIGENCE-GAP-MISSION.md) retains those boundaries and the exact production/canary findings.
+
+November 3 source/media handoff: production inventory confirms 8 podcast feeds / 4 YouTube sources, 972 discovered podcast items / 69 videos, and 18 podcast / 10 video drafts. These are raw counts, not relevance, currentness or transcript completion. Default News rejects these media formats despite the existing generic collectors. The [follow-up mission](SOURCE-INTELLIGENCE-GAP-HANDOFF-2026-11-03.md) covers unified feed/filters, source yield/exclusion visibility, real collection and transcription proof, Exa activation under verified allowances, reader/excerpt capture and every remaining search/variety hold. Source registry presence and enabled pipeline configuration do not prove successful execution. A preserved private UI patch is untested and excluded from release #411; no coverage closure is claimed here.
+
 [Catalog #488](https://github.com/samsonFive/berry-intelligence-os/pull/488) is
 merged and independently verified live at `32eefbd5` (approved `22dcb869`),
 retaining News #487, #486 and earlier platform releases. All four final checks
