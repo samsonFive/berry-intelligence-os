@@ -169,6 +169,9 @@ jobs:
       - name: Install test dependencies
         if: needs.change-scope.outputs.docs-only != 'true'
         run: pip install -r requirements-dev.txt
+      - name: Explicit public-seed portfolio batch diagnostic
+        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'perf/portfolio-batch-ci-probe-20261104'
+        run: python scripts/benchmark_portfolio_batch_public.py --public-seed-only
       - name: Run complete deterministic suite
         if: needs.change-scope.outputs.docs-only != 'true'
         run: python -m pytest -q
