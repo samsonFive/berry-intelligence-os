@@ -34,6 +34,18 @@ records rejected experiments separately from deployed gains. Original 31
 requirement definitions/order, the governing guide, protected schemas and all
 human gates remain unchanged. Earlier entries below are historical records.
 
+# Learn teaching photographs — November 4, 2026
+
+The [photo follow-up](LEARN-TEACHING-PHOTOS-2026-11-04.md) adds file-specific
+creator/reuse-checked teaching images to three existing lessons. All 27 stored
+lesson records remain unchanged; photos explain visible features without
+approving a farm diagnosis, cultivar identity or production claim. The compact
+photo card now preserves the whole image. All 86 affected checks and native
+desktop/390px photo/interaction review pass, with all 2,942 source/schema JSON
+files preserved. This branch retains platform #497, excludes source-only #498,
+and needs its own final-head CI, private-data rehearsal and separate release
+approval. The live corpus and human decisions are unchanged.
+
 # PSG source recovery — November 3, 2026
 
 [The PSG recovery proposal](PSG-RENDERED-SELECTOR-REVIEW-2026-11-03.md) recovers

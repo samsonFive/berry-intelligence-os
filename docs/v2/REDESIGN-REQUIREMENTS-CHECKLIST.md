@@ -39,33 +39,36 @@ photo permission and extraction qualification decisions remain separate gates.
 
 ## Prepared work and experiments
 
-- Source-only [#494](https://github.com/samsonFive/berry-intelligence-os/pull/494)
-  at `0b60c5fe` passes all four checks /6,325 tests and public-seed desktop/phone
-  review. It adds two explicitly historical Well-Pict labels as unreviewed leads,
-  without replacing existing records. Fresh production-copy rehearsal and a
-  separate release approval remain; its proposed counts are not live counts.
-- [#493](https://github.com/samsonFive/berry-intelligence-os/pull/493) is closed
-  unmerged. Complete-cost public-seed Linux testing made the separate-preparation
-  flow about 27% slower overall, despite faster prepared reads. Its code, tests
-  and evidence are retained. No preparation/background job is being deployed.
-- Performance [#495](https://github.com/samsonFive/berry-intelligence-os/pull/495)
-  at `90e44b3b` passes all four checks /6,336 tests and native public-seed
-  desktop/phone review. Its unchanged measured runtime preserves 24 complete
-  responses, with a limited public-seed workflow improvement and one slower
-  next click. Private-data performance/preservation and release approval remain.
-- Learn [#496](https://github.com/samsonFive/berry-intelligence-os/pull/496)
-  at `a63a192c` passes all four checks /6,324 tests and native public-seed
-  desktop/phone review. Existing video attribution and historical context are
-  clearer; the generic reference label is “Source page.” Stored user media wins.
-- The combined `release/platform-closeout-20261104` branch carries #495, #496
-  and documentation #491. Its own final-head CI, native review and fresh
-  private-data rehearsal remain release requirements. See the
-  [combined review scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md). It adds no
-  source data and does not include source-only #494. No merge/deploy approval
-  is inferred from component checks or earlier approvals.
-- The server rehearsal remains subject to the existing headroom guard and the
-  unanswered specific backup-mirror cleanup request. No backup deletion,
-  workaround, relaxed guard or deployment is authorized by internal continuation.
+- Source-only [#498](https://github.com/samsonFive/berry-intelligence-os/pull/498)
+  at `c3e22384` passes all four checks /6,328 tests and desktop/390px review.
+  It retains the two historical Well-Pict labels from superseded #494 and
+  completes the original Nebula article capture using the existing source ID.
+  Old imports, candidate IDs and decisions are unchanged. Proposed counts stay
+  540 sections /2,075 occurrences /1,335 review keys; these are not live counts.
+  #494 is closed unmerged with its branch and evidence retained.
+- Platform [#497](https://github.com/samsonFive/berry-intelligence-os/pull/497)
+  at `e49e710c` passes all four checks /6,336 tests and native public-seed review.
+  Its two performance modules and shared Learn template are retained exactly
+  in the `content/learn-teaching-photos-20261104` follow-up. That branch adds
+  credited photos to three existing Learn lessons and keeps the full image
+  visible within the existing card height. It passes 86 affected checks and
+  native desktop/390px image/interaction review, preserving all 2,942 source/
+  schema JSON files and user media. Its own current-head CI and fresh private
+  rehearsal remain gates; parent checks are not substitutes. See the
+  [photo review](LEARN-TEACHING-PHOTOS-2026-11-04.md) and retained
+  [combined platform scope](PLATFORM-CLOSEOUT-REVIEW-2026-11-04.md).
+- The platform follow-up carries documentation #491 and the tested #495/#496
+  content already consolidated into #497. Closed component branches and their
+  original evidence remain retained. Catalog #498 stays separate from the
+  platform release. No approval for a new head is inferred from #490.
+- Rejected separate-preparation experiment #493 remains closed unmerged:
+  complete-cost public-seed Linux testing made it about 27% slower overall.
+  No preparation/background job is being deployed.
+- Both current proposals still require a fresh consistent production-data
+  rehearsal under the unchanged server resource guard, then separate exact-head
+  merge/deploy approval. The specific backup-mirror cleanup question remains
+  unanswered. No deletion, workaround, relaxed guard or deployment is authorized
+  by an internal continuation. Public-seed evidence is not private-data acceptance.
 
 [The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains
 deployed gains separately from rejected experiments. Source gaps, human reviews
