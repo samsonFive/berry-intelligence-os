@@ -17,7 +17,7 @@ from app.services.pipeline_scheduler import run_due_pipelines
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--pipeline", help="Limit execution to one registered pipeline")
+    parser.add_argument("--pipeline", action="append", help="Explicit pipeline allowlist; repeat to select multiple lanes")
     parser.add_argument("--force", action="store_true", help="Run the selected enabled/scheduled pipeline even when not due")
     parser.add_argument("--plan", action="store_true", help="Report due pipelines without executing them")
     parser.add_argument("--data-dir", type=Path)
@@ -37,7 +37,7 @@ def main(argv: list[str] | None = None) -> int:
         data_dir=data_dir,
         inbox_dir=inbox_dir,
         config_path=config,
-        pipeline_id=args.pipeline,
+        pipeline_ids=args.pipeline,
         force=args.force,
         plan_only=args.plan,
     )

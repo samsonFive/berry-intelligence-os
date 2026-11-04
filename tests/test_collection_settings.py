@@ -134,6 +134,22 @@ def test_added_keyword_has_real_discovery_config(runtime, tmp_path):
     assert parse_qs(urlsplit(row["discovery"]["feed_url"]).query)["q"] == ['blackberry "new variety"']
 
 
+@pytest.mark.parametrize('kind,url', [('podcast_rss','https://publisher.org/feed.xml'),
+    ('youtube_feed','https://www.youtube.com/feeds/videos.xml?channel_id=UCfixture')])
+def test_spoken_source_onboarding_retains_adapter_and_does_not_run(runtime, tmp_path, kind, url):
+    repository = JsonSourceRepository(tmp_path / 'data')
+    key = settings.change_source(repository, key='', action='save', revision='', label='Spoken source',
+        text=url, enabled=True, source_type=kind, priority='', cadence='weekly')
+    row = repository.get(key)
+    assert row['type'] == 'reference'
+    assert row['discovery']['adapter'] == kind
+    assert row['last_checked_at'] is None
+    if kind == 'youtube_feed':
+        with pytest.raises(ValueError, match='Atom feed'):
+            settings.change_source(repository, key='', action='save', revision='', label='Invalid channel page',
+                text='https://www.youtube.com/@channel', enabled=True, source_type=kind, priority='', cadence='weekly')
+
+
 def test_subject_names_and_dimensions_keep_technical_ids_out_of_alphabet(runtime, tmp_path):
     model = settings.view_model([], runtime, tmp_path / "data")
     rows = {row["id"]: row for row in model["queries"]}

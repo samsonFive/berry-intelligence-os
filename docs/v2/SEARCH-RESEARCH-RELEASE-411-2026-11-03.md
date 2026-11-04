@@ -29,4 +29,4 @@ Broader Google parity and structured variety coverage remain unmet. The frozen r
 
 Private machine receipts: `inbox/search-quality-evaluation/release411-ci.json`, `release411-deployed.json`, `media-production-handoff-audit.json`, `scheduler-handoff-audit.txt` and `source-canary-handoff.json`. Server release receipt and rollback pointers are recorded in the private deployed receipt. GitHub Pages workflow status is recorded separately below after completion; interactive release verification does not imply static deployment success.
 
-Public snapshot deployment: awaiting workflow [41789272772](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41789272772).
+Public snapshot deployment verified during source-intelligence continuation: workflow [41789272772](https://github.com/samsonFive/berry-intelligence-os/actions/runs/41789272772) completed successfully on canonical merge `34eb23c3c95001bc493703c924e8934d55ec73a5`; both build and deployment succeeded, finishing November 4 at 07:14:33 UTC (November 3 at 23:14:33 Pacific).

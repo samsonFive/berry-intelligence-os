@@ -69,3 +69,14 @@ def test_disabled_manual_pipeline_is_never_dispatched(tmp_path: Path) -> None:
 def test_failed_when_no_useful_unit_succeeds() -> None:
     outcome, failures = classify_outcome("article_news", {"counts": {"sources_succeeded": 0, "sources_failed": 2}}, 1)
     assert outcome == "FAILED" and failures == 2
+
+
+def test_explicit_allowlist_is_validated_and_empty_is_inert(tmp_path):
+    import pytest
+    config = _config(tmp_path / 'pipelines.json')
+    kwargs = dict(data_dir=tmp_path / 'data', inbox_dir=tmp_path / 'inbox', config_path=config, now=NOW)
+    assert run_due_pipelines(**kwargs, pipeline_ids=[], plan_only=True)['due'] == []
+    assert run_due_pipelines(**kwargs, pipeline_ids=['article_news', 'trade'], plan_only=True)['due'] == ['article_news']
+    with pytest.raises(ValueError, match='unknown pipeline'):
+        run_due_pipelines(**kwargs, pipeline_ids=['typo'])
+    assert not (tmp_path / 'inbox').exists()

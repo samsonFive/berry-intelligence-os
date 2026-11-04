@@ -15,6 +15,23 @@ from app.services.pipeline_lock import pipeline_lock
 router = APIRouter()
 
 
+@router.get('/today/sources', response_class=HTMLResponse)
+def news_sources(request: Request):
+    from app.services import news_source_health
+    main, context, records, entities = world()
+    try:
+        selection = news_workspace.model(records=records, entities=entities, relationships=main.all_relationships(),
+            facts=main.all_facts(), state=context['state'], params=dict(request.query_params),
+            tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    health = news_source_health.model(main.load_sources(), records, selection['matching_ids'], main.INBOX_DIR, selection['exclusions'])
+    return main.templates.TemplateResponse(request=request, name='news_source_health.html', context={
+        **health, 'filter_summary': selection['filter_summary'],
+        'news_return': '/today?' + urlencode(selection['filters']), 'static_build': False,
+        'authoring_mode': main.AUTHORING_MODE})
+
+
 def news_page(request: Request):
     main, context, records, entities = world()
     params = dict(request.query_params)
@@ -35,6 +52,7 @@ def news_page(request: Request):
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     query = model["filters"]
+    model['source_health_href'] = '/today/sources?' + urlencode(query)
     model['tag_research_href'] = '/research?' + urlencode({'tag': query['tag'], 'tag_mode': query['tag_mode'], 'q': 'What does the stored intelligence say about these subjects?'})
     model['clear_tags_href'] = '/today?' + urlencode({**query, 'tag': '', 'topic': ''})
     model['any_tags_href'] = '/today?' + urlencode({**query, 'tag_mode': 'any'})

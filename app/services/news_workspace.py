@@ -2,6 +2,7 @@
 from datetime import UTC, datetime, timedelta
 from functools import lru_cache
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+from urllib.parse import urlsplit
 
 from app.services import feed_first, personal_digest, news_tags
 from app.services.chronology import parse_stamp
@@ -19,8 +20,23 @@ NEWS_TYPES = {
     "news_search", "trade_press", "web_article", "company_press_release", "company_website",
     "brand_website", "industry_association_report", "industry_association_profile",
     "research_program_publication", "private_equity_press_release", "press_release",
-    "news_article", "newsletter", "industry_report",
+    "news_article", "newsletter", "industry_report", "blog", "industry_blog",
 }
+MEDIA_CHOICES = {'': 'All media', 'article': 'Articles', 'blog': 'Blogs', 'video': 'Videos / webinars', 'podcast': 'Podcasts'}
+
+
+def media_kind(record):
+    """Classify the publication format, never the truth of its claims."""
+    media = record.get('media_format')
+    if media in {'video', 'conference_video'}:
+        return 'video'
+    if media == 'podcast' or record.get('source_type') == 'industry_podcast':
+        return 'podcast'
+    path = urlsplit(str(record.get('source_url') or '')).path.casefold()
+    if record.get('source_type') in {'blog', 'industry_blog'} or any(
+            part in {'blog', 'blogs', 'blog-posts'} for part in path.split('/')):
+        return 'blog'
+    return 'article'
 PAGE_SIZE = 36
 
 
@@ -51,7 +67,9 @@ def escalations(facts):
 def parameters(params):
     """Retain bookmarked feed/map scope, while normalizing to one News vocabulary."""
     values = {key: str(params.get(key) or "").strip() for key in
-              ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz", "source", "adjacent")}
+              ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz", "source", "adjacent", "media")}
+    if values['media'] not in MEDIA_CHOICES:
+        raise ValueError('Choose a supported media format')
     values['topic'] = str(params.get('tag') if 'tag' in params else params.get('topic') or '').strip()
     values['tag'] = values['topic']
     values['tag_mode'] = str(params.get('tag_mode') or 'all')
@@ -125,22 +143,37 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     variety_names = tuple(row.get("name", "") for row in entities.values() if row.get("entity_type") == "variety")
     counts = {"trusted": 0, "unreviewed": 0}
     matched = []
+    scoped_sources = set()
+    exclusions = {}
     for record in records.values():
+        key = str(record.get('id') or '')
+        if record.get('workspace_capture'):
+            exclusions[key] = 'Saved passage or analyst capture; original publication remains in News'
+            continue
+        if record.get('status') in {'rejected', 'archived'} or record.get('review_state') in {'rejected', 'archived'}:
+            exclusions[key] = 'Rejected or archived publication'
+            continue
         classification = classify(record)
         if selected_tags:
             assigned = set(effective[record['id']])
             if not (selected_tags <= assigned if filters['tag_mode'] == 'all' else selected_tags.intersection(assigned)):
+                exclusions[key] = 'Outside selected tags'
                 continue
             if 'tag' not in params and selected_tags <= {'gene-editing', 'advanced-breeding'} and not filters['adjacent'] and not classification['berry_related']:
+                exclusions[key] = 'Adjacent crop excluded'
                 continue
-        if filters['source'] and filters['source'] != record.get('source_name'):
-            continue
         key = str(record.get("id") or "")
         if key in SEED_FIXTURE_EVIDENCE_IDS or not feed_first.SAFE_ID_RE.fullmatch(key):
+            exclusions[key] = 'Example or invalid identity'
             continue
-        article_capture = (record.get("source_type") == "discovered_media"
-                           and record.get("media_format") == "web_article")
-        if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
+        publication_capture = (record.get("source_type") == "discovered_media"
+                               and record.get("media_format") in {'web_article', 'podcast', 'video', 'conference_video'})
+        spoken = record.get('source_type') == 'industry_podcast' or record.get('media_format') in {'podcast', 'video', 'conference_video'}
+        if (record.get("source_type") not in NEWS_TYPES and not publication_capture and not spoken) or "structural" in (record.get("tags") or []):
+            exclusions[key] = 'Outside publication formats'
+            continue
+        if filters['media'] and media_kind(record) != filters['media']:
+            exclusions[key] = 'Outside selected media format'
             continue
         # An explicit company scope can rule out unrelated records before the
         # expensive general-news screen. Reuse the same conservative link/
@@ -155,10 +188,12 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
                 pass
             else:
                 if not in_company_scope:
+                    exclusions[key] = 'Outside selected company'
                     continue
                 early_company_links = candidate_links
         if not (filters['topic'] and classification['topics']) and not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
+            exclusions[key] = 'Metadata relevance screen excluded'
             continue
         stamp = parse_stamp(record.get("published_date"))
         # Publication dates, never capture dates. Undated items have their own view.
@@ -166,35 +201,51 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
                          else stamp.astimezone(zone).date()) if stamp else None
         if filters["window"] == "undated":
             if stamp:
+                exclusions[key] = 'Dated item excluded from undated view'
                 continue
         elif (not stamp or published_day > day or (len(str(record.get("published_date"))) > 10 and stamp > instant)
               or (start and published_day < start) or (end and published_day > end)):
+            exclusions[key] = 'Missing, future or outside selected publication dates'
             continue
         if query.commodities() and not set(query.commodities()).intersection(record.get("berry_ids") or []):
+            exclusions[key] = 'Outside selected berries or berry unassigned'
             continue
         if (query.country_codes and not scope) or (scope and not scope.intersection(record_geography_ids(record))):
+            exclusions[key] = 'Outside selected geography or geography unassigned'
             continue
         linked, mentions = (early_company_links if early_company_links is not None
                             else company_source_scope.links(record, subjects))
         if filters["favorites"] == "1" and not any((state.get("entity_favorites") or {}).get(key) for key in linked):
+            exclusions[key] = 'Outside favorite companies'
             continue
         if filters["company"] and filters["company"] not in linked:
+            exclusions[key] = 'Outside selected company'
             continue
         if selected_list and not linked.intersection(selected_list.get("company_ids") or []):
+            exclusions[key] = 'Outside selected company list'
             continue
         company_ids = {key for key in linked if (entities.get(key) or {}).get("entity_type") == "company"}
         tiers = {str((state.get("entity_tiers") or {}).get(key) or "untiered") for key in company_ids}
         if filters["tier"] and filters["tier"] not in tiers:
+            exclusions[key] = 'Outside selected company tier'
             continue
         if filters["tier"] != "muted" and company_ids and all(tier == "muted" for tier in tiers):
+            exclusions[key] = 'Company muted'
             continue
         haystack = " ".join(str(record.get(field) or "") for field in ("title", "summary", "source_name"))
         if filters["q"].casefold() not in haystack.casefold():
+            exclusions[key] = 'Outside text search'
+            continue
+        if record.get('source_name'):
+            scoped_sources.add(record['source_name'])
+        if filters['source'] and filters['source'] != record.get('source_name'):
+            exclusions[key] = 'Outside selected publisher'
             continue
         trusted = source_reviewed(record) and key in support
         counts["unreviewed"] += 1  # Raw source lane includes reviewed sources, labeled separately.
         counts["trusted"] += int(trusted)
         if filters["view"] == "trusted" and not trusted:
+            exclusions[key] = 'No reviewed publication plus active supporting fact'
             continue
         matched.append((record, stamp, trusted, mentions))
     matched.sort(key=lambda row: (row[1] or datetime.min.replace(tzinfo=UTC), row[0]["id"]), reverse=True)
@@ -216,6 +267,16 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         from app.services.feed_first_reader import is_public_http_url
         card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
+        kind = media_kind(record)
+        transcript = record.get('transcript') if isinstance(record.get('transcript'), dict) else {}
+        transcript_status = record.get('transcript_status') or transcript.get('status')
+        card.update(media_kind=kind, media_label=MEDIA_CHOICES[kind],
+                    media_note=('Transcript state: ' + transcript_status if transcript_status in {'ready', 'partial', 'available', 'captured'} else
+                                'Description only · transcript ' + (transcript_status or 'unspecified'))
+                    if kind in {'podcast', 'video'} else '')
+        if kind in {'podcast', 'video'}:
+            card['source_link_label'] = 'Listen at source' if kind == 'podcast' else 'Watch at source'
+            card['source_link_url'] = (record.get('media_url') if is_public_http_url(record.get('media_url') or '') else '') or card['source_url']
         card["company_mentions"] = mentions
         card['topic_match'] = classify(record)
         if record['id'] not in effective:
@@ -228,6 +289,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     if filters['window'] == 'custom':
         date_label = (filters['start'] or 'Earliest recorded') + ' through ' + (filters['end'] or 'Today')
     filter_summary = [date_label + ' / ' + filters['tz']]
+    if filters['media']:
+        filter_summary.append(MEDIA_CHOICES[filters['media']])
     if filters['company']:
         filter_summary.append(entities[filters['company']].get('name') or 'Selected company')
     if filters['berry']:
@@ -250,6 +313,6 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         filter_summary.extend(tag['name'] for tag in tags if tag['id'] in selected_tags)
         filter_summary.append('All selected tags' if filters['tag_mode'] == 'all' else 'Any selected tag')
     return {"cards": cards, "matching": len(matched), "matching_ids": [r[0]["id"] for r in matched], "counts": counts, "filters": filters,
-            "filter_summary": filter_summary, "tags": tags,
+            "filter_summary": filter_summary, "tags": tags, "media_choices": MEDIA_CHOICES, 'exclusions': exclusions,
             "page": page, "pages": pages, "lists": lists, "query": query,
-            "source_choices": sorted({r.get('source_name') for r in records.values() if r.get('source_name')})}
+            "source_choices": sorted(scoped_sources)}

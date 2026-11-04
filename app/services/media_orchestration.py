@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Callable, Protocol
 
 from app.services import media_transcription
-from app.services.article_dedup import find_duplicate_article
+from app.services.article_dedup import find_duplicate_article, same_recording
 from app.services.publication_enrichment import enrich_publication_draft
 from app.services.relevance_screening import screen_discovered_item
 from app.services.transcript_evidence import (
@@ -271,12 +271,14 @@ class MediaOrchestrationService:
             if not isinstance(match, dict) or not isinstance(match.get("evidence_id"), str):
                 continue
             evidence_id = match["evidence_id"]
+            if discovered_item.get('media_format') != 'web_article' and not same_recording(discovered_item, self._repos.evidence.get(evidence_id) or {}):
+                continue  # Advisory title/date matches cannot establish episode identity.
             if self._is_trusted_publication(self._repos.evidence.get(evidence_id)):
                 trusted_ids.add(evidence_id)
 
         source_id = discovered_item["source_id"]
         canonical_url = discovered_item.get("canonical_url")
-        if canonical_url:
+        if canonical_url and discovered_item.get('media_format') == 'web_article':
             for evidence in self._repos.evidence.list():
                 if (
                     self._is_trusted_publication(evidence)
@@ -790,9 +792,12 @@ class MediaOrchestrationService:
             "priority": deepcopy(PRIORITY_NONE),
             "source_id": item["source_id"],
             "media_format": item["media_format"],
+            "media_url": next((row['url'] for row in (item.get('raw_metadata') or {}).get('enclosures', [])
+                               if row.get('url') and str(row.get('type') or '').startswith(('audio/', 'video/'))), ''),
             "evidence_role": "publication_artifact",
             "discovered_item_id": item["id"],
             "discovery_provenance": {
+                "dedupe_strategy": item.get('dedupe_strategy'),
                 "dedupe_key": item["dedupe_key"],
                 "external_id": item.get("external_id"),
                 "first_seen_at": item.get("first_seen_at"),

@@ -208,12 +208,21 @@ class Store:
     def queue_projection(self, db, item, source, actor):
         priority = {k: {"level": "none", "rationale": ""} for k in ("reading", "testing", "monitoring", "commercial_position")}
         draft = {"id": item["id"], "record_type": "evidence", "status": "in_review", "review_state": "in_review", "verification_state": "unverified", "evidence_role": "publication_artifact", "source_type": "analyst_note" if item["nature"].startswith("analyst") else "web_article", "title": item["text"] or source["title"] or "Analyst capture", "summary": item["text"] or item["quote"] or "Saved source article; no atomic claim asserted.", "source_name": source["publisher"], "source_url": source["url"], "published_date": source["published_date"], "captured_date": now()[:10], "submitted_by": actor, "entity_ids": item["entity_ids"], "priority": priority, "workspace_capture": {"nature": item["nature"], "source_version": source["id"], "article_id": source["article_id"], "quote": item["quote"], "locator": item["locator"], "relation": item["relation"], "item_version": item["version"], "workspace_item_id": item["id"].split("-r")[0]}, "supporting_excerpt": item["quote"], "article": {"full_text": source["text"] if item["kind"] == "article" else item["quote"], "status": "full" if item["kind"] == "article" and source["availability"] == "body_available" else "excerpt_only"}}
+        draft['workspace_capture']['availability'] = source['availability']
+        if source.get('media_format'):
+            draft['media_format'] = source['media_format']
+            draft['workspace_capture']['content_kind'] = ('recording_description' if source['availability'] == 'description_only' else 'transcript_passage')
+            draft['workspace_capture']['transcript_version'] = source.get('transcript_version')
         db.execute("INSERT OR IGNORE INTO outbox VALUES(?,?)", (item["id"], encoded(draft)))
 
     def snapshot(self, record, text, availability):
         value = {"article_id": record["id"], "url": record.get("source_url", ""), "title": record.get("title", ""), "publisher": record.get("source_name", ""), "published_date": record.get("published_date"), "entity_ids": record.get("entity_ids", []), "text": text, "availability": availability}
-        for key in ('capture_provenance','source_version','source_version_basis','passage_locator','publication_date_basis'):
+        for key in ('capture_provenance','source_version','source_version_basis','passage_locator','publication_date_basis',
+                    'media_format', 'transcript_version', 'transcript_provenance'):
             if record.get(key):value[key]=deepcopy(record[key])
+        transcript = record.get('transcript')
+        if isinstance(transcript, dict) and transcript.get('segments'):
+            value['transcript_segments'] = deepcopy(transcript['segments'])
         value["id"] = "src-" + digest(value)
         return value
 
@@ -235,6 +244,20 @@ class Store:
                 locator.update(state="exact", end=start + len(quote), prefix=body[max(0, start-100):start], suffix=body[start+len(quote):start+len(quote)+100])
             else:
                 locator = {"state": "unresolved", "reason": "Display position differs from archived source. Compare preserved wording manually."}
+                if body.count(quote) == 1:
+                    start = body.index(quote)
+                    locator = {'state': 'exact', 'basis': 'unique archived wording', 'start': start, 'end': start + len(quote),
+                               'prefix': body[max(0, start-100):start], 'suffix': body[start+len(quote):start+len(quote)+100]}
+            if locator.get('state') == 'exact' and source.get('transcript_segments'):
+                offset, matched = 0, []
+                for segment in source['transcript_segments']:
+                    end = offset + len(segment['text'])
+                    if offset < locator['end'] and end > locator['start']:
+                        matched.append(segment)
+                    offset = end + 1
+                if matched:
+                    locator.update(start_seconds=matched[0]['start_seconds'], end_seconds=matched[-1].get('end_seconds'),
+                                   transcript_version=source.get('transcript_version'))
         if kind != "article" and not quote and not payload.get("text"):
             raise ValueError("Select text or enter an analyst note")
         entity_ids = list(dict.fromkeys(payload.get("entity_ids") or []))

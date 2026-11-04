@@ -191,7 +191,8 @@ def _extract_info_real(video_id: str) -> dict[str, Any]:
             "to acquire YouTube captions or audio"
         ) from exc
 
-    opts = {"quiet": True, "no_warnings": True, "skip_download": True, "noplaylist": True}
+    opts = {"quiet": True, "no_warnings": True, "skip_download": True, "noplaylist": True,
+            "socket_timeout": 10, "retries": 1, "extractor_retries": 1}
     url = f"https://www.youtube.com/watch?v={video_id}"
     try:
         with yt_dlp.YoutubeDL(opts) as ydl:
@@ -353,6 +354,7 @@ def fetch_captions(
     now: str | None = None,
     info_fetcher: Callable[[str], dict[str, Any]] | None = None,
     downloader: Callable[[str], str] | None = None,
+    diagnostics: dict[str, str] | None = None,
 ) -> YouTubeCaptionAcquisition | None:
     """Tier 2 entry point. Returns None -- never raises -- whenever no
     legitimate caption result is available for any reason (not a YouTube
@@ -368,11 +370,16 @@ def fetch_captions(
     info_fetcher = info_fetcher or _extract_info_real
     try:
         info = info_fetcher(video_id)
-    except Exception:  # noqa: BLE001 -- any inspection failure here just means "no captions available"; Tier 3 will independently discover and report a truly inaccessible video
+    except Exception as exc:  # noqa: BLE001 -- retain a safe failure category without exposing request URLs/secrets
+        if diagnostics is not None:
+            diagnostics['caption_reason'] = ('platform_access_blocked' if any(marker in str(exc).casefold()
+                for marker in ('not a bot', 'sign in', 'private video', 'age-restricted', 'geo-restricted')) else 'caption_inspection_failed')
         return None
 
     selected = _select_caption_track(info, language)
     if selected is None:
+        if diagnostics is not None:
+            diagnostics['caption_reason'] = 'no_original_language_captions'
         return None
     kind, lang, table_key = selected
     table = (info.get("subtitles") or {}) if kind == "human" else (info.get("automatic_captions") or {})
@@ -407,11 +414,15 @@ def fetch_captions(
     try:
         raw_text = downloader(vtt_url)
     except Exception:  # noqa: BLE001 -- caption body fetch failure falls through to Tier 3 (Phase 20 test 11), never raised
+        if diagnostics is not None:
+            diagnostics['caption_reason'] = 'caption_fetch_failed'
         return None
 
     try:
         segments = media_transcription.parse_timed_text_captions(raw_text)
     except media_transcription.RawTranscriptParseError:
+        if diagnostics is not None:
+            diagnostics['caption_reason'] = 'caption_parse_failed'
         return None
     if kind == "auto":
         segments = _dedupe_rolling_auto_captions(segments)

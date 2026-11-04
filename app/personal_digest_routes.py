@@ -175,6 +175,10 @@ def reader_context(request: Request, record: dict):
     from app.services.news_workspace import source_reviewed, escalations
     from app.services.statement_workspace import present_statements
     capture = None
+    from app.services.media_reader import stored_media, SPOKEN
+    spoken = record.get('media_format') in SPOKEN or record.get('source_type') == 'industry_podcast'
+    if main.AUTHORING_MODE and spoken:
+        record = stored_media(record, main.INBOX_DIR)
     if main.AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, main.INBOX_DIR)
@@ -218,7 +222,8 @@ def reader_context(request: Request, record: dict):
     return_to = request.query_params.get("return_to") or "/digest"
     return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "article_blocks": article_blocks, "document_blocks": document_blocks,
-            "auto_capture": bool(main.AUTHORING_MODE and not paragraphs and card["source_url"] and not record.get("missing_source")),
+            "auto_capture": bool(main.AUTHORING_MODE and not spoken and not paragraphs and card["source_url"] and not record.get("missing_source")),
+            "spoken_media": spoken, "media_transcript": record.get('transcript') if spoken and isinstance(record.get('transcript'), dict) else {},
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
             "statement_reviews": statement_reviews, "reader_return_to": return_to,

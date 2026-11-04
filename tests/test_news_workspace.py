@@ -38,6 +38,36 @@ def ids(model):
     return [card['id'] for card in model['cards']]
 
 
+def test_media_filters_reuse_scope_relevance_and_trust():
+    rows = [article('ev-article'), article('ev-blog', source_url='https://grower.org/blog/blueberries'),
+            article('ev-podcast', source_type='discovered_media', media_format='podcast'),
+            article('ev-video', source_type='discovered_media', media_format='conference_video'),
+            article('ev-false', media_format='video', title='Python software library release', summary='Code update', entity_ids=[])]
+    assert len(ids(project(rows))) == 4
+    for media, key in [('article', 'ev-article'), ('blog', 'ev-blog'), ('podcast', 'ev-podcast'), ('video', 'ev-video')]:
+        result = project(rows, {'media': media, 'berry': 'blueberry', 'countries': 'geography-peru'})
+        assert ids(result) == [key]
+        assert result['filters']['media'] == media
+        assert not ids(project(rows, {'media': media, 'view': 'trusted'}))
+    assert 'description only' in project(rows, {'media': 'podcast'})['cards'][0]['media_note'].lower()
+    assert not ids(project(rows, {'media': 'video', 'window': 'today'}))
+    with pytest.raises(ValueError, match='media'):
+        project(rows, {'media': 'invalid'})
+
+
+def test_media_health_links_keep_scope_and_get_stays_inert(workspace, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError('Page loads must not acquire media')
+    monkeypatch.setattr('app.services.media_discovery.discover_source', forbidden)
+    monkeypatch.setattr('app.services.media_transcription.transcribe_discovered_item', forbidden)
+    response = workspace.get('/today?media=podcast&berry=blueberry&window=30d')
+    assert response.status_code == 200
+    assert '/today/sources?' in response.text and 'media=podcast' in response.text
+    response = workspace.get('/today/sources?media=podcast&berry=blueberry&window=30d')
+    assert response.status_code == 200 and 'Global collection health' in response.text
+    assert 'media=podcast' in response.text
+
+
 def test_compact_filter_summary_retains_named_scope_and_explicit_timezone():
     state = feed_first.empty_state()
     state['company_lists']['list-watch'] = {'name': 'Breeders to watch', 'company_ids': ['company-grower']}
