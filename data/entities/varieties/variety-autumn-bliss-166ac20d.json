@@ -1,0 +1,29 @@
+{
+  "id": "variety-autumn-bliss-166ac20d",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Autumn Bliss",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-69839a325932",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized primary-source identity audit",
+      "reviewed_at": "2026-11-03T13:44:21.951084+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+      "source_label": "Raspberry cultivars for the Pacific Northwest | OSU Extension Service",
+      "candidate_name": "Autumn Bliss"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "variety-falco-b607dc0b",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Falco",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-117c3e790edf",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:40.978032+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://flevoberry.nl/Varieties/",
+      "source_label": "Flevo Berry — current strawberry product list",
+      "candidate_name": "Falco"
+    }
+  }
+}

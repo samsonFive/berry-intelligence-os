@@ -67,10 +67,10 @@ def test_bounded_capture_retains_heading_order_and_metadata_without_html():
 
 
 def test_capture_reports_passage_limit_instead_of_claiming_full_article():
-    html = '<article>' + ''.join(f'<p>Paragraph {index}: ' + 'Original publisher words. ' * 8 + '</p>' for index in range(30)) + '</article>'
+    html = '<article>' + ''.join(f'<p>Paragraph {index}: ' + 'Original publisher words. ' * 8 + '</p>' for index in range(110)) + '</article>'
     with httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(200, text=html))) as client:
         captured = reader.fetch_public_article(URL, client=client)
-    assert len(captured['passages']) == 24 and captured['truncated']
+    assert len(captured['passages']) == 96 and captured['truncated']
     assert captured['availability'] == 'partial' and captured['reason'] == 'article-text-limit'
 
 

@@ -26,6 +26,21 @@ def directory(params, regions=(), state=STATE):
     return navigation.directory(cards(), params=params, state=state, entities=ENTITIES, relationships=RELATIONSHIPS, regions=regions)
 
 
+def test_recent_intelligence_sort_uses_dates_keeps_ties_alphabetical_and_missing_dates_last():
+    rows = [dict(id='v-'+name, name=name, recent=recent) for name, recent in [
+        ('Zulu', {'date':'2026-10-28'}), ('Alpha', {'date':'2026-10-28'}),
+        ('Old', {'date':'2023-04-01'}), ('Missing', {}), ('Invalid', {'date':'not-a-date'})]]
+    kwargs = dict(state={}, entities={}, relationships=[], regions=[])
+    newest = navigation.directory(rows, params={'sort':'recent_desc', 'berry':'berry-raspberry', 'has_recent_intelligence':'1'}, **kwargs)
+    assert [r['name'] for r in newest['variety_rows']] == ['Alpha','Zulu','Old','Invalid','Missing']
+    assert 'sort=recent_asc' in newest['recent_sort_url'] and 'has_recent_intelligence=1' in newest['recent_sort_url']
+    assert all('sort=recent_desc' in url for url in newest['letter_urls'].values())
+    oldest = navigation.directory(rows, params={'sort':'recent_asc'}, **kwargs)
+    assert [r['name'] for r in oldest['variety_rows']] == ['Old','Alpha','Zulu','Invalid','Missing']
+    with pytest.raises(ValueError, match='sort order'):
+        navigation.directory(rows, params={'sort':'unsupported'}, **kwargs)
+
+
 @pytest.mark.parametrize("params", [{"favorites": "1"}, {"tier": "tier1"}, {"list": "watch"}, {"favorites": "1", "tier": "tier1", "list": "watch"}])
 def test_marks_use_active_organization_roles(params):
     assert [row["id"] for row in directory(params)["variety_rows"]] == ["variety-a"]
@@ -147,9 +162,16 @@ def test_directory_preserves_catalog_ids_and_get_has_no_personal_writes(monkeypa
     monkeypatch.setattr(feed_first_reader, "load_capture", forbidden)
     monkeypatch.setattr(feed_first_reader, "fetch_public_article", forbidden)
     monkeypatch.setattr(map_regions, "edit", forbidden)
-    page = TestClient(main.app).get("/entities/variety?berry=")
+    client = TestClient(main.app)
+    page = client.get("/entities/variety?berry=")
     assert page.status_code == 200
     ids = set(re.findall(r'<tr id="variety-([^"]+)"', page.text))
+    for number in range(2, page.context['catalog_pages'] + 1):
+        following = client.get('/entities/variety?berry=&page=' + str(number))
+        assert following.status_code == 200
+        page_ids = set(re.findall(r'<tr id="variety-([^"]+)"', following.text))
+        assert not ids.intersection(page_ids)
+        ids.update(page_ids)
     expected = {row["id"] for row in main.living_catalog() if row.get("entity_type") == "variety"}
     assert ids == expected
     assert page.text.count('id="v2ReaderOffcanvas"') == 1

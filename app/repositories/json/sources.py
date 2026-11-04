@@ -38,6 +38,8 @@ call instead); delete backs the source-delete route."""
 from __future__ import annotations
 
 import json
+import os
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -60,11 +62,15 @@ class JsonSourceRepository:
             raise StorageError(f"could not read {self._path}: {exc}") from exc
 
     def _save_all(self, sources: list[dict[str, Any]]) -> None:
+        temporary = self._path.with_name(self._path.name + "." + uuid.uuid4().hex + ".tmp")
         try:
             self._path.parent.mkdir(parents=True, exist_ok=True)
-            self._path.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            temporary.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            os.replace(temporary, self._path)
         except OSError as exc:
             raise StorageError(f"could not write {self._path}: {exc}") from exc
+        finally:
+            temporary.unlink(missing_ok=True)
 
     # -- public, logical-record operations -----------------------------------
 

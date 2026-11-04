@@ -1,0 +1,29 @@
+{
+  "id": "variety-washington-02a4efbf",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Washington",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-82b5e2a5fef3",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:22.818391+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+      "source_label": "Lewis red raspberry — original pedigree diagram",
+      "candidate_name": "Washington"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "variety-fanfare-asbp-b9d25fd3",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Fanfare- ASBP",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-0ee34c70604d",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:41.608712+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://era.dpi.qld.gov.au/id/eprint/6539/",
+      "source_label": "Queensland — 2018 strawberry report, mediterranean abstract group",
+      "candidate_name": "Fanfare- ASBP"
+    }
+  }
+}

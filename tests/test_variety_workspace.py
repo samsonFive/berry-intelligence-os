@@ -293,14 +293,12 @@ def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     assert "<h1>Varieties</h1>" in page.text
     assert "catalog varieties" in page.text
     assert "variety-table" in page.text
-    assert "Zara" in page.text
-    assert "Victoria" in page.text
-    assert "DrisBlueSeventeen" in page.text
-    # Real, current count as of Caneberry Variety + Actor Expansion V1
-    # (2026-08-22): blackberry has 5 tracked varieties (Victoria, Ervin,
-    # Ponca, Ouachita, BK 6-13), so "(thin)" (the berry_inventory() <=1
-    # threshold) no longer applies -- was "Blackberry 1 (thin)".
-    assert "Blackberry 5" in page.text
+    # The complete index retains these varieties even when their alphabetical
+    # rows are on later pages of the expanded directory.
+    assert {"Zara", "Victoria", "DrisBlueSeventeen"} <= {row["name"] for row in page.context["variety_cards"]}
+    assert len(page.context["variety_rows"]) <= 100
+    blackberry_count = sum("berry-blackberry" in row.get("berry_ids", []) for row in main.living_catalog() if row.get("entity_type") == "variety")
+    assert f"Blackberry {blackberry_count}" in page.text
     assert "(thin)" not in page.text
 
 
@@ -394,7 +392,8 @@ def test_context_bar_filters_variety_index() -> None:
     client.cookies.set("bios_berry", "berry-strawberry")
     page = client.get("/entities/variety")
     assert page.status_code == 200
-    assert "Zara" in page.text
+    assert any(row["name"] == "Zara" for row in page.context["entities"])
+    assert all("berry-strawberry" in row.get("berry_ids", []) for row in page.context["entities"])
     assert "DrisBlueSeventeen" not in page.text
     assert page.context["discovered_names"]
     assert all(row["berry_id"] == "berry-strawberry" for row in page.context["discovered_names"])
@@ -629,6 +628,22 @@ def test_build_variety_indexes_counts_product_evidence_from_facts() -> None:
     # real trait-* entity id; the trait-less and other-variety facts must
     # not inflate the count.
     assert indexes["product_evidence"]["variety-x"] == 3
+
+
+def test_variety_index_recent_intelligence_filter_matches_column_and_combines_filters():
+    varieties = [_entity(id='variety-'+key, entity_type='variety', name=key, berry_ids=['berry-blueberry'])
+                 for key in ['published', 'pending', 'bare']]
+    records = [dict(id='ev-one', title='Older linked intelligence', status='published', published_date='2023-01-01',
+                    entity_ids=['variety-published'])]
+    drafts = [dict(id='ev-two', title='Pending linked intelligence', status='draft', captured_date='2026-10-27',
+                   entity_ids=['variety-pending'])]
+    kwargs = dict(varieties=varieties, entities=varieties, relationships=[], published_evidence=records,
+                  inbox_drafts=drafts, berry_labels=BERRY_LABELS)
+    result = present_variety_index(**kwargs, filters={'has_recent_intelligence': '1'})
+    assert {card['id'] for card in result['cards']} == {'variety-published', 'variety-pending'}
+    assert all(card['recent']['id'] for card in result['cards'])
+    assert len(present_variety_index(**kwargs)['cards']) == 3
+    assert not present_variety_index(**kwargs, filters={'has_recent_intelligence': '1', 'has_signal': '1'})['cards']
 
 
 def test_variety_index_has_product_evidence_filter(monkeypatch, tmp_path: Path) -> None:

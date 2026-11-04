@@ -1,0 +1,29 @@
+{
+  "id": "variety-glen-rosa-504b517a",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Glen Rosa",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-cb9b489dd9d9",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:09.731490+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
+      "source_label": "James Hutton Institute — legacy raspberry listing",
+      "candidate_name": "Glen Rosa"
+    }
+  }
+}

@@ -26,7 +26,7 @@ from app.main import (  # noqa: E402
     PRIORITY_LEVELS,
     PRIORITY_QUEUE_LABELS,
     all_assessments,
-    all_entities,
+    all_entities as _all_entities,
     all_facts,
     all_recommendations,
     all_relationships,
@@ -83,6 +83,16 @@ from app.services.variety_universe.corpus_discovery import build_discovered_cand
 from app.services.variety_universe.coverage import universe_headcounts  # noqa: E402
 from app.services.company_workspace import present_company_portfolio  # noqa: E402
 from app.services.geography_workspace import geography_detail, geography_index  # noqa: E402
+from app.services.variety_catalog import visible as catalog_visible  # noqa: E402
+
+
+def all_entities():
+    """Workspace catalog additions and removals never leak into public output."""
+    return [row for row in _all_entities() if catalog_visible(row, private=False)]
+
+
+def entity_index():
+    return {row['id']: row for row in all_entities() if row.get('id')}
 from app.services.strategic_question_workspace import (  # noqa: E402
     strategic_question_detail as present_strategic_question_detail,
     strategic_question_index as present_strategic_question_index,

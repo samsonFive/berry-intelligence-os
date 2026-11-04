@@ -1,0 +1,29 @@
+{
+  "id": "variety-glen-dee-873549e4",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Glen Dee",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-dfaf96c657c2",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized primary-source identity audit",
+      "reviewed_at": "2026-11-03T13:44:21.172785+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ra/app00010939e.shtml",
+      "source_label": "Canadian Food Inspection Agency - Glen Dee",
+      "candidate_name": "Glen Dee"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "variety-ava-catalina-182a21e5",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "AVA Catalina",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-4ff2b2d674e8",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:29.058861+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.avaberries.com/varieties/",
+      "source_label": "AVA Berries - named strawberry and raspberry list",
+      "candidate_name": "AVA Catalina"
+    }
+  }
+}

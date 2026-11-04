@@ -1,0 +1,29 @@
+{
+  "id": "variety-lilou-ece97d05",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Lilou",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-a01b73ecf827",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:12.627029+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://blackventurefarm.com/#page-3",
+      "source_label": "Black Venture Farm — original low-chill varieties",
+      "candidate_name": "Lilou"
+    }
+  }
+}

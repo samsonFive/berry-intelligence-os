@@ -1,0 +1,13 @@
+.catalog-editor { max-width: 1100px; }
+.catalog-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.catalog-fields label, .catalog-save label { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.catalog-fields input, .catalog-fields textarea, .catalog-fields select, .catalog-save input { box-sizing: border-box; width: 100%; max-width: 100%; padding: .65rem; border: 1px solid #b9c9c0; border-radius: .35rem; font: inherit; background: white; color: #18342a; }
+.catalog-wide { grid-column: 1 / -1; }
+.catalog-entry { min-width: 0; margin: 1rem 0; border: 1px solid #ccd8d0; border-radius: .4rem; padding: 1rem; }
+.catalog-entry legend { font-weight: 600; padding: 0 .4rem; }
+.catalog-fields .company-check { flex-direction: row; align-items: center; }
+.catalog-fields input[type=checkbox] { width: auto; }
+.catalog-error { border-left: 4px solid #b03729; }
+.catalog-save { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; position: sticky; bottom: .5rem; box-shadow: 0 2px 15px #18342a22; z-index: 2; }
+.catalog-source-context { overflow-wrap: anywhere; }
+@media(max-width: 650px) { .catalog-fields { grid-template-columns: minmax(0, 1fr); } .catalog-entry { padding: .65rem; } }

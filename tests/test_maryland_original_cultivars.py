@@ -95,9 +95,13 @@ def test_private_source_handoffs_expose_original_rows_and_keep_photos_unloaded(m
     photo=sources()[1]['names'][-1]['photos'][0]
     assert 'src="'+photo['image_url']+'"'not in response.text
     duke=client.get('/varieties/candidates',params={'source':PHOTOS,'q':'Duke'})
-    assert duke.status_code==200 and len(duke.context['candidates'])==1
-    shown,=duke.context['candidates'][0]['photos']
+    # Duke was explicitly admitted to the catalog; it is not a duplicate review candidate.
+    assert duke.status_code==200 and not duke.context['candidates']
+    target=next(e for e in main.all_entities() if e.get('name')=='Duke' and e.get('berry_ids')==['berry-blueberry'])
+    duke=client.get('/entities/variety/'+target['id'])
+    assert duke.status_code==200
     expected=next(r['photos'][0]for r in sources()[1]['names']if r['candidate_name']=='Duke')
+    shown=next(row for row in duke.context['photo_gallery'] if row['image_url']==expected['image_url'])
     assert shown['image_url']==expected['image_url'] and not shown['display_image']
     assert shown['credit']=='Haley Sater · University of Maryland Extension'
     assert 'Ignore permission'in duke.text and 'src="'+shown['image_url']+'"'not in duke.text

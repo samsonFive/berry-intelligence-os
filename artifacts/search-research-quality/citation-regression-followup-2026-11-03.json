@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "frozen_candidate": "921b197f2fb1192e6066defc91445ec6e9809941",
+  "retrieval_version": "topic-retrieval-v11",
+  "frozen_run_sha256": "d34e4ee74d83681de2a5027644744a07a4a3cd74f3807d863116f7777fb791b1",
+  "quotation_count": 17,
+  "fidelity_failures": 0,
+  "flag_handling": [
+    {
+      "original_flag": "S08",
+      "query": "Blackberry floricane varieties Mediterranean trials",
+      "source_id": "web-77eee55c1cecd23a",
+      "original_excerpt_sha256": "a5b431febb477cb19812e59197b3b531c763ec8b0d9b5d7bbd5c5ecac9aa7e03",
+      "new_excerpt_sha256": "43a1ab420316749d42ded0e6f10bec7b57b996b9726892abe9264584d21b061f",
+      "support_status": "scope_unverified",
+      "new_quoted_sections": []
+    },
+    {
+      "original_flag": "S09",
+      "query": "Blueberry machine sorting firmness studies",
+      "source_id": "web-97a1e0d9a1d09a41",
+      "original_excerpt_sha256": "2b4cd34a34b23ebc6421cfc9912fd6b8cce0e994fff9c68ba74803164bedd50b",
+      "new_excerpt_sha256": "3a26c2c1450538f14d835dc0db1828763255e5fea0c93de4b72e89e667356ff8",
+      "support_status": "scope_unverified",
+      "new_quoted_sections": []
+    },
+    {
+      "original_flag": "S17",
+      "query": "Raspberry high tunnel summer ventilation trials",
+      "source_id": "web-5e8d756994c6895b",
+      "original_excerpt_sha256": "9e320a4996eab62e2b9e7f4d30f03a37aabbb0bfa068a6643c15a827e326bbc4",
+      "new_excerpt_sha256": "fc6e5d813637fb68a0148446c827d8c4a6775febe77d2ecd437fefdd20986291",
+      "support_status": "scope_unverified",
+      "new_quoted_sections": []
+    },
+    {
+      "original_flag": "S18",
+      "query": "Raspberry crop heat stress experiments Scotland",
+      "source_id": "web-1987c64e824a6635",
+      "original_excerpt_sha256": "e1c67881e030947d21fde4555827e4566047f613d4d61f17c237393fa5e9312a",
+      "new_excerpt_sha256": "cbae0697628dc0e63aba711f754ee2189418f17a412f16d5b44d9cb8ff74b3df",
+      "support_status": "scope_unverified",
+      "new_quoted_sections": []
+    },
+    {
+      "original_flag": "S19",
+      "query": "Strawberry Pestalotiopsis disease resistant cultivars trials",
+      "source_id": "web-f25a6630ded1e6fa",
+      "original_excerpt_sha256": "39b87f53d125c943cd3622166d9826a74d6ea3668657899e8c0a1835d7023978",
+      "new_excerpt_sha256": "39b87f53d125c943cd3622166d9826a74d6ea3668657899e8c0a1835d7023978",
+      "support_status": "body_supported",
+      "new_quoted_sections": [
+        "topic_background"
+      ]
+    }
+  ],
+  "acceptance": "Post-inspection regression handling only. Google parity remains unverified; no scores silently replaced.",
+  "semantic_reviews": [
+    {
+      "query": "Blackberry Floricans",
+      "section_id": "topic_findings",
+      "source_id": "web-33b0d00ac294cf5f",
+      "source_version": "cf4108911d6657f05bfce93affe26a0aa5e34796b73d23112779d7dbfe1294b6",
+      "passage_sha256": "a5b431febb477cb19812e59197b3b531c763ec8b0d9b5d7bbd5c5ecac9aa7e03",
+      "section_sha256": "59607692b494d35fafeb3f0937ea4be472d0aed273cc8e77baa26c3a805dffb1",
+      "disposition": "supported",
+      "reason": "Owned announcement explicitly identifies Ervin as floricane and licensing outside US; no sales-in-all-territories inference.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206111+00:00"
+    },
+    {
+      "query": "Blackberry Floricans",
+      "section_id": "topic_findings",
+      "source_id": "web-f3daf97f3bf23d5a",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "passage_sha256": "aea551ec51a010c043a05e03eeffbb1e261f240d6b620238b9ec0f5e813f3855",
+      "section_sha256": "59607692b494d35fafeb3f0937ea4be472d0aed273cc8e77baa26c3a805dffb1",
+      "disposition": "supported",
+      "reason": "Official licensor explicitly states four-year evaluation and international licence; distinct from February breeder introduction.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206137+00:00"
+    },
+    {
+      "query": "Blackberry Floricans",
+      "section_id": "topic_findings",
+      "source_id": "web-498c1d46adfd3d8b",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "passage_sha256": "4e8d7b92045fe1d2c325faac3377c7262a3cf0d86be19ce1430bdc9c4a7727d8",
+      "section_sha256": "59607692b494d35fafeb3f0937ea4be472d0aed273cc8e77baa26c3a805dffb1",
+      "disposition": "supported",
+      "reason": "Breeder explicitly states floricane identity and NC 740 alias; introduction date remains February.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206144+00:00"
+    },
+    {
+      "query": "Blackberry Floricans",
+      "section_id": "topic_background",
+      "source_id": "web-bf7fcb16c6a0fdc2",
+      "source_version": "7ffe771557703c97d69cd2b8c84bebe87ed6cea22f737227c4c3bc7aafd4dafd",
+      "passage_sha256": "9a724b8bc14d8cd8c738dce95c69141c98f25afd29b762b6f6df57e141ed2ac2",
+      "section_sha256": "2d1b83f37522dbbdbabd0741a91158c4d0f7714e21004aa76397e02e55f46950",
+      "disposition": "context_only",
+      "reason": "2020 reporting of 2017 Florida trials remains older background; estimates and primocane results are explicitly attributed.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206149+00:00"
+    },
+    {
+      "query": "Ervin blackberry",
+      "section_id": "topic_findings",
+      "source_id": "web-77eee55c1cecd23a",
+      "source_version": "cf4108911d6657f05bfce93affe26a0aa5e34796b73d23112779d7dbfe1294b6",
+      "passage_sha256": "a5b431febb477cb19812e59197b3b531c763ec8b0d9b5d7bbd5c5ecac9aa7e03",
+      "section_sha256": "824830a15cddb54d65bb3bdc80a6c78c1779a465f102282cff16dc009933ffe8",
+      "disposition": "supported",
+      "reason": "Regional edition of same Ervin licensing announcement, not independent confirmation.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206154+00:00"
+    },
+    {
+      "query": "Ervin blackberry",
+      "section_id": "topic_findings",
+      "source_id": "web-f3daf97f3bf23d5a",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "passage_sha256": "aea551ec51a010c043a05e03eeffbb1e261f240d6b620238b9ec0f5e813f3855",
+      "section_sha256": "824830a15cddb54d65bb3bdc80a6c78c1779a465f102282cff16dc009933ffe8",
+      "disposition": "supported",
+      "reason": "Official licensor paragraph supports international-development announcement without broad sales claims.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206159+00:00"
+    },
+    {
+      "query": "Ervin blackberry",
+      "section_id": "topic_findings",
+      "source_id": "web-498c1d46adfd3d8b",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "passage_sha256": "4e8d7b92045fe1d2c325faac3377c7262a3cf0d86be19ce1430bdc9c4a7727d8",
+      "section_sha256": "824830a15cddb54d65bb3bdc80a6c78c1779a465f102282cff16dc009933ffe8",
+      "disposition": "supported",
+      "reason": "Breeder introduction and trial alias explicitly supported by owned paragraph.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206166+00:00"
+    },
+    {
+      "query": "Von blackberry postharvest storage trials",
+      "section_id": "topic_background",
+      "source_id": "web-5093f06f7e1a8a4d",
+      "source_version": "153e23d013aa920adc62bc6cc6fdc4490349285b895da929aaf8bcd83487ccb9",
+      "passage_sha256": "c6ae91ca1759bd55515df487925db5577392c199c5f971d6aba3ebe2bab2add5",
+      "section_sha256": "9e54dadd3909180feb8a3e5053e77bc8b47dd68e3cb2a1f898b75f9e4d0cd3b0",
+      "disposition": "context_only",
+      "reason": "Navaho historic storage trials are labelled background; do not transfer results to Von.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206170+00:00"
+    },
+    {
+      "query": "Blueberry machine sorting firmness studies",
+      "section_id": "topic_background",
+      "source_id": "web-b45f824849e9be2f",
+      "source_version": "3fcd355ea57179ce75c9ac981fb9c7d373c5d4948a15ca68cdf21733d6f06ef6",
+      "passage_sha256": "d5d9cc8c547c79366509f9a5f82f79051b47d81b03b2bfe67f4bdb1b890df662",
+      "section_sha256": "2f8b3edb29b5f65831da17e06cb3b43c991d7e2444480b462a6d4b2e5ad06c7c",
+      "disposition": "context_only",
+      "reason": "2020 QTL mapping addresses firmness and machine harvest traits; not a sorting experiment, stays background.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206175+00:00"
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "section_id": "topic_findings",
+      "source_id": "web-9bdae8b831b89d48",
+      "source_version": "9dc66c46306773e5e405a8c4609290cfe0c7390b26939f3fbdbb4ddda8c67548",
+      "passage_sha256": "887abf8c3b5a820dbffb30aa33826e746bfeceed01ae266ab03c88afa38fcafe",
+      "section_sha256": "b4d3b589c81bbbf3739e14014f650e7686e3751a77ce268cb3c4e5d1d78d4b07",
+      "disposition": "context_only",
+      "reason": "FCM14-052 explicitly appears as established trial comparator; no new cultivar release or measured FCM-specific result inferred.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206180+00:00"
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "section_id": "topic_background",
+      "source_id": "web-6ffbf44e08f8e9af",
+      "source_version": "aa022cb6f3ddab55fb0f0c97d8d9de5b8180be4aa16efeec2f56dac0ef081efb",
+      "passage_sha256": "3c69ab3dd623cd5051a5be194ee1697b8ce27d72e5395a1f741af8ca5865cb4c",
+      "section_sha256": "060f84abdfb4c2b0561b87bae71d9b8987346c1b97ea33c9f4643967c57775fe",
+      "disposition": "context_only",
+      "reason": "Collective promotional cold-climate claim includes low-chill Pop and contradictory count; retain attribution only, not approved individual trait.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206187+00:00"
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "section_id": "topic_background",
+      "source_id": "web-cb62e32c813c5b9a",
+      "source_version": "6baa059c6965403c3c7e2314dc985d041730516a5ce73a0c0b574a31fc811fb5",
+      "passage_sha256": "b282ac1e53f751fb7f00030aff66d13c02f1d53c583b7ee9a86863faf99fe69b",
+      "section_sha256": "060f84abdfb4c2b0561b87bae71d9b8987346c1b97ea33c9f4643967c57775fe",
+      "disposition": "context_only",
+      "reason": "Named Pop tasting at Southern Africa event supports context; performance statement is not automatically assigned to each listed cultivar.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206192+00:00"
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "section_id": "topic_background",
+      "source_id": "web-d19f4bf0afd63685",
+      "source_version": "8e452ae58a0edda357e9b3462c0b3015d0893cfaeb018eed6a5417c05b9133bb",
+      "passage_sha256": "eb854cf488846b21947908a87018bb6b7a959fe039817aed48579b02b0ad56ee",
+      "section_sha256": "060f84abdfb4c2b0561b87bae71d9b8987346c1b97ea33c9f4643967c57775fe",
+      "disposition": "context_only",
+      "reason": "Source explicitly identifies Pop low-chill variety being exhibited; broader new releases are other cultivars.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206197+00:00"
+    },
+    {
+      "query": "\"FCM14-052\" blueberry variety",
+      "section_id": "topic_background",
+      "source_id": "web-63c986779a45f1ca",
+      "source_version": "a653009e9ca27f0a78b722dc9ef597d811923bf985645ebafd6d17fe1f744455",
+      "passage_sha256": "3db3af249b721729977bf0b60fe1fb7c0000110480cfabdb564e7bae06f32f87",
+      "section_sha256": "060f84abdfb4c2b0561b87bae71d9b8987346c1b97ea33c9f4643967c57775fe",
+      "disposition": "context_only",
+      "reason": "Yunnan production and low-chill positioning are explicitly attributed; September article stays background as ranked.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206213+00:00"
+    },
+    {
+      "query": "Blueberry breeding low chilling requirement Florida",
+      "section_id": "topic_background",
+      "source_id": "web-09f87aac95612363",
+      "source_version": "5610ce21c5cb4a3bf04751dc66fdfb86aefd283571187cf92395cec12403710b",
+      "passage_sha256": "cbcae36afd50531ded2d45d54fd6b06ffbbb9e622e9fbc5ad5004a9d92a4073f",
+      "section_sha256": "4c1672a8ed14ec60ae48e2128860029ec523b91f3fe557a80908584117b4bf76",
+      "disposition": "context_only",
+      "reason": "2013 report explicitly differentiates high-chill newcomers and breeding hopes; no validated low-chill trait assigned from hopes.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206219+00:00"
+    },
+    {
+      "query": "Strawberry Pestalotiopsis disease resistant cultivars trials",
+      "section_id": "topic_background",
+      "source_id": "web-1c807a8470f42b13",
+      "source_version": "a953d7f5395ecdc8c837a5e89f0f9d8b4e4648ef08206633efcf588fa76c26cc",
+      "passage_sha256": "97dd256ba211b6f16a8820c9df7e597e785039f1e348a51daa686eb1a2153551",
+      "section_sha256": "4a812ee1a3d00a2146a9b75081e982c25fd86eed95d96fcbaca0c1ad35e13457",
+      "disposition": "context_only",
+      "reason": "2024 study states Yasmin resistance and future breeding limitations, retained as older context; no commercial resistant cultivar approval.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206225+00:00"
+    },
+    {
+      "query": "Strawberry Pestalotiopsis disease resistant cultivars trials",
+      "section_id": "topic_background",
+      "source_id": "web-f25a6630ded1e6fa",
+      "source_version": "1988d4816ff373fb3e34ccbe17b82884997b97dc801c7e935f6dcfbb1eab4ec7",
+      "passage_sha256": "39b87f53d125c943cd3622166d9826a74d6ea3668657899e8c0a1835d7023978",
+      "section_sha256": "4a812ee1a3d00a2146a9b75081e982c25fd86eed95d96fcbaca0c1ad35e13457",
+      "disposition": "context_only",
+      "reason": "2026 review of earlier cited studies is now explicitly background; quotation remains attributed, not a new experiment or trait approval.",
+      "reviewer": "Codex source inspection; same operator, not independent human adjudication",
+      "checked_at": "2026-11-03T04:29:41.206230+00:00"
+    }
+  ],
+  "semantic_review_count": 17,
+  "semantic_issues": 0,
+  "limitations": "Same-operator source/context inspection, not independent human adjudication or source-truth approval. Four unsupported quotations withheld, one review reclassified as background. Quotation audit also repaired to recognize original copy labels and reject changed copy provenance."
+}

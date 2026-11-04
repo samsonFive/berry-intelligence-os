@@ -113,6 +113,8 @@ def run_catchall_recall(
     limit: int = DEFAULT_LIMIT,
 ) -> dict[str, Any]:
     """Write cache. Never Evidence. Succeeds without a key as awaiting_key."""
+    from app.services.collection_settings import apply_queries
+    queries = apply_queries(CATCHALL_RECALL_QUERIES, "catchall", inbox_dir)
     stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
     secret = (key if key is not None else catchall_key()).strip()
     if not secret and prefetched_records is None:
@@ -120,7 +122,7 @@ def run_catchall_recall(
             "state": AWAITING_KEY,
             "available": False,
             "reason": "SET NEWSCATCHER_API_KEY or CATCHALL_API_KEY → scheduled recall becomes live",
-            "queries": [query.id for query in CATCHALL_RECALL_QUERIES],
+            "queries": [query.id for query in queries],
             "hit_count": 0,
             "job_ids": [],
             "updated_at": stamp,
@@ -133,7 +135,7 @@ def run_catchall_recall(
     if prefetched_records is None:
         poster = submit or httpx.post
         getter = pull or httpx.get
-        for query in CATCHALL_RECALL_QUERIES:
+        for query in queries:
             submitted = submit_job(query, key=secret, post=poster, limit=limit)
             job_id = str(submitted.get("job_id") or submitted.get("id") or "")
             if job_id:
@@ -142,7 +144,7 @@ def run_catchall_recall(
                 records.extend(pulled.get("records") or pulled.get("results") or [])
 
     hits = []
-    for query in CATCHALL_RECALL_QUERIES:
+    for query in queries:
         hits.extend(records_to_hits(records, query=query, provider_name="newscatcher_catchall"))
     unique: dict[str, Any] = {}
     for hit in hits:
@@ -162,7 +164,7 @@ def run_catchall_recall(
         "state": "ok",
         "available": True,
         "reason": None,
-        "queries": [query.id for query in CATCHALL_RECALL_QUERIES],
+        "queries": [query.id for query in queries],
         "hit_count": len(stored),
         "job_ids": job_ids,
         "updated_at": stamp,

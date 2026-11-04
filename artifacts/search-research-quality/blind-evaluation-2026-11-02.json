@@ -1,0 +1,1446 @@
+{
+  "candidate_sha": "39ce1ed5020b6bf9c65731d0b43e8d323a1da103",
+  "protocol_sha256": "1c86a788c5a752224455433b65e5ce5829e46f642de9e84e1de13985f8662c0e",
+  "judgment_seal_sha256": "8b632888b03f65d2f4da3fc634294838846e060a836c13e209f1cef04e5260da",
+  "capture_day_utc": "2026-11-03",
+  "client_review_date": "2026-11-02",
+  "query_count": 20,
+  "comparison_repairs_complete": 10,
+  "fresh_holdout_queries": 8,
+  "anchors": 2,
+  "graded_pairs": 203,
+  "unassessable_pairs": 113,
+  "unprocessed_pairs": 0,
+  "systems": [
+    "improved_app",
+    "google"
+  ],
+  "same_day_capture_pairing": true,
+  "non_comparable_google_queries": [],
+  "fully_judged_queries": [
+    "Blackberry floricane pruning"
+  ],
+  "acceptance_ready": false,
+  "google_parity": "UNVERIFIED: incomplete source judgments; no aggregate nDCG or event recall claimed",
+  "limitations": [
+    "Codex source-reading assessment; system ranks/origins masked in review packets; same operator captured and assessed, not independent human adjudication",
+    "Unknown source relevance remains unknown; ranges are mathematical direct-precision bounds, not estimated quality or confidence intervals.",
+    "The eight new holdouts use stricter compound scopes; repaired/anchor queries are reported separately.",
+    "Old-system traces were captured on the current corpus only and are excluded from this two-system prospective pool.",
+    "Captured-body relevance is not source-fact/trait/rights approval; current source captures cannot prove historical page content.",
+    "Historical2026-10-26Google captures remain unchanged; repaired comparisons are a new2026-11-03UTCcohort."
+  ],
+  "performance": {
+    "actual_search_api_requests_candidate": 38,
+    "additional_publisher_resolution_search_requests": 43,
+    "total_search_api_requests_this_turn": 81,
+    "warm_cache_additional_search_requests": 0,
+    "cold_seconds_median": 14.57,
+    "cold_seconds_max": 58.39,
+    "warm_seconds_median": 0.042499999999999996,
+    "timing_scope": "Discovery plus rerank after local retrieval; not full server-request latency.",
+    "monetary_cost": null
+  },
+  "queries": [
+    {
+      "query": "Blackberry Floricans",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 20,
+      "pool_urls": [
+        "aaes.uada.edu/fruit-breeding/blackberries",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/introduction-2002",
+        "facebook.com/arkansas.extension/videos/primocane-blackberries-a-breakthrough-for-blackberry-production/2037802136526826?locale=zh_hk",
+        "facebook.com/pawpawridgehomestead/posts/blackberry-season-has-just-about-run-its-course-which-means-it-is-time-to-prepar/1075830125395440",
+        "freshfruitportal.com/news/2026/08/07/rejoice-psg",
+        "freshplaza.com/latin-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s",
+        "gardeningknowhow.com/edible/fruits/fegen/distinguishing-primocanes-vs-floricanes.htm",
+        "globalplantgenetics.com/gpg_times/august-2026",
+        "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+        "greatescapefarms.com/blackberry-primocane-blackberry-floricane",
+        "lsuagcenter.com/profiles/mhferguson/articles/page1562341332039",
+        "patents.google.com/patent/uspp16989p3/en",
+        "pinelanenursery.com/catalog/product/blackberry-triple-crown",
+        "reddit.com/r/gardening/comments/16a3dox/floricane_blackberries_help_me_understand",
+        "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+        "specialtycropgrower.com/trialing-and-developing-blackberries-for-florida",
+        "talbottnurseryandpoultry.com/rubus-natchez-blackberry-floricane-thornless-zone-p/021-14-blknatchez.htm",
+        "theseasonalhomestead.com/the-best-blackberry-varieties",
+        "uaex.uada.edu/media-resources/news/2023/may/05-25-2023-ark-blackberry-genome-assembly.aspx",
+        "uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx"
+      ],
+      "missing_judgments": [
+        "facebook.com/pawpawridgehomestead/posts/blackberry-season-has-just-about-run-its-course-which-means-it-is-time-to-prepar/1075830125395440",
+        "gardeningknowhow.com/edible/fruits/fegen/distinguishing-primocanes-vs-floricanes.htm",
+        "reddit.com/r/gardening/comments/16a3dox/floricane_blackberries_help_me_understand",
+        "talbottnurseryandpoultry.com/rubus-natchez-blackberry-floricane-thornless-zone-p/021-14-blknatchez.htm"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.4,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.4
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 6,
+          "unknown_results": 4,
+          "direct_hits": 3,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.7
+          ]
+        }
+      },
+      "query_index": 0,
+      "cold_seconds": 58.39,
+      "warm_seconds": 0.063,
+      "warm_queries": 0
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 15,
+      "pool_urls": [
+        "blogs.ifas.ufl.edu/duvalco/2026/05/01/april-flowers-bring-may-blackberries",
+        "blogs.ifas.ufl.edu/gadsdenco/2026/05/11/exploring-blackberry-production-opportunities-in-north-florida",
+        "facebook.com/bloomsandberries/posts/blackberry-crop-update-the-canes-have-been-trimmed-and-trained-and-ready-for-202/1534208752087089",
+        "facebook.com/uaexfruitandveggie/posts/were-excited-to-announce-that-we-have-a-new-cultivar-selection-tool-available-th/1920386245981443",
+        "freshplaza.com/latin-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s",
+        "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+        "growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+        "hortidaily.com/article/9885365/greenhouse-propagation-and-primocane-genetics-for-flexible-production-in-blackberries",
+        "instagram.com/p/ddljlqaln44",
+        "klarostarim.com/en/bogurtlen",
+        "lizplants.com/grow/blackberry-triple-crown",
+        "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+        "smallfruits.org/2026/01/sweet-ark-immaculate",
+        "thelearningfields.org/post/blackberry-trial-2026-update",
+        "uaex.uada.edu/media-resources/news/2026/may/05-11-2026-ark-primocane-blackberry-genetics.aspx"
+      ],
+      "missing_judgments": [
+        "facebook.com/bloomsandberries/posts/blackberry-crop-update-the-canes-have-been-trimmed-and-trained-and-ready-for-202/1534208752087089",
+        "facebook.com/uaexfruitandveggie/posts/were-excited-to-announce-that-we-have-a-new-cultivar-selection-tool-available-th/1920386245981443",
+        "instagram.com/p/ddljlqaln44",
+        "klarostarim.com/en/bogurtlen",
+        "lizplants.com/grow/blackberry-triple-crown",
+        "smallfruits.org/2026/01/sweet-ark-immaculate",
+        "uaex.uada.edu/media-resources/news/2026/may/05-11-2026-ark-primocane-blackberry-genetics.aspx"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 8,
+          "top_checked": true,
+          "direct_precision_at_10": 0.5,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 8,
+          "unknown_results": 0,
+          "direct_hits": 5,
+          "direct_precision_at_10_bounds": [
+            0.5,
+            0.5
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 3,
+          "unknown_results": 7,
+          "direct_hits": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.9
+          ]
+        }
+      },
+      "query_index": 1,
+      "cold_seconds": 29.845,
+      "warm_seconds": 0.037,
+      "warm_queries": 0
+    },
+    {
+      "query": "Strawberry Planasa licensing Spain",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 16,
+      "pool_urls": [
+        "en.wikipedia.org/wiki/planasa",
+        "freshplaza.com/europe/article/9876042/three-new-blackberry-varieties-added-to-berry-breeding-portfolio",
+        "freshplaza.com/north-america/article/159501/spain-up-to-11-million-euro-paid-in-royalties-each-strawberry-campaign",
+        "fruittoday.com/en/articulos/planasa-is-regulating-its-raspberries-and-is-backing-bilberries",
+        "hortidaily.com/article/9670593/for-the-next-strawberry-season-we-expect-to-exceed-15-of-the-market-share-in-spain",
+        "hortidaily.com/article/9713944/meet-greet-field-day-at-planasa-s-spanish-r-d-center",
+        "oaklins.com/es/en/deals/110731",
+        "planasa.com",
+        "planasa.com/about-us",
+        "planasa.com/innovation",
+        "planasa.com/mexican-and-us-adelita-licensees-planasa",
+        "planasa.com/production",
+        "planasa.com/redsayra-most-grown-strawberry-variety-spain",
+        "planasa.com/strawberry",
+        "planasa.com/us/variety/redsara",
+        "spglobal.com/ratings/es/regulatory/article/-/view/type/html/id/2003969"
+      ],
+      "missing_judgments": [
+        "fruittoday.com/en/articulos/planasa-is-regulating-its-raspberries-and-is-backing-bilberries",
+        "spglobal.com/ratings/es/regulatory/article/-/view/type/html/id/2003969"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 7,
+          "unknown_results": 0,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 8,
+          "unknown_results": 2,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ]
+        }
+      },
+      "query_index": 2,
+      "cold_seconds": 7.928,
+      "warm_seconds": 0.03,
+      "warm_queries": 0
+    },
+    {
+      "query": "Raspberry breeding Scotland",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 18,
+      "pool_urls": [
+        "actahort.org/members/showpdf?booknrarnr=1388_10",
+        "facebook.com/groups/1368304691176405/posts/1725474285459442",
+        "fruitandvine.co.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry",
+        "fruitbreeding.hutton.ac.uk/raspberry/breeding",
+        "fruitbreeding.hutton.ac.uk/raspberry/varieties",
+        "fruitgateway.hutton.ac.uk/our_role",
+        "fruitgateway.hutton.ac.uk/raspberry/introduction",
+        "growscotland.co.uk/fruit/raspberries",
+        "hutton.ac.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry",
+        "hutton.ac.uk/scientific-services/improving-crop-production/accessing-varieties/raspberry-licensing",
+        "hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding",
+        "ishs.org/ishs-article/1133_4",
+        "ishs.org/ishs-article/1388_10",
+        "ishs.org/ishs-article/585_27",
+        "ishs.org/ishs-article/60_17",
+        "projectbluearchive.blob.core.windows.net/media/default/research%20papers/horticulture/sf%20035a%20raspberry%20breeding%202005.pdf",
+        "researchgate.net/publication/303377242_new_developments_in_raspberry_breeding_in_scotland",
+        "seedworld.com/europe/2025/01/16/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry"
+      ],
+      "missing_judgments": [
+        "actahort.org/members/showpdf?booknrarnr=1388_10",
+        "facebook.com/groups/1368304691176405/posts/1725474285459442",
+        "projectbluearchive.blob.core.windows.net/media/default/research%20papers/horticulture/sf%20035a%20raspberry%20breeding%202005.pdf",
+        "researchgate.net/publication/303377242_new_developments_in_raspberry_breeding_in_scotland"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 1.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 10,
+          "direct_precision_at_10_bounds": [
+            1.0,
+            1.0
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 6,
+          "unknown_results": 4,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.8
+          ]
+        }
+      },
+      "query_index": 3,
+      "cold_seconds": 9.634,
+      "warm_seconds": 0.037,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blueberry machine harvesting trials",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 20,
+      "pool_urls": [
+        "agricultural-robotics.com/news/blueberry-growers-test-new-tools-to-address-labor-challenges-and-improve-margins",
+        "agsci.oregonstate.edu/harvestercap/about",
+        "ars.usda.gov/research/publications/publication?seqno115=361047",
+        "ars.usda.gov/research/publications/publication?seqno115=363644",
+        "blueberrybreeding.com/colossus",
+        "ece.ncsu.edu/grant/breeding-new-blueberries-for-mechanical-harvest",
+        "engineering.uga.edu/blueberry-research-focuses-on-gentler-methods-of-harvesting-tiny-fruit",
+        "extension.oregonstate.edu/es/node/162171/printable/print",
+        "freshplaza.com/europe/article/9809987/within-5-15-years-fresh-berry-harvesting-will-be-entirely-mechanized",
+        "jagodaharvester.com/jagoda-300-blueberry-harvester-test-2025",
+        "journals.ashs.org/view/journals/horttech/26/3/article-p299.xml",
+        "oregonblueberry.com/update-f2018/mechanical.html",
+        "pdfs.semanticscholar.org/9eb7/5689df1f1613d9c3950f3fdd17f1dd073fa1.pdf",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc10290139",
+        "progressivecrop.com/2021/05/11/transitioning-from-hand-to-machine-harvesting-of-blueberries-for-fresh-market",
+        "researchgate.net/publication/257018612_quantitative_evaluation_of_a_blueberry_mechanical_harvester_using_a_miniature_instrumented_sphere",
+        "sciencedirect.com/science/article/pii/s2405844024107712",
+        "tandfonline.com/doi/abs/10.1080/15538362.2023.2279552",
+        "thepacker.com/news/packer-tech/fall-creek-farm-and-nursery-invests-mechanical-harvesting-company",
+        "wpcdn.web.wsu.edu/wp-extension/uploads/sites/2093/2019/12/cai_2019machine.pdf"
+      ],
+      "missing_judgments": [
+        "engineering.uga.edu/blueberry-research-focuses-on-gentler-methods-of-harvesting-tiny-fruit",
+        "extension.oregonstate.edu/es/node/162171/printable/print",
+        "journals.ashs.org/view/journals/horttech/26/3/article-p299.xml",
+        "oregonblueberry.com/update-f2018/mechanical.html",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc10290139",
+        "researchgate.net/publication/257018612_quantitative_evaluation_of_a_blueberry_mechanical_harvester_using_a_miniature_instrumented_sphere",
+        "sciencedirect.com/science/article/pii/s2405844024107712",
+        "tandfonline.com/doi/abs/10.1080/15538362.2023.2279552"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 7,
+          "unknown_results": 3,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.7
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 5,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.9
+          ]
+        }
+      },
+      "query_index": 4,
+      "cold_seconds": 10.741,
+      "warm_seconds": 0.033,
+      "warm_queries": 0
+    },
+    {
+      "query": "Nonexistent cultivar ZZZQX-991 blackberry",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 1,
+      "pool_urls": [
+        "berriesunlimited.com/galaxy-blackberry?srsltid=aycx9vk-5bw01rcmc5j6jqej71_f93u4xcgsp5zmf89hwz7bastkt288"
+      ],
+      "missing_judgments": [
+        "berriesunlimited.com/galaxy-blackberry?srsltid=aycx9vk-5bw01rcmc5j6jqej71_f93u4xcgsp5zmf89hwz7bastkt288"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 0,
+          "unknown_results": 0,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ]
+        },
+        "google": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 0,
+          "unknown_results": 1,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ]
+        }
+      },
+      "query_index": 5,
+      "cold_seconds": 17.934,
+      "warm_seconds": 0.039,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blackberry floricane pruning",
+      "split": "comparison_repair",
+      "judged_pool_complete": true,
+      "pool_size": 19,
+      "pool_urls": [
+        "ask.ifas.ufl.edu/publication/hs1458",
+        "cfaes.osu.edu/fact-sheet/pruning-erect-and-semi-erect-blackberry-bushes",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/pruning-and-training",
+        "dallascounty.org/departments/tx-agrilife/blog/smith/2025/blackberries.php",
+        "extension.illinois.edu/news-releases/time-prune-your-raspberry-and-blackberry-plants",
+        "extension.uconn.edu/publication/pruning-brambles",
+        "extension.umd.edu/resource/start-growing-thornless-blackberries-how-prepare-and-select-cultivars-mid-atlantic-fs-2023-0660",
+        "extension.usu.edu/yardandgarden/research/blackberry-management-in-utah",
+        "facebook.com/lsuagcenter/videos/prune-blackberries-after-they-finish-producing/914921541017336",
+        "journals.flvc.org/edis/article/view/131944",
+        "lsuagcenter.com/topics/lawn_garden/ornamentals/landscaping/lsu-agcenter-horticulturist-explains-importance-of-summer-pruning-of-blackberries",
+        "migardener.com/blogs/blog/how-to-prune-blackberries-raspberries?srsltid=aycx9vkwyz7fjq_y-oefcmnrnbe2pnfz8ve7nowk9epsxl0k1bhl9ryb",
+        "news.uark.edu/articles/69431/arkansas-fruit-breeding-program-releases-new-late-season-blackberry",
+        "okl.coop/story/how-to-prune-blackberries",
+        "plantgrower.org/uploads/6/5/5/4/65545169/blkbvarietyreview.pdf",
+        "starkbros.com/growing-guide/article/summer-black-berry-pruning?srsltid=aycx9vj6p-tasoikoihnoe9bfyl79l6wwaaikdpjcsa5993xrzapmyis",
+        "uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+        "uthort.tennessee.edu/wp-content/uploads/sites/228/2023/11/sp284-g.pdf"
+      ],
+      "missing_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.4,
+          "ndcg_at_10": 0.6446996324196578,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.4
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.6,
+          "ndcg_at_10": 0.8377664597293357,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 6,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.6
+          ]
+        }
+      },
+      "query_index": 6,
+      "cold_seconds": 44.287,
+      "warm_seconds": 0.056,
+      "warm_queries": 0
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 13,
+      "pool_urls": [
+        "actahort.org/members/showpdf?booknrarnr=262_12",
+        "berries-guide.co.uk/autumn-raspberry-primocane-crops-that-last-into-the-frosts",
+        "berryplantsltd.co.uk/raspberries/primocane",
+        "fruitgateway.hutton.ac.uk/raspberry/cultivation",
+        "globalplantgenetics.com/crop/raspberries/lewis",
+        "horticulture.ahdb.org.uk/knowledge-library/raspberry-variety-trials-summer-and-primocane-fruiting-selections-at-james-hutton-institute-in-2015",
+        "hortidaily.com/article/9221240/british-raspberry-breeding-programme-results-in-three-new-varieties",
+        "hortidaily.com/article/9270225/improved-raspberry-varieties-for-moroccan-and-tunisian-producers",
+        "ishs.org/ishs-article/262_12",
+        "italianberry.it/en/news/g-viva-g-berries-raspberry",
+        "naturalengland.contentdm.oclc.org/digital/api/collection/p21006coll3/id/4469/download",
+        "patents.google.com/patent/uspp31197p3/en",
+        "researchgate.net/publication/282719398_breeding_primocane-fruiting_raspberries_at_medway_fruits_--_progress_and_prospects"
+      ],
+      "missing_judgments": [
+        "actahort.org/members/showpdf?booknrarnr=262_12",
+        "researchgate.net/publication/282719398_breeding_primocane-fruiting_raspberries_at_medway_fruits_--_progress_and_prospects"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": true,
+          "direct_precision_at_10": 0.2,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 4,
+          "unknown_results": 0,
+          "direct_hits": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.2
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 8,
+          "unknown_results": 2,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.6
+          ]
+        }
+      },
+      "query_index": 7,
+      "cold_seconds": 26.041,
+      "warm_seconds": 0.029,
+      "warm_queries": 0
+    },
+    {
+      "query": "Strawberry robotic harvesting research",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 18,
+      "pool_urls": [
+        "arxiv.org/html/2301.03947v1",
+        "arxiv.org/html/2605.23863",
+        "asme.org/topics-resources/content/strawberry-picking-using-ai-vision,-silicone-fingers,-and-a-fan",
+        "cambridge.org/core/services/aop-cambridge-core/content/view/32ec161ffe85e3e7178e62215664494a/s0263574726103841a.pdf/design_and_evaluation_of_a_data_collector_robot_for_plantlevel_strawberry_monitoring_and_harvesting_support_in_greenhouse_environments.pdf",
+        "facebook.com/groups/techexplorerzone/posts/1240484907493992",
+        "mdpi.com/2077-0472/16/7/769",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.22229",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.22472",
+        "ph04.tci-thaijo.org/index.php/abe/article/view/9842",
+        "portal.nifa.usda.gov/enterprise-search/projects/1032447",
+        "pubmed.ncbi.nlm.nih.gov/37152437",
+        "reddit.com/r/nebula/comments/1wyb29r/tom_scott_england_why_robots_cant_pick",
+        "research.wsu.edu/news/researchers-design-robot-that-can-pick-hidden-strawberries",
+        "researchgate.net/publication/286150440_development_of_a_stationary_robotic_strawberry_harvester_with_a_picking_mechanism_that_approaches_the_target_fruit_from_below",
+        "sciencedirect.com/science/article/pii/s0168169925012189",
+        "servicios.urjc.es/paginadisculpa",
+        "sugano.mech.waseda.ac.jp/en/research/strawberry-en",
+        "ui.adsabs.harvard.edu/abs/2012csae....1...71q/abstract"
+      ],
+      "missing_judgments": [
+        "mdpi.com/2077-0472/16/7/769",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.22229",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.22472",
+        "pubmed.ncbi.nlm.nih.gov/37152437",
+        "reddit.com/r/nebula/comments/1wyb29r/tom_scott_england_why_robots_cant_pick",
+        "researchgate.net/publication/286150440_development_of_a_stationary_robotic_strawberry_harvester_with_a_picking_mechanism_that_approaches_the_target_fruit_from_below",
+        "sciencedirect.com/science/article/pii/s0168169925012189",
+        "servicios.urjc.es/paginadisculpa",
+        "sugano.mech.waseda.ac.jp/en/research/strawberry-en",
+        "ui.adsabs.harvard.edu/abs/2012csae....1...71q/abstract"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 9,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 4,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            0.8
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 4,
+          "unknown_results": 6,
+          "direct_hits": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.8
+          ]
+        }
+      },
+      "query_index": 8,
+      "cold_seconds": 11.104,
+      "warm_seconds": 0.033,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blueberry heat tolerance breeding",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 16,
+      "pool_urls": [
+        "ars.usda.gov/research/programs-projects/project?accnno=434214&fy=2023",
+        "ars.usda.gov/research/publications/publication?seqno115=403359",
+        "berriesunlimited.com/southern-blueberries.html?srsltid=aycx9vjehl0h9htpxubmevicqtra7itvkmf6mo0_wp4kyheukreqhlqr",
+        "blueberriesconsulting.com/en/el-impacto-del-estres-climatico-en-el-cultivo-mundial-del-arandano",
+        "blueberrybreeding.uga.edu/research",
+        "frontiersin.org/journals/plant-science/articles/10.3389/fpls.2015.00782/full",
+        "ir.library.oregonstate.edu/concern/graduate_thesis_or_dissertations/3484zr781?locale=pt-br",
+        "ishs.org/ishs-article/1381_16",
+        "journal.americanpomological.org/index.php/jofaps/article/view/3121",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/27/10/article-p1111.pdf",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/53/7/article-p1021.pdf",
+        "journals.ashs.org/view/journals/hortsci/54/12/article-p2231.xml",
+        "nal.usda.gov/research-tools/food-safety-research-projects/development-and-validation-single-nucleotide-polymorphism-based-markers-kasp-and-caps-high",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc11842701",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc4588112",
+        "wpcdn.web.wsu.edu/wp-extension/uploads/sites/3274/2025/08/factsheet_reducingheatdamageinblueberries.pdf"
+      ],
+      "missing_judgments": [
+        "berriesunlimited.com/southern-blueberries.html?srsltid=aycx9vjehl0h9htpxubmevicqtra7itvkmf6mo0_wp4kyheukreqhlqr",
+        "ir.library.oregonstate.edu/concern/graduate_thesis_or_dissertations/3484zr781?locale=pt-br",
+        "ishs.org/ishs-article/1381_16",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/27/10/article-p1111.pdf",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/53/7/article-p1021.pdf",
+        "journals.ashs.org/view/journals/hortsci/54/12/article-p2231.xml",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc4588112"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 6,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 2,
+          "unknown_results": 4,
+          "direct_hits": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            0.6
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 7,
+          "unknown_results": 3,
+          "direct_hits": 3,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.6
+          ]
+        }
+      },
+      "query_index": 9,
+      "cold_seconds": 11.22,
+      "warm_seconds": 0.069,
+      "warm_queries": 0
+    },
+    {
+      "query": "Floricane blackberry developments",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 20,
+      "pool_urls": [
+        "aaes.uada.edu/research-highlights/plant-breeding/primocane-blackberries-open-new-markets-for-fruit-growers",
+        "aces.edu/blog/topics/crop-production/primocane-fruiting-blackberries",
+        "ars.usda.gov/research/publications/publication?seqno115=424902",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/introduction-2002",
+        "dragonflyfarmlanglois.com/blogs/garden-guides/floricane-vs-primocane",
+        "facebook.com/triplecreekfarmpei/posts/-out-with-the-old-making-room-for-next-years-berries-heres-a-before-and-after-lo/1119469557496371",
+        "freshplaza.com/latin-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s",
+        "globalplantgenetics.com/gpg_times/august-2026",
+        "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+        "growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+        "growingproduce.com/fruits/berries/primocane-a-major-innovation-in-berry-production",
+        "igrownews.com/late-season-blackberry-released-by-arkansas-breeding-program",
+        "journals.ashs.org/view/journals/hortsci/53/1/article-p9.xml",
+        "news.uark.edu/articles/69431/arkansas-fruit-breeding-program-releases-new-late-season-blackberry",
+        "patents.google.com/patent/uspp36412p2/en",
+        "researchgate.net/publication/297816393_a_system_of_defined_phenological_stages_for_cold_tolerance_and_development_of_floricane_inflorescences_of_primocane-fruiting_blackberries",
+        "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+        "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry",
+        "specialtycropgrower.com/trialing-and-developing-blackberries-for-florida",
+        "uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx"
+      ],
+      "missing_judgments": [
+        "facebook.com/triplecreekfarmpei/posts/-out-with-the-old-making-room-for-next-years-berries-heres-a-before-and-after-lo/1119469557496371",
+        "journals.ashs.org/view/journals/hortsci/53/1/article-p9.xml",
+        "researchgate.net/publication/297816393_a_system_of_defined_phenological_stages_for_cold_tolerance_and_development_of_floricane_inflorescences_of_primocane-fruiting_blackberries",
+        "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.8,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 8,
+          "direct_precision_at_10_bounds": [
+            0.8,
+            0.8
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 6,
+          "unknown_results": 4,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ]
+        }
+      },
+      "query_index": 10,
+      "cold_seconds": 41.552,
+      "warm_seconds": 0.049,
+      "warm_queries": 0
+    },
+    {
+      "query": "Ervin blackberry",
+      "split": "comparison_repair",
+      "judged_pool_complete": false,
+      "pool_size": 17,
+      "pool_urls": [
+        "cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring",
+        "cals.ncsu.edu/news/tag/ervin-blackberry-variety",
+        "facebook.com/100087590599643/posts/ervin-the-next-generation-of-blackberry-geneticsdeveloped-from-the-same-breeding/1086300560966287",
+        "facebook.com/gurneysseed/posts/giveaway-meet-the-newest-blackberry-on-the-block-ervinervin-is-a-new-thornless-v/1463876512442994",
+        "facebook.com/ncagriculture/posts/did-you-know-that-a-new-blackberry-variety-named-ervin-was-recently-debuted-by-n/1524876143009954",
+        "freshplaza.com/north-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s",
+        "globalplantgenetics.com/gpg_times/august-2026",
+        "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+        "gurneys.com/collections/blackberry-plants",
+        "gurneys.com/products/ervin-blackberry",
+        "gurneys.com/products/ervin-blackberry?srsltid=aycx9vknaomne5uj8dbash3qmit4uctcymwtl2qnknlqnljkhvx3zq8n",
+        "instagram.com/p/ddljlqaln44",
+        "morningagclips.com/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring",
+        "news.google.com/rss/articles/cbmirwfbvv95cuxnoflmdve3qwtzckdmodztaepmn3nnmgn0rgc0dnpmyvo5bjnrumdpdfzqbnn0bvlvetfrbfpwvnn3wghjnxvutwj3lw5rtwvrclputtzyv09azvfpm0c1a3vwa2xvqzrtuuzawvpyqtbownbrwwnils1kx1fivmx6vhrvdmxvm3ljmwfgbfbknwxerxoyntdxnfffwey4bfk1ym5wc1cyvupknnbrm3r3?oc=5",
+        "rubus.ces.ncsu.edu",
+        "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+        "thebar.com/en/articles/how-to-make-whisky-cocktails-for-your-dinner-party"
+      ],
+      "missing_judgments": [
+        "cals.ncsu.edu/news/tag/ervin-blackberry-variety",
+        "facebook.com/100087590599643/posts/ervin-the-next-generation-of-blackberry-geneticsdeveloped-from-the-same-breeding/1086300560966287",
+        "facebook.com/gurneysseed/posts/giveaway-meet-the-newest-blackberry-on-the-block-ervinervin-is-a-new-thornless-v/1463876512442994",
+        "facebook.com/ncagriculture/posts/did-you-know-that-a-new-blackberry-variety-named-ervin-was-recently-debuted-by-n/1524876143009954",
+        "instagram.com/p/ddljlqaln44",
+        "morningagclips.com/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.6,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 6,
+          "direct_precision_at_10_bounds": [
+            0.6,
+            0.6
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 4,
+          "unknown_results": 6,
+          "direct_hits": 4,
+          "direct_precision_at_10_bounds": [
+            0.4,
+            1.0
+          ]
+        }
+      },
+      "query_index": 11,
+      "cold_seconds": 14.748,
+      "warm_seconds": 0.041,
+      "warm_queries": 0
+    },
+    {
+      "query": "Strawberry UV-C powdery mildew field trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 20,
+      "pool_urls": [
+        "apsjournals.apsnet.org/doi/10.1094/pdis-04-20-0781-re",
+        "apsjournals.apsnet.org/doi/pdf/10.1094/pdis-04-20-0781-re",
+        "apsjournals.apsnet.org/doi/pdf/10.1094/php-01-22-0002-rs",
+        "ars.usda.gov/research/publications/publication?seqno115=314277",
+        "blogs.cornell.edu/enychp/berries/berries-new-publication-reports-efficacy-of-uv-c-against-powdery-mildew-in-fl-and-ca",
+        "content-calpoly-edu.s3.amazonaws.com/strawberry/1/documents/nasga%20poster%20ss.pdf",
+        "icahn.mssm.edu/research/light-health/programs/light-for-plant-health",
+        "iobc-wprs.org/product/autonomous-control-of-powdery-mildew-as-part-of-ipm-strategy-in-strawberry",
+        "ishs.org/ishs-article/1049_105",
+        "projects.sare.org/media/pdf/c/o/u/country-folks-grower-uv-article-2021.pdf",
+        "projects.sare.org/project-reports/lne20-411r",
+        "pubmed.ncbi.nlm.nih.gov/33616425",
+        "researchgate.net/publication/349507436_use_of_ultraviolet_light_to_suppress_powdery_mildew_in_strawberry_fruit_production_fields",
+        "sciencedirect.com/science/article/pii/s0304423824008598",
+        "scientificdiscoveries.ars.usda.gov/tellus/stories/articles/researchers-harness-suns-rays-fight-strawberry-disease",
+        "strawberry.calpoly.edu/news/2023s-first-blog-post-highlights-report-about-uv-cs-impact-strawberry-powdery-mildew-spm-0",
+        "strawberrycenterblog.com/2023/01/03/new-publication-reports-efficacy-of-uv-c-against-powdery-mildew-in-fl-and-ca",
+        "tandfonline.com/doi/full/10.1080/15502724.2021.1921594",
+        "tricrobotics.com/powdery-mildew-control-that-protects-yield",
+        "tricrobotics.com/use-of-ultraviolet-light-to-suppress-powdery-mildew-in-strawberry-fruit-production-fields-2021"
+      ],
+      "missing_judgments": [
+        "apsjournals.apsnet.org/doi/10.1094/pdis-04-20-0781-re",
+        "apsjournals.apsnet.org/doi/pdf/10.1094/pdis-04-20-0781-re",
+        "apsjournals.apsnet.org/doi/pdf/10.1094/php-01-22-0002-rs",
+        "pubmed.ncbi.nlm.nih.gov/33616425",
+        "researchgate.net/publication/349507436_use_of_ultraviolet_light_to_suppress_powdery_mildew_in_strawberry_fruit_production_fields",
+        "sciencedirect.com/science/article/pii/s0304423824008598",
+        "tandfonline.com/doi/full/10.1080/15502724.2021.1921594",
+        "tricrobotics.com/powdery-mildew-control-that-protects-yield",
+        "tricrobotics.com/use-of-ultraviolet-light-to-suppress-powdery-mildew-in-strawberry-fruit-production-fields-2021"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 6,
+          "unknown_results": 4,
+          "direct_hits": 3,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            0.7
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 5,
+          "direct_hits": 5,
+          "direct_precision_at_10_bounds": [
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "query_index": 12,
+      "cold_seconds": 11.738,
+      "warm_seconds": 0.045,
+      "warm_queries": 0
+    },
+    {
+      "query": "Malling Ace strawberry field trials Germany",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 13,
+      "pool_urls": [
+        "active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00012302e.shtml",
+        "botanicoir.com/two-new-malling-fruits-strawberry-varieties-launched-at-fruit-focus",
+        "donegalseaweed.com/agronomy-article/strawberry-trial-2024?srsltid=aycx9vj5f-4lit6e6e4xmm9fhh_xkjgwnfxzyt5cw5qtfyvgmceaadha",
+        "kraege.de/en/services/strawberries/remontierende-sorten/sweet-eve",
+        "niab.com/news-views/news/news-mallingtm-fruits-reports-unprecedented-interest-everbearer-strawberry",
+        "niab.com/services/plant-breeding/niab-east-malling-fruit-varieties/strawberries",
+        "niab.com/sites/default/files/imce_uploads/mallingfruits/malling%20ace%20grower%20guidelines%20march%202023%20final.pdf",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc11747686",
+        "projectbluearchive.blob.core.windows.net/media/default/research%20papers/horticulture/sf%20096a_final%20report_2013-23.pdf",
+        "theguardian.com/environment/2021/jun/27/strawberry-fields-forever-new-variety-tastes-great-and-grows-all-summer",
+        "vegetables.bayer.com/gb/en-uk/products/strawberry/details.html/strawberry_malling_ace_united_kingdom_deruiter_fresh_market_higgre_all.html",
+        "vegetables.bayer.com/se/en-se/knowledge-centre/news/integrating-malling-ace-into-our-glasshouse-has-really-been-a-game-changer.html",
+        "vissers.com/en/strawberryplants/research-and-development"
+      ],
+      "missing_judgments": [
+        "donegalseaweed.com/agronomy-article/strawberry-trial-2024?srsltid=aycx9vj5f-4lit6e6e4xmm9fhh_xkjgwnfxzyt5cw5qtfyvgmceaadha",
+        "projectbluearchive.blob.core.windows.net/media/default/research%20papers/horticulture/sf%20096a_final%20report_2013-23.pdf",
+        "vegetables.bayer.com/gb/en-uk/products/strawberry/details.html/strawberry_malling_ace_united_kingdom_deruiter_fresh_market_higgre_all.html",
+        "vegetables.bayer.com/se/en-se/knowledge-centre/news/integrating-malling-ace-into-our-glasshouse-has-really-been-a-game-changer.html"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 3,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 3,
+          "unknown_results": 0,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 6,
+          "unknown_results": 4,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ]
+        }
+      },
+      "query_index": 13,
+      "cold_seconds": 26.303,
+      "warm_seconds": 0.097,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blueberry drought irrigation sensor trials Peru",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 17,
+      "pool_urls": [
+        "apps.fas.usda.gov/newgainapi/api/report/downloadreportbyfilename?filename=blueberry+annual_lima_peru_pe2025-0010",
+        "ars.usda.gov/research/project?accnno=438039&fy=2023",
+        "blueberriesconsulting.com/en/nuevas-tecnologias-de-riego-para-arandanos-permitieron-significativo-ahorro-hidrico",
+        "cris.pucp.edu.pe/en/publications/analysis-of-water-stress-using-sentinel-2-ndwi-images-for-optimiz/fingerprints",
+        "darec.missouri.edu/wp-content/uploads/2024/11/asbin-b-k_poster-for-darec-symposium.pdf",
+        "dl.acm.org/doi/pdf/10.1145/3364335.3364377",
+        "frontiersin.org/journals/water/articles/10.3389/frwa.2024.1353597/full",
+        "hortidaily.com/article/9826004/scaling-high-quality-blueberry-yields-with-advanced-substrate-cultivation-in-peru",
+        "malque.pub/ojs/index.php/msj/article/view/19520",
+        "mdpi.com/2673-4591/83/1/27",
+        "moleaer.com/blog/horticulture/blueberry-cultivation-without-chemicals",
+        "msu-prod.dotcmscloud.com/resources/blueberry-irrigation-management",
+        "pipelife.com/service/news-and-projects/2023/blueberry-irrigation-on-hilly-terrain.html",
+        "proceedings.laccei.org/index.php/laccei/article/view/3140",
+        "researchgate.net/publication/337429836_precision_farming_model_to_increase_the_production_of_exportable_blueberries_by_implementing_an_adapting-to-change_approach_and_risk_assessment_in_agribusinesses_in_peru's_coastal_regions",
+        "resilience.org/stories/2025-04-09/perus-ancient-irrigation-systems-succeeded-in-turning-deserts-into-farms-because-of-the-culture-%e2%88%92-without-it-the-systems-failed",
+        "wiseconn.com/en/irrigation-systems/blueberry-irrigation-system"
+      ],
+      "missing_judgments": [
+        "apps.fas.usda.gov/newgainapi/api/report/downloadreportbyfilename?filename=blueberry+annual_lima_peru_pe2025-0010",
+        "cris.pucp.edu.pe/en/publications/analysis-of-water-stress-using-sentinel-2-ndwi-images-for-optimiz/fingerprints",
+        "dl.acm.org/doi/pdf/10.1145/3364335.3364377",
+        "mdpi.com/2673-4591/83/1/27",
+        "pipelife.com/service/news-and-projects/2023/blueberry-irrigation-on-hilly-terrain.html",
+        "proceedings.laccei.org/index.php/laccei/article/view/3140",
+        "researchgate.net/publication/337429836_precision_farming_model_to_increase_the_production_of_exportable_blueberries_by_implementing_an_adapting-to-change_approach_and_risk_assessment_in_agribusinesses_in_peru's_coastal_regions"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 2,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 5,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ]
+        }
+      },
+      "query_index": 14,
+      "cold_seconds": 13.59,
+      "warm_seconds": 0.044,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blueberry cultivar ZZZQX-882 release announcement",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 4,
+      "pool_urls": [
+        "costagroup.com.au/2024/02/26/costa-group-enters-new-ownership-phase-as-experienced-consortium-takes-control",
+        "facebook.com/freshfruitportal/posts/meet-obg-belair-oregon-blueberrys-newest-high-yield-mid-chill-large-to-jumbo-cul/1721661176630565",
+        "instagram.com/p/derjjf4lsze",
+        "internationalblueberry.org/2026/09/11/the-new-era-of-blueberry-genetics-innovations-and-market-outlook-for-new-variety-releases-part-1"
+      ],
+      "missing_judgments": [
+        "facebook.com/freshfruitportal/posts/meet-obg-belair-oregon-blueberrys-newest-high-yield-mid-chill-large-to-jumbo-cul/1721661176630565",
+        "instagram.com/p/derjjf4lsze"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 1,
+          "unknown_results": 0,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ]
+        },
+        "google": {
+          "result_count": 3,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 1,
+          "unknown_results": 2,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ]
+        }
+      },
+      "query_index": 15,
+      "cold_seconds": 8.216,
+      "warm_seconds": 0.044,
+      "warm_queries": 0
+    },
+    {
+      "query": "Raspberry root-zone cooling summer production trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 17,
+      "pool_urls": [
+        "canr.msu.edu/foodsystems/uploads/files/high_tunnel_raspberry_production.pdf",
+        "dr.lib.iastate.edu/entities/publication/1787db14-8c7a-45bb-9ca3-7a84a04d25a5",
+        "dr.lib.iastate.edu/server/api/core/bitstreams/98d5f748-6d98-42e3-a965-af1402c2be9e/content",
+        "extension.psu.edu/raspberry-production",
+        "fruit.webhosting.cals.wisc.edu/wp-content/uploads/sites/36/2016/03/greenhouse-raspberry-production-guide.pdf",
+        "growingproduce.com/fruits/berries/made-in-the-shade-protecting-raspberries-from-extreme-heat",
+        "horticulture.ahdb.org.uk/raspberry-summer-fruiting-variety-trial",
+        "iapps2010.wordpress.com/2023/02/08/a-75-reduction-in-chemical-sprays-and-61-more-raspberries",
+        "journals.ashs.org/view/journals/horttech/21/4/article-p429.xml",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc11988984",
+        "portal.ct.gov/-/media/caes/documents/publications/bulletins/b913pdf.pdf?rev=3659c86b75cd4b94bbd119b609171942",
+        "projects.sare.org/project-reports/sw07-035",
+        "raintreenursery.com/pages/raspberry-growing-guide?srsltid=aycx9vjabcuvn7dccrlxyz5clv_llaiavhgcbl-kvnirvtd3kkopymvo",
+        "tib-op.org/ojs/index.php/agripv/article/download/1405/2642/43464",
+        "tib-op.org/ojs/index.php/agripv/article/view/1405/2642",
+        "tib-op.org/ojs/index.php/agripv/article/view/1405/2643",
+        "wpcdn.web.wsu.edu/wp-extension/uploads/sites/2056/2023/05/commerical-red-raspberry-production.pdf"
+      ],
+      "missing_judgments": [
+        "canr.msu.edu/foodsystems/uploads/files/high_tunnel_raspberry_production.pdf",
+        "dr.lib.iastate.edu/entities/publication/1787db14-8c7a-45bb-9ca3-7a84a04d25a5",
+        "fruit.webhosting.cals.wisc.edu/wp-content/uploads/sites/36/2016/03/greenhouse-raspberry-production-guide.pdf",
+        "journals.ashs.org/view/journals/horttech/21/4/article-p429.xml",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc11988984",
+        "portal.ct.gov/-/media/caes/documents/publications/bulletins/b913pdf.pdf?rev=3659c86b75cd4b94bbd119b609171942",
+        "tib-op.org/ojs/index.php/agripv/article/download/1405/2642/43464",
+        "tib-op.org/ojs/index.php/agripv/article/view/1405/2642",
+        "tib-op.org/ojs/index.php/agripv/article/view/1405/2643"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 3,
+          "unknown_results": 4,
+          "direct_hits": 1,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.5
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 5,
+          "unknown_results": 5,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ]
+        }
+      },
+      "query_index": 16,
+      "cold_seconds": 13.922,
+      "warm_seconds": 0.035,
+      "warm_queries": 0
+    },
+    {
+      "query": "Rubus idaeus resistance to raspberry bushy dwarf virus",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 20,
+      "pool_urls": [
+        "actahort.org/books/777/777_57.htm",
+        "actahort.org/books/946/946_6.htm",
+        "agris.fao.org/search/en/providers/122535/records/65dfd46b63b8185d9caf4e48",
+        "agris.fao.org/search/en/providers/122613/records/6613efdacfa8722a225614e5",
+        "apsjournals.apsnet.org/doi/10.1094/pdis-09-15-1011-pdn",
+        "ars.usda.gov/arsuserfiles/1718/pdf/2002/rubus.pdf",
+        "ars.usda.gov/research/project?accnno=441106&fy=2023",
+        "ars.usda.gov/research/project?accnno=441106&fy=2025",
+        "ars.usda.gov/research/publications/publication?seqno115=322768",
+        "ishs.org/ishs-article/1133_18",
+        "ishs.org/ishs-article/1133_7",
+        "ishs.org/ishs-article/551_4",
+        "journals.ashs.org/view/journals/hortsci/60/7/article-p1180.xml",
+        "link.springer.com/chapter/10.1007/978-0-387-77491-6_24",
+        "magazine.wsu.edu/2012/04/26/raspberries",
+        "pubmed.ncbi.nlm.nih.gov/18598047",
+        "researchgate.net/publication/285754986_first_report_of_a_resistance-breaking_strain_of_raspberry_bushy_dwarf_virus_in_red_raspberry_rubus_idaeus_in_north_america",
+        "sciencedirect.com/topics/agricultural-and-biological-sciences/raspberry-bushy-dwarf-virus",
+        "seafood.oregonstate.edu/publication/comparison-sugar-acids-and-volatile-composition-raspberry-bushy-dwarf-virus-resistant",
+        "semanticscholar.org/paper/first-report-of-a-resistance-breaking-strain-of-in-lanning-moore/4b5ca36d95c1de514308433f44f0f695b03ab416"
+      ],
+      "missing_judgments": [
+        "actahort.org/books/777/777_57.htm",
+        "actahort.org/books/946/946_6.htm",
+        "apsjournals.apsnet.org/doi/10.1094/pdis-09-15-1011-pdn",
+        "journals.ashs.org/view/journals/hortsci/60/7/article-p1180.xml",
+        "pubmed.ncbi.nlm.nih.gov/18598047",
+        "researchgate.net/publication/285754986_first_report_of_a_resistance-breaking_strain_of_raspberry_bushy_dwarf_virus_in_red_raspberry_rubus_idaeus_in_north_america",
+        "sciencedirect.com/topics/agricultural-and-biological-sciences/raspberry-bushy-dwarf-virus",
+        "semanticscholar.org/paper/first-report-of-a-resistance-breaking-strain-of-in-lanning-moore/4b5ca36d95c1de514308433f44f0f695b03ab416"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": true,
+          "direct_precision_at_10": 0.8,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 10,
+          "unknown_results": 0,
+          "direct_hits": 8,
+          "direct_precision_at_10_bounds": [
+            0.8,
+            0.8
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 2,
+          "unknown_results": 8,
+          "direct_hits": 2,
+          "direct_precision_at_10_bounds": [
+            0.2,
+            1.0
+          ]
+        }
+      },
+      "query_index": 17,
+      "cold_seconds": 24.603,
+      "warm_seconds": 0.038,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blackberry red drupelet reversion postharvest storage trials",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 19,
+      "pool_urls": [
+        "actahort.org/books/1265/1265_18.htm",
+        "biodiversitylibrary.org/part/447093",
+        "fieldreport.caes.uga.edu/publications/c1282/blackberry-harvesting-and-postharvest-handling",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/56/8/article-p889.pdf",
+        "journals.ashs.org/downloadpdf/view/journals/horttech/28/5/article-p578.pdf",
+        "journals.ashs.org/view/journals/horttech/28/5/article-p578.xml",
+        "link.springer.com/article/10.1007/s00344-024-11499-1",
+        "postharvest.biz/news/causes-and-mechanisms-of-red-drupelet-reversion-in-blackberries-18668",
+        "researchgate.net/publication/403557422_evaluation_of_harvest_timetemperature_and_storage_temperature_on_postharvest_incidence_of_red_drupelet_reversion_development_and_firmness_of_blackberry_rubus_l_subgenus_rubus_watson",
+        "scholarworks.uark.edu/cgi/viewcontent.cgi?article=1028&context=discoverymag",
+        "scholarworks.uark.edu/discoverymag/vol17/iss1/11",
+        "scholarworks.uark.edu/etd/2417",
+        "sciencedirect.com/science/article/abs/pii/s0308814619312750",
+        "smallfruits.org/2025/04/postharvest-quality-and-sensory-evaluation-of-blackberries",
+        "smallfruits.org/files/2019/07/2015-04.pdf",
+        "smallfruits.org/files/2023/12/2023-r-17-blackberry-shelf-life-progress.pdf",
+        "smallfruits.org/files/2025/01/2024-r-15-progress-use-1-mcp-blackberry.pdf",
+        "tandfonline.com/doi/abs/10.1080/19476337.2025.2541102",
+        "uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx"
+      ],
+      "missing_judgments": [
+        "actahort.org/books/1265/1265_18.htm",
+        "biodiversitylibrary.org/part/447093",
+        "journals.ashs.org/downloadpdf/view/journals/hortsci/56/8/article-p889.pdf",
+        "journals.ashs.org/downloadpdf/view/journals/horttech/28/5/article-p578.pdf",
+        "journals.ashs.org/view/journals/horttech/28/5/article-p578.xml",
+        "researchgate.net/publication/403557422_evaluation_of_harvest_timetemperature_and_storage_temperature_on_postharvest_incidence_of_red_drupelet_reversion_development_and_firmness_of_blackberry_rubus_l_subgenus_rubus_watson",
+        "scholarworks.uark.edu/cgi/viewcontent.cgi?article=1028&context=discoverymag",
+        "sciencedirect.com/science/article/abs/pii/s0308814619312750",
+        "smallfruits.org/2025/04/postharvest-quality-and-sensory-evaluation-of-blackberries",
+        "smallfruits.org/files/2019/07/2015-04.pdf",
+        "smallfruits.org/files/2023/12/2023-r-17-blackberry-shelf-life-progress.pdf",
+        "smallfruits.org/files/2025/01/2024-r-15-progress-use-1-mcp-blackberry.pdf",
+        "tandfonline.com/doi/abs/10.1080/19476337.2025.2541102"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 3,
+          "unknown_results": 7,
+          "direct_hits": 3,
+          "direct_precision_at_10_bounds": [
+            0.3,
+            1.0
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 3,
+          "unknown_results": 7,
+          "direct_hits": 1,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.8
+          ]
+        }
+      },
+      "query_index": 18,
+      "cold_seconds": 14.989,
+      "warm_seconds": 0.095,
+      "warm_queries": 0
+    },
+    {
+      "query": "Blackberry robotic harvesting field trials 2024-01-01 through 2026-11-02",
+      "split": "fresh_holdout",
+      "judged_pool_complete": false,
+      "pool_size": 13,
+      "pool_urls": [
+        "agdaily.com/crops/first-seedless-blackberry-developed-using-crispr-technology",
+        "agisamerica.org/ai-data-driven-agriculture-land-grant-universities",
+        "arxiv.org/pdf/2403.17099",
+        "facebook.com/arkansas.extension/posts/blackberries-on-your-radar-get-the-research-backed-info-you-need-before-you-plan/1432461318909541",
+        "growingproduce.com/fruits/berries/blackberry-harvest-challenge-gotta-hand-it-to-the-robots",
+        "hortidaily.com/article/9640005/this-kind-of-technology-has-been-a-long-time-coming",
+        "ieeexplore.ieee.org/document/11020923",
+        "linkedin.com/posts/omar-faris-2334a514b_phd-life-update-25-article-2-during-activity-7466771243229216768-xnrr",
+        "mdpi.com/2311-7524/11/9/1042",
+        "msstate.edu/newsroom/article/2024/08/msu-scientists-use-1m-grant-get-grip-automated-blackberry-harvesting",
+        "neoteo.com/en/ctaex-presented-agrhound-its-agricultural-robot-project",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.70021",
+        "uaex.uada.edu/media-resources/news/2026/june/06-17-2026-ark-blackberry-field-day.aspx"
+      ],
+      "missing_judgments": [
+        "arxiv.org/pdf/2403.17099",
+        "facebook.com/arkansas.extension/posts/blackberries-on-your-radar-get-the-research-backed-info-you-need-before-you-plan/1432461318909541",
+        "ieeexplore.ieee.org/document/11020923",
+        "linkedin.com/posts/omar-faris-2334a514b_phd-life-update-25-article-2-during-activity-7466771243229216768-xnrr",
+        "mdpi.com/2311-7524/11/9/1042",
+        "onlinelibrary.wiley.com/doi/10.1002/rob.70021"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 4,
+          "unknown_results": 0,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ]
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null,
+          "source_checked_results": 4,
+          "unknown_results": 6,
+          "direct_hits": 0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.6
+          ]
+        }
+      },
+      "query_index": 19,
+      "cold_seconds": 14.392,
+      "warm_seconds": 0.088,
+      "warm_queries": 0
+    }
+  ],
+  "precision_bounds_by_cohort": {
+    "comparison_repairs": {
+      "improved_app": [
+        0.35,
+        0.46
+      ],
+      "google": [
+        0.28,
+        0.62
+      ]
+    },
+    "anchors": {
+      "improved_app": [
+        0.7,
+        0.7
+      ],
+      "google": [
+        0.2,
+        0.7
+      ]
+    },
+    "fresh_holdouts": {
+      "improved_app": [
+        0.1875,
+        0.4
+      ],
+      "google": [
+        0.1,
+        0.625
+      ]
+    }
+  }
+}

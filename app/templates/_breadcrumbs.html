@@ -1,0 +1,11 @@
+{# Shared hierarchy navigation. Pass ordered {label, href} items; the last is current. #}
+{% if breadcrumb_items %}
+<nav class="workspace-breadcrumbs" aria-label="Breadcrumb" data-pagefind-ignore>
+  <ol>
+    <li><a href="{{ '/' if static_build else '/today' }}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Home</span></a></li>
+    {% for item in breadcrumb_items %}
+    <li>{% if loop.last %}<span class="workspace-breadcrumb-current" aria-current="page">{{ item.label }}</span>{% else %}<a href="{{ item.href }}">{{ item.label }}</a>{% endif %}</li>
+    {% endfor %}
+  </ol>
+</nav>
+{% endif %}

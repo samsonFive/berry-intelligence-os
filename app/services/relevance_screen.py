@@ -193,8 +193,14 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
     ),
 )
 
+from app.services.berry_vocabulary import EXTRA_CROP_TERMS, NATIVE_GENETICS_TERMS
+CATEGORIES = tuple(_RelevanceCategory(c.name, c.weight, c.terms + (
+    tuple(t for terms in EXTRA_CROP_TERMS.values() for t in terms) if c.name == "berry_identity"
+    else NATIVE_GENETICS_TERMS if c.name == "crop_genetics"
+    else ('produção', 'cultivo') if c.name == "commercial_volume_geography" else ())) for c in CATEGORIES)
+
 DEFAULT_THRESHOLD = 4
-RELEVANCE_SCREEN_VERSION = "relevance-screen-v3"
+RELEVANCE_SCREEN_VERSION = "relevance-screen-v4"
 
 CONFIDENT = "confident"
 BORDERLINE = "borderline"

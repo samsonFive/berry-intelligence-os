@@ -72,7 +72,11 @@ def test_product_source_preview_get_never_loads_images_or_writes_review_state(mo
     for source in observations():
         for name in source["names"]:
             for photo in name.get("photos", []):
-                response = client.get("/varieties/candidates", params={
+                from app.services.entity_identity import match_named_entity
+                catalog,_ = match_named_entity(name['candidate_name'],'variety',main.living_catalog(),berry_id='berry-blueberry')
+                # Source photos remain unapproved after explicit catalog admission.
+                path='/entities/variety/'+catalog['id'] if catalog else '/varieties/candidates'
+                response = client.get(path, params={
                     "source": source["id"], "berry": "berry-blueberry", "q": name["candidate_name"]})
                 assert response.status_code == 200
                 assert 'data-image-url="' + photo["image_url"] + '"' in response.text
