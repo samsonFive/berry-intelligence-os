@@ -604,6 +604,17 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+November 5 — The Reader checks whether a sentence discusses an access prompt
+only after finding a matching prompt. Ordinary article text also skips the
+wall-dominance calculation when no wall blocks exist. In eight fresh isolated
+Linux processes, 12 rendered responses and complete page, candidate and article
+models matched. Reader results matched for all 3,046 records in each pair.
+Cold Company fell from 5.62 to 5.32 seconds and the Company-first workflow from
+10.97 to 10.14 seconds. Cold Candidates was effectively flat (4.77 to 4.74
+seconds) and its workflow rose from 9.89 to 10.03 seconds. All 333 affected
+tests passed. The read-only comparison preserved 26,621 snapshot files and
+four databases. Broader cold-load performance remains open.
+
 November 2 UTC — [Candidate keyboard focus](CANDIDATE-KEYBOARD-FOCUS-REVIEW.md)
 addresses the reproduced phone Shift+Tab obstruction without changing floating
 navigation geometry. The baseline link center hits the bar; the fixed phone

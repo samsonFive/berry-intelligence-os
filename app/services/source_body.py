@@ -44,6 +44,10 @@ INTERSTITIAL_SIGNALS = (
     "this is the first time you visited",
 )
 
+_WALL_BLOCK_SIGNALS = INTERSTITIAL_SIGNALS + (
+    "accept all cookies", "manage consent", "cookie preferences", "reject all cookies",
+)
+
 # UI instructions, not the isolated words "cookies" or "accept" in reporting.
 READER_UI_SIGNALS = (
     "before you continue", "we use cookies", "this website uses cookies",
@@ -83,9 +87,6 @@ def _reader_ui_message(text: str) -> bool:
     normalized = " ".join(decode_html_text(text).casefold().split())
     if normalized.strip(" .!:…") in {"accept all", "reject all", "accept cookies", "cookie settings", "privacy settings"}:
         return True
-    # A quote discussing a consent interface remains source reporting.
-    if re.search(r"\b(?:said|reported|explained|described|researchers|study|investigation)\b", normalized):
-        return False
     for signal in READER_UI_SIGNALS:
         if signal not in normalized:
             continue
@@ -95,7 +96,8 @@ def _reader_ui_message(text: str) -> bool:
         if signal == "this is the first time you visited" and not re.search(
                 r"\b(?:website|site|page|popup|pop-up|dialog)\b", normalized):
             continue
-        return True
+        # A quote discussing an actual consent signal remains source reporting.
+        return not re.search(r"\b(?:said|reported|explained|described|researchers|study|investigation)\b", normalized)
     return False
 
 
@@ -150,13 +152,14 @@ def looks_like_interstitial(text: str) -> bool:
     # An incidental footer is not an access wall. Evaluate independent prose
     # blocks so a real article mentioning a cookie policy remains usable.
     blocks = [b.strip() for b in re.split(r"\n+|(?<=[.!?])\s+", haystack) if b.strip()]
-    wall = [b for b in blocks if reader_ui_message(b) or any(s in b for s in INTERSTITIAL_SIGNALS)
-            or any(s in b for s in ("accept all cookies", "manage consent", "cookie preferences", "reject all cookies"))]
+    wall = [b for b in blocks if reader_ui_message(b) or any(s in b for s in _WALL_BLOCK_SIGNALS)]
+    if not wall:
+        return False
     # Keep repeated wall blocks for the length threshold, but do membership
     # checks once per distinct block instead of scanning that list repeatedly.
     wall_lookup = set(wall)
     useful = [b for b in blocks if b not in wall_lookup and len(b.split()) >= 12]
-    return bool(wall) and (not useful or sum(map(len, wall)) >= len(haystack) * .4)
+    return not useful or sum(map(len, wall)) >= len(haystack) * .4
 
 
 @record_memo(('article', 'summary', 'publisher_description', 'transcript', 'transcript_excerpt', 'media_format', 'discovery_provenance'))
