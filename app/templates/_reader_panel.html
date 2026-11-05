@@ -11,6 +11,7 @@
       <span class="v2-meta">{{ item.kind_label }}</span>
     </div>
     <h2 class="v2-reader-title">{{ item.title }}</h2>
+    {% include '_intelligence_source_actions.html' %}
     {% if attribution and attribution.primary %}
       <p class="v2-card-subject">
         {% if attribution.primary.id %}<a href="/entities/{{ attribution.primary.entity_type }}/{{ attribution.primary.id }}">{{ attribution.primary.name }}</a>
@@ -32,34 +33,23 @@
 
   {% include '_source_reading_notice.html' %}
   {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
-  {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or '') %}
-  {% set compact = false %}
-  {% include "_learn_glossary_hits.html" %}
-
-  {% if item.why %}
-    <section class="v2-reader-block">
-      <h3>Interpretation</h3>
-      <p>{{ item.why }}</p><p class="v2-meta">Interpretation recorded with this source. Inspect its supporting text below.</p>
-      {% if item.ai_untrusted %}<p class="v2-meta">AI-assisted · pending analyst review</p>{% endif %}
-    </section>
-  {% endif %}
-  {% if not item.why %}<p class="v2-meta">No supported competitive implication has been recorded for this source.</p>{% endif %}
-  {% if item.summary %}
+  {% set summary = item.summary or reader_content.summary %}
+  {% if summary %}
     <section class="v2-reader-block">
       <h3>Summary</h3>
-      <p>{{ item.summary }}</p>
+      <p>{{ summary }}</p>
     </section>
   {% endif %}
 
   {% if kind == 'article' %}
-    <div class="intel-body v2-reader-body">
-      {% if paragraphs %}
+    {% if paragraphs %}
+      <div class="intel-body v2-reader-body">
+        <h3>Article text</h3>
         {% for paragraph in paragraphs %}
           {% if paragraph.heading_level %}<h3 class="publisher-heading" id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</h3>{% else %}<p id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</p>{% endif %}
         {% endfor %}
-
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   {% elif kind == 'spoken' %}
     {% if segments %}
       <div class="intel-transcript v2-reader-body" aria-label="Transcript">
@@ -78,6 +68,17 @@
     </dl>
 
   {% endif %}
+
+  {% if item.why %}
+    <details class="reader-secondary">
+      <summary>Why it matters</summary>
+      <p>{{ item.why }}</p>
+      {% if item.ai_untrusted %}<p class="v2-meta">AI-assisted · pending analyst review</p>{% endif %}
+    </details>
+  {% endif %}
+  {% with hits=learn_glossary_hits(item.title, item.why or '', summary or ''), compact=false, disclosure=true %}
+    {% include '_learn_glossary_hits.html' %}
+  {% endwith %}
 
   {% if limited_evidence and evidence_quality %}
     <div class="evidence-quality evidence-quality-limited">
@@ -125,7 +126,6 @@
   {% endif %}
 
   <div class="v2-decision-bar">
-    {% if item.source_url %}<a class="v2-btn v2-btn-quiet" href="{{ item.source_url }}" rel="noopener noreferrer" target="_blank">Open original source</a>{% endif %}
     {% if authoring_mode and pending %}
       <form action="/review/{{ item.id }}/save" method="post">
         <input type="hidden" name="return_to" value="/work-queue?saved=1">

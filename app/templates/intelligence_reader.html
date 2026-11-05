@@ -7,8 +7,8 @@
     <p class="eyebrow">INTELLIGENCE READER</p>
     <h1>{{ item.title }}</h1>
     <p class="also-known-as">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %} · {{ item.kind_label }}</p>
+    {% with back_to_news=true %}{% include '_intelligence_source_actions.html' %}{% endwith %}
   </div>
-  <a class="button-link" href="/today">Back to news</a>
 </section>
 
 {% if promoted %}
@@ -31,19 +31,16 @@
       {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
     </div>
 
-    {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or record.summary or '') %}
-    {% set compact = false %}
-    {% include "_learn_glossary_hits.html" %}
-
     {% if kind == 'article' %}
       {% if paragraphs %}
         <div class="intel-body">
+          <h2>Article text</h2>
           {% for paragraph in paragraphs %}
             {% if paragraph.heading_level %}<h3 class="publisher-heading" id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</h3>{% else %}<p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>{% endif %}
           {% endfor %}
         </div>
       {% elif reader_content.summary %}
-        <div class="intel-body"><p>{{ reader_content.summary }}</p></div>
+        <div class="intel-body"><h2>Article summary</h2><p>{{ reader_content.summary }}</p></div>
       {% elif publisher_description %}
         <div class="intel-body"><p>{{ publisher_description }}</p></div>
       {% endif %}
@@ -94,10 +91,6 @@
       {% if publisher_description and publisher_description != record.summary %}<details><summary>Publisher description</summary><p>{{ publisher_description }}</p></details>{% endif %}
     {% endif %}
 
-    {% if item.source_url %}
-      <p><a class="action-button" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label }}</a></p>
-    {% endif %}
-
     {% if atomic_proposals %}
       <section class="intel-claims" aria-label="Proposed claims">
         <h2>Proposed claims</h2>
@@ -134,38 +127,38 @@
           </article>
         {% endfor %}
       </section>
-    {% elif not pending %}
+    {% else %}
       <details class="intel-claims sh-evidence-metadata">
-        <summary>No reviewed claims available · extraction details</summary>
+        <summary>{{ 'Claims and review details' if pending else 'No reviewed claims available' }}</summary>
         {% if extract_claims.runnable %}
           <p>A qualified extraction model is configured. Run extraction through the collection runner; this reader will not call an unqualified model.</p>
         {% else %}
           <p>{{ extract_claims.detail }}</p>
         {% endif %}
       </details>
-    {% else %}
-      <section class="intel-claims">
-        <h2>Claims</h2>
-        <p>{{ extract_claims.detail }}</p>
-      </section>
     {% endif %}
+    {% with hits=learn_glossary_hits(item.title, item.why or '', item.summary or record.summary or ''), compact=false, disclosure=true %}
+      {% include '_learn_glossary_hits.html' %}
+    {% endwith %}
   </article>
 
   <aside class="intel-reader-side">
-    <section class="intel-ai-panel">
-      <h2>Why it matters</h2>
-      {% if item.why %}<p>{{ item.why }}</p>{% else %}<p class="empty-state">No analyst brief yet.</p>{% endif %}
-      {% if item.ai_untrusted %}
-        <p><span class="badge badge-muted">AI-assisted · pending analyst review</span></p>
-        {% if ai_caveats %}<p class="context-limit">{{ ai_caveats }}</p>{% endif %}
-      {% endif %}
-    </section>
-    {% if item.summary %}
+    {% if item.summary and (kind != 'article' or paragraphs or item.summary != reader_content.summary) %}
       <section class="intel-ai-panel">
-        <h2>Concise summary</h2>
+        <h2>Analyst summary</h2>
         <p>{{ item.summary }}</p>
         {% if item.ai_untrusted %}<p class="context-limit">AI-assisted · pending analyst review. This is not trusted intelligence.</p>{% endif %}
       </section>
+    {% endif %}
+    {% if item.why or ai_caveats %}
+      <details class="reader-secondary">
+        <summary>Why it matters</summary>
+        {% if item.why %}<p>{{ item.why }}</p>{% endif %}
+        {% if item.ai_untrusted %}
+          <p><span class="badge badge-muted">AI-assisted · pending analyst review</span></p>
+          {% if ai_caveats %}<p class="context-limit">{{ ai_caveats }}</p>{% endif %}
+        {% endif %}
+      </details>
     {% endif %}
     {% if attribution and (attribution.primary or attribution.suggested) %}
       <section>

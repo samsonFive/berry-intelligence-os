@@ -258,6 +258,7 @@ from app.services.intelligence_feed import (
     annotate_feed_semantics,
     build_intelligence_feed,
     build_reader,
+    classify_kind,
     present_feed_item,
 )
 from app.services.assessment_scope import (
@@ -7280,6 +7281,17 @@ def _intelligence_page_context(
         record = reviewed_original_for_reading(record, INBOX_DIR)
     entities = entity_index()
     source_index = _source_index()
+    is_article = classify_kind(record) == "article"
+    reading_record = record
+    capture = None
+    if is_article and AUTHORING_MODE and record.get("id"):
+        from app.services.feed_first_reader import load_capture, merge_capture
+        saved_capture = load_capture(INBOX_DIR, record["id"])
+        if (saved_capture and saved_capture.get("ok") is True
+                and saved_capture.get("item_id") == record["id"]
+                and saved_capture.get("requested_url") == record.get("source_url")):
+            capture = saved_capture
+            reading_record = merge_capture(record, capture)
     if overlay:
         readiness = unknown_transcript_readiness()
         published: list[dict[str, Any]] = []
@@ -7290,7 +7302,7 @@ def _intelligence_page_context(
         published = published_evidence()
         atomic_drafts = list_drafts()
     reader = build_reader(
-        record,
+        reading_record,
         entities=entities,
         berry_labels=BERRIES,
         inbox_dir=INBOX_DIR,
@@ -7298,6 +7310,15 @@ def _intelligence_page_context(
         atomic_drafts=atomic_drafts,
         transcript_readiness=readiness,
     )
+    if is_article:
+        from app.services.publisher_coverage import cached_publisher_target
+        from app.services.reader_source_links import source_links
+        links = source_links(record, capture=capture)
+        if links["source_link_unresolved"]:
+            source = source_index.get(record.get("source_id"), {})
+            cached = cached_publisher_target(INBOX_DIR, record) if AUTHORING_MODE else ""
+            links = source_links(record, capture=capture, publisher_url=source.get("url"), resolved_url=cached)
+        reader["item"].update(links, source_url=links["source_link_url"], source_action_label=links["source_link_label"])
     if values is None:
         values = {} if record.get("status") == "published" else _default_review_values(record)
     reviewer = _default_reader_reviewer(request, values)

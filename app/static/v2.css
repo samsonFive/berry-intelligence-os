@@ -548,6 +548,8 @@
 .v2-reader-offcanvas { --bs-offcanvas-width: min(720px, 100vw); }
 .v2-reader-nav { display: flex; gap: 6px; align-items: center; margin-left: auto; margin-right: 8px; }
 .v2-reader-title { font-size: 1.35rem; margin: 8px 0; }
+.intel-reader-source-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
+.intel-reader-source-actions .v2-btn { display: inline-flex; align-items: center; min-height: 44px; }
 .v2-reader-block { margin: 16px 0; }
 .v2-reader-block h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--v2-text-muted); }
 .v2-reader-body { font-size: var(--v2-body); line-height: 1.65; }

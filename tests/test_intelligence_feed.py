@@ -493,6 +493,57 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert len(repos.evidence.get(draft["id"])["fact_ids"]) == 1
 
 
+def test_full_reader_and_drawer_put_the_publisher_and_original_text_first(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    body = "The nursery reported longer shelf life after the fruit was cooled on the day of harvest."
+    draft = _publication_draft("reader-hierarchy", title="Blueberry shelf life trial",
+                               article={"full_text": body})
+    main.save_draft(draft)
+    stored = main.INBOX_DIR / "evidence" / f"{draft['id']}.json"
+    original = stored.read_bytes()
+    client = TestClient(app)
+    for route in (f"/intelligence/{draft['id']}", f"/api/intelligence/{draft['id']}/reader"):
+        response = client.get(route)
+        assert response.status_code == 200
+        html = response.text
+        publisher = f'href="{draft["source_url"]}" target="_blank" rel="noopener noreferrer"'
+        assert html.count(publisher) == 1
+        assert html.index(publisher) < html.index(body) < html.index("Learn about terms in this story")
+        assert '<details class="reader-secondary v2-learn-glossary"' in html
+        assert 'action="/review/%s/publish"' % draft["id"] in html
+    assert stored.read_bytes() == original
+
+
+def test_legacy_reader_uses_only_the_matching_saved_publisher_capture(monkeypatch, tmp_path: Path) -> None:
+    from app.services.feed_first_reader import capture_path
+
+    _isolate(monkeypatch, tmp_path)
+    wrapper = "https://news.google.com/rss/articles/opaque-unresolved-id"
+    home = "https://publisher.example"
+    original = home + "/blueberry-trial"
+    body = "The blueberry trial compared three planting dates over two seasons in the same field."
+    draft = _publication_draft("reader-publisher", source_url=wrapper, origin_publisher_url=home)
+    main.save_draft(draft)
+    stored = main.INBOX_DIR / "evidence" / f"{draft['id']}.json"
+    original_record = stored.read_bytes()
+    path = capture_path(main.INBOX_DIR, draft["id"])
+    capture = {"ok": True, "availability": "partial", "item_id": "ev-different-record",
+               "requested_url": wrapper, "url": original, "passages": [body]}
+    _write(path, capture)
+    client = TestClient(app)
+    route = f"/api/intelligence/{draft['id']}/reader"
+    response = client.get(route)
+    assert response.status_code == 200
+    assert "Open Google News link" in response.text and "Publisher website" in response.text
+    assert body not in response.text and original not in response.text
+    _write(path, {**capture, "item_id": draft["id"]})
+    response = client.get(route)
+    assert response.status_code == 200
+    assert response.text.index(f'href="{original}" target="_blank"') < response.text.index(body)
+    assert "Open Google News link" not in response.text
+    assert stored.read_bytes() == original_record
+
+
 def test_spoken_and_patent_reader_shell(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
