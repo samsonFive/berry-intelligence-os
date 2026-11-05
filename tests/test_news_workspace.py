@@ -55,6 +55,33 @@ def test_media_filters_reuse_scope_relevance_and_trust():
         project(rows, {'media': 'invalid'})
 
 
+def test_declared_blog_source_does_not_require_blog_in_article_path():
+    blog = article('ev-uf-blog', source_type='discovered_media', media_format='web_article',
+                   source_name='BlueberryBreeding.com (University of Florida) Blog',
+                   source_url='https://www.blueberrybreeding.com/post/potential-economic-feasibility-of-grafted-blueberry-plants')
+    regular = article('ev-ordinary-post', source_url='https://publisher.org/post/blueberries')
+    headline_only = article('ev-blog-headline', title='Blueberry blog announces nursery expansion')
+    assert ids(project([blog, regular, headline_only], {'media': 'blog'})) == ['ev-uf-blog']
+    assert set(ids(project([blog, regular, headline_only], {'media': 'article'}))) == {'ev-ordinary-post', 'ev-blog-headline'}
+
+
+def test_private_preview_preserves_capture_exclusion_without_quote_body(tmp_path):
+    import json
+    from app.services.publication_sources import source_preview, pending_source_previews
+    capture = article('ev-workspace-passage', evidence_role='publication_artifact',
+                      status='in_review', workspace_capture={'quote': 'PRIVATE QUOTE MUST NOT ENTER PREVIEW',
+                                                             'source_version': 'retained-source'})
+    folder = tmp_path / 'evidence'
+    folder.mkdir()
+    (folder / (capture['id'] + '.json')).write_text(json.dumps(capture), encoding='utf-8')
+    previews, issues = pending_source_previews(tmp_path)
+    assert not issues and len(previews) == 1
+    for preview in (source_preview(capture), previews[0]):
+        assert preview.get('workspace_capture') is True
+        assert 'PRIVATE QUOTE MUST NOT ENTER PREVIEW' not in json.dumps(preview)
+        assert not ids(project([preview]))
+
+
 def test_spanish_recording_requires_crop_and_industry_metadata():
     relevant = article('ev-spanish-video', source_type='discovered_media', media_format='video',
         title='El arándano está conquistando a Ica', summary='Experiencias productivas y agricultura de exportación.',

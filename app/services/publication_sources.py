@@ -55,6 +55,8 @@ def active_publication_record(record: dict | None) -> dict | None:
 def source_preview(record: dict) -> dict:
     """A feed card needs preview metadata and one image, never original bodies."""
     preview = {key: value for key, value in record.items() if key in PREVIEW_FIELDS}
+    if record.get('workspace_capture'):
+        preview['workspace_capture'] = True  # Exclusion marker only; never hydrate saved quote/locator bodies.
     transcript = record.get('transcript')
     if isinstance(transcript, dict) and isinstance(transcript.get('status'), str):
         preview['transcript_status'] = transcript['status']
@@ -91,6 +93,9 @@ def _read_preview(path: Path) -> dict:
                 image = safe_image_url({"image_url": value})
             if prefix == 'transcript.status' and event == 'string':
                 preview['transcript_status'] = value
+            if prefix == 'workspace_capture' and (event == 'map_key' or
+                    event in {'string', 'number', 'boolean'} and value):
+                preview['workspace_capture'] = True
             if prefix in {'source_artifact.kind', 'source_artifact.status'} and event == 'string':
                 transcript_reference[prefix.rsplit('.', 1)[1]] = value
             if builder is not None:

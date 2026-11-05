@@ -1,6 +1,7 @@
 """Pure News selection over retained source metadata, not a new trust store."""
 from datetime import UTC, datetime, timedelta
 from functools import lru_cache
+import re
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from urllib.parse import urlsplit
 
@@ -33,8 +34,10 @@ def media_kind(record):
     if media == 'podcast' or record.get('source_type') == 'industry_podcast':
         return 'podcast'
     path = urlsplit(str(record.get('source_url') or '')).path.casefold()
-    if record.get('source_type') in {'blog', 'industry_blog'} or any(
-            part in {'blog', 'blogs', 'blog-posts'} for part in path.split('/')):
+    if (record.get('source_type') in {'blog', 'industry_blog'}
+            or re.search(r'\bblogs?\b', str(record.get('source_name') or ''), re.IGNORECASE)
+            or any(
+                part in {'blog', 'blogs', 'blog-posts'} for part in path.split('/'))):
         return 'blog'
     return 'article'
 PAGE_SIZE = 36
