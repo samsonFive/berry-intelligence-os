@@ -1,6 +1,7 @@
 """Core News entry point and explicit manual refresh. Page loads are read-only."""
 from datetime import UTC, datetime
 import json
+import logging
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -13,6 +14,36 @@ from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.pipeline_lock import pipeline_lock
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
+
+
+def stored_body_lookup(main, params):
+    if not str(params.get('q') or '').strip():
+        return None
+    from app.services import personal_digest
+    from app.services.feed_first_reader import load_capture, merge_capture
+    from app.services.publication_sources import active_publication_record
+    from app.services.source_body import article_full_text
+
+    stored = personal_digest.source_records(main.published_evidence(), main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE)
+
+    def body_for(preview):
+        key = preview['id']
+        source = stored.get(key)
+        if main.AUTHORING_MODE and (not source or source.get('status') != 'published'):
+            try:
+                draft = main.get_draft(key)
+            except (OSError, ValueError):
+                draft = None
+            source = (active_publication_record(draft) if draft else None) or source
+        if not source or source.get('source_url') != preview.get('source_url'):
+            source = preview
+        if main.AUTHORING_MODE:
+            source = merge_capture(source, load_capture(main.INBOX_DIR, key))
+        return article_full_text(source)
+
+    return body_for
 
 
 @router.get('/today/sources', response_class=HTMLResponse)
@@ -22,7 +53,8 @@ def news_sources(request: Request):
     try:
         selection = news_workspace.model(records=records, entities=entities, relationships=main.all_relationships(),
             facts=main.all_facts(), state=context['state'], params=dict(request.query_params),
-            tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR))
+            tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR),
+            body_for=stored_body_lookup(main, request.query_params))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     health = news_source_health.model(main.load_sources(), records, selection['matching_ids'], main.INBOX_DIR, selection['exclusions'])
@@ -48,7 +80,8 @@ def news_page(request: Request):
     try:
         model = news_workspace.model(records=records, entities=entities, relationships=main.all_relationships(),
                                      facts=main.all_facts(), state=context["state"], params=params,
-                                     tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR))
+                                     tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR),
+                                     body_for=stored_body_lookup(main, params))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     query = model["filters"]
@@ -99,7 +132,9 @@ def classify_stored_tags():
     from app import main
     try:
         return _classify_stored_tags()
-    except Exception:
+    except Exception as exc:
+        # Provider exceptions can contain response text and credentials.
+        logger.warning('Stored source classification failed (%s)', type(exc).__name__)
         state = news_tags.job_state(main.INBOX_DIR)
         with news_tags.database(main.INBOX_DIR) as db:
             db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)',

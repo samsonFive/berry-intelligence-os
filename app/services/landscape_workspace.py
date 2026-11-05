@@ -18,7 +18,7 @@ SECTIONS = {"companies": "Companies", "varieties": "Varieties", "sources": "Late
 FIELDS = ("berry", "company", "variety", "countries", "list", "tier", "favorites", "window", "start", "end", "section")
 EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit", "favorites", "tier", "list")
 VIEW_FILE = "landscape_views.json"
-WATCHLIST_FIELDS = ("berry", "q", "tier", "group", "region", "market", "entity", "followed", "source_type", "event_type", "priority", "type", "letter", "favorites", "company_tier", "list")
+WATCHLIST_FIELDS = ("berry", "q", "tier", "group", "region", "market", "entity", "followed", "source_type", "event_type", "priority", "type", "letter", "favorites", "company_tier", "list", "tag", "tag_mode")
 DEFAULT_WATCHLIST_BERRIES = ("blueberry", "blackberry", "strawberry", "raspberry")
 
 

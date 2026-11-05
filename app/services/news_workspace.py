@@ -99,8 +99,10 @@ def parameters(params):
     return values
 
 
-def model(*, records, entities, relationships, facts, state, params, now=None, tags=None, tag_assignments=None):
+def model(*, records, entities, relationships, facts, state, params, now=None, tags=None, tag_assignments=None,
+          body_for=None):
     filters = parameters(params)
+    term = filters["q"].casefold()
     tags = tags if tags is not None else [dict(id=k, name=v[0], description=v[1], version=1) for k,v in news_tags.SEEDS.items()]
     selected_tags = set(filter(None, filters['tag'].split(',')))
     if selected_tags - {t['id'] for t in tags}:
@@ -236,7 +238,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
             exclusions[key] = 'Company muted'
             continue
         haystack = " ".join(str(record.get(field) or "") for field in ("title", "summary", "source_name"))
-        if filters["q"].casefold() not in haystack.casefold():
+        if term not in haystack.casefold() and (body_for is None or term not in body_for(record).casefold()):
             exclusions[key] = 'Outside text search'
             continue
         if record.get('source_name'):

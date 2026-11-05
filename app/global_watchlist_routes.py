@@ -5,7 +5,7 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse, Response
 
 from app.competitive_routes import private, comparison
-from app.services import global_watchlist as gw
+from app.services import global_watchlist as gw, news_tags, news_workspace
 from app.services import landscape_workspace as landscapes
 from app.services.living_workspaces import Conflict
 from app.services.watchlist import load_watches, add_watch, remove_watch
@@ -18,8 +18,9 @@ def model(request, supplied_params=None):
     params = dict(request.query_params) if supplied_params is None else dict(supplied_params)
     if supplied_params is None and request.query_params.getlist('region'):
         params['region'] = ','.join(request.query_params.getlist('region'))
-    from app.services import feed_first
-    request.state.watchlist_feed_state = feed_first.load_state(main.INBOX_DIR)
+    if supplied_params is None and request.query_params.getlist('tag_choice'):
+        params['tag'] = ','.join(request.query_params.getlist('tag_choice'))
+    params.pop('tag_choice', None)
     try:
         saved = landscapes.load_views(main.INBOX_DIR)['views']
         selected_view = saved.get(params.get('saved_view', ''))
@@ -27,10 +28,20 @@ def model(request, supplied_params=None):
             if not selected_view or selected_view.get('surface') != 'watchlist' or selected_view['archived']:
                 raise ValueError('Saved watchlist landscape is unavailable or archived')
             params = {**landscapes.watchlist_scope(selected_view), **params}
+        from app.personal_digest_routes import world
+        _, context, records, entities = world()
+        request.state.watchlist_feed_state = context['state']
+        tags = news_tags.catalog(main.INBOX_DIR)
+        assignments = news_tags.snapshot(main.INBOX_DIR)
+        relationships = main.all_relationships()
+        news = news_workspace.model(records=records, entities=entities, relationships=relationships,
+            facts=main.all_facts(), state=context['state'], params={})
         result = gw.build(entities=main.all_entities(), evidence=main.published_evidence(),
-            relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
+            relationships=relationships, signals=main.all_signals(), assessments=main.all_assessments(),
             data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources(),
-            tracking_state=request.state.watchlist_feed_state)
+            tracking_state=request.state.watchlist_feed_state,
+            captured_news=[records[key] for key in news['matching_ids']], tags=tags, tag_assignments=assignments)
+        result['tag_job'] = news_tags.job_state(main.INBOX_DIR)
         result['selected_saved_view'] = selected_view
         result['saved_watchlist_views'] = [{**row, 'href': landscapes.view_href(row)} for row in saved.values()
             if row.get('surface') == 'watchlist' and not row['archived']]
@@ -53,6 +64,7 @@ def model(request, supplied_params=None):
     query = urlencode(params)
     result['return_to'] = '/global-watchlist' + ('?' + query if query else '')
     result['export_href'] = '/global-watchlist/export.pdf' + ('?' + query if query else '')
+    result['clear_tags_href'] = '/global-watchlist?' + urlencode({**params, 'tag': '', 'tag_mode': 'all'}) + '#gw-news'
     clear_keys = {'company'} if result['company'] and result['selected'] else {'company', 'compare'}
     result['browse_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items() if k not in clear_keys})
     cleared_tracking = {**params, 'favorites': '', 'company_tier': '', 'list': ''}
@@ -68,7 +80,7 @@ def model(request, supplied_params=None):
 @router.get('/global-watchlist')
 def page(request: Request):
     main, _, _, result = model(request)
-    from app.services import feed_first, news_workspace
+    from app.services import feed_first
     from app.services.company_source_scope import source_reviewed
     state = request.state.watchlist_feed_state
     support = news_workspace.escalations(main.all_facts())
@@ -78,7 +90,10 @@ def page(request: Request):
             state=state, filters=feed_first.parse_filters({}))
         card.update(source_reviewed=source_reviewed(story['lead']),
             trusted=source_reviewed(story['lead']) and card['id'] in support,
-            coverage_sources=story['sources'], independence=story['independence'])
+            coverage_sources=story['sources'], independence=story['independence'],
+            assigned_tags=story['assigned_tags'],
+            full_reader_href='/intelligence/' + card['id'] + '?' + urlencode(
+                {'personal': '1', 'return_to': result['return_to'] + '#gw-news'}))
         cards.append(card)
     return main.templates.TemplateResponse(request=request, name='global_watchlist.html', context={
         **result, 'cards': cards, 'scoped_news': True, 'authoring_mode': True, 'static_build': False, 'nav_work_counts': {}})

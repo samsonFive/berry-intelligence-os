@@ -21,7 +21,7 @@
 <p role="status" data-tag-status data-job-status="{{ tag_job.status }}" {% if tag_job.status == 'ready' %}hidden{% endif %}>{% if tag_job.status != 'ready' %}Tag classification {{ tag_job.status }} · {{ tag_job.processed }} / {{ tag_job.total }}. Results may be incomplete.{% if tag_job.error %} {{ tag_job.error }}{% endif %}{% endif %}</p>
 </fieldset>
 <div class="news-filter-fields">
-<label class="news-filter-field news-search-field"><span>Search</span><input type="search" name="q" value="{{ filters.q }}" placeholder="Headline, source or summary"></label>
+<label class="news-filter-field news-search-field"><span>Search</span><input type="search" name="q" value="{{ filters.q }}" placeholder="Headline, publisher or saved article text"></label>
 <label class="news-filter-field"><span>Publisher</span><select name="source"><option value="">All publishers</option>{% for label in source_choices %}<option value="{{ label }}" {% if filters.source == label %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <label class="news-filter-field"><span>Media</span><select name="media">{% for value,label in media_choices.items() %}<option value="{{ value }}" {% if filters.media == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <label class="news-filter-field"><span>Company</span><select name="company" aria-label="Company / subject"><option value="">All companies & subjects</option>{% for row in companies %}<option value="{{ row.id }}" {% if filters.company == row.id %}selected{% endif %}>{{ row.name }}</option>{% endfor %}</select></label>
@@ -47,16 +47,4 @@
 {% endblock %}
 {% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=3"></script><script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
 
-{% block shared_overlays %}
-<div class="offcanvas offcanvas-end news-tag-drawer" tabindex="-1" id="newsTagDrawer" aria-labelledby="newsTagDrawerTitle" data-news-tag-drawer data-can-edit="{{ '1' if authoring_mode else '0' }}">
-<header class="offcanvas-header"><div><p class="news-tag-eyebrow">ARTICLE TAGS</p><h2 id="newsTagDrawerTitle" data-article-tag-title>Article tags</h2></div><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close article tags"></button></header>
-<div class="offcanvas-body"><p class="news-tag-source" data-article-tag-source></p>
-<section class="news-tag-reason"><h3>Why this tag?</h3><p data-article-tag-reason role="status">Select a tag to see its supporting text.</p><a href="#" data-filter-article-tag data-select-tag="" hidden>Filter news by this tag ↗</a></section>
-<section class="news-tag-editor"><h3>{{ 'Edit tags' if authoring_mode else 'Assigned tags' }}</h3><p class="news-tag-help">{% if authoring_mode %}Changes apply to this article and are remembered through automatic classification.{% else %}Tags describe subject relevance, not factual verification.{% endif %}</p>
-<label class="news-drawer-tag-search"><span class="visually-hidden">Find an article tag</span><input type="search" data-article-tag-search placeholder="Find a tag to add…" autocomplete="off"></label>
-<div data-article-tag-list>{% for tag in tags %}<div class="news-drawer-tag-row" data-drawer-tag-row="{{ tag.id }}" data-tag-name="{{ tag.name }}"><button type="button" class="news-tag-label" data-drawer-tag-info="{{ tag.id }}">{{ tag.name }}</button>{% if authoring_mode %}<button type="button" class="news-tag-toggle" data-drawer-tag-toggle="{{ tag.id }}" aria-pressed="false" aria-label="Assign {{ tag.name }}">+ Add</button><button type="button" class="news-tag-restore" data-drawer-tag-restore="{{ tag.id }}" title="Clear your correction and restore automatic assignment">Restore automatic</button>{% endif %}</div>{% endfor %}</div>
-<p class="news-tag-save-status" data-article-tag-status role="status" aria-live="polite"></p>
-</section></div></div>
-<script type="application/json" data-news-card-tags>{
-{% for card in cards %}{{ card.id|tojson }}: {{ card.assigned_tags|map(attribute='id')|list|tojson }}{% if not loop.last %},{% endif %}{% endfor %}}</script>
-{% endblock %}
+{% block shared_overlays %}{% include "_news_article_tag_drawer.html" %}{% endblock %}
