@@ -41,7 +41,7 @@ def test_private_company_view_keeps_original_gaps_visible_without_public_leaks(m
     client = TestClient(main.app)
     page = client.get('/varieties/coverage',params={'company':'company-smart-berries'})
     assert page.status_code == 200
-    assert 'We haven’t captured variety names in these pages' in page.text
+    assert all(name in page.text for name in ('Sekoya Pop', 'Sekoya Beauty', 'Magica'))
     assert 'Betty Blues' in page.text and 'Ruby Reds' in page.text
     assert 'Video content remains unchecked' in page.text
     assert 'Review these source names' not in page.text and 'Ignore permission' not in page.text

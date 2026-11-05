@@ -23,6 +23,22 @@ human review requirements.
 [Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) connected existing production formats to News: 8 podcast, 3 video and 10 blog cards at code release; 8/4/10 after the separately approved historical delivery. These are matching publication counts, not complete recall/freshness or verified claims. All 1,268 varieties present in the fresh release-time baseline were retained; this release added no variety or Source rows. Real historical English Whisper/Spanish-caption artifacts passed timed capture/reopen locally. A separately approved additive delivery then added two original normalized transcripts and one unreviewed video draft, with live Reader counts of 1,212/382 segments and identical retry. The trusted podcast stayed unchanged; no bulk inbox delivery or acquisition/STT/model call occurred. Bounded recurring-source activation remains a separate review step. Original failed Google cohorts, word-accuracy/access limitations and wider trait/right/footprint/identity holds remain unchanged.
 # Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
 
+## Institute of Botany and Smart Berries — November 5, 2026
+
+The China forestry authority's grant notice names the blueberry 蓝闺蜜 and
+lists the Institute of Botany as the rights holder at the time of the grant.
+The new review candidate retains the printed name, grant 20190411 and the
+original PDF link. The Australian Berry Journal's Smart Berries field report
+adds three blueberry mentions with different roles at the Crow's Nest site.
+All three match catalog names, and the reported trial, production and future
+harvest expectations stay in source context.
+
+The public-seed audit of this draft records 546 source sections, 2,093 name
+occurrences and 70 of 77 registry entries checked. Both companies still have
+source gaps. Current legal rights, confirmed growing regions and photo reuse
+remain review decisions. The original-script lookup keeps distinct printed
+names separate and preserves IDs for previously saved registry candidates.
+
 ## November 4 live-base reconciliation
 
 The healthy interactive app now runs source-intelligence #501 at `d785c182`, retaining editable catalog #492. The private #506 rehearsal on the preceding #492 base preserved 1,259 profiles and all five accounts; that completed evidence does not accept the newer combination. The draft now incorporates #501 and requires fresh current-head checks, browser review and live-data acceptance before exact-head release approval. The dated accounts below retain their original scope and counts.
