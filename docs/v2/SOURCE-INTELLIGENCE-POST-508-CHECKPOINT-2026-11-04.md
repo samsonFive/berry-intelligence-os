@@ -34,3 +34,6 @@ After the other reserved release finishes, repin the current live image/selector
 Only after that production canary should a concrete recurring proposal name its exact Source allowlist, dispatcher selector, Source cadence, limits, freshness expectations and rollback. The Source is weekly; invoking its dispatcher daily does not make it collect daily. Any changed Source cadence needs explicit review. No new recurring activation is approved by #508 or this local checkpoint.
 
 The mission remains open for audio accuracy, exact episode pages, browser/entity/report capture, linked-page Reader behavior, verified Exa allowances, representative sealed analyst outcomes and wider source/variety coverage. Earlier failed comparisons remain unchanged.
+
+
+Subsequent November 5 checkpoint: [native production browser acceptance](SOURCE-INTELLIGENCE-BROWSER-ACCEPTANCE-2026-11-04.md) and [local transcript capture review](SOURCE-INTELLIGENCE-CAPTURE-REVIEW-2026-11-05.md) supersede the pending browser/canary statements above. Real paragraph capture required a local correction; exact timing, workspace destinations and restart reopen are now exercised. Four-file owner repair, further deployment and recurring activation remain separate held decisions.

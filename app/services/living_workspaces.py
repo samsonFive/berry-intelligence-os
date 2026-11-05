@@ -223,6 +223,8 @@ class Store:
         transcript = record.get('transcript')
         if isinstance(transcript, dict) and transcript.get('segments'):
             value['transcript_segments'] = deepcopy(transcript['segments'])
+        if isinstance(transcript, dict) and transcript.get('language'):
+            value['transcript_language'] = transcript['language']
         value["id"] = "src-" + digest(value)
         return value
 
@@ -235,6 +237,8 @@ class Store:
         if not isinstance(quote, str) or len(quote) > 100000:
             raise ValueError("Invalid selection")
         locator = deepcopy(payload.get("locator") or {})
+        if payload.get('transcript_version') and payload['transcript_version'] != source.get('transcript_version'):
+            raise ValueError('Transcript changed since this passage was displayed. Reopen the recording and select it again; your input is preserved.')
         # Position and text must agree. Repeated text without a valid position is
         # retained as unresolved, never silently attached to the first occurrence.
         body = source["text"]
@@ -358,6 +362,21 @@ def feed_matches(record, config):
     return reasons if checks and (all(checks) if config.get("mode") == "all" else any(checks)) else []
 
 
+def transcript_passage_label(item, source):
+    """Only verified offsets on this retained transcript version get a time label."""
+    import math
+    locator = item.get('locator') or {}
+    start, end = locator.get('start_seconds'), locator.get('end_seconds')
+    if (locator.get('state') != 'exact' or not locator.get('transcript_version')
+            or locator['transcript_version'] != source.get('transcript_version')
+            or type(start) not in (int, float) or not math.isfinite(start) or start < 0):
+        return ''
+    interval = f'{start:.2f}'
+    if type(end) in (int, float) and math.isfinite(end) and end >= start:
+        interval += f'–{end:.2f}'
+    return f'Recording passage: {interval} seconds · Transcript version: {locator["transcript_version"]}'
+
+
 def compose_brief(page, items, sources, selected):
     """Deterministic cited fallback: no ungrounded connective claims."""
     chosen = [b for b in page["blocks"] if not selected or b["id"] in selected]
@@ -385,12 +404,16 @@ def compose_brief(page, items, sources, selected):
         if item.get("note"):
             lines.append("Analyst commentary: " + item["note"])
         references.append({"number": n, "item_id": item["id"], "source_id": source["id"], "title": source["title"], "url": source["url"], "quote": item["quote"]})
+        if passage_label := transcript_passage_label(item, source):
+            references[-1].update(locator=deepcopy(item['locator']), transcript_passage=passage_label)
         versions.append({"id": item["id"], "version": item["version"], "source_version": source["id"]})
     if not references:
         lines.append("\nEvidence gap: no selected source-linked passages or statements support a narrative.")
     lines.extend(["", "## Relationships and implications", "Only explicitly recorded relationships are available in the page map. Commercial implications and independent corroboration require further evidence.", "", "## Sources"])
     for ref in references:
         lines.append(f'[{ref["number"]}] {ref["title"]} — {ref["url"]} — /workspaces/evidence/{ref["item_id"]}')
+        if ref.get('transcript_passage'):
+            lines.append(ref['transcript_passage'])
     snapshots = [{k: deepcopy(b[k]) for k in ("id", "type", "text", "rows", "item_id") if k in b} for b in chosen]
     return Store.block("briefing", "\n".join(lines), citations=references, source_versions=versions, generated_at=now(), method="deterministic cited digest", page_version=page["version"], selected_blocks=snapshots, selected_block_ids=[b["id"] for b in chosen])
 

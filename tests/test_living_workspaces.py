@@ -419,6 +419,29 @@ def test_server_resolves_sources_and_feed_arrivals(client, monkeypatch):
     assert client.get('/workspaces/evidence/' + saved.json()["item"]["id"]).status_code == 200
 
 
+def test_transcript_passage_views_and_exports_keep_time_version_and_language(client):
+    from app import main
+    store = Store(main.INBOX_DIR)
+    source = store.snapshot({'id': 'ev-recording', 'title': 'Publisher recording',
+                             'source_url': 'https://example.org/recording', 'media_format': 'podcast',
+                             'transcript_version': 'stored-v1', 'transcript_provenance': {'method': 'publisher_provided'},
+                             'transcript': {'language': 'es', 'segments': [
+                                 {'text': 'Source passage.', 'start_seconds': 20, 'end_seconds': 24}]}},
+                            'Source passage.', 'transcript_available')
+    saved = store.capture({'token': token(), 'quote': 'Source passage.', 'locator': {'start': 0},
+                           'transcript_version': 'stored-v1'}, source, 'analyst', {})
+    detail = client.get('/workspaces/evidence/' + saved['item']['id'])
+    assert detail.status_code == 200
+    assert 'Recording passage: 20.00–24.00 seconds' in detail.text
+    assert 'Transcript language: es' in detail.text
+    assert 'Transcript method: publisher_provided' in detail.text
+    exported = client.get('/api/workspaces/export/' + saved['page']['id'])
+    assert exported.status_code == 200
+    assert 'Recording passage: 20.00–24.00 seconds' in exported.text
+    assert 'Transcript version: stored-v1' in exported.text
+    assert 'unverified' in exported.text
+
+
 def test_item_revision_has_separate_unverified_review_identity(client, source):
     from app import main
     store = Store(main.INBOX_DIR)
