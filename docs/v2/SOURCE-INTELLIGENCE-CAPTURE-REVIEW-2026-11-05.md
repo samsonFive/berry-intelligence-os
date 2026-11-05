@@ -1,12 +1,22 @@
 # Source intelligence transcript capture review — November 5, 2026
 
-This is a local candidate for review, not a deployment or recurring-activation receipt. It follows the [native production browser acceptance](SOURCE-INTELLIGENCE-BROWSER-ACCEPTANCE-2026-11-04.md) and [manual collection canary](SOURCE-INTELLIGENCE-MANUAL-CANARY-2026-11-04.md). The mission remains open.
+This is an undeployed candidate for review, not a deployment or recurring-activation receipt. It follows the [native production browser acceptance](SOURCE-INTELLIGENCE-BROWSER-ACCEPTANCE-2026-11-04.md) and [manual collection canary](SOURCE-INTELLIGENCE-MANUAL-CANARY-2026-11-04.md). The mission remains open.
 
-## Verified inherited state
+## Initial pre-approval verification
 
 Read-only verification after the overnight pause still finds production release `8f510b5383274f218e4e1eb714b4c28dc5413da7`, image `sha256:7cb55cc6995f7e9ca044f846882142c3efa432de88beba1559a8a72588e6c2eb`. The four manually created canary discoveries/drafts retain their recorded hashes, UID 0/GID 1000 and mode 0644. App UID 1000 cannot write those files directly; parent directories are writable. No repair has occurred.
 
 Automatic approval review rejected both the proposed isolated writer probe and the exact owner-only repair for missing specific authorization. The subsequent read-only access report ran successfully. A human question for the four-file owner repair remains pending; it does not authorize the separate probe. The repair must retain bytes, group, mode, modification time and review state, and record before/after metadata. Other release approval cannot substitute for this permission.
+
+## Subsequent explicit approval and completed owner repair
+
+On November 5 the user explicitly approved changing the four podcast files from UID 0 to UID 1000, preserving contents and review decisions, and requested fresh preservation checks before any deployment or recurring activation. The earlier rejected probe remains unapproved and was not executed.
+
+The guarded repair completed at 16:15:21 UTC (8:15:21 a.m. Pacific), under the existing shared-host lock and unchanged resource floors. Exactly the two new Business of Blueberries discoveries and their two unreviewed drafts changed owner. All four SHA-256 hashes, groups, 0644 modes, modification times, sizes and inodes stayed identical; both drafts remain `in_review`. App UID 1000 read/write access is verified for all four. Only ctime naturally records the ownership change. No content, account, review, deployment, collection, model or transcription action occurred.
+
+Durable server proof is `/opt/berry-platform-releases/sourcegap-canary-owner-repair-20261105T161521Z/{before,completed}.json`; the private local approval and full before/after receipt are retained in the evaluation directory. The guard verified the retained canary recovery delta/manifest before changing ownership. No other file owner was changed and no broad ownership repair was attempted.
+
+The separate #516 release has its own human grant and release executor. This candidate's host testing waits for that release window to be returned, then must reconcile the actual post-release canonical/image and use fresh server-side private preservation evidence. Approval of the owner repair does not authorize #517 merge/deployment or recurring collection/transcription. Historical exact-head checks on `8b97fed1` passed all four required jobs (6,685 passed / 11 skipped); a reconciled head needs its own checks.
 
 ## Reproduced browser defect and candidate
 
