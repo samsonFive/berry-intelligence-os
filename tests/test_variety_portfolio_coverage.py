@@ -26,6 +26,16 @@ def reconcile(sources, varieties=None, candidates=None):
                                candidates=candidates or [], today=date(2026, 10, 7))
 
 
+def test_original_script_names_have_distinct_candidates_and_source_handoffs():
+    names = [{'candidate_name': name, 'berry_id': 'berry-blueberry'} for name in ('蓝闺蜜', '北斗星')]
+    records, candidates = reconcile([source(names, berry_ids=['berry-blueberry'])])
+    assert len(candidates) == 2 and len({row['id'] for row in candidates}) == 2
+    for name, row in zip(names, records[0]['names']):
+        matching = candidate_queue(candidates, {'q': name['candidate_name'], 'berry': 'berry-blueberry'})['candidates']
+        assert [candidate['id'] for candidate in matching] == [row['candidate_id']]
+        assert row['status'] == 'needs_review' and not matching[0]['human_gated']
+
+
 def test_shared_brand_does_not_collapse_two_denominations():
     names = [{"candidate_name": code, "trade_name": "Florida Pearl", "berry_id": "berry-strawberry"}
              for code in ("FL 16.78-109", "FL 19.66-220")]
@@ -81,14 +91,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2089
-    assert report["summary"]["registry_entries_checked"] == 68
+    assert report["summary"]["names"] == 2093
+    assert report["summary"]["registry_entries_checked"] == 70
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [6, 1, 0, 2]
+        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [4, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 639, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 643, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
     fruitist = next(s for s in report["subjects"] if s["name"] == "Fruitist")
     assert fruitist["source_status"] == "names_found" and fruitist["has_source_gaps"]
     assert fruitist["named_occurrences"] == 14
