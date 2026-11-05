@@ -1,3 +1,16 @@
+# BluGenix original technical sheets — November 5, 2026
+
+Five downloaded breeder sheets add source links to the existing named
+BluGenix observations. Bounty, Cascade and Delight have differing storage
+figures across the PDF, the web catalog or the launch coverage. The Bounty
+harvest calendar differs between the PDF and the web catalog for Central
+Mexico. The conflicting values are shown alongside the original URLs for
+review. [Source comparison](../../data/imports/variety-portfolio-observations-2026-11-05-blugenix-sheets/README.md)
+
+The five sheets contribute one catalog match and four occurrences on existing
+review paths. The combined public-seed audit also includes the Institute of
+Botany and Smart Berries sources below.
+
 # Fruitist blueberry source coverage — November 5, 2026
 
 Three original source sections add 14 name occurrences for the existing Fruitist
@@ -33,7 +46,7 @@ adds three blueberry mentions with different roles at the Crow's Nest site.
 All three match catalog names, and the reported trial, production and future
 harvest expectations stay in source context.
 
-The public-seed audit of this draft records 546 source sections, 2,093 name
+The combined public-seed audit records 551 source sections, 2,098 name
 occurrences and 70 of 77 registry entries checked. Both companies still have
 source gaps. Current legal rights, confirmed growing regions and photo reuse
 remain review decisions. The original-script lookup keeps distinct printed

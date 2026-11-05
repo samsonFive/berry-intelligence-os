@@ -91,14 +91,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2093
+    assert report["summary"]["names"] == 2098
     assert report["summary"]["registry_entries_checked"] == 70
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [4, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 643, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 648, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
     fruitist = next(s for s in report["subjects"] if s["name"] == "Fruitist")
     assert fruitist["source_status"] == "names_found" and fruitist["has_source_gaps"]
     assert fruitist["named_occurrences"] == 14
@@ -108,6 +108,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     assert packing["capture_status"] == "partial"
     unresolved = {n["candidate_name"] for n in packing["names"] if n["status"] == "needs_review"}
     assert {"EB 846", "SEKOYA BEAUT"} <= unresolved
+    sheets = [s for s in report["sources"] if s["id"].startswith("portfolio-blugenix-original-sheet-")]
+    by_name = {s["names"][0]["candidate_name"]: s for s in sheets}
+    assert {name: s["capture_reference"]["reported_storage"]["pdf_days"] for name, s in by_name.items()} == {
+        "Bounty": 32, "Breeze": 27, "Cascade": 24, "Delight": 26, "Eterna": 50,
+    }
+    assert {name for name, s in by_name.items() if s.get("review_warnings")} == {"Bounty", "Cascade", "Delight"}
+    assert all(s["review_state"] == "unreviewed" and s["url"].endswith(".pdf") for s in sheets)
+    assert all(len(s["names"]) == 1 and not s["names"][0].get("breeder_code") for s in sheets)
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "names_found" and sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 9 and sunbelle["has_source_gaps"]
