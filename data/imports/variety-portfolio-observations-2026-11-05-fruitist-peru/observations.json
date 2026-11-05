@@ -1,0 +1,86 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-fruitist-peru-upn-proyecto-mer",
+      "title": "Universidad Privada del Norte — Proyecto MER blueberry samples",
+      "url": "https://ciaa.upn.edu.pe/proyectos/proyecto-mer/?lang=en",
+      "company_ids": ["company-agrovision"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "source_type": "university_project",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The project summary names both blueberry varieties used in its jam formulation.",
+      "limitations": "The university credits Agrovision as the supplier of the samples. The summary gives no farm or harvest date for either sample.",
+      "names": [
+        {
+          "candidate_name": "Ventura",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Agrovision supplied a sample for the university's blueberry jam study."
+        },
+        {
+          "candidate_name": "Emerald",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Agrovision supplied a sample for the university's blueberry jam study."
+        }
+      ],
+      "accounting": {"observed_items": 2, "exclusions": []}
+    },
+    {
+      "id": "portfolio-fruitist-peru-huancavelica-bulletin-2024",
+      "title": "Red Agro Huancavelica — June 2024 blueberry producer table",
+      "url": "https://www.drahuancavelica.gob.pe/images/pdf/Rediagro/blJun24.pdf",
+      "company_ids": ["company-agrovision"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2024-06-30",
+      "source_type": "government_bulletin",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "PDF page 4. The row for Agrovision Perú SAC in the blueberry producer and exporter table, with its original variety code and label.",
+      "limitations": "The bulletin credits SENASA–MIDAGRI and reports a June 2024 production-site listing. Current commercial use, acreage and rights require separate evidence.",
+      "names": [
+        {
+          "candidate_name": "SEKOYA BEAUTY",
+          "denomination": "FCM12-097",
+          "display_label": "FCM12-097 (SEKOYA BEAUTY)",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "The June 2024 bulletin lists Agrovision Perú SAC at site A9 - 1 in Lambayeque, Peru."
+        }
+      ],
+      "capture_reference": {
+        "method": "rendered_original_pdf_table_row",
+        "capture_sha256": "8c26d35efe7f6bd748cf38b2e8e8806c2f515cbb09b44b390328ada26205161a"
+      },
+      "accounting": {"observed_items": 1, "exclusions": []}
+    },
+    {
+      "id": "portfolio-fruitist-peru-unprg-hydra-figure-11",
+      "title": "Universidad Nacional Pedro Ruiz Gallo — Agrovision packing examples in Figure 11",
+      "url": "https://repositorio.unprg.edu.pe/bitstream/handle/20.500.12893/13614/Condorcahuana_Puse_Edwin_German.pdf?isAllowed=y&sequence=1",
+      "company_ids": ["company-agrovision"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "source_type": "university_professional_report",
+      "capture_status": "partial",
+      "enumerated_scope": "Distinct labels in the Variedad column of the original PDF's indexed Figure 11 table text. The report illustrates packing quality assessment at Agrovision Perú SAC.",
+      "limitations": "These examples come from a historical packing table. The indexed text was readable and direct PDF retrieval failed, so the table image still needs comparison. Repeated rows for a label contribute a single observation in this section.",
+      "review_warnings": [
+        "The Figure 11 text shows EB 846 and SEKOYA BEAUT. Retain both exactly as read. Confirm the original table image before assigning a code, expansion or alias."
+      ],
+      "names": [
+        {"candidate_name": "VENTURA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "ATLAS BLUE", "berry_id": "berry-blueberry"},
+        {"candidate_name": "EB 846", "berry_id": "berry-blueberry", "portfolio_context": "Literal packing-table label. Its identity and code type require review."},
+        {"candidate_name": "TERRAPIN", "berry_id": "berry-blueberry"},
+        {"candidate_name": "SEKOYA POP", "berry_id": "berry-blueberry"},
+        {"candidate_name": "JUPITER BLUE", "berry_id": "berry-blueberry"},
+        {"candidate_name": "EMERALD", "berry_id": "berry-blueberry"},
+        {"candidate_name": "BIANCA BLUE", "berry_id": "berry-blueberry"},
+        {"candidate_name": "SEKOYA BEAUT", "berry_id": "berry-blueberry", "portfolio_context": "The indexed label ends at BEAUT. Review its original image and relationship to other labels."},
+        {"candidate_name": "ARANA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "KIRRA", "berry_id": "berry-blueberry"}
+      ],
+      "accounting": {"observed_items": 11, "exclusions": []}
+    }
+  ]
+}

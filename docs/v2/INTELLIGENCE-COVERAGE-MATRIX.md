@@ -1,3 +1,19 @@
+# Fruitist blueberry source coverage — November 5, 2026
+
+Three original source sections add 14 name occurrences for the existing Fruitist
+company record. A university project identifies two supplied varieties, a June
+2024 bulletin identifies one historical site and variety, and an indexed packing
+table supplies 11 labels. The packing table remains partial pending image
+verification. Eight occurrences match catalog text and six enter name review.
+[Fruitist source notes](../../data/imports/variety-portfolio-observations-2026-11-05-fruitist-peru/README.md)
+
+The public-only audit now accounts for 544 sections, 2,089 name occurrences and
+907 combined candidate keys. Of 77 registry subjects, 68 have names from bounded
+source sections, six have partial checks, one has unavailable sources and two
+remain on identity hold. Fruitist still has source gaps. Company roles, rights,
+current cultivation and the independent expected-name benchmark retain their
+human review requirements.
+
 # Source intelligence continuation candidate — November 4, 2026
 
 [Bounded collection follow-up](SOURCE-INTELLIGENCE-COLLECTION-CONTINUATION-2026-11-04.md) reproduces and fixes capped-runner starvation and a narrow Spanish blueberry-industry relevance gap. The real November 3 Blueberries TV recording passes local feed/Reader checks as description-only; no current-video draft was delivered to production. Full current-head CI and live preservation remain required before deploying this new follow-up. No recurring collection, transcription or provider routing was activated.

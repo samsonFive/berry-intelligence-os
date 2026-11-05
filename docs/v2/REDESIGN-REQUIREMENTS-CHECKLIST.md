@@ -6,9 +6,19 @@ not approval to run an old release.
 
 ## Verified live release
 
+Approved PDF release #518 is live at canonical `41284ba7`, matching tested
+head `071d3827` and image `98c6b82f`. All four checks passed with 7,084 tests
+and 11 skips. A fresh recovery point verified 26,653 files and 673 directories.
+The release preserved five accounts, four databases, 1,268 catalog profiles,
+258 private research profiles and 13,676 protected files. Public HTTPS and all
+four saved landscape PDFs passed. The prior collection timer, proxy settings
+and rollback are retained. [Release #518](https://github.com/samsonFive/berry-intelligence-os/pull/518)
+
+## Earlier release evidence
+
 Approved [release #516](https://github.com/samsonFive/berry-intelligence-os/pull/516)
 was deployed at canonical `64b7bab6`, retaining tested head `03b962a9` exactly
-and image `750e5293`. Its changes are retained in current #517 below. All four
+and image `750e5293`. Its changes are retained in the live app. All four
 tested-head checks passed: 7,077 tests, 11 skipped.
 The fresh 26,591-file root/app-UID recovery check and live page/PDF verification
 preserved all five accounts, 1,268 catalog profiles, 258 private research
@@ -31,7 +41,7 @@ targets. Its directory metadata was captured after startup; it does not claim
 unrecorded pre-startup directory modification times.
 
 [Source release #517](https://github.com/samsonFive/berry-intelligence-os/pull/517)
-is now live at canonical `9d84e455`, matching approved head `7ba80ad0` and
+was deployed at canonical `9d84e455`, matching approved head `7ba80ad0` and
 image `4205e794`. All four checks pass: 7,082 tests, 11 skipped. The release-time
 backup verifies 26,637 files and all 673 host directories before switching;
 all 672 mounted directory records match the application UID's view. All five
@@ -58,7 +68,7 @@ fresh-process measurements exclude application import and network time.
 TD-122 remains open; there is no claim that every page or individual visit is
 faster.
 
-The separate PDF presentation draft makes the export clock, selected-scope
+The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
 source dates, links, analyst notes, model data and unresolved references are
@@ -66,17 +76,20 @@ retained. Its 32 affected checks and three-page fictional visual review pass.
 A separate read-only check of the existing isolated #517 copy also preserves
 all 26,621 input files, five accounts and four logical databases. All four
 saved landscape PDF models, publisher links and page counts match the baseline:
-36 blueberry, 8 blackberry, 11 strawberry and 9 raspberry pages. No private
-PDF content leaves the server. This is not a fresh production copy, a deployed
-change or new source-quality acceptance.
+36 blueberry, 8 blackberry, 11 strawberry and 9 raspberry pages. Those
+pre-release measurements used the existing isolated copy. The subsequent live
+release rechecked the same four exports against the fresh recovery point.
+
+The Fruitist draft adds 14 observations from three original source sections.
+The public-data audit counts 544 sections and 2,089 occurrences, with 68 of
+77 subjects represented by named source sections. The Fruitist packing table
+remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
 
 ## Work and decisions that remain
 
 | Work | Remaining gate or evidence |
 | --- | --- |
-| Source #517 release | Completed and independently verified at `9d84e455`; fresh backup, exact approved code, preserved data, restored proxy/timer and rollback confirmed. Broader source coverage is separate. |
-| PDF presentation draft | Current-head CI and release review; preserve source text, citations and selected scope. |
-| Cold-load speed / TD-122 | Continue equal-output, fresh-edit measurements; catalog cold visits still take seconds. Excluded caches remain excluded. |
+| Cold-load speed / TD-122 | Continue complete-output and fresh-edit measurements. Catalog cold visits still take seconds. The nested catalog reuse experiment slowed Company loading and was excluded. |
 | Catalog depth / CAT-01, CAT-02 | Improve original-source, portfolio, trait, rights, region and attributed-photo depth. Retain the 77-subject plan's partial/unavailable/identity holds and 11 unreadable originals; source capture is not identity or commercial-role approval. |
 | Independent review | Human-owned 32-source expected-name packet, 32 unclear photographed cells, and name/code/role/rights/photo queues. Parser output cannot be its own independent answer key. |
 | Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. Preserve crop, place, period, units and citation. |
