@@ -2,6 +2,8 @@
 
 [#508 is deployed](SOURCE-INTELLIGENCE-RELEASE-508-2026-11-04.md). The shared host/canonical window was returned to the existing release coordinator after its live verification. The following continuation uses local isolated state only; it does not activate collectors, modify production accounts/decisions or publish evidence.
 
+Subsequent checkpoint: the [bounded manual production podcast canary](SOURCE-INTELLIGENCE-MANUAL-CANARY-2026-11-04.md) completed after #507, adding two unreviewed drafts while preserving existing data. The local findings and remaining presentation/activation boundaries below remain distinct from that production receipt.
+
 ## Bounded real podcast replay
 
 Two manual Business of Blueberries cycles each persisted at most two discoveries and processed at most two items. The public feed returned 200 entries; the capped selected entries were already known, dated October 22 and October 30, 2026. Both cycles stopped at publication review, created zero new drafts and preserved all ten existing local drafts byte-for-byte and all 3,438 local canonical data files. An unchanged repeat is an idempotency observation, not new collection coverage or a production freshness repair. Transcription budget was zero, enrichment and extraction were disabled, and there were no production writes or recurring changes.
