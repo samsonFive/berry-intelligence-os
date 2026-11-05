@@ -30,8 +30,15 @@ A three-page fictional fixture was rendered directly from transient PDF bytes
 to PNG. All three pages were visually inspected for readable
 hierarchy, line wrapping, complete links and unclipped text. This fixture is
 internal QA, with invented company/source labels; it is not market intelligence
-or private production acceptance. Review records remain under ignored
-`inbox/pdf-readability-20261105/`.
+or private production acceptance.
+
+A separate guarded, network-free UID1000 check uses the existing isolated #517
+copy mounted read-only. All 26,621 files, five accounts and four logical
+databases remain unchanged. The four saved landscape models and their publisher
+links match the baseline; page counts remain 36 blueberry, 8 blackberry,
+11 strawberry and 9 raspberry. No private PDF content is retained or transferred.
+This is an existing accepted snapshot, not a fresh production-data copy. Review
+records remain under ignored `inbox/pdf-readability-20261105/`.
 
 The requirements summary also records verified live #516 and #517 and the
 fulfilled exact 13-file cleanup. All 31 original accepted

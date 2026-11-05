@@ -7,8 +7,9 @@ not approval to run an old release.
 ## Verified live release
 
 Approved [release #516](https://github.com/samsonFive/berry-intelligence-os/pull/516)
-is live at canonical `64b7bab6`, retaining tested head `03b962a9` exactly and
-image `750e5293`. All four current-head checks pass: 7,077 tests, 11 skipped.
+was deployed at canonical `64b7bab6`, retaining tested head `03b962a9` exactly
+and image `750e5293`. Its changes are retained in current #517 below. All four
+tested-head checks passed: 7,077 tests, 11 skipped.
 The fresh 26,591-file root/app-UID recovery check and live page/PDF verification
 preserved all five accounts, 1,268 catalog profiles, 258 private research
 profiles, four databases, existing edits and review decisions. Six public
@@ -29,8 +30,6 @@ The recovery recipe now handles directory access metadata and scoped restore
 targets. Its directory metadata was captured after startup; it does not claim
 unrecorded pre-startup directory modification times.
 
-## Tested drafts and measured limits
-
 [Source release #517](https://github.com/samsonFive/berry-intelligence-os/pull/517)
 is now live at canonical `9d84e455`, matching approved head `7ba80ad0` and
 image `4205e794`. All four checks pass: 7,082 tests, 11 skipped. The release-time
@@ -50,6 +49,8 @@ non-mounted parent directories. Its unchanged original receipt is retained;
 the versioned operator correction checks the actual mounts and preserves the
 host parent's metadata for recovery. Application code did not change.
 
+## Tested drafts and measured limits
+
 Private-data Company-first and Candidates-first workflows improved about
 15-20% in the #516 comparison; all 24 complete paired responses match.
 Cold handler medians remain about five seconds. These warm-filesystem,
@@ -61,8 +62,13 @@ The separate PDF presentation draft makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
 source dates, links, analyst notes, model data and unresolved references are
-retained. Its 32 affected checks and fictional-fixture visual review pass;
-this is not a deployed change or new source-quality acceptance.
+retained. Its 32 affected checks and three-page fictional visual review pass.
+A separate read-only check of the existing isolated #517 copy also preserves
+all 26,621 input files, five accounts and four logical databases. All four
+saved landscape PDF models, publisher links and page counts match the baseline:
+36 blueberry, 8 blackberry, 11 strawberry and 9 raspberry pages. No private
+PDF content leaves the server. This is not a fresh production copy, a deployed
+change or new source-quality acceptance.
 
 ## Work and decisions that remain
 
