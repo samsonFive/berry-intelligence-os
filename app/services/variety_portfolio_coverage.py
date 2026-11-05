@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
 from app.services import company_directory
+from app.services.identity_read_model import with_owned_identity_catalog
 from app.services.source_body import classify_source_body
 from app.services.variety_universe.coverage import BERRY_LABELS, BERRY_ORDER
 from app.services.variety_universe.identity import fold_identity, resolve_identity
@@ -320,6 +321,7 @@ def _portfolio_identity_results(*, queries, varieties):
 
 
 @json_call_memo
+@with_owned_identity_catalog
 def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None, include_candidates=True):
     """Account for each explicitly enumerated name, retaining source/code identity.
 

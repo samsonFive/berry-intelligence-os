@@ -3,6 +3,8 @@
 The original matcher makes every decision. This index supplies only a superset
 of relevant rows in their original order. It lives within one explicit scope;
 matching inputs are checked on every call and results are never cached.
+Explicit pure calculations can own one catalog snapshot for their entire call;
+ordinary request lookups continue checking freshness on every lookup.
 """
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -13,6 +15,9 @@ from typing import Any
 
 _active_scope: ContextVar["IdentityReadModelScope | None"] = ContextVar(
     "identity_read_model_scope", default=None
+)
+_owned_catalog: ContextVar["_Catalog | None"] = ContextVar(
+    "owned_identity_calculation", default=None
 )
 _MAX_CATALOGS = 64
 _SMALL_CATALOG = 3
@@ -96,6 +101,9 @@ class IdentityReadModelScope:
             return matcher(candidate, varieties)
 
         try:
+            owned = _owned_catalog.get()
+            if owned is not None and varieties is owned.records:
+                return matcher(candidate, owned.relevant_rows(candidate, identity))
             key = tuple(id(row) for row in varieties)
             catalog = self._catalogs.get(key)
             # Dict/list equality runs in C and checks all current fields,
@@ -114,6 +122,59 @@ class IdentityReadModelScope:
             # including any error the original matcher would itself raise.
             return matcher(candidate, varieties)
         return matcher(candidate, rows)
+
+
+def _plain_input(value, ancestors=None, depth=0):
+    """Reject opaque objects and cycles without copying/coercing their values."""
+    if type(value) in (str, int, float, bool, type(None)):
+        return True
+    if type(value) not in (dict, list, tuple, set, frozenset) or depth > 64:
+        return False
+    ancestors = set() if ancestors is None else ancestors
+    key = id(value)
+    if key in ancestors:
+        return False
+    ancestors.add(key)
+    try:
+        values = [*value.keys(), *value.values()] if type(value) is dict else value
+        return all(_plain_input(item, ancestors, depth + 1) for item in values)
+    finally:
+        ancestors.remove(key)
+
+
+def with_owned_identity_catalog(function):
+    """Own the keyword catalog for one explicitly read-only pure calculation.
+
+    No index or result outlives this call. Unsupported input keeps the ordinary
+    path. Apply inside any existing complete-input memo so warm hits do not
+    create snapshots. Current inputs are copied again on the next calculation.
+    """
+    @wraps(function)
+    def wrapped(*args, **kwargs):
+        varieties = kwargs.get("varieties")
+        if (type(varieties) not in (list, tuple)
+                or len(varieties) <= _SMALL_CATALOG or not _plain_input(varieties)):
+            return function(*args, **kwargs)
+        from app.services.variety_universe import identity
+        try:
+            catalog = _Catalog(varieties, identity)
+            before = deepcopy(catalog.records)
+            if list(varieties) != before:
+                return function(*args, **kwargs)
+        except (AttributeError, TypeError, ValueError):
+            return function(*args, **kwargs)
+        token = _owned_catalog.set(catalog)
+        try:
+            with identity_read_model_scope():
+                result = function(*args, **{**kwargs, "varieties": catalog.records})
+            # A future writer must not silently reuse this read-only shortcut.
+            # Fail before an outer memo could retain stale matching decisions.
+            if catalog.records != before or list(varieties) != before:
+                raise RuntimeError("Read-only identity calculation modified its catalog")
+            return result
+        finally:
+            _owned_catalog.reset(token)
+    return wrapped
 
 
 def resolve_identity_batch(candidates, varieties):
