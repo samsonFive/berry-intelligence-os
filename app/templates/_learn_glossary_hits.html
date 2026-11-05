@@ -7,9 +7,14 @@
       {% endfor %}
     </p>
   {% else %}
+    {% if disclosure %}
+    <details class="reader-secondary v2-learn-glossary" id="{{ section_id|default('learn-glossary') }}" data-pagefind-ignore>
+      <summary>Learn about terms in this story</summary>
+    {% else %}
     <section class="v2-company-section v2-learn-glossary" id="{{ section_id|default('learn-glossary') }}" data-pagefind-ignore>
       <h2>{{ heading|default('Educational terms in this item') }}</h2>
-      <p class="context-limit">Learner Mode vocabulary matched on this item's title and short excerpt — not a full-text scan, not a Fact, Signal, or Assessment, and not a claim that the source used the term correctly.</p>
+    {% endif %}
+      <p class="context-limit">Background reading based on the title and short excerpt. Check the original source for how a term was used.</p>
       <ul class="entity-links">
         {% for hit in hits %}
           <li>
@@ -20,6 +25,6 @@
           </li>
         {% endfor %}
       </ul>
-    </section>
+    {% if disclosure %}</details>{% else %}</section>{% endif %}
   {% endif %}
 {% endif %}

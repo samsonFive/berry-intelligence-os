@@ -534,6 +534,10 @@ def build_reader(
     else:
         paragraphs = [{**row, "text": cleaned} for row in paragraphs
                       if (cleaned := clean_reader_text(row.get("text") or ""))]
+        if kind == "article" and not paragraphs and content["state"] in {"body_available", "body_partial"}:
+            paragraphs = [{"locator": "p1", "text": content["body"]}]
+        if kind == "article" and len(paragraphs) == 1 and paragraphs[0]["text"] == content["summary"]:
+            paragraphs = []
     segments = load_transcript_segments(inbox_dir, record) if kind == "spoken" else []
     patent = record.get("patent_filing") if isinstance(record.get("patent_filing"), dict) else None
     parent_id = record.get("id")
