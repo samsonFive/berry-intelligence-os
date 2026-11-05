@@ -469,7 +469,7 @@ def evidence(request: Request, item_id: str):
     start = item.get("locator", {}).get("start")
     exact = type(start) is int and item.get("quote") and source["text"][start:start + len(item["quote"])] == item["quote"]
     passage = {"before": source["text"][:start], "quote": item["quote"], "after": source["text"][start+len(item["quote"]):]} if exact else None
-    return main.templates.TemplateResponse(request=request, name="living_evidence.html", context={"item": item, "source": source, "passage": passage, "history": store.history(item_id), "authoring_mode": True, "static_build": False})
+    return main.templates.TemplateResponse(request=request, name="living_evidence.html", context={"item": item, "source": source, "passage": passage, "transcript_passage": living.transcript_passage_label(item, source), "history": store.history(item_id), "authoring_mode": True, "static_build": False})
 
 
 @router.get("/api/workspaces/export/{page_id}")
@@ -488,12 +488,16 @@ def export(request: Request, page_id: str):
         lines.extend(["Page overview · generated " + overview["generated_at"], overview["text"]])
         for ref in overview.get("citations", []):
             lines.append(f'[{ref["number"]}] {ref["title"]} — {ref["url"]} — /workspaces/evidence/{ref["item_id"]}')
+            if ref.get('transcript_passage'):
+                lines.append(ref['transcript_passage'])
     for block in page["blocks"]:
         lines.append(block.get("text", ""))
         if block.get("item_id"):
             item = store.get(block["item_id"])
             source = store.get(item["source_id"])
             lines.extend([item["nature"] + " · unverified", item["text"], "> " + item["quote"], f'{source["title"]} — {source["url"]} — /workspaces/evidence/{item["id"]}'])
+            if label := living.transcript_passage_label(item, source):
+                lines.append(label)
         if block.get("rows"):
             lines.extend(" | ".join(row) for row in block["rows"])
     return PlainTextResponse("\n\n".join(lines), headers={"Content-Disposition": f'attachment; filename="{page_id}.md"'})
