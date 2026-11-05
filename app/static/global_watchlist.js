@@ -1,4 +1,7 @@
 (() => {
+  const savedNav = document.querySelector('.gw-saved-landscapes nav');
+  const savedActive = savedNav?.querySelector('[aria-current]');
+  if (savedActive) savedNav.scrollLeft += savedActive.getBoundingClientRect().left - savedNav.getBoundingClientRect().left;
   const form = document.getElementById('gw-compare');
   if (!form) return;
   const boxes = [...document.querySelectorAll('.gw-select')];

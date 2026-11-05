@@ -94,8 +94,8 @@ def monitoring_state_for_entity(
     if not linked:
         return {
             "state": "no_supported_source",
-            "detail": "No Source record links this entity via linked_competitor_ids, and none was "
-            "researched or fabricated for it by this import.",
+            "detail": "No monitoring source is linked to this organization. "
+            "Check Collection settings to add or connect a source.",
         }
 
     configured = [s for s in linked if (s.get("discovery") or {}).get("adapter") and (
@@ -119,15 +119,15 @@ def monitoring_state_for_entity(
     if not runnable:
         blocked = [source for source, execution in execution_rows if execution.get("state") == "BLOCKED"]
         if blocked:
-            names = ", ".join(sorted(str(source.get("id") or "") for source in blocked))
+            names = ", ".join(sorted(str(source.get("label") or source.get("name") or source.get("id") or "Unnamed source") for source in blocked))
             return {
                 "state": "source_blocked",
-                "detail": f"Configured Source(s) {names} require operator action before collection can run.",
+                "detail": f"Collection needs attention for these sources: {names}. Check Source Health before collecting again.",
             }
         return {
             "state": "manual_monitoring_required",
-            "detail": f"{len(linked)} linked Source(s) exist but none are eligible for automated discovery "
-            "-- manual/analyst-driven monitoring only.",
+            "detail": f"{len(linked)} linked {'source needs' if len(linked) == 1 else 'sources need'} manual checking; "
+            "automatic collection is not configured or available.",
         }
 
     never_run = [
@@ -137,16 +137,16 @@ def monitoring_state_for_entity(
         if execution.get("state") == "NEVER_RUN"
     ]
     if never_run:
-        names = ", ".join(sorted(s["id"] for s in never_run))
+        names = ", ".join(sorted(str(s.get("label") or s.get("name") or s["id"]) for s in never_run))
         return {
             "state": "source_configured_never_run",
-            "detail": f"Discovery-eligible Source(s) {names} exist and have never been run "
-            "(last_checked_at is null).",
+            "detail": f"These sources are configured for collection but have not been checked yet: {names}.",
         }
 
     return {
         "state": "linked_to_runnable_source",
-        "detail": f"{len(runnable)} linked, discovery-configured Source(s) with at least one completed run.",
+        "detail": f"{len(runnable)} linked {'source is' if len(runnable) == 1 else 'sources are'} configured for collection, "
+        "with at least one completed check.",
     }
 
 

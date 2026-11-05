@@ -2,6 +2,16 @@
 (() => {
   const sheet = document.querySelector('.ce-sheet');
   if (!sheet) return;
+  const filterPanel = sheet.querySelector('#ce-filter-panel');
+  const filterPopupForm = filterPanel?.querySelector('.ce-filters');
+  const fitFilters = () => {
+    if (!filterPanel?.open || !filterPopupForm) return;
+    const top = Math.max(0, filterPopupForm.getBoundingClientRect().top);
+    filterPopupForm.style.maxHeight = `${Math.max(100, window.innerHeight - top - 12)}px`;
+  };
+  filterPanel?.addEventListener('toggle', () => requestAnimationFrame(fitFilters));
+  window.addEventListener('resize', fitFilters);
+  window.addEventListener('scroll', fitFilters, {passive: true});
   const dialog = document.getElementById('ce-row-dialog');
   const body = dialog.querySelector('[data-ce-dialog-body]');
   const rows = [...sheet.querySelectorAll('[data-ce-row]')];

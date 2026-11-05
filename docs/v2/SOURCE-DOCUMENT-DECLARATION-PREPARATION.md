@@ -55,6 +55,24 @@ desktop/phone review and fresh production-copy preservation, recorded in the
 PR and private release receipts. Two samples per variant are limited evidence.
 Cold visits still take several seconds; TD-122 remains open.
 
+## Completed #490 release
+
+The user approved exact head `10d49757`; merge `3ffe5bad` is independently
+verified live. All four final checks pass, including 6,324 tests, and native
+desktop/phone review passes. The fresh release-time backup and isolated/live
+checks preserve five accounts including Chris.H, 65 profile files, 10,540
+existing JSON records, four databases and 1,115 research files, with zero data
+changes. Settings, data mounts, exact proxy, active/enabled News schedule and
+rollback remain. This release approval is fulfilled.
+
+The exact-code comparison retains all 24 complete responses. Company-first
+cold loading is essentially flat, 4.658 →4.633 seconds; its visit after new news
+improves 3.041 →2.688 and its three-page workflow 9.137 →8.764. Candidates-first
+cold improves 4.610 →4.321, its visit after new news 2.868 →2.571 and its workflow
+9.073 →8.526. These are two-sample-per-variant measurements on the tested copy,
+not universal live-speed claims. The prototype table above retains its original
+scope; it is not substituted for these final-code figures. TD-122 stays open.
+
 The earlier Reader-key, whole-article memo and per-article parser memo experiments
 are excluded after mixed/regressing whole-workflow results. Passing correctness
 checks alone did not make them release candidates. Restart-model reuse remains

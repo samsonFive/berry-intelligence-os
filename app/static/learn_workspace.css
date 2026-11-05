@@ -31,3 +31,6 @@
 @media(max-width:600px){.learn-workspace [id]{scroll-margin-top:var(--learn-header-offset,180px)}}
 
 .learn-teaching-visual .learn-teaching-step h3{margin:0}.learn-teaching-visual .learn-teaching-step p{margin:7px 0 0;font-size:12px;line-height:1.35}
+
+/* Teaching photographs keep the whole subject visible within the compact card. */
+.learn-photo img{display:block;object-fit:contain;background:#f1f6eb}

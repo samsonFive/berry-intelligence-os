@@ -5,6 +5,45 @@
 # Source intelligence live coverage boundary — November 4, 2026 Pacific
 
 [Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) connected existing production formats to News: 8 podcast, 3 video and 10 blog cards at code release; 8/4/10 after the separately approved historical delivery. These are matching publication counts, not complete recall/freshness or verified claims. All 1,268 varieties present in the fresh release-time baseline were retained; this release added no variety or Source rows. Real historical English Whisper/Spanish-caption artifacts passed timed capture/reopen locally. A separately approved additive delivery then added two original normalized transcripts and one unreviewed video draft, with live Reader counts of 1,212/382 segments and identical retry. The trusted podcast stayed unchanged; no bulk inbox delivery or acquisition/STT/model call occurred. Bounded recurring-source activation remains a separate review step. Original failed Google cohorts, word-accuracy/access limitations and wider trait/right/footprint/identity holds remain unchanged.
+# Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
+
+## November 4 live-base reconciliation
+
+The healthy interactive app now runs source-intelligence #501 at `d785c182`, retaining editable catalog #492. The private #506 rehearsal on the preceding #492 base preserved 1,259 profiles and all five accounts; that completed evidence does not accept the newer combination. The draft now incorporates #501 and requires fresh current-head checks, browser review and live-data acceptance before exact-head release approval. The dated accounts below retain their original scope and counts.
+
+The [seven partial-portfolio dispositions](PARTIAL-PORTFOLIO-SOURCE-DISPOSITIONS-2026-11-04.md)
+separate missing public cultivar lists, brand-only pages, research material and
+a possible same-name Biogea website mismatch. No company website, source record,
+canonical variety, candidate, identity hold, human decision or maturity status
+changes through this documentation follow-up. The canonical public-only counts
+remain 539 sections/2,073 occurrences/899 derived keys; pending source/Learn #504
+has a separate 540-section audit with unchanged name/key counts. All seven
+subjects remain partial. No worldwide-completeness or independent-recall score
+is claimed. Earlier dated coverage and release statements remain below.
+
+# Benning harvest source and Learn link — November 4, 2026
+
+The [bounded source/Learn follow-up](BENNING-HARVEST-SOURCE-LEARN-REVIEW.md)
+checks all six original NSW DPI-authored article pages and their captions.
+No cultivar is named; Rabbiteye and KATO260 remain explained exclusions, not
+new candidates. Benning's named-variety gap remains open. The publisher's
+QR-linked demonstration becomes a captioned Learn link, with no copied photos,
+hosted video or new trust decision. Initial 71 affected checks pass; final
+current-head and release acceptance remain. Earlier source counts below retain
+their dated scope. Platform #500 and source #498 are unchanged and separate.
+
+# Nebula original article recapture — November 4, 2026
+
+The [dated Nebula source proposal](NEBULA-ORIGINAL-RECAPTURE-2026-11-04.md)
+uses the existing source ID after visual inspection of both original pages.
+The October text-only capture remains intact. The current read view gains
+scoped source context and a link to credited photographs in the original PDF;
+no extra cultivar, canonical identity, confirmed growing footprint or image
+reuse decision is created. This is a complete article enumeration, not a
+complete Mountain Blue portfolio. It retains source-only #494, excludes
+platform #497 and remains unapproved and undeployed. Its own validation and
+fresh private-data rehearsal remain release gates. Earlier counts below keep
+their dated scope.
 
 # Catalog release reconciliation — November 4 UTC, 2026
 
@@ -42,6 +81,31 @@ release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
 
+**Retained dated platform/source account:**
+
+[Performance #490](https://github.com/samsonFive/berry-intelligence-os/pull/490)
+is merged and independently verified live at `3ffe5bad` (approved exact head
+`10d49757`). It retains catalog #488, News #487 and the earlier platform stack.
+All four final checks pass: 6,324 tests. Fresh release-time and live checks
+preserve all five accounts including Chris.H, 65 profile files, 10,540 existing
+JSON records, four databases and 1,115 stored research files. There are no data
+additions or review-decision changes. Settings, data mounts, exact proxy,
+active/enabled News schedule, fresh backup and rollback remain. Its approval is
+fulfilled; no repeated approval or deployment is needed for #490.
+
+**Retained source-branch snapshot (preceding November 3 scope; historical counts):**
+
+Prepared separately from live #490: [the Well-Pict historical source](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+adds two literal strawberry labels from a March 2012 merchandising page about
+2011 supply. The local seed has 540 sections /2,075 occurrences /1,335 review
+keys, with 11 unreadable sections and 144 follow-ups; live remains 539 /2,073
+/1,333. The current site gap and all identity/role/rights/photo/region gates
+remain. No canonical, provider, schema or human-decision change is included.
+Performance #493 is a separate default-off draft, not a deployed gain. Earlier
+release statements below retain their dated scope.
+
+**Retained dated source-intelligence account:**
+
 November 4 historical-transcript continuity: the earlier private worktrees retain real faster-whisper podcast and YouTube caption artifacts. Two original artifacts were hash-checked and reused in an isolated Reader/workspace capture/restart canary; no retranscription, production delivery or trust change occurred. The web image deliberately excludes acquisition/STT dependencies. Explicit parent/source linkage and metadata-only transcript reference visibility now address the display disconnect; word-level quality and new recurring-worker activation remain open. See [the updated review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md).
 
 November 3 source-intelligence continuation: an undeployed mixed-media/scheduling/Reader candidate is documented in [the review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md). Real bounded podcast/blog recovery, retained-video visibility, source execution versus feed contribution, explicit source/pipeline allowlists and caption-only job states are under validation. Three sampled YouTube Atom endpoints returned 404; the real caption request hit a platform challenge. Transcript quality, provider allowances, independent analyst evaluation and wider variety coverage remain open. No production schedule, trust decision, account or paid routing was changed.
@@ -59,30 +123,56 @@ including Chris.H, 65 profiles, 10,539 existing JSON records, four databases and
 or restored. Settings, mounts, proxy, active/enabled News schedule, backup and
 rollback are preserved. The #486, #487 and #488 approvals are fulfilled.
 
-The source import recovers three PSG selectors and two related lists: 44
-occurrences of 34 printed names/codes, 18 additional review keys and 34 held
-photo references. All 1,315 earlier public-source keys remain. The scoped public
-corpus is now 539 sections /2,073 occurrences /1,333 review keys, with 11
-unreadable sections and 143 follow-ups. These are source observations and review
-candidates, not 1,333 approved varieties or proof of worldwide completeness.
-Canonical variety identities, company roles, rights, growing footprints and
-photo reuse still require their existing human decisions.
+**Continuation of the dated platform snapshot:**
 
-News #487 finalizes useful capture as partial when optional tagging fails.
-Provider quota is still an operational dependency; no purchase or paid retry is
-authorized. The one approved Learn acceptance run completed previously and
-remains an editable AI draft. The visual Help explainer and collaborative
-Workspaces/private Digest and layout boundaries remain delivered.
+The necessary-syntax source guard avoids work without changing the existing
+declaration grammar or dropping sources. Final-code tests preserve all 24
+complete responses, including new unreviewed news. On the tested copy, the
+three-page workflow improves about 4–6%; Company cold loading is essentially
+flat. Deep cold catalog visits still take several seconds. TD-122 stays open;
+these limited measurements are not universal live-speed claims.
 
-Cold catalog visits still take several seconds; TD-122 remains open. The exact
-Reader-key implementation in closed, unmerged #489 preserved all eight complete
-outputs but gave mixed page/workflow timings. It is excluded from live release;
-the stronger prototype figures are not final-code or deployed claims.
-[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) retains this evidence and earlier
-rejected experiments. The independent human expected-name audit, source and
-trait/IP/photo depth, held Map selections and broader Learn quality remain in
-this mission. Original 31 definitions/order, the governing guide and all human
-review gates remain unchanged. Earlier entries below are historical records.
+The retained catalog #488 import adds 44 occurrences of 34 printed names/codes,
+18 review keys and 34 held photo references. The scoped public corpus remains
+539 sections /2,073 occurrences /1,333 derived review keys, with 11 unreadable
+sections and 143 follow-ups. These are source observations, not 1,333 approved
+varieties or proof of worldwide completeness. Source/name/role/rights/photo and
+growing-region decisions, the independent human expected-name audit and held
+Map selections remain open in this mission.
+
+The visual Help explainer, collaborative Workspaces, private Digest/layout
+boundaries and the completed bounded Learn request remain delivered. Provider
+quota is still an operational dependency; no additional paid research request,
+purchase or manual retry is authorized. Wider source, visual and lesson quality
+remain explicit. [The cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md)
+records rejected experiments separately from deployed gains. Original 31
+requirement definitions/order, the governing guide, protected schemas and all
+human gates remain unchanged. Earlier entries below are historical records.
+
+# Collection crop handoffs — November 4, 2026
+
+The [existing comparison follow-up](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md)
+adds individual unreviewed identity leads for checked strawberry, raspberry
+and blackberry source scope, alongside the compatible blueberry handoff.
+All 2,372 GDR genus/name pairs remain: 2,092 strawberry, 174 raspberry,
+six blackberry and 100 held. All 201 GRIN pairs remain, including 53 held
+hybrid labels. These are collection leads, not newly approved varieties or
+a worldwide recall score. Source records, human edits and decisions are
+unchanged. This retains tested platform #499; source #498 stays separate.
+Current-head checks, fresh private acceptance and release approval remain.
+CAT-01/CAT-02/TD-116 and TD-122 stay open.
+
+# Learn teaching photographs — November 4, 2026
+
+The [photo follow-up](LEARN-TEACHING-PHOTOS-2026-11-04.md) adds file-specific
+creator/reuse-checked teaching images to three existing lessons. All 27 stored
+lesson records remain unchanged; photos explain visible features without
+approving a farm diagnosis, cultivar identity or production claim. The compact
+photo card now preserves the whole image. All 86 affected checks and native
+desktop/390px photo/interaction review pass, with all 2,942 source/schema JSON
+files preserved. This branch retains platform #497, excludes source-only #498,
+and needs its own final-head CI, private-data rehearsal and separate release
+approval. The live corpus and human decisions are unchanged.
 
 # PSG source recovery — November 3, 2026
 
@@ -1530,3 +1620,5 @@ November 3 company/program discovery continuation: already-linked public publish
 November 3 semantic scope continuation: source excerpts now need the requested experimental/production conditions in their own text; a matching title or other paragraph cannot establish them. Related but unsupported material stays a review lead. Existing exact public citation backlinks supplement named company/program discovery without approving source claims. Frozen failed parity results remain unchanged; deployment held.
 
 November 3 geographic source-scope closeout: regional breeding/catalog queries now require source-owned wording for the requested geography, and organization names do not imply trial sites. No growing-location or commercial-footprint record is created. Remaining source access, unreviewed structured traits and measured Google-parity limitations remain disclosed; deployment held.
+
+November 4 source-intelligence #508 deployment: current bounded discoveries can progress past repeated/held work; explicit Spanish blueberry-industry wording is recognized. Live checks render eight podcasts, four videos and ten blogs with source-health access, plus retained English Whisper and Spanish caption Readers. Counts describe existing rendered records, not new trusted coverage; canonical data/Source additions are zero. All 1,268 current varieties and user photo imports are preserved without maturity upgrades. Current Blueberries TV canary remains local and description-only. Recurring media/transcription, source-audio word accuracy, comprehensive capture destinations and broader measured source coverage remain open; frozen failed benchmarks remain failed. See [release #508](SOURCE-INTELLIGENCE-RELEASE-508-2026-11-04.md).

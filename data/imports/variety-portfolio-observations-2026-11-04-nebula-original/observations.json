@@ -1,0 +1,56 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-mountain-blue-nebula-technical-report",
+      "title": "Nebula blackberry — Australian Berry Journal, Winter 2025, pages 82–83",
+      "url": "https://berries.net.au/wp-content/uploads/2025/06/ABJ-Ed-23-WINTER-25-RUB-Mountain-Blue-Unveils-New-Blackberry-Variety-Nebula.pdf",
+      "checked_on": "2026-11-04",
+      "observed_at": "2026-11-04T03:51:55.726522+00:00",
+      "company_ids": ["company-mountain-blue-orchards"],
+      "berry_ids": ["berry-blackberry"],
+      "source_type": "industry_technical_report",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Both original PDF pages, printed 82–83. Nebula is the article's single named blackberry. Eureka Blueberries is a separate blueberry-range reference, not another blackberry or a specific denomination. This completes this article's name enumeration, not Mountain Blue's portfolio.",
+      "limitations": "Winter 2025 report, not current availability or independent verification of company performance claims. The check date and upload directory are not a release or publication day. No code, alias, breeder/owner role, legal right, approved trait or confirmed growing footprint is inferred. Page 83 credits Mountain Blue for two embedded photographs; reuse permission and individual photographer are not established. The photographs remain in the original PDF, without extracting, hosting or loading them as gallery images. The October 7 text-only capture is retained unchanged in its original import.",
+      "review_warnings": [
+        "Winter 2025 source: performance and harvest-season descriptions are reported claims, not approved traits or confirmed operating regions.",
+        "Photos on printed page 83 are credited to Mountain Blue; permission remains unconfirmed. Open the original PDF to inspect them."
+      ],
+      "names": [
+        {
+          "candidate_name": "Nebula",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://berries.net.au/wp-content/uploads/2025/06/ABJ-Ed-23-WINTER-25-RUB-Mountain-Blue-Unveils-New-Blackberry-Variety-Nebula.pdf#page=2",
+          "portfolio_context": "Gaius Leong's Winter 2025 report describes a semi-erect, low-chill floricane blackberry. It reports mid-October–late-November harvests in Northern NSW and December–mid-January in Tasmania; these are source-specific seasonal claims, not confirmed growing regions. Reported yield exceeds 35 t/ha across multiple years; average Brix is 10–11, reaching 13. Trial design and sample sizes are not supplied. Page 83 has two photos credited to Mountain Blue, available in the linked original; reuse remains unconfirmed. The article invites licensing enquiries, without documenting a grant or licence. No match to older unnamed website selections is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {"label": "Eureka Blueberries", "reason": "A blueberry-range reference in a blackberry article; no individual blueberry denomination or additional blackberry is established."}
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_pdf_capture_and_visual_review",
+        "http_status": 200,
+        "capture_sha256": "8794000e261323b5cee35fed308ca9f67038c62a69592343c93ab376e7ed1524",
+        "capture_bytes": 870487,
+        "final_url": "https://berries.net.au/wp-content/uploads/2025/06/ABJ-Ed-23-WINTER-25-RUB-Mountain-Blue-Unveils-New-Blackberry-Variety-Nebula.pdf",
+        "author": "Gaius Leong, Berry Industry Development Manager, NSW DPIRD",
+        "publication_period": "Winter 2025, Edition 23",
+        "publication_date_precision": "Season and year only; no exact day inferred",
+        "pdf_total_pages": 2,
+        "pdf_pages_read": [1, 2],
+        "visually_checked_pages": [1, 2],
+        "printed_pages": [82, 83],
+        "all_pages_read": true,
+        "visually_checked": true,
+        "photo_credit": "Mountain Blue",
+        "photo_permission": "unconfirmed; embedded in the original PDF only",
+        "capture_replaces_latest_read_view_only": "The dated loader selects this capture for the existing source ID; the earlier import and every candidate ID remain intact."
+      }
+    }
+  ]
+}

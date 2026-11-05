@@ -14,6 +14,8 @@ def test_humanize_role_and_identity_slugs() -> None:
     assert humanize_label("genetics_licensor") == "Genetics licensor"
     assert humanize_label("no_canonical_identity_match") == "Needs a human name decision"
     assert humanize_label("") == ""
+    assert humanize_label("no_supported_source") == "No monitoring source"
+    assert humanize_label("source_configured_never_run") == "Awaiting first check"
 
 
 def test_compose_front_uses_trusted_when_top_stories_empty() -> None:

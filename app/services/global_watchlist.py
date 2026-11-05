@@ -199,7 +199,7 @@ def grouped_news(records):
     return sorted(result, key=lambda g: (g['lead'].get('published_date') or '', g['lead']['id']), reverse=True)
 
 
-def build(*, entities, evidence, relationships, signals, assessments, data_dir, store, watches, params, sources=()):
+def build(*, entities, evidence, relationships, signals, assessments, data_dir, store, watches, params, sources=(), tracking_state=None):
     entities = {r['id']: r for r in entities if r['id'] not in SEED_FIXTURE_ENTITY_IDS and not merged_into_id(r)}
     corrections = store.rows(KINDS['correction'])
     records = corrected_records(evidence, corrections)
@@ -241,6 +241,23 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
         raise ValueError('Choose a supported tier')
     if tier and not berry:
         raise ValueError('Choose a berry when filtering by its tier')
+    from app.services import company_directory, personal_digest
+    # Only shared marks enter this projection; Digest subscriptions stay personal.
+    state = {key: (tracking_state or {}).get(key) or {} for key in
+             ('entity_favorites', 'entity_tiers', 'company_lists')}
+    lists = [{'id': group['id'], 'name': group.get('name') or 'Unnamed company list',
+              'company_ids': group.get('company_ids') or []}
+             for group in personal_digest.company_lists(state)]
+    selected_list = next((group for group in lists if group['id'] == params.get('list')), None)
+    if params.get('list') and not selected_list:
+        raise ValueError('Company list is unavailable')
+    if params.get('favorites', '') not in {'', '1'} or (params.get('company_tier') and params['company_tier'] not in company_directory.TIERS):
+        raise ValueError('Choose supported company filters')
+    list_members = set(selected_list['company_ids']) if selected_list else None
+    def matches_tracking(key):
+        return (company_directory.matches_marks([key], state, favorites=params.get('favorites', ''),
+                tier=params.get('company_tier', '')) and (list_members is None or key in list_members))
+    tracking_rows = company_directory.catalog(entities, state=state)
     followed = {w['object_id'] for w in watches if w.get('watch_type') == 'company'}
     rows = []
     for key, entity in entities.items():
@@ -287,10 +304,16 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
             'profile_href': '/entities/' + entity.get('entity_type', 'company') + '/' + key,
             'imported_tier': any(assignments.get((key, b)) in {'Tier 1', 'Tier 2', 'Tier 3'} for b in BERRIES),
             'group_ids': [g['id'] for g in group_rows if key in g['member_ids']]}
+        mark = tracking_rows.get(key)
+        row['tracking'] = ({field: mark[field] for field in
+                           ('id', 'name', 'favorite', 'tier', 'tier_label', 'tier_choices')} |
+                           {'lists': [group for group in lists if key in group['company_ids']]}) if mark else None
         rows.append(row)
     all_rows = sorted(rows, key=lambda r: r['name'].casefold())
     filtered = []
     for row in all_rows:
+        if not matches_tracking(row['id']):
+            continue
         if selected_group and row['id'] not in selected_group['member_ids']:
             continue
         if params.get('followed') and not row['followed']:
@@ -329,7 +352,11 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
     if company and company not in by_id:
         raise ValueError('Company not found')
     focus = [by_id[company]] if company else [by_id[x] for x in selected]
-    focus_ids = {r['id'] for r in focus or filtered}
+    focus_selection = bool(company or selected)
+    excluded_focus = [row for row in focus if not matches_tracking(row['id'])]
+    focus = [row for row in focus if matches_tracking(row['id'])]
+    # An explicitly selected, filtered-out company must never fall back to other news.
+    focus_ids = {r['id'] for r in (focus if focus_selection else filtered)}
     news_records = [r for r in records if focus_ids.intersection(r.get('entity_ids') or [])
                     and (not berry or 'berry-' + berry in (r.get('berry_ids') or []))
                     and (not params.get('source_type') or r.get('source_type') == params['source_type'])
@@ -340,6 +367,8 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
     news = grouped_news(news_records)
     notes = [n for n in store.rows(KINDS['note']) if n['entity_id'] in focus_ids]
     return {'rows': filtered, 'all_rows': all_rows, 'focus': focus, 'selected': selected, 'company': company,
+        'focus_selection': focus_selection, 'excluded_focus': excluded_focus,
+        'lists': lists, 'selected_list': selected_list, 'company_tiers': company_directory.TIERS,
         'entities': entities, 'news': news, 'notes': notes, 'corrections': corrections, 'groups': group_rows, 'letters': letters,
         'selected_group': selected_group, 'tier_report': report, 'params': params, 'berry_options': BERRIES,
         'tier_options': TIER_STATUS_VALUES, 'region_options': list(dict.fromkeys([*REGIONS, 'DOTA', 'DEMEA', 'DOA_DANZ',

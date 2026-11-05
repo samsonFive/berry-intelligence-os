@@ -39,7 +39,7 @@ def company_directory_page(request):
 
 def safe_return(value, entity_id=""):
     parts = urlsplit(value or "")
-    allowed = {"/entities/company", f"/entities/company/{entity_id}", f"/entities/brand/{entity_id}", f"/entities/breeding_program/{entity_id}"}
+    allowed = {"/global-watchlist", "/entities/company", f"/entities/company/{entity_id}", f"/entities/brand/{entity_id}", f"/entities/breeding_program/{entity_id}"}
     if parts.scheme or parts.netloc or parts.path not in allowed:
         return "/entities/company"
     return parts.path + ("?" + parts.query if parts.query else "") + ("#" + parts.fragment if parts.fragment else "")

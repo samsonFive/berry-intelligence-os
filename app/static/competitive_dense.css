@@ -104,3 +104,8 @@ html:has(.ce-archive-sheet){overflow-x:clip}
  .ce-archive-grid-wrap{max-height:60dvh}.ce-archive-filters .ce-filters{display:flex;flex-wrap:wrap}.ce-archive-filters .ce-entity-picker{max-width:none;flex-basis:100%}.ce-archive-filters label{max-width:none}
  .ce-view-content:has(#ce-plot)>label{max-width:none;width:94%}
 }
+
+/* Shared company marks narrow the existing research scope; source decisions stay separate. */
+.ce-sheet .ce-shared-favorite{display:flex;align-items:center;gap:7px;flex-direction:row}.ce-sheet .ce-shared-favorite input{width:16px;min-width:16px;accent-color:#3c7550}.ce-sheet .ce-applied-scope{font-size:12px;line-height:1.5;overflow-wrap:anywhere;padding:8px 12px;background:#eef5e8;border:1px solid #c7d8bc;border-radius:6px;margin:8px 0}.ce-sheet .ce-filter-fields select{max-width:100%}
+.ce-sheet .ce-filters>.ce-filter-actions{grid-column:1/-1;position:sticky;bottom:0;background:#fff;border-top:1px solid #c7d8bc;padding:9px 0 0;z-index:1}.ce-sheet .ce-filter-heading{position:sticky;top:0;background:#fff;z-index:1}
+.ce-sheet .ce-filter-panel{min-width:0;max-width:100%}.ce-sheet .ce-filter-panel>summary{overflow-wrap:anywhere;white-space:normal}.ce-sheet .ce-shared-favorite{min-height:36px}@media(max-width:700px){.ce-sheet .ce-shared-favorite{min-height:44px}}

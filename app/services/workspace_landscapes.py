@@ -21,6 +21,8 @@ def coverage_scope(page, landscapes):
     for row in landscapes:
         data = row.get('data') or {}
         scope = data.get('scope') or data.get('filters') or {}
+        if scope.get('empty_cohort'):
+            continue
         companies.update(str(scope.get('companies') or '').split(','))
         if scope.get('focus'):
             companies.add(scope['focus'])
@@ -28,7 +30,7 @@ def coverage_scope(page, landscapes):
         destination = scope.get('destination') or scope.get('destination_market') or ''
         if str(destination).startswith('geography-'):
             destinations.add(destination)
-    companies = sorted(key for key in companies if key.startswith(('company-', 'brand-', 'program-', 'breeding_program-', 'retailer-')))
+    companies = sorted(key for key in companies if key.startswith(('company-', 'brand-', 'program-', 'breeding_program-', 'retailer-', 'seed-org-')))
     berries = sorted(key for key in berries if key.startswith('berry-'))
     return {'companies': companies, 'berry': ','.join(berries),
             'destination_market': next(iter(destinations)) if len(destinations) == 1 else '',
@@ -87,13 +89,16 @@ def resolve(main, request, keys):
             view = landscape_workspace.load_views(main.INBOX_DIR)["views"][key]
             if view.get('surface') == 'watchlist':
                 from app.services import global_watchlist
+                from app.services import feed_first
                 from app.services.watchlist import load_watches
                 model = global_watchlist.build(entities=main.all_entities(), evidence=main.published_evidence(),
                     relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
                     data_dir=main.DATA_DIR, store=living.Store(main.INBOX_DIR), watches=load_watches(main.INBOX_DIR),
-                    params=landscape_workspace.watchlist_scope(view), sources=main.load_sources())
+                    params=landscape_workspace.watchlist_scope(view), sources=main.load_sources(),
+                    tracking_state=feed_first.load_state(main.INBOX_DIR))
                 data = {'filters': view['filters'], 'scope': {'companies': ','.join(row['id'] for row in model['rows']),
-                    'berry': view['filters'].get('berry', '')},
+                    'berry': view['filters'].get('berry', ''),
+                    'empty_cohort': bool(any(view['filters'].get(key) for key in ('favorites', 'company_tier', 'list'))) and not model['rows']},
                     'companies': [{field: row[field] for field in ('id', 'name', 'roles', 'tier', 'confidence', 'regions')} for row in model['rows']],
                     'coverage_note': model['data_note']}
                 sources = {source['id']: source for group in model['news'] for source in group['sources']}

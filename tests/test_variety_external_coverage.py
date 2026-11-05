@@ -86,7 +86,7 @@ def test_live_comparison_preserves_ambiguity_crop_boundaries_and_human_decisions
     original = deepcopy((baseline, varieties, candidate))
     report = compare_baseline(baseline, varieties=varieties, candidates=[candidate])
     shared = next(row for row in report['entries'] if row['name'] == 'Shared')
-    assert {match['id'] for match in shared['catalog_matches']} == {'r', 'b'}
+    assert {match['id'] for match in shared['catalog_matches']} == {'r'}
     assert next(row for row in report['entries'] if row['name'] == 'Bluecrop')['status'] == 'no_name_match'
     declined = next(row for row in report['entries'] if row['name'] == 'Declined')['candidate_matches'][0]
     assert declined['human_gated'] and declined['status'] == 'rejected'

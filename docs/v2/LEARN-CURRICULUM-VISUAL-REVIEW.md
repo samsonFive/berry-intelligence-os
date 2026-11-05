@@ -82,6 +82,43 @@ is created, and no field enters Competitive Evidence, Signals or Assessments.
 
 ## Review evidence and remaining work
 
+### November 4, 2026 — existing video context
+
+The three existing video destinations were checked through their original
+publisher links and short direct browser playback. Two default presentation
+cards now replace stale “playback unverified” copy with teaching context:
+Pete Goodell's IPM explanation and the Robofruit field test labeled October 2021,
+linked by the 2023 research paper. The robotics date is the video's test label,
+not a newly inferred release date or evidence of commercial deployment.
+
+Native review also found that the shared “Publisher’s guide” label pointed to
+a research paper on the robotics card. It now says “Source page,” which describes
+all three destinations without mislabeling the paper. The links are unchanged.
+
+| Lesson | Original publisher link | Observed playback | Context retained |
+| --- | --- | --- | --- |
+| IPM | [UC IPM](https://ipm.ucanr.edu/what-is-ipm/) → [speaker video](https://www.youtube.com/watch?v=BljIAipO2Eg) | 40 seconds of 421 | General framework; field guidance depends on crop and region. |
+| Harvest robotics | [Robofruit paper (2023)](https://arxiv.org/abs/2301.03947) → [field test](https://www.youtube.com/watch?v=v8gGAvsISXU) | 18 seconds of 81 | Historical research demonstration labeled October 2021. |
+| Primocane/floricane | [Maryland Extension](https://extension.umd.edu/resource/growing-raspberries-and-blackberries-home-garden) → [University of Maine pruning video](https://youtu.be/pOzo4s9Z9jE?feature=shared) | 113 seconds of 480 | Regional pruning context; existing card unchanged. |
+
+These were bounded availability/metadata checks, not full-video scientific
+review, perpetual availability or permission to copy the media. Videos remain
+publisher links, without hosting, embedding or autoplay. No new video, lesson,
+provider request, source approval or intelligence decision is added. The
+existing append-only presentation behavior preserves stored user media at the
+same URL; no saved lesson, citation, note or history is rewritten. The original
+27 lessons, 75 distinct citation/media URLs and wider quality gaps remain.
+
+Current local validation: 82 existing Learn/template tests pass, with zero
+attempted external connections. All 27 lessons are compared against live #490's
+presentation: only the two default video entries' title/publisher/caption fields
+change. Stored user titles, captions, attribution and additional media metadata
+at those URLs remain verbatim; repeated presentation adds no duplicates. All
+2,942 source/schema JSON files remain unchanged. Native browser review and
+current-head CI are still separate checks; this is not live-data preservation.
+
+### Retained earlier curriculum verification
+
 All 130 affected Learn/static tests pass with one existing ReportLab warning in 19.14 seconds.
 They cover the 27-record inventory, original-field/file preservation, idempotent
 copies, human-edit precedence, shared public/static rendering, accessible SVG

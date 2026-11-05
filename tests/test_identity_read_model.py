@@ -43,7 +43,8 @@ QUERIES = [
 @pytest.mark.parametrize('query,berry,order', list(product(QUERIES,
     ['', 'berry-blueberry', 'berry-strawberry', 'berry-blackberry', 'berry-raspberry'],
     ['normal', 'reversed', 'duplicate'])))
-def test_complete_results_match_unindexed_oracle(query, berry, order):
+@pytest.mark.parametrize('calculation', [False, True])
+def test_complete_results_match_unindexed_oracle(query, berry, order, calculation):
     rows = catalog()
     if order == 'reversed':
         rows.reverse()
@@ -52,9 +53,16 @@ def test_complete_results_match_unindexed_oracle(query, berry, order):
     query = {**query, 'berry_id': berry}
     before = deepcopy(rows)
     expected = identity.resolve_identity.__wrapped__(query, rows)
-    with lookup.identity_read_model_scope():
-        actual = identity.resolve_identity(query, rows)
+    if calculation:
+        @lookup.with_owned_identity_catalog
+        def calculate(*, varieties):
+            return identity.resolve_identity(query, varieties)
+        actual = calculate(varieties=rows)
+    else:
+        with lookup.identity_read_model_scope():
+            actual = identity.resolve_identity(query, rows)
     assert actual == expected
+    assert lookup.resolve_identity_batch([query], rows) == [expected]
     assert actual['auto_confirmed'] is False
     assert rows == before
 

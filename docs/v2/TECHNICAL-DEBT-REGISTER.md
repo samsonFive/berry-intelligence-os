@@ -8,6 +8,10 @@
 
 # Catalog release reconciliation — November 4 UTC, 2026
 
+## November 4 live-base reconciliation
+
+The healthy interactive app now runs source-intelligence #501 at `d785c182`, retaining editable catalog #492. The private #506 rehearsal on the preceding #492 base preserved 1,259 profiles and all five accounts; that completed evidence does not accept the newer combination. The draft now incorporates #501 and requires fresh current-head checks, browser review and live-data acceptance before exact-head release approval. The dated accounts below retain their original scope and counts.
+
 The user approved release #492. While server headroom was being recovered,
 Search/research #411 went live at `34eb23c3`. That release also admitted 442
 source-backed variety records. The catalog release is rebased onto it and
@@ -41,6 +45,18 @@ not deployed. Final checks and release evidence remain required. Earlier
 release counts below are dated preservation records, not expansion completion.
 
 # Current verified releases and remaining mission — November 3, 2026
+
+**Retained dated platform/source account:**
+
+Prepared source-only follow-up: [two historical Well-Pict labels](WELLPICT-HISTORICAL-LABELS-REVIEW.md)
+add original printed context without resolving current portfolio, numeric
+identity, role, rights, photo or region questions. CAT-01/CAT-02 and TD-116
+remain open; the scoped follow-up count rises to 144. The 11 unreadable sections
+remain. Live #490 at `3ffe5bad` and separate default-off performance #493 are
+unchanged; no new deployment, provider request or human decision is authorized
+by this draft. Earlier dated release statements below are historical.
+
+**Retained dated source-intelligence account:**
 
 November 4 historical-transcript continuity: the earlier private worktrees retain real faster-whisper podcast and YouTube caption artifacts. Two original artifacts were hash-checked and reused in an isolated Reader/workspace capture/restart canary; no retranscription, production delivery or trust change occurred. The web image deliberately excludes acquisition/STT dependencies. Explicit parent/source linkage and metadata-only transcript reference visibility now address the display disconnect; word-level quality and new recurring-worker activation remain open. See [the updated review checkpoint](SOURCE-INTELLIGENCE-REVIEW-2026-11-03.md).
 
@@ -3740,6 +3756,61 @@ review promotion. Separate final tests and release approval remain required.
 The provider's exhausted quota is an operational dependency, not repaired by
 this code. TD-122 cold catalog work remains open.
 
+### November 3 — TD-122 live #490 and rejected follow-ups
+
+Approved performance #490 is independently live at `3ffe5bad`, exact reviewed
+head `10d49757`. All four checks /6,324 tests, desktop/phone and fresh isolated
+preservation pass; five accounts, 65 profiles, 10,540 existing JSON records,
+four databases and 1,115 research files remain with zero data changes. Its
+necessary-syntax guard gives modest complete-workflow gains on the tested copy;
+Company cold loading is essentially flat. The approval is fulfilled.
+
+[The current investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md) records two
+rejected source-index variants and a rejected exact identity-filter reorder.
+The latter passes 605 affected checks and preserves all 24 complete responses,
+but its 0.7–1.3% workflow differences do not justify slower visits after new
+news. Its runtime/test edits are archived and reverted. No new cache, matcher,
+source filtering, provider call, data write or human decision is introduced.
+TD-122 remains open; source/catalog/photo/Map and independent recall review
+remain separate unfinished requirements in this mission.
+
+### November 4 — source-scoped collection handoffs
+
+[The comparison follow-up](REFERENCE-COLLECTION-CROP-HANDOFFS-2026-11-04.md)
+closes the missing strawberry/raspberry/blackberry queue action on the existing
+Coverage page. Checked source species separate raspberry/blackberry namesakes;
+unknown and mixed taxonomy remain visible and held. Individual additions are
+weak unreviewed leads; existing edits/rejections, source references and old
+blueberry IDs remain. No schema, canonical catalog, source import or human
+decision changes. CAT-01/CAT-02/TD-116 remain open for original-source depth,
+independent human recall and actual identity/rights/photo decisions. TD-122,
+fresh private rehearsal and separate release acceptance remain open.
+
+### November 4 — TD-122 further prototypes excluded
+
+The current-head profile and two complete-output prototypes are recorded in
+[the cold-load investigation](COLD-CATALOG-INVESTIGATION-2026-11-03.md#november-4--current-head-calculation-and-source-loader-probes).
+Owned candidate construction has uneven Windows results; the bounded Linux
+source-loader cache regresses Company-first total and both cold medians. Neither
+becomes an application change. Tested platform #500 and source-only #498 retain
+their separate fresh-private and release gates. TD-122, broader catalog/source
+quality and human source/name/rights/photo/Map decisions stay open. Live #490 is
+unchanged; no new provider request, backup cleanup or deployment occurs.
+
+### November 4 — shortlisted crop compatibility
+
+[The isolated identity follow-up](IDENTITY-SHORTLIST-PERFORMANCE-2026-11-04.md)
+applies the existing crop compatibility rule after name/registration/token
+lookup, retaining the unchanged matcher and wrong-crop exact-name fallback.
+The production-copy prototype preserves all 24 complete responses and 25,633
+input files across eight fresh processes, including an in-memory new article.
+Measured three-page workflows improve 6–7% relative to reviewed #506; cold
+first visits remain about five seconds. The prototype passes all 276 existing
+identity-oracle checks, and the actual file passes 288 identity/batch checks.
+One workflow replicate regresses, so further counterbalanced samples are pending.
+Full CI and separate release acceptance
+remain required. This does not change frozen #506, live data, review decisions,
+source scope or any provider configuration. TD-122 remains open.
 
 ## Collection settings review checkpoint — 2026-10-26
 
@@ -3832,3 +3903,7 @@ November 3 quotation-context repair: v21 adds source-passage condition checks fo
 November 3 region-scope closeout: explicit geography now constrains ordinary breeding/catalog questions, without requiring a trial when none was requested. Names embedded in an explicitly requested organization or cultivar do not become separate region restrictions. Related outside-region sources remain verification leads. This closes a diagnosed scope leak, not the independent general-web recall gap; deployment held.
 
 TD-GLOBAL-WATCHLIST-001 (November 4, 2026): Global Watchlist reuses the September 15 spreadsheet transcription with its unreviewed_import status. The original workbook or independently verified transcription, formal tier definitions and any more recent scoped assignments remain missing inputs. Regional/effective-date scopes are preserved by the repeatable import; mixed scopes remain unassigned rather than silently choosing a tier. Private source-association corrections are durable overlays, not edits to reviewed Fact statements or capability judgments. See docs/missions/global-watchlist-20261104/HANDOFF.md. No new source coverage or maturity claim is made.
+
+November 4 source-intelligence #508 release: canonical `00adb635` deploys bounded selection fairness and narrow Spanish blueberry-industry relevance. All four exact-head checks pass (6,675 passed / 11 skipped); corrected offline proof reads/hashes all 26,281 snapshot files as app UID. Fresh release backup and 16 live checks preserve 4,552 data files, four databases, photos/private files and 1,268 varieties. News timer/selector retained; no new recurring media/STT activation, provider spend, trust promotion or new canonical Source/data records. Real transcript Readers remain available; audio word accuracy, broader destination capture, manual production collection canary, Exa allowance, linked-page Reader and sealed analyst outcomes remain open. Earlier failed comparisons are unchanged. See [release #508](SOURCE-INTELLIGENCE-RELEASE-508-2026-11-04.md).
+
+November 4 owned-portfolio calculation follow-up (TD-122): a separate local draft prepares one owned catalog per pure portfolio rebuild while retaining the original matcher, ordinary per-lookup freshness, human decisions and existing complete-input memo. 610 affected checks pass; complete public-data output comparisons and counterbalanced workflow confirmation are retained in [the validation note](OWNED-PORTFOLIO-CALCULATION-PERFORMANCE-2026-11-04.md). Individual visit timings vary; no private/live latency or release acceptance is claimed. This does not modify #514’s frozen staging head or grant image-transfer, merge or deployment approval. Keep TD-122 open.

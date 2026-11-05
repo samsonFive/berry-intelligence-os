@@ -28,6 +28,14 @@ IDENTITY_LABELS = {
     "alias_match": "Matched as an alias",
 }
 
+MONITORING_LABELS = {
+    "no_supported_source": "No monitoring source",
+    "manual_monitoring_required": "Manual checking needed",
+    "source_configured_never_run": "Awaiting first check",
+    "linked_to_runnable_source": "Collection configured",
+    "source_blocked": "Source blocked",
+}
+
 REPORT_EXAMPLE_PROMPTS = [
     {
         "label": "Blueberry genetics in Europe",
@@ -49,7 +57,7 @@ def humanize_label(value: Any) -> str:
     text = str(value or "").strip()
     if not text:
         return ""
-    mapped = ROLE_LABELS.get(text) or IDENTITY_LABELS.get(text)
+    mapped = ROLE_LABELS.get(text) or IDENTITY_LABELS.get(text) or MONITORING_LABELS.get(text)
     if mapped:
         return mapped
     cleaned = text.replace("-", " ").replace("_", " ").strip()

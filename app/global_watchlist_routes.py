@@ -18,6 +18,8 @@ def model(request, supplied_params=None):
     params = dict(request.query_params) if supplied_params is None else dict(supplied_params)
     if supplied_params is None and request.query_params.getlist('region'):
         params['region'] = ','.join(request.query_params.getlist('region'))
+    from app.services import feed_first
+    request.state.watchlist_feed_state = feed_first.load_state(main.INBOX_DIR)
     try:
         saved = landscapes.load_views(main.INBOX_DIR)['views']
         selected_view = saved.get(params.get('saved_view', ''))
@@ -27,7 +29,8 @@ def model(request, supplied_params=None):
             params = {**landscapes.watchlist_scope(selected_view), **params}
         result = gw.build(entities=main.all_entities(), evidence=main.published_evidence(),
             relationships=main.all_relationships(), signals=main.all_signals(), assessments=main.all_assessments(),
-            data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources())
+            data_dir=main.DATA_DIR, store=store, watches=load_watches(main.INBOX_DIR), params=params, sources=main.load_sources(),
+            tracking_state=request.state.watchlist_feed_state)
         result['selected_saved_view'] = selected_view
         result['saved_watchlist_views'] = [{**row, 'href': landscapes.view_href(row)} for row in saved.values()
             if row.get('surface') == 'watchlist' and not row['archived']]
@@ -52,6 +55,8 @@ def model(request, supplied_params=None):
     result['export_href'] = '/global-watchlist/export.pdf' + ('?' + query if query else '')
     clear_keys = {'company'} if result['company'] and result['selected'] else {'company', 'compare'}
     result['browse_href'] = '/global-watchlist?' + urlencode({k: v for k, v in params.items() if k not in clear_keys})
+    cleared_tracking = {**params, 'favorites': '', 'company_tier': '', 'list': ''}
+    result['clear_tracking_href'] = '/global-watchlist?' + urlencode(cleared_tracking)
     for row in result['all_rows']:
         row['href'] = '/global-watchlist?' + urlencode({**params, 'company': row['id']})
     result['letter_urls'] = {letter: '/global-watchlist?' + urlencode({
@@ -65,7 +70,7 @@ def page(request: Request):
     main, _, _, result = model(request)
     from app.services import feed_first, news_workspace
     from app.services.company_source_scope import source_reviewed
-    state = feed_first.load_state(main.INBOX_DIR)
+    state = request.state.watchlist_feed_state
     support = news_workspace.escalations(main.all_facts())
     cards = []
     for story in result['news'][:30]:
