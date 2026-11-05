@@ -1,0 +1,83 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cas-china-forestry-grant-20190411",
+      "title": "China forestry authority · Institute of Botany blueberry grant 20190411",
+      "url": "https://www.forestry.gov.cn/c/www/gkzfwj/272633.jhtml",
+      "company_ids": ["company-institute-of-botany-cas"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2020-01-08",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One Institute of Botany blueberry entry in the 2019 second grant batch, row 197 on PDF page 11. The institute's own table repeats the printed name and grant number.",
+      "limitations": "The 2019 grant decision identifies the listed rights holder at that time. Current legal status, transfers, licensing and commercial use need separate evidence. This checks one row of the register.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_row_check",
+        "original_pdf_url": "https://www.forestry.gov.cn/html/main/main_72/20191226155119210120406/file/20200108102428229433872.pdf",
+        "capture_sha256": "f6d65bb914c2ae43d362ff1547b65684b3240c718ff83b6fe7190adee66672c4",
+        "pdf_page": 11,
+        "row_number": 197,
+        "institute_reference_url": "https://pdsc.ibcas.ac.cn/cgry/pz/xwzq/",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "蓝闺蜜",
+          "denomination": "蓝闺蜜",
+          "berry_id": "berry-blueberry",
+          "jurisdiction": "CN",
+          "application_number": "20180703",
+          "application_date": "2018-10-22",
+          "grant_number": "20190411",
+          "grant_date": "2019-12-31",
+          "product_url": "https://www.forestry.gov.cn/html/main/main_72/20191226155119210120406/file/20200108102428229433872.pdf#page=11",
+          "source_company_context": "The grant row names 中国科学院植物研究所 (Institute of Botany, Chinese Academy of Sciences) as the listed rights holder at the time of the notice.",
+          "portfolio_context": "The authority prints 蓝闺蜜 under Vaccinium. The institute describes it as blueberry and lists the same grant number. Preserve the original Chinese spelling for identity review."
+        }
+      ]
+    },
+    {
+      "id": "portfolio-smart-berries-crows-nest-field-report-2026",
+      "title": "Australian Berry Journal · Smart Berries at Crow’s Nest",
+      "url": "https://berries.net.au/resource/sekoya-pop-a-crunchy-revolution/",
+      "company_ids": ["company-smart-berries"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "source_type": "firsthand_grower_report",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All three blueberry names explicitly reported at Smart Berries’ Crow’s Nest, Queensland site in the Spring 2026 Australian Berry Journal field report, printed pages 105–107.",
+      "limitations": "This report covers one site and records the company's activity and expectations at the time. Future harvest plans, current production scale, commercial rights and confirmed growing regions remain separate review decisions.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://berries.net.au/wp-content/uploads/2026/09/ABJ-Spring-2026-Edition-28-BB-%E2%80%98Sekoya-Pop-A-Crunchy-Revolution.pdf",
+        "capture_sha256": "315071558a5ede1efd9ea1a729de494c67f6d1d688303ffe2efe66f662ed2da5",
+        "print_pages": "105–107",
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Sekoya Pop",
+          "berry_id": "berry-blueberry",
+          "source_company_context": "The field report describes trial production at the Smart Berries Crow’s Nest site. It identifies Fall Creek as the developer.",
+          "portfolio_context": "Trial conditions and future commercial volumes are described in the Spring 2026 issue. The journal carries credited photos on pages 105 and 107."
+        },
+        {
+          "candidate_name": "Sekoya Beauty",
+          "berry_id": "berry-blueberry",
+          "source_company_context": "The report says Smart Berries recently added it to the site’s variety lineup.",
+          "portfolio_context": "The report expected its first commercial harvest in 2027. That is a reported expectation as of the 2026 publication."
+        },
+        {
+          "candidate_name": "Magica",
+          "berry_id": "berry-blueberry",
+          "source_company_context": "The field report identifies Magica as an established variety produced at the Smart Berries Crow’s Nest site.",
+          "portfolio_context": "The caption on printed page 106 identifies the subject and credits Wendy Morris. Keep the original publication link for photo permission review."
+        }
+      ]
+    }
+  ]
+}

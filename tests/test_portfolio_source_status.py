@@ -146,13 +146,14 @@ def test_live_progress_is_clear_and_private_without_review_state_writes(monkeypa
     assert page.status_code==200
     assert 'tracked entries with named varieties' in page.text
     assert 'Company source-check progress' in page.text and 'entry with source gaps' in page.text
-    assert 'Pages checked · varieties not named here' in page.text
+    assert 'Names found · more sources to check' in page.text
     assert 'company lists still need names checked' not in page.text
     assert 'variety_coverage.css?v=11' in page.text
     assert 'href="#portfolio-source-plan"' in page.text
     assert 'id="portfolio-source-plan" tabindex="-1"' in page.text
     benning=client.get('/varieties/coverage',params={'company':'company-denning-blueberries','berry':BLUE})
     assert benning.status_code==200 and 'No names captured in this scope' in benning.text
+    assert 'Pages checked · varieties not named here' in benning.text
     assert 'Page names enumerated' not in benning.text
     assert not list(tmp_path.rglob('*.json'))
     monkeypatch.setattr(main,'AUTHORING_MODE',False)
