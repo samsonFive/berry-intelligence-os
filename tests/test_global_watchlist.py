@@ -447,6 +447,47 @@ def test_all_four_saved_landscapes_scope_current_companies_news_and_pdf(corpus, 
     assert 'New Blueberry Organization' in response.text
 
 
+def test_global_landscapes_include_current_captures_and_share_news_tag_overrides(corpus, saved_landscape_client):
+    from lxml import html
+    from app.services import news_tags
+    from app.services.feed_first_live import save_bundle
+
+    inbox = corpus['store'].inbox
+    tag = news_tags.create(inbox, 'Trial update')['id']
+    other_tag = news_tags.create(inbox, 'Regional supply')['id']
+    captures = []
+    for berry in gw.BERRIES:
+        row = {'id': 'live-' + berry, 'title': berry.title() + ' nursery opens breeding trial',
+               'summary': f'A new commercial {berry} nursery trial focuses on improving fruit quality.',
+               'status': 'unreviewed', 'live': True, 'source_type': 'trade_press',
+               'source_url': 'https://example.org/' + berry, 'berry_ids': ['berry-' + berry],
+               'published_date': '2021-02-10'}
+        captures.append(row)
+        news_tags.override(inbox, row['id'], tag, 'add', 'tester')
+    save_bundle(inbox, {'today': '2021-02-10', 'records': captures})
+    for row in captures:
+        berry = row['berry_ids'][0].removeprefix('berry-')
+        params = {'saved_view': 'lview-watchlist-global-' + berry, 'tag': '', 'tag_choice': tag}
+        response = saved_landscape_client.get('/global-watchlist', params=params)
+        assert response.status_code == 200
+        doc = html.fromstring(response.text)
+        assert doc.xpath('//*[@id="gw-news"]//h2/a/text()') == [row['title']]
+        assert tag in doc.xpath('//*[@id="gw-news"]//button[@data-tag-id]/@data-tag-id')
+        assert doc.xpath('//*[@id="gw-news"]//span[contains(@class, "trust-label")]/text()') == ['Unreviewed']
+        assert doc.xpath('//*[@id="newsTagDrawer"]')
+
+    params = {'saved_view': 'lview-watchlist-global-blueberry', 'tag': f'{tag},{other_tag}'}
+    all_tags = saved_landscape_client.get('/global-watchlist', params=params)
+    assert captures[0]['title'] not in all_tags.text
+    any_tag = saved_landscape_client.get('/global-watchlist', params={**params, 'tag_mode': 'any'})
+    assert captures[0]['title'] in any_tag.text
+    company = saved_landscape_client.get('/global-watchlist', params={**params, 'company': 'company-a', 'tag': tag})
+    assert captures[0]['title'] not in company.text
+    news_tags.override(inbox, captures[0]['id'], tag, 'remove', 'tester')
+    removed = saved_landscape_client.get('/global-watchlist', params={**params, 'tag': tag})
+    assert captures[0]['title'] not in removed.text
+
+
 def test_saved_landscape_edits_conflicts_archives_and_overrides(corpus, saved_landscape_client):
     from app.services import landscape_workspace as views
     inbox = corpus['store'].inbox

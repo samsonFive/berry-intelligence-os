@@ -277,6 +277,21 @@ def test_default_news_aliases_and_bookmark_scope_are_read_only(workspace, monkey
     assert 'data-initial-story="live-raw"' in workspace.get('/today?item=live-raw').text
 
 
+def test_keyword_matches_saved_body_only_within_the_selected_crop(workspace):
+    from app.services.feed_first_reader import save_capture
+
+    row = article('live-blackberry', title='Blackberry nursery field trial',
+                  summary='Commercial blackberry trial results', berry_ids=['berry-blackberry'])
+    save_bundle(main.INBOX_DIR, {'today': '2026-09-30', 'records': [row]})
+    save_capture(main.INBOX_DIR, row['id'], {'requested_url': row['source_url'],
+        'passages': ['The new selection has a strong floricane crop in the first field trials.']})
+    hit = workspace.get('/today', params={'berry': 'blackberry', 'q': 'FLORICANE'})
+    assert hit.status_code == 200 and row['title'] in hit.text
+    assert 'strong floricane crop' not in hit.text
+    miss = workspace.get('/today', params={'berry': 'blueberry', 'q': 'floricane'})
+    assert miss.status_code == 200 and row['title'] not in miss.text
+
+
 def test_native_multi_scope_and_reader_for_raw_news(workspace):
     response = workspace.get('/today?berry_choice=berry-blueberry&berry_choice=berry-strawberry&countries_choice=geography-peru')
     assert response.status_code == 200 and 'data-item-id="live-raw"' in response.text

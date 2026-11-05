@@ -34,6 +34,7 @@
 
 <details class="gw-filter-panel" data-gw-filter-panel><summary>Filter companies & news{% if params.get("favorites") %} · Favorites{% endif %}{% if params.get("company_tier") %} · {{ company_tiers.get(params.company_tier) }}{% endif %}{% if selected_list %} · {{ selected_list.name }}{% endif %}{% if params.get("berry") %} · {{ params.berry|title }}{% endif %}{% if params.get('q') %} · Search: {{ params.q }}{% endif %}{% if selected_group %} · Group: {{ selected_group.name }}{% endif %}{% if params.get('tier') %} · Imported {{ params.tier }}{% endif %}{% if params.get('region') %} · {{ params.region }}{% endif %}{% if params.get('market') %} · {{ entities.get(params.market, {}).get('name',params.market) }}{% endif %}{% if params.get('entity') %} · {{ entities.get(params.entity, {}).get('name',params.entity) }}{% endif %}{% if params.get('source_type') %} · {{ params.source_type|humanize_label }}{% endif %}{% if params.get('event_type') %} · {{ params.event_type|humanize_label }}{% endif %}{% if params.get('followed') %} · Followed only{% endif %}{% if params.get('priority') %} · Priority: {{ params.priority|humanize_label }}{% endif %}{% if params.get('type') %} · {{ params.type|humanize_label }}{% endif %}</summary>
 <form class="gw-filters" method="get" action="/global-watchlist" aria-label="Watchlist filters">
+{% if 'tag' in params %}<input type="hidden" name="tag" value="{{ params.tag }}"><input type="hidden" name="tag_mode" value="{{ tag_mode }}">{% endif %}
 {% for key in ['company','compare','priority','type','saved_view'] if params.get(key) %}<input name="{{ key }}" type="hidden" value="{{ params[key] }}">{% endfor %}
 <label>Company search<input name="q" type="search" placeholder="Name or canonical alias" value="{{ params.get('q','') }}"></label>
 <label>Berry<select name="berry"><option value="">All berries</option>{% for berry in berry_options %}<option value="{{ berry }}" {% if params.get('berry') == berry %}selected{% endif %}>{{ berry|title }}</option>{% endfor %}</select></label>
@@ -85,7 +86,15 @@
 </tbody></table></div></section>
 {% endif %}
 
-<section class="gw-news-section" id="gw-news"><p class="gw-eyebrow">SOURCE-LED DEVELOPMENTS</p><h2>Relevant captured news</h2><p class="gw-muted">Chronological by publication date. Capture dates are separate. Repeated coverage does not increase confidence.</p>
+<section class="gw-news-section" id="gw-news"><p class="gw-eyebrow">SOURCE-LED DEVELOPMENTS</p><h2>Relevant captured news</h2><p class="gw-muted">Newest publications first. Includes recent captures awaiting review. Capture dates are separate.</p>
+<form method="get" action="/global-watchlist#gw-news" data-tags-panel>
+{% for key, value in params.items() if key not in ('tag', 'tag_mode') %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}
+<input type="hidden" name="tag" value="">
+<fieldset><legend>News tags</legend><div class="news-tag-chips">{% for tag in tags %}<label class="news-tag-chip"><input type="checkbox" name="tag_choice" value="{{ tag.id }}" {% if tag.id in selected_tags %}checked{% endif %}><span>{{ tag.name }}</span></label>{% endfor %}</div>
+<label>Match <select name="tag_mode"><option value="all" {% if tag_mode == 'all' %}selected{% endif %}>All selected tags</option><option value="any" {% if tag_mode == 'any' %}selected{% endif %}>Any selected tag</option></select></label>
+<button type="submit">Apply tags</button>{% if selected_tags %} <a href="{{ clear_tags_href }}">Clear tags</a>{% endif %}
+</fieldset></form>
+{% if tag_job.status != 'ready' %}<p class="gw-muted" role="status">Article tag coverage is incomplete ({{ tag_job.processed }} of {{ tag_job.total }} classified). <a href="/today">Open News to check classification</a>.</p>{% endif %}
 {% include "_news_cards.html" %}
 {% if news|length > 30 %}<p>{{ news|length - 30 }} additional developments retained. The PDF includes the complete scoped feed.</p>{% endif %}</section>
 <details class="gw-related"><summary>Related views</summary><nav class="gw-navigation" aria-label="Connected intelligence"><a href="{{ browse_href }}">Company watchlist</a><a href="/landscapes">Executive landscape</a><a href="/geographies">Regions & markets</a><a href="/entities/variety">Varieties & brands</a><a href="/competitive-evaluation">Capability research</a></nav></details>
@@ -98,3 +107,5 @@
 <details class="gw-panel"><summary>Correct a source association · protected workspace</summary><p>Choose canonical records. The correction applies each time this watchlist and its PDF are rebuilt, survives source reprocessing by stable source ID, and retains the original source record. Shared private profiles and source readers apply the same correction; public exports retain the published canonical associations.</p><form method="post" action="/global-watchlist/actions" class="gw-note-form">{{ hidden('correct') }}<label>Captured source ID<input name="record_id" required placeholder="ev-…"></label><label>Association field<select name="field"><option>entity_ids</option><option>geography_ids</option><option>berry_ids</option></select></label><label>Canonical entity ID<input name="entity_id" required placeholder="company-… / variety-…"></label><label>Correction<select name="association_action"><option value="exclude">Exclude wrong association</option><option value="include">Include supported association</option></select></label><label>Current correction version<input name="version" type="number" min="0" value="0" required></label><label>Reason<input name="reason" required maxlength="2000"></label><button>Save audited correction</button></form>{% for correction in corrections %}<p>{{ correction.record_id }} · {{ correction.action }} {{ correction.entity_id }} in {{ correction.field }} · version {{ correction.version }} · {{ correction.updated_by }} · {{ correction.reason }}</p>{% endfor %}</details>
 </div><script src="/static/global_watchlist.js?v=2" defer></script>
 {% endblock %}
+{% block scripts %}<script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
+{% block shared_overlays %}{% include "_news_article_tag_drawer.html" %}{% endblock %}

@@ -19,6 +19,7 @@ from app.services.living_workspaces import Conflict, digest, ident, now
 from app.services.entity_identity import merged_into_id
 from app.services.story_threads import group_story_threads
 from app.services.association_corrections import apply as apply_corrections
+from app.services import news_tags
 
 KINDS = {name: 'global_watchlist_' + name for name in ('group', 'note', 'correction', 'tiers')}
 ENTITY_TYPES = {'company', 'breeding_program', 'brand', 'retailer', 'nursery', 'technology_provider'}
@@ -199,7 +200,8 @@ def grouped_news(records):
     return sorted(result, key=lambda g: (g['lead'].get('published_date') or '', g['lead']['id']), reverse=True)
 
 
-def build(*, entities, evidence, relationships, signals, assessments, data_dir, store, watches, params, sources=(), tracking_state=None):
+def build(*, entities, evidence, relationships, signals, assessments, data_dir, store, watches, params,
+          sources=(), tracking_state=None, captured_news=(), tags=(), tag_assignments=(None, None)):
     entities = {r['id']: r for r in entities if r['id'] not in SEED_FIXTURE_ENTITY_IDS and not merged_into_id(r)}
     corrections = store.rows(KINDS['correction'])
     records = corrected_records(evidence, corrections)
@@ -357,24 +359,43 @@ def build(*, entities, evidence, relationships, signals, assessments, data_dir, 
     focus = [row for row in focus if matches_tracking(row['id'])]
     # An explicitly selected, filtered-out company must never fall back to other news.
     focus_ids = {r['id'] for r in (focus if focus_selection else filtered)}
-    news_records = [r for r in records if focus_ids.intersection(r.get('entity_ids') or [])
+    company_scoped = not berry or focus_selection or any(params.get(key) for key in (
+        'tier', 'group', 'region', 'entity', 'followed', 'priority', 'type', 'letter', 'q',
+        'favorites', 'company_tier', 'list'))
+    canonical_ids = {r['id'] for r in evidence}
+    incoming = apply_corrections([r for r in captured_news if real_record(r) and r['id'] not in canonical_ids], corrections)
+    selected_tags = set(str(params.get('tag') or '').split(',')) - {''}
+    tag_mode = params.get('tag_mode') or 'all'
+    if selected_tags - {tag['id'] for tag in tags} or tag_mode not in {'all', 'any'}:
+        raise ValueError('Choose available news tags and All or Any matching')
+    news_records = [r for r in [*records, *incoming]
+                    if (not company_scoped or focus_ids.intersection(r.get('entity_ids') or []))
                     and (not berry or 'berry-' + berry in (r.get('berry_ids') or []))
                     and (not params.get('source_type') or r.get('source_type') == params['source_type'])
                     and (not params.get('event_type') or r.get('event_type') == params['event_type'])
                     and (not params.get('market') or params['market'] in set(r.get('geography_ids') or []) | set(r.get('entity_ids') or []))]
-    for record in news_records:
-        record['source_url'] = safe_url(record.get('source_url'))
+    news_records = [{**r, 'source_url': safe_url(r.get('source_url'))} for r in news_records]
+    if selected_tags:
+        def matches_tags(record):
+            assigned = set(news_tags.effective(record, tags, *tag_assignments))
+            return selected_tags <= assigned if tag_mode == 'all' else bool(selected_tags & assigned)
+
+        news_records = [r for r in news_records if matches_tags(r)]
     news = grouped_news(news_records)
+    for story in news:
+        assigned = news_tags.effective(story['lead'], tags, *tag_assignments)
+        story['assigned_tags'] = [tag for tag in tags if tag['id'] in assigned]
     notes = [n for n in store.rows(KINDS['note']) if n['entity_id'] in focus_ids]
     return {'rows': filtered, 'all_rows': all_rows, 'focus': focus, 'selected': selected, 'company': company,
         'focus_selection': focus_selection, 'excluded_focus': excluded_focus,
         'lists': lists, 'selected_list': selected_list, 'company_tiers': company_directory.TIERS,
         'entities': entities, 'news': news, 'notes': notes, 'corrections': corrections, 'groups': group_rows, 'letters': letters,
+        'tags': tags, 'selected_tags': selected_tags, 'tag_mode': tag_mode,
         'selected_group': selected_group, 'tier_report': report, 'params': params, 'berry_options': BERRIES,
         'tier_options': TIER_STATUS_VALUES, 'region_options': list(dict.fromkeys([*REGIONS, 'DOTA', 'DEMEA', 'DOA_DANZ',
             *[region for row in all_rows for region in row['monitoring_regions']]])),
         'markets': sorted([g for g in entities.values() if g.get('entity_type') == 'geography'], key=lambda g: g['name']),
-        'source_types': sorted({r.get('source_type') for r in records if r.get('source_type')}),
-        'event_types': sorted({r.get('event_type') for r in records if isinstance(r.get('event_type'), str) and r['event_type']}),
+        'source_types': sorted({r.get('source_type') for r in [*records, *incoming] if r.get('source_type')}),
+        'event_types': sorted({r.get('event_type') for r in [*records, *incoming] if isinstance(r.get('event_type'), str) and r['event_type']}),
         'corpus_count': len(all_rows), 'record_count': len(news_records), 'exported_at': now(),
         'data_note': 'Captured coverage, not market share or competitive strength. Missing evidence is unknown. No live feed connection is implied.'}

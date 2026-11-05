@@ -10,6 +10,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether
 
 from app.services.global_watchlist import real_record, safe_url
+from app.services.company_source_scope import source_reviewed
 from app.services.stakeholder_ui import humanize_label
 
 
@@ -90,6 +91,9 @@ def render(model):
             return model['selected_list']['name']
         if key == 'company_tier':
             return model.get('company_tiers', {}).get(value, value)
+        if key == 'tag':
+            names = {tag['id']: tag['name'] for tag in model.get('tags', ())}
+            return ', '.join(names.get(item, item) for item in str(value).split(','))
         if key == 'favorites':
             return 'Favorites only'
         if key in {'source_type', 'event_type', 'type', 'priority', 'berry'}:
@@ -192,7 +196,8 @@ def render(model):
         lead = group['lead']
         heading = [p(f"{number:02d}. {lead.get('title') or lead['id']}", 'GWHeading'), p(group['independence'], 'GWMeta')]
         for source_index, source in enumerate(group['sources']):
-            metadata = [source.get('source_name') or 'Publisher unknown', humanize_label(source.get('source_type')) or 'Type unknown']
+            metadata = [source.get('source_name') or 'Publisher unknown', humanize_label(source.get('source_type')) or 'Type unknown',
+                        'Source reviewed' if source_reviewed(source) else 'Unreviewed capture']
             if not source.get('title') and not safe_url(source.get('source_url')):
                 metadata.append(source['id'])
             source_block = ([p(source['title'])] if source_index and source.get('title') and source['title'] != lead.get('title') else []) + [p(' | '.join(metadata), 'GWMeta'),

@@ -22,7 +22,7 @@ PREVIEW_FIELDS = {
     "supporting_excerpt", "attribution", "classification", "original_text_excerpt",
     "id", "record_type", "status", "review_state", "evidence_role", "title", "summary", "why_it_matters",
     "source_type", "source_name", "source_id", "source_url", "published_date", "captured_date",
-    "accessed_date", "published_at", "published_date_basis", "submitted_by", "reviewed_by", "reviewed_at",
+    "accessed_date", "published_at", "published_date_basis", "captured_at", "submitted_by", "reviewed_by", "reviewed_at",
     "created_at", "updated_at", "entity_ids", "company_ids", "berry_ids", "geography_ids", "geography_scope",
     "region", "country", "tags", "topics", "topic_ids", "priority", "source_authority", "verification_state",
     "trust_state", "live", "auto_captured", "validated", "media_type", "media_format", "content_kind",
@@ -30,7 +30,8 @@ PREVIEW_FIELDS = {
     "preview_image_url", "thumbnail_url", "source_image_url", "origin_publisher_url",
     "acquisition_lane", "discovery_provenance", "transcript_status", "media_url", "discovered_item_id",
     "destination_market_ids", "origin_market_ids", "scope_resolution", "event_date", "first_seen_at",
-    "canonical_url", "syndication_group_id", "competitive_source_ids",
+    "canonical_url", "syndication_group_id", "competitive_source_ids", "event_type",
+    "is_demo", "demo", "data_class", "illustrative",
 }
 
 
