@@ -291,7 +291,7 @@ def test_pdf_matches_scoped_projection_and_excludes_demo(corpus):
     assert 'Invented sensory' not in text and 'SECRET draft' not in text
     assert 'Internal / Confidential' in text
     assert 'AI PROPOSED' in text
-    assert 'African Farms | owns | Africa Blue' in text
+    assert 'African Farms | Owns | Africa Blue' in text
 
 
 def test_pdf_people_keep_their_source_references_on_the_same_page(corpus):
@@ -311,6 +311,48 @@ def test_pdf_people_keep_their_source_references_on_the_same_page(corpus):
     pages = [page.extract_text() for page in PdfReader(io.BytesIO(render(model))).pages]
     for i in range(20):
         assert any(f'Person Record {i:02d}' in page and f'https://publisher.example/people/record-{i:02d}' in page for page in pages)
+
+
+def test_pdf_named_citations_preserve_literal_titles_dates_links_and_unknown_references(corpus):
+    import io
+    from pypdf import PdfReader
+    from app.services.global_watchlist_pdf import render
+    corpus['params'] = {'company': 'company-a'}
+    corpus['evidence'][0].update(title='Literal Research_2026 title', source_type='plant_patent')
+    corpus['relationships'] = [{'id': 'rel-proof', 'subject_id': 'company-b', 'predicate': 'partners_with',
+                                'object_id': 'company-a', 'status': 'active',
+                                'evidence_ids': ['ev-old', 'ev-unresolved-reference']}]
+    model = gw.build(**corpus)
+    model['tier_report']['source'] = 'internal_competitor_registry_spreadsheet'
+    model['exported_at'] = '2026-11-05T16:44:33.873596+00:00'
+    before = deepcopy(model)
+    pdf = PdfReader(io.BytesIO(render(model)))
+    text = '\n'.join(page.extract_text() for page in pdf.pages)
+    assert model == before
+    assert 'Competitor registry spreadsheet' in text and 'internal_competitor_registry_spreadsheet' not in text
+    assert '05 Nov 2026, 16:44 UTC' in text and '16:44:33.873596' not in text
+    assert '1 organization | 2 captured source records' in text
+    assert 'Literal Research_2026 title' in text and 'Syndicated copy' in text
+    assert 'ev-old' not in text and 'ev-reprint' not in text
+    assert 'ev-unresolved-reference' in text
+    assert 'Partners with' in text and 'partners_with' not in text
+    assert '2020-01-01' in text and '2026-11-04' in text
+    urls = {str(annotation.get_object().get('/A', {}).get('/URI'))
+            for page in pdf.pages for annotation in page.get('/Annots', [])}
+    assert 'https://publisher.example/old' in urls
+
+
+def test_pdf_legacy_export_label_and_operator_source_name_stay_literal(corpus):
+    import io
+    from pypdf import PdfReader
+    from app.services.global_watchlist_pdf import render
+    model = gw.build(**corpus)
+    model['tier_report']['source'] = 'Keep_my_literal_source_label'
+    model['exported_at'] = 'legacy_unparsed_export_label'
+    del model['record_count']  # Older retained projections need no new field.
+    text = '\n'.join(page.extract_text() for page in PdfReader(io.BytesIO(render(model))).pages)
+    assert 'Keep_my_literal_source_label' in text and 'legacy_unparsed_export_label' in text
+    assert '2 captured source records' in text
 
 
 def test_seeded_landscapes_are_global_durable_and_never_reset_customizations(corpus):
