@@ -1,0 +1,235 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-blugenix-original-sheet-bounty",
+      "title": "BluGenix Bounty · Original technical sheet",
+      "url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_02.pdf",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-05",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One titled cultivar, Bounty, on page 1 of its BluGenix technical sheet. Other named varieties appear as comparisons.",
+      "limitations": "Breeder-reported figures and regional harvest calendars describe the sheet. Review test methods, current plantings, commercial rights and photo permission separately.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_02.pdf",
+        "capture_sha256": "a3c6a66005de5bb27854bf03f5d31ef4a8043f07600c0ce4357d7e31af2bc6cf",
+        "pdf_page": 1,
+        "variety_page_url": "https://blugenix.com.au/varieties/",
+        "launch_article_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "reported_storage": {
+          "temperature_celsius": 4,
+          "pdf_days": 32,
+          "variety_page_days": 32,
+          "launch_article_days": 27,
+          "launch_article_up_to": false
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Bounty",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_02.pdf",
+          "portfolio_context": "BluGenix reports 32 days of storage at 4 °C in the PDF. This is a publisher figure awaiting review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "The BluGenix PDF and variety page list 32 days at 4 °C. Produce Report gives 27 days for Bounty. The sources give no comparable test protocol or sample details.",
+        "The printed harvest chart shows Central Mexico in January through May. The linked web chart leaves that row blank. Review this discrepancy before drawing a growing-region conclusion."
+      ]
+    },
+    {
+      "id": "portfolio-blugenix-original-sheet-breeze",
+      "title": "BluGenix Breeze · Original technical sheet",
+      "url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_03.pdf",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-05",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One titled cultivar, Breeze, on page 1 of its BluGenix technical sheet. Other named varieties appear as comparisons.",
+      "limitations": "Breeder-reported figures and regional harvest calendars describe the sheet. Review test methods, current plantings, commercial rights and photo permission separately.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_03.pdf",
+        "capture_sha256": "8d13b264d1c06834eb7327240f0acdfdbcbaed1c0b95840e769e0205e3bbb67d",
+        "pdf_page": 1,
+        "variety_page_url": "https://blugenix.com.au/varieties/",
+        "launch_article_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "reported_storage": {
+          "temperature_celsius": 4,
+          "pdf_days": 27,
+          "variety_page_days": 27,
+          "launch_article_days": 27,
+          "launch_article_up_to": false
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Breeze",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_03.pdf",
+          "portfolio_context": "BluGenix reports 27 days of storage at 4 °C in the PDF. This is a publisher figure awaiting review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-blugenix-original-sheet-cascade",
+      "title": "BluGenix Cascade · Original technical sheet",
+      "url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_01.pdf",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-05",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One titled cultivar, Cascade, on page 1 of its BluGenix technical sheet. Other named varieties appear as comparisons.",
+      "limitations": "Breeder-reported figures and regional harvest calendars describe the sheet. Review test methods, current plantings, commercial rights and photo permission separately.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_01.pdf",
+        "capture_sha256": "a333a329dc39837e835f647b8bf99f6f25c47110f5837fa1939e190b887be9d3",
+        "pdf_page": 1,
+        "variety_page_url": "https://blugenix.com.au/varieties/",
+        "launch_article_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "reported_storage": {
+          "temperature_celsius": 4,
+          "pdf_days": 24,
+          "variety_page_days": 27,
+          "launch_article_days": 27,
+          "launch_article_up_to": false
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Cascade",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_01.pdf",
+          "portfolio_context": "BluGenix reports 24 days of storage at 4 °C in the PDF. This is a publisher figure awaiting review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "The BluGenix PDF lists 24 days at 4 °C. The BluGenix variety page and Produce Report list 27 days. The sources give no comparable test protocol or sample details."
+      ]
+    },
+    {
+      "id": "portfolio-blugenix-original-sheet-delight",
+      "title": "BluGenix Delight · Original technical sheet",
+      "url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_04.pdf",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-05",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One titled cultivar, Delight, on page 1 of its BluGenix technical sheet. Other named varieties appear as comparisons.",
+      "limitations": "Breeder-reported figures and regional harvest calendars describe the sheet. Review test methods, current plantings, commercial rights and photo permission separately.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_04.pdf",
+        "capture_sha256": "11a0ad78994bc021a5c1bb76c114e24b9a83071dc98c692d918586d13078b9da",
+        "pdf_page": 1,
+        "variety_page_url": "https://blugenix.com.au/varieties/",
+        "launch_article_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "reported_storage": {
+          "temperature_celsius": 4,
+          "pdf_days": 26,
+          "variety_page_days": 27,
+          "launch_article_days": 27,
+          "launch_article_up_to": false
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Delight",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_04.pdf",
+          "portfolio_context": "BluGenix reports 26 days of storage at 4 °C in the PDF. This is a publisher figure awaiting review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "The BluGenix PDF lists 26 days at 4 °C. The BluGenix variety page and Produce Report list 27 days. The sources give no comparable test protocol or sample details."
+      ]
+    },
+    {
+      "id": "portfolio-blugenix-original-sheet-eterna",
+      "title": "BluGenix Eterna · Original technical sheet",
+      "url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_05.pdf",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-11-05",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One titled cultivar, Eterna, on page 1 of its BluGenix technical sheet. Other named varieties appear as comparisons.",
+      "limitations": "Breeder-reported figures and regional harvest calendars describe the sheet. Review test methods, current plantings, commercial rights and photo permission separately.",
+      "capture_reference": {
+        "method": "downloaded_original_pdf_text_and_visual_page_check",
+        "original_pdf_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_05.pdf",
+        "capture_sha256": "e86b0272ffadf05a9e4bfa37b26459fe2bf33d2f0f1b86b8066b88269444997a",
+        "pdf_page": 1,
+        "variety_page_url": "https://blugenix.com.au/varieties/",
+        "launch_article_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "reported_storage": {
+          "temperature_celsius": 4,
+          "pdf_days": 50,
+          "variety_page_days": 50,
+          "launch_article_days": 50,
+          "launch_article_up_to": true
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Eterna",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_05.pdf",
+          "portfolio_context": "BluGenix reports 50 days of storage at 4 °C in the PDF. This is a publisher figure awaiting review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}
