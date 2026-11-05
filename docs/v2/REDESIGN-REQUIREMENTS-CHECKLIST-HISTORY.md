@@ -4105,3 +4105,69 @@ original test copies remain retained. No extra cleanup, bulk import or paid
 provider request is authorized. Keep component PRs open until canonical
 incorporation is verified after an approved release. Earlier active texts are
 preserved in [history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026---checklist-before-live501-reconciliation).
+
+## November 5, 2026 - retained summary before verified release 516
+
+# Berry Intelligence — requirements and current status
+
+Updated November 4, 2026. This is the current summary. Earlier release counts,
+copy locations and pending requests are dated history, not instructions to run
+an old release. All 31 accepted requirement definitions and their order remain
+unchanged below.
+
+## Current release state
+
+Source #508 is independently reported healthy at canonical `00adb635`, image
+`cc0b542f`; its [release receipt](SOURCE-INTELLIGENCE-RELEASE-508-2026-11-04.md)
+records preserved accounts, data, research and photo files. Separately approved
+saved-landscape #507 passed all four checks and merged at `8f510b53`; its owner
+is completing the reserved deployment window. A merge is not live acceptance.
+
+[Combined draft #514](https://github.com/samsonFive/berry-intelligence-os/pull/514)
+retains #506/#509–#513 and both peer patches. It includes shared company scope
+in Watchlist, Evaluation and linked Workspaces; safe clearing of saved filters;
+readable PDF labels; compact phone controls; identity lookup performance; Learn
+presentation; additive source observations; and retained catalog editing.
+It is not approved for merge or deployment. Frozen component drafts and their
+completed evidence stay intact until canonical incorporation is verified.
+
+## What has been checked
+
+182 related tests, two direct combined integration cases and 32 further
+Watchlist/Help checks pass, with zero attempted external connections. Combined
+native desktop/390px review verifies all four saved berry landscapes, custom
+favorite/tier scope, explicit clearing and unchanged starter definitions.
+The phone table starts about 260px higher; Focus table shows four complete rows.
+The three-page fictional PDF fixture renders cleanly. News images, the Reader's
+explicit unavailable-text fallback/publisher links and the visual Help explainer
+remain available. This is not real-publisher fetch or source-quality acceptance.
+Fresh current-head CI and actual live-base preservation remain mandatory.
+See [the combined evidence and gates](FINAL-MISSION-RECONCILIATION-2026-11-04.md).
+
+## Work remaining here
+
+| Work | Completion evidence needed |
+| --- | --- |
+| Combined release | Reconcile final #507/#508 canonical/live receipts; all four current-head checks; fresh guarded private-data/route/PDF preservation; explicit exact-head release approval; fresh backup, retained rollback and verified live behavior. |
+| Cold-load speed / TD-122 | Measure the final current-copy first visit and workflow with equal complete outputs and fresh edits. The identity shortlist showed bounded median improvement of about 6.6%; deep cold catalog visits still take seconds. Excluded caches remain excluded. |
+| Catalog depth / CAT-01, CAT-02 | Continue measurable original-source, portfolio, trait, rights, region and attributed-photo coverage. The 77-subject plan retains 67 named, seven partial, one unavailable and two identity holds; 11 originals remain unreadable. Source capture never approves identity or commercial roles. |
+| Independent review | Preserve the human-owned 32-source expected-name packet, 32 unclear photographed cells and name/code/role/rights/photo queues. Parser output cannot provide its own independent answer key. |
+| Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds; preserve crop, geography, period, units and citation. Company presence is not a growing footprint. |
+| Learn depth | Retain 27 visual lessons and the completed editable provider draft; improve citations/media/scientific quality without replacing edits or history. The one approved real request cost USD0.13679; no further paid request or retry is authorized. |
+
+The requested visual explainer at `/guide` covers site sections, the analyst
+workflow and reporting choices. Workspaces, company favorites/tiers/lists and
+saved landscapes are shared; only Personal Digest and account layouts are
+private. All accounts including Chris.H, data mounts, settings, private research,
+photos and existing user edits remain protected. Publication, individual claim,
+source authenticity, catalog identity, commercial role and photo permissions
+remain separate human decisions.
+
+The old #506 runtime-check was removed by the source owner under its separately
+approved exact cleanup scope after verified recovery. Do not reuse that path or
+old controllers. All archives, deltas, recipes, receipts, images and rollback
+remain. The unchanged resource guard requires 10 GiB free; no remaining deletion
+scope, new provider call, bulk import or release approval is implied.
+
+Prior status summaries are retained in
+[checklist history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md#november-4-2026--status-before-final-combined-reconciliation-review).

@@ -1,5 +1,6 @@
 """Paginated PDF of the exact protected Global Watchlist projection."""
 from io import BytesIO
+from datetime import datetime, timezone
 from xml.sax.saxutils import escape
 
 from reportlab.lib import colors
@@ -10,6 +11,17 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 
 from app.services.global_watchlist import real_record, safe_url
 from app.services.stakeholder_ui import humanize_label
+
+
+def _export_label(value):
+    """Format the generated export clock without changing source dates or prose."""
+    try:
+        stamp = datetime.fromisoformat(value)
+    except (ValueError, TypeError):
+        return str(value or '')
+    if stamp.tzinfo is not None:
+        return stamp.astimezone(timezone.utc).strftime('%d %b %Y, %H:%M UTC')
+    return stamp.strftime('%d %b %Y, %H:%M')
 
 
 def render(model):
@@ -45,11 +57,26 @@ def render(model):
         ]))
         return item
 
+    records = {}
+    for row in model.get('all_rows', []):
+        for record in row.get('evidence', []):
+            records.setdefault(record['id'], record)
+    for group in model['news']:
+        for record in group['sources']:
+            records.setdefault(record['id'], record)
+
+    def references(record_ids):
+        # Keep an unresolved reference literal; never invent a source title.
+        return '; '.join(records.get(key, {}).get('title') or key for key in record_ids)
+
+    rows = model['focus'] if model.get('focus_selection', bool(model['focus'])) else model['rows']
+    record_count = model.get('record_count', sum(len(group['sources']) for group in model['news']))
     width = A4[0] - 90
     story = [p('BERRY OS / COMPETITIVE INTELLIGENCE', 'GWMeta'), Spacer(1, 12),
              p('Global Watchlist', 'GWTitle'), p('Competitive landscape and captured evidence', 'GWHeading'),
              p('Internal / Confidential - protected workspace export', 'GWMeta'),
-             p('Exported ' + model['exported_at'] + '. This is the export time, not the freshness of every source.', 'GWMeta')]
+             p('Exported ' + _export_label(model['exported_at']) + '. Source publication dates are shown with each record.', 'GWMeta'),
+             p(f"{len(rows)} {'organization' if len(rows) == 1 else 'organizations'} | {record_count} captured source records", 'GWHeading')]
     def scope_value(key, value):
         if key in {'company', 'entity', 'market'}:
             return model['entities'].get(value, {}).get('name') or value
@@ -78,11 +105,11 @@ def render(model):
         story.append(p(f"Workspace group: {group['name']} | {len(group['member_ids'])} saved members. Filters do not change membership."))
     story += [p(model['data_note']), p('Coverage is not performance. Genetic potential and commercial adoption are separate. No combined numerical threat score is defined. Internal sensory data is unavailable; no illustrative sensory values are included.')]
     report = model['tier_report']
+    registry_source = {'internal_competitor_registry_spreadsheet': 'Competitor registry spreadsheet'}.get(report['source'], report['source'])
     story += [p('Classification provenance', 'GWHeading'),
-              p(f"{report['source']} | snapshot {report['snapshot_date']} | {humanize_label(report['review_state'])}"),
+              p(f"{registry_source} | snapshot {report['snapshot_date']} | {humanize_label(report['review_state'])}"),
               p(report['caveat']), p(f"{report['source_row_count']} source rows; {len(report['assignments'])} unique berry assignments; {len(report['unmatched'])} unmatched; {len(report['conflicts'])} conflicts.", 'GWMeta'),
               p('Imported regions describe monitoring scope, not proof of market presence. A tier belongs to its selected berry, never a company-wide performance score.', 'GWMeta')]
-    rows = model['focus'] if model.get('focus_selection', bool(model['focus'])) else model['rows']
     if model.get('excluded_focus'):
         story.append(p('Excluded by company filters: ' + ', '.join(row['name'] for row in model['excluded_focus']) + '. Clear company filters to restore the selection.'))
     story += [p(f'Organizations ({len(rows)})', 'GWHeading')]
@@ -107,29 +134,29 @@ def render(model):
             for relationship in row['relationships']:
                 subject_name = model['entities'].get(relationship.get('subject_id'), {}).get('name', relationship.get('subject_id'))
                 object_name = model['entities'].get(relationship.get('object_id'), {}).get('name', relationship.get('object_id'))
-                story.append(p(f"{subject_name} | {relationship.get('predicate', 'Relationship')} | {object_name} | status {relationship.get('status', 'Unknown')} | confidence {relationship.get('confidence', 'Unknown')}"))
-                story.append(p('Sources: ' + ', '.join(relationship.get('evidence_ids') or []) + '; date ' + str(relationship.get('effective_date') or relationship.get('start_date') or 'Unknown'), 'GWMeta'))
+                story.append(p(f"{subject_name} | {humanize_label(relationship.get('predicate')) or 'Relationship'} | {object_name} | status {humanize_label(relationship.get('status')) or 'Unknown'} | confidence {humanize_label(relationship.get('confidence')) or 'Unknown'}"))
+                story.append(p('Sources: ' + references(relationship.get('evidence_ids') or []) + '; date ' + str(relationship.get('effective_date') or relationship.get('start_date') or 'Unknown'), 'GWMeta'))
             if not row['relationships']:
                 story.append(p('No sourced relationships captured.'))
             story.append(p('Genetic potential - evidence and limitations', 'GWHeading'))
             story.append(p('No genetic threat score is defined. Registry filings do not establish breeding performance or adoption.'))
             for record in row['genetic_evidence']:
-                story.append(p((record.get('title') or record['id']) + ' | ' + record['id'], 'GWMeta'))
+                story.append(p(record.get('title') or record['id'], 'GWMeta'))
             if not row['genetic_evidence']:
                 story.append(p('Insufficient captured genetic evidence.', 'GWMeta'))
             story.append(p('Commercial adoption - observed evidence', 'GWHeading'))
             story.append(p('Market mentions, licences and patent filings do not establish sales or acreage. Brand-only records do not establish a variety association.'))
             for record in row['adoption_evidence']:
-                story.append(p((record.get('title') or record['id']) + ' | ' + record['id'], 'GWMeta'))
+                story.append(p(record.get('title') or record['id'], 'GWMeta'))
             if not row['adoption_evidence']:
                 story.append(p('Insufficient structured adoption observations. No zero adoption or weak capability is inferred.', 'GWMeta'))
             story.append(p('Company assessments and signals', 'GWHeading'))
             for assessment in row['assessments']:
                 story += [p(assessment.get('title') or assessment.get('summary') or assessment['id']),
                           p(f"{'AI PROPOSED' if assessment.get('ai_proposed') else 'REVIEWED'} | status {assessment.get('status', 'Unknown')}; confidence {assessment.get('confidence', 'Unknown')}; scope {assessment.get('market_ids') or 'Company-wide / undeclared'}", 'GWMeta'),
-                          p('Sources: ' + ', '.join(assessment.get('evidence_ids') or []), 'GWMeta')]
+                          p('Sources: ' + references(assessment.get('evidence_ids') or []), 'GWMeta')]
             for signal in row['signals']:
-                story += [p(signal.get('title') or signal['id']), p(f"Signal status {signal.get('status', 'Unknown')}; sources: {', '.join(signal.get('evidence_ids') or [])}", 'GWMeta')]
+                story += [p(signal.get('title') or signal['id']), p(f"Signal status {signal.get('status', 'Unknown')}; sources: {references(signal.get('evidence_ids') or [])}", 'GWMeta')]
             if not row['assessments'] and not row['signals']:
                 story.append(p('No company assessment or signal captured. No zero strength or threat is inferred.'))
         capabilities = model.get('capabilities') or {}
@@ -165,7 +192,10 @@ def render(model):
         lead = group['lead']
         heading = [p(f"{number:02d}. {lead.get('title') or lead['id']}", 'GWHeading'), p(group['independence'], 'GWMeta')]
         for source_index, source in enumerate(group['sources']):
-            source_block = [p(f"{source.get('source_name') or 'Publisher unknown'} | {humanize_label(source.get('source_type')) or 'Type unknown'} | {source['id']}", 'GWMeta'),
+            metadata = [source.get('source_name') or 'Publisher unknown', humanize_label(source.get('source_type')) or 'Type unknown']
+            if not source.get('title') and not safe_url(source.get('source_url')):
+                metadata.append(source['id'])
+            source_block = ([p(source['title'])] if source_index and source.get('title') and source['title'] != lead.get('title') else []) + [p(' | '.join(metadata), 'GWMeta'),
                 p(f"Published: {source.get('published_date') or 'Unknown'} | Captured: {source.get('captured_at') or source.get('captured_date') or 'Unknown'}", 'GWMeta'),
                 link(source.get('source_url'), source.get('source_url') or 'Original URL unavailable')]
             story.append(KeepTogether((heading if source_index == 0 else []) + source_block))
