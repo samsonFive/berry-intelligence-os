@@ -1,0 +1,10 @@
+{% if item.source_url or item.publisher_home_url or back_to_news %}
+  <div class="intel-reader-source-actions" role="group" aria-label="Reader links">
+    {% if item.source_url %}<a class="v2-btn {{ 'v2-btn-quiet' if item.source_link_unresolved else 'v2-btn-primary' }}" href="{{ item.source_url }}" target="_blank" rel="noopener noreferrer">{{ item.source_action_label }} ↗</a>{% endif %}
+    {% if item.publisher_home_url %}<a class="v2-btn v2-btn-primary" href="{{ item.publisher_home_url }}" target="_blank" rel="noopener noreferrer">Publisher website ↗</a>{% endif %}
+    {% if back_to_news %}<a class="v2-btn v2-btn-quiet" href="/today">Back to news</a>{% endif %}
+  </div>
+  {% if item.source_link_unresolved %}
+    <p class="sh-note">The publisher’s article link hasn’t been recovered from Google News. {% if item.publisher_home_url %}Use the publisher website to find the story.{% else %}Google News may show a consent screen.{% endif %}</p>
+  {% endif %}
+{% endif %}
