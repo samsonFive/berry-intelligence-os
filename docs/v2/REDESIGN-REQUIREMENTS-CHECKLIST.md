@@ -90,6 +90,7 @@ remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
 | Work | Remaining gate or evidence |
 | --- | --- |
 | Cold-load speed / TD-122 | Continue complete-output and fresh-edit measurements. Catalog cold visits still take seconds. The nested catalog reuse experiment slowed Company loading and was excluded. |
+| Reader hierarchy / UI-03, NEWS-03 | The standalone Reader and original review drawer now have a draft that brings the publisher action and article forward and folds Learn and secondary analysis. It shows stored full text and matching saved captures while keeping source identity and review controls. Final checks and separate release approval remain. |
 | Catalog depth / CAT-01, CAT-02 | Improve original-source, portfolio, trait, rights, region and attributed-photo depth. Retain the 77-subject plan's partial/unavailable/identity holds and 11 unreadable originals; source capture is not identity or commercial-role approval. |
 | Independent review | Human-owned 32-source expected-name packet, 32 unclear photographed cells, and name/code/role/rights/photo queues. Parser output cannot be its own independent answer key. |
 | Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. Preserve crop, place, period, units and citation. |
