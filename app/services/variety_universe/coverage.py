@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from typing import Any
 
 from app.services.variety_universe.identity import STATE_POSSIBLE_ALIAS, STATE_UNKNOWN
@@ -41,6 +42,7 @@ GEO_FOCUS = (
     ("za", "South Africa", {"geography-south-africa", "ZA", "South Africa"}),
     ("other", "Other existing regions", set()),
 )
+_GEO_ALIASES = {key: {alias.casefold() for alias in aliases} for key, _label, aliases in GEO_FOCUS if aliases}
 
 ROLE_OWNERSHIP_PREDICATES = {"develops", "owns"}
 ROLE_DEPLOYMENT_PREDICATES = {"grows", "markets", "sells", "trials", "licenses"}
@@ -55,44 +57,9 @@ def _berries(record: dict[str, Any]) -> set[str]:
     return berries
 
 
-def _geo_bucket(record: dict[str, Any], evidence: list[dict[str, Any]], relationships: list[dict[str, Any]]) -> set[str]:
-    buckets: set[str] = set()
-    jurisdiction = str(record.get("jurisdiction") or record.get("geography") or "").strip()
-    geo_id = str(record.get("geography_id") or "").strip()
-    tokens = {jurisdiction, geo_id, *(str(g) for g in (record.get("geography_ids") or []) if g)}
-    record_id = str(record.get("id") or "")
-    for row in evidence:
-        if record_id and record_id in (row.get("entity_ids") or []):
-            tokens.update(str(g) for g in (row.get("geography_ids") or []) if g)
-    for rel in relationships:
-        if rel.get("object_id") == record_id and rel.get("predicate") == "operates_in":
-            tokens.add(str(rel.get("subject_id") or ""))
-        if rel.get("subject_id") == record_id and rel.get("predicate") == "operates_in":
-            tokens.add(str(rel.get("object_id") or ""))
-    for key, _label, aliases in GEO_FOCUS:
-        if key == "other":
-            continue
-        if any(token in aliases or token.casefold() in {a.casefold() for a in aliases} for token in tokens if token):
-            buckets.add(key)
-    if not buckets:
-        buckets.add("other")
-    return buckets
-
-
-def _breeder_name(variety_id: str, entities: dict[str, dict[str, Any]], relationships: list[dict[str, Any]]) -> str:
-    names: list[str] = []
-    for rel in relationships:
-        if rel.get("object_id") != variety_id or rel.get("predicate") != "develops":
-            continue
-        subject = entities.get(str(rel.get("subject_id") or ""))
-        if subject and subject.get("entity_type") == "company":
-            name = str(subject.get("name") or subject["id"])
-            if name not in names:
-                names.append(name)
-    attrs_breeder = str((entities.get(variety_id) or {}).get("attributes", {}).get("breeder") or "").strip()
-    if attrs_breeder and attrs_breeder not in names:
-        names.append(attrs_breeder)
-    return names[0] if names else "(no breeder/owner recorded)"
+def _geo_buckets(tokens: Iterable[str]) -> set[str]:
+    keys = {token.casefold() for token in tokens if token}
+    return {key for key, aliases in _GEO_ALIASES.items() if keys & aliases} or {"other"}
 
 
 def coverage_matrix(
@@ -108,21 +75,39 @@ def coverage_matrix(
     entity_index = {str(e["id"]): e for e in entities if e.get("id")}
     variety_ids = {str(v["id"]) for v in varieties if v.get("id")}
 
-    ownership_ids = {
-        str(rel.get("object_id"))
-        for rel in relationships
-        if rel.get("predicate") in ROLE_OWNERSHIP_PREDICATES and rel.get("object_id") in variety_ids
-    }
-    deployment_ids = {
-        str(rel.get("object_id"))
-        for rel in relationships
-        if rel.get("predicate") in ROLE_DEPLOYMENT_PREDICATES and rel.get("object_id") in variety_ids
-    }
+    ownership_ids: set[str] = set()
+    deployment_ids: set[str] = set()
+    related_geos: dict[str, set[str]] = {}
+    first_breeder: dict[str, str] = {}
+    for rel in relationships:
+        predicate = rel.get("predicate")
+        subject, target = rel.get("subject_id"), rel.get("object_id")
+        if target in variety_ids:
+            if predicate in ROLE_OWNERSHIP_PREDICATES:
+                ownership_ids.add(target)
+            if predicate in ROLE_DEPLOYMENT_PREDICATES:
+                deployment_ids.add(target)
+            if predicate == "develops" and target not in first_breeder:
+                company = entity_index.get(str(subject or ""))
+                if company and company.get("entity_type") == "company":
+                    first_breeder[target] = str(company.get("name") or company["id"])
+            if predicate == "operates_in":
+                related_geos.setdefault(target, set()).add(str(subject or ""))
+        if predicate == "operates_in" and subject in variety_ids:
+            related_geos.setdefault(subject, set()).add(str(target or ""))
+
     registration_ids: set[str] = set()
     for row in published_evidence:
-        if row.get("source_type") not in RIGHTS_SOURCE_TYPES:
+        geos = {str(geo) for geo in (row.get("geography_ids") or []) if geo}
+        rights_source = row.get("source_type") in RIGHTS_SOURCE_TYPES
+        if not geos and not rights_source:
             continue
-        registration_ids.update(eid for eid in (row.get("entity_ids") or []) if eid in variety_ids)
+        linked = variety_ids.intersection(row.get("entity_ids") or [])
+        if rights_source:
+            registration_ids.update(linked)
+        if geos:
+            for variety_id in linked:
+                related_geos.setdefault(variety_id, set()).update(geos)
     agronomic_ids: set[str] = set()
     for variety in varieties:
         vid = str(variety.get("id") or "")
@@ -154,7 +139,12 @@ def coverage_matrix(
         if not vid:
             continue
         berries = _berries(variety) or {"(untagged)"}
-        geos = _geo_bucket(variety, published_evidence, relationships)
+        geos = _geo_buckets((
+            str(variety.get("jurisdiction") or variety.get("geography") or "").strip(),
+            str(variety.get("geography_id") or "").strip(),
+            *(str(geo) for geo in (variety.get("geography_ids") or []) if geo),
+            *related_geos.get(vid, ()),
+        ))
         for berry_id in berries:
             if berry_id not in by_berry:
                 by_berry[berry_id] = empty_counts()
@@ -177,7 +167,8 @@ def coverage_matrix(
                 by_geo[geo]["commercial_deployment_evidence"] += 1
             if vid in agronomic_ids:
                 by_geo[geo]["agronomic_product_knowledge"] += 1
-        breeder = _breeder_name(vid, entity_index, relationships)
+        saved_breeder = ((entity_index.get(vid) or {}).get("attributes") or {}).get("breeder")
+        breeder = first_breeder.get(vid) or str(saved_breeder or "").strip() or "(no breeder/owner recorded)"
         bucket = breeders.setdefault(
             breeder,
             {"known_canonical_varieties": 0, "candidate_varieties": 0, "unresolved_aliases": 0},
@@ -186,15 +177,8 @@ def coverage_matrix(
 
     for candidate in candidates:
         berries = _berries(candidate) or {"(untagged)"}
-        geos = set()
         jurisdiction = str(candidate.get("jurisdiction") or "")
-        for key, _label, aliases in GEO_FOCUS:
-            if key == "other":
-                continue
-            if jurisdiction in aliases or jurisdiction.casefold() in {a.casefold() for a in aliases}:
-                geos.add(key)
-        if not geos:
-            geos.add("other")
+        geos = _geo_buckets((jurisdiction,))
         unresolved = candidate.get("identity_state") in {STATE_POSSIBLE_ALIAS, STATE_UNKNOWN}
         owner = str(candidate.get("breeder_owner") or candidate.get("applicant") or "").strip() or "(no breeder/owner recorded)"
         breeders.setdefault(
