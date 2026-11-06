@@ -7,7 +7,8 @@ copy, the full BluGenix Reader took 209 seconds while the slide-over took
 0.32 seconds. All four saved Watchlist PDFs passed in the same isolated run.
 
 The follow-up reuses the existing story-matching index to find related older
-sources. A synthetic test with 550 starting records and 1,000 older records
+sources and reads titles and publisher labels when choosing primary subjects.
+A synthetic test with 550 starting records and 1,000 older records
 returned identical rows and improved from 13.56 to 0.62 seconds. Complete
 Reader timing and output comparison on the isolated copy are required before
 release. TD-122 remains open.
