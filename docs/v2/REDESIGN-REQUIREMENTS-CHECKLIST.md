@@ -146,6 +146,13 @@ and four saved PDFs passed. The isolated check preserved all five accounts,
 image retains the Watchlist startup plan. The new head requires its own
 release approval. [Reader fix #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
 
+Draft #535 reduces entity loading for the warm shared slide-over while
+preserving alias matching, workspace visibility and immediate visibility of
+file edits. Eight paired requests per article on the retained isolated copy
+returned identical HTML. Median times fell from 220 to 114 ms and 262 to
+178 ms on two articles. All 146 focused tests and browser review passed.
+Full CI remains in progress. [Warm Reader draft #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)
+
 The live Fruitist addition contributes 14 observations from three original
 source sections. The public-data audit counts 544 sections and 2,089
 occurrences, with 68 of 77 subjects represented by named sources. The Fruitist
@@ -159,8 +166,20 @@ certificate share a candidate. The public audit counts 555 sections, 2,111
 occurrences and 71 of 77 subjects with named sources. Browser review and
 eight isolated route checks passed. The isolated check retained all 544
 prior sections and 434 prior candidate IDs. The harvest schedule still needs
-image inspection, and identity and role decisions remain in review.
+image inspection, and identity and role decisions remain in review. The
+parent draft's full suite failed the warm Reader timing check twice.
 [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
+
+The stacked Hortifrut draft #534 passed all four checks with 7,090 tests.
+It adds five original raspberry sections and eight name occurrences. Pacific
+Starlet has four documents in one identity review. The existing Pacific
+Scarlet record remains separate. Four Pacific Gema entries match the existing
+catalog name. U.S. patents, Mexican grants and Mexican rights transfers
+retain separate dates and parties. The public audit counts 560 sections,
+2,119 occurrences and named evidence for 71 of 77 roster subjects. The
+11-route isolated replay preserved 555 earlier source sections, 439 candidate
+IDs, 26,621 files, five accounts and four databases.
+[Hortifrut draft #534](https://github.com/samsonFive/berry-intelligence-os/pull/534)
 
 The Mario Aguas-Alvarado roster entry has source material for person review.
 Mexico's filing notice identifies him as the applicant for blackberry MM01.
