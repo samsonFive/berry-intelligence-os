@@ -7285,7 +7285,10 @@ def _intelligence_page_context(
     if AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, INBOX_DIR)
-    entities = entity_index()
+    entities = (
+        get_repositories(DATA_DIR, SCHEMAS_DIR).entities.reader_index(include_workspace=AUTHORING_MODE)
+        if overlay else entity_index()
+    )
     source_index = _source_index()
     is_article = classify_kind(record) == "article"
     reading_record = record
