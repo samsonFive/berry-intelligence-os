@@ -1,0 +1,272 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-hortifrut-raspberry-uspp28046p3",
+      "title": "USPTO plant patent — Pacific Starlet (USPP28046P3)",
+      "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/PP28046",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-05",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "plant_patent",
+      "published_date": "2017-05-23",
+      "enumerated_scope": "U.S. plant patent cover and cultivar claim for Pacific Starlet. The cover names Pacific Berry Breeding, LLC as assignee at issuance.",
+      "limitations": "The patent records a U.S. grant. Check current legal status, ownership and commercial growing regions separately.",
+      "review_warnings": [
+        "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them.",
+          "candidate_names": [
+            "Pacific Starlet"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Pacific Starlet",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "US",
+          "denomination": "Pacific Starlet",
+          "application_number": "14/544,826",
+          "application_date": "2015-02-24",
+          "grant_number": "USPP28046P3",
+          "grant_date": "2017-05-23",
+          "portfolio_context": "U.S. plant patent USPP28046P3 covers the named raspberry cultivar. The cover identifies Pacific Berry Breeding, LLC as the assignee at grant."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_us_patent_cover_visual_review",
+        "sha256": "e1561b62042e3f70817f37fcbfd34de054d3507c3d52ccc5230afa85503ca868",
+        "visually_reviewed_pages": [
+          1
+        ]
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-hortifrut-raspberry-uspp28080p3",
+      "title": "USPTO plant patent — Pacific Gema (USPP28080P3)",
+      "url": "https://patentimages.storage.googleapis.com/32/25/43/f778f12e5da2a6/USPP28080.pdf",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-05",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "plant_patent",
+      "published_date": "2017-06-06",
+      "enumerated_scope": "U.S. plant patent cover and cultivar claim for Pacific Gema. The cover names Pacific Berry Breeding, LLC as assignee at issuance.",
+      "limitations": "The patent records a U.S. grant. Check current legal status, ownership and commercial growing regions separately.",
+      "names": [
+        {
+          "candidate_name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "US",
+          "denomination": "Pacific Gema",
+          "application_number": "14/544,823",
+          "application_date": "2015-02-24",
+          "grant_number": "USPP28080P3",
+          "grant_date": "2017-06-06",
+          "portfolio_context": "U.S. plant patent USPP28080P3 covers the named raspberry cultivar. The cover identifies Pacific Berry Breeding, LLC as the assignee at grant."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_us_patent_cover_visual_review",
+        "sha256": "dec9f9cfe589840e25a736f412e77fd9b86cef203b6d2ed0e092b888c174c1be",
+        "visually_reviewed_pages": [
+          1
+        ]
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-hortifrut-raspberry-annual-report-2022-starlet-gema",
+      "title": "Hortifrut integrated report 2022 — Pacific Starlet and Pacific Gema",
+      "url": "https://investor.hortifrut.com/wp-content/uploads/2023/07/Hortifrut-Memoria-Integrada-2022_ingle%CC%81s-WEB.pdf#page=57",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-05",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "breeder_program_report",
+      "enumerated_scope": "Page 57 of the 2022 report, limited to the Pacific Starlet and Pacific Gema rows of the main patents table.",
+      "limitations": "The report describes the company's U.S. patent holdings as of December 31, 2022. Later assignments and other rows require separate checks.",
+      "review_warnings": [
+        "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them.",
+          "candidate_names": [
+            "Pacific Starlet"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Pacific Starlet",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "US",
+          "grant_number": "USPP28046P3",
+          "grant_date": "2017-05-23",
+          "portfolio_context": "Hortifrut reports USPP28046P3 under Hortifrut Genetics Ltd. as of December 31, 2022."
+        },
+        {
+          "candidate_name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "US",
+          "grant_number": "USPP28080P3",
+          "grant_date": "2017-06-06",
+          "portfolio_context": "Hortifrut reports USPP28080P3 under Hortifrut Genetics Ltd. as of December 31, 2022."
+        }
+      ],
+      "capture_reference": {
+        "method": "rendered_original_pdf_table_rows",
+        "sha256": "eeae34c324fac7549b752496c9730d5f16a2d6945dbd28cca717e75e9a6057b5",
+        "pdf_pages_read": [
+          57
+        ]
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-hortifrut-raspberry-mexico-2017-grants",
+      "title": "Mexico Diario Oficial — raspberry titles 1749 and 1750",
+      "url": "https://dof.gob.mx/nota_detalle_popup.php?codigo=5504259",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-05",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "national_register",
+      "enumerated_scope": "Two Pacific Berry Breeding, LLC rows in the issued breeder titles table for September 2017.",
+      "limitations": "The two Mexican grants are historical and have different identifiers from the U.S. patents.",
+      "review_warnings": [
+        "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them.",
+          "candidate_names": [
+            "Pacific Starlet"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Pacific Starlet",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "denomination": "PACIFIC STARLET",
+          "application_number": "2117",
+          "grant_number": "1750",
+          "grant_date": "2017-09-12",
+          "portfolio_context": "Mexico issued breeder title 1750 for Pacific Starlet (file 2117) to Pacific Berry Breeding, LLC on September 12, 2017."
+        },
+        {
+          "candidate_name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "denomination": "PACIFIC GEMA",
+          "application_number": "2116",
+          "grant_number": "1749",
+          "grant_date": "2017-09-12",
+          "portfolio_context": "Mexico issued breeder title 1749 for Pacific Gema (file 2116) to Pacific Berry Breeding, LLC on September 12, 2017."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-hortifrut-raspberry-mexico-2025-transfers",
+      "title": "Mexico Diario Oficial — June 2025 raspberry rights transfers",
+      "url": "https://sidof.segob.gob.mx/notas/docFuente/5764422",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-11-05",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "national_register",
+      "published_date": "2025-08-01",
+      "enumerated_scope": "The fourth and fifth sections list two June 16, 2025 resolutions on transfers from Pacific Berry Breeding, LLC to Hortifrut North America, Inc.",
+      "limitations": "The notice records the Mexican transfer of exploitation rights to a named subsidiary. It gives no commercial growing locations.",
+      "review_warnings": [
+        "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Hortifrut’s genetics page lists Pacific Scarlet. The patent, annual report and Mexican notices use Pacific Starlet. Review the two names before linking them.",
+          "candidate_names": [
+            "Pacific Starlet"
+          ]
+        }
+      ],
+      "names": [
+        {
+          "candidate_name": "Pacific Starlet",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "denomination": "PACIFIC STARLET",
+          "grant_number": "1750",
+          "grant_date": "2017-09-12",
+          "portfolio_context": "On June 16, 2025, resolution 110.03.RNA-VV-006/25 approved the transfer of exploitation rights under Mexican title 1750 from Pacific Berry Breeding, LLC to Hortifrut North America, Inc."
+        },
+        {
+          "candidate_name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "denomination": "PACIFIC GEMA",
+          "grant_number": "1749",
+          "grant_date": "2017-09-12",
+          "portfolio_context": "On June 16, 2025, resolution 110.03.RNA-VV-005/25 approved the transfer of exploitation rights under Mexican title 1749 from Pacific Berry Breeding, LLC to Hortifrut North America, Inc."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    }
+  ]
+}

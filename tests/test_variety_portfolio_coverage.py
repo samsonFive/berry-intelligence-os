@@ -91,14 +91,32 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2111
+    assert report["summary"]["names"] == 2119
     assert report["summary"]["registry_entries_checked"] == 71
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [3, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 657, "berry-strawberry": 826, "berry-raspberry": 412, "berry-blackberry": 216}
+        "berry-blueberry": 657, "berry-strawberry": 826, "berry-raspberry": 420, "berry-blackberry": 216}
+    hortifrut = {s["id"]: s for s in report["sources"] if s["id"].startswith("portfolio-hortifrut-raspberry")}
+    original = hortifrut.pop("portfolio-hortifrut-raspberry")
+    scarlet = next(n for n in original["names"] if n["candidate_name"] == "Pacific Scarlet")
+    assert scarlet["catalog_id"] == "variety-pacific-scarlet-8db17c01"
+    assert len(hortifrut) == 5 and all(s["review_state"] == "unreviewed" for s in hortifrut.values())
+    hortifrut_mentions = [n for s in hortifrut.values() for n in s["names"]]
+    starlet = [n for n in hortifrut_mentions if n["candidate_name"] == "Pacific Starlet"]
+    gema = [n for n in hortifrut_mentions if n["candidate_name"] == "Pacific Gema"]
+    assert len(starlet) == len(gema) == 4
+    assert all(n["status"] == "needs_review" and not n["catalog_id"] and n["candidate_id"] for n in starlet)
+    assert len({n["candidate_id"] for n in starlet}) == 1
+    assert all(n["catalog_id"] == "variety-pacific-gema-ce6458f4" for n in gema)
+    assert {(n["jurisdiction"], n["grant_number"], n["grant_date"]) for n in starlet} == {
+        ("US", "USPP28046P3", "2017-05-23"), ("MX", "1750", "2017-09-12"),
+    }
+    assert {(n["jurisdiction"], n["grant_number"], n["grant_date"]) for n in gema} == {
+        ("US", "USPP28080P3", "2017-06-06"), ("MX", "1749", "2017-09-12"),
+    }
     rijk = next(s for s in report["subjects"] if s["name"] == "Rijk Zwaan")
     assert rijk["source_status"] == "names_found" and rijk["has_source_gaps"]
     assert rijk["named_occurrences"] == 4

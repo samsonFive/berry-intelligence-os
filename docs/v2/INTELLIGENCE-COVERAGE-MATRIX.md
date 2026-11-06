@@ -1,3 +1,15 @@
+# Hortifrut raspberry patents and breeder rights — November 5, 2026
+
+Five original documents add eight name occurrences. Pacific Starlet appears in
+four documents and enters identity review separately from the existing Pacific
+Scarlet record. Four Pacific Gema occurrences match the catalog name. The U.S.
+patents, Mexican breeder titles and 2025 Mexican rights transfers retain their
+own dates and parties. No present-day ownership or growing regions were inferred.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-hortifrut-raspberry-filings/README.md)
+
+The combined public audit counts 560 sections, 2,119 name occurrences and
+71 of 77 roster subjects with named evidence.
+
 # Rijk Zwaan named berry filings — November 5, 2026
 
 The original CPVO Gazette identifies two woodland strawberry applications.
@@ -8,7 +20,7 @@ release and production remain open. The existing corporate-crops check
 still records the gap in the company's public portfolio.
 [Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-rijk-zwaan-filings/README.md)
 
-The combined public audit counts 555 sections and 2,111 name occurrences.
+After the Rijk Zwaan filings the public audit counted 555 sections and 2,111 name occurrences.
 There are now 71 of 77 roster subjects with named evidence, three partial
 checks, one unavailable and two identity holds.
 
