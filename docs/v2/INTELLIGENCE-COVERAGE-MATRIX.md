@@ -1,4 +1,4 @@
-# Fruitist and Fall Creek source checks — November 5, 2026 Pacific
+# Fruitist, Fall Creek and Biogea source checks — November 5, 2026 Pacific
 
 The university's indexed Figure 11 places `EB 846` and `SEKOYA BEAUT` in
 the variety column of historical Agrovision packing examples. The repository
@@ -20,6 +20,16 @@ review. The Mexico page describes nursery availability, so the listing alone
 does not establish a growing location.
 [Mexico page](https://www.fallcreeknursery.com/commercial-fruit-growers/mexico/blueberry-growing-regions-of-mexico),
 [Fruit Logistica announcement](https://www.fallcreeknursery.com/es/blog/fall-creek-to-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety-at-fruit-logistica-2026)
+
+The existing Biogea record points to the agricultural inputs business in
+Monterrey. The Sayula nursery has a different website and describes plant
+propagation. A public search index quotes a nursery-affiliated profile's
+historical Biloxi availability post. The original post could not be opened,
+and the supplied roster does not resolve which business was intended. Keep
+Biloxi as an unassigned source lead until both are verified.
+[Current catalog website](https://www.biogea.mx/en),
+[Sayula nursery](https://biogea.com.mx/),
+[Indexed nursery profile](https://mx.linkedin.com/in/jn-alfonso-echeverria-ramirez-02a36060)
 
 # Fruitist blueberry source coverage — November 5, 2026
 
