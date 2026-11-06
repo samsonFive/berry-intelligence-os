@@ -99,6 +99,14 @@ returned identical HTML and retained source and review labels. The read-only
 comparison preserved 26,621 files, five accounts and four logical databases.
 [Coverage draft #530](https://github.com/samsonFive/berry-intelligence-os/pull/530)
 
+Variety draft #531 groups recorded relationships once for the directory,
+program profiles and Coverage inventory. The cold blueberry directory moved
+from 5.43 to 5.00 seconds in the isolated comparison. Samples overlap.
+All three routes returned identical HTML and the browser kept recorded
+breeder links separate from source-name review. The isolated check retained
+all 26,621 files, five accounts and four databases.
+[Variety lookup draft #531](https://github.com/samsonFive/berry-intelligence-os/pull/531)
+
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
@@ -125,13 +133,14 @@ source sections. The public-data audit counts 544 sections and 2,089
 occurrences, with 68 of 77 subjects represented by named sources. The Fruitist
 packing table remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
 
-Catalog draft #527 adds seven sections, including five original BluGenix
-technical sheets, and retains the original-script Chinese filing name. Its
-public audit counts 551 sections, 2,098 occurrences and 70 of 77 subjects
-represented by named sources. Browser review, all four checks, and the
-four-route isolated test passed. The latter retained all 544 prior sections
-and 434 prior candidate IDs. Conflicting figures and identities stay in
-source context or review. [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
+Catalog draft #527 adds eight sections, including five original BluGenix
+technical sheets and a 2024 Agrovision harvest schedule. It retains the
+original-script Chinese filing name and nine literal harvest labels. The
+public audit counts 552 sections, 2,107 occurrences and 70 of 77 subjects
+with named sources. Browser review and six isolated route checks passed.
+The isolated check retained all 544 prior sections and 434 prior candidate IDs.
+The harvest schedule still needs image inspection, and identity and role
+decisions remain in review. [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
 
 ## Work and decisions that remain
 
