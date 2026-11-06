@@ -91,23 +91,34 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2098
+    assert report["summary"]["names"] == 2107
     assert report["summary"]["registry_entries_checked"] == 70
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [4, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 648, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 657, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
     fruitist = next(s for s in report["subjects"] if s["name"] == "Fruitist")
     assert fruitist["source_status"] == "names_found" and fruitist["has_source_gaps"]
-    assert fruitist["named_occurrences"] == 14
+    assert fruitist["named_occurrences"] == 23
     packing_id = "portfolio-fruitist-peru-unprg-hydra-figure-11"
     assert packing_id in fruitist["sources"]
     packing = next(s for s in report["sources"] if s["id"] == packing_id)
     assert packing["capture_status"] == "partial"
     unresolved = {n["candidate_name"] for n in packing["names"] if n["status"] == "needs_review"}
     assert {"EB 846", "SEKOYA BEAUT"} <= unresolved
+    harvest_id = "portfolio-fruitist-peru-unprg-harvest-annex-4"
+    assert harvest_id in fruitist["sources"]
+    harvest = next(s for s in report["sources"] if s["id"] == harvest_id)
+    assert harvest["capture_status"] == "partial" and harvest["review_state"] == "unreviewed"
+    assert harvest["accounting_view"]["accounted_items"] == 9
+    assert {n["candidate_name"] for n in harvest["names"]} == {
+        "SEKOYA POP", "BIANCA", "VENTURA", "EMERALD", "MÁGICA", "BELLA", "BONITA", "JUPITER", "ATLAS",
+    }
+    assert {n["candidate_name"] for n in harvest["names"] if n["status"] == "needs_review"} == {
+        "BIANCA", "JUPITER", "ATLAS",
+    }
     sheets = [s for s in report["sources"] if s["id"].startswith("portfolio-blugenix-original-sheet-")]
     by_name = {s["names"][0]["candidate_name"]: s for s in sheets}
     assert {name: s["capture_reference"]["reported_storage"]["pdf_days"] for name, s in by_name.items()} == {

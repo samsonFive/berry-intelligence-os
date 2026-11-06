@@ -1,3 +1,16 @@
+# Agrovision historical harvest labels — November 5, 2026
+
+A 2024 Agrovision Perú harvest report at UNPRG adds nine literal blueberry
+labels from a February 26 schedule. Six match catalog text. The short forms
+BIANCA, JUPITER and ATLAS go to identity review. The indexed table still
+needs image inspection. Its planning figures do not establish actual harvest
+volumes, current growing regions or company roles.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-agrovision-harvest/README.md)
+
+The combined public audit counts 552 source sections, 2,107 name occurrences
+and 70 of 77 roster subjects with named evidence. Fruitist now has 23 name
+occurrences from the four bounded Peru sections.
+
 # BluGenix original technical sheets — November 5, 2026
 
 Five downloaded breeder sheets add source links to the existing named
@@ -46,7 +59,7 @@ adds three blueberry mentions with different roles at the Crow's Nest site.
 All three match catalog names, and the reported trial, production and future
 harvest expectations stay in source context.
 
-The combined public-seed audit records 551 source sections, 2,098 name
+Before adding the harvest schedule, the combined public-seed audit recorded 551 source sections, 2,098 name
 occurrences and 70 of 77 registry entries checked. Both companies still have
 source gaps. Current legal rights, confirmed growing regions and photo reuse
 remain review decisions. The original-script lookup keeps distinct printed
