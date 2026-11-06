@@ -107,6 +107,16 @@ breeder links separate from source-name review. The isolated check retained
 all 26,621 files, five accounts and four databases.
 [Variety lookup draft #531](https://github.com/samsonFive/berry-intelligence-os/pull/531)
 
+Combined draft #532 measures all three Variety and Coverage speedups together.
+Twelve fresh workers compared four routes against the same read-only copy.
+Cold medians moved from 5.64 to 5.23 seconds for the blueberry directory,
+8.24 to 6.92 seconds for company-filtered Coverage, and 7.81 to 7.07 seconds
+for all-sources Coverage. Warm all-sources Coverage moved from 3.92 to 3.14
+seconds. Cold cohorts are small and deep catalog loads still take several
+seconds. HTML matched on all four routes, and the phone-width alphabetical
+jump retained the blueberry filter and recorded roles.
+[Combined performance draft #532](https://github.com/samsonFive/berry-intelligence-os/pull/532)
+
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
