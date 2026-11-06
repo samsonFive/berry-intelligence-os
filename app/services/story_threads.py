@@ -832,10 +832,25 @@ def expand_with_related(items: list[dict[str, Any]], extra: list[dict[str, Any]]
     """Add published/other records that share a conservative edge with `items`."""
 
     known = {item_id(item) for item in items}
+    additions = [record for record in extra if item_id(record) and item_id(record) not in known]
+    if not items or not additions:
+        return list(items)
+
+    # Use the same indexed edge candidates as thread grouping. The original
+    # scan is kept for duplicate IDs because link lookup indexes one row per ID.
+    if len(known) == len(items) and len({item_id(record) for record in additions}) == len(additions):
+        combined = items + additions
+        boundary = len(items)
+        related = {
+            right for left, right in _candidate_pairs(combined)
+            if left < boundary <= right and items_form_thread(combined[right], combined[left])
+        }
+        return items + [combined[index] for index in sorted(related)]
+
     out = list(items)
-    for record in extra:
+    for record in additions:
         rid = item_id(record)
-        if not rid or rid in known:
+        if rid in known:
             continue
         if any(items_form_thread(record, item) for item in items):
             out.append(record)
