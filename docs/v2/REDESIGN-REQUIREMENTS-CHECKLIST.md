@@ -6,15 +6,32 @@ not approval to run an old release.
 
 ## Verified live release
 
-Approved PDF release #518 is live at canonical `41284ba7`, matching tested
+Watchlist #524 is live at canonical `627be80b`, matching tested head
+`a8be46e2` and image `1c1bb7ac`. The active image matches the deployment
+receipt, and public HTTPS returned 200 after the Reader rollback. It retains
+the four berry Watchlists, saved filters and PDFs, and adds the captured News
+and shared article tags to Watchlist. [Watchlist #524](https://github.com/samsonFive/berry-intelligence-os/pull/524)
+
+Reader #522 merged at canonical `a7c035c6` after verification of a 26,709-file
+recovery point. Its live route check timed out and the controller restored
+Watchlist #524, the proxy configuration, and the prior collection timer.
+Use the production receipt for the live version and GitHub for canonical
+code. [Reader #522](https://github.com/samsonFive/berry-intelligence-os/pull/522)
+
+## Earlier release evidence
+
+Fruitist #519 deployed at canonical `ba83fb7d`. The live verification covered
+30 routes and four saved Landscape PDFs. Its 26,685-file recovery point
+included five accounts and four logical databases. The Fruitist source
+sections remain in Watchlist #524. [Fruitist #519](https://github.com/samsonFive/berry-intelligence-os/pull/519)
+
+Approved PDF release #518 deployed at canonical `41284ba7`, matching tested
 head `071d3827` and image `98c6b82f`. All four checks passed with 7,084 tests
 and 11 skips. A fresh recovery point verified 26,653 files and 673 directories.
 The release preserved five accounts, four databases, 1,268 catalog profiles,
 258 private research profiles and 13,676 protected files. Public HTTPS and all
 four saved landscape PDFs passed. The prior collection timer, proxy settings
 and rollback are retained. [Release #518](https://github.com/samsonFive/berry-intelligence-os/pull/518)
-
-## Earlier release evidence
 
 Approved [release #516](https://github.com/samsonFive/berry-intelligence-os/pull/516)
 was deployed at canonical `64b7bab6`, retaining tested head `03b962a9` exactly
@@ -68,6 +85,12 @@ fresh-process measurements exclude application import and network time.
 TD-122 remains open; there is no claim that every page or individual visit is
 faster.
 
+Coverage draft #525 was measured in eight fresh processes on the isolated
+copy using the current Watchlist image. The calculation fell from 0.347 to
+0.011 seconds. The full page moved from 8.14 to 7.94 seconds with overlapping
+samples and identical HTML. This remains separate from the Reader release.
+[Coverage draft #525](https://github.com/samsonFive/berry-intelligence-os/pull/525)
+
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
@@ -80,28 +103,45 @@ saved landscape PDF models, publisher links and page counts match the baseline:
 pre-release measurements used the existing isolated copy. The subsequent live
 release rechecked the same four exports against the fresh recovery point.
 
-The Fruitist draft adds 14 observations from three original source sections.
-The public-data audit counts 544 sections and 2,089 occurrences, with 68 of
-77 subjects represented by named source sections. The Fruitist packing table
-remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
+The Reader correction in #528 passed all four checks with 7,089 tests and 11
+skips. The same isolated copy measured 208 seconds for the full BluGenix
+article on Watchlist #524, 209 seconds on #522, and 29 seconds on #528. The
+sampled article HTML and related-story data match. Thirty-two route checks
+and four saved PDFs passed. The isolated check preserved all five accounts,
+1,268 catalog profiles, 26,621 files and four logical databases. The verified
+image retains the Watchlist startup plan. The new head requires its own
+release approval. [Reader fix #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
+
+The live Fruitist addition contributes 14 observations from three original
+source sections. The public-data audit counts 544 sections and 2,089
+occurrences, with 68 of 77 subjects represented by named sources. The Fruitist
+packing table remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
+
+Catalog draft #527 adds seven sections, including five original BluGenix
+technical sheets, and retains the original-script Chinese filing name. Its
+public audit counts 551 sections, 2,098 occurrences and 70 of 77 subjects
+represented by named sources. Browser review, all four checks, and the
+four-route isolated test passed. The latter retained all 544 prior sections
+and 434 prior candidate IDs. Conflicting figures and identities stay in
+source context or review. [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
 
 ## Work and decisions that remain
 
 | Work | Remaining gate or evidence |
 | --- | --- |
-| Cold-load speed / TD-122 | Continue complete-output and fresh-edit measurements. Catalog cold visits still take seconds. The nested catalog reuse experiment slowed Company loading and was excluded. |
-| Reader hierarchy / UI-03, NEWS-03 | The standalone Reader and original review drawer now have a draft that brings the publisher action and article forward and folds Learn and secondary analysis. It shows stored full text and matching saved captures while keeping source identity and review controls. Final checks and separate release approval remain. |
+| Cold-load speed / TD-122 | Continue complete-output and fresh-edit measurements. The measured full Reader still takes about 29 seconds in #528. Deep Catalog and Coverage visits also take several seconds. The field-inventory prototype improved the measured full Coverage load by about 0.08 seconds and was held back. |
+| Reader hierarchy / UI-03, NEWS-03 | #528 includes the article-first layout from #522 and resolves the tested full Reader timeout. Separate approval, a fresh backup, and live acceptance remain. |
 | Catalog depth / CAT-01, CAT-02 | Improve original-source, portfolio, trait, rights, region and attributed-photo depth. Retain the 77-subject plan's partial/unavailable/identity holds and 11 unreadable originals; source capture is not identity or commercial-role approval. |
 | Independent review | Human-owned 32-source expected-name packet, 32 unclear photographed cells, and name/code/role/rights/photo queues. Parser output cannot be its own independent answer key. |
 | Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. Preserve crop, place, period, units and citation. |
 | Learn depth | Broader citation/media/scientific quality, preserving 27 visual lessons and the completed editable provider draft. The single approved real request cost USD0.13679; further paid requests/retries need authorization. |
 
-The human-approved 13-file redundant rehearsal cleanup is complete. All
-archives, deltas, metadata, receipts, images and rollback remain; active test
-copies and live data/settings were untouched. The unchanged test guard still
-requires 10 GiB free disk and 2 GiB available RAM. That fulfilled exact cleanup
-grant does not authorize another deletion. New recurring activation, provider
-spending and trust decisions retain their own gates.
+The approved 13-, 11- and 125-file redundant rehearsal cleanups are complete.
+The verified 125-file cleanup recovered about 128 MiB. Backup archives,
+recovery metadata, receipts and rollback are retained. The server guard still
+requires 10 GiB of free disk and 2 GiB of available RAM. Provider spending,
+recurring activation, source decisions and production releases retain their
+own approval gates.
 
 Full prior status wording is retained in
 [checklist history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md).

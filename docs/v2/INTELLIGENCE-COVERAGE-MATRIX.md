@@ -1,3 +1,26 @@
+# Fruitist and Fall Creek source checks — November 5, 2026 Pacific
+
+The university's indexed Figure 11 places `EB 846` and `SEKOYA BEAUT` in
+the variety column of historical Agrovision packing examples. The repository
+could be read through the index, but its DNS delegation failed during direct
+retrieval and the page image could not be inspected. Keep the packing section
+partial and both literal spellings in identity review.
+[UNPRG report](https://repositorio.unprg.edu.pe/bitstream/handle/20.500.12893/13614/Condorcahuana_Puse_Edwin_German.pdf?isAllowed=y&sequence=1)
+
+The rendered page 14 of Apofruit's May 2025 newsletter independently names
+`EB 846` as a cultivar used by the cooperative. The publication gives no
+breeder or filing number for it. The shared text is a lead for comparing the
+Italian and Peruvian records. The photos on the page carry no cultivar
+identification. [Apofruit newsletter, page 14](https://www.apofruit.it/wp-content/uploads/2025/05/2-2025.pdf#page=14)
+
+Fall Creek's Mexico page prints `FMC14-031` beside AzraBlue. Its Fruit
+Logistica 2026 announcement prints `FCM14-031`, the same order used by the
+catalog's existing paired observation. Record the source discrepancy for
+review. The Mexico page describes nursery availability, so the listing alone
+does not establish a growing location.
+[Mexico page](https://www.fallcreeknursery.com/commercial-fruit-growers/mexico/blueberry-growing-regions-of-mexico),
+[Fruit Logistica announcement](https://www.fallcreeknursery.com/es/blog/fall-creek-to-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety-at-fruit-logistica-2026)
+
 # Fruitist blueberry source coverage — November 5, 2026
 
 Three original source sections add 14 name occurrences for the existing Fruitist
