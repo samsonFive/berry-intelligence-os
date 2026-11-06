@@ -28,6 +28,14 @@ def company_actors(variety_id, relationships, entities):
     }
 
 
+def relationships_by_object(relationships):
+    """Group edges for bulk variety lookups while retaining their input order."""
+    grouped = {}
+    for row in relationships:
+        grouped.setdefault(row.get("object_id"), []).append(row)
+    return grouped
+
+
 def program_variety_rows(entity_id, entities, relationships):
     """Recorded program/brand links when no company portfolio is available.
 
@@ -36,12 +44,16 @@ def program_variety_rows(entity_id, entities, relationships):
     if entities.get(entity_id, {}).get('entity_type') not in {'brand', 'breeding_program'}:
         return []
     from app.services.variety_universe.coverage import BERRY_LABELS
+    edges_by_variety = relationships_by_object(relationships)
     rows = []
     for variety in entities.values():
-        if variety.get('entity_type') != 'variety' or entity_id not in company_actors(variety['id'], relationships, entities):
+        if variety.get('entity_type') != 'variety':
             continue
-        roles = {ROLE_LABELS[rel['predicate']] for rel in relationships
-                 if rel.get('subject_id') == entity_id and rel.get('object_id') == variety['id']
+        edges = edges_by_variety.get(variety['id'], ())
+        if entity_id not in company_actors(variety['id'], edges, entities):
+            continue
+        roles = {ROLE_LABELS[rel['predicate']] for rel in edges
+                 if rel.get('subject_id') == entity_id
                  and rel.get('status') == 'active' and rel.get('predicate') in ROLE_LABELS}
         rows.append({'id': variety['id'], 'name': variety['name'],
                      'href': '/entities/variety/' + variety['id'], 'roles': sorted(roles),
@@ -71,19 +83,21 @@ def directory(cards, *, params, state, entities, relationships, regions):
     for row in regions:
         if row["kind"] == "variety":
             growing.setdefault(row["entity_id"], []).append(row)
+    edges_by_variety = relationships_by_object(relationships)
     rows = []
     for card in cards:
-        actors = company_actors(card["id"], relationships, entities)
+        edges = edges_by_variety.get(card["id"], ())
+        actors = company_actors(card["id"], edges, entities)
         if not company_directory.matches_marks(actors, state, favorites=filters["favorites"], tier=filters["tier"], list_id=filters["list"]):
             continue
         locations = growing.get(card["id"], [])
         if filters["growing_country"] and not any(row["geography_id"] == filters["growing_country"] for row in locations):
             continue
         additional_roles = {}
-        for rel in relationships:
+        for rel in edges:
             party = entities.get(rel.get("subject_id"), {})
             predicate = rel.get("predicate")
-            if rel.get("object_id") == card["id"] and rel.get("status") == "active" and party.get("id") in actors and predicate in {"licenses", "grows", "trials", "distributes"}:
+            if rel.get("status") == "active" and party.get("id") in actors and predicate in {"licenses", "grows", "trials", "distributes"}:
                 additional_roles[(predicate, party["id"])] = {"name": party["name"], "href": f"/entities/{party['entity_type']}/{party['id']}",
                     "label": {"licenses": "Licensee", "grows": "Grower", "trials": "Trial operator", "distributes": "Distributor"}[predicate]}
         rows.append({**card, "growing_regions": locations, "company_actors": sorted(actors), "additional_roles": list(additional_roles.values())})
