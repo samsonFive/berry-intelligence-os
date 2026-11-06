@@ -1,3 +1,18 @@
+# Full Reader timeout — November 5, 2026 Pacific
+
+The approved [Reader #522](https://github.com/samsonFive/berry-intelligence-os/pull/522)
+merged after a verified backup. A production route check timed out, and the
+release controller restored Watchlist #524 and public HTTPS. On an isolated
+copy, the full BluGenix Reader took 209 seconds while the slide-over took
+0.32 seconds. All four saved Watchlist PDFs passed in the same isolated run.
+
+The follow-up reuses the existing story-matching index to find related older
+sources and reads titles and publisher labels when choosing primary subjects.
+A synthetic test with 550 starting records and 1,000 older records
+returned identical rows and improved from 13.56 to 0.62 seconds. Complete
+Reader timing and output comparison on the isolated copy are required before
+release. TD-122 remains open.
+
 # Source intelligence continuation candidate — November 4, 2026
 
 [Bounded collection follow-up](SOURCE-INTELLIGENCE-COLLECTION-CONTINUATION-2026-11-04.md) reproduces and fixes capped-runner starvation and a narrow Spanish blueberry-industry relevance gap. The real November 3 Blueberries TV recording passes local feed/Reader checks as description-only; no current-video draft was delivered to production. Full current-head CI and live preservation remain required before deploying this new follow-up. No recurring collection, transcription or provider routing was activated.

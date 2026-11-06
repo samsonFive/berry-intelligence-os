@@ -7213,7 +7213,8 @@ def _annotate_live_thread_row(
                 }
                 break
     if not row.get("primary_subject"):
-        attribution = attribute_draft(row, entities, sources=source_index)
+        # Body mentions are suggestions and cannot select the primary subject.
+        attribution = attribute_draft(row, entities, sources=source_index, include_body=False)
         if attribution.get("primary"):
             row["primary_subject"] = attribution["primary"]
     row["href"] = f"/intelligence/{row.get('id')}"

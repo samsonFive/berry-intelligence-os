@@ -1011,6 +1011,29 @@ def test_stored_same_event_links_still_expand_outside_window():
     assert set(thread["member_ids"]) == {"ev-linked-recent", "ev-linked-stale"}
 
 
+def test_related_expansion_preserves_input_order_and_first_matching_duplicate():
+    seed = _published(
+        "ev-seed", title="Florida producers release Jewel blueberry", published_date=RECENT,
+        source_url="https://example.invalid/seed",
+        evidence_links=[{"predicate": "corroborates", "target_evidence_id": "ev-duplicate"}],
+    )
+    unrelated = _published(
+        "ev-duplicate", title="Unrelated harvest report", published_date=STALE,
+        source_url="https://example.invalid/unrelated",
+    )
+    matching = _published(
+        "ev-duplicate", title="Jewel trial notes", published_date=STALE,
+        source_url="https://example.invalid/matching",
+    )
+    mirror = _published(
+        "ev-mirror", title="Original link reprint", published_date=STALE,
+        source_url="https://example.invalid/seed",
+    )
+    assert expand_with_related([seed], [mirror, matching]) == [seed, mirror, matching]
+    assert expand_with_related([seed], [unrelated, mirror, matching]) == [seed, mirror, matching]
+    assert expand_with_related([seed], [matching, unrelated, mirror]) == [seed, matching, mirror]
+
+
 def test_canonical_url_duplicates_remain_one_thread():
     left = _published(
         "ev-url-a",
