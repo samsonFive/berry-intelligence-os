@@ -1,3 +1,14 @@
+# Reader recovery measurements — November 5, 2026 Pacific
+
+The combined Reader candidate retains the article-first layout and both
+performance fixes. The cold comparison on the retained read-only snapshot
+preserved full HTML and story models. One fresh-process pair per route
+measured 29.42 to 5.15 seconds for the BluGenix Reader, 26.62 to 4.85
+seconds for Atlantic Blue, and 24.21 to 2.75 seconds for the BluGenix
+developing story. The separate warm slide-over comparison is below.
+Combined checks and a release-time backup and review gate still apply.
+TD-122 remains open for other cold-load routes, including catalog work.
+
 # Full Reader timeout — November 5, 2026 Pacific
 
 The approved [Reader #522](https://github.com/samsonFive/berry-intelligence-os/pull/522)
@@ -12,6 +23,17 @@ A synthetic test with 550 starting records and 1,000 older records
 returned identical rows and improved from 13.56 to 0.62 seconds. Complete
 Reader timing and output comparison on the isolated copy are required before
 release. TD-122 remains open.
+
+# Warm Reader slide-over — November 5, 2026 Pacific
+
+Two catalog CI attempts exceeded the existing 500 ms Reader limit. The
+slide-over now reads the entity display and alias fields it uses, with the
+same file freshness checks and workspace visibility rules. On a retained
+read-only server snapshot, eight paired requests per article produced
+identical HTML. Median times were 220 to 114 ms for the Atlantic Blue
+article and 262 to 178 ms for the BluGenix article. This was a warm
+test on two routes. Full Reader cold performance and the remaining
+catalog performance work stay open under TD-122.
 
 # Source intelligence continuation candidate — November 4, 2026
 

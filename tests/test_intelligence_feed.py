@@ -714,4 +714,7 @@ def test_runtime_feed_uses_real_records_when_present() -> None:
         if detail.status_code == 200:
             text = unescape(detail.text)
             assert record["title"] in text
-            assert "Read original" in text or "Open filing" in text or "Open source" in text
+            if "Open Google News link" in text:
+                assert "article link hasn’t been recovered from Google News" in text
+            else:
+                assert "Read original" in text or "Open filing" in text or "Open source" in text

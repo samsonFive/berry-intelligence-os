@@ -24,6 +24,7 @@ usage mapping."""
 
 from __future__ import annotations
 
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -47,6 +48,18 @@ def entity_folder(entity_type: str) -> str:
 class EntityRepository(JsonRecordRepository):
     def __init__(self, data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> None:
         super().__init__(folder=data_dir / "entities", schema_path=schemas_dir / "entity.schema.json")
+
+    def reader_index(self, *, include_workspace: bool) -> dict[str, dict[str, Any]]:
+        """Display and attribution fields for the slide-over Reader."""
+        # Preserve the full index's last-record behavior even when a legacy
+        # duplicate is hidden from public views.
+        entities = {row["id"]: row for _, row in self._load_all_with_paths() if row.get("id")}
+        fields = ("id", "name", "entity_type", "aliases", "also_known_as")
+        return {
+            key: {field: deepcopy(row[field]) for field in fields if field in row}
+            for key, row in entities.items()
+            if include_workspace or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"
+        }
 
     def _new_record_path(self, record: dict[str, Any]) -> Path:
         entity_type = record.get("entity_type")

@@ -828,6 +828,42 @@ def thread_for_item(item_id_value: str, items: list[dict[str, Any]]) -> dict[str
     return threads_by_item_id(threads).get(item_id_value)
 
 
+def possible_thread_additions(
+    items: list[dict[str, Any]], extra: Iterable[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Keep potential expansion matches before resolving the extras' subjects.
+
+    Same URL, normalized title and stored links can connect across any date.
+    The two other edge rules both require an existing company/variety subject
+    and the event date window. The full matcher still decides all membership.
+    """
+    known = {item_id(item) for item in items}
+    urls = {item_url(item) for item in items} - {""}
+    titles = {normalize_title(item_title(item)) for item in items} - {""}
+    linked = {_link_target(link) for item in items for link in evidence_links_of(item)}
+    event_days: set[int] = set()
+    for item in items:
+        if primary_entity_type(item) in {"company", "variety"} and (day := item_date(item)):
+            ordinal = day.toordinal()
+            event_days.update(range(ordinal - DATE_PROXIMITY_EVENT_DAYS, ordinal + DATE_PROXIMITY_EVENT_DAYS + 1))
+
+    candidates = []
+    for row in extra:
+        row_id = item_id(row)
+        if not row_id or row_id in known:
+            continue
+        day = item_date(row)
+        if (
+            row_id in linked
+            or (day is not None and day.toordinal() in event_days)
+            or item_url(row) in urls
+            or normalize_title(item_title(row)) in titles
+            or any(_link_target(link) in known for link in evidence_links_of(row))
+        ):
+            candidates.append(row)
+    return candidates
+
+
 def expand_with_related(items: list[dict[str, Any]], extra: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Add published/other records that share a conservative edge with `items`."""
 

@@ -16,7 +16,7 @@ from copy import deepcopy
 from dataclasses import replace
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import quote, urlencode, urlparse, urlsplit
 
 import feedparser
@@ -236,7 +236,7 @@ from app.services.watchlist import (
     watchlist_index,
 )
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
-from app.services.draft_attribution import attribute_draft, draft_matches_entity
+from app.services.draft_attribution import attribute_draft, draft_matches_entity, prepare_title_attribution
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -408,6 +408,7 @@ from app.services.story_threads import (
     compress_recent_intelligence,
     expand_with_related,
     live_thread_candidate_universe,
+    possible_thread_additions,
     thread_for_item,
 )
 from app.session_auth import (
@@ -7192,7 +7193,7 @@ def _annotate_live_thread_row(
     row: dict[str, Any],
     *,
     entities: dict[str, Any],
-    source_index: dict[str, Any],
+    attribute_title: Callable[[dict[str, Any]], dict[str, Any]],
     published_style: bool,
 ) -> None:
     """Presentation annotation for a live thread-universe copy.
@@ -7214,7 +7215,7 @@ def _annotate_live_thread_row(
                 break
     if not row.get("primary_subject"):
         # Body mentions are suggestions and cannot select the primary subject.
-        attribution = attribute_draft(row, entities, sources=source_index, include_body=False)
+        attribution = attribute_title(row)
         if attribution.get("primary"):
             row["primary_subject"] = attribution["primary"]
     row["href"] = f"/intelligence/{row.get('id')}"
@@ -7244,24 +7245,28 @@ def _live_story_thread_universe(
         seed=seed,
         published=published,
     )
+    attribute_title = prepare_title_attribution(entities, source_index)
     for row in universe:
         published_style = row.get("status") == "published" and str(row.get("id") or "") != seed_id
         _annotate_live_thread_row(
             row,
             entities=entities,
-            source_index=source_index,
+            attribute_title=attribute_title,
             published_style=published_style,
         )
-    published_rows: list[dict[str, Any]] = []
-    for rec in published:
-        rec = dict(rec)
+    # Use the same publication/capture date as annotation for the cheap
+    # candidate pass, including when a legacy record carries its own date.
+    published_rows = possible_thread_additions(
+        universe,
+        (dict(rec, date=rec.get("published_date") or rec.get("captured_date") or "") for rec in published),
+    )
+    for rec in published_rows:
         _annotate_live_thread_row(
             rec,
             entities=entities,
-            source_index=source_index,
+            attribute_title=attribute_title,
             published_style=True,
         )
-        published_rows.append(rec)
     universe = expand_with_related(universe, published_rows)
     for row in universe:
         if not row.get("href"):
@@ -7280,7 +7285,10 @@ def _intelligence_page_context(
     if AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, INBOX_DIR)
-    entities = entity_index()
+    entities = (
+        get_repositories(DATA_DIR, SCHEMAS_DIR).entities.reader_index(include_workspace=AUTHORING_MODE)
+        if overlay else entity_index()
+    )
     source_index = _source_index()
     is_article = classify_kind(record) == "article"
     reading_record = record

@@ -210,6 +210,44 @@ def test_reader_overlay_warm_is_under_500ms() -> None:
     assert elapsed_ms < 500, f"warm overlay took {elapsed_ms:.1f}ms"
 
 
+def test_reader_overlay_keeps_entity_aliases_visibility_and_edits(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    item_id = "ev-reader-entity-edit"
+    _write(main.DATA_DIR / "evidence" / f"{item_id}.json", {
+        "id": item_id, "status": "published", "source_type": "article",
+        "title": "Example Orchard and Internal Selection trial", "summary": "A public trial.",
+        "entity_ids": ["company-orchard", "variety-internal"],
+    })
+    company = {
+        "id": "company-orchard", "entity_type": "company", "name": "Orchard Group",
+        "also_known_as": ["Example Orchard"],
+    }
+    company_path = main.DATA_DIR / "entities" / "companies" / "company-orchard.json"
+    _write(company_path, company)
+    _write(main.DATA_DIR / "entities" / "varieties" / "variety-internal.json", {
+        "id": "variety-internal", "entity_type": "variety", "name": "Internal Selection",
+        "attributes": {"catalog_visibility": "workspace"},
+    })
+    client = TestClient(app)
+    url = f"/api/intelligence/{item_id}/reader"
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    public = client.get(url)
+    assert public.status_code == 200
+    subject, _ = public.text.split('<p class="v2-card-subject">', 1)[1].split("</p>", 1)
+    assert 'href="/entities/company/company-orchard">Orchard Group</a>' in subject
+    assert 'href="/entities/variety/variety-internal"' not in public.text
+
+    _write(company_path, {**company, "name": "Renamed Orchard Group"})
+    public_after_edit = client.get(url)
+    assert 'href="/entities/company/company-orchard">Renamed Orchard Group</a>' in public_after_edit.text
+
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    workspace = client.get(url)
+    assert workspace.status_code == 200
+    assert 'href="/entities/company/company-orchard">Renamed Orchard Group</a>' in workspace.text
+    assert 'href="/entities/variety/variety-internal">Internal Selection</a>' in workspace.text
+
+
 def test_company_profile_is_v2_and_multi_berry() -> None:
     client = TestClient(app)
     page = client.get("/entities/company/company-driscolls?view=legacy")
