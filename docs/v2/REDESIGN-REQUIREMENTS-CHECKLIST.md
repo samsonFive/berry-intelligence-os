@@ -150,8 +150,18 @@ Draft #535 reduces entity loading for the warm shared slide-over while
 preserving alias matching, workspace visibility and immediate visibility of
 file edits. Eight paired requests per article on the retained isolated copy
 returned identical HTML. Median times fell from 220 to 114 ms and 262 to
-178 ms on two articles. All 146 focused tests and browser review passed.
-Full CI remains in progress. [Warm Reader draft #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)
+178 ms on two articles. Browser review, 146 focused tests and all four CI
+checks passed. The full suite ran 7,089 tests with 11 skips.
+[Warm Reader draft #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)
+
+Draft #536 narrows older records before resolving story subjects. The
+isolated replay returned the same HTML and story models on all three
+routes. One fresh-process pair per route measured 33.55 to 28.63 seconds
+for the BluGenix Reader, 31.70 to 26.05 for Atlantic Blue, and 27.60 to
+24.86 for the BluGenix thread route. Full CI is pending. About 2,700
+records still receive subject annotation per request, so TD-122 stays
+open. The separately staged #528 remains at its review commit.
+[Cold Reader draft #536](https://github.com/samsonFive/berry-intelligence-os/pull/536)
 
 The live Fruitist addition contributes 14 observations from three original
 source sections. The public-data audit counts 544 sections and 2,089
