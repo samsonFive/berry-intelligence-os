@@ -114,8 +114,16 @@ Cold medians moved from 5.64 to 5.23 seconds for the blueberry directory,
 for all-sources Coverage. Warm all-sources Coverage moved from 3.92 to 3.14
 seconds. Cold cohorts are small and deep catalog loads still take several
 seconds. HTML matched on all four routes, and the phone-width alphabetical
-jump retained the blueberry filter and recorded roles.
+jump retained the blueberry filter and recorded roles. All four checks
+passed with 7,092 tests. Reconcile this draft with the Reader correction
+before preparing a production review.
 [Combined performance draft #532](https://github.com/samsonFive/berry-intelligence-os/pull/532)
+
+Coverage links in draft #533 open the selected candidate with its original
+source in scope. A phone-width click opened the exact EB 846 record and its
+provenance. Four isolated routes passed and preserved the five accounts,
+four databases and 26,621 files.
+[Source navigation draft #533](https://github.com/samsonFive/berry-intelligence-os/pull/533)
 
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
@@ -143,14 +151,16 @@ source sections. The public-data audit counts 544 sections and 2,089
 occurrences, with 68 of 77 subjects represented by named sources. The Fruitist
 packing table remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
 
-Catalog draft #527 adds eight sections, including five original BluGenix
-technical sheets and a 2024 Agrovision harvest schedule. It retains the
-original-script Chinese filing name and nine literal harvest labels. The
-public audit counts 552 sections, 2,107 occurrences and 70 of 77 subjects
-with named sources. Browser review and six isolated route checks passed.
-The isolated check retained all 544 prior sections and 434 prior candidate IDs.
-The harvest schedule still needs image inspection, and identity and role
-decisions remain in review. [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
+Catalog draft #527 adds eleven sections, including five original BluGenix
+technical sheets, a 2024 Agrovision harvest schedule and three Rijk Zwaan
+filing sections. Two woodland strawberry references and one raspberry
+reference remain in identity review. The raspberry application and filing
+certificate share a candidate. The public audit counts 555 sections, 2,111
+occurrences and 71 of 77 subjects with named sources. Browser review and
+eight isolated route checks passed. The isolated check retained all 544
+prior sections and 434 prior candidate IDs. The harvest schedule still needs
+image inspection, and identity and role decisions remain in review.
+[Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
 
 ## Work and decisions that remain
 
