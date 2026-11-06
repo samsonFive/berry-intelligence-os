@@ -4,6 +4,7 @@ Uses the existing candidate builder and identity resolver. Observations live in
 the established imports namespace, contain no article bodies, and never create
 Evidence, roles or canonical varieties. Human inbox decisions win on replay.
 """
+from dataclasses import dataclass
 from datetime import date
 from hashlib import sha256
 import json
@@ -72,6 +73,63 @@ def _coded_label_keys(sources):
             if code:
                 labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(_code_comparison_key(code))
     return {key for key, codes in labels.items() if len(codes) > 1}
+
+
+def _candidate_key(row, coded_labels):
+    key = _key(row)
+    code = row.get("denomination") or row.get("breeder_code")
+    return (fold_identity(code), row["berry_id"]) if code and key in coded_labels else key
+
+
+@dataclass(frozen=True)
+class PortfolioProjection:
+    """One reconciliation over the exact read-only inputs for this request."""
+
+    sources: list[dict]
+    varieties: list[dict]
+    entities: list[dict]
+    candidates: list[dict]
+    today: date
+    rows: list[dict]
+
+    def replay_rows(self, *, sources, varieties, entities, candidates, today):
+        if (sources is not self.sources or varieties is not self.varieties
+                or candidates is not self.candidates or today != self.today):
+            return None
+        # The request's entity accessor can wrap the same ordered records in
+        # a new list. A different record, even with the same ID, must replay.
+        if (len(entities) != len(self.entities)
+                or any(left is not right for left, right in zip(entities, self.entities))):
+            return None
+        ids = [row.get("id") for row in candidates]
+        if any(not isinstance(key, str) or not key for key in ids) or len(set(ids)) != len(ids):
+            return None
+        coded_labels = _coded_label_keys(sources)
+        by_key = {_candidate_key(row, coded_labels): row for row in candidates}
+        rows = []
+        for source in self.rows:
+            names = source["names"]
+            for index, name in enumerate(names):
+                candidate = by_key.get(name["identity_key"])
+                candidate_id = candidate["id"] if candidate else None
+                if name["candidate_id"] != candidate_id:
+                    if (name["candidate_id"] is not None or name["status"] != "catalog_match"
+                            or candidate is None or candidate.get("status") != "proposed"
+                            or candidate.get("human_gated")):
+                        return None
+                    # A later occurrence created an unreviewed lead for this key.
+                    # Attach its ID without changing the earlier catalog match.
+                    if names is source["names"]:
+                        names = names.copy()
+                    names[index] = {**name, "candidate_id": candidate_id}
+                # A first pass can create a rejected lead after labeling the
+                # occurrence. Replaying from the completed list closes it.
+                if candidate is None and name["status"] == "needs_review":
+                    return None
+                if candidate and candidate.get("status") == "rejected" and name["status"] != "previously_rejected":
+                    return None
+            rows.append(source if names is source["names"] else {**source, "names": names})
+        return rows
 
 
 def load_portfolio_observations(data_dir: Path):
@@ -336,8 +394,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     canonical_ids = {row["id"] for row in varieties}
     coded_labels = _coded_label_keys(sources)
     def candidate_key(row):
-        code = row.get("denomination") or row.get("breeder_code")
-        return (fold_identity(code), row["berry_id"]) if code and _key(row) in coded_labels else _key(row)
+        return _candidate_key(row, coded_labels)
     existing = {candidate_key(row): row for row in candidates}
     source_rows, additions = [], []
     provenance = {}
@@ -496,7 +553,8 @@ def source_content_coverage(records):
     }
 
 
-def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, filters=None, today=None, company_catalog=None):
+def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, filters=None,
+                       today=None, company_catalog=None, projection=None):
     filters = filters or {}
     today = today or date.today()
     berry = filters.get("berry", "")
@@ -504,7 +562,12 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
         raise ValueError("Choose a supported berry")
     q = str(filters.get("q", "")).strip().casefold()
     company = str(filters.get("company", "")).strip()
-    source_rows, visible = reconcile_portfolios(sources=sources, varieties=varieties, entities=entities, candidates=candidates, today=today)
+    inputs = dict(sources=sources, varieties=varieties, entities=entities, candidates=candidates, today=today)
+    source_rows = projection.replay_rows(**inputs) if projection is not None else None
+    if source_rows is None:
+        source_rows, visible = reconcile_portfolios(**inputs)
+    else:
+        visible = candidates
     selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
                 and (not company or company in source_company_ids(row))
                 and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
