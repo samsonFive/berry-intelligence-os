@@ -159,3 +159,65 @@ def test_every_saved_source_row_is_identical_in_source_only_projection():
     assert rows == complete == expected and omitted == []
     assert len(rows) == len(sources) and len(rows) > 500
     assert (sources, varieties) == before
+
+
+def test_coverage_reuses_projection_with_saved_decisions_and_new_leads(tmp_path, monkeypatch):
+    observations = source(['Rejected', 'Separate', 'Confirmed', 'New', 'New'])
+    sources = [observations]
+    varieties = [dict(id='variety-confirmed', entity_type='variety', name='Canonical', berry_ids=['berry-blueberry'])]
+    saved = [dict(id='candidate-'+name, candidate_name=name, berry_id='berry-blueberry',
+                  status=status, identity_state=state, human_gated=True,
+                  candidate_canonical_match='variety-confirmed', review_notes='Keep user decision')
+             for name, status, state in [('Rejected','rejected','rejected'),
+                                        ('Separate','reviewed','distinct'), ('Confirmed','reviewed','confirmed_same')]]
+    inputs = dict(sources=sources, varieties=varieties, entities=varieties, today=date(2026,10,31))
+    rows, candidates = portfolios.reconcile_portfolios(**inputs, candidates=saved)
+    projection = portfolios.PortfolioProjection(sources, varieties, varieties, candidates, inputs['today'], rows)
+    inputs.update(data_dir=tmp_path, entities=list(varieties), candidates=candidates,
+                  filters={'berry':'berry-blueberry','q':'literal'})
+    expected = portfolios.portfolio_coverage(**inputs)
+    monkeypatch.setattr(portfolios, 'reconcile_portfolios', lambda **kwargs: pytest.fail('Repeated reconciliation'))
+    actual = portfolios.portfolio_coverage(**inputs, projection=projection)
+    assert actual == expected
+    names = actual['sources'][0]['names']
+    assert [n['status'] for n in names] == [
+        'previously_rejected', 'distinct_awaiting_catalog', 'catalog_match', 'needs_review', 'needs_review',
+    ]
+    assert names[3]['candidate_id'] == names[4]['candidate_id']
+    assert actual['visible_candidates'][0]['review_notes'] == 'Keep user decision'
+
+
+def test_coverage_attaches_later_proposed_lead_without_changing_catalog_match(tmp_path, monkeypatch):
+    sources = [source(['Later candidate attached', 'Later candidate attached'])]
+    varieties = [dict(id='variety-confirmed', entity_type='variety', name='Canonical',
+                      berry_ids=['berry-blueberry'])]
+    inputs = dict(sources=sources, varieties=varieties, entities=varieties, today=date(2026,10,31))
+    results = [[{'matches': [{'reason': 'exact_identity_string', 'variety_id': 'variety-confirmed'}]},
+                {'matches': []}]]
+    monkeypatch.setattr(portfolios, '_portfolio_identity_results', lambda **kwargs: results)
+    rows, candidates = portfolios.reconcile_portfolios(**inputs, candidates=[])
+    projection = portfolios.PortfolioProjection(sources, varieties, varieties, candidates, inputs['today'], rows)
+    original_name = rows[0]['names'][0]
+    assert original_name['candidate_id'] is None
+    inputs.update(data_dir=tmp_path, candidates=candidates)
+    expected = portfolios.portfolio_coverage(**inputs)
+    monkeypatch.setattr(portfolios, 'reconcile_portfolios', lambda **kwargs: pytest.fail('Repeated reconciliation'))
+    actual = portfolios.portfolio_coverage(**inputs, projection=projection)
+    assert actual == expected
+    assert actual['sources'][0]['names'][0] == {**original_name, 'candidate_id': candidates[0]['id']}
+    assert original_name['candidate_id'] is None
+
+
+def test_coverage_replays_when_new_candidate_becomes_rejected_or_source_changes(tmp_path, monkeypatch):
+    sources = [source(['Unexpected lead'])]
+    inputs = dict(sources=sources, varieties=[], entities=[], today=date(2026,10,31))
+    build = portfolios.build_candidate
+    monkeypatch.setattr(portfolios, 'build_candidate', lambda *a, **kw: {**build(*a, **kw), 'status':'rejected'})
+    rows, candidates = portfolios.reconcile_portfolios(**inputs, candidates=[])
+    assert rows[0]['names'][0]['status'] == 'needs_review'
+    projection = portfolios.PortfolioProjection(sources, inputs['varieties'], inputs['entities'], candidates, inputs['today'], rows)
+    replay = portfolios.portfolio_coverage(data_dir=tmp_path, **inputs, candidates=candidates, projection=projection)
+    assert replay['sources'][0]['names'][0]['status'] == 'previously_rejected'
+    edited = dict(inputs, sources=[source(['Current wording'])])
+    assert portfolios.portfolio_coverage(data_dir=tmp_path, **edited, candidates=candidates,
+                                        projection=projection)['sources'][0]['names'][0]['candidate_name'] == 'Current wording'
