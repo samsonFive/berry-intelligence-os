@@ -91,6 +91,14 @@ copy using the current Watchlist image. The calculation fell from 0.347 to
 samples and identical HTML. This remains separate from the Reader release.
 [Coverage draft #525](https://github.com/samsonFive/berry-intelligence-os/pull/525)
 
+Coverage draft #530 was measured in eight fresh processes on the existing
+isolated copy. The cold company-filtered view moved from 7.70 to 7.24 seconds.
+Warm source detail was flat at about 1.82 seconds. Warm all-sources Coverage
+moved from 3.53 to 3.73 seconds with overlapping samples. All three routes
+returned identical HTML and retained source and review labels. The read-only
+comparison preserved 26,621 files, five accounts and four logical databases.
+[Coverage draft #530](https://github.com/samsonFive/berry-intelligence-os/pull/530)
+
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
