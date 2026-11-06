@@ -162,6 +162,14 @@ prior sections and 434 prior candidate IDs. The harvest schedule still needs
 image inspection, and identity and role decisions remain in review.
 [Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
 
+The Mario Aguas-Alvarado roster entry has source material for person review.
+Mexico's filing notice identifies him as the applicant for blackberry MM01.
+Singapore's application notice lists him among the APF-122 breeders and
+identifies the University of Arkansas as the applicant. Use these as distinct
+person-to-variety references during review. The company roster count remains
+separate. [Mexico filing](https://dof.gob.mx/nota_detalle_popup.php?codigo=5510739)
+· [Singapore application journal](https://isomer-user-content.by.gov.sg/61/332f4ccd-761d-4d78-8872-7e407df39a57/plant-varieties-protection-journal-04-2018.pdf)
+
 ## Work and decisions that remain
 
 | Work | Remaining gate or evidence |
