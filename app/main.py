@@ -1899,13 +1899,20 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
         } for row in article_sources}
     visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     if AUTHORING_MODE:
-        from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
+        from app.services.variety_portfolio_coverage import (
+            PortfolioProjection, load_portfolio_observations, reconcile_portfolios,
+        )
         try:
+            observations = load_portfolio_observations(DATA_DIR)
+            today = date.today()
             _portfolio_sources, visible = reconcile_portfolios(
-                sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
-                entities=entities, candidates=visible,
+                sources=observations, varieties=varieties, entities=entities,
+                candidates=visible, today=today,
             )
             report["portfolio_sources"] = _portfolio_sources
+            report["portfolio_projection"] = PortfolioProjection(
+                observations, varieties, entities, visible, today, _portfolio_sources,
+            )
         except ValueError as exc:
             report["portfolio_error"] = str(exc)
     return varieties, visible, report
@@ -3535,6 +3542,7 @@ def _render_variety_coverage_page(request: Request) -> HTMLResponse:
                 data_dir=DATA_DIR, sources=portfolio_sources,
                 varieties=varieties, entities=entities, candidates=candidates,
                 filters=dict(request.query_params), company_catalog=company_catalog,
+                projection=corpus_report.get("portfolio_projection"),
             )
             coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
             # Large inventories should not ship every closed source body.
@@ -3593,13 +3601,14 @@ def variety_coverage_source_page(request: Request, source_id: str) -> HTMLRespon
         raise HTTPException(404, "Source check not found")
     from app.services import company_directory
     from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage
-    varieties, candidates, _report = variety_candidate_universe()
+    varieties, candidates, report = variety_candidate_universe()
     entities = all_entities()
     filters = {key: value for key, value in request.query_params.items() if key != "fragment"}
     try:
         portfolios = portfolio_coverage(
             data_dir=DATA_DIR, sources=load_portfolio_observations(DATA_DIR),
             varieties=varieties, entities=entities, candidates=candidates, filters=filters,
+            projection=report.get("portfolio_projection"),
             company_catalog=company_directory.catalog(
                 {row["id"]: row for row in entities},
                 profiles=company_directory.load_profiles(INBOX_DIR)["profiles"],
