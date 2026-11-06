@@ -1,3 +1,17 @@
+# Rijk Zwaan named berry filings — November 5, 2026
+
+The original CPVO Gazette identifies two woodland strawberry applications.
+Two Mexican official notices identify one raspberry denomination, with the
+application and filing certificate kept separate. The four occurrences
+produce three identity-review candidates. Current legal status, commercial
+release and production remain open. The existing corporate-crops check
+still records the gap in the company's public portfolio.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-rijk-zwaan-filings/README.md)
+
+The combined public audit counts 555 sections and 2,111 name occurrences.
+There are now 71 of 77 roster subjects with named evidence, three partial
+checks, one unavailable and two identity holds.
+
 # Agrovision historical harvest labels — November 5, 2026
 
 A 2024 Agrovision Perú harvest report at UNPRG adds nine literal blueberry
@@ -7,7 +21,7 @@ needs image inspection. Its planning figures do not establish actual harvest
 volumes, current growing regions or company roles.
 [Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-agrovision-harvest/README.md)
 
-The combined public audit counts 552 source sections, 2,107 name occurrences
+Before the Rijk Zwaan filings, the combined public audit counted 552 sections, 2,107 name occurrences
 and 70 of 77 roster subjects with named evidence. Fruitist now has 23 name
 occurrences from the four bounded Peru sections.
 

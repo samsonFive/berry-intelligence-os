@@ -91,14 +91,26 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2107
-    assert report["summary"]["registry_entries_checked"] == 70
+    assert report["summary"]["names"] == 2111
+    assert report["summary"]["registry_entries_checked"] == 71
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [4, 1, 0, 2]
+        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [3, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 657, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 657, "berry-strawberry": 826, "berry-raspberry": 412, "berry-blackberry": 216}
+    rijk = next(s for s in report["subjects"] if s["name"] == "Rijk Zwaan")
+    assert rijk["source_status"] == "names_found" and rijk["has_source_gaps"]
+    assert rijk["named_occurrences"] == 4
+    filings = [n for s in report["sources"] if s["id"].startswith("portfolio-rijk-zwaan-") for n in s["names"]]
+    assert all(n["status"] == "needs_review" and n["candidate_id"] and not n.get("grant_number") for n in filings)
+    assert len({n["candidate_id"] for n in filings}) == 3
+    assert {(n["candidate_name"], n["application_number"], n["scientific_name"]) for n in filings} == {
+        ("95-fs001 rz", "2021/1017", "Fragaria vesca L."),
+        ("95-fs002 rz", "2021/1018", "Fragaria vesca L."),
+        ("97-VR0001 RZ", "4330", "Rubus idaeus L."),
+    }
+    assert [n["filing_certificate_number"] for n in filings if n.get("filing_certificate_number")] == ["3563"]
     fruitist = next(s for s in report["subjects"] if s["name"] == "Fruitist")
     assert fruitist["source_status"] == "names_found" and fruitist["has_source_gaps"]
     assert fruitist["named_occurrences"] == 23
