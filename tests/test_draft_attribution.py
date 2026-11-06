@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from app.services.draft_attribution import attribute_draft, draft_matches_entity, watch_match_quality
+from app.services.draft_attribution import (
+    attribute_draft, draft_matches_entity, prepare_title_attribution, watch_match_quality,
+)
 
 
 def _entities() -> dict[str, dict]:
@@ -151,3 +153,33 @@ def test_watch_match_primary_vs_mention() -> None:
     assert entity_id == "geography-mexico"
     planasa_mention, _ = watch_match_quality(mention, {"company-planasa"})
     assert planasa_mention == "mention"
+
+
+def test_prepared_title_attribution_preserves_order_boundaries_and_unicode() -> None:
+    entities = _entities()
+    for key, name in (
+        ("company-alpha", "Alpha Orchard"), ("company-bravo", "Bravo Orchard"),
+        ("company-seed", "SeedKiwi"), ("company-kirmizi", "Kırmızı"),
+        ("company-accent", "Ferme Étoile"), ("company-sharp", "Strasse"),
+    ):
+        entities[key] = {"id": key, "name": name, "entity_type": "company"}
+    sources = {
+        **_sources(),
+        "source-labelled": {"label": "Bravo Orchard and Alpha Orchard"},
+        "source-linked": {"linked_competitor_ids": ["company-bravo", "company-alpha"]},
+    }
+    prepared = prepare_title_attribution(entities, sources)
+    cases = (
+        ({"title": "Bravo Orchard and Alpha Orchard"}, "company-alpha"),
+        ({"title": "Market overview", "source_id": "source-labelled"}, "company-alpha"),
+        ({"title": "Market overview", "source_id": "source-linked"}, "company-bravo"),
+        ({"title": "ſeedKİwı"}, "company-seed"),
+        ({"title": "Kirmizi"}, "company-kirmizi"),
+        ({"headline": "FERME ÉTOILE"}, "company-accent"),
+        ({"title": "xSeedKiwi and Straße", "summary": "Planasa"}, None),
+        ({"title": "Market overview", "entity_ids": ["company-planasa"]}, None),
+    )
+    for record, expected in cases:
+        result = prepared(record)
+        assert result == attribute_draft(record, entities, sources=sources, include_body=False)
+        assert (result["primary"] or {}).get("id") == expected
