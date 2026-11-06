@@ -6,11 +6,21 @@ not approval to run an old release.
 
 ## Verified live release
 
-Watchlist #524 is live at canonical `627be80b`, matching tested head
-`a8be46e2` and image `1c1bb7ac`. The active image matches the deployment
-receipt, and public HTTPS returned 200 after the Reader rollback. It retains
-the four berry Watchlists, saved filters and PDFs, and adds the captured News
-and shared article tags to Watchlist. [Watchlist #524](https://github.com/samsonFive/berry-intelligence-os/pull/524)
+Approved Reader #528 is live at canonical `caaba2e4`, matching tested head
+`f82ffa29` and image `48b31ce7`. All four release-event checks passed with
+7,089 tests and 11 skips. The fresh backup verified 26,769 files and 674
+directories. The live check passed 32 authenticated routes and all four
+saved Watchlist PDFs. It preserved all five accounts, including Chris.H,
+four databases, 1,268 catalog profiles and 258 private research profiles.
+Public HTTPS returned 200, and the prior timer, exact proxy configuration,
+settings, mounts and rollback were verified. The live BluGenix full Reader
+took 28.9 seconds and the slide-over took 0.27 seconds.
+[Reader #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
+
+Watchlist #524 previously ran at canonical `627be80b`, matching tested head
+`a8be46e2` and image `1c1bb7ac`. Reader #528 retains its four berry
+Watchlists, saved filters and PDFs, captured News and shared article tags.
+[Watchlist #524](https://github.com/samsonFive/berry-intelligence-os/pull/524)
 
 Reader #522 merged at canonical `a7c035c6` after verification of a 26,709-file
 recovery point. Its live route check timed out and the controller restored
@@ -143,8 +153,9 @@ article on Watchlist #524, 209 seconds on #522, and 29 seconds on #528. The
 sampled article HTML and related-story data match. Thirty-two route checks
 and four saved PDFs passed. The isolated check preserved all five accounts,
 1,268 catalog profiles, 26,621 files and four logical databases. The verified
-image retains the Watchlist startup plan. The new head requires its own
-release approval. [Reader fix #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
+image retains the Watchlist startup plan. The subsequent approved release
+and live verification are recorded above.
+[Reader fix #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
 
 Draft #535 reduces entity loading for the warm shared slide-over while
 preserving alias matching, workspace visibility and immediate visibility of
@@ -160,7 +171,7 @@ routes. One fresh-process pair per route measured 33.55 to 28.63 seconds
 for the BluGenix Reader, 31.70 to 26.05 for Atlantic Blue, and 27.60 to
 24.86 for the BluGenix thread route. All four CI checks passed, including
 7,090 tests. About 2,700 records still receive subject annotation per
-request. The separately staged #528 remains at its review commit.
+request at this draft head. #528 has since gone live at its review commit.
 [Cold Reader draft #536](https://github.com/samsonFive/berry-intelligence-os/pull/536)
 
 Draft #537 reuses a title and publisher lookup for the whole story batch.
@@ -171,12 +182,13 @@ Atlantic Blue, and 24.21 to 2.75 for the BluGenix thread. Complete HTML
 and story models matched on all three routes.
 [Attribution draft #537](https://github.com/samsonFive/berry-intelligence-os/pull/537)
 
-Combined Reader draft #538 passes 195 focused tests, desktop and 390 px
-browser review, 32 authenticated routes and four saved Watchlist PDFs
+Combined Reader draft #538 passes all four CI checks, 195 focused tests,
+desktop and 390 px browser review, 32 authenticated routes and four saved Watchlist PDFs
 on the retained copy. It preserves all five accounts, 1,268 catalog
 profiles, 258 private research profiles and four databases. Its immutable
-image staging is pending server headroom. Full CI and separate release
-approval also remain. [Reader recovery #538](https://github.com/samsonFive/berry-intelligence-os/pull/538)
+image staging is pending server headroom. Reconcile the draft against
+live #528 and verify the new release before seeking separate approval.
+[Reader recovery #538](https://github.com/samsonFive/berry-intelligence-os/pull/538)
 
 The live Fruitist addition contributes 14 observations from three original
 source sections. The public-data audit counts 544 sections and 2,089
@@ -219,7 +231,7 @@ separate. [Mexico filing](https://dof.gob.mx/nota_detalle_popup.php?codigo=55107
 | Work | Remaining gate or evidence |
 | --- | --- |
 | Cold-load speed / TD-122 | The Reader recovery reaches about five seconds on two full Reader routes in isolation. Deep Catalog and Coverage visits still take several seconds. The field-inventory prototype improved the measured full Coverage load by about 0.08 seconds and was held back. |
-| Reader hierarchy / UI-03, NEWS-03 | Combined #538 includes the article-first layout from #522 and the tested Reader performance fixes. Image staging, full CI, separate approval, a fresh backup, and live acceptance remain. |
+| Reader hierarchy / UI-03, NEWS-03 | The article-first layout is verified live in approved #528. Combined #538 contains the remaining performance improvements and requires live-base reconciliation, image staging, exact-head CI and separate release approval. |
 | Catalog depth / CAT-01, CAT-02 | Improve original-source, portfolio, trait, rights, region and attributed-photo depth. Retain the 77-subject plan's partial/unavailable/identity holds and 11 unreadable originals; source capture is not identity or commercial-role approval. |
 | Independent review | Human-owned 32-source expected-name packet, 32 unclear photographed cells, and name/code/role/rights/photo queues. Parser output cannot be its own independent answer key. |
 | Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. Preserve crop, place, period, units and citation. |
