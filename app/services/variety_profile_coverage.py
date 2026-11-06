@@ -7,7 +7,7 @@ from collections import defaultdict
 from urllib.parse import quote
 
 from app.services.berries.variety import variety_patent_link
-from app.services.variety_navigation import ROLE_LABELS, company_actors
+from app.services.variety_navigation import ROLE_LABELS, company_actors, relationships_by_object
 from app.services.variety_photos import SourcePhotoIndex, catalog_source_photos, gallery
 from app.services.variety_photo_review import photo_identity_reviews
 from app.services.variety_portfolio_coverage import reconcile_portfolios
@@ -39,7 +39,8 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
     # Use the same organization scope as the directory's company/list filters.
     # Check each edge below too: an active breeder link never validates a
     # proposed ownership link for that same organization.
-    actors_by_variety = {v['id']: company_actors(v['id'], relationships, index)
+    edges_by_variety = relationships_by_object(relationships)
+    actors_by_variety = {v['id']: company_actors(v['id'], edges_by_variety.get(v['id'], ()), index)
                         for v in varieties}
     source_by_variety = defaultdict(list)
     fact_traits_by_variety = defaultdict(set)
