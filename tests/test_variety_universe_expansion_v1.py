@@ -271,6 +271,39 @@ def test_coverage_matrix_counts_canonical_and_candidates(tmp_path: Path) -> None
     assert any(row["known_canonical_varieties"] >= 1 for row in matrix["by_breeder"])
 
 
+def test_coverage_keeps_evidence_and_both_relationship_directions_per_variety() -> None:
+    varieties = [
+        {"id": "variety-a", "jurisdiction": " EU ", "attributes": {"breeder": "Profile A"}},
+        {"id": "variety-b", "attributes": {"breeder": "Profile B"}},
+        {"id": "variety-c"},
+    ]
+    companies = [
+        {"id": "company-first", "entity_type": "company", "name": "First breeder"},
+        {"id": "company-second", "entity_type": "company", "name": "Second breeder"},
+    ]
+    matrix = coverage_matrix(
+        varieties=varieties, entities=varieties + companies, facts=[],
+        relationships=[
+            {"subject_id": "company-first", "object_id": "variety-a", "predicate": "develops"},
+            {"subject_id": "company-second", "object_id": "variety-a", "predicate": "develops"},
+            {"subject_id": "geography-united-kingdom", "object_id": "variety-a", "predicate": "operates_in"},
+            {"subject_id": "variety-b", "object_id": "geography-united-kingdom", "predicate": "operates_in"},
+            {"subject_id": "geography-south-africa", "object_id": "variety-c", "predicate": "owns"},
+        ],
+        published_evidence=[{"entity_ids": ["variety-a", "variety-b", "missing"],
+                             "source_type": "patent_record", "geography_ids": ["za", "ZA"]}],
+        candidates=[{"jurisdiction": "cpvo", "identity_state": "unknown"}, {"jurisdiction": " UK "}],
+    )
+    geos = {row["id"]: row for row in matrix["by_geography"]}
+    assert [(geos[key]["canonical_varieties"], geos[key]["candidates"]) for key in ("eu", "uk", "za", "other")] == [
+        (1, 1), (2, 0), (2, 0), (1, 1),
+    ]
+    assert matrix["totals"]["registration_evidence"] == 2
+    assert {row["name"] for row in matrix["by_breeder"] if row["known_canonical_varieties"]} == {
+        "First breeder", "Profile B", "(no breeder/owner recorded)",
+    }
+
+
 def test_variety_profile_compare_and_timeline_still_render() -> None:
     client = TestClient(app)
     detail = client.get("/entities/variety/variety-last-call")
