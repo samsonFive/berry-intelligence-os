@@ -8,6 +8,7 @@ UNKNOWN. No similarity scores, no model inference.
 
 from __future__ import annotations
 
+import unicodedata
 from functools import lru_cache
 from typing import Any
 
@@ -61,9 +62,26 @@ _CANDIDATE_REGISTRATION_KEYS = ("registration_id", "application_number", "grant_
 _CANDIDATE_REGISTRATION_DETAIL_KEYS = ("application_number", "grant_number", "registration_number")
 
 
+def _fold_variety_identity(value: str) -> str:
+    if not value.isascii():
+        normalized = unicodedata.normalize("NFKC", value.casefold())
+        if any(
+            not char.isascii() and char.isalpha() and not unicodedata.name(char, "").startswith("LATIN")
+            for char in normalized
+        ):
+            # Keep scripts that the legacy Latin fold would drop. Do not
+            # transliterate or equate a written name with a translation.
+            tokens = "".join(
+                char if char.isalnum() or unicodedata.category(char).startswith("M") else " "
+                for char in normalized
+            )
+            return " ".join(tokens.split())
+    return _fold(value)
+
+
 @lru_cache(maxsize=4096)
 def _fold_short_identity(value: str) -> str:
-    return _fold(value)
+    return _fold_variety_identity(value)
 
 
 def fold_identity(value: str | None) -> str:
@@ -72,7 +90,7 @@ def fold_identity(value: str | None) -> str:
     value = value or ""
     if isinstance(value, str) and len(value) <= 256:
         return _fold_short_identity(value)
-    return _fold(value)
+    return _fold_variety_identity(value)
 
 
 def _identity_strings(variety: dict[str, Any]) -> list[tuple[str, str]]:

@@ -26,6 +26,16 @@ def reconcile(sources, varieties=None, candidates=None):
                                candidates=candidates or [], today=date(2026, 10, 7))
 
 
+def test_original_script_names_have_distinct_candidates_and_source_handoffs():
+    names = [{'candidate_name': name, 'berry_id': 'berry-blueberry'} for name in ('蓝闺蜜', '北斗星')]
+    records, candidates = reconcile([source(names, berry_ids=['berry-blueberry'])])
+    assert len(candidates) == 2 and len({row['id'] for row in candidates}) == 2
+    for name, row in zip(names, records[0]['names']):
+        matching = candidate_queue(candidates, {'q': name['candidate_name'], 'berry': 'berry-blueberry'})['candidates']
+        assert [candidate['id'] for candidate in matching] == [row['candidate_id']]
+        assert row['status'] == 'needs_review' and not matching[0]['human_gated']
+
+
 def test_shared_brand_does_not_collapse_two_denominations():
     names = [{"candidate_name": code, "trade_name": "Florida Pearl", "berry_id": "berry-strawberry"}
              for code in ("FL 16.78-109", "FL 19.66-220")]
@@ -81,23 +91,54 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 2089
-    assert report["summary"]["registry_entries_checked"] == 68
+    assert report["summary"]["names"] == 2111
+    assert report["summary"]["registry_entries_checked"] == 71
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [6, 1, 0, 2]
+        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [3, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 639, "berry-strawberry": 824, "berry-raspberry": 410, "berry-blackberry": 216}
+        "berry-blueberry": 657, "berry-strawberry": 826, "berry-raspberry": 412, "berry-blackberry": 216}
+    rijk = next(s for s in report["subjects"] if s["name"] == "Rijk Zwaan")
+    assert rijk["source_status"] == "names_found" and rijk["has_source_gaps"]
+    assert rijk["named_occurrences"] == 4
+    filings = [n for s in report["sources"] if s["id"].startswith("portfolio-rijk-zwaan-") for n in s["names"]]
+    assert all(n["status"] == "needs_review" and n["candidate_id"] and not n.get("grant_number") for n in filings)
+    assert len({n["candidate_id"] for n in filings}) == 3
+    assert {(n["candidate_name"], n["application_number"], n["scientific_name"]) for n in filings} == {
+        ("95-fs001 rz", "2021/1017", "Fragaria vesca L."),
+        ("95-fs002 rz", "2021/1018", "Fragaria vesca L."),
+        ("97-VR0001 RZ", "4330", "Rubus idaeus L."),
+    }
+    assert [n["filing_certificate_number"] for n in filings if n.get("filing_certificate_number")] == ["3563"]
     fruitist = next(s for s in report["subjects"] if s["name"] == "Fruitist")
     assert fruitist["source_status"] == "names_found" and fruitist["has_source_gaps"]
-    assert fruitist["named_occurrences"] == 14
+    assert fruitist["named_occurrences"] == 23
     packing_id = "portfolio-fruitist-peru-unprg-hydra-figure-11"
     assert packing_id in fruitist["sources"]
     packing = next(s for s in report["sources"] if s["id"] == packing_id)
     assert packing["capture_status"] == "partial"
     unresolved = {n["candidate_name"] for n in packing["names"] if n["status"] == "needs_review"}
     assert {"EB 846", "SEKOYA BEAUT"} <= unresolved
+    harvest_id = "portfolio-fruitist-peru-unprg-harvest-annex-4"
+    assert harvest_id in fruitist["sources"]
+    harvest = next(s for s in report["sources"] if s["id"] == harvest_id)
+    assert harvest["capture_status"] == "partial" and harvest["review_state"] == "unreviewed"
+    assert harvest["accounting_view"]["accounted_items"] == 9
+    assert {n["candidate_name"] for n in harvest["names"]} == {
+        "SEKOYA POP", "BIANCA", "VENTURA", "EMERALD", "MÁGICA", "BELLA", "BONITA", "JUPITER", "ATLAS",
+    }
+    assert {n["candidate_name"] for n in harvest["names"] if n["status"] == "needs_review"} == {
+        "BIANCA", "JUPITER", "ATLAS",
+    }
+    sheets = [s for s in report["sources"] if s["id"].startswith("portfolio-blugenix-original-sheet-")]
+    by_name = {s["names"][0]["candidate_name"]: s for s in sheets}
+    assert {name: s["capture_reference"]["reported_storage"]["pdf_days"] for name, s in by_name.items()} == {
+        "Bounty": 32, "Breeze": 27, "Cascade": 24, "Delight": 26, "Eterna": 50,
+    }
+    assert {name for name, s in by_name.items() if s.get("review_warnings")} == {"Bounty", "Cascade", "Delight"}
+    assert all(s["review_state"] == "unreviewed" and s["url"].endswith(".pdf") for s in sheets)
+    assert all(len(s["names"]) == 1 and not s["names"][0].get("breeder_code") for s in sheets)
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "names_found" and sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 9 and sunbelle["has_source_gaps"]
