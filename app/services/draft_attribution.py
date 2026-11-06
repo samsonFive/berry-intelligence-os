@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import re
 from collections import deque
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from functools import lru_cache
 from app.services.presentation_memo import ByteMemo
@@ -22,6 +23,9 @@ from app.services.intelligence_feed import MARKET_TAGS
 
 WATCH_ENTITY_TYPES = {"company", "variety", "geography", "person"}
 MIN_NEEDLE = 4
+# Python's Unicode IGNORECASE treats these four letters as ASCII equivalents.
+# The index is only a prefilter. The original regex verifies each retained hit.
+_ASCII_REGEX_EQUIVALENTS = str.maketrans("İıſK", "iisk")
 LEGAL_SUFFIX_RE = re.compile(
     r",?\s+(s\.?a\.?|pty ltd|llc|b\.v\.|inc\.?|ltd\.?|gmbh|holdings.*|group.*)$",
     re.IGNORECASE,
@@ -262,6 +266,14 @@ def _hit(
     }
 
 
+def _newsroom_label(record: dict[str, Any], source: dict[str, Any]) -> str:
+    return " ".join(
+        part
+        for part in (source.get("label"), record.get("source_name"), record.get("publisher"))
+        if isinstance(part, str) and part.strip()
+    )
+
+
 def _newsroom_company_ids(
     record: dict[str, Any],
     entities: dict[str, dict[str, Any]],
@@ -271,11 +283,7 @@ def _newsroom_company_ids(
     ids: list[str] = []
     source = (sources or {}).get(str(record.get("source_id") or "")) or {}
     ids.extend(str(entity_id) for entity_id in (source.get("linked_competitor_ids") or []) if entity_id)
-    label = " ".join(
-        part
-        for part in (source.get("label"), record.get("source_name"), record.get("publisher"))
-        if isinstance(part, str) and part.strip()
-    )
+    label = _newsroom_label(record, source)
     if label:
         if match_index:
             ids.extend(
@@ -437,6 +445,41 @@ def attribute_draft(
         "mentions": mentions,
         "hits": hits,
     }
+
+
+def prepare_title_attribution(
+    entities: dict[str, dict[str, Any]], sources: dict[str, dict[str, Any]],
+) -> Callable[[dict[str, Any]], dict[str, Any]]:
+    """Reuse name lookup for a batch while preserving title-only attribution."""
+    if any(key != entity.get("id") for key, entity in entities.items()):
+        return lambda record: attribute_draft(record, entities, sources=sources, include_body=False)
+
+    positions = {key: position for position, key in enumerate(entities)}
+    vocabulary = []
+    unicode_ids: set[str] = set()
+    for key, entity in entities.items():
+        if not key or entity.get("entity_type") not in WATCH_ENTITY_TYPES:
+            continue
+        needles = tuple(_needles(entity))
+        if any(not needle.isascii() for needle, _ in needles):
+            # Non-ASCII regex equivalence can differ from Unicode casefolding.
+            unicode_ids.add(key)
+        elif needles:
+            vocabulary.append((key, needles))
+    index = _build_attribution_match_index(tuple(vocabulary))
+
+    def attribute_title(record: dict[str, Any]) -> dict[str, Any]:
+        source = sources.get(str(record.get("source_id") or "")) or {}
+        possible = unicode_ids.copy()
+        for text in (_title_text(record), _newsroom_label(record, source)):
+            possible.update(_indexed_hits(text.translate(_ASCII_REGEX_EQUIVALENTS), index, require_boundary=False))
+        possible.update(str(key) for key in record.get("entity_ids") or [])
+        possible.update(str(key) for key in source.get("linked_competitor_ids") or [] if key)
+        # Ties and the newsroom priority depend on original entity order.
+        candidates = {key: entities[key] for key in sorted(possible & entities.keys(), key=positions.__getitem__)}
+        return attribute_draft(record, candidates, sources=sources, include_body=False)
+
+    return attribute_title
 
 
 def watch_match_quality(
