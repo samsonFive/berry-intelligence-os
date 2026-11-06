@@ -1034,6 +1034,46 @@ def test_related_expansion_preserves_input_order_and_first_matching_duplicate():
     assert expand_with_related([seed], [matching, unrelated, mirror]) == [seed, matching, mirror]
 
 
+def test_live_thread_skips_only_impossible_older_subjects(monkeypatch):
+    day = date(2025, 6, 20)
+    subject = {"id": "company-orchard", "name": "Example Orchard", "entity_type": "company"}
+    headline = "Example Orchard launches premium raspberry packing"
+    seed = _published(
+        "ev-seed", title=headline, published_date=day.isoformat(), primary_subject=subject,
+        evidence_links=[{"predicate": "follows_up", "target_evidence_id": "ev-forward"}],
+    )
+    near_day = (day - timedelta(days=DATE_PROXIMITY_EVENT_DAYS)).isoformat()
+    published = [
+        _published("ev-url", source_url=seed["source_url"]),
+        _published("ev-forward"),
+        _published("ev-reverse", evidence_links=[{"predicate": "same_signal", "target_id": seed["id"]}]),
+        _published("ev-title", title=headline + " - Trade Desk", primary_subject=subject),
+        _published("ev-window", title=headline + " capacity", published_date=None,
+                   date="2024-01-01", captured_date=near_day, primary_subject=subject),
+        _published("ev-window-miss", title=headline + " expansion", published_date=None,
+                   date=near_day, captured_date="2024-01-01", primary_subject=subject),
+        _published("ev-unrelated", title="Field day in another market"),
+    ]
+    monkeypatch.setattr(main, "published_evidence", lambda: published)
+    monkeypatch.setattr(main, "list_pending_drafts", lambda: [])
+    original_annotation = main._annotate_live_thread_row
+    annotated = []
+
+    def record_annotation(row, **kwargs):
+        annotated.append(row["id"])
+        return original_annotation(row, **kwargs)
+
+    monkeypatch.setattr(main, "_annotate_live_thread_row", record_annotation)
+    actual = main._live_story_thread_universe(seed, entities={}, source_index={})
+    expected_ids = ["ev-seed", "ev-url", "ev-forward", "ev-reverse", "ev-title", "ev-window"]
+    assert annotated == expected_ids
+    assert [row["id"] for row in actual] == expected_ids
+    assert published[-2]["date"] == near_day
+    with monkeypatch.context() as reference:
+        reference.setattr(main, "possible_thread_additions", lambda items, extra: list(extra))
+        assert actual == main._live_story_thread_universe(seed, entities={}, source_index={})
+
+
 def test_canonical_url_duplicates_remain_one_thread():
     left = _published(
         "ev-url-a",

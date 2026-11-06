@@ -408,6 +408,7 @@ from app.services.story_threads import (
     compress_recent_intelligence,
     expand_with_related,
     live_thread_candidate_universe,
+    possible_thread_additions,
     thread_for_item,
 )
 from app.session_auth import (
@@ -7252,16 +7253,19 @@ def _live_story_thread_universe(
             source_index=source_index,
             published_style=published_style,
         )
-    published_rows: list[dict[str, Any]] = []
-    for rec in published:
-        rec = dict(rec)
+    # Use the same publication/capture date as annotation for the cheap
+    # candidate pass, including when a legacy record carries its own date.
+    published_rows = possible_thread_additions(
+        universe,
+        (dict(rec, date=rec.get("published_date") or rec.get("captured_date") or "") for rec in published),
+    )
+    for rec in published_rows:
         _annotate_live_thread_row(
             rec,
             entities=entities,
             source_index=source_index,
             published_style=True,
         )
-        published_rows.append(rec)
     universe = expand_with_related(universe, published_rows)
     for row in universe:
         if not row.get("href"):
