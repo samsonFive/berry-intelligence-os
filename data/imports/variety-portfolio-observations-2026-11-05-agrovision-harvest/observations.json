@@ -1,0 +1,45 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-fruitist-peru-unprg-harvest-annex-4",
+      "title": "Universidad Nacional Pedro Ruiz Gallo — Agrovision harvest schedule, February 2024",
+      "url": "https://repositorio.unprg.edu.pe/bitstream/handle/20.500.12893/14301/Vicente_AJ.pdf?sequence=5",
+      "company_ids": ["company-agrovision"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2024-07-17",
+      "source_type": "university_professional_report",
+      "capture_status": "partial",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Annex 4, printed page 59. Distinct labels in the indexed Variedad column of the February 26, 2024 commercial harvest schedule.",
+      "limitations": "This is a dated planning example from a harvest supervisor's report. The indexed table was readable and the original page image still needs inspection. The schedule does not establish current varieties, actual harvest volumes, breeding or rights.",
+      "review_warnings": [
+        "Keep BIANCA, JUPITER and ATLAS as printed. The schedule does not identify them as BIANCA BLUE, JUPITER BLUE or ATLAS BLUE.",
+        "The table gives no denomination or breeder for MÁGICA, BELLA or BONITA. Compare original variety records before assigning an identity."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "Keep BIANCA, JUPITER and ATLAS as printed. The schedule does not identify them as BIANCA BLUE, JUPITER BLUE or ATLAS BLUE.",
+          "candidate_names": ["BIANCA", "JUPITER", "ATLAS"]
+        },
+        {
+          "message": "The table gives no denomination or breeder for MÁGICA, BELLA or BONITA. Compare original variety records before assigning an identity.",
+          "candidate_names": ["MÁGICA", "BELLA", "BONITA"]
+        }
+      ],
+      "names": [
+        {"candidate_name": "SEKOYA POP", "berry_id": "berry-blueberry"},
+        {"candidate_name": "BIANCA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "VENTURA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "EMERALD", "berry_id": "berry-blueberry"},
+        {"candidate_name": "MÁGICA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "BELLA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "BONITA", "berry_id": "berry-blueberry"},
+        {"candidate_name": "JUPITER", "berry_id": "berry-blueberry"},
+        {"candidate_name": "ATLAS", "berry_id": "berry-blueberry"}
+      ],
+      "accounting": {"observed_items": 9, "exclusions": []}
+    }
+  ]
+}

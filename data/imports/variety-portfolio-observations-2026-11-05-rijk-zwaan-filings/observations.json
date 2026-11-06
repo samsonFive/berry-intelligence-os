@@ -1,0 +1,103 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-rijk-zwaan-cpvo-2021-woodland-strawberry",
+      "title": "CPVO — Rijk Zwaan woodland strawberry applications",
+      "url": "https://cpvo.europa.eu/sites/default/files/documents/gazette202103.pdf#page=35",
+      "company_ids": ["company-rijk-zwaan"],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2021-06-15",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "CPVO Gazette 3/2021, Table I.1, printed page 33. Both Fragaria vesca rows are linked to party 00088 in the directory on printed page 191.",
+      "limitations": "The rows record 2021 applications for woodland strawberry. They give no current protection status, commercial name, release or growing location.",
+      "names": [
+        {
+          "candidate_name": "95-fs001 rz",
+          "breeder_code": "95-fs001 rz",
+          "berry_id": "berry-strawberry",
+          "scientific_name": "Fragaria vesca L.",
+          "jurisdiction": "EU",
+          "application_number": "2021/1017",
+          "application_date": "2021-04-14",
+          "portfolio_context": "Woodland strawberry application 2021/1017, filed April 14, 2021. The Gazette lists Rijk Zwaan as party 00088."
+        },
+        {
+          "candidate_name": "95-fs002 rz",
+          "breeder_code": "95-fs002 rz",
+          "berry_id": "berry-strawberry",
+          "scientific_name": "Fragaria vesca L.",
+          "jurisdiction": "EU",
+          "application_number": "2021/1018",
+          "application_date": "2021-04-14",
+          "portfolio_context": "Woodland strawberry application 2021/1018, filed April 14, 2021. The Gazette lists Rijk Zwaan as party 00088."
+        }
+      ],
+      "capture_reference": {
+        "method": "rendered_original_pdf_table_rows",
+        "capture_sha256": "fdc9c1821e45bb5912ed29b1412326a2d12fedfb70b7ca8c001224bac85c20b8",
+        "pdf_pages_read": [35, 193]
+      },
+      "accounting": {"observed_items": 2, "exclusions": []}
+    },
+    {
+      "id": "portfolio-rijk-zwaan-mexico-raspberry-4330",
+      "title": "Mexico Diario Oficial — Rijk Zwaan raspberry application 4330",
+      "url": "https://sidof.segob.gob.mx/notas/docFuente/5756664",
+      "company_ids": ["company-rijk-zwaan"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2025-05-07",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One raspberry application in the March 2025 filing notice, listed under Rijk Zwaan as applicant.",
+      "limitations": "The notice records a proposed denomination and application date. Check any later grant or commercial release separately.",
+      "names": [
+        {
+          "candidate_name": "97-VR0001 RZ",
+          "denomination": "97-VR0001 RZ",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "application_number": "4330",
+          "application_date": "2025-03-27",
+          "portfolio_context": "Rijk Zwaan filed raspberry application 4330 on March 27, 2025."
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []}
+    },
+    {
+      "id": "portfolio-rijk-zwaan-mexico-raspberry-filing-certificate-3563",
+      "title": "Mexico Diario Oficial — Rijk Zwaan raspberry filing certificate 3563",
+      "url": "https://sidof.segob.gob.mx/notas/docFuente/5764422",
+      "company_ids": ["company-rijk-zwaan"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-11-05",
+      "published_date": "2025-08-01",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The June 2025 notice lists one Rijk Zwaan raspberry under certificates of filing.",
+      "limitations": "Filing certificate 3563 documents an application milestone. The separate plant breeder titles table does not include application 4330.",
+      "names": [
+        {
+          "candidate_name": "97-VR0001 RZ",
+          "denomination": "97-VR0001 RZ",
+          "berry_id": "berry-raspberry",
+          "scientific_name": "Rubus idaeus L.",
+          "jurisdiction": "MX",
+          "application_number": "4330",
+          "application_date": "2025-03-27",
+          "filing_certificate_number": "3563",
+          "filing_certificate_date": "2025-06-18",
+          "portfolio_context": "Mexico issued filing certificate 3563 on June 18, 2025 for raspberry application 4330."
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []}
+    }
+  ]
+}

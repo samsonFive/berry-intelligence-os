@@ -1,3 +1,55 @@
+# Hortifrut raspberry patents and breeder rights — November 5, 2026
+
+Five original documents add eight name occurrences. Pacific Starlet appears in
+four documents and enters identity review separately from the existing Pacific
+Scarlet record. Four Pacific Gema occurrences match the catalog name. The U.S.
+patents, Mexican breeder titles and 2025 Mexican rights transfers retain their
+own dates and parties. No present-day ownership or growing regions were inferred.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-hortifrut-raspberry-filings/README.md)
+
+The combined public audit counts 560 sections, 2,119 name occurrences and
+71 of 77 roster subjects with named evidence.
+
+# Rijk Zwaan named berry filings — November 5, 2026
+
+The original CPVO Gazette identifies two woodland strawberry applications.
+Two Mexican official notices identify one raspberry denomination, with the
+application and filing certificate kept separate. The four occurrences
+produce three identity-review candidates. Current legal status, commercial
+release and production remain open. The existing corporate-crops check
+still records the gap in the company's public portfolio.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-rijk-zwaan-filings/README.md)
+
+After the Rijk Zwaan filings the public audit counted 555 sections and 2,111 name occurrences.
+There are now 71 of 77 roster subjects with named evidence, three partial
+checks, one unavailable and two identity holds.
+
+# Agrovision historical harvest labels — November 5, 2026
+
+A 2024 Agrovision Perú harvest report at UNPRG adds nine literal blueberry
+labels from a February 26 schedule. Six match catalog text. The short forms
+BIANCA, JUPITER and ATLAS go to identity review. The indexed table still
+needs image inspection. Its planning figures do not establish actual harvest
+volumes, current growing regions or company roles.
+[Source notes](../../data/imports/variety-portfolio-observations-2026-11-05-agrovision-harvest/README.md)
+
+Before the Rijk Zwaan filings, the combined public audit counted 552 sections, 2,107 name occurrences
+and 70 of 77 roster subjects with named evidence. Fruitist now has 23 name
+occurrences from the four bounded Peru sections.
+
+# BluGenix original technical sheets — November 5, 2026
+
+Five downloaded breeder sheets add source links to the existing named
+BluGenix observations. Bounty, Cascade and Delight have differing storage
+figures across the PDF, the web catalog or the launch coverage. The Bounty
+harvest calendar differs between the PDF and the web catalog for Central
+Mexico. The conflicting values are shown alongside the original URLs for
+review. [Source comparison](../../data/imports/variety-portfolio-observations-2026-11-05-blugenix-sheets/README.md)
+
+The five sheets contribute one catalog match and four occurrences on existing
+review paths. The combined public-seed audit also includes the Institute of
+Botany and Smart Berries sources below.
+
 # Fruitist blueberry source coverage — November 5, 2026
 
 Three original source sections add 14 name occurrences for the existing Fruitist
@@ -22,6 +74,22 @@ human review requirements.
 
 [Release #501](SOURCE-INTELLIGENCE-RELEASE-501-2026-11-04.md) connected existing production formats to News: 8 podcast, 3 video and 10 blog cards at code release; 8/4/10 after the separately approved historical delivery. These are matching publication counts, not complete recall/freshness or verified claims. All 1,268 varieties present in the fresh release-time baseline were retained; this release added no variety or Source rows. Real historical English Whisper/Spanish-caption artifacts passed timed capture/reopen locally. A separately approved additive delivery then added two original normalized transcripts and one unreviewed video draft, with live Reader counts of 1,212/382 segments and identical retry. The trusted podcast stayed unchanged; no bulk inbox delivery or acquisition/STT/model call occurred. Bounded recurring-source activation remains a separate review step. Original failed Google cohorts, word-accuracy/access limitations and wider trait/right/footprint/identity holds remain unchanged.
 # Partial-portfolio follow-up — November 4, 2026, 10:22 UTC
+
+## Institute of Botany and Smart Berries — November 5, 2026
+
+The China forestry authority's grant notice names the blueberry 蓝闺蜜 and
+lists the Institute of Botany as the rights holder at the time of the grant.
+The new review candidate retains the printed name, grant 20190411 and the
+original PDF link. The Australian Berry Journal's Smart Berries field report
+adds three blueberry mentions with different roles at the Crow's Nest site.
+All three match catalog names, and the reported trial, production and future
+harvest expectations stay in source context.
+
+Before adding the harvest schedule, the combined public-seed audit recorded 551 source sections, 2,098 name
+occurrences and 70 of 77 registry entries checked. Both companies still have
+source gaps. Current legal rights, confirmed growing regions and photo reuse
+remain review decisions. The original-script lookup keeps distinct printed
+names separate and preserves IDs for previously saved registry candidates.
 
 ## November 4 live-base reconciliation
 

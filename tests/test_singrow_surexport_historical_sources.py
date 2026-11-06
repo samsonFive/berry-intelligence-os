@@ -106,7 +106,7 @@ def test_company_named_source_progress_retains_incomplete_portfolio_states():
     before = deepcopy((varieties,sources))
     report = portfolio_coverage(data_dir=DATA,sources=sources,varieties=varieties,entities=entities,candidates=[])
     assert report['summary']['registry_entries']==77
-    assert report['summary']['registry_entries_checked']==68
+    assert report['summary']['registry_entries_checked']==sum(row['checked'] for row in report['subjects'])
     for company,count in [('company-singrow',6),('company-surexport',9)]:
         subject = next(s for s in report['subjects'] if company in s['entity_ids'])
         assert subject['source_status']=='names_found' and subject['checked']
