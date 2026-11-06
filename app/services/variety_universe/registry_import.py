@@ -15,8 +15,10 @@ import json
 from pathlib import Path
 from typing import Any
 
+from app.services.patent_monitor.entity_link import _fold as _legacy_fold
 from app.services.variety_universe.candidates import (
     CANDIDATE_RECORD_TYPE,
+    candidate_by_id,
     persist_variety_candidates,
 )
 from app.services.variety_universe.identity import (
@@ -48,18 +50,46 @@ class RegistryImportError(ValueError):
     pass
 
 
-def candidate_id_for(row: dict[str, Any]) -> str:
+def _candidate_id_with_name(row: dict[str, Any], name_key: str) -> str:
     seed = "|".join(
         [
-            fold_identity(str(row.get("jurisdiction") or "")),
-            fold_identity(str(row.get("application_number") or row.get("grant_number") or row.get("registration_id") or "")),
-            fold_identity(str(row.get("candidate_name") or row.get("denomination") or "")),
-            fold_identity(str(row.get("berry_id") or "")),
-            fold_identity(str(row.get("source_id") or "")),
+            _legacy_fold(str(row.get("jurisdiction") or "")),
+            _legacy_fold(str(row.get("application_number") or row.get("grant_number") or row.get("registration_id") or "")),
+            name_key,
+            _legacy_fold(str(row.get("berry_id") or "")),
+            _legacy_fold(str(row.get("source_id") or "")),
         ]
     )
     digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()[:12]
     return f"vcand-{digest}"
+
+
+def candidate_id_for(row: dict[str, Any]) -> str:
+    name = str(row.get("candidate_name") or row.get("denomination") or "")
+    return _candidate_id_with_name(row, fold_identity(name))
+
+
+def _reuse_saved_legacy_id(row: dict[str, Any], inbox_dir: Path) -> dict[str, Any]:
+    name = str(row.get("candidate_name") or row.get("denomination") or "")
+    legacy_key = _legacy_fold(name)
+    name_key = fold_identity(name)
+    if row.get("id") or name_key == legacy_key:
+        return row
+    legacy_id = _candidate_id_with_name(row, legacy_key)
+    saved = candidate_by_id(inbox_dir, legacy_id)
+    if (
+        not saved
+        or saved.get("source_id") != (row.get("source_id") or "")
+        or saved.get("berry_id") != (row.get("berry_id") or "")
+    ):
+        return row
+    # Two international labels may have shared one old ASCII key. Reuse the
+    # saved ID only for the same written name or the same exact filing number.
+    same_number = any(row.get(key) and row[key] == saved.get(key) for key in ("application_number", "grant_number"))
+    saved_name = str(saved.get("candidate_name") or saved.get("denomination") or "")
+    if fold_identity(saved_name) == name_key or same_number:
+        return {**row, "id": legacy_id}
+    return row
 
 
 def validate_source(row: dict[str, Any]) -> str | None:
@@ -154,7 +184,10 @@ def import_registry_rows(
     inbox_dir: Path,
     discovered_at: str | None = None,
 ) -> dict[str, Any]:
-    built = [build_candidate(row, varieties=varieties, discovered_at=discovered_at) for row in rows]
+    built = [
+        build_candidate(_reuse_saved_legacy_id(row, inbox_dir), varieties=varieties, discovered_at=discovered_at)
+        for row in rows
+    ]
     duplicates = [row for row in built if row.get("match_reason") == "same_registration_identifier"]
     exact_name_dupes = [
         row
