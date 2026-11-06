@@ -6,15 +6,42 @@ not approval to run an old release.
 
 ## Verified live release
 
-Approved PDF release #518 is live at canonical `41284ba7`, matching tested
+Approved Reader #528 is live at canonical `caaba2e4`, matching tested head
+`f82ffa29` and image `48b31ce7`. All four release-event checks passed with
+7,089 tests and 11 skips. The fresh backup verified 26,769 files and 674
+directories. The live check passed 32 authenticated routes and all four
+saved Watchlist PDFs. It preserved all five accounts, including Chris.H,
+four databases, 1,268 catalog profiles and 258 private research profiles.
+Public HTTPS returned 200, and the prior timer, exact proxy configuration,
+settings, mounts and rollback were verified. The live BluGenix full Reader
+took 28.9 seconds and the slide-over took 0.27 seconds.
+[Reader #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
+
+Watchlist #524 previously ran at canonical `627be80b`, matching tested head
+`a8be46e2` and image `1c1bb7ac`. Reader #528 retains its four berry
+Watchlists, saved filters and PDFs, captured News and shared article tags.
+[Watchlist #524](https://github.com/samsonFive/berry-intelligence-os/pull/524)
+
+Reader #522 merged at canonical `a7c035c6` after verification of a 26,709-file
+recovery point. Its live route check timed out and the controller restored
+Watchlist #524, the proxy configuration, and the prior collection timer.
+Use the production receipt for the live version and GitHub for canonical
+code. [Reader #522](https://github.com/samsonFive/berry-intelligence-os/pull/522)
+
+## Earlier release evidence
+
+Fruitist #519 deployed at canonical `ba83fb7d`. The live verification covered
+30 routes and four saved Landscape PDFs. Its 26,685-file recovery point
+included five accounts and four logical databases. The Fruitist source
+sections remain in Watchlist #524. [Fruitist #519](https://github.com/samsonFive/berry-intelligence-os/pull/519)
+
+Approved PDF release #518 deployed at canonical `41284ba7`, matching tested
 head `071d3827` and image `98c6b82f`. All four checks passed with 7,084 tests
 and 11 skips. A fresh recovery point verified 26,653 files and 673 directories.
 The release preserved five accounts, four databases, 1,268 catalog profiles,
 258 private research profiles and 13,676 protected files. Public HTTPS and all
 four saved landscape PDFs passed. The prior collection timer, proxy settings
 and rollback are retained. [Release #518](https://github.com/samsonFive/berry-intelligence-os/pull/518)
-
-## Earlier release evidence
 
 Approved [release #516](https://github.com/samsonFive/berry-intelligence-os/pull/516)
 was deployed at canonical `64b7bab6`, retaining tested head `03b962a9` exactly
@@ -68,6 +95,46 @@ fresh-process measurements exclude application import and network time.
 TD-122 remains open; there is no claim that every page or individual visit is
 faster.
 
+Coverage draft #525 was measured in eight fresh processes on the isolated
+copy using the current Watchlist image. The calculation fell from 0.347 to
+0.011 seconds. The full page moved from 8.14 to 7.94 seconds with overlapping
+samples and identical HTML. This remains separate from the Reader release.
+[Coverage draft #525](https://github.com/samsonFive/berry-intelligence-os/pull/525)
+
+Coverage draft #530 was measured in eight fresh processes on the existing
+isolated copy. The cold company-filtered view moved from 7.70 to 7.24 seconds.
+Warm source detail was flat at about 1.82 seconds. Warm all-sources Coverage
+moved from 3.53 to 3.73 seconds with overlapping samples. All three routes
+returned identical HTML and retained source and review labels. The read-only
+comparison preserved 26,621 files, five accounts and four logical databases.
+[Coverage draft #530](https://github.com/samsonFive/berry-intelligence-os/pull/530)
+
+Variety draft #531 groups recorded relationships once for the directory,
+program profiles and Coverage inventory. The cold blueberry directory moved
+from 5.43 to 5.00 seconds in the isolated comparison. Samples overlap.
+All three routes returned identical HTML and the browser kept recorded
+breeder links separate from source-name review. The isolated check retained
+all 26,621 files, five accounts and four databases.
+[Variety lookup draft #531](https://github.com/samsonFive/berry-intelligence-os/pull/531)
+
+Combined draft #532 measures all three Variety and Coverage speedups together.
+Twelve fresh workers compared four routes against the same read-only copy.
+Cold medians moved from 5.64 to 5.23 seconds for the blueberry directory,
+8.24 to 6.92 seconds for company-filtered Coverage, and 7.81 to 7.07 seconds
+for all-sources Coverage. Warm all-sources Coverage moved from 3.92 to 3.14
+seconds. Cold cohorts are small and deep catalog loads still take several
+seconds. HTML matched on all four routes, and the phone-width alphabetical
+jump retained the blueberry filter and recorded roles. All four checks
+passed with 7,092 tests. Reconcile this draft with the Reader correction
+before preparing a production review.
+[Combined performance draft #532](https://github.com/samsonFive/berry-intelligence-os/pull/532)
+
+Coverage links in draft #533 open the selected candidate with its original
+source in scope. A phone-width click opened the exact EB 846 record and its
+provenance. Four isolated routes passed and preserved the five accounts,
+four databases and 26,621 files.
+[Source navigation draft #533](https://github.com/samsonFive/berry-intelligence-os/pull/533)
+
 The #518 PDF renderer makes the export clock, selected-scope
 counts and known provenance label readable, removes duplicate known record
 IDs, and uses literal source titles for resolvable citations. Original titles,
@@ -80,28 +147,102 @@ saved landscape PDF models, publisher links and page counts match the baseline:
 pre-release measurements used the existing isolated copy. The subsequent live
 release rechecked the same four exports against the fresh recovery point.
 
-The Fruitist draft adds 14 observations from three original source sections.
-The public-data audit counts 544 sections and 2,089 occurrences, with 68 of
-77 subjects represented by named source sections. The Fruitist packing table
-remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
+The Reader correction in #528 passed all four checks with 7,089 tests and 11
+skips. The same isolated copy measured 208 seconds for the full BluGenix
+article on Watchlist #524, 209 seconds on #522, and 29 seconds on #528. The
+sampled article HTML and related-story data match. Thirty-two route checks
+and four saved PDFs passed. The isolated check preserved all five accounts,
+1,268 catalog profiles, 26,621 files and four logical databases. The verified
+image retains the Watchlist startup plan. The subsequent approved release
+and live verification are recorded above.
+[Reader fix #528](https://github.com/samsonFive/berry-intelligence-os/pull/528)
+
+Draft #535 reduces entity loading for the warm shared slide-over while
+preserving alias matching, workspace visibility and immediate visibility of
+file edits. Eight paired requests per article on the retained isolated copy
+returned identical HTML. Median times fell from 220 to 114 ms and 262 to
+178 ms on two articles. Browser review, 146 focused tests and all four CI
+checks passed. The full suite ran 7,089 tests with 11 skips.
+[Warm Reader draft #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)
+
+Draft #536 narrows older records before resolving story subjects. The
+isolated replay returned the same HTML and story models on all three
+routes. One fresh-process pair per route measured 33.55 to 28.63 seconds
+for the BluGenix Reader, 31.70 to 26.05 for Atlantic Blue, and 27.60 to
+24.86 for the BluGenix thread route. All four CI checks passed, including
+7,090 tests. About 2,700 records still receive subject annotation per
+request at this draft head. #528 has since gone live at its review commit.
+[Cold Reader draft #536](https://github.com/samsonFive/berry-intelligence-os/pull/536)
+
+Draft #537 reuses a title and publisher lookup for the whole story batch.
+The retained-copy comparison matched complete attribution for 1,290
+published and 1,755 pending records. One fresh-process pair per route
+measured 29.42 to 5.15 seconds for the BluGenix Reader, 26.62 to 4.85 for
+Atlantic Blue, and 24.21 to 2.75 for the BluGenix thread. Complete HTML
+and story models matched on all three routes.
+[Attribution draft #537](https://github.com/samsonFive/berry-intelligence-os/pull/537)
+
+Combined Reader draft #538 passes all four CI checks, 195 focused tests,
+desktop and 390 px browser review, 32 authenticated routes and four saved Watchlist PDFs
+on the retained copy. It preserves all five accounts, 1,268 catalog
+profiles, 258 private research profiles and four databases. Its immutable
+image staging is pending server headroom. Reconcile the draft against
+live #528 and verify the new release before seeking separate approval.
+[Reader recovery #538](https://github.com/samsonFive/berry-intelligence-os/pull/538)
+
+The live Fruitist addition contributes 14 observations from three original
+source sections. The public-data audit counts 544 sections and 2,089
+occurrences, with 68 of 77 subjects represented by named sources. The Fruitist
+packing table remains partial. [Coverage matrix](INTELLIGENCE-COVERAGE-MATRIX.md)
+
+Catalog draft #527 adds eleven sections, including five original BluGenix
+technical sheets, a 2024 Agrovision harvest schedule and three Rijk Zwaan
+filing sections. Two woodland strawberry references and one raspberry
+reference remain in identity review. The raspberry application and filing
+certificate share a candidate. The public audit counts 555 sections, 2,111
+occurrences and 71 of 77 subjects with named sources. Browser review and
+eight isolated route checks passed. The isolated check retained all 544
+prior sections and 434 prior candidate IDs. The harvest schedule still needs
+image inspection, and identity and role decisions remain in review. The
+parent draft's full suite failed the warm Reader timing check twice.
+[Catalog #527](https://github.com/samsonFive/berry-intelligence-os/pull/527)
+
+The stacked Hortifrut draft #534 passed all four checks with 7,090 tests.
+It adds five original raspberry sections and eight name occurrences. Pacific
+Starlet has four documents in one identity review. The existing Pacific
+Scarlet record remains separate. Four Pacific Gema entries match the existing
+catalog name. U.S. patents, Mexican grants and Mexican rights transfers
+retain separate dates and parties. The public audit counts 560 sections,
+2,119 occurrences and named evidence for 71 of 77 roster subjects. The
+11-route isolated replay preserved 555 earlier source sections, 439 candidate
+IDs, 26,621 files, five accounts and four databases.
+[Hortifrut draft #534](https://github.com/samsonFive/berry-intelligence-os/pull/534)
+
+The Mario Aguas-Alvarado roster entry has source material for person review.
+Mexico's filing notice identifies him as the applicant for blackberry MM01.
+Singapore's application notice lists him among the APF-122 breeders and
+identifies the University of Arkansas as the applicant. Use these as distinct
+person-to-variety references during review. The company roster count remains
+separate. [Mexico filing](https://dof.gob.mx/nota_detalle_popup.php?codigo=5510739)
+· [Singapore application journal](https://isomer-user-content.by.gov.sg/61/332f4ccd-761d-4d78-8872-7e407df39a57/plant-varieties-protection-journal-04-2018.pdf)
 
 ## Work and decisions that remain
 
 | Work | Remaining gate or evidence |
 | --- | --- |
-| Cold-load speed / TD-122 | Continue complete-output and fresh-edit measurements. Catalog cold visits still take seconds. The nested catalog reuse experiment slowed Company loading and was excluded. |
-| Reader hierarchy / UI-03, NEWS-03 | The standalone Reader and original review drawer now have a draft that brings the publisher action and article forward and folds Learn and secondary analysis. It shows stored full text and matching saved captures while keeping source identity and review controls. Final checks and separate release approval remain. |
+| Cold-load speed / TD-122 | The Reader recovery reaches about five seconds on two full Reader routes in isolation. Deep Catalog and Coverage visits still take several seconds. The field-inventory prototype improved the measured full Coverage load by about 0.08 seconds and was held back. |
+| Reader hierarchy / UI-03, NEWS-03 | The article-first layout is verified live in approved #528. Combined #538 contains the remaining performance improvements and requires live-base reconciliation, image staging, exact-head CI and separate release approval. |
 | Catalog depth / CAT-01, CAT-02 | Improve original-source, portfolio, trait, rights, region and attributed-photo depth. Retain the 77-subject plan's partial/unavailable/identity holds and 11 unreadable originals; source capture is not identity or commercial-role approval. |
 | Independent review | Human-owned 32-source expected-name packet, 32 unclear photographed cells, and name/code/role/rights/photo queues. Parser output cannot be its own independent answer key. |
 | Map figures / MAP-02 | Human selections for 24 references/51 original-unit figures across eight countries, including two UK discrepancy holds. Preserve crop, place, period, units and citation. |
 | Learn depth | Broader citation/media/scientific quality, preserving 27 visual lessons and the completed editable provider draft. The single approved real request cost USD0.13679; further paid requests/retries need authorization. |
 
-The human-approved 13-file redundant rehearsal cleanup is complete. All
-archives, deltas, metadata, receipts, images and rollback remain; active test
-copies and live data/settings were untouched. The unchanged test guard still
-requires 10 GiB free disk and 2 GiB available RAM. That fulfilled exact cleanup
-grant does not authorize another deletion. New recurring activation, provider
-spending and trust decisions retain their own gates.
+The approved 13-, 11- and 125-file redundant rehearsal cleanups are complete.
+The verified 125-file cleanup recovered about 128 MiB. Backup archives,
+recovery metadata, receipts and rollback are retained. The server guard still
+requires 10 GiB of free disk and 2 GiB of available RAM. Provider spending,
+recurring activation, source decisions and production releases retain their
+own approval gates.
 
 Full prior status wording is retained in
 [checklist history](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md).
