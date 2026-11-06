@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 import shutil
 import subprocess
+from urllib.parse import parse_qs, urlsplit
 
 from fastapi.testclient import TestClient
 import pytest
@@ -90,6 +91,37 @@ def test_private_source_endpoint_fails_closed_before_loading_records(monkeypatch
     for suffix in ("", "?fragment=1"):
         response = TestClient(main.app).get("/varieties/coverage/source/private-source" + suffix)
         assert response.status_code == 403 and "data-portfolio-source-content" not in response.text
+
+
+def test_source_name_opens_exact_candidate_in_its_original_source(monkeypatch, source_scope):
+    from app.services import variety_portfolio_coverage as portfolio
+
+    source, varieties, _candidate, tmp_path = source_scope
+    source["names"][0]["candidate_name"] = "Alpha New"
+    other = {**source, "id": "fixture-other", "url": "https://example.test/other",
+             "names": [{**source["names"][0], "candidate_name": "Alpha New Plus"}]}
+    sources = [source, other]
+    entities = main.all_entities()
+    _, candidates = portfolio.reconcile_portfolios(
+        sources=sources, varieties=varieties, entities=entities, candidates=[],
+    )
+    target = next(row for row in candidates if row["candidate_name"] == "Alpha New")
+    monkeypatch.setattr(main, "variety_candidate_universe", lambda: (varieties, candidates, {}))
+    monkeypatch.setattr(portfolio, "load_portfolio_observations", lambda _: sources)
+    client = TestClient(main.app)
+    for suffix in ("", "?fragment=1"):
+        page = client.get("/varieties/coverage/source/fixture-source" + suffix)
+        assert page.status_code == 200
+        link = unescape(re.search(r'href="([^"]+)" data-status="needs_review"', page.text).group(1))
+        destination = urlsplit(link)
+        assert destination.fragment == target["id"]
+        assert parse_qs(destination.query) == {
+            "q": ["Alpha New"], "berry": ["berry-blueberry"], "source": ["fixture-source"],
+        }
+    review = client.get(link)
+    assert review.status_code == 200
+    assert [row["id"] for row in review.context["candidates"]] == [target["id"]]
+    assert list(tmp_path.rglob("*.json")) == []
 
 
 def test_unreadable_source_is_not_presented_as_zero_varieties(source_scope):
