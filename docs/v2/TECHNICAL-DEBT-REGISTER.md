@@ -1,3 +1,14 @@
+# Warm Reader slide-over — November 5, 2026 Pacific
+
+Two catalog CI attempts exceeded the existing 500 ms Reader limit. The
+slide-over now reads the entity display and alias fields it uses, with the
+same file freshness checks and workspace visibility rules. On a retained
+read-only server snapshot, eight paired requests per article produced
+identical HTML. Median times were 220 to 114 ms for the Atlantic Blue
+article and 262 to 178 ms for the BluGenix article. This was a warm
+test on two routes. Full Reader cold performance and the remaining
+catalog performance work stay open under TD-122.
+
 # Source intelligence continuation candidate — November 4, 2026
 
 [Bounded collection follow-up](SOURCE-INTELLIGENCE-COLLECTION-CONTINUATION-2026-11-04.md) reproduces and fixes capped-runner starvation and a narrow Spanish blueberry-industry relevance gap. The real November 3 Blueberries TV recording passes local feed/Reader checks as description-only; no current-video draft was delivered to production. Full current-head CI and live preservation remain required before deploying this new follow-up. No recurring collection, transcription or provider routing was activated.
