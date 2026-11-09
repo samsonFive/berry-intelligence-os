@@ -41,7 +41,18 @@ Start with local reliability regressions, then deliver a browsable blackberry se
 
 The [rank-free review pool](../../artifacts/search-research-quality/frontier-7b5587c4-blind-source-pool-2026-11-09.json) contains the source URLs from the frozen replay. Review each URL against the full question. Use grade 3 for direct evidence, 2 for substantial but incomplete evidence, 1 for background, and 0 for unrelated material. Record the exact supporting section and the event identity for direct developments, with duplicate announcements grouped. Record inaccessible sources separately. Bind app judgments to the captured version during scoring. The [partial score](../../artifacts/search-research-quality/frontier-7b5587c4-score-2026-11-09.json) still has 77 missing question–source judgments, including 13 access-limited cases. Aggregate parity remains unverified.
 
-Human review is required for publication and proposition-level trust under AGENTS.md. Start with Ervin's trial and international license, Immaculate's release and supplier listing, and Loch Katrine's cropping trial. Review each event against its own source and date. Keep availability separate and unknown until supported by a dated stock confirmation. For release acceptance, repeat the filter interaction on the authenticated production surface and check that the first-screen shortlist and the crop-preserving route behave as tested locally.
+## First human review
+
+AGENTS.md requires human Publication and proposition-level Evidence review. The comparison is source-reported. If the sources and propositions below are approved, review each through the existing trust workflow using the stated scope.
+
+| Review item | Proposed scope | Original |
+| --- | --- | --- |
+| Ervin / NC 740 trial | Keep marketable yield separate from total yield. The replicated Mills River high-tunnel abstract reports 3.1 and 2.8 kg of marketable fruit per plant across two harvest years. The second-year total yield comparison applies to this trial. | [Poster 11, PDF pages 10–11](https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10) |
+| Ervin license | Review Global Plant Genetics' announcement of rights outside North America separately from the original breeder release, patent protection, and stock. | [Global Plant Genetics announcement](https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/) |
+| Sweet-Ark Immaculate | Review the Arkansas breeder release and trial, the patent grant, and the supplier listing as three separate records. | [Breeder update](https://smallfruits.org/2026/01/sweet-ark-immaculate/), [patent record](https://scholarworks.uark.edu/pat/496/), [Agromillora US catalog](https://www.agromillora.com/en-us/our-products/berries/blackberries/) |
+| Loch Katrine | Review the Scottish trial with the single- and double-cropping systems intact. Use the propagator's cultivar entry separately for fruiting habit. | [James Hutton Institute breeding page](https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/), [Berryplant catalog](https://www.berryplant.com/blackberry/?lang=en) |
+
+2027 stock is unknown for the pilot entries. For release acceptance, repeat the reported filter interaction on the authenticated production surface and check the first-screen shortlist and crop-preserving route against the local results.
 
 ## References
 
