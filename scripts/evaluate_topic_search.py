@@ -88,6 +88,9 @@ def main():
     parser.add_argument("--google-baseline", type=Path)
     parser.add_argument("--judgments", type=Path)
     parser.add_argument("--cohort", type=Path, help="JSON array of fresh held-out query strings")
+    parser.add_argument("--regression-cohort", type=Path, help="JSON array of previously observed query strings")
+    parser.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox",
+                        help="Discovery cache root. Use a new directory to measure an isolated first request.")
     parser.add_argument("--public-output", type=Path, help="Path for the metadata-only snapshot")
     parser.add_argument("--output", type=Path, default=ROOT / "inbox/search-quality-evaluation/live.json")
     args = parser.parse_args()
@@ -95,7 +98,10 @@ def main():
         parser.error("--allow-paid requires --live")
     if args.live and not args.allow_paid:
         os.environ["BIOS_RESEARCH_CREDIT_FREE_ONLY"] = "1"
-    queries = json.loads(args.cohort.read_text(encoding="utf-8")) if args.cohort else QUERIES
+    if args.cohort and args.regression_cohort:
+        parser.error("choose either --cohort or --regression-cohort")
+    cohort_path = args.cohort or args.regression_cohort
+    queries = json.loads(cohort_path.read_text(encoding="utf-8")) if cohort_path else QUERIES
     if not isinstance(queries, list) or not queries or any(not isinstance(q, str) or not q.strip() for q in queries):
         parser.error("Cohort must be a nonempty JSON array of query strings")
     if args.limit < 1:
@@ -139,7 +145,7 @@ def main():
                 first_body_supported_seconds = time.monotonic() - started
         names = [e["name"] for e in entities_list if e.get("entity_type") == "variety" and any("berry-" + crop in (e.get("berry_ids") or []) for crop in (set(plan.terms) & {"blackberry", "blueberry", "raspberry", "strawberry"}))]
         discovery_args = {
-            "inbox_dir": ROOT / "inbox", "data_dir": ROOT / "data", "entities": entities,
+            "inbox_dir": args.inbox_dir, "data_dir": ROOT / "data", "entities": entities,
             "constraints": {"public_variety_names": names},
         }
         capture_trace = []
@@ -150,17 +156,26 @@ def main():
             row.get("support_status") == "body_supported" for row in ranked
         ):
             first_body_supported_seconds = cold
-        warm_started = time.monotonic()
-        warm = discover_topic(plan, **discovery_args) if args.live else {}
-        warm_latency = time.monotonic() - warm_started
+        warm, warm_latency, warm_total = {}, None, None
+        if args.live:
+            warm_started = time.monotonic()
+            warm_plan = plan_query(query)
+            warm_local = retrieve(records, warm_plan, entities=entities, limit=20)
+            warm_discovery_started = time.monotonic()
+            warm = discover_topic(warm_plan, **discovery_args)
+            warm_latency = time.monotonic() - warm_discovery_started
+            retrieve([*warm_local, *(warm.get("items") or [])], warm_plan, entities=entities, limit=20)
+            warm_total = time.monotonic() - warm_started
         before_rows = old_results[i]
         judged = judgments.get(query) or {}
         evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked,"discovery":web}, judged, google.get(query))
-        result = {"query": query, "split": "held_out" if i >= 18 else "development", "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3), "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
-        result["split"] = "held_out" if i in held_out else "development"
+        result = {"query": query, "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3) if warm_latency is not None else None, "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
+        result["split"] = "regression" if args.regression_cohort else "held_out" if i in held_out else "development"
         if args.live and not web.get("cache_hit"):
             result["capture_trace"] = capture_trace
         result["local_retrieval_seconds"] = round(local_seconds, 3)
+        result["warm_total_seconds"] = round(warm_total, 3) if warm_total is not None else None
+        result["warm_cache_hit"] = warm.get("cache_hit")
         result["first_body_supported_seconds"] = (
             round(first_body_supported_seconds, 3) if first_body_supported_seconds is not None else None
         )
