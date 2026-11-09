@@ -42,11 +42,13 @@
           {% if row.system %} · {{ row.system }}{% endif %}</td>
         <td><p>{{ row.observation }}</p>
           {% for id in row.citations %}{% set source = comparison.sources[id] %}
-          <div><a href="{{ source[1] }}">{{ source[0] }}</a> <small>· {{ source[2] }}</small></div>
+          <div><a href="{{ source[1] }}">{{ source[0] }}</a> <small>· {{ source[2] }}</small>
+            {% if id in row.reviewed %} · <a href="/evidence/{{ row.reviewed[id] }}">Reviewed evidence</a>{% endif %}</div>
           {% endfor %}
         </td>
         <td>{% for label, date, detail, id in row.events %}
-          <div><strong>{{ label }}</strong> · {{ date or 'Date unconfirmed' }} · {{ detail }} <a href="{{ comparison.sources[id][1] }}">{{ comparison.sources[id][0] }}</a></div>
+          <div><strong>{{ label }}</strong> · {{ date or 'Date unconfirmed' }} · {{ detail }} <a href="{{ comparison.sources[id][1] }}">{{ comparison.sources[id][0] }}</a>
+            {% if id in row.reviewed %} · <a href="/evidence/{{ row.reviewed[id] }}">Reviewed evidence</a>{% endif %}</div>
           {% else %}No milestone in this comparison{% endfor %}
         </td>
       </tr>

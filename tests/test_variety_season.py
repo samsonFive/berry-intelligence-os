@@ -48,6 +48,38 @@ def test_alias_and_explicit_facets_intersect():
     assert not blackberry_season(DATA, "NC 740", {**filters, "markets": "Processing"})["rows"]
 
 
+def test_evidence_filter_tracks_active_reviewed_claims_and_withdrawal():
+    from types import SimpleNamespace
+
+    evidence_id = "ev-frontier-ervin-mills-river-trial"
+    fact_id = "fact-frontier-ervin-mills-river-trial-1"
+    baseline = blackberry_season(DATA, "", {})
+    source_url = baseline["sources"]["nc_trial"][1]
+    evidence = {"status": "published", "source_url": source_url, "fact_ids": [fact_id]}
+    fact = {"status": "active", "evidence_ids": [evidence_id]}
+    repositories = SimpleNamespace(evidence={evidence_id: evidence}, facts={fact_id: fact})
+    breeder_id = "ev-frontier-immaculate-breeder-update"
+    breeder_fact = "fact-frontier-immaculate-breeder-update-1"
+    repositories.evidence[breeder_id] = {
+        "status": "published", "source_url": baseline["sources"]["ar"][1], "fact_ids": [breeder_fact],
+    }
+    repositories.facts[breeder_fact] = {"status": "active", "evidence_ids": [breeder_id]}
+
+    filters = {"evidence_status": "Has reviewed evidence"}
+    reviewed = blackberry_season(DATA, "", filters, repositories=repositories)
+    assert [row["name"] for row in reviewed["rows"]] == ["Ervin", "Sweet-Ark Immaculate"]
+    assert reviewed["rows"][0]["reviewed"] == {"nc_trial": evidence_id}
+    von = next(row for row in blackberry_season(DATA, "", {}, repositories=repositories)["rows"] if row["name"] == "Von")
+    assert "ar" in von["citations"] and not von["reviewed"]
+
+    fact["status"] = "withdrawn"
+    assert not blackberry_season(DATA, "NC 740", filters, repositories=repositories)["rows"]
+    remaining = blackberry_season(DATA, "NC 740", {"evidence_status": "Source-reported only"}, repositories=repositories)
+    assert remaining["rows"][0]["reviewed"] == {}
+    assert remaining["sources"]["nc_trial"][1] == source_url
+    assert [row["name"] for row in remaining["rows"]] == ["Ervin"]
+
+
 def test_every_observation_and_milestone_resolves_to_original_source():
     result = blackberry_season(DATA, "", {})
     for row in result["rows"]:

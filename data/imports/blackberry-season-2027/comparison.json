@@ -2,6 +2,21 @@
   "version": 1,
   "season": 2027,
   "checked_on": "2026-11-09",
+  "reviewed_sources": {
+    "Ervin": {
+      "gpg": "ev-frontier-ervin-gpg-license",
+      "nc_trial": "ev-frontier-ervin-mills-river-trial"
+    },
+    "Sweet-Ark Immaculate": {
+      "ar": "ev-frontier-immaculate-breeder-update",
+      "nursery": "ev-frontier-immaculate-nursery-listing",
+      "patent": "ev-frontier-immaculate-uspp36781"
+    },
+    "Loch Katrine": {
+      "berryplant": "ev-frontier-loch-katrine-fruiting-habit",
+      "hutton": "ev-frontier-loch-katrine-scottish-trial"
+    }
+  },
   "sources": {
     "nc": [
       "NC State Extension",

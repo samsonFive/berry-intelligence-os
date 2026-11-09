@@ -3994,7 +3994,7 @@ def variety_season_page(request: Request, berry: str = "berry-blackberry", q: st
         raise HTTPException(status_code=404, detail="A season comparison is not available for this berry.")
     filters = {field: request.query_params.get(field, "") for field in FACETS}
     filters["habit"] = habit
-    comparison = blackberry_season(DATA_DIR, q, filters)
+    comparison = blackberry_season(DATA_DIR, q, filters, repositories=get_repositories(DATA_DIR, SCHEMAS_DIR))
     return templates.TemplateResponse(
         request=request,
         name="variety_season.html",

@@ -16,6 +16,7 @@ FACETS = {
     "window": "Harvest window",
     "trial_site": "Trial site",
     "system": "Production system",
+    "evidence_status": "Evidence status",
 }
 
 
@@ -96,8 +97,26 @@ def season_candidate_sources(data_dir, plan):
     return [(*data["sources"][key][:2], subject) for key, subject in list(keys.items())[:4]]
 
 
-def blackberry_season(data_dir, query, filters):
+def blackberry_season(data_dir, query, filters, *, repositories=None):
     data = json.loads((data_dir / COMPARISON).read_text(encoding="utf-8"))
+    for row in data["rows"]:
+        reviewed = {}
+        keys = set(row["citations"]) | {event[-1] for event in row["events"]}
+        for key, evidence_id in data.get("reviewed_sources", {}).get(row["name"], {}).items():
+            if repositories is None or key not in keys:
+                continue
+            evidence = repositories.evidence.get(evidence_id)
+            if not evidence or evidence.get("status") != "published" or evidence.get("verification_state") == "disputed":
+                continue
+            if evidence.get("source_url") != data["sources"][key][1]:
+                continue
+            if any(
+                fact and fact.get("status") == "active" and evidence_id in (fact.get("evidence_ids") or [])
+                for fact in (repositories.facts.get(fact_id) for fact_id in evidence.get("fact_ids") or [])
+            ):
+                reviewed[key] = evidence_id
+        row["reviewed"] = reviewed
+        row["evidence_status"] = "Has reviewed evidence" if reviewed else "Source-reported only"
     options = {
         field: sorted({value for row in data["rows"] for value in _values(row, field)})
         for field in FACETS

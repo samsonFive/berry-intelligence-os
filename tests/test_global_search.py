@@ -265,6 +265,7 @@ def test_search_routes_to_filterable_blackberry_comparison() -> None:
     season = client.get("/varieties/season", params={"berry": "berry-blackberry", "q": "NC 740", "system": "High tunnel"})
     assert season.status_code == 200
     assert "Mills River, NC" in season.text and "1 matching variety" in season.text
+    assert 'href="/evidence/ev-frontier-ervin-mills-river-trial"' in season.text
     assert 'name="berry" value="berry-blackberry"' in season.text
     assert client.get("/varieties/season", params={"berry": "berry-raspberry"}).status_code == 404
 
