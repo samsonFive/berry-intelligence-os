@@ -3,7 +3,7 @@
   "source_run_started_at": "2026-11-09T19:34:51.621392+00:00",
   "query_count": 8,
   "unique_pooled_urls": 94,
-  "judgment_pairs_missing": 77,
+  "judgment_pairs_missing": 72,
   "judgment_pairs_unassessable": 13,
   "non_comparable_google_queries": [],
   "acceptance_ready": false,
@@ -36,11 +36,8 @@
         "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx"
       ],
       "missing_judgments": [
-        "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
         "instagram.com/p/dctdqjljj3w",
-        "instagram.com/reel/dcpgfanbv8r",
-        "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
-        "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx"
+        "instagram.com/reel/dcpgfanbv8r"
       ],
       "unassessable_judgments": [],
       "missing_event_judgments": [],
@@ -60,11 +57,11 @@
         },
         "improved_app": {
           "result_count": 7,
-          "top_checked": false,
-          "direct_precision_at_10": null,
+          "top_checked": true,
+          "direct_precision_at_10": 0.1,
           "direct_precision_at_10_bounds": [
             0.1,
-            0.4
+            0.1
           ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
@@ -266,9 +263,7 @@
         "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
       ],
       "missing_judgments": [
-        "berryplant.com/blackberry?lang=en",
         "berryverona.it/varieta-pianta-di-mora.html",
-        "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
         "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
         "instagram.com/p/dzc83rydek9",
         "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
@@ -297,11 +292,11 @@
         },
         "improved_app": {
           "result_count": 3,
-          "top_checked": false,
-          "direct_precision_at_10": null,
+          "top_checked": true,
+          "direct_precision_at_10": 0.1,
           "direct_precision_at_10_bounds": [
             0.1,
-            0.3
+            0.1
           ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
@@ -608,10 +603,10 @@
       }
     }
   ],
-  "computed_at": "2026-11-09T19:44:07+00:00",
+  "computed_at": "2026-11-09T19:48:38+00:00",
   "input_sha256": {
     "run": "dcbb75afb205abef4021ac50e1debc138e44b615dd4ea530753a7de15e8eeef5",
     "google_baseline": "da0cd31698fe22e5dd943da5558544c0a2910f24546cd2008f1e1fcdf6ab261d",
-    "judgments": "53f175f006c43aa0381f78a1d99589622bf2446be2d39626ca10182c0f5d9554"
+    "judgments": "fa07a2fb7cfcf4a5d9fc5f3356e8b97406dc2dabd442571e8b27d304943c017e"
   }
 }

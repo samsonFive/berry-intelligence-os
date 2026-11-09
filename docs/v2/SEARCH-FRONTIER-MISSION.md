@@ -39,7 +39,7 @@ Start with local reliability regressions, then deliver a browsable blackberry se
 
 ## Independent source review
 
-The [rank-free review pool](../../artifacts/search-research-quality/frontier-7b5587c4-blind-source-pool-2026-11-09.json) contains the source URLs from the frozen replay. Review each URL against the full question. Use grade 3 for direct evidence, 2 for substantial but incomplete evidence, 1 for background, and 0 for unrelated material. Record the exact supporting section and the event identity for direct developments, with duplicate announcements grouped. Record inaccessible sources separately. Bind app judgments to the captured version during scoring. The [partial score](../../artifacts/search-research-quality/frontier-7b5587c4-score-2026-11-09.json) still has 77 missing question–source judgments, including 13 access-limited cases. Aggregate parity remains unverified.
+The [rank-free review pool](../../artifacts/search-research-quality/frontier-7b5587c4-blind-source-pool-2026-11-09.json) contains the source URLs from the frozen replay. Review each URL against the full question. Use grade 3 for direct evidence, 2 for substantial but incomplete evidence, 1 for background, and 0 for unrelated material. Record the exact supporting section and the event identity for direct developments, with duplicate announcements grouped. Record inaccessible sources separately. Bind app judgments to the captured version during scoring. The [partial score](../../artifacts/search-research-quality/frontier-7b5587c4-score-2026-11-09.json) still has 72 missing question–source judgments, including 13 access-limited cases. Aggregate parity remains unverified.
 
 ## First human review
 

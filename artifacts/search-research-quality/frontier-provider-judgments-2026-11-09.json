@@ -103,6 +103,36 @@
       "checked_against": "Frozen application capture and original source inspected on 2026-11-09",
       "reviewer": "Codex source inspection",
       "checked_at": "2026-11-09"
+    },
+    "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "pdf:section:11:pages:10-11",
+      "source_version": "ff53551ff13eccf778184b59e0685ed7779bef922ee1fe57f94cf570906d0f36",
+      "reason": "The breeder abstract supplies Ervin trial evidence and a comparison with established cultivars. It does not establish 2027 market availability.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:20;article:21;article:22",
+      "source_version": "9caac1ea922acbe1a1f8346db3271c518a3a1cda06f4789867d077193553a4ee",
+      "reason": "The selected section describes historic primocane releases. The page gives general Arkansas blackberry context and no new 2027 floricane event.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "pdf:section:S05-I-O-6:pages:5-6",
+      "source_version": "65a6f4c8a741faff0708a04672321b260f11445463b7cfbd6762ab53f7435b00",
+      "reason": "The selected abstract concerns primocane cultivars and tunnel cropping cycles. It is adjacent background for a strict floricane shortlist.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Variedades de zarzamora floricane para producción comercial en España": {
@@ -224,6 +254,26 @@
       "reviewer": "Codex source inspection",
       "checked_at": "2026-11-09",
       "event_group": "hutton-loch-katrine-scottish-cropping-trial"
+    },
+    "https://www.berryplant.com/blackberry/?lang=en": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:17",
+      "source_version": "541c5179d80c830fd760d00e30ceef7c359147106e178eb334404ae2c089eb0c",
+      "reason": "The propagator names Loch Katrine, its floricane habit, the Scottish breeder and 2024 release. It does not report the Scottish yield trial results.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "title and captured article",
+      "source_version": "2aca4eadd767cc1f2c6ce0a6c0f01bc895c505b18649a88b75d29e18a2d69601",
+      "reason": "The Mid-Atlantic guide does not name Loch Katrine or report its Scottish trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita": {
