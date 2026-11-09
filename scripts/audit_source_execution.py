@@ -24,6 +24,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--inbox-dir", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--season-pilot", action="store_true", help="Include the blackberry comparison source coverage")
+    parser.add_argument("--all-seasons", action="store_true", help="Include source coverage for all four 2027 crop comparisons")
     args = parser.parse_args(argv)
     data_dir = args.data_dir or resolve_data_dir(ROOT)
     inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
@@ -52,33 +53,34 @@ def main(argv: list[str] | None = None) -> int:
         "counts": aggregate_source_execution({row["source_id"]: row for row in rows}),
         "sources": rows,
     }
-    if args.season_pilot:
+    if args.season_pilot or args.all_seasons:
         from urllib.parse import urlsplit
         from app.services.article_dedup import normalize_canonical_url
         from app.services.research_source_cache import cached_source_urls
-        from app.services.variety_season import COMPARISON
-
-        pilot = json.loads((data_dir / COMPARISON).read_text(encoding="utf-8"))
+        from app.services.variety_season import SEASON_CROPS, comparison_path
         configured_hosts = {urlsplit(source.get("url") or "").hostname for source in sources}
         published = {
             normalize_canonical_url(evidence.get("source_url") or "")
             for evidence in repositories.evidence.list(status="published")
         }
         captured, cache_status = cached_source_urls(inbox_dir)
-        references = [
-            {
-                "source_id": key, "title": title, "url": url,
-                "configured_host": urlsplit(url).hostname in configured_hosts,
-                "captured_for_research": normalize_canonical_url(url) in captured if cache_status != "unavailable" else None,
-                "published_evidence": normalize_canonical_url(url) in published,
+        crops = SEASON_CROPS if args.all_seasons else ("berry-blackberry",)
+        for berry in crops:
+            pilot = json.loads((data_dir / comparison_path(berry)).read_text(encoding="utf-8"))
+            references = [
+                {
+                    "source_id": key, "title": title, "url": url,
+                    "configured_host": urlsplit(url).hostname in configured_hosts,
+                    "captured_for_research": normalize_canonical_url(url) in captured if cache_status != "unavailable" else None,
+                    "published_evidence": normalize_canonical_url(url) in published,
+                }
+                for key, (title, url, _) in pilot["sources"].items()
+            ]
+            payload[f"{berry.removeprefix('berry-')}_season"] = {
+                "season": pilot["season"],
+                "research_cache_status": cache_status,
+                "references": references,
             }
-            for key, (title, url, _) in pilot["sources"].items()
-        ]
-        payload["blackberry_season"] = {
-            "season": pilot["season"],
-            "research_cache_status": cache_status,
-            "references": references,
-        }
     rendered = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

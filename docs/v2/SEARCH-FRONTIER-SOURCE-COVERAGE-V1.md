@@ -44,6 +44,8 @@ The [post-review snapshot](../../artifacts/search-research-quality/frontier-sour
 
 Use the catalog, discovery and trust stages independently. A site can be registered without the relevant page being acquired. A captured page can support a comparison as an attributed observation without being approved as a canonical trait or rights record. Search-provider links are discovery leads and do not confer republication rights.
 
+Run `python scripts/audit_source_execution.py --all-seasons` to inspect the four comparisons with the same match rules. The [four-crop snapshot](../../artifacts/search-research-quality/frontier-aac1429a-four-crop-source-coverage-2026-11-09.json) records 22 cited URLs. Four configured-host matches were all in blackberry. The nine references added for blueberry, raspberry, and strawberry therefore need a recurring acquisition review. A host match measures registry coverage separately from capture or source review.
+
 ## Provider comparison
 
 Maintain the priority list as versioned publisher paths and original-document acquisition rules. For each provider, measure which distinct events it adds after original capture and deduplication, which questions it leaves unanswered, and the cost and time per supported event. Include a direct-publisher lane and a general-web lane so an unlisted publisher can still surface. Start with publisher content that can be retained under its access and reuse terms. Record links and attributed observations where full-text retention is unavailable.
