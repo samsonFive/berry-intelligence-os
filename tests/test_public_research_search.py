@@ -153,6 +153,39 @@ def test_discovery_follow_up_only_adds_a_new_cultivar_name(tmp_path):
     assert result["queries_this_request"] == 2
 
 
+def test_first_capture_preview_precedes_follow_up_and_reuses_same_bounded_sources(tmp_path, monkeypatch):
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    monkeypatch.setattr("app.services.topic_discovery.MAX_CAPTURE_CANDIDATES", 2)
+    query = "floricane blackberry varieties"
+    urls = [f"https://publisher.example/{name}" for name in ("a", "b", "c")]
+    calls, fetched, previews = [], [], []
+
+    def search(text, **kwargs):
+        calls.append(text)
+        hits = [SearchHit("Floricane blackberry introduction", url, "")
+                for url in (urls[:2] if text == query else urls[2:])]
+        return SearchResponse("fixture", text, tuple(hits), 0)
+
+    def fetch(url):
+        fetched.append(url)
+        return {"availability": "full", "passages": [f"Floricane blackberry varieties were introduced. Source {url[-1]}."]}
+
+    def progress(event):
+        if event["stage"] == "capture" and any(item["passage"] for item in event["items"]):
+            previews.append(len(calls))
+
+    plan = plan_query(query)
+    client = SimpleNamespace(search=search)
+    streamed = discover_topic(plan, inbox_dir=tmp_path / "stream", client=client, fetcher=fetch, progress=progress)
+    assert previews and previews[0] == 1
+    assert sorted(fetched) == urls[:2]
+    fetched.clear()
+    final_only = discover_topic(plan, inbox_dir=tmp_path / "final", client=client, fetcher=fetch)
+    assert sorted(fetched) == urls[:2]
+    assert [row["source_url"] for row in streamed["items"]] == [row["source_url"] for row in final_only["items"]]
+
+
 def test_openaire_repository_leads_are_public_metadata_only():
     def get(url):
         if 'api.openaire.eu'in url:

@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v15'  # Avoid reissuing already named cultivar queries.
+CAPTURE_VERSION = 'topic-capture-v16'  # Reuse the first bounded streaming capture batch.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -160,8 +160,44 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                     "reference_subject": subject,
                     "provider_rank": 0, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED",
                 }
+        def capture(row):
+            try:
+                captured = fetcher(row["source_url"])
+                row = {**row, "search_title": row['title'], "title": captured.get('headline') or row['title']}
+                body = captured.get("passages") or []
+                canonical = captured.get("canonical_url") or row["source_url"]
+                if not is_public_http_url(canonical):
+                    canonical = row['source_url']
+                identity = normalize_canonical_url(canonical)
+                locators = captured.get('passage_locators') or []
+                paragraphs = [{'index':i,'text':str(p), **({'locator':locators[i]} if i<len(locators) else {})} for i,p in enumerate(body)]
+                row['capture_provenance'] = {k:captured[k] for k in ('method','copy_scope','original_url','repository_identifiers','original_capture_status','original_capture_reason') if k in captured}
+                return {**row, "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "source_url": canonical, "search_date": row.get("published_date") or "", "published_date": captured.get("published_date") or "", "publication_date_basis": captured.get("published_date_basis") if captured.get("published_date") else "unknown", "article": {"paragraphs": paragraphs}, "capture_status": captured.get("availability") or "metadata_only", "capture_reason": captured.get("reason") or "", "source_version": hashlib.sha256("\n".join(str(p) for p in body).encode()).hexdigest() if body else None}
+            except Exception as exc:
+                return {**row, "search_date": row.get("published_date") or "", "published_date": "", "publication_date_basis": "unknown", "capture_status": "snippet_only", "capture_reason": type(exc).__name__}
+
+        def show_capture(captured, total):
+            if not progress:
+                return
+            preview = scoped_rows(captured)
+            progress({
+                'stage': 'capture', 'captured': len(captured), 'capture_total': total,
+                'text_captures': sum(bool(row.get('source_version')) for row in captured),
+                'items': [
+                    {k: (('Quotation withheld · verification required' if k == 'capture_status' else None)
+                         if k in {'capture_status', 'passage', 'passage_locator'}
+                         and row.get('support_status') in {'scope_unverified', 'source_review_hold'}
+                         else row.get(k))
+                     for k in ('id', 'title', 'source_url', 'published_date', 'capture_status',
+                               'relevance', 'passage', 'passage_locator')}
+                    for row in preview
+                ],
+            })
+
+        first_batch = []
+        prefetched = {}
         successes = 0
-        for query in queries:
+        for query_index, query in enumerate(queries):
             try:
                 response = client.search((query + " " + suffix).strip(), max_results=10)
                 successes += 1
@@ -176,6 +212,16 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 failures.append(type(exc).__name__)
             if progress:
                 progress({'stage':'search', 'searches_completed':successes+len(failures), 'candidates':len(candidates), 'items':[]})
+            if query_index == 0 and len(queries) > 1:
+                first_batch = list(candidates.items())[:min(2, MAX_CAPTURE_CANDIDATES)]
+                if progress and first_batch:
+                    # Reserve the same slots in both modes. Streaming can
+                    # show them early and reuse them in the final capture.
+                    with ThreadPoolExecutor(max_workers=2) as pool:
+                        futures = {pool.submit(capture, row): identity for identity, row in first_batch}
+                        for future in as_completed(futures):
+                            prefetched[futures[future]] = future.result()
+                            show_capture(list(prefetched.values()), len(first_batch))
 
         # Keep named candidates early for capture, but only send a follow-up
         # when it adds an identity absent from the original question.
@@ -198,42 +244,31 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             except Exception as exc:
                 failures.append(type(exc).__name__)
 
-        def capture(row):
-            try:
-                captured = fetcher(row["source_url"])
-                row = {**row, "search_title": row['title'], "title": captured.get('headline') or row['title']}
-                body = captured.get("passages") or []
-                canonical = captured.get("canonical_url") or row["source_url"]
-                if not is_public_http_url(canonical):
-                    canonical = row['source_url']
-                identity = normalize_canonical_url(canonical)
-                locators = captured.get('passage_locators') or []
-                paragraphs = [{'index':i,'text':str(p), **({'locator':locators[i]} if i<len(locators) else {})} for i,p in enumerate(body)]
-                row['capture_provenance'] = {k:captured[k] for k in ('method','copy_scope','original_url','repository_identifiers','original_capture_status','original_capture_reason') if k in captured}
-                return {**row, "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "source_url": canonical, "search_date": row.get("published_date") or "", "published_date": captured.get("published_date") or "", "publication_date_basis": captured.get("published_date_basis") if captured.get("published_date") else "unknown", "article": {"paragraphs": paragraphs}, "capture_status": captured.get("availability") or "metadata_only", "capture_reason": captured.get("reason") or "", "source_version": hashlib.sha256("\n".join(str(p) for p in body).encode()).hexdigest() if body else None}
-            except Exception as exc:
-                return {**row, "search_date": row.get("published_date") or "", "published_date": "", "publication_date_basis": "unknown", "capture_status": "snippet_only", "capture_reason": type(exc).__name__}
-
+        first_identities = {identity for identity, _ in first_batch}
         with ThreadPoolExecutor(max_workers=4) as pool:
             # Follow-up candidates precede generic gardening results for body
             # acquisition, while ranking still uses the original topic plan.
-            ordered = sorted(candidates.values(), key=lambda r: any(normalize(n) in normalize(r["title"]) for n in followed), reverse=True)
+            ordered = sorted(
+                candidates.values(),
+                key=lambda row: (
+                    normalize_canonical_url(row['source_url']) in first_identities,
+                    any(normalize(name) in normalize(row['title']) for name in followed),
+                ),
+                reverse=True,
+            )
             bounded = ordered[:MAX_CAPTURE_CANDIDATES]
-            positions = {pool.submit(capture, row):i for i,row in enumerate(bounded)}
             completed = {}
+            positions = {}
+            for i, row in enumerate(bounded):
+                identity = normalize_canonical_url(row['source_url'])
+                if identity in prefetched:
+                    completed[i] = prefetched[identity]
+                else:
+                    positions[pool.submit(capture, row)] = i
             for future in as_completed(positions):
                 completed[positions[future]] = future.result()
                 # Completion order must not change final ranking or the cache.
-                captured = [completed[i] for i in sorted(completed)]
-                if progress:
-                    preview = retrieve(captured, plan, entities=entities, limit=20)
-                    groups = constraints.get('required_label_groups') or []
-                    if groups:
-                        from app.services.topic_retrieval import record_passages
-                        preview = [r for r in preview if all(any(normalize(label) in normalize(' '.join(p for _,p in record_passages(r))) for label in group) for group in groups)]
-                    progress({'stage':'capture', 'captured':len(completed), 'capture_total':len(bounded),
-                              'text_captures':sum(bool(row.get('source_version')) for row in captured),
-                              'items':[{k:(('Quotation withheld · verification required' if k=='capture_status' else None) if k in {'capture_status','passage','passage_locator'} and r.get('support_status') in {'scope_unverified','source_review_hold'} else r.get(k)) for k in ('id','title','source_url','published_date','capture_status','relevance','passage','passage_locator')} for r in preview]})
+                show_capture([completed[i] for i in sorted(completed)], len(bounded))
             captured = [completed[i] for i in sorted(completed)]
         try:history_write=remember_sources(inbox_dir,captured)
         except (OSError,ValueError):history_write={'status':'unavailable','stored':0}
