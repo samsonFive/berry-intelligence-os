@@ -43,7 +43,7 @@ The [rank-free review pool](../../artifacts/search-research-quality/frontier-7b5
 
 ## First human review
 
-AGENTS.md requires human Publication and proposition-level Evidence review. The comparison is source-reported. If the sources and propositions below are approved, review each through the existing trust workflow using the stated scope.
+AGENTS.md requires human Publication and proposition-level Evidence review. On November 9, the user approved this packet subject to a way to correct or withdraw trust later. Each source and proposition was processed separately through Publication and Claim review on the feature branch. The comparison also contains other source-reported observations.
 
 | Review item | Proposed scope | Original |
 | --- | --- | --- |
@@ -53,6 +53,24 @@ AGENTS.md requires human Publication and proposition-level Evidence review. The 
 | Loch Katrine | Review the Scottish trial with the single- and double-cropping systems intact. Use the propagator's cultivar entry separately for fruiting habit. | [James Hutton Institute breeding page](https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/), [Berryplant catalog](https://www.berryplant.com/blackberry/?lang=en) |
 
 2027 stock is unknown for the pilot entries. For release acceptance, repeat the reported filter interaction on the authenticated production surface and check the first-screen shortlist and crop-preserving route against the local results.
+
+### Correcting or withdrawing a pilot claim
+
+The current correction mechanism is repository-backed. Each approval has its own commit containing the publication, the approved claim, and any entity links. Repository history preserves the earlier version. Corrections require the current original passage and should update the approved statement and any matching publication summary or pilot wording in one reviewed commit. The Immaculate patent correction in `ddfc9910` exercised this path and retained the published patent number while correcting the breeder code to A-2718T.
+
+To withdraw a claim and its publication, revert the corresponding approval as a reviewed data change. If the record has changed since approval, remove the targeted Fact and Evidence files and only their exact links in the entity and any dependent records. Retain any independently supported material. If the publication should remain available as an approved source, remove the Fact and its exact links and retain the publication with an empty `fact_ids` list. Check for references to both IDs and verify the season comparison separately for wording that also needs to be removed. Run `python scripts/validate_records.py`, check Search and the linked entity or reader, and rebuild the published snapshot through the normal release path.
+
+An isolated Git index rollback of `f8510b2c` removed the Ervin license publication and Fact and their links while retaining the Mills River claim. Schema validation passed with the corrected records. The general evidence reader's purge action is restricted to auto-captured items. These pilot records use the reviewed repository path.
+
+| Approved source | Commit |
+| --- | --- |
+| Ervin Mills River trial | `d55f70e2` |
+| Ervin international license | `f8510b2c` |
+| Immaculate breeder update | `183c050f` |
+| Immaculate patent | `d0cc0f35` plus correction `ddfc9910` |
+| Immaculate catalog listing | `153b5639` |
+| Loch Katrine Scottish trial | `ad4f295c` |
+| Loch Katrine fruiting habit | `c86cb38d` |
 
 ## References
 
