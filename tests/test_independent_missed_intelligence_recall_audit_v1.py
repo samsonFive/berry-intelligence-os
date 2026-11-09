@@ -41,7 +41,8 @@ BENCHMARK_PATH = ROOT / "data" / "imports" / "missed-intelligence-recall-audit-v
 EXPECTED_CLASSES = {
     "RA-EU-BK-01": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-EU-BK-03": SOURCE_COLLECTED_ITEM_MISSED,
-    "RA-EU-BK-04": SOURCE_COLLECTED_ITEM_MISSED,
+    # The 2027 pilot added reviewed evidence for this exact Hutton page.
+    "RA-EU-BK-04": FULLY_REPRESENTED,
     "RA-EU-BK-GEO": FULLY_REPRESENTED,
     "RA-UK-RB-01": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-UK-RB-02": SOURCE_COLLECTED_ITEM_MISSED,
@@ -160,10 +161,11 @@ def test_bayer_first_party_source_unknown(scored):
     assert _row(scored, "RA-EU-ST-01")["miss_classification"] == SOURCE_UNKNOWN
 
 
-def test_sekoya_nova_and_redsayra_fully_represented(scored):
+def test_loch_katrine_sekoya_nova_and_redsayra_fully_represented(scored):
+    assert _row(scored, "RA-EU-BK-04")["miss_classification"] == FULLY_REPRESENTED
     assert _row(scored, "RA-US-BB-07")["miss_classification"] == FULLY_REPRESENTED
     assert _row(scored, "RA-EU-ST-06")["miss_classification"] == FULLY_REPRESENTED
-    assert scored["counts"][FULLY_REPRESENTED] == 3
+    assert scored["counts"][FULLY_REPRESENTED] == 4
 
 
 def test_fc11_164_everlast_identity_unresolved(scored):
