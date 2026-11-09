@@ -85,7 +85,7 @@ def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str |
     return None
 
 
-def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None) -> dict[str, Any]:
+def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None, capture_audit: Callable | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     from app.services.public_research_search import registered_primary_sources,registered_primary_terms
     from app.services.variety_season import season_candidate_sources
@@ -244,6 +244,24 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         degraded=bool(diagnostics.get('fallback_used'))
         fresh_versions = {(r["source_url"], r["source_version"]) for r in captured if r.get("source_version")}
         has_live_match = any((r["source_url"], r.get("source_version")) in fresh_versions for r in rows)
+        if capture_audit is not None:
+            def fingerprint(url):
+                return hashlib.sha256(normalize_canonical_url(url).encode()).hexdigest()
+
+            ranked_by_capture = {(row["source_url"], row.get("source_version")): row for row in rows}
+            trace = []
+            for original, capture_row in zip(ordered, captured):
+                ranked = ranked_by_capture.get((capture_row["source_url"], capture_row.get("source_version")))
+                trace.append({
+                    "candidate_sha256": fingerprint(original["source_url"]),
+                    "capture_sha256": fingerprint(capture_row["source_url"]),
+                    "capture_status": capture_row["capture_status"],
+                    "retained": ranked is not None,
+                    "support_status": ranked.get("support_status") if ranked else None,
+                })
+            trace.extend({"candidate_sha256": fingerprint(row["source_url"]), "capture_status": "budget_excluded"}
+                         for row in ordered[len(captured):])
+            capture_audit(trace)
         result = {"items": rows, "status": "partial" if (failures or degraded) and (successes or has_live_match) else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.

@@ -142,7 +142,8 @@ def main():
             "inbox_dir": ROOT / "inbox", "data_dir": ROOT / "data", "entities": entities,
             "constraints": {"public_variety_names": names},
         }
-        web = discover_topic(plan, progress=record_progress, **discovery_args) if args.live else {"items": [], "status": "not_run", "queries_this_request": 0}
+        capture_trace = []
+        web = discover_topic(plan, progress=record_progress, capture_audit=capture_trace.extend, **discovery_args) if args.live else {"items": [], "status": "not_run", "queries_this_request": 0}
         ranked = retrieve([*local, *(web.get("items") or [])], plan, entities=entities, limit=20)
         cold = time.monotonic() - started
         if first_body_supported_seconds is None and any(
@@ -157,6 +158,8 @@ def main():
         evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked,"discovery":web}, judged, google.get(query))
         result = {"query": query, "split": "held_out" if i >= 18 else "development", "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3), "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
         result["split"] = "held_out" if i in held_out else "development"
+        if args.live and not web.get("cache_hit"):
+            result["capture_trace"] = capture_trace
         result["local_retrieval_seconds"] = round(local_seconds, 3)
         result["first_body_supported_seconds"] = (
             round(first_body_supported_seconds, 3) if first_body_supported_seconds is not None else None

@@ -77,6 +77,35 @@ def test_total_public_outage_keeps_named_primary_source_lead():
     assert len(client.failures) == 5
 
 
+def test_benchmark_audit_tracks_capture_rank_and_budget_without_source_text(tmp_path, monkeypatch):
+    import hashlib
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    monkeypatch.setattr("app.services.topic_discovery.MAX_CAPTURE_CANDIDATES", 2)
+    urls = ["https://publisher.example/trial", "https://publisher.example/blocked", "https://publisher.example/other"]
+    hits = tuple(SearchHit("Strawberry field trial", url, "") for url in urls)
+    client = SimpleNamespace(search=lambda query, **kwargs: SearchResponse("fixture", query, hits, 0))
+
+    def fetch(url):
+        if url == urls[1]:
+            raise TimeoutError("private transport detail")
+        return {"availability": "full", "passages": ["The strawberry field trial compared fruit yield."]}
+
+    audit = []
+    plan = plan_query("strawberry field trial")
+    result = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch, capture_audit=audit.extend)
+    assert result["capture_count"] == 1
+    assert audit[0]["candidate_sha256"] == hashlib.sha256(b"publisher.example/trial").hexdigest()
+    assert audit[0]["capture_status"] == "full"
+    assert audit[0]["retained"] and audit[0]["support_status"] == "body_supported"
+    assert audit[1]["capture_status"] == "snippet_only"
+    assert audit[2]["capture_status"] == "budget_excluded"
+    assert "https://" not in str(audit) and "private transport detail" not in str(audit)
+    audit.clear()
+    warm = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch, capture_audit=audit.extend)
+    assert warm["cache_hit"] and not audit
+
+
 def test_openaire_repository_leads_are_public_metadata_only():
     def get(url):
         if 'api.openaire.eu'in url:
