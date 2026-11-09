@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v13'  # Credit-free discovery and exact deposited/document captures.
+CAPTURE_VERSION = 'topic-capture-v14'  # Use the PDF byte budget for extensionless publisher downloads.
 MAX_CAPTURE_CANDIDATES = 40
 
 

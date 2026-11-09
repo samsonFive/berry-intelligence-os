@@ -464,7 +464,7 @@ def empty_capture(url: str, *, reason: str) -> dict[str, Any]:
     }
 
 
-def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
+def _bounded_public_response(url: str, http: httpx.Client, *, limit: int, pdf_limit: int | None = None):
     """Preflight each redirect; stream only a bounded response for parsing."""
     current = url
     deadline = monotonic() + FETCH_TIMEOUT
@@ -484,10 +484,13 @@ def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
                 current = urljoin(str(response.url), location)
                 continue
             parts, size, limited = [], 0, False
+            body_limit = limit
             for chunk in response.iter_bytes(chunk_size=64_000):
                 if monotonic() >= deadline:
                     raise ValueError("capture-timeout")
-                room = limit - size
+                if not parts and pdf_limit is not None and chunk.lstrip().startswith(b"%PDF"):
+                    body_limit = pdf_limit
+                room = body_limit - size
                 parts.append(chunk[:room])
                 size += min(len(chunk), room)
                 if len(chunk) > room:
@@ -510,7 +513,9 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_PDF_BYTES if looks_like_pdf(url) else MAX_BYTES)
+        final, raw, headers, encoding, status_code, limited = _bounded_public_response(
+            url, http, limit=MAX_PDF_BYTES if looks_like_pdf(url) else MAX_BYTES, pdf_limit=MAX_PDF_BYTES
+        )
         if google_access_page(final):
             return empty_capture(final, reason="blocked")
         if status_code >= 400:
