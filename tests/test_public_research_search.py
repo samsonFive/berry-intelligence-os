@@ -126,6 +126,29 @@ def test_benchmark_audit_tracks_capture_rank_and_budget_without_source_text(tmp_
     assert warm["cache_hit"] and not audit
 
 
+def test_discovery_follow_up_only_adds_a_new_cultivar_name(tmp_path):
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    calls = []
+    query = "blueberry Sekoya Pop plant patent"
+    hits = (
+        SearchHit("SEKOYA Pop patent", "https://publisher.example/pop", ""),
+        SearchHit("Synthetic Blue trial", "https://publisher.example/blue", ""),
+    )
+
+    def search(text, **kwargs):
+        calls.append(text)
+        return SearchResponse("fixture", text, hits, 0)
+
+    result = discover_topic(
+        plan_query(query), inbox_dir=tmp_path, client=SimpleNamespace(search=search),
+        fetcher=lambda url: {"availability": "metadata_only"},
+        constraints={"public_variety_names": ["SEKOYA Pop", "Synthetic Blue"]},
+    )
+    assert calls == [query, "Synthetic Blue " + query]
+    assert result["queries_this_request"] == 2
+
+
 def test_openaire_repository_leads_are_public_metadata_only():
     def get(url):
         if 'api.openaire.eu'in url:

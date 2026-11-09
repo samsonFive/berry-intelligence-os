@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v14'  # Use the PDF byte budget for extensionless publisher downloads.
+CAPTURE_VERSION = 'topic-capture-v15'  # Avoid reissuing already named cultivar queries.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -177,12 +177,15 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             if progress:
                 progress({'stage':'search', 'searches_completed':successes+len(failures), 'candidates':len(candidates), 'items':[]})
 
-        # Follow at most two registry names actually present in discovered
-        # titles. No topic-specific result URLs or invented cultivar traits.
+        # Keep named candidates early for capture, but only send a follow-up
+        # when it adds an identity absent from the original question.
         from app.services.topic_retrieval import normalize
         titles = " ".join(normalize(r["title"]) for r in candidates.values())
         followed = [str(name) for name in constraints.get("public_variety_names", []) if len(str(name)) >= 4 and re.search(r"(?<!\w)" + re.escape(normalize(str(name))) + r"(?!\w)", titles)][:2]
+        original = normalize(plan.interpreted_query)
         for name in followed:
+            if re.search(r"(?<!\w)" + re.escape(normalize(name)) + r"(?!\w)", original):
+                continue
             query = name + " " + plan.interpreted_query
             queries.append(query)
             try:
