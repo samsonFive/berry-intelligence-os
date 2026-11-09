@@ -31,6 +31,8 @@ Each new candidate should record the original URL, market, language, evidence ty
 
 Run `python scripts/audit_source_execution.py --season-pilot` for a read-only inventory against the current source registry, published Evidence and local research cache. In the [November 9 snapshot](../../artifacts/search-research-quality/frontier-source-coverage-2026-11-09.json), four of thirteen cited references matched a configured host, eight had cached body captures and zero matched a published Evidence URL. The counts describe exact host or canonical URL matches within this worktree.
 
+The [post-review snapshot](../../artifacts/search-research-quality/frontier-source-coverage-after-review-2026-11-09.json) finds four configured-host matches, nine cached captures, and seven published Evidence URL matches among the same thirteen references. The Evidence matches cover the seven separately reviewed source records. These are branch-local counts. Configured hosts measure collector coverage separately from publications reviewed through the pilot.
+
 Use the catalog, discovery and trust stages independently. A site can be registered without the relevant page being acquired. A captured page can support a comparison as an attributed observation without being approved as a canonical trait or rights record. Search-provider links are discovery leads and do not confer republication rights.
 
 ## Provider comparison

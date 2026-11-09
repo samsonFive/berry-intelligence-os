@@ -42,6 +42,26 @@ def test_saved_primary_urls_respect_positive_name_and_crop():
     assert not client._registry('strawberry Synthetic Scarlet')
 
 
+def test_named_patent_query_prioritizes_exact_linked_grant_copy(tmp_path):
+    from app.services.public_research_search import registered_primary_sources
+
+    variety = {"id": "v", "name": "Synthetic Scarlet", "entity_type": "variety", "berry_ids": ["berry-strawberry"]}
+    patent = {"id": "p", "name": "Synthetic grant", "entity_type": "patent",
+              "attributes": {"patent_number": "USPP032186P3"}}
+    entities = {"v": variety, "p": patent}
+    folder = tmp_path / "evidence"
+    folder.mkdir()
+    evidence = {"id": "ev-fixture", "status": "published", "source_type": "patent_record",
+                "entity_ids": ["v", "p"], "title": "Synthetic Scarlet",
+                "source_url": "https://index.example/grant"}
+    (folder / "source.json").write_text(json.dumps(evidence), encoding="utf-8")
+    sources = registered_primary_sources(tmp_path, entities)
+    client = PublicResearchSearchClient(entities=entities, primary_sources=sources)
+    assert client._registry("strawberry Synthetic Scarlet patent")[0].url == "https://patents.google.com/patent/USPP32186P3/en"
+    assert client._registry("strawberry Synthetic Scarlet")[0].url == evidence["source_url"]
+    assert not client._registry("blueberry Synthetic Scarlet patent")
+
+
 def test_registered_catalog_follows_exact_named_sheet_without_recursive_or_external_links():
     entity=dict(id='v',entity_type='variety',name='Synthetic Scarlet',berry_ids=['berry-strawberry'],attributes={'identity_review':{'source_url':'https://breeder.example/varieties/'}})
     body=b'<main><a href="/sheets/synthetic-scarlet.pdf">Technical sheet</a><a href="/sheets/other.pdf">Other Scarlet</a><a href="https://outside.example/synthetic-scarlet.pdf">Synthetic Scarlet</a><a href="http://127.0.0.1/synthetic-scarlet">Synthetic Scarlet</a></main>'
