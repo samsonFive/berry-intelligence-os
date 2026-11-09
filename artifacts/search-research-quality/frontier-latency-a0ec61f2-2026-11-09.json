@@ -1,0 +1,586 @@
+{
+  "version": 1,
+  "started_at": "2026-11-09T20:25:42.848272+00:00",
+  "old_ref": "caaba2e4a8640155a887a965f485fa1085be3dbe",
+  "provider": "public_metadata_fallback",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "plan": {
+        "raw_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "interpreted_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "terms": [
+          "commercial",
+          "floricane",
+          "blackberry",
+          "variety",
+          "2027",
+          "northern",
+          "hemisphere",
+          "season"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v34"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-66a421b2a277d5ea",
+          "title": "Blackberry Cultivars for Oregon | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "published_date": "2014-12-18",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season new variety releases trials",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season licensing international development",
+          "Ervin New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 14,
+        "capture_count": 11,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T20:25:45+00:00",
+        "latency_seconds": 53.653,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "empty",
+        "history_candidates_count": 0,
+        "history_write": {
+          "status": "ready",
+          "stored": 11
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout",
+          "europe_pmc:ReadTimeout",
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 9,
+        "primary_page_failures": [
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 56.289,
+      "warm_seconds": 1.17,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false,
+      "split": "regression",
+      "capture_trace": [
+        {
+          "candidate_sha256": "498c1d46adfd3d8baacfe935015be4fdbf65d4d8a0904913d11e1b750206bea1",
+          "capture_sha256": "498c1d46adfd3d8baacfe935015be4fdbf65d4d8a0904913d11e1b750206bea1",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "66a421b2a277d5ea25bf150df0db2fe9657192f7052a910fd6671817a2a39255",
+          "capture_sha256": "66a421b2a277d5ea25bf150df0db2fe9657192f7052a910fd6671817a2a39255",
+          "capture_status": "full",
+          "retained": true,
+          "support_status": "body_supported"
+        },
+        {
+          "candidate_sha256": "0e079deb57250614d2f7d87d9df6a8f68913c15ef877dfcd2288ea94c714d6c3",
+          "capture_sha256": "0e079deb57250614d2f7d87d9df6a8f68913c15ef877dfcd2288ea94c714d6c3",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "717126dee8e08e8c8dd4c0244bf61a33059379af38ba032909a42b8fe19a5a32",
+          "capture_sha256": "717126dee8e08e8c8dd4c0244bf61a33059379af38ba032909a42b8fe19a5a32",
+          "capture_status": "excerpt_only",
+          "retained": true,
+          "support_status": "body_supported"
+        },
+        {
+          "candidate_sha256": "5cf97073b50c78266b9441225fe62c43f5896d684b45c528bffcb808035aad17",
+          "capture_sha256": "d3914b283352f871abe9507330d147f2ce701d43333f01b4dea499bc61a2f213",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "0ebac38a9bceb0cf9a397f7b125af2634634a8e35afedd0d134e016c885e0727",
+          "capture_sha256": "0b5cdd871bd5ba545459fdb6ac9c1009edaf972648c0734a98bcecdbb803c56e",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "dd7cbcea8226a785b323e648d1963753587e7a2779d206190a70bef795fed537",
+          "capture_sha256": "d63d725980e71dba184a1e2da2d9528a41982db3281cc08be640900180612d32",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "d4d3089923ff0bad8f868e4b62c2b2f0446e0953170cadf828134a3153dfab95",
+          "capture_sha256": "48d513ee279978c37383468c295c08cdefd6b6ef4818baf0d6f6ad659161e6b8",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "40fb04fff5eb340c77b80ad8a462b68e98fe63d1526e036a04c6613dc28114e5",
+          "capture_sha256": "2c26f988c11c1c7f4122b5ffca0d9ce85350d50a7fd2a19f67181770b4a516b1",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "3f8f1a3ebd80881c09e28b4bc393f6383bf8c217a2a1154685b627daf8d6d296",
+          "capture_sha256": "cf0773e287725d009c9811ff1250d8657f6022061d8ef4240604febc85bba660",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "a9f3e17ac09e32bdc176152790b8ce26534c4a30e161e855ccca3b73833586b4",
+          "capture_sha256": "a9f3e17ac09e32bdc176152790b8ce26534c4a30e161e855ccca3b73833586b4",
+          "capture_status": "full",
+          "retained": true,
+          "support_status": "body_supported"
+        },
+        {
+          "candidate_sha256": "f4eef1aed35b09c78cd3bc241ac271ecd9923d1244e96673ef7f12025283e327",
+          "capture_sha256": "877826038b3c4c1703291984fb47d8d9c3accf06e3f3e89945f5db956d885715",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "f3daf97f3bf23d5a1f39e970f10c90f690804b2dbd23874516c69cb88b3347cb",
+          "capture_sha256": "f3daf97f3bf23d5a1f39e970f10c90f690804b2dbd23874516c69cb88b3347cb",
+          "capture_status": "full",
+          "retained": true,
+          "support_status": "body_supported"
+        },
+        {
+          "candidate_sha256": "75dcaa2379d5bac0d5f907ecd2e4fe4c352a32efc5a53406722bb63e9b3613d4",
+          "capture_sha256": "75dcaa2379d5bac0d5f907ecd2e4fe4c352a32efc5a53406722bb63e9b3613d4",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        }
+      ],
+      "local_retrieval_seconds": 1.212,
+      "warm_total_seconds": 2.456,
+      "warm_cache_hit": true,
+      "first_body_supported_seconds": 45.928
+    },
+    {
+      "query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+      "plan": {
+        "raw_query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+        "interpreted_query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+        "terms": [
+          "vaccinium",
+          "sekoya",
+          "pop",
+          "low",
+          "chill",
+          "blueberry",
+          "variety",
+          "official",
+          "plant",
+          "patent",
+          "denomination"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v34"
+      },
+      "old_app": [
+        {
+          "id": "ev-nda-za-variety-list-2025",
+          "title": "Berries South Africa blueberry variety list 2025",
+          "source_url": "https://www.nda.gov.za/images/Branches/AgricProducHealthFoodSafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+          "published_date": "2025-01-01"
+        }
+      ],
+      "improved_app": [
+        {
+          "id": "web-e0c91ce62d974966",
+          "title": "USPP32186P3 - Blueberry plant named ‘FCM14-052’ - Google Patents",
+          "source_url": "https://patents.google.com/patent/USPP32186P3/en",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+          "SEKOYA Pop Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T20:26:44+00:00",
+        "latency_seconds": 27.96,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 9,
+        "history_write": {
+          "status": "ready",
+          "stored": 5
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 10,
+        "primary_page_requests_this_request": 4,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 30.484,
+      "warm_seconds": 1.774,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false,
+      "split": "regression",
+      "capture_trace": [
+        {
+          "candidate_sha256": "6748f97303f15dd1fcf6ad781178eb24cc048c2a0583abf8370ad0c057120dc6",
+          "capture_sha256": "6748f97303f15dd1fcf6ad781178eb24cc048c2a0583abf8370ad0c057120dc6",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "e0c91ce62d9749663f9454fc55f3a787b9e03ca4d2c272a5f4ec09f72e445732",
+          "capture_sha256": "e0c91ce62d9749663f9454fc55f3a787b9e03ca4d2c272a5f4ec09f72e445732",
+          "capture_status": "partial",
+          "retained": true,
+          "support_status": "body_supported"
+        },
+        {
+          "candidate_sha256": "8b15bbd84a7af15cf6213d93970ef41d0a418263e09db59fd5482b1082be6f8c",
+          "capture_sha256": "8b15bbd84a7af15cf6213d93970ef41d0a418263e09db59fd5482b1082be6f8c",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "76b72e6f49355e777deede464eae13608cde8a9c910c3496f8b431ef756ee63f",
+          "capture_sha256": "76b72e6f49355e777deede464eae13608cde8a9c910c3496f8b431ef756ee63f",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "3f1d473b9f33d162f091fc9b385520260e5e877586628c323a2e2992889b9101",
+          "capture_sha256": "3f1d473b9f33d162f091fc9b385520260e5e877586628c323a2e2992889b9101",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "a31503e1dc440fd4f1ac4722fc9aa5764b8651ced8695443882bb43c45311e00",
+          "capture_sha256": "0cc0965cc376c8bf6deea358641b48428ea42365a4cf410971310d89fd6672c9",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "a4650b8b157e0f5cc9b5671564e77e9f583cc3e4d29fb55cb523d2540b663cef",
+          "capture_sha256": "a4650b8b157e0f5cc9b5671564e77e9f583cc3e4d29fb55cb523d2540b663cef",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "3fc91fef39f858d903e29a148f408a343c6b7b59013a5adfc37a8cb0518bb1d8",
+          "capture_sha256": "3fc91fef39f858d903e29a148f408a343c6b7b59013a5adfc37a8cb0518bb1d8",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "db546da60b40e4668b6729accf4e3c422af0ecd71e751fdd3b63df156d6d7761",
+          "capture_sha256": "aaeb17e2a756d8a6a5a9db5080245af864307f63ad8e5116e9c945f651ee8ba6",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "381f915945f9d70a25f48a10e71946a9c8a31f5aaf18d0df17e0756acff2d601",
+          "capture_sha256": "381f915945f9d70a25f48a10e71946a9c8a31f5aaf18d0df17e0756acff2d601",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        }
+      ],
+      "local_retrieval_seconds": 0.944,
+      "warm_total_seconds": 3.283,
+      "warm_cache_hit": true,
+      "first_body_supported_seconds": 20.01
+    }
+  ],
+  "candidate_ref": "a0ec61f2a6085f50d31063d4337982184dd158d7",
+  "candidate_tracked_changes": false,
+  "summary": {
+    "queries": 2,
+    "median_seconds": 43.3865,
+    "p95_seconds": 56.289,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": true
+  },
+  "quality_evaluation": {
+    "version": 1,
+    "source_run_started_at": "2026-11-09T20:25:42.848272+00:00",
+    "query_count": 2,
+    "unique_pooled_urls": 6,
+    "judgment_pairs_missing": 6,
+    "judgment_pairs_unassessable": 0,
+    "non_comparable_google_queries": [
+      "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination"
+    ],
+    "acceptance_ready": false,
+    "aggregate_metrics": {},
+    "individual_regressions": [],
+    "same_day_capture_pairing": false,
+    "google_parity": "UNVERIFIED",
+    "queries": [
+      {
+        "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "split": "regression",
+        "judged_pool_complete": false,
+        "pool_size": 4,
+        "pool_urls": [
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
+        ],
+        "missing_judgments": [
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 4,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.4
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+        "split": "regression",
+        "judged_pool_complete": false,
+        "pool_size": 2,
+        "pool_urls": [
+          "nda.gov.za/images/branches/agricproduchealthfoodsafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+          "patents.google.com/patent/uspp32186p3/en"
+        ],
+        "missing_judgments": [
+          "nda.gov.za/images/branches/agricproduchealthfoodsafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+          "patents.google.com/patent/uspp32186p3/en"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.1
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.1
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      }
+    ]
+  }
+}
