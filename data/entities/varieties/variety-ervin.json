@@ -16,10 +16,12 @@
   ],
   "evidence_ids": [
     "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
-    "ev-frontier-ervin-mills-river-trial"
+    "ev-frontier-ervin-mills-river-trial",
+    "ev-frontier-ervin-gpg-license"
   ],
   "fact_ids": [
-    "fact-frontier-ervin-mills-river-trial-1"
+    "fact-frontier-ervin-mills-river-trial-1",
+    "fact-frontier-ervin-gpg-license-1"
   ],
   "relationship_ids": [
     "rel-nc-state-develops-ervin"
