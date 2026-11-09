@@ -358,7 +358,7 @@
       return;
     }
     var html = payload.blackberry_season
-      ? '<p><a href="/varieties/blackberry-season">Compare floricane blackberry varieties for the 2027 season</a></p>'
+      ? '<p><a href="/varieties/season?berry=berry-blackberry">Compare floricane blackberry varieties for the 2027 season</a></p>'
       : "";
     if (payload.empty) {
       searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";

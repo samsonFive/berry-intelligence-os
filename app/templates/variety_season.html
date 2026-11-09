@@ -9,7 +9,8 @@
     <h1>{{ comparison.season }} blackberry season</h1>
     <p>Northern Hemisphere commercial comparison. Source-reported observations checked {{ comparison.checked_on }}. Plant stock for 2027 is unverified.</p>
   </div></header>
-  <form class="digest-filters" method="get" action="/varieties/blackberry-season" aria-label="Filter season comparison">
+  <form class="digest-filters" method="get" action="/varieties/season" aria-label="Filter season comparison">
+    <input type="hidden" name="berry" value="{{ berry }}">
     <label>Variety or trial code<input type="search" name="q" value="{{ query }}"></label>
     {% for field, label in comparison.facets.items() %}
     <label>{{ label }}
@@ -25,7 +26,7 @@
     </label>
     {% endfor %}
     <button type="submit">Apply filters</button>
-    <a href="/varieties/blackberry-season">Reset to floricane varieties</a>
+    <a href="/varieties/season?berry={{ berry|urlencode }}">Reset to floricane varieties</a>
   </form>
   <p role="status">{{ comparison.rows|length }} matching {{ 'variety' if comparison.rows|length == 1 else 'varieties' }}</p>
   <div class="company-table-scroll" tabindex="0" aria-label="Blackberry comparison">

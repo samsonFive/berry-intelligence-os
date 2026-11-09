@@ -3986,17 +3986,19 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
 
 
-@app.get("/varieties/blackberry-season", response_class=HTMLResponse)
-def blackberry_season_page(request: Request, q: str = "", habit: str = "Floricane") -> HTMLResponse:
+@app.get("/varieties/season", response_class=HTMLResponse)
+def variety_season_page(request: Request, berry: str = "berry-blackberry", q: str = "", habit: str = "Floricane") -> HTMLResponse:
     from app.services.variety_season import FACETS, blackberry_season
 
+    if berry != "berry-blackberry":
+        raise HTTPException(status_code=404, detail="A season comparison is not available for this berry.")
     filters = {field: request.query_params.get(field, "") for field in FACETS}
     filters["habit"] = habit
     comparison = blackberry_season(DATA_DIR, q, filters)
     return templates.TemplateResponse(
         request=request,
         name="variety_season.html",
-        context={"comparison": comparison, "filters": filters, "query": q},
+        context={"comparison": comparison, "filters": filters, "query": q, "berry": berry},
     )
 
 

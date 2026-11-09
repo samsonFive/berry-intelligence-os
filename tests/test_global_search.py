@@ -260,11 +260,13 @@ def test_search_form_keeps_explicit_crop_when_submitted() -> None:
 
 def test_search_routes_to_filterable_blackberry_comparison() -> None:
     search = client.get("/search", params={"q": "Blackberry Floricans", "berry": "berry-blackberry"})
-    assert search.status_code == 200 and 'href="/varieties/blackberry-season"' in search.text
+    assert search.status_code == 200 and 'href="/varieties/season?berry=berry-blackberry"' in search.text
     assert "Source-reported shortlist" in search.text and "Loch Katrine" in search.text
-    season = client.get("/varieties/blackberry-season", params={"q": "NC 740", "system": "High tunnel"})
+    season = client.get("/varieties/season", params={"berry": "berry-blackberry", "q": "NC 740", "system": "High tunnel"})
     assert season.status_code == 200
     assert "Mills River, NC" in season.text and "1 matching variety" in season.text
+    assert 'name="berry" value="berry-blackberry"' in season.text
+    assert client.get("/varieties/season", params={"berry": "berry-raspberry"}).status_code == 404
 
 
 def test_warm_search_reuses_documents_without_reloading_pools(monkeypatch) -> None:
