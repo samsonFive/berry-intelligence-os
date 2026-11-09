@@ -32,5 +32,16 @@
       "checked_at": "2026-11-09",
       "reviewer": "Codex supplemental source inspection"
     }
+  },
+  "Sweet-Ark Caddo blackberry cultivar trial Clarksville postharvest firmness compared with Osage": {
+    "http://journals.ashs.org/view/journals/hortsci/60/12/article-p2270.xml": {
+      "grade": 1,
+      "source_checked": true,
+      "reason": "The authors’ abstract describes a North Florida postharvest trial of Osage, Traveler, Freedom and Ponca. It contains no Caddo or Clarksville comparison.",
+      "source_locator": "Authors’ abstract, cultivar list and study site",
+      "checked_against": "Journal URL returned HTTP 403. The same volume, issue, pagination and journal URL are indexed by AGRIS with the authors’ deposited abstract at https://agris.fao.org/search/en/providers/122436/records/6ad618785139f8daf5ede24d",
+      "checked_at": "2026-11-09",
+      "reviewer": "Codex supplemental source inspection"
+    }
   }
 }
