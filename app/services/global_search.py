@@ -809,7 +809,24 @@ def search_documents(
     sort = sort if sort in {"newest", "relevance"} else "newest"
     needle = (query or "").strip()
     from app.services.topic_retrieval import plan_query
-    query_plan = plan_query(needle)
+    try:
+        query_plan = plan_query(needle)
+    except ValueError as error:
+        return {
+            "q": needle,
+            "berry": berry,
+            "include_private": include_private,
+            "include_global": include_global,
+            "sort": sort,
+            "error": str(error),
+            "empty": True,
+            "ambiguous": False,
+            "alias_resolutions": [],
+            "groups": [],
+            "result_count": 0,
+            "total_matches": 0,
+            "related_added": 0,
+        }
     needle = query_plan.interpreted_query
     folded_query = _fold(needle)
     hits: dict[str, dict[str, Any]] = {}
@@ -919,15 +936,17 @@ def search_documents(
 
     groups = []
     total = 0
+    total_matches = 0
     exact_groups = 0
     for group_id in GROUP_ORDER:
-        # Relevance rank decides which results make the cut (selection);
-        # `sort` only decides the order they are then displayed in.
-        in_context = sorted(grouped[group_id]["in_context"], key=_sort_key)[:limit_per_group]
-        also_global = sorted(grouped[group_id]["also_global"], key=_sort_key)[:limit_per_group]
+        in_context = sorted(grouped[group_id]["in_context"], key=_sort_key)
+        also_global = sorted(grouped[group_id]["also_global"], key=_sort_key)
+        total_matches += len(in_context) + len(also_global)
         if sort == "newest":
             in_context = _sort_rows_newest_first(in_context)
             also_global = _sort_rows_newest_first(also_global)
+        in_context = in_context[:limit_per_group]
+        also_global = also_global[:limit_per_group]
         if not in_context and not also_global:
             continue
         if any(int(row.get("rank") or 0) >= RANK_EXACT_ALIAS for row in in_context + also_global):
@@ -959,6 +978,7 @@ def search_documents(
         "alias_resolutions": alias_resolutions,
         "groups": groups,
         "result_count": total,
+        "total_matches": total_matches,
         "related_added": related_added,
     }
 

@@ -251,6 +251,21 @@ def test_overlay_and_search_page_render() -> None:
     assert 'id="v2ReaderOffcanvas"' in page.text
 
 
+def test_search_form_keeps_explicit_crop_when_submitted() -> None:
+    page = client.get("/search", params={"berry": "berry-blackberry", "include_global": "0"})
+    assert page.status_code == 200
+    assert 'name="berry" value="berry-blackberry"' in page.text
+
+
+def test_invalid_search_dates_return_validation_feedback() -> None:
+    page = client.get("/search", params={"q": "blackberry 2026-02-30"})
+    assert page.status_code == 200
+    assert '<span role="alert">' in page.text
+    response = client.get("/api/search/global", params={"q": "blackberry 2026-12-01 2026-01-01"})
+    assert response.status_code == 200
+    assert response.json()["error"] == "Start date must precede end date"
+
+
 def test_public_api_flag_excludes_pending(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     _write(
@@ -458,6 +473,9 @@ def test_default_sort_is_newest_first_with_undated_last() -> None:
     intel = _group(payload, "intelligence")
     ids_in_order = [r["id"] for r in intel if r["id"] in {"ev-old", "ev-new", "ev-mid", "ev-undated"}]
     assert ids_in_order == ["ev-new", "ev-mid", "ev-old", "ev-undated"]
+    limited = search_global("Chrono Bay", pools, include_private=False, limit_per_group=2)
+    assert [row["id"] for row in _group(limited, "intelligence")] == ["ev-new", "ev-mid"]
+    assert limited["total_matches"] == payload["result_count"]
 
 
 def test_deterministic_tie_sort_is_stable_across_calls() -> None:

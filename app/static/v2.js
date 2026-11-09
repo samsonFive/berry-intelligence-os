@@ -352,6 +352,11 @@
       searchResults.innerHTML = "";
       return;
     }
+    if (payload.error) {
+      searchStatus.textContent = payload.error;
+      searchResults.innerHTML = "";
+      return;
+    }
     if (payload.empty) {
       searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
       searchResults.innerHTML = "";
