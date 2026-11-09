@@ -26,6 +26,46 @@
       "source_locator": "Harvest and History",
       "reviewer": "Codex source inspection",
       "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Article heading and owned body",
+      "source_version": "6ce883072c6914abd5575bb6f6d21386132312f7275d8705f9cc6bd8f38f313f",
+      "reason": "Oregon State guide covers raspberry cultivars. The requested blackberry names are absent from the captured guide.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:2–3",
+      "source_version": "beb7cde1747710df11bf8d60efd75e96c1abb5602343905a31d66261358b9e95",
+      "reason": "USDA project discusses Columbia Star in a blackberry mapping population, with no Columbia Sunrise harvest comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:3",
+      "source_version": "64f8691c2f87245879a7b4351eb2e2f847636d2341518927c28eda26fc74361f",
+      "reason": "USDA reports commercial Columbia Star plantings in Oregon, without an exact Columbia Sunrise harvest comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://api.crossref.org/works/10.21273%2Fhortsci18911-25": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "publisher-deposited-abstract:0",
+      "source_version": "96ba21da39a55c9dc5ac145b11a55529be98ab6653fa9f7c0f2efee92586ac7a",
+      "reason": "The abstract tests management treatments on Columbia Star, without a comparison against Columbia Sunrise.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Sweet-Ark Caddo blackberry cultivar trial Clarksville postharvest firmness compared with Osage": {
@@ -37,6 +77,45 @@
       "source_locator": "Methods and Table 1",
       "reviewer": "Codex source inspection",
       "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:13–16",
+      "source_version": "2aca4eadd767cc1f2c6ce0a6c0f01bc895c505b18649a88b75d29e18a2d69601",
+      "reason": "The Mid-Atlantic guide describes both cultivars separately. It gives no direct Clarksville postharvest firmness comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://aaes.uada.edu/fruit-breeding/blackberries/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:25–26 and article:34–35",
+      "source_version": "f71e9ae0e9542dccd9f8cbd3269db36be05544138a4f2fd39d9c0fb38302c3ec",
+      "reason": "Breeder catalog identifies Caddo and Osage separately, without trial results for the requested comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10585260/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:30–31",
+      "source_version": "78f09e9b0b2381bf7f1acbb1c4614f6acdbc6a0a780e0f6ea92111ead31ca459",
+      "reason": "The Clarksville postharvest methods include Caddo and Osage. The examined sections concern image phenotyping and red drupelet reversion, rather than a direct firmness comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.raspberryblackberry.com/wp-content/uploads/2025/07/NABGRF-Postharvest-Quality-and-Volatile-Composition-of-Blackberry-Cultivars-in-South-Georgia-Report-2024-Ames-07-02-25-Update.pdf": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Methods and Tables 3–5",
+      "reason": "Original report tests Caddo and Osage postharvest in South Georgia, outside Clarksville.",
+      "checked_against": "Original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination": {
@@ -77,6 +156,45 @@
       "source_locator": "Variety Spotlight",
       "reviewer": "Codex source inspection",
       "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Article heading and owned body",
+      "source_version": "fbdece50036475a9aada252763175690067de4a7119b479a7feab513f52ef0e6",
+      "reason": "OSU regional blueberry guide does not name Sekoya Pop or FCM14-052 in this capture.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "article:3 and article:5",
+      "source_version": "64f8691c2f87245879a7b4351eb2e2f847636d2341518927c28eda26fc74361f",
+      "reason": "USDA project reports patent activity for Rubus. It does not identify the requested blueberry patent.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7690723/": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Article heading and owned body",
+      "source_version": "edff3da28dbdb749f3a2de9c3f23c3cdda2c3e6ac3f947b63413ac14a999b10a",
+      "reason": "Study concerns Kweli red raspberry composition. The requested blueberry patent denomination is absent.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.fallcreeknursery.com/es/blog/sekoya-looks-to-extend-premium-blueberry-supply-across-chinas-growing-regions": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "From low chill to high chill",
+      "reason": "Breeder identifies Sekoya Pop as FCM14-052 and describes low-chill use. The page is not the patent grant.",
+      "checked_against": "Original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Arándano Biloxi Ventura comparación de cultivares rendimiento ensayo México": {
@@ -88,6 +206,16 @@
       "source_locator": "Abstract and methods",
       "reviewer": "Codex source inspection",
       "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://www.revista-agroproductividad.org/index.php/agroproductividad/es/article/view/1328": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:4–5",
+      "source_version": "9dd6705e5f665ded09b58f5e9bfe6a4db655f642554539d6e0c8fd805d15e1b2",
+      "reason": "The study includes the named cultivars in a cutting-rooting experiment, with no fruit yield comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Framboise Tulameen Glen Ample comparaison rendement essai variétal France": {
@@ -99,6 +227,16 @@
       "source_locator": "Glen Ample Yield",
       "reviewer": "Codex source inspection",
       "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "pdf:page:2–3",
+      "source_version": "17b4c54c420aefd4c4d105fb51297ede2a12fafe9b9225194d3c04eb6100b434",
+      "reason": "USDA paper includes Glen Ample and Tulameen as checks in Washington. It does not establish the requested trial in France.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Varietà lampone rifiorente Regina prova varietale Trentino resa qualità": {
@@ -128,6 +266,95 @@
       "reason": "Publisher PDF returned HTTP 403.",
       "checked_at": "2026-11-09",
       "access_status": "unassessable"
+    },
+    "https://api.crossref.org/works/10.32473%2Fedis-hs1322-2018": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "publisher-deposited-abstract:0",
+      "source_version": "27b350c8b6af260c2fb7c17874a7413aa29ed08fd831b2dcdd6328a2cc689a3f",
+      "reason": "Breeder abstract names Florida Brilliance and Florida Beauty and confirms trials in Florida, but supplies no comparative early yield figures.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://api.crossref.org/works/10.32473%2Fedis-hs1307-2017": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "publisher-deposited-abstract:0",
+      "source_version": "5977d5c2f55e4b90c4c333d8bf0f62aeac72577700e67df927fc8fc8dc4db567",
+      "reason": "Breeder abstract identifies Florida Beauty trials, with Florida Radiance and Florida127 as named comparisons.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Article heading and owned body",
+      "source_version": "6ce883072c6914abd5575bb6f6d21386132312f7275d8705f9cc6bd8f38f313f",
+      "reason": "OSU raspberry guide does not cover the requested Florida strawberry comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Proceedings title and captured abstracts",
+      "source_version": "65a6f4c8a741faff0708a04672321b260f11445463b7cfbd6762ab53f7435b00",
+      "reason": "Captured proceedings concern raspberry and blackberry. Neither requested strawberry cultivar is named.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Article heading and owned body",
+      "source_version": "0d64071b04033e91af79aa7114aef6d88d9c8e68a939f9460657e8dddc359e8b",
+      "reason": "Southeast regional caneberry guide gives no Florida strawberry comparison.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://api.crossref.org/works/10.21273%2Fhortsci14491-19": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "publisher-deposited-abstract:0",
+      "source_version": "e455440ed23eee082a88f4701fea64d45e9ff623bc9f086c353875ce416e36ef",
+      "reason": "North Carolina trial tests Albion and San Andreas for season extension, not the named Florida cultivars.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://member.floridastrawberry.org/wp-content/uploads/2018/07/FSREF-2017-18-Whitaker-Florida-Brilliance-Research-Report.pdf": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Pages 1–2, early yield and nutrition sections",
+      "reason": "The breeder report discusses early yield, with Florida Beauty comparisons on other traits and nutrition. The inspected report does not give a direct early yield figure against Florida Beauty.",
+      "checked_against": "Original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Captured project objectives and accomplishments",
+      "source_version": "beb7cde1747710df11bf8d60efd75e96c1abb5602343905a31d66261358b9e95",
+      "reason": "The USDA project capture concerns Rubus and blueberry breeding, with no Florida Brilliance or Florida Beauty strawberry trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "Captured project objectives and accomplishments",
+      "source_version": "64f8691c2f87245879a7b4351eb2e2f847636d2341518927c28eda26fc74361f",
+      "reason": "The USDA project capture concerns Rubus and blueberry breeding, with no Florida Brilliance or Florida Beauty strawberry trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Fresa Marisma Camarosa ensayo comparativo producción Huelva IFAPA": {
@@ -137,6 +364,16 @@
       "reason": "Original IFAPA page returned HTTP 403.",
       "checked_at": "2026-11-09",
       "access_status": "unassessable"
+    },
+    "https://api.crossref.org/works/10.21276%2Faatccreview.2025.13.02.175": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "publisher-deposited-abstract:0",
+      "source_version": "924a5585a49df3828dba2e32ac619560039cc9ef2f7ba40d9d3fa3b56c22e59a",
+      "reason": "Paper studies Camarosa micropropagation, not comparative fruit production in Huelva.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   }
 }
