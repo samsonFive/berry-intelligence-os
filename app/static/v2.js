@@ -357,12 +357,14 @@
       searchResults.innerHTML = "";
       return;
     }
+    var html = payload.blackberry_season
+      ? '<p><a href="/varieties/blackberry-season">Compare floricane blackberry varieties for the 2027 season</a></p>'
+      : "";
     if (payload.empty) {
       searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
-      searchResults.innerHTML = "";
+      searchResults.innerHTML = html;
       return;
     }
-    var html = "";
     if (payload.ambiguous) {
       html += '<p class="banner banner-warning">More than one record matches. Choose the record you need.</p>';
     }

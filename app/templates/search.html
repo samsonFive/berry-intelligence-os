@@ -156,6 +156,9 @@
   </div>
   <button type="submit" class="sh-btn sh-btn-primary v2-btn">Search</button>
 </form>
+{% if search_results and search_results.blackberry_season %}
+<p><a href="/varieties/blackberry-season">Compare floricane blackberry varieties for the 2027 season</a></p>
+{% endif %}
 <p class="sh-result-count result-count">
   {% if search_results and search_results.error %}
     <span role="alert">{{ search_results.error }}</span>

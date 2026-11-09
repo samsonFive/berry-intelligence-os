@@ -3986,6 +3986,20 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
 
 
+@app.get("/varieties/blackberry-season", response_class=HTMLResponse)
+def blackberry_season_page(request: Request, q: str = "", habit: str = "Floricane") -> HTMLResponse:
+    from app.services.variety_season import FACETS, blackberry_season
+
+    filters = {field: request.query_params.get(field, "") for field in FACETS}
+    filters["habit"] = habit
+    comparison = blackberry_season(DATA_DIR, q, filters)
+    return templates.TemplateResponse(
+        request=request,
+        name="variety_season.html",
+        context={"comparison": comparison, "filters": filters, "query": q},
+    )
+
+
 @app.get("/varieties/research/sheet", response_class=HTMLResponse)
 def imported_variety_research_sheet(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:

@@ -969,6 +969,8 @@ def search_documents(
     )
     return {
         "q": needle,
+        "blackberry_season": query_plan.cane_type == "floricane"
+        and (berry == "berry-blackberry" or (berry == BERRY_GLOBAL and "blackberry" in query_plan.terms)),
         "berry": berry,
         "include_private": include_private,
         "include_global": include_global,
