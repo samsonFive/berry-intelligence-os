@@ -31,15 +31,23 @@ def main():
         reader=PdfReader(BytesIO(raw),strict=False)
         if reader.is_encrypted:
             raise ValueError('encrypted-pdf')
-        pages=[];size=0;truncated=len(reader.pages)>MAX_PAGES
-        for number,page in enumerate(reader.pages[:MAX_PAGES],1):
+        page_count = len(reader.pages)
+        requested = int(sys.argv[1]) if len(sys.argv) > 1 else None
+        if requested is not None and not 1 <= requested <= page_count:
+            raise ValueError("pdf-page-out-of-range")
+        numbers = [requested] if requested is not None else range(1, min(page_count, MAX_PAGES) + 1)
+        pages = []
+        size = 0
+        truncated = requested is None and page_count > MAX_PAGES
+        for number in numbers:
+            page = reader.pages[number - 1]
             text=(page.extract_text() or '').strip()
             room=min(MAX_PAGE_TEXT,MAX_TEXT-size)
             if len(text)>room:truncated=True
             text=text[:room]
             if text:pages.append({'page':number,'text':text});size+=len(text)
             if size>=MAX_TEXT:break
-        result={'pages':pages,'truncated':truncated,'page_count':len(reader.pages)}
+        result={'pages':pages,'truncated':truncated,'page_count':page_count}
     except Exception as exc:
         result={'pages':[],'error':type(exc).__name__}
     sys.stdout.write(json.dumps(result,ensure_ascii=True))

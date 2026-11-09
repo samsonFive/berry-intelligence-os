@@ -17,6 +17,21 @@
       "Washington State University Innovation and Entrepreneurship",
       "https://research.wsu.edu/innovation/opportunity-announcement/",
       "Cascade Premier opportunity announcement"
+    ],
+    "osu_pdf_4": [
+      "Oregon State University Extension, PNW 655 PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=4",
+      "Page 4"
+    ],
+    "osu_pdf_6": [
+      "Oregon State University Extension, PNW 655 PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=6",
+      "Page 6"
+    ],
+    "osu_pdf_8": [
+      "Oregon State University Extension, PNW 655 PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=8",
+      "Page 8"
     ]
   },
   "rows": [
@@ -37,6 +52,7 @@
       "system": null,
       "observation": "OSU reports that harvest begins about June 20 in the Willamette Valley and about July 4 at Puyallup and Lynden. These dates describe local experience.",
       "citations": [
+        "osu_pdf_4",
         "osu"
       ],
       "events": []
@@ -58,6 +74,7 @@
       "system": null,
       "observation": "OSU lists Tulameen for fresh use and reports large, firm fruit and high susceptibility to root rot.",
       "citations": [
+        "osu_pdf_6",
         "osu"
       ],
       "events": []
@@ -79,6 +96,7 @@
       "system": null,
       "observation": "OSU reports that the primocane crop starts roughly two weeks before Heritage in Oregon’s Willamette Valley.",
       "citations": [
+        "osu_pdf_8",
         "osu"
       ],
       "events": []

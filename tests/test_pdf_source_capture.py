@@ -51,3 +51,15 @@ def test_pdf_page_limit_is_disclosed_in_capture_status():
         result=reader.fetch_public_article('https://publisher.example/trials.pdf',client=client)
     assert len(result['passages'])==32 and result['pdf_page_count']==33
     assert result['truncated'] and result['reason']=='pdf-text-limit'
+
+
+
+def test_pdf_citation_reads_only_its_requested_page():
+    raw = compressed_pdf(34)
+    with httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(200, content=raw))) as client:
+        result = reader.fetch_public_article("https://publisher.example/trials.pdf#page=34", client=client)
+        missing = reader.fetch_public_article("https://publisher.example/trials.pdf#page=35", client=client)
+    assert result["passage_locators"] == ["pdf:page:34"]
+    assert "reported on page 34" in result["passages"][0]
+    assert result["pdf_page_count"] == 34 and not result["truncated"]
+    assert missing["availability"] == "metadata_only"

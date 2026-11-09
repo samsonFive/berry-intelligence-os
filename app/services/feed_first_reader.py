@@ -255,13 +255,16 @@ class PdfPassages(list):
         self.page_count = page_count
 
 
-def extract_pdf_text(raw: bytes) -> list[str]:
+def extract_pdf_text(raw: bytes, *, page: int | None = None) -> list[str]:
     """Selectable page text, with bounded subprocess parsing; never a full-article claim."""
     if not raw.lstrip().startswith(b"%PDF"):
         return []
     try:
         with _pdf_parse_slots:
-            result = subprocess.run([sys.executable,str(Path(__file__).with_name('pdf_text_worker.py'))],
+            command = [sys.executable, str(Path(__file__).with_name("pdf_text_worker.py"))]
+            if page is not None:
+                command.append(str(page))
+            result = subprocess.run(command,
                 input=raw[:MAX_PDF_BYTES],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=6,
                 creationflags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0)
         parsed = json.loads(result.stdout)
@@ -272,6 +275,8 @@ def extract_pdf_text(raw: bytes) -> list[str]:
         return []
     except (OSError, ValueError):
         pass
+    if page is not None:
+        return []
     # Keep the minimal literal fallback for damaged legacy documents. Raw
     # compressed or encoded strings are not evidence of selectable text.
     passages: list[str] = []
@@ -534,7 +539,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             # gaps rather than decoding compressed bytes into source passages.
             return {**empty_capture(final,reason='unsupported-archive-format'),'content_kind':'archive','status_code':status_code}
         if looks_like_pdf(final, content_type=content_type, body=raw):
-            passages = extract_pdf_text(raw)
+            page_fragment = re.fullmatch(r"page=([1-9]\d{0,5})", urlparse(url).fragment)
+            passages = extract_pdf_text(raw, page=int(page_fragment[1])) if page_fragment else extract_pdf_text(raw)
             availability = "excerpt_only" if passages else "metadata_only"
             parse_limited = bool(getattr(passages,'truncated',False))
             return {
