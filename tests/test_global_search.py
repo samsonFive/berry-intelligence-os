@@ -6,7 +6,9 @@ import json
 import time
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
+from lxml import html
 
 from app import main
 from app.main import app
@@ -251,11 +253,27 @@ def test_overlay_and_search_page_render() -> None:
     assert 'id="v2ReaderOffcanvas"' in page.text
 
 
-def test_search_form_keeps_explicit_crop_when_submitted() -> None:
-    page = client.get("/search", params={"berry": "berry-blackberry", "include_global": "0"})
+@pytest.mark.parametrize(("berry", "query", "variety_id"), [
+    ("berry-blackberry", "Ervin", "variety-ervin"),
+    ("berry-blueberry", "Duke", "variety-duke-a7be720d"),
+    ("berry-raspberry", "Autumn Bliss", "variety-autumn-bliss-166ac20d"),
+    ("berry-strawberry", "Amandine", "variety-amandine-116b315d"),
+])
+def test_search_form_keeps_crop_and_sort_across_all_four_berries(berry, query, variety_id):
+    page = client.get("/search", params={"q": query, "berry": berry})
     assert page.status_code == 200
-    assert 'name="berry" value="berry-blackberry"' in page.text
-    assert "Current berry · Blackberry" in page.text
+    form = html.fromstring(page.text).xpath('//form[@action="/search"]')[0]
+    form.fields["include_global"] = "0"
+    form.fields["sort"] = "newest"
+
+    filtered = client.get(form.action, params=form.form_values())
+    assert filtered.status_code == 200
+    results = html.fromstring(filtered.text)
+    returned = results.xpath('//form[@action="/search"]')[0]
+    assert returned.fields["berry"] == berry
+    assert returned.fields["include_global"] == "0"
+    assert returned.fields["sort"] == "newest"
+    assert results.xpath(f'//div[contains(@class, "v2-search-page-results")]//a[@href="/entities/variety/{variety_id}"]')
 
 
 def test_search_routes_to_filterable_blackberry_comparison() -> None:

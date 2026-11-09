@@ -99,13 +99,19 @@ An isolated Git index rollback of `f8510b2c` removed the Ervin license publicati
 | Loch Katrine Scottish trial | `ad4f295c` |
 | Loch Katrine fruiting habit | `c86cb38d` |
 
+## Platform-wide search acceptance
+
+Global Search controls and ranking changes apply to blackberry, blueberry, raspberry, and strawberry. The blackberry season comparison is a crop-specific evidence pilot. The shared Search regression submits the rendered form under each crop with Current berry and Newest first selected, then checks that those settings survive and the expected cultivar remains in the results (Ervin, Duke, Autumn Bliss, and Amandine). Authenticated local Chromium repeated the four searches and verified that crop, scope, sort, and the cultivar result survived reload.
+
+Treat retrieval quality as a separate gate. Continue to score the prospective questions by crop and language, document what could not be accessed, and inspect newly retrieved passages against their original sources. Before extending the season comparison to another crop, use its questions and source gaps to choose the next collection work. A working search form alone does not establish research coverage or parity.
+
 ## Hosted release review
 
 The candidate passed a local Chromium rehearsal at `13c986be` using an authenticated loopback instance and a disposable test account. The browser verified the login gate, Search scope and sort, reload and Back, the Ervin high-tunnel filter, its reviewed Evidence link, and the empty state. No browser page errors were reported.
 
 The candidate is the `feature/search-frontier-20261109` branch. Its application and data head for this review is `efcadf32`. The combined local suite passed 236 tests across Search, the season comparison, Research Desk, authenticated routes, reader and source capture, evaluation and report retrieval. Repository record validation also passed. Review the diff from `caaba2e4` and approve an authenticated staging target for this revision. Record the hosted revision and browser when accepting the checks below. The local app rehearsal does not verify the hosted build.
 
-1. Sign in and open Search. Select Blackberry, enter `Blackberry Floricans`, choose Current berry and Newest first, then submit. Confirm that the first screen shows the cited 2027 shortlist and that crop and sort selections survive reload and Back.
+1. Sign in and open Search. Select Blackberry, enter `Blackberry Floricans`, choose Current berry and Newest first, then submit. Confirm that the first screen shows the cited 2027 shortlist and that crop and sort selections survive reload and Back. Repeat the scope and sort check for blueberry (Duke), raspberry (Autumn Bliss), and strawberry (Amandine); each query should return its cultivar within the selected crop.
 2. Follow the season comparison link. Filter for `NC 740` and High tunnel. Confirm a single Ervin result, the Mills River site, and the original poster and reviewed Evidence links. Switch to Processing and confirm that the empty state renders. Reset and confirm the normal floricane list.
 3. Filter to Has reviewed evidence. Verify that Ervin, Sweet-Ark Immaculate and Loch Katrine qualify. Confirm that 2027 stock remains unknown, and open one original source and one reviewed Evidence record.
 4. On Research Desk, explicitly request the source check for the season question. Confirm the saved view remains visible while sources arrive and the final status discloses partial coverage when applicable. Record any browser error, failed request, or missing control.
