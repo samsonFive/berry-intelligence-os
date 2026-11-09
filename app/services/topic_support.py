@@ -2,6 +2,12 @@
 import re
 
 CROPS={'blackberry','blueberry','raspberry','strawberry'}
+_PLACE_ALIASES = {
+    'peru': ('perú',),
+    'spain': ('españa', 'espagne', 'spagna'),
+    'scotland': ('scozia', 'scottish'),
+    'pacific northwest': ('oregon', 'washington state'),
+}
 
 
 def passage_intent_supported(text, plan):
@@ -118,7 +124,7 @@ def support_context(plan, entities, identifiers):
     # An explicit region also constrains ordinary breeding/catalog questions.
     # Place names inside a requested organization/identity are not a separate
     # trial-location request (for example North Carolina State University).
-    place_positive=re.sub(r'\bscozia\b', 'scotland', positive)
+    place_positive=positive
     identity_names=[[normalize(n)for n in [e.get('name')or'',*(e.get('aliases')or[])]]for e in identities.values()]
     for names in [*organizations,*identity_names]:
         for name in sorted(names,key=len,reverse=True):
@@ -137,12 +143,18 @@ def support_context(plan, entities, identifiers):
         # equate a climate with a country. Unresolved regional requests stay
         # literal, including subdivisions absent from the country registry.
         for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland','Pacific Northwest',
-                     'Central America','South America','North America','Southeast Asia'):
+                     'Central America','South America','North America','Southeast Asia',
+                     'Peru','Spain','France','Huelva'):
             term=normalize(name)
-            if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',place_positive):
-                aliases = {"scotland": ("scottish",), "pacific northwest": ("oregon", "washington state")}
-                places.append((term, *aliases.get(term, ())))
-                place_terms.update(term.split())
+            names = (term, *_PLACE_ALIASES.get(term, ()))
+            query_names = (term,) if term == 'pacific northwest' else names
+            matched_names = [name for name in query_names if re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',place_positive)]
+            if matched_names:
+                existing = next((group for group in places if term in group), ())
+                if existing:
+                    places.remove(existing)
+                places.append(tuple(dict.fromkeys((*existing, *names))))
+                place_terms.update(word for name in matched_names for word in name.split())
     return {'identities':list(identities.values()),'trial_places':places,
             'place_terms':tuple(sorted(place_terms)),'organizations':organizations}
 
@@ -196,6 +208,7 @@ def cane_in_passage(text, cane):
     from app.services.topic_retrieval import normalize
     text=normalize(text)
     if re.search(r'\b'+cane+r'[- ]?(?:fruit\w*|bear\w*|crop|yield\w*|flower\w*|production|blackberr\w*|raspberr\w*|variet\w*|cultivar\w*|trial\w*)\b',text,re.I):return True
+    if re.search(r'\bvariety de (?:blackberry|raspberry) '+cane+r'\b',text):return True
     return bool(re.search(r'\b(?:fruit\w*|crop|yield\w*|flower\w*|produc\w*)\b[^.!?]{0,65}\b'+cane+r'\b',text,re.I))
 
 
@@ -204,6 +217,6 @@ def trial_location_in_passage(text, places, *, require_trial=True):
     if not places:return True
     text=normalize(text)
     if require_trial and not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
-    prepositions='in|at|across|within|near'if require_trial else'in|at|across|within|near|for|throughout|outside'
+    prepositions='in|at|across|within|near|en|dans'if require_trial else'in|at|across|within|near|for|throughout|outside|en|dans'
     subjects='trial|evaluation|experiment'if require_trial else'licen[sc]\\w*|territor\\w*|agreement'
     return all(any(re.search(r'\b(?:'+prepositions+r') (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:'+subjects+r')',text) for place in group) for group in places)

@@ -7,6 +7,26 @@ def source(paragraphs, title='Synthetic berry study'):
             'published_date':'2026-10-01','article':{'paragraphs':[{'index':i,'text':p}for i,p in enumerate(paragraphs)]}}
 
 
+def test_spanish_trial_requires_the_requested_country():
+    plan = plan_query('Arándano cosecha mecánica cultivares ensayo Perú')
+    oregon = source(['The blueberry mechanical harvest trial in Oregon compared three cultivars.'])
+    peru = source(['El ensayo de cultivares de arándano en Perú comparó la cosecha mecánica.'])
+
+    wrong = match_record(oregon, plan)
+    assert not wrong or wrong['support_status'] == 'scope_unverified'
+    assert match_record(peru, plan)['support_status'] == 'body_supported'
+
+
+def test_spanish_catalog_requires_commercial_geography_in_passage():
+    plan = plan_query('Variedades de zarzamora floricane para producción comercial en España')
+    uk = source(['Commercial floricane blackberry cultivars for production in Scotland.'])
+    spain = source(['Variedades de zarzamora floricane para producción comercial en España.'])
+
+    wrong = match_record(uk, plan)
+    assert not wrong or wrong['support_status'] == 'scope_unverified'
+    assert match_record(spain, plan)['support_status'] == 'body_supported'
+
+
 def test_pruning_question_selects_instructions_instead_of_release_counts():
     record=source(['The programme released twenty floricane blackberry varieties and licenses plants.',
                    'After harvest remove dead floricane blackberry canes. In winter prune the lateral branches.'],
