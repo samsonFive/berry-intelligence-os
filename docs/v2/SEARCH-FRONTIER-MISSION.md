@@ -18,7 +18,13 @@ Global Search on the checked-in archive resolves Ervin and NC 740 but misses Bla
 
 ## Execution and review
 
-Start with local reliability regressions, then deliver a browsable blackberry season pilot and evaluation packet. Work on an isolated branch from canonical. Preserve existing runtime and review gates. Public query transmission remains explicit. Continue local implementation, source inspection, tests and benchmarking autonomously. Bring a concrete diff, measured results and remaining tradeoffs for any required trust approval, production release or paid-provider decision. Current step is the search reliability slice.
+Start with local reliability regressions, then deliver a browsable blackberry season pilot and evaluation packet. Work on an isolated branch from canonical. Preserve existing runtime and review gates. Public query transmission remains explicit. Continue local implementation, source inspection, tests and benchmarking autonomously. Bring a concrete diff, measured results and remaining tradeoffs for any required trust approval, production release or paid-provider decision.
+
+## Execution evidence
+
+- `f198dead` preserves crop scope, validates dates and sorts before capping. The local service checks passed. Full FastAPI tests cannot collect with the pinned `ijson` dependency missing from the current interpreter.
+- `1c6cbd6d` adds the initial season comparison at `/varieties/blackberry-season` and links it from Search and Varieties. Five focused tests passed, including template rendering. This is a bounded source-reported pilot with nine floricane cultivars and two primocane comparison cases. It does not promote canonical traits.
+- The first coverage audit matched exact URL hosts against the tracked source registry and compared fragment-stripped URLs against checked-in published Evidence. Four of eleven pilot hosts appear in the registry and none of the eleven exact URLs matched published Evidence. This excludes aliases, redirect equivalence, runtime records and alternate coverage. Use those distinctions in the next registry and benchmark pass.
 
 ## References
 
