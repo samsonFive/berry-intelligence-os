@@ -1,0 +1,18 @@
+{
+  "id": "fact-frontier-loch-katrine-scottish-trial-1",
+  "record_type": "fact",
+  "statement": "The James Hutton Institute reports that its Scottish Loch Katrine trials tested single- and double-cropping systems, with yields competitive with Loch Ness.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "User approval, Search Frontier mission review (2026-11-09)",
+  "created_at": "2026-11-09",
+  "evidence_ids": [
+    "ev-frontier-loch-katrine-scottish-trial"
+  ],
+  "entity_ids": [],
+  "origin": "publication_claim_review",
+  "proposed_statement": "The James Hutton Institute reports that its Scottish Loch Katrine trials tested single- and double-cropping systems, with yields competitive with Loch Ness.",
+  "edited_before_approval": false,
+  "reviewed_at": "2026-11-09"
+}
