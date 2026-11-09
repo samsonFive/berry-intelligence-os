@@ -99,6 +99,17 @@ An isolated Git index rollback of `f8510b2c` removed the Ervin license publicati
 | Loch Katrine Scottish trial | `ad4f295c` |
 | Loch Katrine fruiting habit | `c86cb38d` |
 
+## Hosted release review
+
+The candidate is the `feature/search-frontier-20261109` branch. Its application and data head for this review is `efcadf32`. The combined local suite passed 236 tests across Search, the season comparison, Research Desk, authenticated routes, reader and source capture, evaluation and report retrieval. Repository record validation also passed. Review the diff from `caaba2e4` and approve an authenticated staging target for this revision. Record the hosted revision and browser when accepting the checks below. The local app rehearsal does not verify the hosted build.
+
+1. Sign in and open Search. Select Blackberry, enter `Blackberry Floricans`, choose Current berry and Newest first, then submit. Confirm that the first screen shows the cited 2027 shortlist and that crop and sort selections survive reload and Back.
+2. Follow the season comparison link. Filter for `NC 740` and High tunnel. Confirm a single Ervin result, the Mills River site, and the original poster and reviewed Evidence links. Switch to Processing and confirm that the empty state renders. Reset and confirm the normal floricane list.
+3. Filter to Has reviewed evidence. Verify that Ervin, Sweet-Ark Immaculate and Loch Katrine qualify. Confirm that 2027 stock remains unknown, and open one original source and one reviewed Evidence record.
+4. On Research Desk, explicitly request the source check for the season question. Confirm the saved view remains visible while sources arrive and the final status discloses partial coverage when applicable. Record any browser error, failed request, or missing control.
+
+Hosted acceptance covers the user flow and is separate from the benchmark. The frozen prospective results show a quality gap and still require independent pooled judgment before any Google parity claim. The seven source approvals cover the propositions listed above.
+
 ## References
 
 - [Previous search quality mission](SEARCH-RESEARCH-QUALITY-V1.md)
