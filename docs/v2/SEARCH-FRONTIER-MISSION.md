@@ -101,6 +101,8 @@ An isolated Git index rollback of `f8510b2c` removed the Ervin license publicati
 
 ## Hosted release review
 
+The candidate passed a local Chromium rehearsal at `13c986be` using an authenticated loopback instance and a disposable test account. The browser verified the login gate, Search scope and sort, reload and Back, the Ervin high-tunnel filter, its reviewed Evidence link, and the empty state. No browser page errors were reported.
+
 The candidate is the `feature/search-frontier-20261109` branch. Its application and data head for this review is `efcadf32`. The combined local suite passed 236 tests across Search, the season comparison, Research Desk, authenticated routes, reader and source capture, evaluation and report retrieval. Repository record validation also passed. Review the diff from `caaba2e4` and approve an authenticated staging target for this revision. Record the hosted revision and browser when accepting the checks below. The local app rehearsal does not verify the hosted build.
 
 1. Sign in and open Search. Select Blackberry, enter `Blackberry Floricans`, choose Current berry and Newest first, then submit. Confirm that the first screen shows the cited 2027 shortlist and that crop and sort selections survive reload and Back.
