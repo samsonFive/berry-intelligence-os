@@ -219,11 +219,11 @@
       "source_checked": true,
       "source_locator": "article:4",
       "source_version": "62219c672eb6d36048f11608e14dfcad295b4c4a08f642115275f233d1d30c5a",
-      "reason": "The breeder explicitly reports Loch Katrine, thorn-free canes and competitive Scottish trial yields against Loch Ness. The app exposed it as a verification lead in this run.",
-      "event_group": "loch-katrine-scottish-trial-comparison",
-      "checked_against": "Frozen application capture and original source inspected on 2026-11-09",
+      "reason": "The breeder reports a Scottish single- and double-cropping trial and the measured yield for both systems.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
       "reviewer": "Codex source inspection",
-      "checked_at": "2026-11-09"
+      "checked_at": "2026-11-09",
+      "event_group": "hutton-loch-katrine-scottish-cropping-trial"
     }
   },
   "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita": {
@@ -359,6 +359,16 @@
       "checked_against": "Original publisher page inspected on 2026-11-09",
       "reviewer": "Codex source inspection",
       "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:6",
+      "source_version": "beb7cde1747710df11bf8d60efd75e96c1abb5602343905a31d66261358b9e95",
+      "reason": "The USDA passage reports blueberry and blackberry mechanical harvest validation in Aurora, Oregon. It provides no Peruvian trial evidence.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
     }
   },
   "Fresa variedades tolerantes al calor ensayo Huelva": {
@@ -402,6 +412,39 @@
       "reason": "The 2008 paper identifies named processing cultivars with machine-harvest suitability and reports fruit-quality comparisons. It gives limited mechanical trial conditions.",
       "checked_against": "Original publisher page inspected on 2026-11-09",
       "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://oregon-berries.com/wp-content/uploads/2024/04/2023-24-ORBC-Research-Reports-Book.pdf": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "PDF pp. 3–5, Columbia Star objectives and treatments; pp. 32–33, grower trials",
+      "reason": "The OSU investigators describe the named Columbia Star machine-harvested processing trial at the North Willamette Research and Extension Center, with yield and production-system measures.",
+      "checked_against": "Original research text inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09",
+      "event_group": "osunwrec-columbia-star-machine-harvest-production-trial"
+    },
+    "https://scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "PDF pp. 1–2, Brambles: Harvesters",
+      "reason": "The original article describes blackberry harvester design and the Arkansas prototype. The inspected sections do not give Pacific Northwest processing cultivar trial results.",
+      "checked_against": "Original research text inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://ashs.org/news/716937/-Advances-in-Breeding-and-Production-of-Caneberries-in-the-Pacific-Northwest.htm": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The publisher returned HTTP 403.",
+      "checked_at": "2026-11-09"
+    },
+    "https://ourimpact.oregonstate.edu/type-work/field-trials?page=1": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The field-trial index was unavailable in the browsing environment.",
       "checked_at": "2026-11-09"
     }
   }

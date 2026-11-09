@@ -1,0 +1,1999 @@
+{
+  "version": 1,
+  "started_at": "2026-11-09T19:34:51.621392+00:00",
+  "old_ref": "f198dead18c54b6e012eed896f86424d405b9b05",
+  "provider": "public_metadata_fallback",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "interpreted_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "terms": [
+          "commercial",
+          "floricane",
+          "blackberry",
+          "variety",
+          "2027",
+          "northern",
+          "hemisphere",
+          "season"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-65253bd52c5277c3",
+          "title": "Blackberries and Raspberry production in Arkansas | Growing blackberries and raspberries commercially",
+          "source_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6a269008f69d1245",
+          "title": "Cultivars | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-66a421b2a277d5ea",
+          "title": "Blackberry Cultivars for Oregon | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "published_date": "2014-12-18",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-ba9b284a7ad1f357",
+          "title": "EHC 2024 — Polish primocane raspberry and blackberry cultivars",
+          "source_url": "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.instagram.com/p/DctDQjljj3w/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/crop/blackberries/natchez/"
+        },
+        {
+          "url": "https://extension.okstate.edu/fact-sheets/commercial-blackberry-production"
+        },
+        {
+          "url": "https://plotmygarden.com/plants/blackberry-trailing"
+        },
+        {
+          "url": "https://www.instagram.com/reel/DcpGFANBv8r/"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-varieties/"
+        },
+        {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon"
+        },
+        {
+          "url": "https://smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry/"
+        },
+        {
+          "url": "https://www.foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season new variety releases trials",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season licensing international development",
+          "Ervin New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 14,
+        "capture_count": 11,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:34:55+00:00",
+        "latency_seconds": 44.023,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 40,
+        "history_write": {
+          "status": "ready",
+          "stored": 11
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [
+          "RemoteProtocolError",
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 46.986,
+      "warm_seconds": 2.07,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.4
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 1.493,
+      "first_body_supported_seconds": 36.109
+    },
+    {
+      "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "interpreted_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "terms": [
+          "north",
+          "carolina",
+          "740",
+          "ervin",
+          "blackberry",
+          "mills",
+          "river",
+          "high",
+          "tunnel",
+          "yield",
+          "versus",
+          "ouachita"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://projects.sare.org/sare_project/fnc09-749/"
+        },
+        {
+          "url": "https://journals.ashs.org/view/journals/horttech/20/6/article-p996.xml"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/267278396_Performance_of_High_Tunnel_Organic_Blackberry_and_Raspberry"
+        },
+        {
+          "url": "https://ishs.org/app/uploads/2025/01/ch5702.pdf"
+        },
+        {
+          "url": "https://southcenters.osu.edu/horticulture/fruits/blackberries"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "url": "https://www.govinfo.gov/content/pkg/GPO-CRECB-1968-pt13/pdf/GPO-CRECB-1968-pt13-2-2.pdf"
+        },
+        {
+          "url": "https://archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 11,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:35:47+00:00",
+        "latency_seconds": 17.769,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 42,
+        "history_write": {
+          "status": "ready",
+          "stored": 8
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 2,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 20.406,
+      "warm_seconds": 2.067,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": true,
+          "direct_precision_at_10": 0.1,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.95,
+      "first_body_supported_seconds": 14.476
+    },
+    {
+      "query": "Variedades de zarzamora floricane para producción comercial en España",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "interpreted_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "terms": [
+          "variety",
+          "blackberry",
+          "floricane",
+          "production",
+          "commercial",
+          "españa"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry - Blackberry and Raspberry Information Portal | NC State Extension",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0e079deb57250614",
+          "title": "Blackberries",
+          "source_url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-65253bd52c5277c3",
+          "title": "Blackberries and Raspberry production in Arkansas | Growing blackberries and raspberries commercially",
+          "source_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2c26f988c11c1c7f",
+          "title": "Blackberry Propagation Limitations When Using Floricane Cuttings",
+          "source_url": "https://api.crossref.org/works/10.21273%2Fhorttech04266-18",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6a269008f69d1245",
+          "title": "Cultivars | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-8f07b34f0829eaa9",
+          "title": "Rotating Cross-arm and Winter Rowcovers for Floricane Blackberry (Rubus Subgenus Rubus Watson) Production in North Dakota",
+          "source_url": "https://api.crossref.org/works/10.21273%2Fhortsci13103-18",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-66a421b2a277d5ea",
+          "title": "Blackberry Cultivars for Oregon | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "published_date": "2014-12-18",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-ba9b284a7ad1f357",
+          "title": "EHC 2024 — Polish primocane raspberry and blackberry cultivars",
+          "source_url": "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.berryneo.com/variedades-berryum/"
+        },
+        {
+          "url": "https://hitplant.com/zarzamoras/"
+        },
+        {
+          "url": "https://www.frutas-hortalizas.com/Frutas/Tipos-variedades-Zarzamora.html"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-latinoamerica-langes/?lang=es"
+        },
+        {
+          "url": "https://www.pairwise.com/es/productos"
+        },
+        {
+          "url": "https://www.instagram.com/p/Dc_vX2mFWeT/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana/"
+        },
+        {
+          "url": "https://verpaalen.eu/es/plantas-de-zarzamora/"
+        },
+        {
+          "url": "https://www.sidalc.net/search/Search2Record/oai:localhost:20.500.12123-12071/Export?style=RefWorks"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Variedades de zarzamora floricane para producción comercial en España",
+          "Variedades de zarzamora floricane para producción comercial en España new variety releases trials",
+          "Variedades de zarzamora floricane para producción comercial en España licensing international development",
+          "Ervin Variedades de zarzamora floricane para producción comercial en España"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 18,
+        "capture_count": 14,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:36:13+00:00",
+        "latency_seconds": 54.089,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 43,
+        "history_write": {
+          "status": "ready",
+          "stored": 14
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout",
+          "europe_pmc:ValueError"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 56.654,
+      "warm_seconds": 1.994,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 11,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            1.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.7
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 1.022,
+      "first_body_supported_seconds": 39.471
+    },
+    {
+      "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "interpreted_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "terms": [
+          "blackberry",
+          "variety",
+          "thornless",
+          "loch",
+          "katrine",
+          "trial",
+          "scotland"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-0c4f5b11b2075703",
+          "title": "Blackberry Breeding - James Hutton Institute",
+          "source_url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-50b0ab4a6bf902b7",
+          "title": "Blackberry | Berryplant",
+          "source_url": "https://www.berryplant.com/blackberry/?lang=en",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.berryplant.com/mora-3/"
+        },
+        {
+          "url": "https://www.berryverona.it/varieta-pianta-di-mora.html"
+        },
+        {
+          "url": "https://www.letuepiante.it/blog/piante-di-more-senza-spine"
+        },
+        {
+          "url": "https://www.fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa/"
+        },
+        {
+          "url": "https://www.vivaibevilacqua.it/product-page/mora-senza-spine"
+        },
+        {
+          "url": "https://www.vivaimolari.it/more/"
+        },
+        {
+          "url": "https://www.savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html"
+        },
+        {
+          "url": "https://vivairampicanticaterina.com/product-category/frutti/mora-senza-spine/"
+        },
+        {
+          "url": "https://www.freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva/"
+        },
+        {
+          "url": "https://www.instagram.com/p/DZc83ryDeK9/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+          "Apache Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+          "Osage Varietà di mora senza spine Loch Katrine prove produttive Scozia"
+        ],
+        "queries_this_request": 3,
+        "candidate_count": 18,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:37:15+00:00",
+        "latency_seconds": 40.994,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 41,
+        "history_write": {
+          "status": "ready",
+          "stored": 8
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout",
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 15,
+        "primary_page_requests_this_request": 4,
+        "primary_page_failures": [
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 43.156,
+      "warm_seconds": 1.763,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 3,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.3
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.7
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 1.047,
+      "first_body_supported_seconds": 27.245
+    },
+    {
+      "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "interpreted_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "terms": [
+          "comparaison",
+          "des",
+          "variétés",
+          "de",
+          "raspberry",
+          "primocane",
+          "en",
+          "tunnel",
+          "france"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "primocane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [
+        {
+          "url": "https://www.le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier"
+        },
+        {
+          "url": "https://plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://www.gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers"
+        },
+        {
+          "url": "https://conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers/"
+        },
+        {
+          "url": "https://www.invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9"
+        },
+        {
+          "url": "https://www.truffaut.com/framboisier-quelles-varietes-choisir.html"
+        },
+        {
+          "url": "https://www.quitoque.fr/blog/article/varietes-framboises-culture"
+        },
+        {
+          "url": "https://www.gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html"
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Comparaison des variétés de framboise remontante en tunnel en France",
+          "Comparaison des variétés de framboise remontante en tunnel en France new variety releases trials",
+          "Comparaison des variétés de framboise remontante en tunnel en France licensing international development",
+          "Autumn Bliss Comparaison des variétés de framboise remontante en tunnel en France",
+          "Titania Comparaison des variétés de framboise remontante en tunnel en France"
+        ],
+        "queries_this_request": 5,
+        "candidate_count": 19,
+        "capture_count": 12,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:38:03+00:00",
+        "latency_seconds": 55.849,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 53,
+        "history_write": {
+          "status": "ready",
+          "stored": 12
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 25,
+        "primary_page_requests_this_request": 11,
+        "primary_page_failures": [
+          "PrimaryCatalogUnavailable"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 57.819,
+      "warm_seconds": 2.821,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.931,
+      "first_body_supported_seconds": null
+    },
+    {
+      "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "interpreted_query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "terms": [
+          "blueberry",
+          "mechanical",
+          "harvest",
+          "cultivares",
+          "trial",
+          "perú"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-09f786245e53d2e1",
+          "title": "Project : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-20195835f9b36613",
+          "title": "UGA Blueberry Breeding Program - About | Institute of Plant Breeding, Genetics & Genomics",
+          "source_url": "https://plantbreeding.caes.uga.edu/about/cultivar-releases/uga-blueberry-breeding-program.html",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download"
+        },
+        {
+          "url": "https://es.scribd.com/document/330985723/Monografia-Del-Cultivo-de-Arandano"
+        },
+        {
+          "url": "https://repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download"
+        },
+        {
+          "url": "https://redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico/"
+        },
+        {
+          "url": "https://redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro/"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/356760922_Avances_en_el_cultivo_de_las_berries_en_el_tropico"
+        },
+        {
+          "url": "https://proyectosperuanos.com/cultivo_de_arandanos/"
+        },
+        {
+          "url": "https://bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file"
+        },
+        {
+          "url": "https://cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Arándano cosecha mecánica cultivares ensayo Perú",
+          "Tifblue Arándano cosecha mecánica cultivares ensayo Perú"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 18,
+        "capture_count": 10,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:39:08+00:00",
+        "latency_seconds": 34.425,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 40,
+        "history_write": {
+          "status": "ready",
+          "stored": 10
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 10,
+        "primary_page_requests_this_request": 3,
+        "primary_page_failures": [
+          "PrimaryCatalogUnavailable"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 37.454,
+      "warm_seconds": 2.093,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 2,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 1.228,
+      "first_body_supported_seconds": 37.454
+    },
+    {
+      "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "interpreted_query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "terms": [
+          "strawberry",
+          "variety",
+          "tolerantes",
+          "al",
+          "calor",
+          "trial",
+          "huelva"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [
+        {
+          "url": "https://www.juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0"
+        },
+        {
+          "url": "https://huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana/"
+        },
+        {
+          "url": "https://www.hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+        },
+        {
+          "url": "https://www.europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html"
+        },
+        {
+          "url": "https://www.fresasnm.com/fresa/"
+        },
+        {
+          "url": "https://www.mapa.gob.es/ministerio/pags/Biblioteca/Revistas/pdf_vrural%2FVrural_2003_169_42_48.pdf"
+        },
+        {
+          "url": "https://agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad/"
+        },
+        {
+          "url": "https://www.facebook.com/unihuelva/posts/-innovaci%C3%B3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049/"
+        },
+        {
+          "url": "https://actualfruveg.com/2025/03/26/fresa-variedades-huelva-2/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Fresa variedades tolerantes al calor ensayo Huelva",
+          "Marimbella Fresa variedades tolerantes al calor ensayo Huelva"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 13,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:39:50+00:00",
+        "latency_seconds": 30.244,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 50,
+        "history_write": {
+          "status": "ready",
+          "stored": 5
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 10,
+        "primary_page_requests_this_request": 3,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 32.333,
+      "warm_seconds": 1.927,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            1.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.942,
+      "first_body_supported_seconds": null
+    },
+    {
+      "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "interpreted_query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "terms": [
+          "pacific",
+          "northwest",
+          "blackberry",
+          "mechanical",
+          "harvest",
+          "variety",
+          "trial",
+          "processing"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v32"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-09f786245e53d2e1",
+          "title": "Project : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-99d635aa5e79845b",
+          "title": "Raspberry cultivars for the Pacific Northwest | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "published_date": "2014-12-18",
+          "capture_status": "partial",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-7334ef02c4abfc1b",
+          "title": "GCRI — Development of a robotic system for harvest of blackberries",
+          "source_url": "https://www.gcritrust.org/wp-content/uploads/2024/12/Report-to-GCRI-Development-of-a-robotic-system-for-harvest-of-blackberries-final-2-Marcello.pdf",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-50b0ab4a6bf902b7",
+          "title": "Blackberry | Berryplant",
+          "source_url": "https://www.berryplant.com/blackberry/?lang=en",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-6a269008f69d1245",
+          "title": "Cultivars | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://ourimpact.oregonstate.edu/type-work/field-trials?page=1"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025"
+        },
+        {
+          "url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf"
+        },
+        {
+          "url": "https://ashs.org/news/716937/-Advances-in-Breeding-and-Production-of-Caneberries-in-the-Pacific-Northwest.htm"
+        },
+        {
+          "url": "https://agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/43272507_NEW_USDA-ARS_BLACKBERRY_CULTIVARS_BRING_DIVERSITY_TO_THE_MARKET"
+        },
+        {
+          "url": "https://oregon-berries.com/wp-content/uploads/2024/04/2023-24-ORBC-Research-Reports-Book.pdf"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=188551"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/view/1977/1981"
+        },
+        {
+          "url": "https://scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 11,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:40:28+00:00",
+        "latency_seconds": 21.258,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 50,
+        "history_write": {
+          "status": "ready",
+          "stored": 8
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 2,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 23.549,
+      "warm_seconds": 2.007,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 7,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.7
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.841,
+      "first_body_supported_seconds": 14.504
+    }
+  ],
+  "candidate_ref": "7b5587c4c7bb8839b28207810dd1f55cd0325cac",
+  "candidate_tracked_changes": false,
+  "summary": {
+    "queries": 8,
+    "median_seconds": 40.305,
+    "p95_seconds": 57.819,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": true
+  },
+  "quality_evaluation": {
+    "version": 1,
+    "source_run_started_at": "2026-11-09T19:34:51.621392+00:00",
+    "query_count": 8,
+    "unique_pooled_urls": 94,
+    "judgment_pairs_missing": 80,
+    "judgment_pairs_unassessable": 11,
+    "non_comparable_google_queries": [],
+    "acceptance_ready": false,
+    "aggregate_metrics": {},
+    "individual_regressions": [],
+    "same_day_capture_pairing": true,
+    "google_parity": "UNVERIFIED",
+    "queries": [
+      {
+        "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 16,
+        "pool_urls": [
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+          "emcocal.com/emcocal-rubus-varieties",
+          "extension.okstate.edu/fact-sheets/commercial-blackberry-production",
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season",
+          "globalplantgenetics.com/crop/blackberries/natchez",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry",
+          "instagram.com/p/dctdqjljj3w",
+          "instagram.com/reel/dcpgfanbv8r",
+          "plotmygarden.com/plants/blackberry-trailing",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry",
+          "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx"
+        ],
+        "missing_judgments": [
+          "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+          "instagram.com/p/dctdqjljj3w",
+          "instagram.com/reel/dcpgfanbv8r",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 7,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.4
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.2
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 11,
+        "pool_urls": [
+          "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+          "content.ces.ncsu.edu/blackberries-for-the-home-garden",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production",
+          "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+          "ishs.org/app/uploads/2025/01/ch5702.pdf",
+          "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
+          "projects.sare.org/sare_project/fnc09-749",
+          "researchgate.net/publication/267278396_performance_of_high_tunnel_organic_blackberry_and_raspberry",
+          "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "southcenters.osu.edu/horticulture/fruits/blackberries"
+        ],
+        "missing_judgments": [
+          "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+          "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+          "ishs.org/app/uploads/2025/01/ch5702.pdf",
+          "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
+          "southcenters.osu.edu/horticulture/fruits/blackberries"
+        ],
+        "unassessable_judgments": [
+          "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+          "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+          "ishs.org/app/uploads/2025/01/ch5702.pdf",
+          "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
+          "southcenters.osu.edu/horticulture/fruits/blackberries"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": true,
+            "direct_precision_at_10": 0.1,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.1
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.5
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Variedades de zarzamora floricane para producción comercial en España",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 21,
+        "pool_urls": [
+          "aaes.uada.edu/fruit-breeding/blackberries",
+          "api.crossref.org/works/10.21273%2fhortsci13103-18",
+          "api.crossref.org/works/10.21273%2fhorttech04266-18",
+          "berryneo.com/variedades-berryum",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+          "emcocal.com/emcocal-rubus-latinoamerica-langes?lang=es",
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "hitplant.com/zarzamoras",
+          "instagram.com/p/dc_vx2mfwet",
+          "pairwise.com/es/productos",
+          "portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana",
+          "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "sidalc.net/search/search2record/oai:localhost:20.500.12123-12071/export?style=refworks",
+          "tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas",
+          "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+          "verpaalen.eu/es/plantas-de-zarzamora"
+        ],
+        "missing_judgments": [
+          "aaes.uada.edu/fruit-breeding/blackberries",
+          "api.crossref.org/works/10.21273%2fhortsci13103-18",
+          "api.crossref.org/works/10.21273%2fhorttech04266-18",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "hitplant.com/zarzamoras",
+          "instagram.com/p/dc_vx2mfwet",
+          "pairwise.com/es/productos",
+          "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "sidalc.net/search/search2record/oai:localhost:20.500.12123-12071/export?style=refworks",
+          "uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+          "verpaalen.eu/es/plantas-de-zarzamora"
+        ],
+        "unassessable_judgments": [
+          "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+          "hitplant.com/zarzamoras",
+          "pairwise.com/es/productos",
+          "verpaalen.eu/es/plantas-de-zarzamora"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 11,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              1.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.7
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 13,
+        "pool_urls": [
+          "berryplant.com/blackberry?lang=en",
+          "berryplant.com/mora-3",
+          "berryverona.it/varieta-pianta-di-mora.html",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva",
+          "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
+          "hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding",
+          "instagram.com/p/dzc83rydek9",
+          "letuepiante.it/blog/piante-di-more-senza-spine",
+          "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
+          "vivaibevilacqua.it/product-page/mora-senza-spine",
+          "vivaimolari.it/more",
+          "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
+        ],
+        "missing_judgments": [
+          "berryplant.com/blackberry?lang=en",
+          "berryverona.it/varieta-pianta-di-mora.html",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
+          "instagram.com/p/dzc83rydek9",
+          "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
+          "vivaibevilacqua.it/product-page/mora-senza-spine",
+          "vivaimolari.it/more",
+          "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
+        ],
+        "unassessable_judgments": [
+          "berryverona.it/varieta-pianta-di-mora.html",
+          "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 3,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.3
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.7
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 10,
+        "pool_urls": [
+          "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+          "conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers",
+          "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+          "gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html",
+          "invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9",
+          "le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier",
+          "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+          "plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers",
+          "quitoque.fr/blog/article/varietes-framboises-culture",
+          "truffaut.com/framboisier-quelles-varietes-choisir.html"
+        ],
+        "missing_judgments": [
+          "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+          "conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers",
+          "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+          "gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html",
+          "le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier",
+          "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+          "plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers",
+          "quitoque.fr/blog/article/varietes-framboises-culture",
+          "truffaut.com/framboisier-quelles-varietes-choisir.html"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.9
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 12,
+        "pool_urls": [
+          "ars.usda.gov/research/project?accnno=444118&fy=2025",
+          "bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file",
+          "cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf",
+          "es.scribd.com/document/330985723/monografia-del-cultivo-de-arandano",
+          "plantbreeding.caes.uga.edu/about/cultivar-releases/uga-blueberry-breeding-program.html",
+          "portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano",
+          "proyectosperuanos.com/cultivo_de_arandanos",
+          "redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico",
+          "redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro",
+          "repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download",
+          "repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download",
+          "researchgate.net/publication/356760922_avances_en_el_cultivo_de_las_berries_en_el_tropico"
+        ],
+        "missing_judgments": [
+          "ars.usda.gov/research/project?accnno=444118&fy=2025",
+          "bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file",
+          "cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf",
+          "es.scribd.com/document/330985723/monografia-del-cultivo-de-arandano",
+          "plantbreeding.caes.uga.edu/about/cultivar-releases/uga-blueberry-breeding-program.html",
+          "portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano",
+          "proyectosperuanos.com/cultivo_de_arandanos",
+          "redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro",
+          "repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download",
+          "repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download",
+          "researchgate.net/publication/356760922_avances_en_el_cultivo_de_las_berries_en_el_tropico"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 2,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.2
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.9
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 10,
+        "pool_urls": [
+          "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+          "agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad",
+          "europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html",
+          "facebook.com/unihuelva/posts/-innovaci%c3%b3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049",
+          "fresasnm.com/fresa",
+          "hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva",
+          "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+          "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+          "mapa.gob.es/ministerio/pags/biblioteca/revistas/pdf_vrural%2fvrural_2003_169_42_48.pdf",
+          "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+        ],
+        "missing_judgments": [
+          "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+          "agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad",
+          "europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html",
+          "facebook.com/unihuelva/posts/-innovaci%c3%b3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049",
+          "fresasnm.com/fresa",
+          "hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva",
+          "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+          "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+          "mapa.gob.es/ministerio/pags/biblioteca/revistas/pdf_vrural%2fvrural_2003_169_42_48.pdf",
+          "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              1.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 16,
+        "pool_urls": [
+          "agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757",
+          "ars.usda.gov/research/project?accnno=444118&fy=2025",
+          "ars.usda.gov/research/publications/publication?seqno115=188551",
+          "ashs.org/news/716937/-advances-in-breeding-and-production-of-caneberries-in-the-pacific-northwest.htm",
+          "berryplant.com/blackberry?lang=en",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf",
+          "journal.americanpomological.org/index.php/jofaps/article/view/1977/1981",
+          "oregon-berries.com/wp-content/uploads/2024/04/2023-24-orbc-research-reports-book.pdf",
+          "ourimpact.oregonstate.edu/type-work/field-trials?page=1",
+          "researchgate.net/publication/43272507_new_usda-ars_blackberry_cultivars_bring_diversity_to_the_market",
+          "scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
+        ],
+        "missing_judgments": [
+          "agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757",
+          "ashs.org/news/716937/-advances-in-breeding-and-production-of-caneberries-in-the-pacific-northwest.htm",
+          "berryplant.com/blackberry?lang=en",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf",
+          "journal.americanpomological.org/index.php/jofaps/article/view/1977/1981",
+          "oregon-berries.com/wp-content/uploads/2024/04/2023-24-orbc-research-reports-book.pdf",
+          "ourimpact.oregonstate.edu/type-work/field-trials?page=1",
+          "researchgate.net/publication/43272507_new_usda-ars_blackberry_cultivars_bring_diversity_to_the_market",
+          "scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
+        ],
+        "unassessable_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "direct_precision_at_10_bounds": [
+              0.0,
+              0.0
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 7,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.7
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "direct_precision_at_10_bounds": [
+              0.1,
+              0.9
+            ],
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      }
+    ]
+  }
+}
