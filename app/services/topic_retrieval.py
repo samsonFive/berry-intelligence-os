@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v35"
+VERSION = "topic-retrieval-v36"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _PLURALS["harvesting"] = "harvest"
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
@@ -269,12 +269,27 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         and re.search(subject_pattern, " ".join(plan.terms))
         and bool(title_crops.intersection(crop_terms))
     )
+    cited_page = re.search(r"#page=([1-9]\d{0,5})$", str(record.get("source_url") or ""))
+    identities = support["identities"]
+    cited_identity = (
+        named_reference and cited_page and len(identities) == 1
+        and normalize(str(identities[0].get("name") or "")) == reference_subject
+    )
+
+    def supports_named_pdf_page(locator, passage):
+        if not cited_identity or locator != f"pdf:page:{cited_page[1]}":
+            return False
+        plain = normalize(passage)
+        if "harvest" in plan.terms and not re.search(r"\b(?:harvest\w*|ripen\w*|fruiting season)\b", plain):
+            return False
+        return bool(re.search(subject_pattern, plain))
+
     comparison_tables = []
     if len(support["identities"]) >= 2 and (set(plan.terms) & {"versus", "vs", "comparison", "compared"}):
         comparison_tables = list(_comparison_table_passages(passages, support["identities"], set(plan.terms)))
     body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields
                     and (cane_in_passage(p,plan.cane_type) or evidence_traits)
-                    and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
+                    and (not identities or supports_named_pdf_page(loc, p) or all(identity_in_passage(p, entity) for entity in identities))
                     and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities'])
                          or (named_reference and re.search(subject_pattern, normalize(p))))
                     and trial_location_in_passage(p,support['trial_places'],require_trial=requires_trial_location)

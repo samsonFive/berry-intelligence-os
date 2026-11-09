@@ -63,3 +63,24 @@ def test_pdf_citation_reads_only_its_requested_page():
     assert "reported on page 34" in result["passages"][0]
     assert result["pdf_page_count"] == 34 and not result["truncated"]
     assert missing["availability"] == "metadata_only"
+
+
+
+def test_named_publisher_pdf_page_supports_only_its_cited_cultivar():
+    entity = {"id": "autumn-bliss", "name": "Autumn Bliss", "entity_type": "variety", "berry_ids": ["berry-raspberry"]}
+    record = {
+        "title": "Raspberry Cultivars for the Pacific Northwest",
+        "source_url": "https://publisher.example/guide.pdf#page=8",
+        "provider": "local_primary_citation",
+        "reference_subject": "Autumn Bliss",
+        "article": {"paragraphs": [{
+            "locator": "pdf:page:8",
+            "text": "The harvest starts around August 20 for Heritage in Oregon. Autumn Bliss is about two weeks earlier.",
+        }]},
+    }
+    query = plan_query("Autumn Bliss raspberry harvest")
+    result = match_record(record, query, entities={entity["id"]: entity})
+    assert result["support_status"] == "body_supported"
+    assert result["passage_locator"] == "pdf:page:8"
+    unseeded = {**record, "provider": "public_metadata_fallback"}
+    assert match_record(unseeded, query, entities={entity["id"]: entity})["support_status"] == "scope_unverified"
