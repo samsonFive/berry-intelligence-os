@@ -1,0 +1,142 @@
+{
+  "Columbia Sunrise blackberry release cultivar harvest timing versus Columbia Star Oregon": {
+    "http://journals.ashs.org/view/journals/hortsci/53/2/article-p256.xml": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "The matched original paper reports Columbia Sunrise ripening dates in Oregon, but Table 5 does not report Columbia Star. It compares the cultivars on other measures in separate tables.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Table 5 and Description and Performance",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Journal HTML returned HTTP 403. The Oregon commission's author paper copy has the same journal, pages and DOI 10.21273/HORTSCI12673-17."
+    },
+    "https://extension.oregonstate.edu/sites/extd8/files/documents/ec1617.pdf": {
+      "grade": 1,
+      "source_checked": true,
+      "reason": "Extension cultivar guide covers Oregon production but its text does not name Columbia Sunrise.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Cultivar recommendations",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://oregon-berries.com/variety/columbia-sunrise-blackberry/": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "Commission page gives Oregon harvest window and release year for Columbia Sunrise but no direct comparison with Columbia Star.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Harvest and History",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Sweet-Ark Caddo blackberry cultivar trial Clarksville postharvest firmness compared with Osage": {
+    "https://smallfruits.org/2022/10/sensory-and-postharvest-attributes-of-four-blackberry-varieties/": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "Researchers compare Caddo and Osage firmness in the South Georgia trial, outside the requested Clarksville site.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Methods and Table 1",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination": {
+    "https://www.lens.org/lens/patent/023-656-990-841-841": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:0, captured serialized page state",
+      "source_version": "0ea4ab2b5c3bc5746a0dea2804fa68e5d3d7f2b9d2c308de6b4df49eeb455bdd",
+      "reason": "The patent index payload contains the FCM14-052 abstract and zero-chill selection context. It is serialized page state, and the selected text does not verify the commercial name or establish the US grant as the source.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://patents.google.com/patent/USPP31793P3/en": {
+      "grade": 0,
+      "source_checked": true,
+      "reason": "Grant names FC13-083. FCM14-052 appears in the list of similar documents, not as its denomination.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Grant title and Similar Documents",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://patents.google.com/patent/USPP32186P3/en": {
+      "grade": 3,
+      "source_checked": true,
+      "reason": "Official grant text identifies FCM14-052 as its blueberry denomination; the breeder catalog independently links the marketing name.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Grant title and detailed botanical description",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09",
+      "event_group": "sekoya-pop-fcm14-052-uspp32186"
+    },
+    "https://fallcreekcatalogs.com/2025/01/23/sekoya-pop-fcm14-052/": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "Fall Creek identifies Sekoya Pop as FCM14-052 and describes zero-to-low chill, without itself being the patent grant.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Variety Spotlight",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Arándano Biloxi Ventura comparación de cultivares rendimiento ensayo México": {
+    "https://www.revista-agroproductividad.org/index.php/agroproductividad/article/view/1328": {
+      "grade": 1,
+      "source_checked": true,
+      "reason": "Study tests IBA rooting across Biloxi, Victoria and Ventura cuttings; it measures propagation rather than fruit yield.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Abstract and methods",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Framboise Tulameen Glen Ample comparaison rendement essai variétal France": {
+    "https://fruitbreeding.hutton.ac.uk/Raspberry/GlenAmple": {
+      "grade": 1,
+      "source_checked": true,
+      "reason": "Breeder reports Glen Ample yield from SCRI trials, but no French trial or Tulameen comparison.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Glen Ample Yield",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Varietà lampone rifiorente Regina prova varietale Trentino resa qualità": {
+    "https://www.berryplant.com/lampone/": {
+      "grade": 0,
+      "source_checked": true,
+      "reason": "The catalog capture does not name Regina.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Catalog entries",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    }
+  },
+  "Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest": {
+    "https://ask.ifas.ufl.edu/publication/HS1322/pdf": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "The UF guide reports early Florida Brilliance yield against Florida Radiance, and Florida Beauty comparisons on separate characteristics.",
+      "checked_at": "2026-11-09",
+      "source_locator": "Field Performance and Plant Establishment",
+      "reviewer": "Codex source inspection",
+      "checked_against": "Original source or public grant text inspected on 2026-11-09"
+    },
+    "https://journals.ashs.org/downloadpdf/view/journals/horttech/32/4/article-p388.pdf": {
+      "grade": null,
+      "source_checked": false,
+      "reason": "Publisher PDF returned HTTP 403.",
+      "checked_at": "2026-11-09",
+      "access_status": "unassessable"
+    }
+  },
+  "Fresa Marisma Camarosa ensayo comparativo producción Huelva IFAPA": {
+    "https://www.juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0": {
+      "grade": null,
+      "source_checked": false,
+      "reason": "Original IFAPA page returned HTTP 403.",
+      "checked_at": "2026-11-09",
+      "access_status": "unassessable"
+    }
+  }
+}

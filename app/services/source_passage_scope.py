@@ -58,11 +58,18 @@ def owned_pdf_abstracts(rows):
     return sections  # Recognized proceedings: do not also quote mixed raw pages.
 
 _RECOMMENDATIONS = {'related articles', 'related posts', 'recommended articles', 'you may also like', 'read next', 'references', 'bibliography', 'recommended citation'}
+_OBJECT_START = re.compile(r'^\s*\{\s*"[^"\r\n]{1,80}"\s*:')
+_OBJECT_FIELD = re.compile(r'[,{}]\s*"[^"\r\n]{1,80}"\s*:')
 
 
 def owned_article_passages(rows):
     """Yield (locator, text) until a standalone recommendation heading."""
     for locator, text in rows:
+        # Some direct HTML captures expose serialized application state as one
+        # paragraph. Exclude it before retrieval splits it into prose chunks.
+        # A truncated object can still have a recognizable field structure.
+        if _OBJECT_START.match(text) and len(_OBJECT_FIELD.findall(text)) >= 3:
+            continue
         heading = re.sub(r'\s+', ' ', str(text)).strip().casefold().rstrip(':')
         if heading in _RECOMMENDATIONS:
             break

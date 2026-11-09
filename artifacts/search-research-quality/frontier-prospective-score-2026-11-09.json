@@ -1,0 +1,612 @@
+{
+  "version": 1,
+  "source_run_started_at": "2026-11-09T20:03:56.163453+00:00",
+  "query_count": 8,
+  "unique_pooled_urls": 99,
+  "judgment_pairs_missing": 91,
+  "judgment_pairs_unassessable": 2,
+  "non_comparable_google_queries": [],
+  "acceptance_ready": false,
+  "aggregate_metrics": {},
+  "individual_regressions": [],
+  "same_day_capture_pairing": true,
+  "google_parity": "UNVERIFIED",
+  "queries": [
+    {
+      "query": "Columbia Sunrise blackberry release cultivar harvest timing versus Columbia Star Oregon",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 14,
+      "pool_urls": [
+        "api.crossref.org/works/10.21273%2fhortsci18911-25",
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "ars.usda.gov/research/project?accnno=444118&fy=2025",
+        "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+        "extension.oregonstate.edu/sites/extd8/files/documents/ec1617.pdf",
+        "facebook.com/iowafarmbabe/posts/dyk-it-takes-10-15-years-to-develop-new-commercially-available-berry-varieties-s/826910682130698",
+        "facebook.com/oregonberries/posts/berry-fact-friday-meet-the-columbia-sunrise-blackberry-one-of-our-newer-varietie/1382434507248051",
+        "growingfruit.org/t/favorite-blackberry/35075",
+        "journals.ashs.org/view/journals/hortsci/53/2/article-p256.xml",
+        "oregon-berries.com/variety/columbia-sunrise-blackberry",
+        "oregonstate.technologypublisher.com/tech?title=usda_blackberry_%27columbia_sunrise%27",
+        "permacultureplants.com/plants/bramble/columbia-sunrise",
+        "researchgate.net/figure/ripe-fruit-clusters-of-columbia-sunrise_fig2_323438163",
+        "youtube.com/watch?v=_kipgzwgc6a"
+      ],
+      "missing_judgments": [
+        "api.crossref.org/works/10.21273%2fhortsci18911-25",
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "ars.usda.gov/research/project?accnno=444118&fy=2025",
+        "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+        "facebook.com/iowafarmbabe/posts/dyk-it-takes-10-15-years-to-develop-new-commercially-available-berry-varieties-s/826910682130698",
+        "facebook.com/oregonberries/posts/berry-fact-friday-meet-the-columbia-sunrise-blackberry-one-of-our-newer-varietie/1382434507248051",
+        "growingfruit.org/t/favorite-blackberry/35075",
+        "oregonstate.technologypublisher.com/tech?title=usda_blackberry_%27columbia_sunrise%27",
+        "permacultureplants.com/plants/bramble/columbia-sunrise",
+        "researchgate.net/figure/ripe-fruit-clusters-of-columbia-sunrise_fig2_323438163",
+        "youtube.com/watch?v=_kipgzwgc6a"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.4
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.7
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Sweet-Ark Caddo blackberry cultivar trial Clarksville postharvest firmness compared with Osage",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 13,
+      "pool_urls": [
+        "aaes.uada.edu/fruit-breeding/blackberries",
+        "boonevilledemocrat.com/story/news/2020/01/05/new-blackberry-achieves-pinnacle-flavor/1956292007",
+        "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+        "facebook.com/100035937294199/posts/-caddo-a-2428t-blackberry-variety-stands-out-for-its-large-fruit-excellent-flavo/1899563131251578",
+        "facebook.com/uaexfruitandveggie/posts/were-excited-to-announce-that-we-have-a-new-cultivar-selection-tool-available-th/1920386245981443",
+        "journals.ashs.org/view/journals/hortsci/60/12/article-p2270.xml",
+        "permacultureplants.com/plants/bramble/sweet-ark-immaculate",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc10585260",
+        "raspberryblackberry.com/wp-content/uploads/2025/07/nabgrf-postharvest-quality-and-volatile-composition-of-blackberry-cultivars-in-south-georgia-report-2024-ames-07-02-25-update.pdf",
+        "researchgate.net/publication/315368512_changes_in_fresh-market_and_sensory_attributes_of_blackberry_genotypes_after_postharvest_storage",
+        "scholarworks.uark.edu/cgi/viewcontent.cgi?article=1411&context=discoverymag",
+        "smallfruits.org/2022/10/sensory-and-postharvest-attributes-of-four-blackberry-varieties",
+        "smallfruits.org/2026/01/sweet-ark-immaculate"
+      ],
+      "missing_judgments": [
+        "aaes.uada.edu/fruit-breeding/blackberries",
+        "boonevilledemocrat.com/story/news/2020/01/05/new-blackberry-achieves-pinnacle-flavor/1956292007",
+        "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+        "facebook.com/100035937294199/posts/-caddo-a-2428t-blackberry-variety-stands-out-for-its-large-fruit-excellent-flavo/1899563131251578",
+        "facebook.com/uaexfruitandveggie/posts/were-excited-to-announce-that-we-have-a-new-cultivar-selection-tool-available-th/1920386245981443",
+        "journals.ashs.org/view/journals/hortsci/60/12/article-p2270.xml",
+        "permacultureplants.com/plants/bramble/sweet-ark-immaculate",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc10585260",
+        "raspberryblackberry.com/wp-content/uploads/2025/07/nabgrf-postharvest-quality-and-volatile-composition-of-blackberry-cultivars-in-south-georgia-report-2024-ames-07-02-25-update.pdf",
+        "researchgate.net/publication/315368512_changes_in_fresh-market_and_sensory_attributes_of_blackberry_genotypes_after_postharvest_storage",
+        "scholarworks.uark.edu/cgi/viewcontent.cgi?article=1411&context=discoverymag",
+        "smallfruits.org/2026/01/sweet-ark-immaculate"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 3,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.3
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 15,
+      "pool_urls": [
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+        "facebook.com/groups/615382339690064/posts/1239996653895293",
+        "fallcreekcatalogs.com/2025/01/23/sekoya-pop-fcm14-052",
+        "fallcreeknursery.com/es/blog/sekoya-looks-to-extend-premium-blueberry-supply-across-chinas-growing-regions",
+        "greg.app/plant-care/vaccinium-corymbosum-sekoya-pop-highbush-blueberry-sekoya-pop",
+        "journals.ashs.org/view/journals/hortsci/57/9/article-p1174.xml",
+        "lens.org/lens/patent/023-656-990-841-841",
+        "nda.gov.za/images/branches/agricproduchealthfoodsafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+        "patents.google.com/patent/uspp31793p3/en",
+        "patents.google.com/patent/uspp32186p3/en",
+        "patents.justia.com/patent/20190313561",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc7690723",
+        "sekoyafruit.com/varieties",
+        "trea.com/organization/fall-creek-farm-and-nursery-inc/information/32d97c40-d611-46b4-b280-46ef11601963"
+      ],
+      "missing_judgments": [
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+        "facebook.com/groups/615382339690064/posts/1239996653895293",
+        "fallcreeknursery.com/es/blog/sekoya-looks-to-extend-premium-blueberry-supply-across-chinas-growing-regions",
+        "greg.app/plant-care/vaccinium-corymbosum-sekoya-pop-highbush-blueberry-sekoya-pop",
+        "journals.ashs.org/view/journals/hortsci/57/9/article-p1174.xml",
+        "nda.gov.za/images/branches/agricproduchealthfoodsafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+        "patents.justia.com/patent/20190313561",
+        "pmc.ncbi.nlm.nih.gov/articles/pmc7690723",
+        "sekoyafruit.com/varieties",
+        "trea.com/organization/fall-creek-farm-and-nursery-inc/information/32d97c40-d611-46b4-b280-46ef11601963"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.3
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.8
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Arándano Biloxi Ventura comparación de cultivares rendimiento ensayo México",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 11,
+      "pool_urls": [
+        "blueberriesconsulting.com/ventura-supero-a-biloxi-como-la-principal-variedad-de-arandano-instalada-en-peru",
+        "cimexus.umich.mx/index.php/cimexus/article/view/539/527",
+        "dialnet.unirioja.es/servlet/articulo?codigo=9458563",
+        "ecorfan.org/bolivia/researchjournals/ciencias_naturales_y_agropecuarias/vol2num2/ciencias%20naturales%20y%20agropecuarias%20vol%202%20num%202%20final_14.pdf",
+        "odepa.gob.cl/odepaweb/publicaciones/doc/9666.pdf",
+        "redagricola.com/ventura-de-hoy-es-la-biloxi-de-hace-cuatro-o-cinco-anos",
+        "researchgate.net/publication/380267429_biorreguladores_y_bioestimulantes_en_el_desarrollo_crecimiento_y_rendimiento_de_fruto_de_arandano_biloxi",
+        "revista-agroproductividad.org/index.php/agroproductividad/article/view/1328",
+        "revista-agroproductividad.org/index.php/agroproductividad/es/article/view/1328",
+        "scielo.org.co/scielo.php?pid=s0120-99652016000100005&script=sci_abstract&tlng=es",
+        "youtube.com/watch?v=yrkrqr8xysc"
+      ],
+      "missing_judgments": [
+        "blueberriesconsulting.com/ventura-supero-a-biloxi-como-la-principal-variedad-de-arandano-instalada-en-peru",
+        "cimexus.umich.mx/index.php/cimexus/article/view/539/527",
+        "dialnet.unirioja.es/servlet/articulo?codigo=9458563",
+        "ecorfan.org/bolivia/researchjournals/ciencias_naturales_y_agropecuarias/vol2num2/ciencias%20naturales%20y%20agropecuarias%20vol%202%20num%202%20final_14.pdf",
+        "odepa.gob.cl/odepaweb/publicaciones/doc/9666.pdf",
+        "redagricola.com/ventura-de-hoy-es-la-biloxi-de-hace-cuatro-o-cinco-anos",
+        "researchgate.net/publication/380267429_biorreguladores_y_bioestimulantes_en_el_desarrollo_crecimiento_y_rendimiento_de_fruto_de_arandano_biloxi",
+        "revista-agroproductividad.org/index.php/agroproductividad/es/article/view/1328",
+        "scielo.org.co/scielo.php?pid=s0120-99652016000100005&script=sci_abstract&tlng=es",
+        "youtube.com/watch?v=yrkrqr8xysc"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Framboise Tulameen Glen Ample comparaison rendement essai variétal France",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 11,
+      "pool_urls": [
+        "ars.usda.gov/arsuserfiles/1718/pdf/2001/lewismanuscript.pdf",
+        "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+        "fruitbreeding.hutton.ac.uk/raspberry/glenample",
+        "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+        "lejardindebalgan.fr/comment-choisir-ses-framboisiers",
+        "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+        "plantspetitsfruits.com/pages/quelle-est-la-meilleure-variete-de-framboisier-pour-maraichers",
+        "promessedefleurs.com/conseil-plantes-jardin/blog/20-framboisiers-au-banc-dessai-notre-top-5",
+        "quitoque.fr/blog/article/varietes-framboises-culture",
+        "reussir.fr/articles/la-framboise-multiplie-ses-varietes",
+        "vivaplante.fr/framboisier-de-saison-glen-ample"
+      ],
+      "missing_judgments": [
+        "ars.usda.gov/arsuserfiles/1718/pdf/2001/lewismanuscript.pdf",
+        "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+        "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+        "lejardindebalgan.fr/comment-choisir-ses-framboisiers",
+        "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+        "plantspetitsfruits.com/pages/quelle-est-la-meilleure-variete-de-framboisier-pour-maraichers",
+        "promessedefleurs.com/conseil-plantes-jardin/blog/20-framboisiers-au-banc-dessai-notre-top-5",
+        "quitoque.fr/blog/article/varietes-framboises-culture",
+        "reussir.fr/articles/la-framboise-multiplie-ses-varietes",
+        "vivaplante.fr/framboisier-de-saison-glen-ample"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Varietà lampone rifiorente Regina prova varietale Trentino resa qualità",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 10,
+      "pool_urls": [
+        "berryplant.com/lampone",
+        "berryverona.it/varieta-lampone-rifiorente.html",
+        "bia.unibz.it/view/pdfcoverpage?download=true&filepid=13321398510001241&instcode=39ubz_inst",
+        "forumdiagraria.org/piccoli-frutti-f85/lampone-varieta-regina-t65154.html",
+        "fritegotto.it/news-lampone-resistente-al-caldo-tre-nuove-varieta-tolleranti",
+        "journal.laimburg.it/index.php/laimburg-journal/article/view/162/253",
+        "plantgest.imagelinenetwork.com/it/varieta/frutticole/lampone-rosso/regina/6105",
+        "researchgate.net/publication/380866289_qualita_di_conserve_di_lamponi_ottenute_da_diverse_varietae_varieta/fulltext/6652064bbc86444c72016f61/qualita-di-conserve-di-lamponi-ottenute-da-diverse-varietae-varieta.pdf",
+        "terraevita.edagricole.it/frutticoltura/nuove-varieta-di-lampone-le-proposte-piu-importanti",
+        "venditapianteonline.it/shop/lampone-regina-rifiorente-precoce"
+      ],
+      "missing_judgments": [
+        "berryverona.it/varieta-lampone-rifiorente.html",
+        "bia.unibz.it/view/pdfcoverpage?download=true&filepid=13321398510001241&instcode=39ubz_inst",
+        "forumdiagraria.org/piccoli-frutti-f85/lampone-varieta-regina-t65154.html",
+        "fritegotto.it/news-lampone-resistente-al-caldo-tre-nuove-varieta-tolleranti",
+        "journal.laimburg.it/index.php/laimburg-journal/article/view/162/253",
+        "plantgest.imagelinenetwork.com/it/varieta/frutticole/lampone-rosso/regina/6105",
+        "researchgate.net/publication/380866289_qualita_di_conserve_di_lamponi_ottenute_da_diverse_varietae_varieta/fulltext/6652064bbc86444c72016f61/qualita-di-conserve-di-lamponi-ottenute-da-diverse-varietae-varieta.pdf",
+        "terraevita.edagricole.it/frutticoltura/nuove-varieta-di-lampone-le-proposte-piu-importanti",
+        "venditapianteonline.it/shop/lampone-regina-rifiorente-precoce"
+      ],
+      "unassessable_judgments": [],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 18,
+      "pool_urls": [
+        "api.crossref.org/works/10.21273%2fhortsci14491-19",
+        "api.crossref.org/works/10.32473%2fedis-hs1307-2017",
+        "api.crossref.org/works/10.32473%2fedis-hs1322-2018",
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "ars.usda.gov/research/project?accnno=444118&fy=2025",
+        "ask.ifas.ufl.edu/publication/hs1322/pdf",
+        "blogs.ifas.ufl.edu/news/2019/01/15/uf-ifas-developed-florida-brilliance-shines-on-states-strawberry-industry",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+        "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+        "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+        "fieldreport.caes.uga.edu/publications/c1327/productivity-and-postharvest-quality-of-strawberry-cultivars-grown-in-southeast-georgia",
+        "gcrec.ifas.ufl.edu/ufifas-strawberry-varieties",
+        "journals.ashs.org/downloadpdf/view/journals/horttech/32/4/article-p388.pdf",
+        "journals.ashs.org/view/journals/horttech/32/4/article-p388.xml",
+        "member.floridastrawberry.org/wp-content/uploads/2018/07/fsref-2017-18-whitaker-florida-brilliance-research-report.pdf",
+        "nwsmallfruits.org/wp-content/uploads/2022/01/connecting-breeders-to-producers-regional-on-farm-trials-of-strawberry-cultivars-and-elite-selections.pdf",
+        "researchgate.net/publication/362400037_strawberry_cultivar_trials_for_yield_and_fruit_quality_in_subtropical_southern_florida",
+        "tandfonline.com/doi/full/10.1080/15538362.2020.1755770"
+      ],
+      "missing_judgments": [
+        "api.crossref.org/works/10.21273%2fhortsci14491-19",
+        "api.crossref.org/works/10.32473%2fedis-hs1307-2017",
+        "api.crossref.org/works/10.32473%2fedis-hs1322-2018",
+        "ars.usda.gov/research/project?accnno=434214&fy=2022",
+        "ars.usda.gov/research/project?accnno=444118&fy=2025",
+        "blogs.ifas.ufl.edu/news/2019/01/15/uf-ifas-developed-florida-brilliance-shines-on-states-strawberry-industry",
+        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+        "ehc.usamv.ro/wp-content/uploads/2024/05/s05_book-of-abstracts_2.pdf",
+        "extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+        "fieldreport.caes.uga.edu/publications/c1327/productivity-and-postharvest-quality-of-strawberry-cultivars-grown-in-southeast-georgia",
+        "gcrec.ifas.ufl.edu/ufifas-strawberry-varieties",
+        "journals.ashs.org/downloadpdf/view/journals/horttech/32/4/article-p388.pdf",
+        "journals.ashs.org/view/journals/horttech/32/4/article-p388.xml",
+        "member.floridastrawberry.org/wp-content/uploads/2018/07/fsref-2017-18-whitaker-florida-brilliance-research-report.pdf",
+        "nwsmallfruits.org/wp-content/uploads/2022/01/connecting-breeders-to-producers-regional-on-farm-trials-of-strawberry-cultivars-and-elite-selections.pdf",
+        "researchgate.net/publication/362400037_strawberry_cultivar_trials_for_yield_and_fruit_quality_in_subtropical_southern_florida",
+        "tandfonline.com/doi/full/10.1080/15538362.2020.1755770"
+      ],
+      "unassessable_judgments": [
+        "journals.ashs.org/downloadpdf/view/journals/horttech/32/4/article-p388.pdf"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 8,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.8
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    },
+    {
+      "query": "Fresa Marisma Camarosa ensayo comparativo producción Huelva IFAPA",
+      "split": "held_out",
+      "judged_pool_complete": false,
+      "pool_size": 11,
+      "pool_urls": [
+        "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+        "aenverde.es/el-ifapa-da-a-conocer-la-estimacion-de-variedades-de-fresa-en-huelva-para-esta-campana",
+        "agrodiariohuelva.es/los-ensayos-anuales-del-ifapa-destacan-la-precocidad-y-productividad-de-la-fresa-marisma-de-fnm",
+        "andaluciainformacion.es/articulo/huelva/el-ifapa-presenta-los-resultados-de-sus-ensayos-de-variedades-de-fresa-de-esta-campana/202407051107272650770.html",
+        "api.crossref.org/works/10.21276%2faatccreview.2025.13.02.175",
+        "diariodehuelva.es/articulo/provincia/ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-campana-24-25/20250703125232327338.html",
+        "hortidaily.com/article/9711027/marisma-and-red-sayra-are-the-main-strawberry-varieties-in-huelva-this-year",
+        "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+        "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+        "revistamercados.com/ifapa-resultados-ensayos-variedades-fresa-campana-2025-2026",
+        "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+      ],
+      "missing_judgments": [
+        "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+        "aenverde.es/el-ifapa-da-a-conocer-la-estimacion-de-variedades-de-fresa-en-huelva-para-esta-campana",
+        "agrodiariohuelva.es/los-ensayos-anuales-del-ifapa-destacan-la-precocidad-y-productividad-de-la-fresa-marisma-de-fnm",
+        "andaluciainformacion.es/articulo/huelva/el-ifapa-presenta-los-resultados-de-sus-ensayos-de-variedades-de-fresa-de-esta-campana/202407051107272650770.html",
+        "api.crossref.org/works/10.21276%2faatccreview.2025.13.02.175",
+        "diariodehuelva.es/articulo/provincia/ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-campana-24-25/20250703125232327338.html",
+        "hortidaily.com/article/9711027/marisma-and-red-sayra-are-the-main-strawberry-varieties-in-huelva-this-year",
+        "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+        "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+        "revistamercados.com/ifapa-resultados-ensayos-variedades-fresa-campana-2025-2026",
+        "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+      ],
+      "unassessable_judgments": [
+        "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0"
+      ],
+      "missing_event_judgments": [],
+      "event_judgments_complete": true,
+      "google_comparable": true,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.1
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            1.0
+          ],
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      }
+    }
+  ],
+  "computed_at": "2026-11-09T20:09:02+00:00",
+  "input_sha256": {
+    "run": "44528dd2d2860a126956632155bd1fd2dcc26a0fc0a3abf33cb95346f1217016",
+    "google_baseline": "edf1885c152bff3b190050a8a38a20a2abdb25b5908f018d496a29299a176da3",
+    "judgments": "8fe1bb8baf1ef5e14984afdfa97704b486cfe1a528f4d52f91432b8eeb84693c"
+  }
+}

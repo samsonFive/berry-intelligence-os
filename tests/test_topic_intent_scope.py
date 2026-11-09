@@ -7,6 +7,21 @@ def source(paragraphs, title='Synthetic berry study'):
             'published_date':'2026-10-01','article':{'paragraphs':[{'index':i,'text':p}for i,p in enumerate(paragraphs)]}}
 
 
+def test_serialized_page_state_is_not_a_quotable_passage():
+    payload = '{"preferences":{"language":"en"},"model":{"abstract":"Blueberry mechanical harvest trial."}}'
+    prose = 'The blueberry mechanical harvest trial compared the fruit from two cultivars.'
+    plan = plan_query('blueberry mechanical harvest trial')
+
+    state = source([payload], 'Blueberry mechanical harvest trial')
+    assert payload not in [text for _, text in record_passages(state)]
+    assert match_record(state, plan)['support_status'] == 'scope_unverified'
+
+    original = source([payload, prose], 'Blueberry mechanical harvest trial')
+    hit = match_record(original, plan)
+    assert hit['support_status'] == 'body_supported'
+    assert hit['passage'] == prose and hit['passage_locator'] == 'article:1'
+
+
 def test_spanish_trial_requires_the_requested_country():
     plan = plan_query('Arándano cosecha mecánica cultivares ensayo Perú')
     oregon = source(['The blueberry mechanical harvest trial in Oregon compared three cultivars.'])
