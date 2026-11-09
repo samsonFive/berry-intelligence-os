@@ -112,9 +112,13 @@ def test_benchmark_audit_tracks_capture_rank_and_budget_without_source_text(tmp_
         return {"availability": "full", "passages": ["The strawberry field trial compared fruit yield."]}
 
     audit = []
+    progress = []
     plan = plan_query("strawberry field trial")
-    result = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch, capture_audit=audit.extend)
+    result = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch,
+                            capture_audit=audit.extend, progress=progress.append)
     assert result["capture_count"] == 1
+    assert progress[-1]["captured"] == progress[-1]["capture_total"] == 2
+    assert progress[-1]["text_captures"] == 1
     assert audit[0]["candidate_sha256"] == hashlib.sha256(b"publisher.example/trial").hexdigest()
     assert audit[0]["capture_status"] == "full"
     assert audit[0]["retained"] and audit[0]["support_status"] == "body_supported"

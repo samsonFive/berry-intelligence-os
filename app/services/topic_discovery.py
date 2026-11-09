@@ -232,6 +232,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                         from app.services.topic_retrieval import record_passages
                         preview = [r for r in preview if all(any(normalize(label) in normalize(' '.join(p for _,p in record_passages(r))) for label in group) for group in groups)]
                     progress({'stage':'capture', 'captured':len(completed), 'capture_total':len(bounded),
+                              'text_captures':sum(bool(row.get('source_version')) for row in captured),
                               'items':[{k:(('Quotation withheld · verification required' if k=='capture_status' else None) if k in {'capture_status','passage','passage_locator'} and r.get('support_status') in {'scope_unverified','source_review_hold'} else r.get(k)) for k in ('id','title','source_url','published_date','capture_status','relevance','passage','passage_locator')} for r in preview]})
             captured = [completed[i] for i in sorted(completed)]
         try:history_write=remember_sources(inbox_dir,captured)
