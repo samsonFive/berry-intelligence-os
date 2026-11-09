@@ -33,6 +33,8 @@
 
   {% if scope_display.blackberry_season %}
   <p><a href="/varieties/season?berry=berry-blackberry">Compare floricane blackberry varieties for the 2027 season</a> · Original breeder, trial and licensing sources</p>
+  {% elif scope_display.season_crop %}
+  <p><a href="/varieties/season?berry={{ scope_display.season_crop }}">Compare varieties for the 2027 season</a></p>
   {% endif %}
   <section class="rd-scope" aria-labelledby="rd-scope-title">
     <div class="rd-scope-heading">

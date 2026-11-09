@@ -99,11 +99,15 @@ An isolated Git index rollback of `f8510b2c` removed the Ervin license publicati
 | Loch Katrine Scottish trial | `ad4f295c` |
 | Loch Katrine fruiting habit | `c86cb38d` |
 
-## Platform-wide search acceptance
+## Platform-wide search and season acceptance
 
-Global Search controls and ranking changes apply to blackberry, blueberry, raspberry, and strawberry. The blackberry season comparison is a crop-specific evidence pilot. The shared Search regression submits the rendered form under each crop with Current berry and Newest first selected, then checks that those settings survive and the expected cultivar remains in the results (Ervin, Duke, Autumn Bliss, and Amandine). Authenticated local Chromium repeated the four searches and verified that crop, scope, sort, and the cultivar result survived reload.
+Search filters and ranking apply to blackberry, blueberry, raspberry, and strawberry. The shared regression submits Current berry and Newest first for Ervin, Duke, Autumn Bliss, and Amandine. Authenticated local Chromium verified that crop, scope, sort, and the cultivar result survived reload for each query.
 
-Treat retrieval quality as a separate gate. Continue to score the prospective questions by crop and language, document what could not be accessed, and inspect newly retrieved passages against their original sources. Before extending the season comparison to another crop, use its questions and source gaps to choose the next collection work. A working search form alone does not establish research coverage or parity.
+The season page now supports all four crops on one route with crop navigation, applicable facets, source locators, and a separate notice for unverified 2027 stock. The initial expansion covers 25 varieties across four crops: 11 blackberry, five blueberry, four raspberry, and five strawberry. Regional notes describe the original study or guidance. Recent releases and licensing notices have their own milestones. The existing seven reviewed blackberry claims retain their review links. The new observations remain attributed to their sources.
+
+The frozen strawberry comparison query missed the University of Georgia trial. The app captured its table as individual rows and ranked the result as adjacent. After the repair, a direct replay of the original publisher returned the heading, column definitions, and the Florida Beauty and Florida Brilliance measurements together. The candidate source registry also now seeds the original once for the pair. The regression checks that rows from different tables cannot be joined. This publisher replay isolates capture and ranking, while the frozen provider benchmark still records original discovery performance.
+
+Continue to score retrieval by crop and language. Look for exact breeder identities, geographically relevant trials, and dated licensing and supply sources before inferring seasonal availability. Inspect the original documents and record access gaps. The curated provider comparison and independent grading remain open.
 
 ## Hosted release review
 

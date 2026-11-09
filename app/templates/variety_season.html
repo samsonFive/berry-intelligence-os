@@ -1,14 +1,19 @@
 {% extends "glasshouse_base.html" %}
-{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'},{'label':'Blackberry season'}] %}
-{% block title %}2027 blackberry season · Berry Intelligence{% endblock %}
+{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'},{'label':crop ~ ' season'}] %}
+{% block title %}{{ comparison.season }} {{ crop|lower }} season · Berry Intelligence{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6">{% endblock %}
 {% block content %}
 <div class="company-workspace">
   <header class="digest-heading"><div>
     <p class="eyebrow">GENETICS &amp; GROWING</p>
-    <h1>{{ comparison.season }} blackberry season</h1>
-    <p>Northern Hemisphere commercial comparison. Source-reported observations checked {{ comparison.checked_on }}. Plant stock for 2027 is unverified.</p>
+    <h1>{{ comparison.season }} {{ crop|lower }} season</h1>
+    <p>Commercial cultivar comparison for the regions shown. Source-reported observations checked {{ comparison.checked_on }}. Plant stock for 2027 is unverified.</p>
   </div></header>
+  <nav class="company-tabs" aria-label="Season crop">
+    {% for key, label in season_crops.items() %}
+    <a href="/varieties/season?berry={{ key }}"{% if key == berry %} aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
   <form class="digest-filters" method="get" action="/varieties/season" aria-label="Filter season comparison">
     <input type="hidden" name="berry" value="{{ berry }}">
     <label>Variety or trial code<input type="search" name="q" value="{{ query }}"></label>
@@ -26,10 +31,10 @@
     </label>
     {% endfor %}
     <button type="submit">Apply filters</button>
-    <a href="/varieties/season?berry={{ berry|urlencode }}">Reset to floricane varieties</a>
+    <a href="/varieties/season?berry={{ berry|urlencode }}">{{ "Reset to floricane varieties" if berry == "berry-blackberry" else "Reset filters" }}</a>
   </form>
   <p role="status">{{ comparison.rows|length }} matching {{ 'variety' if comparison.rows|length == 1 else 'varieties' }}</p>
-  <div class="company-table-scroll" tabindex="0" aria-label="Blackberry comparison">
+  <div class="company-table-scroll" tabindex="0" aria-label="{{ crop }} comparison">
     <table class="company-table">
       <thead><tr><th scope="col">Variety</th><th scope="col">Fit</th><th scope="col">Source observations</th><th scope="col">Dated milestones and listings</th></tr></thead>
       <tbody>
@@ -37,7 +42,7 @@
       <tr>
         <th scope="row">{% if row.variety_id %}<a href="/entities/variety/{{ row.variety_id }}">{{ row.name }}</a>{% else %}{{ row.name }}{% endif %}{% if row.aliases %}<br><small>{{ row.aliases|join(' · ') }}</small>{% endif %}</th>
         <td>{{ row.region or 'Region unspecified' }} · {{ row.markets|join(' / ') }}<br>
-          {{ row.habit }} fruiting · Harvested cane {{ row.crops|join(' / ') }}<br>{{ row.window or 'Window unspecified' }}
+          {% if row.habit %}{{ row.habit }}{% if row.crops %} fruiting · Harvested cane {{ row.crops|join(' / ') }}{% endif %}<br>{% endif %}{{ row.window or 'Window unspecified' }}
           {% if row.trial_site %}<br>Trial site {{ row.trial_site }}{% endif %}
           {% if row.system %} · {{ row.system }}{% endif %}</td>
         <td><p>{{ row.observation }}</p>

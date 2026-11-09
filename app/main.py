@@ -3987,18 +3987,18 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
 
 
 @app.get("/varieties/season", response_class=HTMLResponse)
-def variety_season_page(request: Request, berry: str = "berry-blackberry", q: str = "", habit: str = "Floricane") -> HTMLResponse:
-    from app.services.variety_season import FACETS, blackberry_season
+def variety_season_page(request: Request, berry: str = "berry-blackberry", q: str = "", habit: str | None = None) -> HTMLResponse:
+    from app.services.variety_season import FACETS, SEASON_CROPS, berry_season, comparison_path
 
-    if berry != "berry-blackberry":
+    if berry not in SEASON_CROPS or not (DATA_DIR / comparison_path(berry)).is_file():
         raise HTTPException(status_code=404, detail="A season comparison is not available for this berry.")
     filters = {field: request.query_params.get(field, "") for field in FACETS}
-    filters["habit"] = habit
-    comparison = blackberry_season(DATA_DIR, q, filters, repositories=get_repositories(DATA_DIR, SCHEMAS_DIR))
+    filters["habit"] = habit if habit is not None else ("Floricane" if berry == "berry-blackberry" else "")
+    comparison = berry_season(DATA_DIR, berry, q, filters, repositories=get_repositories(DATA_DIR, SCHEMAS_DIR))
     return templates.TemplateResponse(
         request=request,
         name="variety_season.html",
-        context={"comparison": comparison, "filters": filters, "query": q, "berry": berry},
+        context={"comparison": comparison, "filters": filters, "query": q, "berry": berry, "crop": BERRIES[berry], "season_crops": {key: BERRIES[key] for key in SEASON_CROPS}},
     )
 
 
@@ -5657,13 +5657,14 @@ RESEARCH_EXAMPLE_PROMPTS = (
 
 def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
     from app.services.topic_retrieval import plan_query, _query_identifiers
-    from app.services.variety_season import is_blackberry_floricane
+    from app.services.variety_season import is_blackberry_floricane, season_query_crop
     from app.services import news_tags
     tag_labels = [tag['name'] for tag in news_tags.catalog(INBOX_DIR) if tag['id'] in scope.tag_ids]
     plan = plan_query(scope.question)
     return {
         "has_verified_code": bool(_query_identifiers(plan,entities)),
         "blackberry_season": is_blackberry_floricane(plan, scope.berry_id),
+        "season_crop": season_query_crop(plan, scope.berry_id),
         "intelligence_type": humanize_label(scope.intelligence_type),
         "berry": BERRIES.get(scope.berry_id or "", ""),
         "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],
@@ -6019,7 +6020,8 @@ async def _finish_research_live(request, payload, scope, entities, started, prog
     from app.services.industry_pulse.live_stack import week_background_hits
     from app.services.topic_retrieval import plan_query, _query_identifiers
     topic_plan = plan_query(scope.question)
-    use_topic_capture = bool(topic_plan.cane_type or _query_identifiers(topic_plan,entities))
+    from app.services.variety_season import season_candidate_sources
+    use_topic_capture = bool(topic_plan.cane_type or _query_identifiers(topic_plan, entities) or season_candidate_sources(DATA_DIR, topic_plan))
 
     live = await asyncio.to_thread(
         run_live_research,
@@ -11254,11 +11256,16 @@ def global_search_page(
         limit_per_group=25,
         sort=sort_mode,
     )
+    from app.services.topic_retrieval import plan_query
+    from app.services.variety_season import season_preview, season_query_crop
+
+    season_crop = None
     season_rows = []
-    if results.get("blackberry_season"):
-        from app.services.topic_retrieval import plan_query
-        from app.services.variety_season import season_preview
-        season_rows = season_preview(DATA_DIR, plan_query(q))
+    if not results.get("error"):
+        plan = plan_query(q)
+        season_crop = season_query_crop(plan, berry_id)
+        if results.get("blackberry_season"):
+            season_rows = season_preview(DATA_DIR, plan)
     return templates.TemplateResponse(
         request=request,
         name="search.html",
@@ -11266,6 +11273,8 @@ def global_search_page(
             "search_query": q,
             "search_results": results,
             "search_season_rows": season_rows,
+            "search_season_crop": season_crop,
+            "search_season_crop_label": BERRIES.get(season_crop, ""),
             "search_berry": berry_id,
             "search_berry_label": BERRIES.get(berry_id, ""),
             "search_include_global": broaden,

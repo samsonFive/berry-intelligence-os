@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v34"
+VERSION = "topic-retrieval-v35"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _PLURALS["harvesting"] = "harvest"
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
@@ -150,6 +150,36 @@ def _query_identifiers(plan, entities):
     return list(owners.values())
 
 
+def _comparison_table_passages(passages, identities, terms):
+    """Keep cultivar rows together only under a shared numbered table heading."""
+    for i, (caption_loc, caption) in enumerate(passages[:-2]):
+        if not re.match(r"^Table\s+\d+[.:]", caption, re.I):
+            continue
+        header_loc, header = passages[i + 1]
+        columns = header.count(" | ")
+        if columns < 2 or not re.search(r"\b(?:variety|cultivar)\b", header, re.I):
+            continue
+        metrics = {"harvest", "yield", "firmness", "weight", "size"}
+        if not (terms & metrics) <= set(normalize(header).split()):
+            continue
+        rows = []
+        found = set()
+        for loc, row in passages[i + 2:i + 52]:
+            if row.count(" | ") != columns:
+                break
+            subject = normalize(row.split(" | ", 1)[0])
+            matches = {
+                key for key, entity in enumerate(identities)
+                if subject in {normalize(name) for name in [entity.get("name") or "", *(entity.get("aliases") or [])]}
+            }
+            if len(matches) == 1:
+                found.update(matches)
+                rows.append((loc, row))
+        if len(found) == len(identities) and len(rows) >= 2:
+            table = [(caption_loc, caption), (header_loc, header), *rows]
+            yield ";".join(loc for loc, _ in table), "\n".join(row for _, row in table)
+
+
 def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mapping[str, dict[str, Any]] | None = None, _identifiers=None, _support_context=None) -> dict[str, Any] | None:
     passages = record_passages(record)
     linked = [((entities or {}).get(eid) or {}) for eid in record.get("entity_ids") or []]
@@ -239,6 +269,9 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         and re.search(subject_pattern, " ".join(plan.terms))
         and bool(title_crops.intersection(crop_terms))
     )
+    comparison_tables = []
+    if len(support["identities"]) >= 2 and (set(plan.terms) & {"versus", "vs", "comparison", "compared"}):
+        comparison_tables = list(_comparison_table_passages(passages, support["identities"], set(plan.terms)))
     body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields
                     and (cane_in_passage(p,plan.cane_type) or evidence_traits)
                     and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
@@ -247,6 +280,14 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
                     and trial_location_in_passage(p,support['trial_places'],require_trial=requires_trial_location)
                     and organizations_in_passage(p,support['organizations'])
                     and passage_intent_supported(p,plan)]
+    supported_tables = [
+        (loc, passage) for loc, passage in comparison_tables
+        if cane_in_passage(passage, plan.cane_type)
+        and trial_location_in_passage(passage, support["trial_places"], require_trial=requires_trial_location)
+        and organizations_in_passage(passage, support["organizations"])
+        and passage_intent_supported(passage, plan)
+    ]
+    body_matches.extend(supported_tables)
     # A parent code in an offspring patent is useful lineage context, not a
     # description of the requested cultivar. Use only explicit denominations;
     # never guess a patent subject from a nearby number or company name.
@@ -260,7 +301,7 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     matching = body_matches or [(loc,p) for loc,p in passages if loc in metadata_fields]
     milestone=re.compile(r'\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*|establish\w*|debut\w*|trial\w*|evaluat\w*|experiment\w*|results)\b',re.I)
     pruning=any(t.startswith('prun') for t in plan.terms)
-    locator, passage = max(matching, key=lambda p: (sum(t in normalize(p[1]).split() for t in plan.terms) if pruning else bool(milestone.search(p[1])),sum(t in normalize(p[1]).split() for t in plan.terms)), default=("", ""))
+    locator, passage = max(matching, key=lambda p: (p in supported_tables, sum(t in normalize(p[1]).split() for t in plan.terms) if pruning else bool(milestone.search(p[1])),sum(t in normalize(p[1]).split() for t in plan.terms)), default=("", ""))
     support_status='body_supported' if body_matches else 'scope_unverified'
     from app.services.research_source_holds import source_quote_hold
     quote_hold=source_quote_hold(record)
@@ -291,7 +332,7 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
             year=re.search(r'\b((?:19|20)\d{2})\s+(?:study|research|paper)\b',framing,re.I)
             if year:reproduced_study_year=int(year[1])
     title = str(record.get("title") or "")
-    event = bool(_EVENT.search(title) or re.search(r"\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*)\b", passage, re.I))
+    event = bool((locator, passage) in supported_tables or _EVENT.search(title) or re.search(r"\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*)\b", passage, re.I))
     if 'license' in plan.terms:
         event = event and any(loc not in metadata_fields and re.search(r'\blicen[sc]\w*\b',p,re.I) for loc,p in passages)
     if re.search(r"\b(guide|prun\w*|growing|cultivars for)\b", title, re.I) and not re.search(r"\b(releas\w*|licen[sc]\w*|trial\w*)\b", title, re.I):

@@ -171,6 +171,9 @@
   {% endif %}
 </section>
 {% endif %}
+{% if search_season_crop and not search_results.blackberry_season %}
+<p><a href="/varieties/season?berry={{ search_season_crop }}">Compare {{ search_season_crop_label|lower }} varieties for the 2027 season</a></p>
+{% endif %}
 {% if search_season_rows %}<h2>Catalog and archive results</h2>{% endif %}
 <p class="sh-result-count result-count">
   {% if search_results and search_results.error %}

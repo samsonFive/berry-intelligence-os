@@ -285,7 +285,27 @@ def test_search_routes_to_filterable_blackberry_comparison() -> None:
     assert "Mills River, NC" in season.text and "1 matching variety" in season.text
     assert 'href="/evidence/ev-frontier-ervin-mills-river-trial"' in season.text
     assert 'name="berry" value="berry-blackberry"' in season.text
-    assert client.get("/varieties/season", params={"berry": "berry-raspberry"}).status_code == 404
+    assert client.get("/varieties/season", params={"berry": "berry-cranberry"}).status_code == 404
+
+
+@pytest.mark.parametrize(("crop", "variety", "source_host"), [
+    ("blueberry", "Sekoya Pop", "fallcreekcatalogs.com"),
+    ("raspberry", "Autumn Bliss", "extension.oregonstate.edu"),
+    ("strawberry", "Florida Brilliance", "fieldreport.caes.uga.edu"),
+])
+def test_search_connects_to_the_cited_season_comparison_for_each_crop(crop, variety, source_host):
+    berry = f"berry-{crop}"
+    search = client.get("/search", params={"q": f"2027 {crop} season", "berry": berry})
+    assert search.status_code == 200
+    path = f"/varieties/season?berry={berry}"
+    assert f'href="{path}"' in search.text
+    comparison = client.get("/varieties/season", params={"berry": berry, "q": variety})
+    assert comparison.status_code == 200
+    assert f"2027 {crop} season" in comparison.text
+    assert variety in comparison.text and source_host in comparison.text
+    assert "1 matching variety" in comparison.text
+    if crop != "raspberry":
+        assert "Harvested cane" not in comparison.text
 
 
 def test_warm_search_reuses_documents_without_reloading_pools(monkeypatch) -> None:

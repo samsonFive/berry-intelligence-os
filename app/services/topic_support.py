@@ -80,7 +80,7 @@ def passage_intent_supported(text, plan):
         if not re.search(r'\broot zone\b',plain):return False
         if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
     if any(t.startswith(('trial','experiment','evaluat')) for t in words):
-        if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
+        if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*|field demonstration)\b',plain):return False
         if 'field' in words:
             # Field capacity is a substrate-water measure, not a field site.
             if not re.search(r'\b(?:field(?! capacity)|outdoor)\b',plain):return False

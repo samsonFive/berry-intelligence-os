@@ -1,4 +1,4 @@
-"""Read-only source observations for the blackberry season comparison."""
+"""Read-only source observations for the berry season comparisons."""
 
 import json
 import re
@@ -8,6 +8,7 @@ from app.services.topic_retrieval import normalize
 
 
 COMPARISON = Path("imports/blackberry-season-2027/comparison.json")
+SEASON_CROPS = ("berry-blackberry", "berry-blueberry", "berry-raspberry", "berry-strawberry")
 FACETS = {
     "region": "Comparison region",
     "habit": "Cultivar fruiting habit",
@@ -20,10 +21,28 @@ FACETS = {
 }
 
 
+def comparison_path(berry):
+    return Path(f"imports/{berry.removeprefix('berry-')}-season-2027/comparison.json")
+
+
 def is_blackberry_floricane(plan, berry):
     return plan.cane_type == "floricane" and (
         berry == "berry-blackberry" or (berry in {None, "", "global"} and "blackberry" in plan.terms)
     )
+
+
+def season_query_crop(plan, berry):
+    if is_blackberry_floricane(plan, berry):
+        return "berry-blackberry"
+    terms = set(plan.terms)
+    if not terms.intersection({"season", "2027"}) or plan.start or plan.end or plan.exclusions:
+        return None
+    named_crops = [crop for crop in SEASON_CROPS if crop.removeprefix("berry-") in terms]
+    if len(named_crops) == 1 and berry in {None, "", "global", named_crops[0]}:
+        return named_crops[0]
+    if not named_crops and berry in SEASON_CROPS:
+        return berry
+    return None
 
 
 def season_preview(data_dir, plan):
@@ -55,29 +74,48 @@ def _values(row, field):
 
 def season_source_leads(data_dir):
     """Yield attributed URLs for discovery, without asserting catalog traits."""
-    path = Path(data_dir) / COMPARISON
-    if not path.is_file():
-        return
-    data = json.loads(path.read_text(encoding="utf-8"))
+    for berry in SEASON_CROPS:
+        path = Path(data_dir) / comparison_path(berry)
+        if path.is_file():
+            yield from _comparison_source_leads(json.loads(path.read_text(encoding="utf-8")))
+
+
+def _comparison_source_leads(data):
     for row in data["rows"]:
         if not row["variety_id"]:
             continue
         for key in row["citations"]:
             title, url, _ = data["sources"][key]
-            yield row["variety_id"], title, url, (row["habit"], row["observation"])
+            yield row["variety_id"], title, url, (row["habit"] or "", row["observation"])
         for label, _, detail, key in row["events"]:
             title, url, _ = data["sources"][key]
-            yield row["variety_id"], title, url, (row["habit"], label, detail)
+            yield row["variety_id"], title, url, (row["habit"] or "", label, detail)
 
 
 def season_candidate_sources(data_dir, plan):
     """Seed explicit public discovery from inspected references, including uncataloged names."""
-    path = Path(data_dir) / COMPARISON
     terms = set(plan.terms)
-    if not terms.intersection({"blackberry", "mora", "floricane", "primocane"}) or not path.is_file():
-        return []
-    data = json.loads(path.read_text(encoding="utf-8"))
-    positive = " ".join(plan.terms)
+    positive = normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)', "", plan.interpreted_query))
+    hits = {}
+    for berry in SEASON_CROPS:
+        if berry == "berry-blackberry" and not terms.intersection({"blackberry", "mora", "floricane", "primocane"}):
+            continue
+        crop = berry.removeprefix("berry-")
+        other_crops = {key.removeprefix("berry-") for key in SEASON_CROPS if key != berry}
+        if crop not in terms and terms.intersection(other_crops):
+            continue
+        path = Path(data_dir) / comparison_path(berry)
+        if path.is_file():
+            data = json.loads(path.read_text(encoding="utf-8"))
+            for title, url, subject in _candidate_sources(data, plan, terms, positive):
+                if url in hits and hits[url][2] != subject:
+                    hits[url] = (title, url, "")
+                else:
+                    hits.setdefault(url, (title, url, subject))
+    return list(hits.values())[:4]
+
+
+def _candidate_sources(data, plan, terms, positive):
     keys = {}
     for row in data["rows"]:
         if any(
@@ -85,7 +123,10 @@ def season_candidate_sources(data_dir, plan):
             for name in map(normalize, [row["name"], *row["aliases"]])
         ):
             for key in [*row["citations"], *(event[-1] for event in row["events"])]:
-                keys.setdefault(key, row["name"])
+                if key in keys and keys[key] != row["name"]:
+                    keys[key] = ""
+                else:
+                    keys.setdefault(key, row["name"])
     if "blackberry" in terms:
         for catalog in data.get("market_catalogs", []):
             if (
@@ -98,7 +139,16 @@ def season_candidate_sources(data_dir, plan):
 
 
 def blackberry_season(data_dir, query, filters, *, repositories=None):
-    data = json.loads((data_dir / COMPARISON).read_text(encoding="utf-8"))
+    return berry_season(data_dir, "berry-blackberry", query, filters, repositories=repositories)
+
+
+def berry_season(data_dir, berry, query, filters, *, repositories=None):
+    data = json.loads((data_dir / comparison_path(berry)).read_text(encoding="utf-8"))
+    facets = {
+        field: ("Cultivar type" if field == "habit" and berry == "berry-blueberry" else label)
+        for field, label in FACETS.items()
+        if any(row.get(field) for row in data["rows"]) or field == "evidence_status"
+    }
     for row in data["rows"]:
         reviewed = {}
         keys = set(row["citations"]) | {event[-1] for event in row["events"]}
@@ -119,7 +169,7 @@ def blackberry_season(data_dir, query, filters, *, repositories=None):
         row["evidence_status"] = "Has reviewed evidence" if reviewed else "Source-reported only"
     options = {
         field: sorted({value for row in data["rows"] for value in _values(row, field)})
-        for field in FACETS
+        for field in facets
     }
     terms = normalize(query).split()
     matches = []
@@ -129,4 +179,4 @@ def blackberry_season(data_dir, query, filters, *, repositories=None):
         words = set(normalize(" ".join([row["name"], *row["aliases"], row["observation"]])).split())
         if all(term in words for term in terms):
             matches.append(row)
-    return {**data, "rows": matches, "facets": FACETS, "options": options}
+    return {**data, "rows": matches, "facets": facets, "options": options}

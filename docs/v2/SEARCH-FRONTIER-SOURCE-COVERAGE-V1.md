@@ -27,6 +27,15 @@ The first set is drawn from sources used in the blackberry season comparison, pl
 | www.invenio-fl.fr/framboise/ | French, France, raspberry | Applied horticultural trials | Original trial pages and linked reports, quarterly | [Trial index](https://www.invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9) is a discovery lead. Confirm cultivar, system and location in each original report. |
 | adida19.odoo.com | French, Corrèze, raspberry | Original applied trial reports | Inspect stable publisher document links, quarterly | The [2016 Objat report](https://adida19.odoo.com/web/content/466?download=true&unique=1684540123b8cfd44fedb8af848b300723490c54) compares four remontant cultivars under shelter T7. It does not specify the shelter geometry. |
 
+The expanded comparison adds these publisher paths to the original-source lane.
+
+| Host or path | Language and coverage | Source type | Acquisition lane and proposed cadence | Current evidence |
+| --- | --- | --- | --- | --- |
+| fieldreport.caes.uga.edu/publications/ | English, Southeast US, multiple berries | University extension trials | Original HTML and tables, monthly | Circular 1327 Table 2 reports first harvest and per-plant yield for Florida Beauty and Florida Brilliance in southeast Georgia. App capture and paired-row retrieval verified. |
+| ask.ifas.ufl.edu/publication/ | English, Florida, multiple berries | Extension production handbooks | Original HTML and linked PDFs, quarterly | Chapter 16 describes Florida Ember and Florida Encore and dates their release to 2024. |
+| fallcreekcatalogs.com | English and localized editions, global, blueberry | Breeder catalog | Original pages, monthly | Sekoya Pop entry links its marketed name to FCM14-052 and describes low-chill production. Use the grant separately for the patent. |
+| news.wsu.edu and research.wsu.edu/innovation/ | English, Pacific Northwest and license territories, multiple berries | Breeder announcements and licensing | Original HTML, monthly | Cascade Premier breeder announcement and separate licensing notice. Confirm the current offer before treating it as available. |
+
 Each new candidate should record the original URL, market, language, evidence type, capture status, and whether it yielded a new identity, event or supported claim. Reconcile host aliases and publisher redirects before counting gaps. Rank sources by the incremental verified evidence they contribute beyond the existing lanes.
 
 Run `python scripts/audit_source_execution.py --season-pilot` for a read-only inventory against the current source registry, published Evidence and local research cache. In the [November 9 snapshot](../../artifacts/search-research-quality/frontier-source-coverage-2026-11-09.json), four of thirteen cited references matched a configured host, eight had cached body captures and zero matched a published Evidence URL. The counts describe exact host or canonical URL matches within this worktree.

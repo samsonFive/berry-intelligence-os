@@ -6,7 +6,7 @@ from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, sele
 
 from app.services.global_search import search_documents
 from app.services.topic_retrieval import match_record, plan_query, record_passages
-from app.services.variety_season import COMPARISON, blackberry_season, season_candidate_sources, season_preview, season_source_leads
+from app.services.variety_season import COMPARISON, SEASON_CROPS, berry_season, blackberry_season, season_candidate_sources, season_preview, season_source_leads
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -81,14 +81,23 @@ def test_evidence_filter_tracks_active_reviewed_claims_and_withdrawal():
 
 
 def test_every_observation_and_milestone_resolves_to_original_source():
-    result = blackberry_season(DATA, "", {})
+    for crop in SEASON_CROPS:
+        result = berry_season(DATA, crop, "", {})
+        assert result["rows"]
+        _assert_cited_rows(result, crop)
+
+
+def _assert_cited_rows(result, crop):
+    import json
+
     for row in result["rows"]:
         assert row["citations"]
         for source_id in row["citations"] + [event[-1] for event in row["events"]]:
             _, url, locator = result["sources"][source_id]
             assert urlsplit(url).scheme == "https" and locator
         if row["variety_id"]:
-            assert (DATA / "entities/varieties" / (row["variety_id"] + ".json")).is_file()
+            variety = json.loads((DATA / "entities/varieties" / (row["variety_id"] + ".json")).read_text(encoding="utf-8"))
+            assert crop in variety["berry_ids"]
 
 
 def test_global_search_links_to_pilot_for_original_and_corrected_queries():
@@ -264,8 +273,42 @@ def test_comparison_renders_scoped_trial_and_distinct_citations():
         autoescape=select_autoescape(),
     )
     page = environment.get_template("variety_season.html").render(
-        comparison=comparison, filters={key: filters.get(key, "") for key in comparison["facets"]}, query="",
+        crop="Blackberry", berry="berry-blackberry", season_crops={"berry-blackberry": "Blackberry"}, comparison=comparison, filters={key: filters.get(key, "") for key in comparison["facets"]}, query="",
     )
     assert "Mills River, NC" in page and 'value="High tunnel" selected' in page
     assert "Plant stock for 2027 is unverified" in page
     assert "International license" in page and "Sweet-Ark Immaculate" not in page
+
+
+
+def test_paired_strawberry_trial_is_seeded_once_without_a_single_cultivar_scope():
+    plan = plan_query("Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest")
+    sources = season_candidate_sources(DATA, plan)
+    assert len(sources) == 1
+    assert sources[0][1].startswith("https://fieldreport.caes.uga.edu/")
+    assert sources[0][2] == ""
+
+
+
+def test_comparison_retrieves_two_cultivar_rows_only_from_the_same_trial_table():
+    names = ("Florida Brilliance", "Florida Beauty")
+    entities = {
+        name: {"id": name, "name": name, "entity_type": "variety", "berry_ids": ["berry-strawberry"]}
+        for name in names
+    }
+    plan = plan_query("Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest")
+    rows = [
+        "University strawberry cultivar trial yield and early harvest",
+        "Table 2. Strawberry Variety Yield and First Harvest in the Field Demonstration.",
+        "Variety | First harvest date | Yield (g/plant)",
+        "Florida Beauty | 02/04/2020 | 41.9",
+        "Florida Brilliance | 01/28/2020 | 66.9",
+    ]
+    def result(passages):
+        record = {"title": rows[0], "article": {"paragraphs": [{"text": p} for p in passages]}}
+        return match_record(record, plan, entities=entities)
+
+    direct = result(rows)
+    assert direct["relevance"] == "direct"
+    assert all(value in direct["passage"] for value in ("41.9", "66.9", "Yield (g/plant)"))
+    assert result(rows[:4] + rows[1:3] + rows[4:])["relevance"] != "direct"
