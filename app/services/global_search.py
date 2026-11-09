@@ -967,10 +967,11 @@ def search_documents(
         and any(int(row.get("rank") or 0) >= RANK_EXACT_ALIAS for row in group["in_context"] + group["also_global"])
         for group in groups
     )
+    from app.services.variety_season import is_blackberry_floricane
+
     return {
         "q": needle,
-        "blackberry_season": query_plan.cane_type == "floricane"
-        and (berry == "berry-blackberry" or (berry == BERRY_GLOBAL and "blackberry" in query_plan.terms)),
+        "blackberry_season": is_blackberry_floricane(query_plan, berry),
         "berry": berry,
         "include_private": include_private,
         "include_global": include_global,

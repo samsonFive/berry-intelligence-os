@@ -55,11 +55,26 @@ def test_registered_catalog_follows_exact_named_sheet_without_recursive_or_exter
     assert not any('outside.example'in h.url or 'other.pdf'in h.url for h in hits)
 
 
-def test_total_public_outage_is_failure_even_with_registered_seed():
+def test_total_public_outage_without_source_leads_is_failure():
     def fail(url):raise TimeoutError('private transport detail')
     client=PublicResearchSearchClient(get=fail)
     with pytest.raises(GatewayUnavailableError):client.search('strawberry trial')
     assert client.requests==5 and all('private'not in x for x in client.failures)
+
+
+def test_total_public_outage_keeps_named_primary_source_lead():
+    def fail(url):
+        raise TimeoutError()
+
+    entity = {"id": "ervin", "entity_type": "variety", "name": "Ervin", "berry_ids": ["berry-blackberry"]}
+    url = "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+    client = PublicResearchSearchClient(
+        get=fail, entities={"ervin": entity},
+        primary_sources={"ervin": [{"title": "Ervin blackberry", "url": url}]},
+    )
+    response = client.search("Ervin blackberry")
+    assert [hit.url for hit in response.hits] == [url]
+    assert len(client.failures) == 5
 
 
 def test_openaire_repository_leads_are_public_metadata_only():

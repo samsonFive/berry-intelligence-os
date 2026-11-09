@@ -18,9 +18,32 @@ FACETS = {
 }
 
 
+def is_blackberry_floricane(plan, berry):
+    return plan.cane_type == "floricane" and (
+        berry == "berry-blackberry" or (berry in {None, "", "global"} and "blackberry" in plan.terms)
+    )
+
+
 def _values(row, field):
     value = row.get(field)
     return value if isinstance(value, list) else [value or "Unspecified"]
+
+
+def season_source_leads(data_dir):
+    """Yield attributed URLs for discovery, without asserting catalog traits."""
+    path = Path(data_dir) / COMPARISON
+    if not path.is_file():
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    for row in data["rows"]:
+        if not row["variety_id"]:
+            continue
+        for key in row["citations"]:
+            title, url, _ = data["sources"][key]
+            yield row["variety_id"], title, url, (row["habit"], row["observation"])
+        for label, _, detail, key in row["events"]:
+            title, url, _ = data["sources"][key]
+            yield row["variety_id"], title, url, (row["habit"], label, detail)
 
 
 def blackberry_season(data_dir, query, filters):

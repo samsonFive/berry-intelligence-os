@@ -4,7 +4,7 @@ from urllib.parse import urlsplit
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, select_autoescape
 
 from app.services.global_search import search_documents
-from app.services.variety_season import blackberry_season
+from app.services.variety_season import blackberry_season, season_source_leads
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -41,6 +41,32 @@ def test_global_search_links_to_pilot_for_original_and_corrected_queries():
     assert search_documents([], "Blackberry Floricans")["blackberry_season"]
     assert search_documents([], "floricane", berry="berry-blackberry")["blackberry_season"]
     assert not search_documents([], "raspberry floricane")["blackberry_season"]
+
+
+def test_season_discovery_leads_keep_release_and_licensing_urls_separate():
+    leads = [(url, words) for key, _, url, words in season_source_leads(DATA) if key == "variety-ervin"]
+    assert any("rubus.ces.ncsu.edu" in url and "Floricane" in words for url, words in leads)
+    assert any("globalplantgenetics.com" in url and "International license" in words for url, words in leads)
+    assert not any("globalplantgenetics.com" in url and "Introduction" in words for url, words in leads)
+
+
+def test_public_discovery_can_find_season_source_without_named_cultivar():
+    from app.services.public_research_search import PublicResearchSearchClient
+
+    entity = {"id": "variety-ervin", "entity_type": "variety", "name": "Ervin", "berry_ids": ["berry-blackberry"]}
+    lead = next(
+        (title, url) for key, title, url, words in season_source_leads(DATA)
+        if key == entity["id"] and "International license" in words
+    )
+    title, url = lead
+    client = PublicResearchSearchClient(
+        entities={entity["id"]: entity},
+        primary_sources={entity["id"]: [{"title": title, "url": url}]},
+        primary_terms={url: ["floricane", "license"]},
+    )
+    hits = client._registry("blackberry floricane licensing")
+    assert [hit.url for hit in hits] == [url]
+    assert "not verified" in hits[0].snippet
 
 
 def test_comparison_renders_scoped_trial_and_distinct_citations():

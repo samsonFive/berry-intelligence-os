@@ -1,0 +1,1122 @@
+{
+  "version": 1,
+  "started_at": "2026-11-09T18:38:34.339651+00:00",
+  "old_ref": "f198dead18c54b6e012eed896f86424d405b9b05",
+  "provider": "local_only",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "Blackberry Floricans",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blackberry Floricans",
+        "interpreted_query": "Blackberry floricane",
+        "terms": [
+          "blackberry",
+          "floricane"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": true,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.74,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Floricane blackberry developments",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry developments",
+        "interpreted_query": "Floricane blackberry developments",
+        "terms": [
+          "floricane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.759,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "New blackberry varieties that fruit on second-year canes",
+      "split": "development",
+      "plan": {
+        "raw_query": "New blackberry varieties that fruit on second-year canes",
+        "interpreted_query": "New blackberry varieties that floricane",
+        "terms": [
+          "blackberry",
+          "variety",
+          "floricane"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": true,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.805,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Ervin blackberry",
+      "split": "development",
+      "plan": {
+        "raw_query": "Ervin blackberry",
+        "interpreted_query": "Ervin blackberry",
+        "terms": [
+          "ervin",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [
+        {
+          "id": "ev-20260806173540-c5d7-remembering-a-berry-industry-leader-inno",
+          "title": "Remembering a Berry Industry Leader, Innovator, and Friend - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbHd1UFRCcVJkM0FQU0pwOTFCOU5pMG85RDFwQ1Y0Zk9Uekd6MXFsT1lhZllKUWZ2ODlHTHV6YUpsd2otckx3ZlE1c2h1WFctRHN4enV6SnhKZ2tFV19lR09DTFVoWGpEUWEyNno4UEdGZzNfRTI4Q2tuZHc4cF9zczhwR3kxT0x4Y1d4RXJsdGJLcEJzQkdVOTFUWQ?oc=5",
+          "published_date": "2021-03-23"
+        },
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22"
+        }
+      ],
+      "improved_app": [
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22",
+          "capture_status": null,
+          "relevance": "adjacent"
+        },
+        {
+          "id": "ev-20260806173540-c5d7-remembering-a-berry-industry-leader-inno",
+          "title": "Remembering a Berry Industry Leader, Innovator, and Friend - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbHd1UFRCcVJkM0FQU0pwOTFCOU5pMG85RDFwQ1Y0Zk9Uekd6MXFsT1lhZllKUWZ2ODlHTHV6YUpsd2otckx3ZlE1c2h1WFctRHN4enV6SnhKZ2tFV19lR09DTFVoWGpEUWEyNno4UEdGZzNfRTI4Q2tuZHc4cF9zczhwR3kxT0x4Y1d4RXJsdGJLcEJzQkdVOTFUWQ?oc=5",
+          "published_date": "2021-03-23",
+          "capture_status": null,
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 1.095,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 2,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 2,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "NC 740 blackberry",
+      "split": "development",
+      "plan": {
+        "raw_query": "NC 740 blackberry",
+        "interpreted_query": "NC 740 blackberry",
+        "terms": [
+          "nc",
+          "740",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22",
+          "capture_status": null,
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 1.326,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "Floricane blackberry licensing outside the United States",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry licensing outside the United States",
+        "interpreted_query": "Floricane blackberry licensing outside the United States",
+        "terms": [
+          "floricane",
+          "blackberry",
+          "license",
+          "outside",
+          "united",
+          "states"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.841,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+        "interpreted_query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+        "terms": [
+          "floricane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": "2026-01-01",
+        "end": "2026-10-26",
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.775,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Primocane blackberry developments",
+      "split": "development",
+      "plan": {
+        "raw_query": "Primocane blackberry developments",
+        "interpreted_query": "Primocane blackberry developments",
+        "terms": [
+          "primocane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "primocane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [
+        {
+          "id": "ev-20260806190155-d6f1-at-last-sweet-blackberries-stay-the-cour",
+          "title": "At Last, Sweet Blackberries Stay the Course (Published 2007) - The New York Times",
+          "source_url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE8xQVhwR1M2N0hxU0p4U2ZTaWVLQ1Y1S25leXFiOWwtTENrdUdPZjBFX0tDN2tpV2k3bUpRTzhYTE5FNUd5Q3o3SnNHVm5fOGgxWkVIQW9DWkZWY0hkWGstQmxFZw?oc=5",
+          "published_date": "2007-07-25"
+        },
+        {
+          "id": "ev-20260806173540-0dce-primocane-a-major-innovation-in-berry-pr",
+          "title": "Primocane: A Major Innovation in Berry Production - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQa2oxeGZTWnUteE9mdlljUU9XdVVHYUYwai10TXF3Y2txbXEwN3VEUUF2MUNITloyVm8tZl9LclpMV1BBRHV4eEVBNkNZZV84LWpENXItNmRHREozc2VIQndndGhuYWFsZ05iQlFTMFVxMXU5d29CTC1GQm1OWEl5dHpkc2k1bmhKMFJYSFFxRjNOVXJ5djVpN1NTYw?oc=5",
+          "published_date": "2018-07-19"
+        },
+        {
+          "id": "ev-20260806173540-1794-redberry-mite-in-primocane-blackberries-",
+          "title": "Redberry Mite in Primocane Blackberries? - ucanr.edu",
+          "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOSmhLUXRxbzhqOFN3a1F4emFjZmpEWnVHdUxSeVpOeXVVb01xckpfbUhCV3M5QmdVelBxeG15TTQxTG9TQVY3VWFnLTJDSjVKZ0JIcWd6ejdqNm8tQTdjLTdtdS0zSlJSamI0V2hLeFpITGZHR0FhZFVxdWdYb3JOWXZMTnNEQ0RfVnl4eXkyZEJDdzVZYTlOMGNWM3I?oc=5",
+          "published_date": "2018-09-06"
+        },
+        {
+          "id": "ev-20260806173540-3fb3-wish-farms-jose-saca-and-amber-maloney-t",
+          "title": "Wish Farms' Jose Saca and Amber Maloney Talk Blackberry Volume, Demand, and New Cooler - AndNowUKnow",
+          "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxONi1GRVZjVENWM0RBRXZZbVVRSFVSa29EWlZqNWhJVEJGLVlfZXRuaEVQcG1NWFU0WGgzcUQ5dnlvVlM3R0xCR09lcWVfS1FVYzVJZkF6QS1KNzhqck5kaVpKbzlkS0VTb0NIMy11UGM3ZXF6YmNWNV8xanpmMWl5UW42SnlHeXgyUElBQ2ZsX2pveUpidnE2RE9Tcm82LWhVdEFzTlFaVndCaXFkNlRNbEFmWlFDYnZfdDg2TWU2M1BzVkphdEpyRS1Cc0FTdHVkdlE?oc=5",
+          "published_date": "2019-05-15"
+        },
+        {
+          "id": "ev-20260806173540-bf5c-new-blackberry-achieves-pinnacle-of-flav",
+          "title": "New blackberry achieves pinnacle of flavor - Southwest Times Record",
+          "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQTHlFY19nMmkyQ2JGenZRamI1dzlBMTlVZW10U2xicnFELXV0cEw1WEtpMElhcVNwb0ZKOEw2SGtCS0pHTUs2aXF2OVp2QlFWQjhTZUpNUHRiXzNabVRidXhjSlZKOXR3NzVTU2oyUDlUTDk1Z1NMc2V6SVNJS0ZyWE1IX2ItcG5DcHUtVEFoNGN3b0NSN0RiX3NuYkwzU3JlR0RIN1JtRG16YlIw?oc=5",
+          "published_date": "2020-01-05"
+        },
+        {
+          "id": "ev-20260806173540-16dd-is-containerized-blackberry-production-r",
+          "title": "Is containerized blackberry production ready for prime time? - Fruit Growers News",
+          "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOcTZQMm45Skx1XzJYdm9CZnNYMmFVTDdmRnlhdGZmV3pOb2ZwVnFoY0NMR2J5dncza0xVcXBDbDFEQTIzbmtjTHZjN2lHUzM1MUJGZ0p3aEpQaE8tTzA2TmpIWFRHQ3cwUjJpODN3VnFyaVMzRFU2djdhaDVtTWhhMTNYWnpQV3RKNElwa29MX3NYRXdpNWowbkpR?oc=5",
+          "published_date": "2020-04-09"
+        },
+        {
+          "id": "ev-20260806173842-7321-plant-sciences-europe-names-new-ceo-arti",
+          "title": "Plant Sciences Europe names new CEO | Article - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPRnVFTHo1Y3gtMm0zMDZVOHpXYUItdmZUWEg5WDJKLXlpZ2NUdmptUzE4Y3ZURGhUVmRQZ3lsUVVyUDFZMEgyRTFTbjdOcUxSaTBsN0YtUnNHdFB6bmZsamp6UzhkWmZrTlczQXo1dmZmTXpFM3oyd2JJYkxhZ2Ytd0RkOVljU09jWmZiUEV3?oc=5",
+          "published_date": "2020-05-07"
+        },
+        {
+          "id": "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei",
+          "title": "Top-Performing Arkansas Blackberry Receives Outstanding Fruit Cultivar Award - University of Arkansas News",
+          "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNWjA2XzBNdE4wenUyb3UybmJvd2dyMkhTVjZ4NUlsalkyeTFXOE9uQk9DQm9sQktIczdhd1ZYTGVkLVAyb05YblRpc2h6ZWVqTHZ1WFZDRFR1cW5Oa2E2SFhBMFFXQ1hSYmxtYmgzVkFveW1mbEJnLXQ5MEhYbk1FcVFmdzBBWkNMa0pWYWZWUm9nVlU3MEQxYVplWWN6STlhZklNSWxGWFVRY3BMeWgzeWV2QQ?oc=5",
+          "published_date": "2020-07-29"
+        },
+        {
+          "id": "ev-20260806173540-c5d7-remembering-a-berry-industry-leader-inno",
+          "title": "Remembering a Berry Industry Leader, Innovator, and Friend - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbHd1UFRCcVJkM0FQU0pwOTFCOU5pMG85RDFwQ1Y0Zk9Uekd6MXFsT1lhZllKUWZ2ODlHTHV6YUpsd2otckx3ZlE1c2h1WFctRHN4enV6SnhKZ2tFV19lR09DTFVoWGpEUWEyNno4UEdGZzNfRTI4Q2tuZHc4cF9zczhwR3kxT0x4Y1d4RXJsdGJLcEJzQkdVOTFUWQ?oc=5",
+          "published_date": "2021-03-23"
+        },
+        {
+          "id": "ev-20260806173540-e49d-blackberries-poised-for-the-big-time-fru",
+          "title": "Blackberries poised for the big time - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOc28zY0RQbWJrTzljVnlYUEVncEVWeEV4aXJSWEFQa216VW5wTkEtYkhPb2EwQmg4VXFrWEVUMjRySXlNMy1CYUFwZkxpQkNwMVBIQjJyWFY5TElEVUJ5ZzdlVVRSLTVwMVNTRVY1TmEtZ1JWTlZyeGNvQ0VJNV9HS3JoSDNwXzgzWkpmNUtoaw?oc=5",
+          "published_date": "2022-02-24"
+        },
+        {
+          "id": "ev-20260806173540-6fc7-big-changes-on-the-horizon-for-the-black",
+          "title": "Big Changes on the Horizon for the Blackberry Market - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOSV9sbzh4R1ZvRm1MQnN6WDh4RWMwWDRXYVJlTWdXR0I2Ry1FaEprRVptdk9JRjczNnhvN2wzeXowVU5FeUh2OG5UaWdaTmxBTzE1SXZyNkFucU54QmM2Nl9TSjRKTWoydERvNEFBeE9VTnVDVkdvenJiVmdJdmhnbXJMU0k5aUUta1l2T214THo1RDlKUUxTZngxSjhoblRz?oc=5",
+          "published_date": "2023-06-05"
+        },
+        {
+          "id": "ev-20260806173540-b624-the-florida-pearl-and-rose-pearl-brands-",
+          "title": "The Florida Pearl® and Rose Pearl® brands by EMCO CAL - IFEMA Madrid",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQR0h3cDFzazJLb01rUWRYWGpqUFNpXzhrbTY0Zl8yWFJkdDZyTGdUcTNDVGloNUltS1VIaHlvOVczRU52QUtkR1VKY0YyTDZSY2lObHhrQVhLLTR1YmFFQUFVMzQ0cTM2OEhzRmczRGp0cUF3RUJQeVlyay05NTBuUmE5akdYdzNrc21YUGxJcV9ncGNuWVhmT2xmYw?oc=5",
+          "published_date": "2023-09-19"
+        },
+        {
+          "id": "ev-20260806173540-9e1f-cheers-to-this-outstanding-red-raspberry",
+          "title": "Cheers to This Outstanding Red Raspberry Breeding Program - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQbDlGRWJBdWgzTzhkU2tKOXROLXNaV1JjMUhKcm45elE0WGVtWFFWN3lrck9wOUJja0JLZnhTblNTTHk2dTBJSUNYNXdCMlNpNGszOTh2b3h2OHMyMVJpSTV3Z0hudTRGcHc4a3VuS1lZeVZocGJPd3l4amdvNXktZlhDS2tVOWpRTXZWbjcxSnI1Y0lBTDBOV1BKRUJNcElNWmc3ZmVn?oc=5",
+          "published_date": "2023-10-10"
+        },
+        {
+          "id": "ev-20260806173540-2c69-better-berries-cold-tolerant-sugarcane-p",
+          "title": "Better Berries, Cold-Tolerant Sugarcane, Precision Breeding Is Making It Possible - Where The Food Comes From",
+          "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNaDktN0RlOU5aTGEwS2FnMVRIRDQxSWpfV3VIT0ZvTUFjc1VhLU53cVk4VkpTaE9jbjJZejM3eG4yOG9OV2RreWQwa3kxN21OV0ZUMWlFcWJFc0xNVXFjT0lvZWQ2YXY4bG05MGx0MWk1RDc5UXBYU0lTLVZNc2w1d3R1ZkszMjc3Qm12cm9Jb2NFcjdwZ2pSeVZpRGR2Wk5HdXhJMkhXYkFFbHkyeTd4TGY5QjM?oc=5",
+          "published_date": "2024-05-05"
+        },
+        {
+          "id": "ev-20260806173540-bf0d-growing-berries-on-the-oregon-coast-rasp",
+          "title": "Growing berries on the Oregon Coast: Raspberries and blackberries - OSU Extension Service",
+          "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQZ1hucWhzRGsxXzl4RFMydlJMUXZSUVU0QUpBNDBjTUVPZWtwQTBCbXpkRmFFRWNsVHc1RldkdnczUHh2U21KLUwtRnJ6ZXM1anBRS01tbjBCam1MTjVaTDhBMkZaYWZQVUo1WVN2RUpwRTE3RjY5RHMwTGpCTTROZVNRTFRkMjhoQ3J2RXVCU1VMS1pJWVJoX19xRzhCMEs2RTE2VWRR?oc=5",
+          "published_date": "2025-09-25"
+        },
+        {
+          "id": "ev-20260806173540-b2b6-genetic-location-of-primocane-fruiting-d",
+          "title": "Genetic location of primocane-fruiting discovered in blackberries - EurekAlert!",
+          "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE83OG4tYzI4TnpaOUtwN0xJT2Z5V05YdzAxMHhuaXlfUkRscmVsbjQyVS1FbFg4TTdwRUhleVo1RlRQbkliS2M4WWxBdWhBYjlLNTdQaFZYZ294T0R3?oc=5",
+          "published_date": "2026-05-11"
+        },
+        {
+          "id": "ev-20260806173540-81ca-blackberries-reveal-single-genetic-switc",
+          "title": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties - Phys.org",
+          "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
+          "published_date": "2026-05-12"
+        },
+        {
+          "id": "ev-20260806173540-d29c-florida-blackberry-sector-nears-promisin",
+          "title": "Florida blackberry sector nears promising commercial viability, 4 varieties showing promise - FreshFruitPortal.com",
+          "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA5QnhBZUFUZEYtS0hWLXRRQjNZYXBiWTNIUlAxU3RpbWhfTlYyVGpncDlGRWx0SlVSaTc3R0lqU1dBQk9PbkNUMWtXbmhyMWRLTW9LZVgzS3VfdWRCOXEwOElJSGNiaXNlaGRoMEl4MGpHTEFzTGU4?oc=5",
+          "published_date": "2026-05-22"
+        },
+        {
+          "id": "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+          "title": "Arkansas blackberry season is here — without the thorns - The Arkansas Democrat-Gazette",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
+          "published_date": "2026-06-19"
+        },
+        {
+          "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+          "title": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+          "published_date": "2026-07-28"
+        }
+      ],
+      "improved_app": [
+        {
+          "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+          "title": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+          "published_date": "2026-07-28",
+          "capture_status": null,
+          "relevance": "adjacent"
+        },
+        {
+          "id": "ev-20260806173540-81ca-blackberries-reveal-single-genetic-switc",
+          "title": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties - Phys.org",
+          "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
+          "published_date": "2026-05-12",
+          "capture_status": null,
+          "relevance": "adjacent"
+        },
+        {
+          "id": "ev-20260806173540-b2b6-genetic-location-of-primocane-fruiting-d",
+          "title": "Genetic location of primocane-fruiting discovered in blackberries - EurekAlert!",
+          "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE83OG4tYzI4TnpaOUtwN0xJT2Z5V05YdzAxMHhuaXlfUkRscmVsbjQyVS1FbFg4TTdwRUhleVo1RlRQbkliS2M4WWxBdWhBYjlLNTdQaFZYZ294T0R3?oc=5",
+          "published_date": "2026-05-11",
+          "capture_status": null,
+          "relevance": "adjacent"
+        },
+        {
+          "id": "ev-20260806173540-1794-redberry-mite-in-primocane-blackberries-",
+          "title": "Redberry Mite in Primocane Blackberries? - ucanr.edu",
+          "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOSmhLUXRxbzhqOFN3a1F4emFjZmpEWnVHdUxSeVpOeXVVb01xckpfbUhCV3M5QmdVelBxeG15TTQxTG9TQVY3VWFnLTJDSjVKZ0JIcWd6ejdqNm8tQTdjLTdtdS0zSlJSamI0V2hLeFpITGZHR0FhZFVxdWdYb3JOWXZMTnNEQ0RfVnl4eXkyZEJDdzVZYTlOMGNWM3I?oc=5",
+          "published_date": "2018-09-06",
+          "capture_status": null,
+          "relevance": "adjacent"
+        },
+        {
+          "id": "ev-20260806173540-0dce-primocane-a-major-innovation-in-berry-pr",
+          "title": "Primocane: A Major Innovation in Berry Production - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQa2oxeGZTWnUteE9mdlljUU9XdVVHYUYwai10TXF3Y2txbXEwN3VEUUF2MUNITloyVm8tZl9LclpMV1BBRHV4eEVBNkNZZV84LWpENXItNmRHREozc2VIQndndGhuYWFsZ05iQlFTMFVxMXU5d29CTC1GQm1OWEl5dHpkc2k1bmhKMFJYSFFxRjNOVXJ5djVpN1NTYw?oc=5",
+          "published_date": "2018-07-19",
+          "capture_status": null,
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.911,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 20,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 5,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+        "interpreted_query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+        "terms": [
+          "blackberry",
+          "floricane",
+          "crop",
+          "trial",
+          "involving",
+          "primocane",
+          "variety"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "not_run",
+        "queries_this_request": 0
+      },
+      "cold_seconds": 0.777,
+      "warm_seconds": 0.0,
+      "warm_queries": null,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    }
+  ],
+  "summary": {
+    "queries": 9,
+    "median_seconds": 0.805,
+    "p95_seconds": 1.326,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": null
+  },
+  "quality_evaluation": {
+    "version": 1,
+    "source_run_started_at": "2026-11-09T18:38:34.339651+00:00",
+    "query_count": 9,
+    "unique_pooled_urls": 21,
+    "judgment_pairs_missing": 23,
+    "non_comparable_google_queries": [
+      "Blackberry Floricans",
+      "Floricane blackberry developments",
+      "New blackberry varieties that fruit on second-year canes",
+      "Ervin blackberry",
+      "NC 740 blackberry",
+      "Floricane blackberry licensing outside the United States",
+      "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "Primocane blackberry developments",
+      "Blackberry floricane crop trials involving a primocane-fruiting cultivar"
+    ],
+    "acceptance_ready": false,
+    "aggregate_metrics": {},
+    "individual_regressions": [],
+    "same_day_capture_pairing": false,
+    "google_parity": "UNVERIFIED",
+    "queries": [
+      {
+        "query": "Blackberry Floricans",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Floricane blackberry developments",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "New blackberry varieties that fruit on second-year canes",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Ervin blackberry",
+        "split": "development",
+        "judged_pool_complete": false,
+        "pool_size": 2,
+        "pool_urls": [
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqbhd1ufrccvjkm0fqu0pwotfcou5pmg85rdfwq1y0zk9uekd6mxfst1lhzllkuwz2odlhthv6yupsd2otckx3zle1c2h1wfctrhn4env6snhkz2tfv19lr09dtfvowgpeuweynno4uedgzznfrti4q2tuzhc4cf9zczhwr3kxt0x4y1d4rxjsdgjlcejzqkdvotfuwq?oc=5",
+          "news.google.com/rss/articles/cbmirwfbvv95cuxnoflmdve3qwtzckdmodztaepmn3nnmgn0rgc0dnpmyvo5bjnrumdpdfzqbnn0bvlvetfrbfpwvnn3wghjnxvutwj3lw5rtwvrclputtzyv09azvfpm0c1a3vwa2xvqzrtuuzawvpyqtbownbrwwnils1kx1fivmx6vhrvdmxvm3ljmwfgbfbknwxerxoyntdxnfffwey4bfk1ym5wc1cyvupknnbrm3r3?oc=5"
+        ],
+        "missing_judgments": [
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqbhd1ufrccvjkm0fqu0pwotfcou5pmg85rdfwq1y0zk9uekd6mxfst1lhzllkuwz2odlhthv6yupsd2otckx3zle1c2h1wfctrhn4env6snhkz2tfv19lr09dtfvowgpeuweynno4uedgzznfrti4q2tuzhc4cf9zczhwr3kxt0x4y1d4rxjsdgjlcejzqkdvotfuwq?oc=5",
+          "news.google.com/rss/articles/cbmirwfbvv95cuxnoflmdve3qwtzckdmodztaepmn3nnmgn0rgc0dnpmyvo5bjnrumdpdfzqbnn0bvlvetfrbfpwvnn3wghjnxvutwj3lw5rtwvrclputtzyv09azvfpm0c1a3vwa2xvqzrtuuzawvpyqtbownbrwwnils1kx1fivmx6vhrvdmxvm3ljmwfgbfbknwxerxoyntdxnfffwey4bfk1ym5wc1cyvupknnbrm3r3?oc=5"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 2,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 2,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "NC 740 blackberry",
+        "split": "development",
+        "judged_pool_complete": false,
+        "pool_size": 1,
+        "pool_urls": [
+          "news.google.com/rss/articles/cbmirwfbvv95cuxnoflmdve3qwtzckdmodztaepmn3nnmgn0rgc0dnpmyvo5bjnrumdpdfzqbnn0bvlvetfrbfpwvnn3wghjnxvutwj3lw5rtwvrclputtzyv09azvfpm0c1a3vwa2xvqzrtuuzawvpyqtbownbrwwnils1kx1fivmx6vhrvdmxvm3ljmwfgbfbknwxerxoyntdxnfffwey4bfk1ym5wc1cyvupknnbrm3r3?oc=5"
+        ],
+        "missing_judgments": [
+          "news.google.com/rss/articles/cbmirwfbvv95cuxnoflmdve3qwtzckdmodztaepmn3nnmgn0rgc0dnpmyvo5bjnrumdpdfzqbnn0bvlvetfrbfpwvnn3wghjnxvutwj3lw5rtwvrclputtzyv09azvfpm0c1a3vwa2xvqzrtuuzawvpyqtbownbrwwnils1kx1fivmx6vhrvdmxvm3ljmwfgbfbknwxerxoyntdxnfffwey4bfk1ym5wc1cyvupknnbrm3r3?oc=5"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Floricane blackberry licensing outside the United States",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Primocane blackberry developments",
+        "split": "development",
+        "judged_pool_complete": false,
+        "pool_size": 20,
+        "pool_urls": [
+          "news.google.com/rss/articles/cbmi0gfbvv95cuxoni1grvzjvenwm0rbrxzzbvvrsfvsa29ewlzqnwhjvejglvlfzxruaevqcg1nwfu0wggzcuq5dnlvvlm3r0xcr09lcwvfs1fvyzvjzkf6qs1knzhqck5kavpkbzlks0vtb0nimy11ugm3zxf6ymnwnv8xanpmmwl5uw42snlhexgyuelbq2zsx2pveupidne2re9tcm82lwhvdefztlfavndcaxfknlrnbefmwlfdynzfddg2twu2m1bzvkphdepyrs1cc0ftdhvkdle?oc=5",
+          "news.google.com/rss/articles/cbmid0fvx3lxtfa5qnhbzufuzeyts0hwlxrrqjnzyxbiwtniulaxu3rpbwhftlyyvgpncdlgrwx0slvsatc3r0lqu1dbqk9pbknumwtxbmhymwrltw9lzvgzs3vfdwrcoxewoeljsgniaxnlagromel4mgphtefztgu4?oc=5",
+          "news.google.com/rss/articles/cbmiggfbvv95cuxqbhbzwwtyegtgm0r0wi00xzhvtljltvn0v3jsndvtbfd6y29jvnfrcupnazbnb3ldcloyyxh1sknkq2lkdulyy2zha2fkzlfsdfbyas1da3h1c2naulmxzgnwtvn6v2p1x2prvmh2behqefpkthliu2lhlunzevr0bfhr?oc=5",
+          "news.google.com/rss/articles/cbmijgfbvv95cuxprnvftho1y3gtmm0zmdzvohpxyuitdmzuweg5wdjklxlpz2nudmptuze4y3zurghuvmrqz3lsuvvyudfzmegyrtftbjdocuxsatbsn0ytunnhdfb6bmzsamp6uzhkwmzrtlczqxo1dmzmtxpfm3oyd2jjykxhz2ytd0rkovlju09jwmziuev3?oc=5",
+          "news.google.com/rss/articles/cbmijwfbvv95cuxoc28zy0rqbwjrtzljvnlyuevncevweev4axjswefqa216vw5wtketykhpb2ewqmg4vxfrwevumjrysxlnmy1cyufwzkxpqknwmvbiqjjywfy5televuj5zzdlvvrsltvwmvntrvy1tmetz1jwtlzyegnvq0vjnv9hs3josdnwxzgzwkpmnutoaw?oc=5",
+          "news.google.com/rss/articles/cbmimgfbvv95cuxoctzqmm45skx1xzjydm9cznnymmfvtddmrnlhdgzmv3pob2zwvnfoy0nmr2j5dncza0xvcxbdbdfeqtizbmtjthzjn2lhuzm1mujgz0p3aepqae8ttza2tmpiwfrhq3cwujjpodn3vnfyavmzrfu2djdhadvttwhhmtnywnpqv3rknelwa29mx3nyrxdpnwowbkpr?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqa2oxegztwnutee9mdlljuu9xdvvhyuywai10txf3y2txbxewn3veuuf2munitloyvm8tzl9lclpmv1bbrhv4eevbnknzzv84lwpenxitnmrhreozc2viqndndghuywfsz05iqlftmfvxmxu5d29ctc1gqm1owel5dhpkc2k1bmhkmfjysffxrjnovxj5djvpn1ntyw?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqbhd1ufrccvjkm0fqu0pwotfcou5pmg85rdfwq1y0zk9uekd6mxfst1lhzllkuwz2odlhthv6yupsd2otckx3zle1c2h1wfctrhn4env6snhkz2tfv19lr09dtfvowgpeuweynno4uedgzznfrti4q2tuzhc4cf9zczhwr3kxt0x4y1d4rxjsdgjlcejzqkdvotfuwq?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqr0h3cdfzazjlb01ruwrywgpqufnpxzhrbty0zl8ywfjkddzytgductndvglonults1viahlvovczru52qutkr1vky0yytdzsy2lobhhrqvhlltr1ymffqufvmzq0ctm2oehzrmczrgp0cuf3rujqevlyay05ntbuume5akdydznrc21yugxjcv9ncgnuwvhmt2xmyw?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqv0c4akjvrgpfq29brjrvofhfvtbrafpyegd2otdzbgxllwrenxbsog5ituj0ejvoq2gynen1ddh4vi1rvkdwwenxdno4rtdfvfhzalkwdjdasu0ywwtzz0fnrjbkb2dtqtnfogj0x1jtbghkcgvhylrzmvz3yjh5s3dmoehtcev5yxfzbw5gtepwcuk4qkuzamrdzw?oc=5",
+          "news.google.com/rss/articles/cbminafbvv95cuxosmhluxrxbzhqofn3a1f4emfjzmpewnvhduxsevpoexvvb01xckpfbuhcv3m5qmdvelbxeg15ttqxtg9tqvy3vwfnltjdsjvkz0jicwd6ejdqnm8tqtdjltdtds0zsljsami0v2hlefpitgzhr0fhzfvxdwdyb3jowxzmtnneq0rfvnl4exkyzejddzvzytlomgnwm3i?oc=5",
+          "news.google.com/rss/articles/cbmioafbvv95cuxosv9sbzh4r1zvrm1mqnn6wdh4rwmwwdrxyvjltwdxr0i2ry1faeprrvptdk9jrjcznnhvn2wzexowvu5feuh2og5uawdatmxbtze1sxzynkfucu54qmm2nl9tsjrktwoydervnefbee9vtnvdvkdvenjivmdjdmhnbxjmu0k5auuta1l2t214tho1rdlkuuxtzngxsjhoblrz?oc=5",
+          "news.google.com/rss/articles/cbmipgfbvv95cuxqbdlgrwjbdwgztzhku2tkoxrolxnav1jjmuhkcm45ele0wgvtwffwn3lrck9woujja0jlznhtblntthk2dtbjsunynxdcmlnpngszoth2b3h2ohmymvjpstv3z0hudtrgchc4a3vus1lzevzocgjpd3l4amdvnxktzlhds2tvowprtxzwbjcxsni1y0lbtdbov1bkrujncelnwmc3zmvn?oc=5",
+          "news.google.com/rss/articles/cbmipgfbvv95cuxqz1hucwhzrgsxxzl4rfmydljmuxzsuvu0qupbndbjtuvpzwtwqtbcbxpkrmffrwnsvhc1rldkdnczuhh2u21kluwtrnj6zxm1anbrs01tbjbcam1mtjvatdhbmkzaywzqvuo1wvn2rupwrte3rjy5rhmwtgpcttrozvnrtfrkmjhoq3j2rxvcu1vms1pjwvjox19xrzhcmes2rte2vwrr?oc=5",
+          "news.google.com/rss/articles/cbmirafbvv95cuxqthlfy19nmmkyq2jgenzrami1dzlbmtlvzw10u2xicnfelxv0cew1wetpmelhcvnwb0zkoew2sgtcs0phtus2axf2ovp2qlfwqjhtzupnuhrixznabvridxhjslzkoxr3nzvtu2oyudlutdk1z1nmc2v6svnjs0zywe1ix2itcg5dchutvefongn3b0nsn0rix3nuykwzu3jlr0rin1jtrg16yliw?oc=5",
+          "news.google.com/rss/articles/cbmiswfbvv95cuxnwja2xzbnde4wenuyb3uybmjvd2dymkhtvjz4nulsalkyetfxoe9uqk9dqm9sqkticzdhd1zytgvklvayb05yblrpc2h6zwvqthz1wfzdrfr1cw5oa2e2sfhbmffxq1hsymxtymgzvkfvew1mbejnlxq5mehybk1fcvfmdzbbwknma0pwywzwum9nvlu3meqxyvplwwn6stlhzklnswxgwfvry3bmewgzewv2qq?oc=5",
+          "news.google.com/rss/articles/cbmitafbvv95cuxnadktn0rlou5atgews2fnmvrirdqxswpfv3vit0zvtufjc1vhlu53cvk4vkptae9jbjjzejm3eg4yog9ov2rrewqwa3kxn21ov0zumwlfcwjfc0xnvxfjt0lvzwq2yxy4bg05mgx0mwk1rdc5uxbyu0ltlvznc2w1d3r1zkszmjc3qm12cm9jb2nfcjdwz2psevzprgr2wk5hdxhjmkhxykffbhkyetd4tgy5qjm?oc=5",
+          "news.google.com/rss/articles/cbmivafbvv95cuxoz21qy3d0vs1vvktknzeyvkjha0x0unnmefjulxjmeek1vvhmdfnjowl6rxd6yldoqun2u2rrennln3gtamf3wjjku05urvvjtdvfd1vjnw10agvdv0dytgpiv3p2ewfmame2unhmufzsylrevs15nwm4whfic1hjtuflrhzori1nlxr4cvy1mehnsff4x2jnuvqzzwnncnjvcffhyks2v09qamzvngq4odl2d3hytjlfac1xdg?oc=5",
+          "news.google.com/rss/articles/cbmixefvx3lxte83og4tyzi4tnpaoutwn0xjt2z5v05ydzaxmhhuaxlfukrscmvsbjqyvs1fbfg4ttdwruhlevo1rlrqbklis2m4wwxbdwhbyjllntdqafzyz294t0r3?oc=5",
+          "news.google.com/rss/articles/cbmiy0fvx3lxte8xqvhwr1m2n0hxu0p4u2ztawvlq1y1s25lexfiowwttenrdudpzjbfx0tdn2tpv2k3buprtzhyte5fnud5q3o3snnhvm5foggxwkviqw9dwkzwy0hkwgstqmxfzw?oc=5"
+        ],
+        "missing_judgments": [
+          "news.google.com/rss/articles/cbmi0gfbvv95cuxoni1grvzjvenwm0rbrxzzbvvrsfvsa29ewlzqnwhjvejglvlfzxruaevqcg1nwfu0wggzcuq5dnlvvlm3r0xcr09lcwvfs1fvyzvjzkf6qs1knzhqck5kavpkbzlks0vtb0nimy11ugm3zxf6ymnwnv8xanpmmwl5uw42snlhexgyuelbq2zsx2pveupidne2re9tcm82lwhvdefztlfavndcaxfknlrnbefmwlfdynzfddg2twu2m1bzvkphdepyrs1cc0ftdhvkdle?oc=5",
+          "news.google.com/rss/articles/cbmid0fvx3lxtfa5qnhbzufuzeyts0hwlxrrqjnzyxbiwtniulaxu3rpbwhftlyyvgpncdlgrwx0slvsatc3r0lqu1dbqk9pbknumwtxbmhymwrltw9lzvgzs3vfdwrcoxewoeljsgniaxnlagromel4mgphtefztgu4?oc=5",
+          "news.google.com/rss/articles/cbmiggfbvv95cuxqbhbzwwtyegtgm0r0wi00xzhvtljltvn0v3jsndvtbfd6y29jvnfrcupnazbnb3ldcloyyxh1sknkq2lkdulyy2zha2fkzlfsdfbyas1da3h1c2naulmxzgnwtvn6v2p1x2prvmh2behqefpkthliu2lhlunzevr0bfhr?oc=5",
+          "news.google.com/rss/articles/cbmijgfbvv95cuxprnvftho1y3gtmm0zmdzvohpxyuitdmzuweg5wdjklxlpz2nudmptuze4y3zurghuvmrqz3lsuvvyudfzmegyrtftbjdocuxsatbsn0ytunnhdfb6bmzsamp6uzhkwmzrtlczqxo1dmzmtxpfm3oyd2jjykxhz2ytd0rkovlju09jwmziuev3?oc=5",
+          "news.google.com/rss/articles/cbmijwfbvv95cuxoc28zy0rqbwjrtzljvnlyuevncevweev4axjswefqa216vw5wtketykhpb2ewqmg4vxfrwevumjrysxlnmy1cyufwzkxpqknwmvbiqjjywfy5televuj5zzdlvvrsltvwmvntrvy1tmetz1jwtlzyegnvq0vjnv9hs3josdnwxzgzwkpmnutoaw?oc=5",
+          "news.google.com/rss/articles/cbmimgfbvv95cuxoctzqmm45skx1xzjydm9cznnymmfvtddmrnlhdgzmv3pob2zwvnfoy0nmr2j5dncza0xvcxbdbdfeqtizbmtjthzjn2lhuzm1mujgz0p3aepqae8ttza2tmpiwfrhq3cwujjpodn3vnfyavmzrfu2djdhadvttwhhmtnywnpqv3rknelwa29mx3nyrxdpnwowbkpr?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqa2oxegztwnutee9mdlljuu9xdvvhyuywai10txf3y2txbxewn3veuuf2munitloyvm8tzl9lclpmv1bbrhv4eevbnknzzv84lwpenxitnmrhreozc2viqndndghuywfsz05iqlftmfvxmxu5d29ctc1gqm1owel5dhpkc2k1bmhkmfjysffxrjnovxj5djvpn1ntyw?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqbhd1ufrccvjkm0fqu0pwotfcou5pmg85rdfwq1y0zk9uekd6mxfst1lhzllkuwz2odlhthv6yupsd2otckx3zle1c2h1wfctrhn4env6snhkz2tfv19lr09dtfvowgpeuweynno4uedgzznfrti4q2tuzhc4cf9zczhwr3kxt0x4y1d4rxjsdgjlcejzqkdvotfuwq?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqr0h3cdfzazjlb01ruwrywgpqufnpxzhrbty0zl8ywfjkddzytgductndvglonults1viahlvovczru52qutkr1vky0yytdzsy2lobhhrqvhlltr1ymffqufvmzq0ctm2oehzrmczrgp0cuf3rujqevlyay05ntbuume5akdydznrc21yugxjcv9ncgnuwvhmt2xmyw?oc=5",
+          "news.google.com/rss/articles/cbmimwfbvv95cuxqv0c4akjvrgpfq29brjrvofhfvtbrafpyegd2otdzbgxllwrenxbsog5ituj0ejvoq2gynen1ddh4vi1rvkdwwenxdno4rtdfvfhzalkwdjdasu0ywwtzz0fnrjbkb2dtqtnfogj0x1jtbghkcgvhylrzmvz3yjh5s3dmoehtcev5yxfzbw5gtepwcuk4qkuzamrdzw?oc=5",
+          "news.google.com/rss/articles/cbminafbvv95cuxosmhluxrxbzhqofn3a1f4emfjzmpewnvhduxsevpoexvvb01xckpfbuhcv3m5qmdvelbxeg15ttqxtg9tqvy3vwfnltjdsjvkz0jicwd6ejdqnm8tqtdjltdtds0zsljsami0v2hlefpitgzhr0fhzfvxdwdyb3jowxzmtnneq0rfvnl4exkyzejddzvzytlomgnwm3i?oc=5",
+          "news.google.com/rss/articles/cbmioafbvv95cuxosv9sbzh4r1zvrm1mqnn6wdh4rwmwwdrxyvjltwdxr0i2ry1faeprrvptdk9jrjcznnhvn2wzexowvu5feuh2og5uawdatmxbtze1sxzynkfucu54qmm2nl9tsjrktwoydervnefbee9vtnvdvkdvenjivmdjdmhnbxjmu0k5auuta1l2t214tho1rdlkuuxtzngxsjhoblrz?oc=5",
+          "news.google.com/rss/articles/cbmipgfbvv95cuxqbdlgrwjbdwgztzhku2tkoxrolxnav1jjmuhkcm45ele0wgvtwffwn3lrck9woujja0jlznhtblntthk2dtbjsunynxdcmlnpngszoth2b3h2ohmymvjpstv3z0hudtrgchc4a3vus1lzevzocgjpd3l4amdvnxktzlhds2tvowprtxzwbjcxsni1y0lbtdbov1bkrujncelnwmc3zmvn?oc=5",
+          "news.google.com/rss/articles/cbmipgfbvv95cuxqz1hucwhzrgsxxzl4rfmydljmuxzsuvu0qupbndbjtuvpzwtwqtbcbxpkrmffrwnsvhc1rldkdnczuhh2u21kluwtrnj6zxm1anbrs01tbjbcam1mtjvatdhbmkzaywzqvuo1wvn2rupwrte3rjy5rhmwtgpcttrozvnrtfrkmjhoq3j2rxvcu1vms1pjwvjox19xrzhcmes2rte2vwrr?oc=5",
+          "news.google.com/rss/articles/cbmirafbvv95cuxqthlfy19nmmkyq2jgenzrami1dzlbmtlvzw10u2xicnfelxv0cew1wetpmelhcvnwb0zkoew2sgtcs0phtus2axf2ovp2qlfwqjhtzupnuhrixznabvridxhjslzkoxr3nzvtu2oyudlutdk1z1nmc2v6svnjs0zywe1ix2itcg5dchutvefongn3b0nsn0rix3nuykwzu3jlr0rin1jtrg16yliw?oc=5",
+          "news.google.com/rss/articles/cbmiswfbvv95cuxnwja2xzbnde4wenuyb3uybmjvd2dymkhtvjz4nulsalkyetfxoe9uqk9dqm9sqkticzdhd1zytgvklvayb05yblrpc2h6zwvqthz1wfzdrfr1cw5oa2e2sfhbmffxq1hsymxtymgzvkfvew1mbejnlxq5mehybk1fcvfmdzbbwknma0pwywzwum9nvlu3meqxyvplwwn6stlhzklnswxgwfvry3bmewgzewv2qq?oc=5",
+          "news.google.com/rss/articles/cbmitafbvv95cuxnadktn0rlou5atgews2fnmvrirdqxswpfv3vit0zvtufjc1vhlu53cvk4vkptae9jbjjzejm3eg4yog9ov2rrewqwa3kxn21ov0zumwlfcwjfc0xnvxfjt0lvzwq2yxy4bg05mgx0mwk1rdc5uxbyu0ltlvznc2w1d3r1zkszmjc3qm12cm9jb2nfcjdwz2psevzprgr2wk5hdxhjmkhxykffbhkyetd4tgy5qjm?oc=5",
+          "news.google.com/rss/articles/cbmivafbvv95cuxoz21qy3d0vs1vvktknzeyvkjha0x0unnmefjulxjmeek1vvhmdfnjowl6rxd6yldoqun2u2rrennln3gtamf3wjjku05urvvjtdvfd1vjnw10agvdv0dytgpiv3p2ewfmame2unhmufzsylrevs15nwm4whfic1hjtuflrhzori1nlxr4cvy1mehnsff4x2jnuvqzzwnncnjvcffhyks2v09qamzvngq4odl2d3hytjlfac1xdg?oc=5",
+          "news.google.com/rss/articles/cbmixefvx3lxte83og4tyzi4tnpaoutwn0xjt2z5v05ydzaxmhhuaxlfukrscmvsbjqyvs1fbfg4ttdwruhlevo1rlrqbklis2m4wwxbdwhbyjllntdqafzyz294t0r3?oc=5",
+          "news.google.com/rss/articles/cbmiy0fvx3lxte8xqvhwr1m2n0hxu0p4u2ztawvlq1y1s25lexfiowwttenrdudpzjbfx0tdn2tpv2k3buprtzhyte5fnud5q3o3snnhvm5foggxwkviqw9dwkzwy0hkwgstqmxfzw?oc=5"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 20,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 5,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+        "split": "development",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      }
+    ]
+  }
+}

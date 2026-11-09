@@ -5655,10 +5655,13 @@ RESEARCH_EXAMPLE_PROMPTS = (
 
 def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
     from app.services.topic_retrieval import plan_query, _query_identifiers
+    from app.services.variety_season import is_blackberry_floricane
     from app.services import news_tags
     tag_labels = [tag['name'] for tag in news_tags.catalog(INBOX_DIR) if tag['id'] in scope.tag_ids]
+    plan = plan_query(scope.question)
     return {
-        "has_verified_code": bool(_query_identifiers(plan_query(scope.question),entities)),
+        "has_verified_code": bool(_query_identifiers(plan,entities)),
+        "blackberry_season": is_blackberry_floricane(plan, scope.berry_id),
         "intelligence_type": humanize_label(scope.intelligence_type),
         "berry": BERRIES.get(scope.berry_id or "", ""),
         "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],

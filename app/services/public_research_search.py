@@ -43,11 +43,15 @@ def _text(value):
 def registered_primary_sources(data_dir, entities):
     """Reuse attributed profile citations as leads, never their trait claims."""
     from app.services.variety_profile_sources import all_profile_source_details
+    from app.services.variety_season import season_source_leads
     varieties=[e for e in entities.values() if e.get('entity_type')=='variety']
     notes=all_profile_source_details(data_dir,varieties=varieties)
     sources={key:[{'url':s['url'],'title':s['title']}for s in note['sources'].values()
                  if is_public_http_url(s['url'])]
             for key,note in notes.items() if note['status'] in {'source_reported','limited'}}
+    for key, title, url, _ in season_source_leads(data_dir):
+        if key in entities and (notes.get(key) or {}).get("status") != "identity_hold" and is_public_http_url(url):
+            sources.setdefault(key, []).append({"url": url, "title": title})
     # Canonical varieties may predate identity-review metadata and already have
     # inspected public citations. Reuse explicit published links, not fuzzy
     # entity-name matches or private note text, as discovery leads.
@@ -96,9 +100,13 @@ def registered_primary_terms(data_dir,entities):
     source bodies, identity-held material and user annotations are excluded.
     """
     from app.services.variety_profile_sources import all_profile_source_details
+    from app.services.variety_season import season_source_leads
     from app.services.topic_retrieval import normalize
     notes=all_profile_source_details(data_dir,varieties=[e for e in entities.values()if e.get('entity_type')=='variety'])
     terms={}
+    for key, _, url, words in season_source_leads(data_dir):
+        if key in entities and (notes.get(key) or {}).get("status") != "identity_hold" and is_public_http_url(url):
+            terms.setdefault(url, set()).update(normalize(" ".join(words)).split())
     for note in notes.values():
         if note['status']not in {'source_reported','limited'}:continue
         for row in note['details']:
@@ -376,10 +384,9 @@ class PublicResearchSearchClient:
                 try:results.append((name,future.result()))
                 except Exception as e:errors.append(name+':'+type(e).__name__)
         self.failures.extend(errors)
-        if not results:
-            # A few saved identity URLs are not evidence that live search ran.
+        registry = self._registry(query)
+        if not results and not registry:
             raise GatewayUnavailableError('All public metadata discovery routes failed')
-        registry=self._registry(query)
         # Interleave scholarly/news lanes so one fuzzy index cannot consume the
         # acquisition budget. Preserve ordering within each provider lane.
         rows=[*self._primary_links(query,registry),*registry[:4]]
