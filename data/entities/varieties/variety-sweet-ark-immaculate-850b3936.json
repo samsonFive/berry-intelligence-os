@@ -12,8 +12,12 @@
   "berry_ids": [
     "berry-blackberry"
   ],
-  "evidence_ids": [],
-  "fact_ids": [],
+  "evidence_ids": [
+    "ev-frontier-immaculate-breeder-update"
+  ],
+  "fact_ids": [
+    "fact-frontier-immaculate-breeder-update-1"
+  ],
   "relationship_ids": [],
   "attributes": {
     "catalog_candidate_id": "vcand-a0e24ae9d1c6",
