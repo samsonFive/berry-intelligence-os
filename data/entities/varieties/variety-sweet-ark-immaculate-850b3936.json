@@ -13,10 +13,12 @@
     "berry-blackberry"
   ],
   "evidence_ids": [
-    "ev-frontier-immaculate-breeder-update"
+    "ev-frontier-immaculate-breeder-update",
+    "ev-frontier-immaculate-uspp36781"
   ],
   "fact_ids": [
-    "fact-frontier-immaculate-breeder-update-1"
+    "fact-frontier-immaculate-breeder-update-1",
+    "fact-frontier-immaculate-uspp36781-1"
   ],
   "relationship_ids": [],
   "attributes": {
