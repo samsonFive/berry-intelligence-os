@@ -266,6 +266,16 @@ def test_invalid_search_dates_return_validation_feedback() -> None:
     assert response.json()["error"] == "Start date must precede end date"
 
 
+def test_search_date_window_uses_publication_date_not_capture() -> None:
+    pools = SearchPools(published_evidence=[
+        _evidence(id="ev-in", title="Blackberry trials", published_date="2026-06-30"),
+        _evidence(id="ev-after", title="Blackberry trials update", published_date="2026-07-01"),
+        _evidence(id="ev-capture", title="Blackberry trials notes", published_date=None, captured_date="2026-06-15"),
+    ])
+    results = search_global("blackberry trials 2026-06-01 through 2026-06-30", pools)
+    assert [row["id"] for row in _group(results, "intelligence")] == ["ev-in"]
+
+
 def test_public_api_flag_excludes_pending(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     _write(

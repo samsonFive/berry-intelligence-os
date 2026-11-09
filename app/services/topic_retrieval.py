@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v24"
+VERSION = "topic-retrieval-v25"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -279,6 +279,15 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         floricane_trial = any(re.search(r"floricane[- ](?:crop|fruit|yield)", p, re.I) and re.search(r"trial|study|result|evaluat", p, re.I) for _, p in passages)
         if not floricane_trial:
             relevance = "adjacent"
+    if (
+        plan.cane_type == "floricane" and "variety" in plan.terms
+        and "crop" not in plan.terms and "primocane" not in plan.terms
+        and re.search(r"\bprimocane[- ]fruiting\b", passage, re.I)
+        and not re.search(r"\bfloricane[- ]fruiting\b", passage, re.I)
+    ):
+        # A guide may discuss the second-year crop of a primocane cultivar.
+        # Keep that passage available as context for a strict variety query.
+        relevance = "adjacent"
     return {"score": score, "passage": passage, "passage_locator": locator, "relevance": relevance, "support_status":support_status, "source_review_hold":quote_hold['reason'] if quote_hold else None, "match_reason": "Verified fruiting-habit evidence" if evidence_traits else "Matched verified cultivar-code alias" if identifiers else "Matched source passage", "classification_evidence_ids": sorted(set(evidence_traits))}
 
 

@@ -86,14 +86,30 @@ def main():
         started = time.monotonic()
         plan = plan_query(query)
         local = retrieve(records, plan, entities=entities, limit=20)
+        local_seconds = time.monotonic() - started
+        first_body_supported_seconds = None
+        if any(row.get("support_status") == "body_supported" for row in local):
+            first_body_supported_seconds = local_seconds
+
+        def record_progress(event):
+            nonlocal first_body_supported_seconds
+            if first_body_supported_seconds is None and any(
+                row.get("passage") and row.get("passage_locator")
+                for row in event.get("items", [])
+            ):
+                first_body_supported_seconds = time.monotonic() - started
         names = [e["name"] for e in entities_list if e.get("entity_type") == "variety" and any("berry-" + crop in (e.get("berry_ids") or []) for crop in (set(plan.terms) & {"blackberry", "blueberry", "raspberry", "strawberry"}))]
         discovery_args = {
             "inbox_dir": ROOT / "inbox", "data_dir": ROOT / "data", "entities": entities,
             "constraints": {"public_variety_names": names},
         }
-        web = discover_topic(plan, **discovery_args) if args.live else {"items": [], "status": "not_run", "queries_this_request": 0}
+        web = discover_topic(plan, progress=record_progress, **discovery_args) if args.live else {"items": [], "status": "not_run", "queries_this_request": 0}
         ranked = retrieve([*local, *(web.get("items") or [])], plan, entities=entities, limit=20)
         cold = time.monotonic() - started
+        if first_body_supported_seconds is None and any(
+            row.get("support_status") == "body_supported" for row in ranked
+        ):
+            first_body_supported_seconds = cold
         warm_started = time.monotonic()
         warm = discover_topic(plan, **discovery_args) if args.live else {}
         warm_latency = time.monotonic() - warm_started
@@ -103,6 +119,10 @@ def main():
         evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked}, judged, google.get(query))
         result = {"query": query, "split": "held_out" if i >= 18 else "development", "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3), "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
         result["split"] = "held_out" if i in held_out else "development"
+        result["local_retrieval_seconds"] = round(local_seconds, 3)
+        result["first_body_supported_seconds"] = (
+            round(first_body_supported_seconds, 3) if first_body_supported_seconds is not None else None
+        )
         run["queries"].append(result)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")

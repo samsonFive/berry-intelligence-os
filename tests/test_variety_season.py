@@ -4,6 +4,7 @@ from urllib.parse import urlsplit
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, select_autoescape
 
 from app.services.global_search import search_documents
+from app.services.topic_retrieval import match_record, plan_query
 from app.services.variety_season import blackberry_season, season_source_leads
 
 
@@ -17,6 +18,17 @@ def test_fruiting_habit_and_harvested_cane_are_independent():
     names = {row["name"] for row in second_year["rows"]}
     assert "Prime-Ark Horizon" in names
     assert "Fontana" not in names
+
+
+def test_primocane_variety_passage_is_adjacent_to_strict_floricane_query():
+    record = {
+        "title": "Blackberry cultivars suited for the Mid-Atlantic",
+        "body_text": "Prime-Ark Horizon was released in 2020. This primocane-fruiting blackberry variety can also produce a floricane crop.",
+    }
+    strict = match_record(record, plan_query("floricane blackberry varieties"))
+    production = match_record(record, plan_query("floricane blackberry crop"))
+    assert strict and strict["relevance"] == "adjacent"
+    assert production and production["relevance"] == "direct"
 
 
 def test_alias_and_explicit_facets_intersect():

@@ -1,0 +1,35 @@
+{
+  "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season": {
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "article:1;article:2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "reason": "The licensee identifies Ervin as a new floricane cultivar and reports the international development license. Its announcement does not establish 2027 plant stock.",
+      "event_group": "ervin-international-license-2026-09",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:19",
+      "source_version": "2aca4eadd767cc1f2c6ce0a6c0f01bc895c505b18649a88b75d29e18a2d69601",
+      "reason": "The selected passage describes Prime-Ark Horizon, a 2020 primocane cultivar. The wider guide provides historical regional comparison.",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:19",
+      "source_version": "487140cbef6e91ab8b2184e4ef29fa4ef32720a587c0e76c20c5f3f88f4afd85",
+      "reason": "The selected passage explains the second-year crop of a primocane cultivar. The Oregon guide provides historical regional context without a new 2027 release.",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  }
+}
