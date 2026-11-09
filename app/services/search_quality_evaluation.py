@@ -37,6 +37,10 @@ def score_query(record, judgments, google=None, depth=10):
     def checked(key):
         return checked_judgment(labels.get(key)) and (not versions[key] or versions[key]=={labels[key].get('source_version')})
     missing=sorted(key for key in pool if not checked(key))
+    unassessable = [
+        key for key in missing
+        if (labels.get(key) or {}).get("access_status") == "unassessable"
+    ]
     complete=not missing
     missing_events=sorted(key for key in pool if checked(key) and labels[key]['grade']==3
                           and not (isinstance(labels[key].get('event_group'),str) and labels[key]['event_group'].strip())
@@ -67,7 +71,8 @@ def score_query(record, judgments, google=None, depth=10):
             scored['pooled_development_coverage_sample']=len(found)/len(events) if events and not missing_events else None
         metrics[system]=scored
     return {'query':record['query'],'split':record.get('split'),'judged_pool_complete':complete,'pool_size':len(pool),'pool_urls':sorted(pool),
-            'missing_judgments':missing,'missing_event_judgments':missing_events,'event_judgments_complete':not missing_events,'google_comparable':comparable,'metrics':metrics}
+            'missing_judgments':missing,'unassessable_judgments':unassessable,
+            'missing_event_judgments':missing_events,'event_judgments_complete':not missing_events,'google_comparable':comparable,'metrics':metrics}
 
 
 def score_snapshot(run, baseline, judgments):
@@ -96,8 +101,31 @@ def score_snapshot(run, baseline, judgments):
     return {'version':1,'source_run_started_at':run.get('started_at'),'query_count':len(queries),
             'unique_pooled_urls':len({key for query in queries for key in query['pool_urls']}),
             'judgment_pairs_missing':sum(len(q['missing_judgments']) for q in queries),
+            'judgment_pairs_unassessable':sum(len(q['unassessable_judgments']) for q in queries),
             'non_comparable_google_queries':[q['query'] for q in queries if not q['google_comparable']],
             'acceptance_ready':ready,'aggregate_metrics':aggregates,'individual_regressions':regressions,
             'same_day_capture_pairing':paired,
             'google_parity':'UNVERIFIED' if not ready else 'MEASURED — inspect aggregates and individual regressions; citation audit remains separate',
             'queries':queries}
+
+
+def blind_source_pool(run, baseline):
+    """Return original source URLs without provider, rank or score labels."""
+    google = {row["query"]: row for row in baseline.get("queries", [])}
+    questions = []
+    for row in run.get("queries", []):
+        query = row["query"]
+        systems = [
+            row.get("old_app") or [], row.get("improved_app") or [],
+            google.get(query, {}).get("results", row.get("google") or []),
+        ]
+        urls = {
+            item.get("source_url") or item.get("url")
+            for captured in systems for item in unique_results(captured, 20)
+        }
+        unique = {}
+        for url in sorted(urls):
+            if key := normalize_canonical_url(url):
+                unique.setdefault(key, url)
+        questions.append({"query": query, "urls": sorted(unique.values())})
+    return {"version": 1, "queries": questions}

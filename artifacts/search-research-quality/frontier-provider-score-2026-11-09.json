@@ -3,7 +3,8 @@
   "source_run_started_at": "2026-11-09T18:45:37.878930+00:00",
   "query_count": 8,
   "unique_pooled_urls": 94,
-  "judgment_pairs_missing": 73,
+  "judgment_pairs_missing": 64,
+  "judgment_pairs_unassessable": 11,
   "non_comparable_google_queries": [],
   "acceptance_ready": false,
   "aggregate_metrics": {},
@@ -34,6 +35,7 @@
         "instagram.com/p/dctdqjljj3w",
         "instagram.com/reel/dcpgfanbv8r"
       ],
+      "unassessable_judgments": [],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
       "google_comparable": true,
@@ -92,13 +94,16 @@
       ],
       "missing_judgments": [
         "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
-        "content.ces.ncsu.edu/blackberries-for-the-home-garden",
-        "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production",
         "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
         "ishs.org/app/uploads/2025/01/ch5702.pdf",
         "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
-        "projects.sare.org/sare_project/fnc09-749",
-        "researchgate.net/publication/267278396_performance_of_high_tunnel_organic_blackberry_and_raspberry",
+        "southcenters.osu.edu/horticulture/fruits/blackberries"
+      ],
+      "unassessable_judgments": [
+        "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+        "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+        "ishs.org/app/uploads/2025/01/ch5702.pdf",
+        "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
         "southcenters.osu.edu/horticulture/fruits/blackberries"
       ],
       "missing_event_judgments": [],
@@ -133,7 +138,7 @@
           "direct_precision_at_10": null,
           "direct_precision_at_10_bounds": [
             0.0,
-            0.9
+            0.5
           ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
@@ -158,14 +163,17 @@
         "verpaalen.eu/es/plantas-de-zarzamora"
       ],
       "missing_judgments": [
-        "emcocal.com/emcocal-rubus-latinoamerica-langes?lang=es",
         "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
         "hitplant.com/zarzamoras",
         "instagram.com/p/dc_vx2mfwet",
         "pairwise.com/es/productos",
-        "portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana",
         "sidalc.net/search/search2record/oai:localhost:20.500.12123-12071/export?style=refworks",
-        "tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas",
+        "verpaalen.eu/es/plantas-de-zarzamora"
+      ],
+      "unassessable_judgments": [
+        "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+        "hitplant.com/zarzamoras",
+        "pairwise.com/es/productos",
         "verpaalen.eu/es/plantas-de-zarzamora"
       ],
       "missing_event_judgments": [],
@@ -200,7 +208,7 @@
           "direct_precision_at_10": null,
           "direct_precision_at_10_bounds": [
             0.1,
-            1.0
+            0.7
           ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
@@ -226,14 +234,16 @@
       ],
       "missing_judgments": [
         "berryverona.it/varieta-pianta-di-mora.html",
-        "freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva",
         "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
         "instagram.com/p/dzc83rydek9",
-        "letuepiante.it/blog/piante-di-more-senza-spine",
         "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
         "vivaibevilacqua.it/product-page/mora-senza-spine",
         "vivaimolari.it/more",
         "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
+      ],
+      "unassessable_judgments": [
+        "berryverona.it/varieta-pianta-di-mora.html",
+        "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html"
       ],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
@@ -267,7 +277,7 @@
           "direct_precision_at_10": null,
           "direct_precision_at_10_bounds": [
             0.0,
-            0.9
+            0.7
           ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
@@ -313,6 +323,7 @@
         "schweizerbart.de/papers/phyto/detail/19/80814/comparaison_de_la_structure_et_du_determinisme_des",
         "truffaut.com/framboisier-quelles-varietes-choisir.html"
       ],
+      "unassessable_judgments": [],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
       "google_comparable": true,
@@ -381,6 +392,7 @@
         "repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download",
         "researchgate.net/publication/356760922_avances_en_el_cultivo_de_las_berries_en_el_tropico"
       ],
+      "unassessable_judgments": [],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
       "google_comparable": true,
@@ -450,6 +462,7 @@
         "mapa.gob.es/ministerio/pags/biblioteca/revistas/pdf_vrural%2fvrural_2003_169_42_48.pdf",
         "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
       ],
+      "unassessable_judgments": [],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
       "google_comparable": true,
@@ -523,6 +536,7 @@
         "researchgate.net/publication/43272507_new_usda-ars_blackberry_cultivars_bring_diversity_to_the_market",
         "scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
       ],
+      "unassessable_judgments": [],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
       "google_comparable": true,
@@ -563,10 +577,10 @@
       }
     }
   ],
-  "computed_at": "2026-11-09T19:20:24+00:00",
+  "computed_at": "2026-11-09T19:27:18+00:00",
   "input_sha256": {
     "run": "5077cc65258e1ca3904085bb72b3adaaaa25646063331a490b39ca723fb185c6",
     "google_baseline": "da0cd31698fe22e5dd943da5558544c0a2910f24546cd2008f1e1fcdf6ab261d",
-    "judgments": "0e91e37ced86ec5339370334b11bfd789fcfdae39df51dc1fd092f804fa3ddcd"
+    "judgments": "7be0c91682d691ef83b5010f510238c011c7f7c2de6c1017af9db769cd22afdc"
   }
 }

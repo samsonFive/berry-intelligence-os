@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from app.services.search_quality_evaluation import score_snapshot
+from app.services.search_quality_evaluation import blind_source_pool, score_snapshot
 
 
 def main():
@@ -16,6 +16,7 @@ def main():
     parser.add_argument('--google-baseline',type=Path,required=True)
     parser.add_argument('--judgments',type=Path)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--review-pool', type=Path, help="Export an independent review pool without rankings")
     args=parser.parse_args()
     run=json.loads(args.run.read_text(encoding='utf8'));baseline=json.loads(args.google_baseline.read_text(encoding='utf8'))
     judgments=json.loads(args.judgments.read_text(encoding='utf8')) if args.judgments else {}
@@ -23,6 +24,9 @@ def main():
     report["computed_at"]=datetime.now(timezone.utc).isoformat(timespec="seconds")
     report["input_sha256"]={"run":hashlib.sha256(args.run.read_bytes()).hexdigest(),"google_baseline":hashlib.sha256(args.google_baseline.read_bytes()).hexdigest(),"judgments":hashlib.sha256(args.judgments.read_bytes()).hexdigest() if args.judgments else None}
     args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
+    if args.review_pool:
+        args.review_pool.parent.mkdir(parents=True, exist_ok=True)
+        args.review_pool.write_text(json.dumps(blind_source_pool(run, baseline), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({key:value for key,value in report.items() if key!='queries'},ensure_ascii=True,indent=2))
 
 

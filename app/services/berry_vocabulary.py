@@ -16,18 +16,35 @@ NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', '
                          'mejoramiento genético', 'mejoramiento genetico')
 NATIVE_CONCEPTS = {'variety': ('odmiana', 'odmiany', 'odmian', 'variedade', 'variedades'),
                    'breeding': ('hodowla', 'hodowli', 'melhoramento'),
-                   'license': ('licencja', 'licencje', 'licenciamento')}
-NATIVE_GENETICS_TERMS = tuple(term for terms in NATIVE_CONCEPTS.values() for term in terms)
+                   'license': ('licencja', 'licencje', 'licenciamento'),
+                   'commercial': ('comercial', 'comerciales'),
+                   'production': ('producción', 'produccion', 'produção')}
+NATIVE_GENETICS_TERMS = tuple(
+    term for concept in ("variety", "breeding", "license") for term in NATIVE_CONCEPTS[concept]
+)
+
+
+def _compile_aliases(vocabulary):
+    return tuple(
+        (term, re.compile(
+            r'(?<!\w)(?:' + '|'.join(re.escape(alias) for alias in sorted(aliases, key=len, reverse=True)) + r')(?!\w)',
+            re.I,
+        ))
+        for term, aliases in vocabulary.items()
+    )
+
+
+_CROP_PATTERNS = _compile_aliases(EXTRA_CROP_TERMS)
+_INDUSTRY_PATTERNS = _compile_aliases(NATIVE_CONCEPTS)
 
 
 def canonicalize_crop_words(text):
-    for crop, aliases in EXTRA_CROP_TERMS.items():
-        text = re.sub(r'(?<!\w)(?:' + '|'.join(re.escape(a) for a in sorted(aliases, key=len, reverse=True)) + r')(?!\w)',
-                      crop, text, flags=re.I)
+    for crop, pattern in _CROP_PATTERNS:
+        text = pattern.sub(crop, text)
     return text
 
 
 def canonicalize_industry_words(text):
-    for concept, aliases in NATIVE_CONCEPTS.items():
-        text = re.sub(r'(?<!\w)(?:' + '|'.join(aliases) + r')(?!\w)', concept, text, flags=re.I)
+    for concept, pattern in _INDUSTRY_PATTERNS:
+        text = pattern.sub(concept, text)
     return text

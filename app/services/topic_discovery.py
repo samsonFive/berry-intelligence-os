@@ -150,13 +150,14 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         suffix = " ".join(str(v) for v in constraints.get("public_labels", []) if v)
         failures: list[str] = []
         candidates: dict[str, dict[str, Any]] = {}
-        for title, url in reference_sources:
+        for title, url, subject in reference_sources:
             identity = normalize_canonical_url(url)
             if identity and is_public_http_url(url):
                 candidates[identity] = {
                     "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16],
                     "title": title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname,
                     "snippet": "", "published_date": "", "provider": "local_primary_citation",
+                    "reference_subject": subject,
                     "provider_rank": 0, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED",
                 }
         successes = 0
@@ -241,7 +242,9 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             rows = [r for r in rows if all(any(normalize(label) in normalize(" ".join(p for _, p in record_passages(r))) for label in group) for group in required_groups)]
         diagnostics=client.diagnostics() if hasattr(client,'diagnostics') else {}
         degraded=bool(diagnostics.get('fallback_used'))
-        result = {"items": rows, "status": "partial" if (failures or degraded) and (successes or rows) else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
+        fresh_versions = {(r["source_url"], r["source_version"]) for r in captured if r.get("source_version")}
+        has_live_match = any((r["source_url"], r.get("source_version")) in fresh_versions for r in rows)
+        result = {"items": rows, "status": "partial" if (failures or degraded) and (successes or has_live_match) else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.
         if not failures:

@@ -20,6 +20,18 @@ def _path(inbox_dir):
     return path.absolute()
 
 
+def cached_source_urls(inbox_dir):
+    """Return URL keys for a coverage audit without reading captured text."""
+    try:
+        path = _path(inbox_dir)
+        if not path.is_file():
+            return set(), "empty"
+        with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True, timeout=3) as db:
+            return {url for (url,) in db.execute("SELECT url FROM sources")}, "available"
+    except (OSError, ValueError, sqlite3.Error):
+        return set(), "unavailable"
+
+
 def remember_sources(inbox_dir,records):
     from app.services.feed_first_reader import is_public_http_url
     from app.services.article_dedup import normalize_canonical_url
@@ -38,6 +50,8 @@ def remember_sources(inbox_dir,records):
         import hashlib
         if hashlib.sha256(body.encode()).hexdigest()!=record['source_version']:continue
         public={key:record.get(key)for key in FIELDS}
+        if record.get("provider") == "local_primary_citation" and record.get("reference_subject"):
+            public["reference_subject"] = record["reference_subject"]
         public['article']={'paragraphs':[{key:p[key]for key in ('index','locator','text')if key in p}for p in paragraphs if isinstance(p,dict)]}
         encoded=json.dumps(public,ensure_ascii=False)
         if len(encoded.encode())>MAX_RECORD_BYTES:continue

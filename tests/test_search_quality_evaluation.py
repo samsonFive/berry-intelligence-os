@@ -1,4 +1,4 @@
-from app.services.search_quality_evaluation import score_snapshot, score_query
+from app.services.search_quality_evaluation import blind_source_pool, score_snapshot, score_query
 
 
 def checked(grade,event=None):
@@ -23,6 +23,28 @@ def test_provider_failure_does_not_record_zero_precision():
     )["metrics"]["improved_app"]
     assert scored["direct_precision_at_10"] is None
     assert scored["direct_precision_at_10_bounds"] is None
+
+
+def test_inaccessible_source_is_explicit_and_remains_unjudged():
+    url = "https://example.org/restricted"
+    scored = score_query(
+        {"query": "blackberry", "improved_app": [{"url": url}]},
+        {url: {"grade": None, "source_checked": False, "access_status": "unassessable"}},
+    )
+    assert not scored["judged_pool_complete"]
+    assert scored["unassessable_judgments"] == [scored["missing_judgments"][0]]
+
+
+def test_blind_pool_contains_unique_sorted_urls_without_provider_fields():
+    run = {"queries": [{"query": "blackberry", "improved_app": [
+        {"source_url": "https://example.org/z", "provider": "search", "passage": "Text"},
+        {"source_url": "https://example.org/a?utm_source=tracking", "rank": 1},
+    ]}]}
+    baseline = {"queries": [{"query": "blackberry", "results": [{"url": "https://example.org/a"}]}]}
+    assert blind_source_pool(run, baseline) == {
+        "version": 1,
+        "queries": [{"query": "blackberry", "urls": ["https://example.org/a", "https://example.org/z"]}],
+    }
 
 
 def test_missing_source_judgments_never_become_zero_grades_or_an_acceptance_claim():

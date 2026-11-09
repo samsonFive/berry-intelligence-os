@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v29"
+VERSION = "topic-retrieval-v32"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _PLURALS["harvesting"] = "harvest"
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
@@ -73,7 +73,10 @@ def plan_query(raw: str, *, use_original: bool = False) -> QueryPlan:
     positive = re.sub(r"\bScozia\b", "Scotland", positive, flags=re.I)
     if "raspberry" in normalize(positive).split():
         positive = re.sub(r"\bremontantes?\b", "primocane", positive, flags=re.I)
-    terms = tuple(dict.fromkeys(t for t in normalize(positive).split() if t not in _STOP))
+    stop = _STOP
+    if re.search(r"\b(?:zarzamoras?|fresas?|arándanos?|arandanos?|ensayos?|españa)\b", interpreted, re.I):
+        stop = _STOP | {"a", "de", "del", "el", "en", "la", "las", "los", "para", "por", "y"}
+    terms = tuple(dict.fromkeys(t for t in normalize(positive).split() if t not in stop))
     cane = "floricane" if "floricane" in terms else "primocane" if "primocane" in terms else None
     return QueryPlan(raw, interpreted, terms, phrases, exclusions, cane, start, end, interpreted != raw.strip())
 
@@ -81,6 +84,7 @@ def plan_query(raw: str, *, use_original: bool = False) -> QueryPlan:
 def record_passages(record: Mapping[str, Any]) -> list[tuple[str, str]]:
     from app.services.source_passage_scope import owned_article_passages, owned_pdf_abstracts
     passages: list[tuple[str, str]] = []
+    cited_page = re.search(r'#page=(\d+)$', str(record.get("source_url") or ""))
     for key in ("article", "article_body", "transcript", "pdf"):
         value = record.get(key)
         if isinstance(value, Mapping):
@@ -92,6 +96,14 @@ def record_passages(record: Mapping[str, Any]) -> list[tuple[str, str]]:
                 if isinstance(value.get(field), str):
                     body.extend((key, p) for p in re.split(r"\n\s*\n", value[field]) if p.strip())
             body = owned_pdf_abstracts(body)
+            if cited_page and any(locator.startswith("pdf:") for locator, _ in body):
+                page = int(cited_page[1])
+                scoped = []
+                for locator, text in body:
+                    location = re.search(r':(?:page|pages):(\d+)(?:-(\d+))?$', locator)
+                    if location and int(location[1]) <= page <= int(location[2] or location[1]):
+                        scoped.append((locator, text))
+                body = scoped
             passages.extend(owned_article_passages(body) if key in {'article','article_body'} else body)
     for key in ("full_text", "body_text", "extracted_text", "supporting_excerpt", "summary", "snippet", "title"):
         if isinstance(record.get(key), str) and record[key].strip():
@@ -218,10 +230,18 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         return None
     metadata_fields = {"title", "summary", "snippet"}
     requires_trial_location='license'not in plan.terms and any(t.startswith(('trial','experiment','evaluat','research'))for t in plan.terms)
+    reference_subject = normalize(str(record["reference_subject"])) if record.get("reference_subject") else ""
+    subject_pattern = r"(?<!\w)" + re.escape(reference_subject) + r"(?!\w)"
+    named_reference = (
+        record.get("provider") == "local_primary_citation" and reference_subject
+        and re.search(subject_pattern, " ".join(plan.terms))
+        and bool(title_crops.intersection(crop_terms))
+    )
     body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields
                     and (cane_in_passage(p,plan.cane_type) or evidence_traits)
                     and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
-                    and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities']))
+                    and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities'])
+                         or (named_reference and re.search(subject_pattern, normalize(p))))
                     and trial_location_in_passage(p,support['trial_places'],require_trial=requires_trial_location)
                     and organizations_in_passage(p,support['organizations'])
                     and passage_intent_supported(p,plan)]

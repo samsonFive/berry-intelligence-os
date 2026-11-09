@@ -809,6 +809,7 @@ def search_documents(
     sort = sort if sort in {"newest", "relevance"} else "newest"
     needle = (query or "").strip()
     from app.services.topic_retrieval import match_record, plan_query
+    from app.services.topic_support import support_context
     try:
         query_plan = plan_query(needle)
     except ValueError as error:
@@ -828,6 +829,7 @@ def search_documents(
             "related_added": 0,
         }
     needle = query_plan.interpreted_query
+    topic_context = support_context(query_plan, None, ())
     has_publication_window = bool(query_plan.start or query_plan.end)
     folded_query = _fold(needle)
     hits: dict[str, dict[str, Any]] = {}
@@ -841,12 +843,12 @@ def search_documents(
         rank, matched_as = (0, "") if has_publication_window else _match_rank(
             doc, query=needle.casefold(), folded_query=folded_query,
         )
-        if rank <= 0 and doc.group == "intelligence":
+        if rank <= 0 and query_plan.terms and doc.group == "intelligence":
             matched = match_record({
                 "title": doc.title,
                 "body_text": doc.haystack,
                 "published_date": doc.date if doc.date_basis == "published_date" else "",
-            }, query_plan)
+            }, query_plan, _identifiers=(), _support_context=topic_context)
             if matched:
                 rank, matched_as = RANK_WEAK_TEXT, "text"
         if rank <= 0:

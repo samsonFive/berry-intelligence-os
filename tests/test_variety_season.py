@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, select_autoescape
 
 from app.services.global_search import search_documents
-from app.services.topic_retrieval import match_record, plan_query
+from app.services.topic_retrieval import match_record, plan_query, record_passages
 from app.services.variety_season import COMPARISON, blackberry_season, season_candidate_sources, season_preview, season_source_leads
 
 
@@ -96,12 +96,18 @@ def test_original_source_seeds_cover_uncataloged_names_and_spanish_market():
     spain = season_candidate_sources(DATA, plan_query("Variedades de zarzamora floricane en España"))
     ervin = season_candidate_sources(DATA, plan_query("NC 740 blackberry high tunnel trial"))
     oregon = season_candidate_sources(DATA, plan_query("Pacific Northwest blackberry mechanical harvesting trial"))
-    assert any("hutton.ac.uk" in url for _, url in loch)
-    assert any("berryneo.com" in url for _, url in spain)
-    assert any("seregionalconference.org" in url for _, url in ervin)
-    assert any("ars.usda.gov" in url for _, url in oregon)
+    assert any("hutton.ac.uk" in url and subject == "Loch Katrine" for _, url, subject in loch)
+    assert any("berryneo.com" in url for _, url, _ in spain)
+    assert any("seregionalconference.org" in url for _, url, _ in ervin)
+    assert any("ars.usda.gov" in url for _, url, _ in oregon)
     assert not season_candidate_sources(DATA, plan_query("blackberry floricane -\"Loch Katrine\""))
     assert not season_candidate_sources(DATA, plan_query("fresa floricane España"))
+
+
+def test_spanish_commercial_catalog_terms_are_distinct_from_function_words():
+    plan = plan_query("Variedades de zarzamora floricane para producción comercial en España")
+    assert {"blackberry", "floricane", "production", "commercial", "españa"} <= set(plan.terms)
+    assert not set(plan.terms).intersection({"de", "para", "en"})
 
 
 def test_uncataloged_breeder_source_is_captured_during_provider_failure(tmp_path):
@@ -142,6 +148,20 @@ def test_trial_comparator_is_owned_by_an_explicit_yield_comparison():
     assert not identity_in_passage("Total yield was similar to Ouachita County.", entity)
 
 
+def test_named_source_reference_requires_the_cultivar_and_place_in_owned_body():
+    plan = plan_query("Varietà di mora senza spine Loch Katrine prove produttive Scozia")
+    record = {
+        "title": "Blackberry breeding",
+        "provider": "local_primary_citation",
+        "reference_subject": "Loch Katrine",
+        "body_text": "Loch Katrine is a thornless variety with yields comparable to Loch Ness in Scottish trials.",
+    }
+    matched = match_record(record, plan)
+    assert matched and matched["support_status"] == "body_supported"
+    unrelated = match_record({**record, "body_text": record["body_text"].replace("Scottish", "French")}, plan)
+    assert unrelated and unrelated["support_status"] == "scope_unverified"
+
+
 def test_numbered_poster_excerpts_do_not_mix_two_crops_on_one_page():
     from app.services.source_passage_scope import owned_pdf_abstracts
 
@@ -154,6 +174,18 @@ def test_numbered_poster_excerpts_do_not_mix_two_crops_on_one_page():
     blackberry = results["pdf:section:11:pages:10-11"]
     assert "NC 740 yielded\nwell." in blackberry
     assert "Grapes" not in blackberry and "Strawberry" not in blackberry
+
+
+def test_explicit_pdf_page_citation_cannot_use_an_unrelated_page():
+    record = {
+        "source_url": "https://example.org/posters.pdf#page=10",
+        "article": {"paragraphs": [
+            {"locator": "pdf:page:10", "text": "Blackberry trial in Mills River"},
+            {"locator": "pdf:page:11", "text": "Strawberry trial in Huelva"},
+        ]},
+    }
+    assert record_passages(record) == [("pdf:page:10", "Blackberry trial in Mills River")]
+    assert match_record(record, plan_query("strawberry trial Huelva")) is None
 
 
 def test_processing_trial_needs_harvest_operation_and_regional_trial_context():

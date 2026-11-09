@@ -77,22 +77,23 @@ def season_candidate_sources(data_dir, plan):
         return []
     data = json.loads(path.read_text(encoding="utf-8"))
     positive = " ".join(plan.terms)
-    keys = []
+    keys = {}
     for row in data["rows"]:
         if any(
             len(name) >= 4 and re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", positive)
             for name in map(normalize, [row["name"], *row["aliases"]])
         ):
-            keys.extend(row["citations"])
-            keys.extend(event[-1] for event in row["events"])
+            for key in [*row["citations"], *(event[-1] for event in row["events"])]:
+                keys.setdefault(key, row["name"])
     if "blackberry" in terms:
-        keys.extend(
-            catalog["source_id"] for catalog in data.get("market_catalogs", [])
-            if (not catalog.get("habit") or plan.cane_type == catalog["habit"])
-            and set(catalog.get("required_terms", ())) <= terms
-            and any(re.search(r"(?<!\w)" + re.escape(place) + r"(?!\w)", positive) for place in catalog["market_terms"])
-        )
-    return [tuple(data["sources"][key][:2]) for key in list(dict.fromkeys(keys))[:4]]
+        for catalog in data.get("market_catalogs", []):
+            if (
+                (not catalog.get("habit") or plan.cane_type == catalog["habit"])
+                and set(catalog.get("required_terms", ())) <= terms
+                and any(re.search(r"(?<!\w)" + re.escape(place) + r"(?!\w)", positive) for place in catalog["market_terms"])
+            ):
+                keys.setdefault(catalog["source_id"], "")
+    return [(*data["sources"][key][:2], subject) for key, subject in list(keys.items())[:4]]
 
 
 def blackberry_season(data_dir, query, filters):
