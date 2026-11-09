@@ -22,6 +22,11 @@
       "USDA Agricultural Research Service",
       "https://www.ars.usda.gov/northeast-area/beltsville-md-barc/beltsville-agricultural-research-center/genetic-improvement-for-fruits-vegetables-laboratory/docs/chanticleer/",
       "Release notice and Hammonton comparison"
+    ],
+    "osu_pdf": [
+      "Oregon State University Extension, PNW 656 PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/documents/pnw656.pdf",
+      "Regional adaptation and Table 1"
     ]
   },
   "rows": [
@@ -40,7 +45,8 @@
       "system": null,
       "observation": "OSU describes Duke as an early cultivar that generally blooms later than other early cultivars.",
       "citations": [
-        "osu"
+        "osu",
+        "osu_pdf"
       ],
       "events": []
     },
@@ -59,7 +65,8 @@
       "system": null,
       "observation": "OSU describes firm, crisp berries with concentrated ripening and good storage. It reports premature fruit drop in some northern regions.",
       "citations": [
-        "osu"
+        "osu",
+        "osu_pdf"
       ],
       "events": []
     },
@@ -79,7 +86,8 @@
       "system": null,
       "observation": "OSU reports good flavor and notes that fruit may soften in high temperatures.",
       "citations": [
-        "osu"
+        "osu",
+        "osu_pdf"
       ],
       "events": []
     },

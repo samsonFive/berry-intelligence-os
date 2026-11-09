@@ -9,9 +9,9 @@
       "Tables 1 and 2 and regional harvest notes"
     ],
     "wsu": [
-      "Washington State University",
-      "https://news.wsu.edu/press-release/2019/07/30/wsu-debuts-flavorful-easy-to-harvest-new-raspberry-cascade-premier/",
-      "Breeder introduction and harvest notes"
+      "WSU Puyallup Small Fruit Breeding & Genetics",
+      "https://puyallup.wsu.edu/smallfruit/raspberries/",
+      "Cascade Premier cultivar entry"
     ],
     "wsu_rights": [
       "Washington State University Innovation and Entrepreneurship",
@@ -95,6 +95,7 @@
         "Floricane"
       ],
       "markets": [
+        "Fresh",
         "Processing"
       ],
       "window": "Early",
@@ -107,9 +108,9 @@
       ],
       "events": [
         [
-          "Breeder announcement",
-          "2019-07-30",
-          "Public introduction",
+          "Breeder-reported release",
+          "2018",
+          "WSU cultivar entry",
           "wsu"
         ]
       ]

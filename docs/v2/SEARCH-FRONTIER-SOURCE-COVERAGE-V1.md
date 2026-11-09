@@ -34,7 +34,7 @@ The expanded comparison adds these publisher paths to the original-source lane.
 | fieldreport.caes.uga.edu/publications/ | English, Southeast US, multiple berries | University extension trials | Original HTML and tables, monthly | Circular 1327 Table 2 reports first harvest and per-plant yield for Florida Beauty and Florida Brilliance in southeast Georgia. App capture and paired-row retrieval verified. |
 | ask.ifas.ufl.edu/publication/ | English, Florida, multiple berries | Extension production handbooks | Original HTML and linked PDFs, quarterly | Chapter 16 describes Florida Ember and Florida Encore and dates their release to 2024. |
 | fallcreekcatalogs.com | English and localized editions, global, blueberry | Breeder catalog | Original pages, monthly | Sekoya Pop entry links its marketed name to FCM14-052 and describes low-chill production. Use the grant separately for the patent. |
-| news.wsu.edu and research.wsu.edu/innovation/ | English, Pacific Northwest and license territories, multiple berries | Breeder announcements and licensing | Original HTML, monthly | Cascade Premier breeder announcement and separate licensing notice. Confirm the current offer before treating it as available. |
+| puyallup.wsu.edu/smallfruit/ and research.wsu.edu/innovation/ | English, Pacific Northwest and license territories, multiple berries | Breeder announcements and licensing | Original HTML, monthly | Cascade Premier breeder catalog and separate licensing notice. Confirm the current offer before treating it as available. |
 
 Each new candidate should record the original URL, market, language, evidence type, capture status, and whether it yielded a new identity, event or supported claim. Reconcile host aliases and publisher redirects before counting gaps. Rank sources by the incremental verified evidence they contribute beyond the existing lanes.
 
@@ -45,6 +45,8 @@ The [post-review snapshot](../../artifacts/search-research-quality/frontier-sour
 Use the catalog, discovery and trust stages independently. A site can be registered without the relevant page being acquired. A captured page can support a comparison as an attributed observation without being approved as a canonical trait or rights record. Search-provider links are discovery leads and do not confer republication rights.
 
 Run `python scripts/audit_source_execution.py --all-seasons` to inspect the four comparisons with the same match rules. The [four-crop snapshot](../../artifacts/search-research-quality/frontier-aac1429a-four-crop-source-coverage-2026-11-09.json) records 22 cited URLs. Four configured-host matches were all in blackberry. The nine references added for blueberry, raspberry, and strawberry therefore need a recurring acquisition review. A host match measures registry coverage separately from capture or source review.
+
+An app-reader check on the nine new references returned three full captures, three partial captures, two Oregon State HTML timeouts, and one HTTP 404 on the WSU news route. The replacement WSU breeder catalog captured fully and dates Cascade Premier's release to 2018. The Oregon State PNW 656 PDF returned a readable excerpt and now sits alongside the HTML edition. The PNW 655 raspberry HTML route still needs a reliable alternate capture path.
 
 ## Provider comparison
 
