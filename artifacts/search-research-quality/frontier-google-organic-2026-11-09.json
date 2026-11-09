@@ -7,7 +7,7 @@
   "depth": 10,
   "method": "Captured organic heading links in visible page order. Continued on page two as needed. Excluded AI overview, ads and video modules. Removed tracking parameters from recorded URLs.",
   "limitations": [
-    "Five of eight cohort queries captured before browser timeouts. Same-day provider captures use different engines and may vary by locale and personalization.",
+    "Eight questions captured in two same-day Chrome sessions. Provider replay and Google organic rankings can vary by engine, locale and personalization.",
     "This is an organic ranking snapshot. Source inspections and relevance judgments are separate."
   ],
   "queries": [
@@ -188,6 +188,114 @@
         },
         {
           "url": "https://chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france"
+        }
+      ]
+    },
+    {
+      "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download"
+        },
+        {
+          "url": "https://es.scribd.com/document/330985723/Monografia-Del-Cultivo-de-Arandano"
+        },
+        {
+          "url": "https://repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download"
+        },
+        {
+          "url": "https://redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico/"
+        },
+        {
+          "url": "https://redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro/"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/356760922_Avances_en_el_cultivo_de_las_berries_en_el_tropico"
+        },
+        {
+          "url": "https://proyectosperuanos.com/cultivo_de_arandanos/"
+        },
+        {
+          "url": "https://bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file"
+        },
+        {
+          "url": "https://cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano/"
+        }
+      ]
+    },
+    {
+      "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0"
+        },
+        {
+          "url": "https://huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana/"
+        },
+        {
+          "url": "https://www.hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+        },
+        {
+          "url": "https://www.europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html"
+        },
+        {
+          "url": "https://www.fresasnm.com/fresa/"
+        },
+        {
+          "url": "https://www.mapa.gob.es/ministerio/pags/Biblioteca/Revistas/pdf_vrural%2FVrural_2003_169_42_48.pdf"
+        },
+        {
+          "url": "https://agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad/"
+        },
+        {
+          "url": "https://www.facebook.com/unihuelva/posts/-innovaci%C3%B3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049/"
+        },
+        {
+          "url": "https://actualfruveg.com/2025/03/26/fresa-variedades-huelva-2/"
+        }
+      ]
+    },
+    {
+      "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://ourimpact.oregonstate.edu/type-work/field-trials?page=1"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025"
+        },
+        {
+          "url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf"
+        },
+        {
+          "url": "https://ashs.org/news/716937/-Advances-in-Breeding-and-Production-of-Caneberries-in-the-Pacific-Northwest.htm"
+        },
+        {
+          "url": "https://agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/43272507_NEW_USDA-ARS_BLACKBERRY_CULTIVARS_BRING_DIVERSITY_TO_THE_MARKET"
+        },
+        {
+          "url": "https://oregon-berries.com/wp-content/uploads/2024/04/2023-24-ORBC-Research-Reports-Book.pdf"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=188551"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/view/1977/1981"
+        },
+        {
+          "url": "https://scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
         }
       ]
     }

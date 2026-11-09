@@ -43,7 +43,9 @@ def passage_intent_supported(text, plan):
         ({'cold','storage'},r'\b(?:cold stor\w*|chill\w* stor\w*|stor\w*[^.!?]{0,35}\b(?:cold|[0-9]+\s*(?:c|degrees)))\b'),
         ({'tray'},r'\btray\w*\b'),
         ({'bruising'},r'\b(?:bruis\w*|damag\w*|injur\w*)\b'),
-        ({'mechanical'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*)\b'),
+        ({'mechanical'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*|mec[aá]nic\w*)\b'),
+        ({'mechanical','harvest'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*)[ -]+harvest\w*\b|\bharvest\w*\b[^.!?]{0,40}\b(?:by machine|mechanically)\b|\bcosecha\b[^.!?]{0,30}\bmec[aá]nica\b'),
+        ({'processing'},r'\b(?:processing|processed markets?|frozen markets?|iqf)\b'),
         ({'netting'},r'\b(?:netting|netted|exclusion nets?)\b'),
         ({'pollination'},r'\b(?:pollinat\w*|bumblebee\w*)\b'),
     ]
@@ -134,11 +136,12 @@ def support_context(plan, entities, identifiers):
         # Geographic scope vocabulary does not create registry entities or
         # equate a climate with a country. Unresolved regional requests stay
         # literal, including subdivisions absent from the country registry.
-        for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland',
+        for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland','Pacific Northwest',
                      'Central America','South America','North America','Southeast Asia'):
             term=normalize(name)
             if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',place_positive):
-                places.append((term, "scottish") if term == "scotland" else (term,))
+                aliases = {"scotland": ("scottish",), "pacific northwest": ("oregon", "washington state")}
+                places.append((term, *aliases.get(term, ())))
                 place_terms.update(term.split())
     return {'identities':list(identities.values()),'trial_places':places,
             'place_terms':tuple(sorted(place_terms)),'organizations':organizations}

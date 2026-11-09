@@ -320,7 +320,7 @@ from app.services.global_search import (
     GROUP_CAP_DEFAULT,
     SearchPools,
     build_search_documents,
-    search_global,
+    search_documents,
 )
 from app.services.learner import (
     all_concepts as learn_all_concepts,
@@ -11198,13 +11198,15 @@ def _search_pools(*, include_private: bool) -> SearchPools:
 
 def _cached_search_documents(*, include_private: bool):
     key = _search_index_key(include_private=include_private)
-    if _SEARCH_DOC_CACHE["key"] != key or _SEARCH_DOC_CACHE["docs"] is None:
-        _SEARCH_DOC_CACHE["key"] = key
-        _SEARCH_DOC_CACHE["docs"] = build_search_documents(
-            _search_pools(include_private=include_private),
-            include_private=include_private,
-        )
-    return _SEARCH_DOC_CACHE["docs"]
+    cached = _SEARCH_DOC_CACHE.copy()
+    if cached["key"] == key and cached["docs"] is not None:
+        return cached["docs"]
+    docs = build_search_documents(
+        _search_pools(include_private=include_private),
+        include_private=include_private,
+    )
+    _SEARCH_DOC_CACHE.update(key=key, docs=docs)
+    return docs
 
 
 def run_global_search(
@@ -11217,15 +11219,14 @@ def run_global_search(
     sort: str = "newest",
 ) -> dict[str, Any]:
     started = time.perf_counter()
-    payload = search_global(
+    payload = search_documents(
+        _cached_search_documents(include_private=include_private),
         query,
-        _search_pools(include_private=include_private),
         berry=berry,
         include_private=include_private,
         include_global=include_global,
         limit_per_group=limit_per_group,
         sort=sort,
-        documents=_cached_search_documents(include_private=include_private),
     )
     payload["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)
     return payload
@@ -11251,13 +11252,20 @@ def global_search_page(
         limit_per_group=25,
         sort=sort_mode,
     )
+    season_rows = []
+    if results.get("blackberry_season"):
+        from app.services.topic_retrieval import plan_query
+        from app.services.variety_season import season_preview
+        season_rows = season_preview(DATA_DIR, plan_query(q))
     return templates.TemplateResponse(
         request=request,
         name="search.html",
         context={
             "search_query": q,
             "search_results": results,
+            "search_season_rows": season_rows,
             "search_berry": berry_id,
+            "search_berry_label": BERRIES.get(berry_id, ""),
             "search_include_global": broaden,
             "search_sort": sort_mode,
             "authoring_mode": AUTHORING_MODE,

@@ -5,6 +5,26 @@ def checked(grade,event=None):
     return dict(grade=grade,event_group=event,source_checked=True,reason='Inspected cited paragraph in fixture source',source_locator='article:0')
 
 
+def test_precision_bounds_use_fixed_depth_without_grading_missing_sources():
+    direct = "https://example.org/direct"
+    unknown = "https://example.org/unknown"
+    scored = score_query(
+        {"query": "blackberry", "improved_app": [{"url": direct}, {"url": unknown}]},
+        {direct: checked(3, "release")},
+    )["metrics"]
+    assert scored["improved_app"]["direct_precision_at_10_bounds"] == [0.1, 0.2]
+    assert scored["improved_app"]["direct_precision_at_10"] is None
+    assert scored["google"]["direct_precision_at_10_bounds"] is None
+
+
+def test_provider_failure_does_not_record_zero_precision():
+    scored = score_query(
+        {"query": "blackberry", "discovery": {"status": "failed"}}, {},
+    )["metrics"]["improved_app"]
+    assert scored["direct_precision_at_10"] is None
+    assert scored["direct_precision_at_10_bounds"] is None
+
+
 def test_missing_source_judgments_never_become_zero_grades_or_an_acceptance_claim():
     row=dict(query='blackberry developments',old_app=[],improved_app=[{'url':'https://source.test/a'}],google=[])
     result=score_snapshot({'queries':[row]}, {'queries':[]},{})

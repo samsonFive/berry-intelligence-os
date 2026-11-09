@@ -6,10 +6,19 @@ from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, sele
 
 from app.services.global_search import search_documents
 from app.services.topic_retrieval import match_record, plan_query
-from app.services.variety_season import COMPARISON, blackberry_season, season_candidate_sources, season_source_leads
+from app.services.variety_season import COMPARISON, blackberry_season, season_candidate_sources, season_preview, season_source_leads
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
+
+
+def test_season_preview_is_cited_and_respects_explicit_search_constraints():
+    rows = season_preview(DATA, plan_query("Blackberry Floricans"))
+    assert [row["name"] for row in rows] == ["Ervin", "Sweet-Ark Immaculate", "Loch Katrine"]
+    assert any("seregionalconference.org" in url for _, url, _ in rows[0]["sources"])
+    assert not season_preview(DATA, plan_query("blackberry floricane pruning"))
+    assert not season_preview(DATA, plan_query("blackberry floricane varieties Spain"))
+    assert not season_preview(DATA, plan_query("blackberry floricane varieties 2026-01-01"))
 
 
 def test_fruiting_habit_and_harvested_cane_are_independent():
@@ -86,9 +95,11 @@ def test_original_source_seeds_cover_uncataloged_names_and_spanish_market():
     loch = season_candidate_sources(DATA, plan_query("Varietà di mora Loch Katrine prove produttive Scozia"))
     spain = season_candidate_sources(DATA, plan_query("Variedades de zarzamora floricane en España"))
     ervin = season_candidate_sources(DATA, plan_query("NC 740 blackberry high tunnel trial"))
+    oregon = season_candidate_sources(DATA, plan_query("Pacific Northwest blackberry mechanical harvesting trial"))
     assert any("hutton.ac.uk" in url for _, url in loch)
     assert any("berryneo.com" in url for _, url in spain)
     assert any("seregionalconference.org" in url for _, url in ervin)
+    assert any("ars.usda.gov" in url for _, url in oregon)
     assert not season_candidate_sources(DATA, plan_query("blackberry floricane -\"Loch Katrine\""))
     assert not season_candidate_sources(DATA, plan_query("fresa floricane España"))
 
@@ -143,6 +154,19 @@ def test_numbered_poster_excerpts_do_not_mix_two_crops_on_one_page():
     blackberry = results["pdf:section:11:pages:10-11"]
     assert "NC 740 yielded\nwell." in blackberry
     assert "Grapes" not in blackberry and "Strawberry" not in blackberry
+
+
+def test_processing_trial_needs_harvest_operation_and_regional_trial_context():
+    from app.services.topic_support import passage_intent_supported, support_context, trial_location_in_passage
+
+    plan = plan_query("Pacific Northwest blackberry mechanical harvest trial for processing")
+    places = support_context(plan, {}, [])["trial_places"]
+    correct = "The blackberry trial in Oregon used a machine harvester for processing fruit."
+    wrong_operation = "The blackberry trial in Oregon used mechanical cooling for fruit processing."
+    wrong_location = "The blackberry trial in North Carolina used a machine harvester for processing fruit."
+    assert passage_intent_supported(correct, plan) and trial_location_in_passage(correct, places)
+    assert not passage_intent_supported(wrong_operation, plan)
+    assert not trial_location_in_passage(wrong_location, places)
 
 
 def test_multilingual_crop_words_block_off_crop_benchmark_results():

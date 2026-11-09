@@ -48,12 +48,17 @@ def score_query(record, judgments, google=None, depth=10):
     metrics={}
     for system,rows in systems.items():
         top=rows[:depth]
-        top_checked=all(checked(row['canonical_key']) for row in top)
-        grades=[labels[row['canonical_key']]['grade'] for row in top] if top_checked else []
-        scored={'result_count':len(rows),'top_checked':top_checked,'direct_precision_at_10':None,'ndcg_at_10':None,'pooled_development_coverage_sample':None}
+        observed = system != 'google' or comparable
+        if system == 'improved_app' and not rows and (record.get('discovery') or {}).get('status') == 'failed':
+            observed = False
+        grades = [labels[row['canonical_key']]['grade'] for row in top if checked(row['canonical_key'])]
+        top_checked = observed and len(grades) == len(top)
+        bounds = [(grades.count(3) + unknown) / depth for unknown in (0, len(top) - len(grades))] if observed else None
+        scored={'result_count':len(rows),'top_checked':top_checked,'direct_precision_at_10':None,
+                'direct_precision_at_10_bounds':bounds,'ndcg_at_10':None,'pooled_development_coverage_sample':None}
         if top_checked:
             scored['direct_precision_at_10']=grades.count(3)/depth
-        if complete:
+        if complete and observed:
             ideal=sorted((labels[key]['grade'] for key in pool),reverse=True)[:depth]
             dcg=sum((2**grade-1)/math.log2(i+2) for i,grade in enumerate(grades))
             idcg=sum((2**grade-1)/math.log2(i+2) for i,grade in enumerate(ideal))
@@ -73,7 +78,11 @@ def score_snapshot(run, baseline, judgments):
         paired=datetime.fromisoformat(str(run.get('started_at') or '')[:10]).date()==datetime.fromisoformat(str(google_date)[:10]).date()
     except ValueError:
         paired=False
-    ready=bool(queries) and paired and all(q['judged_pool_complete'] and q['event_judgments_complete'] and q['google_comparable'] for q in queries)
+    ready=bool(queries) and paired and all(
+        q['judged_pool_complete'] and q['event_judgments_complete'] and q['google_comparable']
+        and q['metrics']['improved_app']['top_checked']
+        for q in queries
+    )
     aggregates={}
     regressions=[]
     if ready:

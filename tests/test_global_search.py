@@ -255,6 +255,31 @@ def test_search_form_keeps_explicit_crop_when_submitted() -> None:
     page = client.get("/search", params={"berry": "berry-blackberry", "include_global": "0"})
     assert page.status_code == 200
     assert 'name="berry" value="berry-blackberry"' in page.text
+    assert "Current berry · Blackberry" in page.text
+
+
+def test_search_routes_to_filterable_blackberry_comparison() -> None:
+    search = client.get("/search", params={"q": "Blackberry Floricans", "berry": "berry-blackberry"})
+    assert search.status_code == 200 and 'href="/varieties/blackberry-season"' in search.text
+    assert "Source-reported shortlist" in search.text and "Loch Katrine" in search.text
+    season = client.get("/varieties/blackberry-season", params={"q": "NC 740", "system": "High tunnel"})
+    assert season.status_code == 200
+    assert "Mills River, NC" in season.text and "1 matching variety" in season.text
+
+
+def test_warm_search_reuses_documents_without_reloading_pools(monkeypatch) -> None:
+    monkeypatch.setattr(main, "_SEARCH_DOC_CACHE", {"key": None, "docs": None})
+    monkeypatch.setattr(main, "_search_index_key", lambda **kwargs: ("unchanged",))
+    calls = []
+
+    def pools(**kwargs):
+        calls.append(kwargs)
+        return SearchPools()
+
+    monkeypatch.setattr(main, "_search_pools", pools)
+    main.run_global_search("Blackberry")
+    main.run_global_search("Ervin")
+    assert calls == [{"include_private": False}]
 
 
 def test_invalid_search_dates_return_validation_feedback() -> None:

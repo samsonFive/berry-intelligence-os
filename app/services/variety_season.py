@@ -25,6 +25,28 @@ def is_blackberry_floricane(plan, berry):
     )
 
 
+def season_preview(data_dir, plan):
+    """Show the bounded comparison separately from archive search results."""
+    terms = set(plan.terms)
+    if plan.start or plan.end or plan.exclusions or plan.phrases:
+        return []
+    overview_terms = {
+        "blackberry", "floricane", "variety", "commercial", "season", "year", "2027",
+        "this", "next", "upcoming", "note", "noteworthy", "northern", "hemisphere",
+    }
+    if terms - overview_terms:
+        return []
+    if not (Path(data_dir) / COMPARISON).is_file():
+        return []
+    data = blackberry_season(data_dir, "", {"habit": "Floricane"})
+    return [
+        {"name": row["name"], "region": row["region"], "observation": row["observation"],
+         "sources": [data["sources"][key] for key in row["citations"]]}
+        for row in data["rows"]
+        if any(str(event[1] or "")[:4] >= "2024" for event in row["events"])
+    ][:3]
+
+
 def _values(row, field):
     value = row.get(field)
     return value if isinstance(value, list) else [value or "Unspecified"]
@@ -66,7 +88,9 @@ def season_candidate_sources(data_dir, plan):
     if "blackberry" in terms:
         keys.extend(
             catalog["source_id"] for catalog in data.get("market_catalogs", [])
-            if plan.cane_type == catalog["habit"] and terms.intersection(catalog["market_terms"])
+            if (not catalog.get("habit") or plan.cane_type == catalog["habit"])
+            and set(catalog.get("required_terms", ())) <= terms
+            and any(re.search(r"(?<!\w)" + re.escape(place) + r"(?!\w)", positive) for place in catalog["market_terms"])
         )
     return [tuple(data["sources"][key][:2]) for key in list(dict.fromkeys(keys))[:4]]
 

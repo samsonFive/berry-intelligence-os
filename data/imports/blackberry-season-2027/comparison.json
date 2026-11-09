@@ -62,10 +62,16 @@
       "BerrYum exclusive blackberry varieties",
       "https://www.berryneo.com/variedades-berryum/",
       "Floricane, partially primocane, and primocane portfolio entries"
+    ],
+    "ars_machine": [
+      "USDA ARS mechanical harvest validation for blackberry and blueberry",
+      "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025",
+      "2025 accomplishments, item 3, Aurora Oregon evaluation"
     ]
   },
   "market_catalogs": [
-    {"source_id": "berryneo", "habit": "floricane", "market_terms": ["spain", "españa", "huelva"]}
+    {"source_id": "berryneo", "habit": "floricane", "market_terms": ["spain", "españa", "huelva"]},
+    {"source_id": "ars_machine", "required_terms": ["mechanical", "harvest"], "market_terms": ["pacific northwest", "oregon"]}
   ],
   "rows": [
     {

@@ -27,7 +27,7 @@
     <button type="submit">Apply filters</button>
     <a href="/varieties/blackberry-season">Reset to floricane varieties</a>
   </form>
-  <p role="status">{{ comparison.rows|length }} matching varieties</p>
+  <p role="status">{{ comparison.rows|length }} matching {{ 'variety' if comparison.rows|length == 1 else 'varieties' }}</p>
   <div class="company-table-scroll" tabindex="0" aria-label="Blackberry comparison">
     <table class="company-table">
       <thead><tr><th scope="col">Variety</th><th scope="col">Fit</th><th scope="col">Source observations</th><th scope="col">Dated milestones and listings</th></tr></thead>

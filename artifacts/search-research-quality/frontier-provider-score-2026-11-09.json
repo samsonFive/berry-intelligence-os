@@ -2,13 +2,9 @@
   "version": 1,
   "source_run_started_at": "2026-11-09T18:45:37.878930+00:00",
   "query_count": 8,
-  "unique_pooled_urls": 64,
-  "judgment_pairs_missing": 59,
-  "non_comparable_google_queries": [
-    "Arándano cosecha mecánica cultivares ensayo Perú",
-    "Fresa variedades tolerantes al calor ensayo Huelva",
-    "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing"
-  ],
+  "unique_pooled_urls": 94,
+  "judgment_pairs_missing": 73,
+  "non_comparable_google_queries": [],
   "acceptance_ready": false,
   "aggregate_metrics": {},
   "individual_regressions": [],
@@ -35,15 +31,8 @@
         "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry"
       ],
       "missing_judgments": [
-        "emcocal.com/emcocal-rubus-varieties",
-        "extension.okstate.edu/fact-sheets/commercial-blackberry-production",
-        "foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season",
-        "globalplantgenetics.com/crop/blackberries/natchez",
-        "growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry",
         "instagram.com/p/dctdqjljj3w",
-        "instagram.com/reel/dcpgfanbv8r",
-        "plotmygarden.com/plants/blackberry-trailing",
-        "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry"
+        "instagram.com/reel/dcpgfanbv8r"
       ],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
@@ -53,6 +42,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -60,6 +53,10 @@
           "result_count": 3,
           "top_checked": true,
           "direct_precision_at_10": 0.1,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.1
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -67,6 +64,10 @@
           "result_count": 10,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.2
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -98,7 +99,6 @@
         "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
         "projects.sare.org/sare_project/fnc09-749",
         "researchgate.net/publication/267278396_performance_of_high_tunnel_organic_blackberry_and_raspberry",
-        "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
         "southcenters.osu.edu/horticulture/fruits/blackberries"
       ],
       "missing_event_judgments": [],
@@ -109,6 +109,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -116,6 +120,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -123,6 +131,10 @@
           "result_count": 10,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -164,6 +176,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -171,6 +187,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -178,6 +198,10 @@
           "result_count": 10,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            1.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -219,6 +243,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -226,6 +254,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -233,6 +265,10 @@
           "result_count": 10,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -266,12 +302,10 @@
         "api.crossref.org/works/10.70675%2f7b8de9caz1764z48eez9a07z5bc91d46a932",
         "api.crossref.org/works/10.70675%2f9e66bec8z0459z4a0cz81abz9bcae891c845",
         "api.crossref.org/works/10.70675%2fb6486140z785fz45e1za8a8z57a8fd0e904b",
-        "books.openedition.org/demopolis/379",
         "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
         "conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers",
         "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
         "gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html",
-        "invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9",
         "le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier",
         "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
         "plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers",
@@ -287,6 +321,10 @@
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -294,6 +332,10 @@
           "result_count": 6,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.5
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -301,6 +343,10 @@
           "result_count": 10,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -310,35 +356,65 @@
       "query": "Arándano cosecha mecánica cultivares ensayo Perú",
       "split": "held_out",
       "judged_pool_complete": false,
-      "pool_size": 1,
+      "pool_size": 11,
       "pool_urls": [
+        "bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file",
+        "cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf",
+        "es.scribd.com/document/330985723/monografia-del-cultivo-de-arandano",
+        "portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano",
+        "proyectosperuanos.com/cultivo_de_arandanos",
+        "redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico",
+        "redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro",
+        "repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download",
+        "repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download",
+        "researchgate.net/publication/356760922_avances_en_el_cultivo_de_las_berries_en_el_tropico",
         "revfitotecnia.mx/index.php/rfm/article/view/1041"
       ],
       "missing_judgments": [
-        "revfitotecnia.mx/index.php/rfm/article/view/1041"
+        "bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file",
+        "cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf",
+        "es.scribd.com/document/330985723/monografia-del-cultivo-de-arandano",
+        "portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano",
+        "proyectosperuanos.com/cultivo_de_arandanos",
+        "redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro",
+        "repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download",
+        "repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download",
+        "researchgate.net/publication/356760922_avances_en_el_cultivo_de_las_berries_en_el_tropico"
       ],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
-      "google_comparable": false,
+      "google_comparable": true,
       "metrics": {
         "old_app": {
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
         "improved_app": {
           "result_count": 1,
-          "top_checked": false,
-          "direct_precision_at_10": null,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
         "google": {
-          "result_count": 0,
-          "top_checked": true,
-          "direct_precision_at_10": 0.0,
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.9
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -348,35 +424,66 @@
       "query": "Fresa variedades tolerantes al calor ensayo Huelva",
       "split": "held_out",
       "judged_pool_complete": false,
-      "pool_size": 1,
+      "pool_size": 11,
       "pool_urls": [
-        "scielo.br/j/hb/a/q6tw4fvzp8gnp6n76ycmqyv?lang=pt"
+        "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+        "agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad",
+        "europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html",
+        "facebook.com/unihuelva/posts/-innovaci%c3%b3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049",
+        "fresasnm.com/fresa",
+        "hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva",
+        "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+        "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+        "mapa.gob.es/ministerio/pags/biblioteca/revistas/pdf_vrural%2fvrural_2003_169_42_48.pdf",
+        "scielo.br/j/hb/a/q6tw4fvzp8gnp6n76ycmqyv?lang=pt",
+        "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
       ],
       "missing_judgments": [
-        "scielo.br/j/hb/a/q6tw4fvzp8gnp6n76ycmqyv?lang=pt"
+        "actualfruveg.com/2025/03/26/fresa-variedades-huelva-2",
+        "agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad",
+        "europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html",
+        "facebook.com/unihuelva/posts/-innovaci%c3%b3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049",
+        "fresasnm.com/fresa",
+        "hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva",
+        "huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana",
+        "juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0",
+        "mapa.gob.es/ministerio/pags/biblioteca/revistas/pdf_vrural%2fvrural_2003_169_42_48.pdf",
+        "tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
       ],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
-      "google_comparable": false,
+      "google_comparable": true,
       "metrics": {
         "old_app": {
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
         "improved_app": {
           "result_count": 1,
-          "top_checked": false,
-          "direct_precision_at_10": null,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
         "google": {
-          "result_count": 0,
-          "top_checked": true,
-          "direct_precision_at_10": 0.0,
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            1.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
@@ -386,27 +493,48 @@
       "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
       "split": "held_out",
       "judged_pool_complete": false,
-      "pool_size": 4,
+      "pool_size": 14,
       "pool_urls": [
+        "agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757",
         "api.crossref.org/works/10.21273%2fhortsci.30.4.767",
         "api.crossref.org/works/10.21273%2fhortsci.30.4.833f",
+        "ars.usda.gov/research/project?accnno=444118&fy=2025",
+        "ars.usda.gov/research/publications/publication?seqno115=188551",
+        "ashs.org/news/716937/-advances-in-breeding-and-production-of-caneberries-in-the-pacific-northwest.htm",
         "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
+        "horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf",
+        "journal.americanpomological.org/index.php/jofaps/article/view/1977/1981",
+        "oregon-berries.com/wp-content/uploads/2024/04/2023-24-orbc-research-reports-book.pdf",
+        "ourimpact.oregonstate.edu/type-work/field-trials?page=1",
+        "researchgate.net/publication/43272507_new_usda-ars_blackberry_cultivars_bring_diversity_to_the_market",
+        "scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf",
         "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
       ],
       "missing_judgments": [
+        "agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757",
         "api.crossref.org/works/10.21273%2fhortsci.30.4.767",
         "api.crossref.org/works/10.21273%2fhortsci.30.4.833f",
+        "ashs.org/news/716937/-advances-in-breeding-and-production-of-caneberries-in-the-pacific-northwest.htm",
         "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
-        "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
+        "horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf",
+        "journal.americanpomological.org/index.php/jofaps/article/view/1977/1981",
+        "oregon-berries.com/wp-content/uploads/2024/04/2023-24-orbc-research-reports-book.pdf",
+        "ourimpact.oregonstate.edu/type-work/field-trials?page=1",
+        "researchgate.net/publication/43272507_new_usda-ars_blackberry_cultivars_bring_diversity_to_the_market",
+        "scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
       ],
       "missing_event_judgments": [],
       "event_judgments_complete": true,
-      "google_comparable": false,
+      "google_comparable": true,
       "metrics": {
         "old_app": {
           "result_count": 0,
           "top_checked": true,
           "direct_precision_at_10": 0.0,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.0
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
@@ -414,23 +542,31 @@
           "result_count": 4,
           "top_checked": false,
           "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.0,
+            0.3
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         },
         "google": {
-          "result_count": 0,
-          "top_checked": true,
-          "direct_precision_at_10": 0.0,
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "direct_precision_at_10_bounds": [
+            0.1,
+            0.9
+          ],
           "ndcg_at_10": null,
           "pooled_development_coverage_sample": null
         }
       }
     }
   ],
-  "computed_at": "2026-11-09T19:03:01+00:00",
+  "computed_at": "2026-11-09T19:20:24+00:00",
   "input_sha256": {
     "run": "5077cc65258e1ca3904085bb72b3adaaaa25646063331a490b39ca723fb185c6",
-    "google_baseline": "ccef02182d4ff88edb3c79c29179093daf719e88e2a7e024711b95767c7e4b56",
-    "judgments": "85964c56fcf37bab3ed2c57d26144b5af3fedf9e3ac4a588516100cb5cfa6253"
+    "google_baseline": "da0cd31698fe22e5dd943da5558544c0a2910f24546cd2008f1e1fcdf6ab261d",
+    "judgments": "0e91e37ced86ec5339370334b11bfd789fcfdae39df51dc1fd092f804fa3ddcd"
   }
 }

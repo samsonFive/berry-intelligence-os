@@ -122,7 +122,7 @@ def main():
         before = old.search_global(query, pools, documents=docs, limit_per_group=20, sort="relevance")
         before_rows = [old_records[r["id"]] for g in before["groups"] if g["id"] == "intelligence" for r in g["in_context"] + g["also_global"] if r["id"] in old_records][:20]
         judged = judgments.get(query) or {}
-        evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked}, judged, google.get(query))
+        evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked,"discovery":web}, judged, google.get(query))
         result = {"query": query, "split": "held_out" if i >= 18 else "development", "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3), "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
         result["split"] = "held_out" if i in held_out else "development"
         result["local_retrieval_seconds"] = round(local_seconds, 3)
