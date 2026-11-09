@@ -33,6 +33,16 @@ def test_compressed_pdf_is_searchable_with_page_locators_and_is_not_a_full_artic
 def test_pdf_timeout_fails_closed_without_claiming_body_availability():
     with patch.object(reader.subprocess,'run',side_effect=subprocess.TimeoutExpired('fixture',6)):
         assert reader.extract_pdf_text(compressed_pdf())==[]
+        literal = b"%PDF-1.1\nBT\n(Do not return this text after the worker timed out.) Tj\nET"
+        assert reader.extract_pdf_text(literal) == []
+
+
+def test_pdf_fallback_skips_binary_pdf_literals():
+    binary = b"%PDF-1.1\nBT\n(" + b"\x80q" * 30 + b") Tj\nET"
+    failed_parse = subprocess.CompletedProcess([], 0, stdout=b'{"pages":[],"error":"PdfReadError"}')
+    with patch.object(reader.subprocess, "run", return_value=failed_parse):
+        assert reader.extract_pdf_text(binary) == []
+
 
 
 def test_pdf_page_limit_is_disclosed_in_capture_status():

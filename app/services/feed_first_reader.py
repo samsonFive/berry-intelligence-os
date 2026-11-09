@@ -268,12 +268,18 @@ def extract_pdf_text(raw: bytes) -> list[str]:
         pages = parsed.get('pages') or []
         if pages:
             return PdfPassages([f"[PDF page {page['page']}]\n{page['text']}" for page in pages], truncated=bool(parsed.get('truncated')), page_count=parsed.get('page_count'))
-    except (OSError,ValueError,subprocess.TimeoutExpired):
+    except subprocess.TimeoutExpired:
+        return []
+    except (OSError, ValueError):
         pass
-    # Keep the existing minimal literal fallback for damaged legacy documents.
+    # Keep the minimal literal fallback for damaged legacy documents. Raw
+    # compressed or encoded strings are not evidence of selectable text.
     passages: list[str] = []
     for match in _PDF_TJ_RE.finditer(raw[:MAX_BYTES]):
-        chunk = match.group(1).decode("latin-1", errors="replace")
+        raw_literal = match.group(1)
+        if any(byte < 32 or byte > 126 for byte in raw_literal):
+            continue
+        chunk = raw_literal.decode("ascii")
         chunk = (
             chunk.replace("\\n", " ")
             .replace("\\r", " ")

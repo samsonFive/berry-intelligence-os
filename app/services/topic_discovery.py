@@ -25,7 +25,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v16'  # Reuse the first bounded streaming capture batch.
+CAPTURE_VERSION = 'topic-capture-v17'  # Fail closed when the PDF text worker times out.
 MAX_CAPTURE_CANDIDATES = 40
 
 
