@@ -1,0 +1,36 @@
+{
+  "Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest": {
+    "https://fieldreport.caes.uga.edu/publications/C1327/productivity-and-postharvest-quality-of-strawberry-cultivars-grown-in-southeast-georgia/": {
+      "grade": 3,
+      "source_checked": true,
+      "reason": "The 2019–20 southeast Georgia field demonstration reports both first harvest dates and yield per plant for the requested cultivars.",
+      "source_locator": "Circular 1327, Table 2",
+      "checked_against": "Original University of Georgia Extension publication",
+      "checked_at": "2026-11-09",
+      "reviewer": "Codex supplemental source inspection",
+      "event_group": "uga-c1327-2019-20-strawberry-field-demonstration"
+    }
+  },
+  "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination": {
+    "https://patents.justia.com/patent/20190313561": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "The published application gives FCM14-052 and zero-chill performance. The breeder catalog links that denomination to Sekoya Pop, and PP32,186 is the distinct grant. This URL is the application.",
+      "source_locator": "Variety denomination and background",
+      "checked_against": "US20190313561P1 and the Fall Creek breeder catalog checked alongside USPP32186P3",
+      "checked_at": "2026-11-09",
+      "reviewer": "Codex supplemental source inspection"
+    }
+  },
+  "Varietà lampone rifiorente Regina prova varietale Trentino resa qualità": {
+    "https://plantgest.imagelinenetwork.com/it/varieta/frutticole/lampone-rosso/regina/6105": {
+      "grade": 2,
+      "source_checked": true,
+      "reason": "The public breeder-supplied catalog description covers qualitative productivity and fruit quality, without a documented Trentino comparison trial or measured yields.",
+      "source_locator": "Public cultivar description and breeder attribution",
+      "checked_against": "Plantgest record attributed to Berry Plant di Grisenti Maria Maddalena",
+      "checked_at": "2026-11-09",
+      "reviewer": "Codex supplemental source inspection"
+    }
+  }
+}
