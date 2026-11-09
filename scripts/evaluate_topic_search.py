@@ -80,6 +80,12 @@ def main():
     judgments = json.loads(args.judgments.read_text(encoding="utf-8")) if args.judgments else {}
     run = {"version": 1, "started_at": datetime.now(timezone.utc).isoformat(), "old_ref": old_sha, "provider": "perplexity_search" if args.live else "local_only", "locale": "en-US", "fixed_depth": 10, "held_out_query_indices": list(range(18, 24)), "comparison_limitations": ["Old app comparison measures archive Global Search, not an unavailable historical production request trace.", "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.", "Source-inspected independent relevance and event judgments are required before parity can be asserted."], "queries": []}
     run["held_out_query_indices"] = sorted(held_out)
+    run["candidate_ref"] = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True,
+    ).strip()
+    run["candidate_tracked_changes"] = bool(subprocess.check_output(
+        ["git", "status", "--porcelain", "--untracked-files=no"], cwd=ROOT, text=True,
+    ).strip())
     if args.live and credit_free_mode():
         run["provider"] = "public_metadata_fallback"
     for i, query in enumerate(queries):

@@ -54,11 +54,19 @@
       "Sweet-Ark Immaculate listing"
     ],
     "nc_trial": [
-      "NC State researchers, 2025 Southeast Regional Fruit and Vegetable Conference",
+      "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
       "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
       "Poster 11, NC 740 replicated trial"
+    ],
+    "berryneo": [
+      "BerrYum exclusive blackberry varieties",
+      "https://www.berryneo.com/variedades-berryum/",
+      "Floricane, partially primocane, and primocane portfolio entries"
     ]
   },
+  "market_catalogs": [
+    {"source_id": "berryneo", "habit": "floricane", "market_terms": ["spain", "españa", "huelva"]}
+  ],
   "rows": [
     {
       "name": "Ervin",

@@ -2,9 +2,9 @@
 import re
 
 EXTRA_CROP_TERMS = {
-    'blueberry': ('mirtilo', 'mirtilos', 'borówka', 'borówki', 'borówek', 'borowka', 'borowki'),
-    'strawberry': ('morango', 'morangos', 'truskawka', 'truskawki', 'truskawek'),
-    'raspberry': ('framboesa', 'framboesas', 'malina', 'maliny', 'malin'),
+    'blueberry': ('mirtilo', 'mirtilos', 'borówka', 'borówki', 'borówek', 'borowka', 'borowki', 'myrtille', 'myrtilles', 'arándano azul', 'arándanos azules'),
+    'strawberry': ('morango', 'morangos', 'truskawka', 'truskawki', 'truskawek', 'fresa', 'fresas', 'fraise', 'fraises'),
+    'raspberry': ('framboesa', 'framboesas', 'malina', 'maliny', 'malin', 'framboise', 'framboises'),
     'blackberry': ('amora-preta', 'amoras-pretas', 'amora preta', 'amoras pretas', 'jeżyna', 'jeżyny', 'jeżyn', 'jezyna', 'jezyny', 'zarzamora', 'zarzamoras'),
 }
 NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', 'licencja', 'licencje',

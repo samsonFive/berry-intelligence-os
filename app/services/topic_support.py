@@ -116,7 +116,7 @@ def support_context(plan, entities, identifiers):
     # An explicit region also constrains ordinary breeding/catalog questions.
     # Place names inside a requested organization/identity are not a separate
     # trial-location request (for example North Carolina State University).
-    place_positive=positive
+    place_positive=re.sub(r'\bscozia\b', 'scotland', positive)
     identity_names=[[normalize(n)for n in [e.get('name')or'',*(e.get('aliases')or[])]]for e in identities.values()]
     for names in [*organizations,*identity_names]:
         for name in sorted(names,key=len,reverse=True):
@@ -138,7 +138,7 @@ def support_context(plan, entities, identifiers):
                      'Central America','South America','North America','Southeast Asia'):
             term=normalize(name)
             if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',place_positive):
-                places.append((term,))
+                places.append((term, "scottish") if term == "scotland" else (term,))
                 place_terms.update(term.split())
     return {'identities':list(identities.values()),'trial_places':places,
             'place_terms':tuple(sorted(place_terms)),'organizations':organizations}
@@ -169,6 +169,14 @@ def identity_in_passage(text, entity):
         if re.search(r'\b(?:includes?|including|such as)\s+(?:the\s+)?(?:variety|cultivar)\s+[^.!?]{0,350}(?<!\w)'+name+r'(?!\w)',text):return True
         descriptors=r'(?:(?:ever bearer|everbearer|primocane fruiting|floricane fruiting|thornless|early|late|midseason|main season|mid late|june bearing|day neutral|short day|low chilling|low chill|southern highbush|northern highbush|highbush)\s+){0,3}'
         if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+)?(?:(?:a|the)\s+)?(?:new\s+)?'+descriptors+r'(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
+        # An explicit agronomic comparison identifies a control cultivar even
+        # when the source omits the word cultivar beside its name.
+        if re.search(
+            r'\b(?:yield|harvest|fruit|firmness|productivity)\b[^.]{0,100}\b'
+            r'(?:compared (?:with|to)|similar to|comparable to|more than|less than|relative to) '
+            r'(?:[\w]+ and )?' + name + r'(?!\w| (?:county|parish|river|mountains)\b)', text,
+        ):
+            return True
         # A parenthesized experimental cultivar list owns its crop context,
         # including when a PDF page break falls inside the list. Names outside
         # that explicit list (authors, other crops) do not inherit the context.

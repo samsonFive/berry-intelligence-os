@@ -1,6 +1,7 @@
 """Read-only source observations for the blackberry season comparison."""
 
 import json
+import re
 from pathlib import Path
 
 from app.services.topic_retrieval import normalize
@@ -44,6 +45,30 @@ def season_source_leads(data_dir):
         for label, _, detail, key in row["events"]:
             title, url, _ = data["sources"][key]
             yield row["variety_id"], title, url, (row["habit"], label, detail)
+
+
+def season_candidate_sources(data_dir, plan):
+    """Seed explicit public discovery from inspected references, including uncataloged names."""
+    path = Path(data_dir) / COMPARISON
+    terms = set(plan.terms)
+    if not terms.intersection({"blackberry", "mora", "floricane", "primocane"}) or not path.is_file():
+        return []
+    data = json.loads(path.read_text(encoding="utf-8"))
+    positive = " ".join(plan.terms)
+    keys = []
+    for row in data["rows"]:
+        if any(
+            len(name) >= 4 and re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", positive)
+            for name in map(normalize, [row["name"], *row["aliases"]])
+        ):
+            keys.extend(row["citations"])
+            keys.extend(event[-1] for event in row["events"])
+    if "blackberry" in terms:
+        keys.extend(
+            catalog["source_id"] for catalog in data.get("market_catalogs", [])
+            if plan.cane_type == catalog["habit"] and terms.intersection(catalog["market_terms"])
+        )
+    return [tuple(data["sources"][key][:2]) for key in list(dict.fromkeys(keys))[:4]]
 
 
 def blackberry_season(data_dir, query, filters):

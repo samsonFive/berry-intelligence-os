@@ -12,7 +12,7 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v25"
+VERSION = "topic-retrieval-v28"
 _PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
 _EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
@@ -64,6 +64,13 @@ def plan_query(raw: str, *, use_original: bool = False) -> QueryPlan:
         raise ValueError("Start date must precede end date")
     positive = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", "", positive)
     positive = re.sub(r"\b(?:from|through|between|until)\b", "", positive, flags=re.I)
+    positive = re.sub(r"\b(?:arándanos?|arandanos?)(?!\w|\s+(?:roj[oa]s?|azul(?:es)?)\b)", "blueberry", positive, flags=re.I)
+    positive = re.sub(r"\b(?:ensayos?|essais?|prove produttive)\b", "trial", positive, flags=re.I)
+    positive = re.sub(r"\bvarietà di mora\b(?!\s+di gelso\b)", "blackberry variety", positive, flags=re.I)
+    positive = re.sub(r"\bsenza spine\b", "thornless", positive, flags=re.I)
+    positive = re.sub(r"\bScozia\b", "Scotland", positive, flags=re.I)
+    if "raspberry" in normalize(positive).split():
+        positive = re.sub(r"\bremontantes?\b", "primocane", positive, flags=re.I)
     terms = tuple(dict.fromkeys(t for t in normalize(positive).split() if t not in _STOP))
     cane = "floricane" if "floricane" in terms else "primocane" if "primocane" in terms else None
     return QueryPlan(raw, interpreted, terms, phrases, exclusions, cane, start, end, interpreted != raw.strip())

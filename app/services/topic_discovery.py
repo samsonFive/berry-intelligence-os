@@ -88,15 +88,17 @@ def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str |
 def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     from app.services.public_research_search import registered_primary_sources,registered_primary_terms
+    from app.services.variety_season import season_candidate_sources
     primary_sources=registered_primary_sources(data_dir,entities or {}) if data_dir is not None else {}
     primary_terms=registered_primary_terms(data_dir,entities or {})if data_dir is not None else {}
+    reference_sources = season_candidate_sources(data_dir, plan) if data_dir is not None else []
     identity_basis = [{**{k:e.get(k) for k in ('id','name','aliases','berry_ids')},
         'identity_source':((e.get('attributes') or {}).get('identity_review') or {}).get('source_url'),
         'removed':bool((e.get('attributes') or {}).get('catalog_removed'))}
         for e in (entities or {}).values() if e.get('entity_type')=='variety']
     geography_variant = geographic_query_variant(plan, entities)
     from app.services.resilient_topic_search import credit_free_mode
-    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, credit_free_mode(), plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant,primary_sources,primary_terms], sort_keys=True).encode()).hexdigest()
+    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, credit_free_mode(), plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant,primary_sources,primary_terms,reference_sources], sort_keys=True).encode()).hexdigest()
     path = inbox_dir / "topic_research_cache" / f"{key}.json"
     from app.services.research_source_cache import cached_sources,remember_sources,merge_source_records
     history,history_status=cached_sources(inbox_dir,plan)
@@ -148,6 +150,15 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         suffix = " ".join(str(v) for v in constraints.get("public_labels", []) if v)
         failures: list[str] = []
         candidates: dict[str, dict[str, Any]] = {}
+        for title, url in reference_sources:
+            identity = normalize_canonical_url(url)
+            if identity and is_public_http_url(url):
+                candidates[identity] = {
+                    "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16],
+                    "title": title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname,
+                    "snippet": "", "published_date": "", "provider": "local_primary_citation",
+                    "provider_rank": 0, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED",
+                }
         successes = 0
         for query in queries:
             try:
@@ -230,7 +241,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             rows = [r for r in rows if all(any(normalize(label) in normalize(" ".join(p for _, p in record_passages(r))) for label in group) for group in required_groups)]
         diagnostics=client.diagnostics() if hasattr(client,'diagnostics') else {}
         degraded=bool(diagnostics.get('fallback_used'))
-        result = {"items": rows, "status": "partial" if (failures or degraded) and successes else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
+        result = {"items": rows, "status": "partial" if (failures or degraded) and (successes or rows) else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.
         if not failures:

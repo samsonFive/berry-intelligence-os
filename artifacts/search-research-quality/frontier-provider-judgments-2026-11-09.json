@@ -31,5 +31,28 @@
       "reviewer": "Codex source inspection",
       "checked_at": "2026-11-09"
     }
+  },
+  "Variedades de zarzamora floricane para producción comercial en España": {
+    "https://www.berryneo.com/variedades-berryum/": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "Variedades BerrYum, Furia / Equa / Nemus / Kalika",
+      "reason": "The commercial catalog explicitly distinguishes floricane varieties and the partially primocane behavior of Equa.",
+      "event_group": "berryneo-berryum-commercial-portfolio",
+      "checked_against": "Original publisher catalog inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Varietà di mora senza spine Loch Katrine prove produttive Scozia": {
+    "https://www.berryplant.com/mora-3/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Loch Katrine cultivar section",
+      "reason": "The propagator identifies Loch Katrine, its thornless habit and the Scottish breeder. It gives a comparison with Loch Ness without locating or documenting a Scottish trial.",
+      "checked_against": "Original Italian catalog inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
   }
 }

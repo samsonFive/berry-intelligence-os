@@ -28,7 +28,20 @@ def owned_pdf_abstracts(rows):
     body = '\n'.join(parts)
     markers = list(re.finditer(r'(?m)^\s*(S\d{2}-[A-Z]-[OP]-\d{1,3})\s*$', body))
     if len(markers) < 2:
-        return rows
+        numbered = list(re.finditer(r'(?m)^[ \t]*(\d{1,2})\.[ \t]+(?=\S)', body))
+        sections = []
+        for start, stop in zip(numbered, numbered[1:]):
+            if int(stop[1]) != int(start[1]) + 1:
+                continue
+            section = body[start.start():stop.start()]
+            abstracts = list(re.finditer(r'(?im)^[ \t]*Abstract\s*:', section))
+            if len(abstracts) != 1 or abstracts[0].start() > 1000 or len(section) > 12000:
+                continue
+            pages = [n for lo, hi, n in spans if lo < stop.start() and hi > start.start()]
+            if 1 <= len(pages) <= 3:
+                locator = f'pdf:section:{start[1]}:pages:{pages[0]}-{pages[-1]}'
+                sections.append((locator, section.strip()))
+        return sections if len(sections) >= 2 else rows
     sections = []
     for i, marker in enumerate(markers):
         end = markers[i + 1].start() if i + 1 < len(markers) else len(body)

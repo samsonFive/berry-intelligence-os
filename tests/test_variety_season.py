@@ -1,11 +1,12 @@
 from pathlib import Path
+from shutil import copyfile
 from urllib.parse import urlsplit
 
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, select_autoescape
 
 from app.services.global_search import search_documents
 from app.services.topic_retrieval import match_record, plan_query
-from app.services.variety_season import blackberry_season, season_source_leads
+from app.services.variety_season import COMPARISON, blackberry_season, season_candidate_sources, season_source_leads
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -79,6 +80,89 @@ def test_public_discovery_can_find_season_source_without_named_cultivar():
     hits = client._registry("blackberry floricane licensing")
     assert [hit.url for hit in hits] == [url]
     assert "not verified" in hits[0].snippet
+
+
+def test_original_source_seeds_cover_uncataloged_names_and_spanish_market():
+    loch = season_candidate_sources(DATA, plan_query("Varietà di mora Loch Katrine prove produttive Scozia"))
+    spain = season_candidate_sources(DATA, plan_query("Variedades de zarzamora floricane en España"))
+    ervin = season_candidate_sources(DATA, plan_query("NC 740 blackberry high tunnel trial"))
+    assert any("hutton.ac.uk" in url for _, url in loch)
+    assert any("berryneo.com" in url for _, url in spain)
+    assert any("seregionalconference.org" in url for _, url in ervin)
+    assert not season_candidate_sources(DATA, plan_query("blackberry floricane -\"Loch Katrine\""))
+    assert not season_candidate_sources(DATA, plan_query("fresa floricane España"))
+
+
+def test_uncataloged_breeder_source_is_captured_during_provider_failure(tmp_path):
+    from app.services.topic_discovery import discover_topic
+
+    fixture = tmp_path / "data" / COMPARISON
+    fixture.parent.mkdir(parents=True)
+    copyfile(DATA / COMPARISON, fixture)
+
+    class OfflineProvider:
+        def search(self, query, *, max_results):
+            raise TimeoutError()
+
+    def fetch(url):
+        assert "hutton.ac.uk" in url or "berryplant.com" in url
+        return {
+            "headline": "Loch Katrine blackberry trial",
+            "passages": ["Loch Katrine is a thornless blackberry. Loch Katrine trial yields were comparable to Loch Ness."],
+            "canonical_url": url,
+            "availability": "full_text",
+        }
+
+    result = discover_topic(
+        plan_query("Loch Katrine blackberry trial yield"), inbox_dir=tmp_path / "inbox",
+        data_dir=tmp_path / "data", client=OfflineProvider(), fetcher=fetch, entities={},
+    )
+    assert result["status"] == "partial"
+    assert any("hutton.ac.uk" in row["source_url"] for row in result["items"])
+    assert all(row["trust_class"] == "LIVE / UNREVIEWED" for row in result["items"])
+
+
+def test_trial_comparator_is_owned_by_an_explicit_yield_comparison():
+    from app.services.topic_support import identity_in_passage
+
+    entity = {"name": "Ouachita", "berry_ids": ["berry-blackberry"]}
+    assert identity_in_passage("Total yield was similar to Von and Ouachita in year one.", entity)
+    assert not identity_in_passage("Yield was measured at harvest. Conditions were similar to Ouachita.", entity)
+    assert not identity_in_passage("Total yield was similar to Ouachita County.", entity)
+
+
+def test_numbered_poster_excerpts_do_not_mix_two_crops_on_one_page():
+    from app.services.source_passage_scope import owned_pdf_abstracts
+
+    rows = [
+        ("pdf:page:9", "[PDF page 9]\n10. Grape trial\nResearchers\nAbstract: Grapes were evaluated."),
+        ("pdf:page:10", "[PDF page 10]\n11. Blackberry trial\nResearchers\nAbstract: NC 740 yielded"),
+        ("pdf:page:11", "[PDF page 11]\nwell.\n12. Strawberry trial\nResearchers\nAbstract: Strawberries were evaluated."),
+    ]
+    results = dict(owned_pdf_abstracts(rows))
+    blackberry = results["pdf:section:11:pages:10-11"]
+    assert "NC 740 yielded\nwell." in blackberry
+    assert "Grapes" not in blackberry and "Strawberry" not in blackberry
+
+
+def test_multilingual_crop_words_block_off_crop_benchmark_results():
+    french = plan_query("Comparaison des variétés de framboise remontante en tunnel en France")
+    spanish = plan_query("Fresa variedades tolerantes al calor ensayo Huelva")
+    assert "raspberry" in french.terms and "strawberry" in spanish.terms
+    assert french.cane_type == "primocane" and not plan_query("fraise remontante").cane_type
+    assert {"blackberry", "thornless", "scotland", "trial"} <= set(
+        plan_query("Varietà di mora senza spine Loch Katrine prove produttive Scozia").terms
+    )
+    assert not match_record({
+        "title": "Comparaison des pratiques en France",
+        "body_text": "Comparaison des variétés de pratiques en tunnel en France.",
+    }, french)
+    assert not match_record({
+        "title": "Variedades de patata tolerantes al calor",
+        "body_text": "Un ensayo sobre variedades tolerantes al calor en Huelva.",
+    }, spanish)
+    assert "blueberry" in plan_query("Arándano cosecha mecánica cultivares ensayo Perú").terms
+    assert "blueberry" not in plan_query("Arándanos rojos frescos").terms
 
 
 def test_comparison_renders_scoped_trial_and_distinct_citations():
