@@ -8,14 +8,16 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+from io import BytesIO
 import json
 import math
 from pathlib import Path
 import statistics
 import subprocess
 import sys
+import tarfile
+import tempfile
 import time
-import types
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -46,6 +48,36 @@ def load_records(folder):
     return [json.loads(p.read_text(encoding="utf-8")) for p in folder.rglob("*.json")]
 
 
+def archive_baseline(old_sha, queries, entities, records):
+    """Run the old search and its imports against the same supplied corpus."""
+    archive = subprocess.check_output(["git", "archive", old_sha, "app"], cwd=ROOT)
+    code = """
+import json
+import sys
+
+from app.services.global_search import SearchPools, build_search_documents, search_global
+
+inputs = json.load(sys.stdin)
+pools = SearchPools(entities=inputs["entities"], published_evidence=inputs["records"])
+documents = build_search_documents(pools, include_private=False)
+results = []
+for query in inputs["queries"]:
+    result = search_global(query, pools, documents=documents, limit_per_group=20, sort="relevance")
+    results.append([row["id"] for group in result["groups"] if group["id"] == "intelligence"
+                    for row in group["in_context"] + group["also_global"]][:20])
+print(json.dumps(results))
+"""
+    with tempfile.TemporaryDirectory(prefix="archive-search-", dir=ROOT / "inbox") as work:
+        with tarfile.open(fileobj=BytesIO(archive)) as source:
+            source.extractall(work, filter="data")
+        output = subprocess.check_output(
+            [sys.executable, "-c", code], cwd=work,
+            input=json.dumps({"queries": queries, "entities": entities, "records": records}).encode(),
+        )
+    by_id = {row["id"]: row for row in records}
+    return [[by_id[record_id] for record_id in ids if record_id in by_id] for ids in json.loads(output)]
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
@@ -68,13 +100,8 @@ def main():
     entities = {r["id"]: r for r in entities_list if r.get("id")}
     records = load_records(ROOT / "data/evidence")
     old_sha = subprocess.check_output(["git", "rev-parse", args.old_ref], cwd=ROOT, text=True).strip()
-    code = subprocess.check_output(["git", "show", f"{old_sha}:app/services/global_search.py"], cwd=ROOT, text=True, encoding="utf-8")
-    old = types.ModuleType("benchmark_old_global_search")
-    sys.modules[old.__name__] = old
-    exec(compile(code, f"git:{old_sha}:global_search.py", "exec"), old.__dict__)
-    pools = old.SearchPools(entities=entities_list, published_evidence=records)
-    docs = old.build_search_documents(pools, include_private=False)
-    old_records = {r["id"]: r for r in records}
+    (ROOT / "inbox").mkdir(exist_ok=True)
+    old_results = archive_baseline(old_sha, queries, entities_list, records)
     baseline = json.loads(args.google_baseline.read_text(encoding="utf-8")) if args.google_baseline else {}
     google = {r["query"]: r for r in baseline.get("queries", [])}
     judgments = json.loads(args.judgments.read_text(encoding="utf-8")) if args.judgments else {}
@@ -119,8 +146,7 @@ def main():
         warm_started = time.monotonic()
         warm = discover_topic(plan, **discovery_args) if args.live else {}
         warm_latency = time.monotonic() - warm_started
-        before = old.search_global(query, pools, documents=docs, limit_per_group=20, sort="relevance")
-        before_rows = [old_records[r["id"]] for g in before["groups"] if g["id"] == "intelligence" for r in g["in_context"] + g["also_global"] if r["id"] in old_records][:20]
+        before_rows = old_results[i]
         judged = judgments.get(query) or {}
         evaluation = score_query({"query":query,"old_app":before_rows,"improved_app":ranked,"discovery":web}, judged, google.get(query))
         result = {"query": query, "split": "held_out" if i >= 18 else "development", "plan": plan.as_dict(), "old_app": before_rows, "improved_app": ranked, "google": google.get(query, {}).get("results", []), "google_depth_complete": bool(google.get(query, {}).get("complete_depth")), "discovery": {k: v for k, v in web.items() if k != "items"}, "cold_seconds": round(cold, 3), "warm_seconds": round(warm_latency, 3), "warm_queries": warm.get("queries_this_request"), "metrics": evaluation["metrics"], "judged_pool_complete":evaluation["judged_pool_complete"], "google_comparable":evaluation["google_comparable"]}
