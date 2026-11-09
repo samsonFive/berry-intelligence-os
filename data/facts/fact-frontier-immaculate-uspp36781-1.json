@@ -1,7 +1,7 @@
 {
   "id": "fact-frontier-immaculate-uspp36781-1",
   "record_type": "fact",
-  "statement": "The University of Arkansas patent repository records US plant patent PP36,781 for blackberry cultivar A-2491T.",
+  "statement": "The University of Arkansas patent repository records US plant patent PP36,781 for blackberry cultivar A-2718T, published July 1, 2025.",
   "classification": "claim",
   "confidence": "high",
   "status": "active",
@@ -14,7 +14,7 @@
     "variety-sweet-ark-immaculate-850b3936"
   ],
   "origin": "publication_claim_review",
-  "proposed_statement": "The University of Arkansas patent repository records US plant patent PP36,781 for blackberry cultivar A-2491T.",
+  "proposed_statement": "The University of Arkansas patent repository records US plant patent PP36,781 for blackberry cultivar A-2718T, published July 1, 2025.",
   "edited_before_approval": false,
   "reviewed_at": "2026-11-09"
 }
