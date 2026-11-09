@@ -42,6 +42,8 @@ Start with local reliability regressions, then deliver a browsable blackberry se
 
 ## Independent source review
 
+The [prospective question set](../../artifacts/search-research-quality/frontier-prospective-queries-2026-11-09.json) was committed at `e08f7c9a` before retrieval, covering all four crops in English, Spanish, French and Italian. The [same-day Google organic snapshot](../../artifacts/search-research-quality/frontier-prospective-google-organic-2026-11-09.json) contains ten links for each question. It uses a signed-in US English Chrome session. The harness now defaults live benchmarks to credit-free providers and requires `--allow-paid` to permit a configured paid provider.
+
 The [rank-free review pool](../../artifacts/search-research-quality/frontier-7b5587c4-blind-source-pool-2026-11-09.json) contains the source URLs from the frozen replay. Review each URL against the full question. Use grade 3 for direct evidence, 2 for substantial but incomplete evidence, 1 for background, and 0 for unrelated material. Record the exact supporting section and the event identity for direct developments, with duplicate announcements grouped. Record inaccessible sources separately. Bind app judgments to the captured version during scoring. The [partial score](../../artifacts/search-research-quality/frontier-7b5587c4-score-2026-11-09.json) still has 72 missing question–source judgments, including 13 access-limited cases. Aggregate parity remains unverified.
 
 ## First human review

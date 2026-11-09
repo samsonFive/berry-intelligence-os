@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from io import BytesIO
 import json
 import math
+import os
 from pathlib import Path
 import statistics
 import subprocess
@@ -81,6 +82,7 @@ print(json.dumps(results))
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
+    parser.add_argument("--allow-paid", action="store_true", help="Allow the configured paid provider during a live run")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--old-ref", default="origin/v2/intelligence-os")
     parser.add_argument("--google-baseline", type=Path)
@@ -89,6 +91,10 @@ def main():
     parser.add_argument("--public-output", type=Path, help="Path for the metadata-only snapshot")
     parser.add_argument("--output", type=Path, default=ROOT / "inbox/search-quality-evaluation/live.json")
     args = parser.parse_args()
+    if args.allow_paid and not args.live:
+        parser.error("--allow-paid requires --live")
+    if args.live and not args.allow_paid:
+        os.environ["BIOS_RESEARCH_CREDIT_FREE_ONLY"] = "1"
     queries = json.loads(args.cohort.read_text(encoding="utf-8")) if args.cohort else QUERIES
     if not isinstance(queries, list) or not queries or any(not isinstance(q, str) or not q.strip() for q in queries):
         parser.error("Cohort must be a nonempty JSON array of query strings")
