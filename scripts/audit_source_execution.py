@@ -55,7 +55,7 @@ def main(argv: list[str] | None = None) -> int:
     }
     if args.season_pilot or args.all_seasons:
         from urllib.parse import urlsplit
-        from app.services.article_dedup import normalize_canonical_url
+        from app.services.article_dedup import normalize_canonical_url, research_capture_url_key
         from app.services.research_source_cache import cached_source_urls
         from app.services.variety_season import SEASON_CROPS, comparison_path
         configured_hosts = {urlsplit(source.get("url") or "").hostname for source in sources}
@@ -71,7 +71,7 @@ def main(argv: list[str] | None = None) -> int:
                 {
                     "source_id": key, "title": title, "url": url,
                     "configured_host": urlsplit(url).hostname in configured_hosts,
-                    "captured_for_research": normalize_canonical_url(url) in captured if cache_status != "unavailable" else None,
+                    "captured_for_research": research_capture_url_key(url) in captured if cache_status != "unavailable" else None,
                     "published_evidence": normalize_canonical_url(url) in published,
                 }
                 for key, (title, url, _) in pilot["sources"].items()

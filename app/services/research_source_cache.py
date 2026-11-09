@@ -34,7 +34,7 @@ def cached_source_urls(inbox_dir):
 
 def remember_sources(inbox_dir,records):
     from app.services.feed_first_reader import is_public_http_url
-    from app.services.article_dedup import normalize_canonical_url
+    from app.services.article_dedup import research_capture_url_key
     from app.services.topic_retrieval import normalize
     try:
         path=_path(inbox_dir);path.parent.mkdir(parents=True,exist_ok=True)
@@ -55,7 +55,7 @@ def remember_sources(inbox_dir,records):
         public['article']={'paragraphs':[{key:p[key]for key in ('index','locator','text')if key in p}for p in paragraphs if isinstance(p,dict)]}
         encoded=json.dumps(public,ensure_ascii=False)
         if len(encoded.encode())>MAX_RECORD_BYTES:continue
-        accepted.append((normalize_canonical_url(url),record['source_version'],encoded,normalize(str(record.get('title')or'')),normalize(body)))
+        accepted.append((research_capture_url_key(url),record['source_version'],encoded,normalize(str(record.get('title')or'')),normalize(body)))
     if not accepted:return {'status':'unchanged','stored':0}
     try:
         with sqlite3.connect(path,timeout=3)as db:
@@ -109,10 +109,10 @@ def cached_sources(inbox_dir,plan,*,limit=150):
 
 
 def merge_source_records(*groups):
-    from app.services.article_dedup import normalize_canonical_url
+    from app.services.article_dedup import research_capture_url_key
     rows={}
     for group in groups:
         for row in group:
-            key=normalize_canonical_url(row.get('source_url'))or row.get('id')
+            key=research_capture_url_key(row.get('source_url'))or row.get('id')
             if key:rows[key]=row
     return list(rows.values())

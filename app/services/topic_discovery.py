@@ -18,14 +18,14 @@ from urllib.parse import urlsplit
 
 from app.services.ai_gateway.credentials import resolve_perplexity_api_key, MissingCredentialError
 from app.services.ai_gateway.perplexity_search import PerplexitySearchClient
-from app.services.article_dedup import normalize_canonical_url
+from app.services.article_dedup import normalize_canonical_url, research_capture_url_key
 from app.services.feed_first_reader import fetch_public_article, is_public_http_url
 from app.services.open_research_copy import fetch_topic_source
 from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v18'  # Read explicitly cited PDF pages within the worker budget.
+CAPTURE_VERSION = 'topic-capture-v19'  # Keep cited PDF pages distinct during capture.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -151,7 +151,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         failures: list[str] = []
         candidates: dict[str, dict[str, Any]] = {}
         for title, url, subject in reference_sources:
-            identity = normalize_canonical_url(url)
+            identity = research_capture_url_key(url)
             if identity and is_public_http_url(url):
                 candidates[identity] = {
                     "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16],
@@ -168,7 +168,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 canonical = captured.get("canonical_url") or row["source_url"]
                 if not is_public_http_url(canonical):
                     canonical = row['source_url']
-                identity = normalize_canonical_url(canonical)
+                identity = research_capture_url_key(canonical)
                 locators = captured.get('passage_locators') or []
                 paragraphs = [{'index':i,'text':str(p), **({'locator':locators[i]} if i<len(locators) else {})} for i,p in enumerate(body)]
                 row['capture_provenance'] = {k:captured[k] for k in ('method','copy_scope','original_url','repository_identifiers','original_capture_status','original_capture_reason') if k in captured}
@@ -203,7 +203,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 successes += 1
                 for rank, hit in enumerate(response.hits, 1):
                     url = hit.url
-                    identity = normalize_canonical_url(url)
+                    identity = research_capture_url_key(url)
                     if not identity or not is_public_http_url(url):
                         continue
                     candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
@@ -238,7 +238,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 response = client.search(query, max_results=10)
                 successes += 1
                 for rank, hit in enumerate(response.hits, 1):
-                    identity = normalize_canonical_url(hit.url)
+                    identity = research_capture_url_key(hit.url)
                     if identity and is_public_http_url(hit.url):
                         candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": hit.url, "url": hit.url, "source_name": urlsplit(hit.url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
             except Exception as exc:
@@ -251,7 +251,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             ordered = sorted(
                 candidates.values(),
                 key=lambda row: (
-                    normalize_canonical_url(row['source_url']) in first_identities,
+                    research_capture_url_key(row['source_url']) in first_identities,
                     any(normalize(name) in normalize(row['title']) for name in followed),
                 ),
                 reverse=True,
@@ -260,7 +260,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             completed = {}
             positions = {}
             for i, row in enumerate(bounded):
-                identity = normalize_canonical_url(row['source_url'])
+                identity = research_capture_url_key(row['source_url'])
                 if identity in prefetched:
                     completed[i] = prefetched[identity]
                 else:
