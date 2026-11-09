@@ -50,6 +50,44 @@ def _client() -> TestClient:
     return TestClient(app, follow_redirects=False)
 
 
+def test_authenticated_search_and_season_filter_round_trip(monkeypatch) -> None:
+    from lxml import html
+
+    _enable_remote(monkeypatch)
+    client = TestClient(app, base_url="https://testserver", follow_redirects=False)
+    search_url = "/search?q=Blackberry+Floricans&berry=berry-blackberry"
+    anonymous = client.get(search_url)
+    assert anonymous.status_code == 302
+    assert anonymous.headers["location"].startswith("/login?next=")
+    login = client.post("/login", data={"username": OPERATOR, "password": PASSWORD, "next": search_url})
+    assert login.status_code == 303
+    assert login.headers["location"] == "/guide"
+    search = client.get(search_url)
+    assert search.status_code == 200
+    form = html.fromstring(search.text).xpath('//form[@action="/search"]')[0]
+    form.fields["sort"] = "newest"
+    form.fields["include_global"] = "0"
+    filtered = client.get(form.action, params=form.form_values())
+    assert filtered.status_code == 200
+    page = html.fromstring(filtered.text)
+    current_form = page.xpath('//form[@action="/search"]')[0]
+    assert current_form.fields["berry"] == "berry-blackberry"
+    assert current_form.fields["sort"] == "newest"
+    assert current_form.fields["include_global"] == "0"
+
+    season_url = page.xpath('//section[@aria-label="2027 blackberry season comparison"]//h2/a/@href')[0]
+    season = client.get(season_url)
+    assert season.status_code == 200
+    form = html.fromstring(season.text).xpath('//form[@action="/varieties/season"]')[0]
+    form.fields["q"] = "NC 740"
+    form.fields["system"] = "High tunnel"
+    result = client.get(form.action, params=form.form_values())
+    assert result.status_code == 200
+    assert "1 matching variety" in result.text and "Mills River, NC" in result.text
+    reload = client.get(str(result.url))
+    assert reload.status_code == 200 and "1 matching variety" in reload.text
+
+
 def test_local_mode_does_not_require_auth() -> None:
     client = TestClient(app)
     response = client.get("/healthz")
