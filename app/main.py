@@ -6032,6 +6032,7 @@ async def _finish_research_live(request, payload, scope, entities, started, prog
         background_hits=week_background_hits(inbox_dir=INBOX_DIR),
         **({'progress':progress} if progress else {}),
     )
+    topic_status = None
     if use_topic_capture:
         from app.services.topic_discovery import discover_topic
         if scope.publication_start or scope.publication_end:
@@ -6041,6 +6042,7 @@ async def _finish_research_live(request, payload, scope, entities, started, prog
         geo_groups = [[str(name) for eid in ids if eid in entities for name in [entities[eid].get("name"), *(entities[eid].get("aliases") or [])] if name] for ids in (scope.geography_ids, scope.company_ids, scope.variety_ids) if ids]
         public_labels = [str(entities[e].get("name") or "") for e in (*scope.company_ids, *scope.variety_ids, *scope.geography_ids) if e in entities]
         discovered = await asyncio.to_thread(discover_topic, topic_plan, inbox_dir=INBOX_DIR, entities=entities, data_dir=DATA_DIR, constraints={"public_labels": public_labels, "required_label_groups": geo_groups}, **({"progress":progress} if progress else {}))
+        topic_status = discovered.get("status")
         live = {
             **live,
             "query": topic_plan.interpreted_query,
@@ -6053,7 +6055,7 @@ async def _finish_research_live(request, payload, scope, entities, started, prog
     queried = [row for row in (live.get("telemetry") or {}).values() if row.get("queries", 0) > 0]
     errors = sum(row.get("errors", 0) for row in queried)
     successes = sum(row.get("queries", 0) - row.get("errors", 0) for row in queried)
-    live_status = "partial" if errors and successes else "failed" if errors else "complete" if successes else "unavailable"
+    live_status = topic_status or ("partial" if errors and successes else "failed" if errors else "complete" if successes else "unavailable")
     if scope.comparison and not scope.company_ids:
         comparison_ids = comparison_candidate_ids(
             scope,
