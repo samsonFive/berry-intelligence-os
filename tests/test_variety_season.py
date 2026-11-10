@@ -312,3 +312,33 @@ def test_comparison_retrieves_two_cultivar_rows_only_from_the_same_trial_table()
     assert direct["relevance"] == "direct"
     assert all(value in direct["passage"] for value in ("41.9", "66.9", "Yield (g/plant)"))
     assert result(rows[:4] + rows[1:3] + rows[4:])["relevance"] != "direct"
+
+
+
+def test_season_overview_returns_cited_background_without_claiming_2027_supply(tmp_path):
+    from app.services.ai_gateway.results import SearchResponse
+    from app.services.topic_discovery import discover_topic
+
+    fixture = tmp_path / "data" / COMPARISON
+    fixture.parent.mkdir(parents=True)
+    copyfile(DATA / COMPARISON, fixture)
+    queries = []
+
+    class EmptyProvider:
+        def search(self, query, **kwargs):
+            queries.append(query)
+            return SearchResponse("fixture", query, (), 0.01)
+
+    def fetch(url):
+        return {"headline": "Meet Ervin Blackberry", "availability": "full", "passages": [
+            "Ervin is a floricane-fruiting blackberry variety introduced by NC State."
+        ]}
+
+    question = "Which blackberry floricane varieties are of note for 2027?"
+    result = discover_topic(plan_query(question), inbox_dir=tmp_path / "inbox", client=EmptyProvider(), fetcher=fetch, data_dir=tmp_path / "data")
+    assert queries[0] == question
+    assert any(row["source_url"].startswith("https://rubus.ces.ncsu.edu/") for row in result["items"])
+    assert all(row["relevance"] == "background" for row in result["items"])
+    spain = season_candidate_sources(tmp_path / "data", plan_query(question + " in Spain"))
+    assert any("berryneo.com" in url for _, url, _ in spain)
+    assert all("rubus.ces.ncsu.edu" not in url for _, url, _ in spain)
