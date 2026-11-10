@@ -25,6 +25,7 @@
   <a href="#collection-lock">Lock</a>
   <a href="#collection-last-run">Last run</a>
   <a href="#collection-history">History</a>
+  {% if priority_news_routes %}<a href="#collection-news-routes">News routes</a>{% endif %}
   <a href="#collection-extraction">Extraction</a>
   <a href="#collection-sources">Degraded Sources</a>
   {% if not static_build %}<a href="#collection-run-now">Run now</a>{% endif %}
@@ -127,6 +128,31 @@
     <p class="empty-state pvs-system-state" role="status">No collection runs recorded yet.</p>
   {% endif %}
 </section>
+
+{% if priority_news_routes %}
+<section class="v2-company-section ops-section" id="collection-news-routes">
+  <h2>Priority News routes</h2>
+  <p class="context-limit">Discovery results from recent News runs. Candidate counts are before topic screening and deduplication. Indexed routes provide links and metadata.</p>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead><tr><th>Publisher</th><th>Region</th><th>Route</th><th>Last check (UTC)</th><th>Last success (UTC)</th><th>Outcome</th><th>Candidates</th></tr></thead>
+      <tbody>
+        {% for row in priority_news_routes %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ {'global': 'Global', 'americas': 'Americas', 'europe': 'Europe', 'africa': 'Africa', 'apac': 'Asia-Pacific'}[row.geography] }}</td>
+          <td>{{ 'Publisher RSS' if row.route == 'direct_rss' else 'Indexed search' }}{% if row.hl %} · {{ row.hl }}{% endif %}</td>
+          <td>{{ row.last_check[:16]|replace('T', ' ') if row.last_check else '—' }}</td>
+          <td>{{ row.last_success[:16]|replace('T', ' ') if row.last_success else '—' }}</td>
+          <td>{{ {'returned': 'Returned candidates', 'no_hits': 'Checked, no candidates', 'failed': 'Check failed', 'paused': 'Paused', 'unverified': 'Unverified'}[row.status] }}{% if row.stale %} · Stale{% endif %}</td>
+          <td>{{ row.hits if row.hits is defined and row.status != 'failed' else '—' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
 
 <section class="v2-company-section ops-section" id="collection-extraction">
   <h2>Extraction</h2>

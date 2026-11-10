@@ -24,10 +24,12 @@ import os
 import subprocess
 import sys
 from datetime import UTC, datetime, timedelta
+from math import ceil
 from pathlib import Path
 from typing import Any, Callable
 
 from app.services.ai_extraction import EXTRACTION_VERSION, PROMPT_VERSION
+from app.services.chronology import parse_stamp
 from app.services.collection_runner import ExtractionGate, OperationalStateStore, resolve_extraction_gate
 from app.services.collection_status import CollectionStatusService
 from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
@@ -162,6 +164,48 @@ def list_recent_runs(inbox_dir: Path, *, limit: int = RUN_HISTORY_LIMIT) -> list
             }
         )
     return rows
+
+
+def priority_news_route_health(inbox_dir: Path) -> list[dict[str, Any]]:
+    """Latest observed publisher checks from private News run receipts."""
+    from app.services.collection_settings import effective_feeds
+    from app.services.feed_first_live import PRIORITY_PUBLISHER_QUERY_CAP
+    from app.services.industry_pulse.specialist_feeds import priority_publisher_feeds
+
+    feeds = priority_publisher_feeds()
+    enabled = {feed["id"]: feed for feed in effective_feeds(feeds, inbox_dir)}
+    rows = {
+        feed["id"]: {**enabled.get(feed["id"], feed), "status": "unverified" if feed["id"] in enabled else "paused"}
+        for feed in feeds
+    }
+    ticks_per_rotation = ceil(sum(key in enabled for key in rows) / PRIORITY_PUBLISHER_QUERY_CAP)
+    # Each route gets a turn once per rotation of the 15-minute News timer.
+    stale_after = timedelta(minutes=2 * 15 * ticks_per_rotation)
+    runs = Path(inbox_dir) / "operations" / "pipelines" / "news_workspace_refresh" / "runs"
+    now = datetime.now(UTC)
+    for path in sorted(runs.glob("*.json"), reverse=True)[:RUN_HISTORY_LIMIT]:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not isinstance(payload, dict):
+            continue
+        checked = parse_stamp(payload.get("completed_at"))
+        if not checked:
+            continue
+        for attempt in payload.get("route_attempts") or []:
+            if not isinstance(attempt, dict):
+                continue
+            row = rows.get(attempt.get("query_id"))
+            status = attempt.get("status")
+            if not row or row["status"] == "paused" or status not in {"returned", "no_hits", "failed"}:
+                continue
+            if not row.get("last_check"):
+                row.update(status=status, last_check=checked.isoformat(), hits=attempt.get("hits"),
+                           stale=now - checked > stale_after)
+            if status != "failed" and not row.get("last_success"):
+                row["last_success"] = checked.isoformat()
+    return list(rows.values())
 
 
 def _default_run_executor(command: list[str]) -> subprocess.CompletedProcess[str]:

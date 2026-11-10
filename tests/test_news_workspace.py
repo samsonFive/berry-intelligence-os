@@ -1,6 +1,7 @@
 """Core feed ordering/scope, source trust and read-only entry points."""
 from copy import deepcopy
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
+import json
 
 import pytest
 from fastapi.testclient import TestClient
@@ -53,6 +54,16 @@ def test_media_filters_reuse_scope_relevance_and_trust():
     assert not ids(project(rows, {'media': 'video', 'window': 'today'}))
     with pytest.raises(ValueError, match='media'):
         project(rows, {'media': 'invalid'})
+
+
+def test_relevant_public_record_enters_unreviewed_news():
+    notice = article('ev-official-recall', source_type='government_document',
+                     title='Recall of frozen blueberries after contamination concern',
+                     summary='The food regulator announced the frozen blueberry recall and affected lots.')
+    unrelated = article('ev-official-unrelated', source_type='government_document',
+                        title='Update on steel tariffs', summary='The government published tariffs for imported steel.')
+    assert ids(project([notice, unrelated])) == ['ev-official-recall']
+    assert not ids(project([notice], {'view': 'trusted'}))
 
 
 def test_declared_blog_source_does_not_require_blog_in_article_path():
@@ -345,6 +356,31 @@ def test_refresh_is_explicit_locked_public_only_and_has_health(workspace, monkey
     assert all(calls[0][key] is False for key in ('enable_perplexity', 'enable_exa', 'enable_apitube', 'enrich_lead'))
     assert workspace.get('/api/news/refresh').json()['status'] == 'ready'
     assert len(list((main.INBOX_DIR / 'operations/pipelines/news_workspace_refresh/runs').glob('*.json'))) == 1
+
+
+def test_news_route_attempt_receipt_feeds_collection_ops(tmp_path, monkeypatch):
+    from app import news_workspace_routes
+    from app.services.collection_ops import priority_news_route_health
+
+    route = {'query_id': 'feed:priority:latimes:business', 'provider': 'specialist_rss',
+             'status': 'returned', 'hits': 4, 'edition': 'US:en'}
+    monkeypatch.setattr('app.services.feed_first_live.live_feed_bundle',
+                        lambda **kwargs: {'records': [article()], 'route_attempts': [route]})
+    monkeypatch.setattr(news_workspace_routes, 'classify_stored_tags', lambda: None)
+    context = {'entities': [], 'official_hosts': set(), 'official_host_map': {}, 'muted_entity_ids': set()}
+    news_workspace_routes.run_refresh(tmp_path, context, [])
+    runs = list((tmp_path / 'operations/pipelines/news_workspace_refresh/runs').glob('*.json'))
+    assert len(runs) == 1
+    assert json.loads(runs[0].read_text(encoding='utf-8'))['route_attempts'] == [route]
+    routes = {item['id']: item for item in priority_news_route_health(tmp_path)}
+    assert routes[route['query_id']]['hits'] == 4
+    assert routes['feed:priority:wsj:indexed']['status'] == 'unverified'
+    receipt = json.loads(runs[0].read_text(encoding='utf-8'))
+    for age, stale in [(50, False), (95, True)]:
+        receipt['completed_at'] = (datetime.now(UTC) - timedelta(minutes=age)).isoformat()
+        runs[0].write_text(json.dumps(receipt), encoding='utf-8')
+        routes = {item['id']: item for item in priority_news_route_health(tmp_path)}
+        assert routes[route['query_id']]['stale'] is stale
 
 
 def test_refresh_cross_site_read_only_and_failure_disclosure(workspace, monkeypatch):

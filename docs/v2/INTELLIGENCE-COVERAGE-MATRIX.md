@@ -1,3 +1,22 @@
+# Global berry news candidate — November 10, 2026
+
+The candidate adds bounded regional-edition searches and publisher-specific
+checks to the existing News refresh across strawberry, blueberry, raspberry,
+and blackberry. It schedules direct publisher RSS alongside indexed routes in
+the Americas, Europe, Africa, and Asia-Pacific. Collection Ops distinguishes
+an unverified route, a completed empty check, returned candidates, and a failed
+check. The route counts are discovery results before screening or deduplication.
+
+The launch inventory covers 60 source candidates. Nine publisher feeds returned
+parseable XML in a one-time public check, including two already in the catalog.
+The frozen reference sample covers 31 developments in five languages, with
+SoCal as a separate case. A November 10 isolated snapshot returned 101 retained
+records at baseline and 122 in the wider diagnostic run. The diagnostic captured
+the direct Los Angeles Times SoCal link. Neither run matched a frozen reference
+URL in the 31-event sample. The sample spans 90 days and the snapshots use
+shorter discovery windows. Archive recall, prospective lag, and alert precision
+remain to be measured.
+
 # Fruitist blueberry source coverage — November 5, 2026
 
 Three original source sections add 14 name occurrences for the existing Fruitist

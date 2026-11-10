@@ -10,6 +10,38 @@ from app.services import publisher_coverage as coverage
 from app.services.presentation_memo import ByteMemo, json_call_memo
 from app.services.source_body import reader_content
 
+
+def test_priority_publisher_index_only_attributes_matching_outlet():
+    import feedparser
+
+    from app.services.industry_pulse.specialist_feeds import SpecialistRssProvider, week_specialist_feed_queries
+
+    query = next(row for row in week_specialist_feed_queries(include_priority=True) if row.id == 'feed:priority:independent:indexed')
+    raw = b'''<rss version="2.0"><channel>
+        <item><title>Berry closure</title><link>https://news.google.com/rss/articles/case</link>
+          <source url="https://www.the-independent.com">The Independent</source></item>
+        <item><title>Republished berry closure</title><link>https://news.google.com/rss/articles/mirror</link>
+          <source url="https://www.aol.com">AOL</source></item>
+        </channel></rss>'''
+    provider = SpecialistRssProvider(fetch=lambda url: (feedparser.parse(raw), raw))
+    hits = provider.discover(query)
+    assert [hit.source_domain for hit in hits] == ['the-independent.com']
+    assert hits[0].provider_metadata['publisher_route'] == 'indexed'
+    assert hits[0].wrapper_url == 'https://news.google.com/rss/articles/case'
+
+
+def test_priority_publisher_html_response_is_route_failure():
+    import feedparser
+
+    from app.services.industry_pulse.specialist_feeds import SpecialistRssProvider, week_specialist_feed_queries
+
+    query = next(row for row in week_specialist_feed_queries(include_priority=True) if row.id == 'feed:priority:jagodnik:rss')
+    raw = b'<html><body>Service unavailable</body></html>'
+    provider = SpecialistRssProvider(fetch=lambda url: (feedparser.parse(raw), raw))
+    assert (query.hl, query.gl, query.ceid) == ('pl-PL', 'PL', 'PL:pl')
+    with pytest.raises(ValueError, match='did not return RSS or Atom'):
+        provider.discover(query)
+
 TITLE = 'Farmers publish new research on sustainable berry production'
 URL = 'https://publisher.example/news/sustainable-berries'
 TEXT = ('The growers measured crop production and resource use across multiple seasons. ' * 12)

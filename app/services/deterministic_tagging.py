@@ -11,6 +11,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
+_APOSTROPHES = str.maketrans("‘’", "''")
+
 BERRY_TERMS: tuple[tuple[str, tuple[str, ...]], ...] = (
     # French "myrtille(s)" and Italian "mirtillo"/"mirtilli" added for
     # Evidence Berry Tagging Backfill V1 (2026-08-22) -- mirrors the species
@@ -62,7 +64,7 @@ def matchers_from_entities(
         if not entity_id:
             continue
         for name in [entity.get("name", "")] + list(entity.get("aliases") or []):
-            text = str(name or "").strip()
+            text = str(name or "").strip().translate(_APOSTROPHES)
             if len(text) < 4:
                 continue
             matchers.append((entity_id, re.compile(r"\b" + re.escape(text) + r"\b", re.IGNORECASE)))
@@ -76,8 +78,9 @@ def apply_known_name_matches(
     geo_matchers: list[tuple[str, re.Pattern[str]]],
     company_matchers: list[tuple[str, re.Pattern[str]]],
 ) -> dict[str, Any]:
-    matched_geo = {eid for eid, pattern in geo_matchers if pattern.search(haystack)}
-    matched_ent = {eid for eid, pattern in company_matchers if pattern.search(haystack)}
+    searchable_text = haystack.translate(_APOSTROPHES)
+    matched_geo = {eid for eid, pattern in geo_matchers if pattern.search(searchable_text)}
+    matched_ent = {eid for eid, pattern in company_matchers if pattern.search(searchable_text)}
     if matched_geo:
         record["geography_ids"] = sorted(set(record.get("geography_ids") or []) | matched_geo)
     if matched_ent:

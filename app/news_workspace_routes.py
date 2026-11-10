@@ -278,6 +278,8 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
     from app.services.clock import utc_today
     started = datetime.now(UTC)
     result = {"status": "running", "started_at": started.isoformat()}
+    route_attempts = []
+    error_class = None
     try:
         with pipeline_lock(inbox_dir, "news_workspace_refresh"):
             atomic_json(refresh_path(inbox_dir), result)
@@ -293,12 +295,14 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
                                       fetch_preview_images=False, translate_live=False)
             errors = bundle.get("lane_errors") or []
             errors = errors + [row for row in coverage if row.get('status') in {'failed', 'partial'}]
+            route_attempts = bundle.get("route_attempts") or []
             # Publish fresh stories immediately. Images and optional translation
             # must not hold the news view behind additional publisher requests.
             result.update(status="partial" if errors else "ready", story_count=len(bundle.get("records") or []),
                           error_count=len(errors), message="Some sources could not be checked." if errors else "News capture completed.")
-    except Exception:
+    except Exception as exc:
         # Provider details and exception traces belong in operations, never UI.
+        error_class = type(exc).__name__
         result.update(status="failed", error_count=1, message="News could not be refreshed. Another collection may be running; try again.")
     if result.get('status') in {'ready', 'partial'}:
         try:
@@ -316,6 +320,8 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
         "started_at": result["started_at"], "completed_at": result["completed_at"],
         "failure_count": result.get("error_count", 0), "items_new": result.get("story_count", 0), "publication_drafts": 0,
         "counts": {"items_new": result.get("story_count", 0), "publication_drafts_created": 0},
+        "route_attempts": route_attempts,
+        "error_class": error_class,
     })
 
 

@@ -6723,6 +6723,8 @@ def collection_ops_page(request: Request, ran: str = "", reason: str = "") -> HT
     status machinery (CollectionStatusService, CollectionRunner run
     history, Source health) -- read-only by construction; rendering this
     page never starts a run, retries anything, or touches the lock."""
+    from app.services.collection_ops import priority_news_route_health
+
     repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
     report = build_status_report(repositories=repositories, data_dir=DATA_DIR, inbox_dir=INBOX_DIR)
     sources = load_sources()
@@ -6734,6 +6736,7 @@ def collection_ops_page(request: Request, ran: str = "", reason: str = "") -> HT
         context={
             "report": report,
             "recent_runs": list_recent_runs(INBOX_DIR),
+            "priority_news_routes": priority_news_route_health(INBOX_DIR),
             "degraded_sources": degraded_sources,
             "run_size_choices": RUN_SIZE_CHOICES,
             "default_run_size": DEFAULT_RUN_SIZE,

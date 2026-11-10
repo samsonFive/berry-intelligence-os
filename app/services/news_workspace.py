@@ -22,6 +22,7 @@ NEWS_TYPES = {
     "brand_website", "industry_association_report", "industry_association_profile",
     "research_program_publication", "private_equity_press_release", "press_release",
     "news_article", "newsletter", "industry_report", "blog", "industry_blog",
+    "government_document",
 }
 MEDIA_CHOICES = {'': 'All media', 'article': 'Articles', 'blog': 'Blogs', 'video': 'Videos / webinars', 'podcast': 'Podcasts'}
 

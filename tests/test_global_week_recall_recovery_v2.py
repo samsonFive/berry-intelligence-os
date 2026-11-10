@@ -28,6 +28,7 @@ from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import MemoryProvider
 from app.services.industry_pulse.qualify import qualify_hit
 from app.services.industry_pulse.specialist_feeds import (
+    PRIORITY_PUBLISHER_PREFIX,
     WEEK_SPECIALIST_FEEDS,
     SpecialistRssProvider,
     week_specialist_feed_queries,
@@ -103,8 +104,9 @@ def test_specialist_catalog_covers_required_publishers():
         "thepacker.com",
     ):
         assert host in hosts
-    assert {q.id for q in week_specialist_feed_queries()} == {feed['id'] for feed in configured_feeds()}
-    assert len(configured_feeds()) == len(WEEK_SPECIALIST_FEEDS) + 8
+    ordinary_feeds = {feed['id'] for feed in configured_feeds() if not feed['id'].startswith(PRIORITY_PUBLISHER_PREFIX)}
+    assert {q.id for q in week_specialist_feed_queries()} == ordinary_feeds
+    assert len(ordinary_feeds) == len(WEEK_SPECIALIST_FEEDS) + 8
 
 
 def test_specialist_rss_maps_article_feed_without_google_when():

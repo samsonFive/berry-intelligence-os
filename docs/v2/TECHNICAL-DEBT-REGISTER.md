@@ -1,3 +1,12 @@
+# Global berry news coverage gaps — November 10, 2026
+
+The global News candidate adds route-level discovery evidence. Publisher and
+regional searches still share an upstream index. Direct official record
+collection, source intake for previously unknown outlets, publication-to-feed
+latency, and source-link recall remain open. The candidate also needs prospective
+checks in poorly represented languages and districts, independent access controls
+for NYT and WSJ, and a production trace for the original SoCal miss.
+
 # Full Reader timeout — November 5, 2026 Pacific
 
 The approved [Reader #522](https://github.com/samsonFive/berry-intelligence-os/pull/522)

@@ -1,6 +1,6 @@
 """Live acquisition for the feed-first Today surface.
 
-Keyless lanes: Google News RSS (when:1d) and specialist / official site RSS.
+Keyless lanes: global and regional Google News RSS, specialist and official sites.
 Keyed request-time lanes when canonical names resolve: Perplexity Search,
 Exa, and APITube. Prefer ``EXA_API_KEY`` / ``APITUBE_API_KEY`` /
 ``PERPLEXITY_API_KEY``. NewsCatcher CatchAll is never request-time on Today.
@@ -26,6 +26,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
+from app.services.analyst_state_io import atomic_json
 from app.services.article_dedup import normalize_canonical_url
 from app.services.clock import utc_today
 from app.services.industry_pulse.dedup import dedupe_hits, unique_hits
@@ -44,9 +45,16 @@ from app.services.industry_pulse.matrix import (
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
 from app.services.industry_pulse.providers import DiscoveryProvider, GoogleNewsRssProvider
-from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
+from app.services.industry_pulse.qualify import QualificationIndex, has_cultivar_context, qualify_hit
+from app.services.industry_pulse.regional_news import (
+    REGIONAL_NEWS_PROVIDER,
+    regional_crop_ids,
+    regional_news_queries,
+    uses_regional_metadata,
+)
 from app.services.industry_pulse.run import names_from_entities
 from app.services.industry_pulse.specialist_feeds import (
+    PRIORITY_PUBLISHER_PREFIX,
     configured_feeds,
     SpecialistRssProvider,
     week_specialist_feed_queries,
@@ -73,6 +81,10 @@ OFFICIAL_HOSTS = {
     "britishberrygrowers.org.uk",
 }
 OFFICIAL_SITE_HOST_CAP = 6
+REGIONAL_QUERY_CAP = 4
+REGIONAL_ROTATION = "regional_news_rotation"
+PRIORITY_PUBLISHER_QUERY_CAP = 7
+PRIORITY_PUBLISHER_ROTATION = "priority_publisher_rotation"
 _GEO_EXTRA_ALIASES = {
     "geography-united-states": ("u.s.", "u.s.a.", "usa"),
 }
@@ -222,6 +234,8 @@ class RelabeledProvider:
         for hit in self.inner.discover(query):
             payload = hit.as_dict()
             payload["provider"] = self.name
+            if self.name == REGIONAL_NEWS_PROVIDER:
+                payload["provider_metadata"] = {**(hit.provider_metadata or {}), "query_edition": query.ceid}
             hits.append(DiscoveryHit(**payload))
         return hits
 
@@ -350,10 +364,12 @@ def annotate_live_geographies(
 
 
 def berry_ids_for(hit: DiscoveryHit) -> list[str]:
+    hay = f"{hit.title} {hit.snippet}".casefold()
+    if uses_regional_metadata(hit.provider, (hit.provider_metadata or {}).get("publisher_route")):
+        return regional_crop_ids(hay)
     found: list[str] = []
     if hit.berry and hit.berry in BERRY_IDS:
         found.append(BERRY_IDS[hit.berry])
-    hay = f"{hit.title} {hit.snippet}".casefold()
     for marker, berry_id in _CROP_MARKERS:
         if marker in hay and berry_id not in found:
             found.append(berry_id)
@@ -375,6 +391,9 @@ def source_type_for(hit: DiscoveryHit, *, official: set[str] | None = None) -> s
     if host in known:
         return "company_website"
     if hit.provider == LIVE_LANE_SPECIALIST:
+        publisher_type = (hit.provider_metadata or {}).get("publisher_source_type")
+        if publisher_type in {"news_search", "trade_press", "government_document"}:
+            return publisher_type
         return "trade_press"
     return "news_search"
 
@@ -393,7 +412,10 @@ def hit_to_record(
     if url and "://" not in url:
         url = f"https://{url.lstrip('/')}"
     text = f"{hit.title} {hit.snippet}"
+    provider_metadata = hit.provider_metadata or {}
     entity_ids = match_entity_ids(text, entities, skip_ids=muted_ids)
+    if uses_regional_metadata(hit.provider, provider_metadata.get("publisher_route")) and not has_cultivar_context(text):
+        entity_ids = [entity_id for entity_id in entity_ids if not entity_id.startswith("variety-")]
     official_entity = match_official_entity_id(
         url or hit.origin_publisher_url or hit.url or "",
         hit.source_domain or "",
@@ -406,6 +428,12 @@ def hit_to_record(
 
     person_ids = [row["id"] for row in match_people(text, people or [])]
     snippet = (hit.snippet or "").strip()
+    provenance = {"provider": hit.provider, "query_id": hit.query_id, "wrapper_url": hit.wrapper_url}
+    for key in ("publisher_route", "query_edition"):
+        if provider_metadata.get(key):
+            provenance[key] = provider_metadata[key]
+    if hit.provider == REGIONAL_NEWS_PROVIDER:
+        provenance["query_region"] = hit.geography
     return {
         "id": live_item_id(url),
         "status": "published",
@@ -427,14 +455,10 @@ def hit_to_record(
         "geography_ids": match_geography_ids(text, entities),
         "tags": ["live", "unreviewed"],
         "publisher_description": snippet,
-        "image_url": str((hit.provider_metadata or {}).get("image_url") or ""),
+        "image_url": str(provider_metadata.get("image_url") or ""),
         "qualify_reason": hit.qualify_reason,
         "editorial_topic": hit.editorial_topic,
-        "discovery_provenance": {
-            "provider": hit.provider,
-            "query_id": hit.query_id,
-            "wrapper_url": hit.wrapper_url,
-        },
+        "discovery_provenance": provenance,
     }
 
 
@@ -442,8 +466,9 @@ def empty_bundle(today: date, *, fetched_at: str | None = None) -> dict[str, Any
     return {
         "today": today.isoformat(),
         "fetched_at": fetched_at,
-        "lanes": [LIVE_LANE_GOOGLE, LIVE_LANE_SPECIALIST, LIVE_LANE_OFFICIAL],
+        "lanes": [LIVE_LANE_GOOGLE, REGIONAL_NEWS_PROVIDER, LIVE_LANE_SPECIALIST, LIVE_LANE_OFFICIAL],
         "lane_errors": [],
+        "route_attempts": [],
         "stats": {
             "discovered": 0,
             "qualified": 0,
@@ -454,6 +479,10 @@ def empty_bundle(today: date, *, fetched_at: str | None = None) -> dict[str, Any
             "dropped_unqualified": 0,
             "official_hosts_polled": 0,
             "official_hits": 0,
+            "regional_queries_polled": 0,
+            "regional_hits": 0,
+            "priority_queries_polled": 0,
+            "priority_hits": 0,
         },
         "cascade": cost_cascade_decision(primary_unique=0, secondary_available=False),
         "records": [],
@@ -477,6 +506,7 @@ def _run_lane(
     queries: list[PulseQuery],
     *,
     workers: int = 8,
+    route_attempts: list[dict[str, Any]] | None = None,
 ) -> tuple[list[DiscoveryHit], list[dict[str, str]]]:
     if not queries:
         return [], []
@@ -484,12 +514,22 @@ def _run_lane(
     errors: list[dict[str, str]] = []
     max_workers = min(workers, len(queries))
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
-        futures = [pool.submit(_discover_one, provider, query) for query in queries]
+        futures = {pool.submit(_discover_one, provider, query): query for query in queries}
         for future in as_completed(futures):
             batch, error = future.result()
             hits.extend(batch)
             if error:
                 errors.append(error)
+            if route_attempts is not None:
+                query = futures[future]
+                status = "failed" if error else ("returned" if batch else "no_hits")
+                route_attempts.append({
+                    "query_id": query.id,
+                    "provider": getattr(provider, "name", "unknown"),
+                    "status": status,
+                    "hits": len(batch),
+                    "edition": query.ceid,
+                })
     return hits, errors
 
 
@@ -631,10 +671,16 @@ def collect_same_day_hits(
     entities = entities or []
     sources = sources or []
 
-    google_hits, google_errors = _run_lane(google_provider, today_google_queries())
     from app.runtime_config import resolve_inbox_dir
     from app.services.official_rotation import reserve, record_results
     rotation_inbox = inbox_dir or resolve_inbox_dir()
+    attempts: list[dict[str, Any]] = []
+    google_hits, google_errors = _run_lane(google_provider, today_google_queries(), route_attempts=attempts)
+    regional_queries = reserve(regional_news_queries(), rotation_inbox, REGIONAL_QUERY_CAP,
+                               state_name=REGIONAL_ROTATION)
+    regional_lane = RelabeledProvider(google_provider, REGIONAL_NEWS_PROVIDER)
+    regional_hits, regional_errors = _run_lane(regional_lane, regional_queries, route_attempts=attempts)
+    record_results(regional_queries, regional_errors, rotation_inbox, state_name=REGIONAL_ROTATION)
     official_queries = reserve(today_official_site_queries(official_hosts, include_all=True), rotation_inbox, OFFICIAL_SITE_HOST_CAP)
     official_source = official_provider or google_provider
     official_lane = (
@@ -642,13 +688,21 @@ def collect_same_day_hits(
         if getattr(official_source, "name", "") == LIVE_LANE_OFFICIAL
         else RelabeledProvider(official_source, LIVE_LANE_OFFICIAL)
     )
-    official_hits, official_errors = _run_lane(official_lane, official_queries)
+    official_hits, official_errors = _run_lane(official_lane, official_queries, route_attempts=attempts)
     record_results(official_queries, official_errors, rotation_inbox)
+    specialist_queries = week_specialist_feed_queries(include_priority=True)
+    priority_queries = reserve(
+        [query for query in specialist_queries if query.id.startswith(PRIORITY_PUBLISHER_PREFIX)],
+        rotation_inbox, PRIORITY_PUBLISHER_QUERY_CAP, state_name=PRIORITY_PUBLISHER_ROTATION,
+        prefer_input_order=True,
+    )
     specialist_hits, specialist_errors = _run_lane(
         specialist_provider,
-        week_specialist_feed_queries(),
+        [query for query in specialist_queries if not query.id.startswith(PRIORITY_PUBLISHER_PREFIX)] + priority_queries,
+        route_attempts=attempts,
     )
-    primary_raw = [*google_hits, *official_hits, *specialist_hits]
+    record_results(priority_queries, specialist_errors, rotation_inbox, state_name=PRIORITY_PUBLISHER_ROTATION)
+    primary_raw = [*google_hits, *regional_hits, *official_hits, *specialist_hits]
     primary_kept, _primary_drops = _keep_window_hits(
         primary_raw, entities=entities, sources=sources, today=today
     )
@@ -668,12 +722,13 @@ def collect_same_day_hits(
             perplexity_provider,
             today_perplexity_queries(),
             workers=3,
+            route_attempts=attempts,
         )
     if cascade["secondary_fired"] and exa_provider is not None:
-        exa_hits, exa_errors = _run_lane(exa_provider, today_keyed_queries(), workers=2)
+        exa_hits, exa_errors = _run_lane(exa_provider, today_keyed_queries(), workers=2, route_attempts=attempts)
     if cascade["secondary_fired"] and apitube_provider is not None:
         apitube_hits, apitube_errors = _run_lane(
-            apitube_provider, today_keyed_queries(), workers=2
+            apitube_provider, today_keyed_queries(), workers=2, route_attempts=attempts,
         )
     raw = [*primary_raw, *perplexity_hits, *exa_hits, *apitube_hits]
     kept, drop_stats = _keep_window_hits(raw, entities=entities, sources=sources, today=today)
@@ -686,11 +741,16 @@ def collect_same_day_hits(
         "week": len(kept),
         "official_hosts_polled": len(official_queries),
         "official_hits": len(official_kept),
+        "regional_queries_polled": len(regional_queries),
+        "regional_hits": sum(hit.provider == REGIONAL_NEWS_PROVIDER for hit in kept),
+        "priority_queries_polled": len(priority_queries),
+        "priority_hits": sum((hit.query_id or "").startswith(PRIORITY_PUBLISHER_PREFIX) for hit in kept),
         "primary_unique": cascade["primary_unique"],
         "secondary_fired": cascade["secondary_fired"],
     }
     lanes = [
         getattr(google_provider, "name", LIVE_LANE_GOOGLE),
+        REGIONAL_NEWS_PROVIDER,
         getattr(specialist_provider, "name", LIVE_LANE_SPECIALIST),
         LIVE_LANE_OFFICIAL,
     ]
@@ -703,8 +763,10 @@ def collect_same_day_hits(
     meta = {
         "today": today.isoformat(),
         "lanes": lanes,
+        "route_attempts": sorted(attempts, key=lambda row: (row["provider"], row["query_id"])),
         "lane_errors": [
             *google_errors,
+            *regional_errors,
             *official_errors,
             *specialist_errors,
             *perplexity_errors,
@@ -755,8 +817,7 @@ def load_cached_bundle(inbox_dir: Path, *, today: date | None = None) -> dict[st
 def save_bundle(inbox_dir: Path, bundle: dict[str, Any]) -> Path:
     today = date.fromisoformat(str(bundle["today"]))
     path = cache_path(inbox_dir, today)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(bundle, indent=2) + "\n", encoding="utf-8")
+    atomic_json(path, bundle)
     from app.services import news_tags
     news_tags.incremental(inbox_dir, bundle.get('records') or [])
     return path
@@ -768,6 +829,18 @@ def cached_live_records(inbox_dir: Path, *, today: date | None = None) -> list[d
         return []
     rows = bundle.get("records") or []
     return [row for row in rows if isinstance(row, dict)]
+
+
+def retained_rotating_records(inbox_dir: Path, today: date) -> dict[str, dict[str, Any]]:
+    """Recover discoveries from bounded regional and publisher routes between polls."""
+    for age in range(31):
+        prior = load_cached_bundle(inbox_dir, today=today - timedelta(days=age))
+        if prior is not None and "rotating_records" in prior:
+            return {
+                row["id"]: row for row in (prior["rotating_records"] or [])
+                if isinstance(row, dict) and row.get("id") and is_within_days(row.get("published_date"), today, 30)
+            }
+    return {}
 
 
 def merge_decision_records(
@@ -854,22 +927,31 @@ def live_feed_bundle(
         official_hosts=official_hosts,
         official_provider=official_provider,
     )
-    records = collapse_story_clusters(
-        [
-            hit_to_record(
-                hit,
-                entities=entities or [],
-                today=today,
-                official_hosts=official_hosts,
-                official_host_map=official_host_map,
-                people=people,
-                muted_ids=muted_ids,
-            )
-            for hit in hits
-        ]
-    )
+    records = [
+        hit_to_record(
+            hit,
+            entities=entities or [],
+            today=today,
+            official_hosts=official_hosts,
+            official_host_map=official_host_map,
+            people=people,
+            muted_ids=muted_ids,
+        )
+        for hit in hits
+    ]
+    rotating_records = retained_rotating_records(inbox_dir, today)
+    for row in records:
+        query_id = row["discovery_provenance"]["query_id"] or ""
+        if row["acquisition_lane"] == REGIONAL_NEWS_PROVIDER or query_id.startswith(PRIORITY_PUBLISHER_PREFIX):
+            previous = rotating_records.get(row["id"])
+            if previous:
+                row["captured_date"] = previous.get("captured_date") or row["captured_date"]
+            rotating_records[row["id"]] = row
+    current_ids = {row["id"] for row in records}
+    records.extend(row for key, row in rotating_records.items() if key not in current_ids)
+    records = collapse_story_clusters(records)
     records, dropped_cached_noise = filter_today_records(records, entities=entities or [])
-    if dropped_cached_noise:
+    if dropped_cached_noise or rotating_records:
         meta = dict(meta)
         stats = dict(meta.get("stats") or {})
         stats["dropped_today_noise"] = int(stats.get("dropped_today_noise") or 0) + dropped_cached_noise
@@ -895,6 +977,7 @@ def live_feed_bundle(
         **meta,
         "fetched_at": now.isoformat(timespec="seconds"),
         "records": records,
+        "rotating_records": list(rotating_records.values()),
     }
     save_bundle(inbox_dir, bundle)
     return bundle
