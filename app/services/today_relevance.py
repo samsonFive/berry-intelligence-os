@@ -16,6 +16,12 @@ from urllib.parse import urlparse
 from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.crop_name_context import blackberry_company_noise
 from app.services.industry_pulse.models import DiscoveryHit
+from app.services.industry_pulse.qualify import has_cultivar_context
+from app.services.industry_pulse.regional_news import (
+    has_regional_news_topic,
+    regional_crop_ids,
+    uses_regional_metadata,
+)
 
 _STOP = {
     "the",
@@ -97,7 +103,7 @@ _STRONG = re.compile(
     r"\b("
     r"cultivar|breeder|breeding|nursery|grower-marketer|growers?|"
     r"pbr|plant patent|plant variety|licensing|acreage|hectares|"
-    r"export|imports?|variety launch|genetics|commercial production|"
+    r"exports?|imports?|variety launch|genetics|commercial production|"
     r"berry production|breeding program|managed variety|sekoya|"
     r"plant breeders|field trial"
     r")\b",
@@ -125,6 +131,7 @@ def noise_reason(
     source_domain: str = "",
     named_entity: bool = False,
     include_soft: bool = True,
+    allow_thin_industry: bool = False,
 ) -> str | None:
     text = f"{title} {snippet}"
     host = _hostname(source_domain, url)
@@ -151,12 +158,15 @@ def noise_reason(
         return None
     if _GENERIC.search(text) and not named_entity:
         return "generic listicle"
-    if _HOBBY.search(text) and not named_entity and not _STRONG.search(text):
+    strong = bool(_STRONG.search(text)) or has_regional_news_topic(text)
+    if _HOBBY.search(text) and not named_entity and not strong:
         return "home-garden how-to"
-    if not named_entity and not _STRONG.search(text):
+    if not named_entity and not strong:
         return "berry mention without industry signal"
     snippet_text = (snippet or "").strip()
     if not named_entity and len(snippet_text) < 40:
+        if allow_thin_industry and regional_crop_ids(title) and (_STRONG.search(title) or has_regional_news_topic(title)):
+            return None
         return "thin industry mention without a company"
     return None
 
@@ -172,6 +182,7 @@ def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
         url=hit.origin_publisher_url or hit.url or "",
         source_domain=hit.source_domain or "",
         named_entity=named_entity,
+        allow_thin_industry=uses_regional_metadata(hit.provider, (hit.provider_metadata or {}).get("publisher_route")),
     )
 
 
@@ -187,7 +198,12 @@ def _name_hits(hay: str, name: str) -> bool:
 
 def hit_has_named_entity(hit: DiscoveryHit, entities: Iterable[dict[str, Any]]) -> bool:
     hay = f"{hit.title} {hit.snippet}".casefold()
+    check_varieties = not uses_regional_metadata(
+        hit.provider, (hit.provider_metadata or {}).get("publisher_route")
+    ) or has_cultivar_context(hay)
     for entity in entities:
+        if not check_varieties and str(entity.get("id") or "").startswith("variety-"):
+            continue
         names = [entity.get("name"), *(entity.get("aliases") or [])]
         for raw in names:
             if _name_hits(hay, str(raw or "")):

@@ -21,6 +21,7 @@ from app.services.coverage_assurance.classes import (
     source_class_of,
 )
 from app.services.industry_pulse.models import DiscoveryHit
+from app.services.industry_pulse.regional_news import has_regional_news_topic, regional_crop_ids, uses_regional_metadata
 from app.services.crop_name_context import blackberry_company_noise, has_agriculture_context
 from app.services.recall_audit.classify import hostname, publisher_hosts
 
@@ -164,6 +165,11 @@ _VARIETY_TERMS = re.compile(
     re.IGNORECASE,
 )
 _VARIETY_TERMS = re.compile(_VARIETY_TERMS.pattern + r"|\b(?:" + "|".join(re.escape(t) for t in NATIVE_GENETICS_TERMS) + r")\b", re.I)
+_CULTIVAR_CUES = re.compile(
+    r"\b(?:cultivars?|plant patents?|plant variet(?:y|ies)|plant breeders?|plant breeding|pbr|"
+    r"primocane|floricane)\b|品种|品種|育种|育種",
+    re.IGNORECASE,
+)
 _COMPETITOR_TERMS = re.compile(
     r"\b(acquisition|merger|partnership|joint venture|unveils|launches|opens|expansion)\b",
     re.IGNORECASE,
@@ -277,6 +283,11 @@ def _crop_identity(text: str) -> str | None:
     return None
 
 
+def has_cultivar_context(text: str) -> bool:
+    """Distinguish plant-variety language from ordinary uses of a shared name."""
+    return bool(_CULTIVAR_CUES.search(text) or (_BERRY_CROP.search(text) and _VARIETY_TERMS.search(text)))
+
+
 def _hard_exclusion(text: str, hit: DiscoveryHit) -> str | None:
     if _RASPBERRY_PI.search(text):
         return "Raspberry Pi ambiguity"
@@ -346,13 +357,18 @@ def qualify_result(
         return _reject(hit, "unrelated .gov / non-agricultural authority page")
 
     crop = _crop_identity(text)
-    industry = bool(_INDUSTRY.search(text))
+    if not crop:
+        crop = next((crop_id.removeprefix("berry-") for crop_id in regional_crop_ids(text)), None)
+    industry = bool(_INDUSTRY.search(text)) or has_regional_news_topic(text)
     if _decision_only and crop and (industry or (
             crop != "berry" and context in {SOURCE_TRADE, SOURCE_BREEDER, SOURCE_GOV_AG})):
         hit.qualifying = True
         return hit
     named_company = _named(compiled.company_re, text)
-    named_variety = _named(compiled.variety_re, text)
+    regional_metadata = uses_regional_metadata(hit.provider, (hit.provider_metadata or {}).get("publisher_route"))
+    named_variety = None
+    if not regional_metadata or has_cultivar_context(text):
+        named_variety = _named(compiled.variety_re, text)
     reasons: list[str] = []
     if crop and crop != "berry":
         reasons.append(f"explicit {crop} crop")

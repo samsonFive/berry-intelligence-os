@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from app.services.feed_first import is_analyst_english
+from app.services.industry_pulse.regional_news import uses_regional_metadata
 
 TRANSLATE_SUBDIR = "live"
 TRANSLATE_CACHE = "translations.json"
@@ -152,6 +153,7 @@ def apply_english_translation(
     *,
     translator: Callable[[str, str], dict[str, str] | None] | None = None,
     inbox_dir: Path | None = None,
+    allow_remote: bool = True,
 ) -> dict[str, Any]:
     """Keep the item. Translate title/summary when a translator can."""
     title = str(record.get("title") or "")
@@ -168,7 +170,7 @@ def apply_english_translation(
     cache = _load_cache(inbox_dir)
     key = _cache_key(updated["original_title"], updated["original_summary"])
     result = cache.get(key) if isinstance(cache.get(key), dict) else None
-    if result is None:
+    if result is None and allow_remote:
         fn = translator if translator is not None else perplexity_translator
         try:
             result = fn(updated["original_title"], updated["original_summary"])
@@ -198,6 +200,11 @@ def translate_records(
     inbox_dir: Path | None = None,
 ) -> list[dict[str, Any]]:
     return [
-        apply_english_translation(row, translator=translator, inbox_dir=inbox_dir)
+        apply_english_translation(
+            row, translator=translator, inbox_dir=inbox_dir,
+            allow_remote=not uses_regional_metadata(
+                row.get("acquisition_lane"), (row.get("discovery_provenance") or {}).get("publisher_route")
+            ),
+        )
         for row in records
     ]

@@ -18,7 +18,7 @@ from typing import Any, Iterable
 from urllib.parse import urlparse
 from urllib.parse import quote_plus
 
-from app.services.industry_pulse.matrix import GEO_EDITIONS, PulseQuery
+from app.services.industry_pulse.matrix import ALL_BERRIES_TERMS, GEO_EDITIONS, PulseQuery
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import hits_from_news_search_items
 from app.services.media_discovery import (
@@ -194,11 +194,75 @@ SPECIALIST_SITE_HOSTS: tuple[tuple[str, str, str], ...] = (
 )
 
 
-def week_specialist_feed_queries() -> list[PulseQuery]:
+def priority_publisher_feeds() -> list[dict[str, str]]:
+    """Bounded publisher routes. Indexed discovery conveys no body access."""
+    spanish = "arándano OR arándanos OR fresa OR fresas OR frambuesa OR frambuesas OR zarzamora OR zarzamoras"
+    french = "myrtille OR myrtilles OR fraise OR fraises OR framboise OR framboises OR mûre OR mûres"
+    polish = "borówka OR borówki OR truskawka OR truskawki OR malina OR maliny OR jeżyna OR jeżyny"
+    english = ALL_BERRIES_TERMS + ' OR "berry growers" OR Driscoll'
+    targets = (
+        ("nyt", "The New York Times", "nytimes.com", "global", "en-US", "US", "en", english),
+        ("wsj", "The Wall Street Journal", "wsj.com", "global", "en-US", "US", "en", english),
+        ("independent", "The Independent", "independent.co.uk", "global", "en-GB", "GB", "en", english),
+        ("latimes", "Los Angeles Times", "latimes.com", "americas", "en-US", "US", "en", english),
+        ("vcstar", "Ventura County Star", "vcstar.com", "americas", "en-US", "US", "en", english),
+        ("informador", "El Informador", "informador.mx", "americas", "es-MX", "MX", "es", spanish),
+        ("andina", "Agencia Andina", "andina.pe", "americas", "es-419", "PE", "es", spanish),
+        ("huelva", "Huelva Información", "huelvainformacion.es", "europe", "es-ES", "ES", "es", spanish),
+        ("jagodnik", "Jagodnik", "jagodnik.pl", "europe", "pl-PL", "PL", "pl", polish),
+        ("map", "Maghreb Arabe Presse", "mapnews.ma", "africa", "fr-FR", "MA", "fr", french),
+        ("farmers-weekly-za", "Farmer’s Weekly", "farmersweekly.co.za", "africa", "en-ZA", "ZA", "en", english),
+        ("abc-rural", "ABC News", "abc.net.au", "apac", "en-AU", "AU", "en", english),
+        ("yunnan-agriculture", "Yunnan Department of Agriculture and Rural Affairs", "nync.yn.gov.cn", "apac",
+         "zh-CN", "CN", "zh-Hans", "蓝莓 OR 草莓 OR 覆盆子 OR 黑莓"),
+    )
+    trade = {"jagodnik", "farmers-weekly-za"}
+    official = {"yunnan-agriculture"}
+    rows = []
+    for key, label, host, geography, hl, gl, lang, terms in targets:
+        domains = "(site:independent.co.uk OR site:the-independent.com)" if key == "independent" else f"site:{host}"
+        query = quote_plus(f"{domains} ({terms}) when:7d")
+        source_type = "trade_press" if key in trade else "government_document" if key in official else "news_search"
+        rows.append(dict(id=f"feed:priority:{key}:indexed", label=label, host=host, geography=geography,
+                         hl=hl, gl=gl, ceid=f"{gl}:{lang}", adapter="news_search_rss", route="indexed",
+                         source_type=source_type,
+                         feed_url=f"https://news.google.com/rss/search?q={query}&hl={hl}&gl={gl}&ceid={gl}:{lang}"))
+    rows.extend((
+        dict(id="feed:priority:latimes:business", label="Los Angeles Times", host="latimes.com",
+             feed_url="https://www.latimes.com/business/rss2.0.xml", adapter="article_rss",
+             geography="americas", route="direct_rss", source_type="news_search"),
+        dict(id="feed:priority:informador:jalisco", label="El Informador", host="informador.mx",
+             feed_url="https://www.informador.mx/rss/jalisco.xml", adapter="article_rss", geography="americas",
+             hl="es-MX", gl="MX", ceid="MX:es", route="direct_rss", source_type="news_search"),
+        dict(id="feed:priority:andina:economy", label="Agencia Andina", host="andina.pe",
+             feed_url="https://andina.pe/agencia/rss/AndinaEconomia.xml", adapter="article_rss", geography="americas",
+             hl="es-419", gl="PE", ceid="PE:es", route="direct_rss", source_type="news_search"),
+        dict(id="feed:priority:odepa:rss", label="Chile ODEPA", host="odepa.gob.cl",
+             feed_url="https://www.odepa.gob.cl/feed/", adapter="article_rss", geography="americas",
+             hl="es-419", gl="CL", ceid="CL:es", route="direct_rss", source_type="government_document"),
+        dict(id="feed:priority:jagodnik:rss", label="Jagodnik", host="jagodnik.pl",
+             feed_url="https://jagodnik.pl/feed/", adapter="article_rss", geography="europe",
+             hl="pl-PL", gl="PL", ceid="PL:pl", route="direct_rss", source_type="trade_press"),
+        dict(id="feed:priority:farmers-weekly-za:rss", label="Farmer’s Weekly", host="farmersweekly.co.za",
+             feed_url="https://www.farmersweekly.co.za/feed/", adapter="article_rss", geography="africa",
+             route="direct_rss", source_type="trade_press"),
+        dict(id="feed:priority:berries-za:rss", label="Berries ZA", host="berriesza.co.za",
+             feed_url="https://www.berriesza.co.za/feed/", adapter="article_rss", geography="africa",
+             route="direct_rss", source_type="trade_press"),
+    ))
+    return [{"source_id": "", **row} for row in rows]
+
+
+PRIORITY_PUBLISHER_PREFIX = "feed:priority:"
+
+
+def week_specialist_feed_queries(*, include_priority: bool = False) -> list[PulseQuery]:
     """One PulseQuery per specialist feed. Not part of the Pulse 32."""
     edition = GEO_EDITIONS["global"]
     rows: list[PulseQuery] = []
     for feed in configured_feeds():
+        if not include_priority and feed["id"].startswith(PRIORITY_PUBLISHER_PREFIX):
+            continue
         geo = feed.get("geography") or "global"
         geo_edition = GEO_EDITIONS.get(geo) or edition
         rows.append(
@@ -209,9 +273,9 @@ def week_specialist_feed_queries() -> list[PulseQuery]:
                 geography=geo,
                 topic="specialist_feed",
                 kind="specialist_feed",
-                hl=geo_edition["hl"],
-                gl=geo_edition["gl"],
-                ceid=geo_edition["ceid"],
+                hl=feed.get("hl", geo_edition["hl"]),
+                gl=feed.get("gl", geo_edition["gl"]),
+                ceid=feed.get("ceid", geo_edition["ceid"]),
             )
         )
     return rows
@@ -311,7 +375,11 @@ class SpecialistRssProvider:
             parsed, _raw = _fetch_paginated_rss(
                 feed["feed_url"], max_pages=self.max_pages, fetch=self.fetch,
             )
+            if feed.get("route") and not getattr(parsed, "version", ""):
+                raise ValueError("publisher route did not return RSS or Atom")
             entries = _podcast_rss_entries(parsed)
+            if feed.get("route"):
+                entries = entries[:150]
         except Exception:
             if not direct:
                 raise
@@ -321,6 +389,19 @@ class SpecialistRssProvider:
         else:
             items = [_normalize_article_rss_entry(entry) for entry in entries]
         hits = hits_from_news_search_items(items, query=query, provider_name=self.name)
+        if feed.get("route"):
+            # A site-scoped index can still return a syndicator or another publisher.
+            # Count those through broad discovery, never as proof of this target.
+            allowed_hosts = {feed["host"]}
+            if feed["host"] == "independent.co.uk":
+                allowed_hosts.add("the-independent.com")
+            verified = [hit for hit in hits if hit.source_domain in allowed_hosts]
+            if hits and not verified and feed["route"] == "direct_rss":
+                raise ValueError("publisher feed links do not match the declared host")
+            hits = verified
+            for hit in hits:
+                hit.provider_metadata.update(publisher_route=feed["route"], publisher_source_type=feed["source_type"],
+                                             query_edition=query.ceid)
         if direct:
             import re
             from app.services.industry_pulse.models import DiscoveryHit
@@ -362,7 +443,7 @@ def hosts_from_feeds(feeds: Iterable[dict[str, str]] = WEEK_SPECIALIST_FEEDS) ->
 
 def configured_feeds():
     from app.services.collection_settings import effective_feeds
-    return effective_feeds((*WEEK_SPECIALIST_FEEDS, *registry_breeder_feeds()))
+    return effective_feeds((*WEEK_SPECIALIST_FEEDS, *registry_breeder_feeds(), *priority_publisher_feeds()))
 
 
 BREEDER_SOURCE_IDS = frozenset({

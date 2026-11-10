@@ -1,4 +1,4 @@
-"""Persisted least-recently-attempted scheduling within the existing host budget."""
+"""Persisted least-recently-attempted scheduling for bounded discovery lanes."""
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -7,12 +7,13 @@ import uuid
 from app.services.collection_runner import CollectionRunLock
 
 
-def reserve(rows, inbox, limit=6):
+def reserve(rows, inbox, limit=6, *, state_name='official_host_rotation', prefer_input_order=False):
     # Record reservation before network work: failed hosts must yield their turn too.
-    path = Path(inbox) / 'operations' / 'official_host_rotation.json'
+    path = Path(inbox) / 'operations' / f'{state_name}.json'
     with CollectionRunLock(path.with_suffix('.lock'), run_id=uuid.uuid4().hex):
         state = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'sequence': 0, 'hosts': {}}
-        ordered = sorted(rows, key=lambda row: (state['hosts'].get(row.id, {}).get('attempt', -1), row.id))[:limit]
+        ordered = sorted(rows, key=lambda row: (state['hosts'].get(row.id, {}).get('attempt', -1),
+                                                '' if prefer_input_order else row.id))[:limit]
         state['sequence'] += 1
         for row in ordered:
             state['hosts'][row.id] = {**state['hosts'].get(row.id, {}), 'attempt': state['sequence'],
@@ -23,8 +24,8 @@ def reserve(rows, inbox, limit=6):
     return ordered
 
 
-def record_results(rows, errors, inbox):
-    path = Path(inbox) / 'operations' / 'official_host_rotation.json'
+def record_results(rows, errors, inbox, *, state_name='official_host_rotation'):
+    path = Path(inbox) / 'operations' / f'{state_name}.json'
     failed = {row.get('query_id') or row.get('query') for row in errors}
     with CollectionRunLock(path.with_suffix('.lock'), run_id=uuid.uuid4().hex):
         state = json.loads(path.read_text(encoding='utf-8'))
