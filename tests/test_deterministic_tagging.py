@@ -9,7 +9,20 @@ blackberry" on ordinary Spanish words like "morado"/purple and
 
 from __future__ import annotations
 
-from app.services.deterministic_tagging import infer_berry_ids_from_text
+from app.services.deterministic_tagging import (
+    apply_known_name_matches,
+    infer_berry_ids_from_text,
+    matchers_from_entities,
+)
+
+
+def test_known_company_matches_curly_apostrophe_in_article_body() -> None:
+    matchers = matchers_from_entities(
+        [{'id': 'company-driscolls', 'entity_type': 'company', 'name': "Driscoll's"}], 'company',
+    )
+    result = apply_known_name_matches({}, 'The grower supplies strawberries to Driscoll’s.',
+                                      geo_matchers=[], company_matchers=matchers)
+    assert result['entity_ids'] == ['company-driscolls']
 
 
 def test_infer_berry_ids_matches_named_species_english() -> None:
