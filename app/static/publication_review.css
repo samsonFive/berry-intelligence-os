@@ -1,0 +1,457 @@
+.publication-review {
+  --publication-ink: #20372a;
+  --publication-muted: #506457;
+  --publication-line: #dce3de;
+  --publication-control-line: #97a99d;
+  --publication-raised: #edf2ef;
+  --publication-forest: #26573b;
+  min-width: 0;
+  color: var(--publication-ink);
+  overflow-wrap: anywhere;
+}
+
+.publication-review > .publication-review-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 18px;
+  margin: 0 0 12px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--publication-line);
+}
+
+.publication-review .publication-review-heading > div {
+  flex: 1 1 24rem;
+  min-width: 0;
+}
+
+.publication-review .publication-review-heading h1 {
+  margin: 3px 0 0;
+  color: var(--publication-ink);
+  font-size: clamp(21px, 2.3vw, 30px);
+  line-height: 1.2;
+  font-weight: 720;
+}
+
+.publication-review .publication-review-kicker {
+  margin: 0;
+  color: var(--publication-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.publication-review .publication-review-nav,
+.publication-review .publication-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  min-width: 0;
+}
+
+.publication-review .publication-review-nav a,
+.publication-review .publication-review-source-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--publication-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--publication-forest);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-decoration: none;
+}
+
+.publication-review .publication-review-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.publication-review .publication-review-panel {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--publication-line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.publication-review .publication-review-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px 8px;
+  min-height: 39px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--publication-line);
+  border-radius: 5px 5px 0 0;
+  background: var(--publication-raised);
+}
+
+.publication-review .publication-review-panel-head h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.publication-review .publication-review-panel-body {
+  min-width: 0;
+  padding: 9px 10px 11px;
+}
+
+.publication-review .publication-review-summary {
+  padding: 0 0 9px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.publication-review .publication-review-summary h3,
+.publication-review .publication-review-section-title {
+  margin: 0 0 4px;
+  color: var(--publication-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.publication-review .publication-review-summary p {
+  margin: 0 0 5px;
+}
+
+.publication-review :is(.publication-review-summary, .publication-review-detail-body) .bullet-list {
+  gap: 3px;
+  margin: 0 0 5px;
+  padding-inline-start: 17px;
+}
+
+.publication-review :is(.publication-review-summary, .publication-review-detail-body) .bullet-list > li {
+  padding: 0;
+}
+
+.publication-review :is(.publication-review-summary, .publication-review-sheet) .badge {
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+}
+
+.publication-review table.publication-review-sheet {
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 9px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.publication-review .publication-review-sheet :is(th, td) {
+  padding: 5px 7px;
+  border: 1px solid var(--publication-line);
+  vertical-align: top;
+  white-space: normal;
+  text-align: left;
+}
+
+.publication-review .publication-review-sheet th[scope="row"] {
+  background: var(--publication-raised);
+  color: var(--publication-muted);
+  font-weight: 650;
+}
+
+.publication-review .publication-review-sheet:not(:has(thead)) th[scope="row"] {
+  width: 31%;
+}
+
+.publication-review .publication-review-sheet td {
+  background: #fff;
+}
+
+.publication-review .publication-review-sheet small {
+  display: block;
+  margin-top: 2px;
+  color: var(--publication-muted);
+  font-size: 11px;
+}
+
+.publication-review .site-sheet-shell {
+  margin: 8px 0;
+}
+
+.publication-review .publication-review-data-scroll {
+  margin-bottom: 9px;
+  border-color: var(--publication-line);
+  border-radius: 4px;
+}
+
+.publication-review .publication-review-data-scroll table.publication-review-sheet {
+  margin: 0;
+}
+
+.publication-review .publication-review-disclosure {
+  margin: 0 0 5px;
+  padding: 0;
+  border: 1px solid var(--publication-line);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.publication-review .publication-review-disclosure > summary {
+  min-height: 30px;
+  padding: 6px 8px;
+  color: var(--publication-forest);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.publication-review .publication-review-disclosure[open] > summary {
+  margin: 0;
+  border-bottom: 1px solid var(--publication-line);
+  background: var(--publication-raised);
+}
+
+.publication-review .publication-review-detail-body {
+  min-width: 0;
+  padding: 8px 9px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.publication-review .publication-review-detail-body > :last-child {
+  margin-bottom: 0;
+}
+
+.publication-review .publication-review-detail-body pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.publication-review .publication-review-source-body {
+  max-height: min(50vh, 460px);
+  overflow: auto;
+}
+
+.publication-review .publication-review-form {
+  display: grid;
+  gap: 7px;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.publication-review .publication-review-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 8px;
+}
+
+.publication-review .publication-review-field {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.publication-review .publication-review-field[hidden] {
+  display: none;
+}
+
+.publication-review .publication-review-field-wide {
+  grid-column: 1 / -1;
+}
+
+.publication-review .publication-review-form .form-field > label,
+.publication-review .publication-review-form :is(.publication-review-berry-picks, .publication-review-properties) > legend {
+  margin: 0;
+  color: var(--publication-muted);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.publication-review .publication-review-form :is(input:not([type="checkbox"], [type="radio"], [type="hidden"]), select, textarea) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 32px;
+  padding: 4px 7px;
+  border: 1px solid var(--publication-control-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--publication-ink);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.publication-review .publication-review-form textarea {
+  resize: vertical;
+}
+
+.publication-review .publication-review-properties {
+  gap: 0;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--publication-line);
+  border-radius: 4px;
+}
+
+.publication-review .publication-review-field-note,
+.publication-review .publication-review-decisions .context-limit {
+  margin: 0;
+  color: var(--publication-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.publication-review .publication-review-field-note {
+  padding: 4px 7px;
+  border-top: 1px solid var(--publication-line);
+  background: var(--publication-raised);
+}
+
+.publication-review .publication-review-panel-body > [data-reject-details] {
+  margin-top: 7px;
+}
+
+.publication-review .shortcut-key {
+  display: block;
+  margin: 6px 0 0;
+}
+
+.publication-review .publication-review-properties > .form-field {
+  display: grid;
+  grid-template-columns: minmax(75px, 27%) minmax(0, 1fr);
+  align-items: center;
+  gap: 5px 8px;
+  padding: 3px 7px;
+}
+
+.publication-review .publication-review-properties > .form-field + .form-field {
+  border-top: 1px solid var(--publication-line);
+}
+
+.publication-review .publication-review-berry-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 1px 7px 4px;
+  border: 1px solid var(--publication-line);
+  border-radius: 4px;
+}
+
+.publication-review :is(.publication-review-berry-picks, .publication-review-properties) > legend {
+  float: none;
+  width: auto;
+  padding: 0 4px;
+}
+
+.publication-review .publication-review-berry-picks label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  min-height: 26px;
+  font-size: 12px;
+}
+
+.publication-review .publication-review-decisions {
+  display: grid;
+  gap: 7px;
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid var(--publication-line);
+}
+
+.publication-review .publication-review-actions button[type="submit"] {
+  min-height: 32px;
+  padding: 4px 9px;
+  border: 1px solid var(--publication-control-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--publication-forest);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.publication-review .publication-review-actions button.publication-review-publish[type="submit"] {
+  border-color: var(--publication-forest);
+  background: var(--publication-forest);
+  color: #fff;
+}
+
+.publication-review :is(.publication-review-nav a, .publication-review-source-link, .publication-review-actions button):hover {
+  background: var(--publication-raised);
+}
+
+.publication-review .publication-review-actions button.publication-review-publish[type="submit"]:hover {
+  background: #1b452d;
+}
+
+.publication-review .publication-review-actions button:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.publication-review :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #397451;
+  outline-offset: 2px;
+}
+
+.claim-review .publication-review-grid {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.claim-review-context {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.claim-review .publication-review-panel-body .publication-review-summary {
+  padding-bottom: 0;
+}
+
+.claim-review .claim-review-fields {
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+}
+
+.claim-review .claim-review-source-only {
+  margin: 9px 0 0;
+}
+
+@media (max-width: 800px) {
+  .publication-review .publication-review-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .publication-review .publication-review-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .publication-review .publication-review-properties > .form-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .publication-review :is(.publication-review-nav a, .publication-review-source-link, .publication-review-disclosure > summary, .publication-review-actions button[type="submit"]) {
+    min-height: 40px;
+  }
+}

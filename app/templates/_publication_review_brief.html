@@ -1,0 +1,143 @@
+{% from "_review_prose.html" import brief_points %}
+{% set dossier = publication_dossier %}
+<div class="publication-review-summary">
+  <h3>Concise summary</h3>
+  {{ brief_points(publication_card.summary or draft.summary) }}
+  {% if publication_card.why or draft.why_it_matters %}
+  <h3>Why this matters{% if publication_card.ai_untrusted %} <span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}</h3>
+  {{ brief_points(publication_card.why or draft.why_it_matters) }}
+  {% endif %}
+</div>
+
+<table class="publication-review-sheet" aria-label="Source and review status">
+  <tbody>
+    <tr><th scope="row">Publication review</th><td><span class="badge badge-status-unverified">{{ draft.review_state|replace('_',' ')|title if draft.review_state else 'Pending' }}</span></td></tr>
+    <tr><th scope="row">Publisher</th><td>{{ draft.source_name or 'Source not recorded' }}</td></tr>
+    <tr><th scope="row">Dates</th><td>Published {{ draft.published_date|us_date if draft.published_date else '—' }} <span aria-hidden="true">·</span> Captured {{ draft.captured_date|us_date }}</td></tr>
+    {% if dossier %}
+    <tr><th scope="row">Source type</th><td>{{ dossier.source_attribution_class }} · {{ dossier.language_label }}</td></tr>
+    <tr><th scope="row">Source capture</th><td>{{ dossier.body.label }}{% if dossier.body.warning %}<small>{{ dossier.body.warning }}</small>{% endif %}</td></tr>
+    {% endif %}
+    {% if transcript_readiness %}
+    <tr><th scope="row">Transcript status</th><td>
+      <span class="badge transcript-state-{{ transcript_readiness.state }}">{{ transcript_readiness.analyst_label or transcript_readiness.state_label }}</span>
+      {% if transcript_readiness.method %}<small><strong>Acquisition method:</strong> {{ transcript_readiness.method }}</small>{% endif %}
+      {% if transcript_readiness.language %}<small><strong>Detected language:</strong> {{ transcript_readiness.language }} · verify if unexpected.</small>{% endif %}
+      {% if transcript_readiness.failure_category %}<small>{{ transcript_readiness.failure_category }}</small>{% endif %}
+      <small>Transcript readiness is independent of the publication decision.</small>
+    </td></tr>
+    {% endif %}
+  </tbody>
+</table>
+
+{% if dossier %}
+  {% if dossier.body.paragraphs or dossier.body.transcript_segments or dossier.body.transcript_text or draft.transcript_excerpt %}
+  <details class="publication-review-disclosure" open>
+    <summary>Source body</summary>
+    <div class="publication-review-detail-body publication-review-source-body" tabindex="0" role="region" aria-label="Captured source body">
+      {% if dossier.body.paragraphs %}
+      <ol class="article-paragraphs">
+        {% for para in dossier.body.paragraphs %}<li id="p{{ para.index }}"><span class="article-p-index">Paragraph {{ para.index }}</span><p>{{ para.text }}</p></li>{% endfor %}
+      </ol>
+      {% elif dossier.body.transcript_segments %}
+      <ol class="article-paragraphs">
+        {% for row in dossier.body.transcript_segments %}<li><span class="article-p-index">Segment {{ row.index }}</span><p>{{ row.text }}</p></li>{% endfor %}
+      </ol>
+      {% elif dossier.body.transcript_text %}
+      <pre class="transcript-support">{{ dossier.body.transcript_text }}</pre>
+      {% endif %}
+      {% if draft.transcript_excerpt %}<h3>Supporting transcript excerpt</h3><p>{{ draft.transcript_excerpt }}</p>{% endif %}
+    </div>
+  </details>
+  {% endif %}
+
+  {% if dossier.if_published %}
+  <h3 class="publication-review-section-title" id="publication-impact">If published</h3>
+  <table class="publication-review-sheet" aria-labelledby="publication-impact">
+    <tbody>
+      <tr><th scope="row">Trusted publication</th><td>{{ dossier.if_published.trusted_publication }}</td></tr>
+      <tr><th scope="row">Rich source retained</th><td>{{ dossier.if_published.rich_source_retained }}</td></tr>
+      <tr><th scope="row">Atomic Evidence</th><td>{{ dossier.if_published.atomic_evidence }}</td></tr>
+    </tbody>
+  </table>
+  {% endif %}
+
+  <details class="publication-review-disclosure">
+    <summary>Detected intelligence — UNTRUSTED / REVIEW AID</summary>
+    <div class="publication-review-detail-body">
+      <p>These suggestions require separate review before they can support trusted claims.</p>
+      {% if dossier.detected_aids %}
+      <table class="publication-review-sheet" aria-label="Detected entities and traits">
+        <tbody>
+          {% for key, label in [('companies', 'Companies'), ('varieties', 'Varieties'), ('berries', 'Berries'), ('geographies', 'Geographies'), ('traits', 'Traits')] %}
+          <tr><th scope="row">{{ label }}</th><td>{{ dossier.detected_aids[key]|join(', ') or '—' }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      {% if dossier.detected_intelligence %}
+      <div class="table-wrap publication-review-data-scroll" tabindex="0" role="region" aria-label="Detected varieties and traits">
+          <table class="publication-review-sheet" aria-label="Detected varieties and traits">
+            <thead><tr><th scope="col">Variety</th><th scope="col">Berry</th><th scope="col">Traits</th></tr></thead>
+            <tbody>{% for row in dossier.detected_intelligence %}<tr><th scope="row">{{ row.name }}</th><td>{{ row.berry }}</td><td>{{ row.traits|join(' · ') or '—' }}</td></tr>{% endfor %}</tbody>
+          </table>
+      </div>
+      {% endif %}
+      {% if dossier.if_published and dossier.if_published.atomic_extraction_eligibility %}<p><strong>Atomic extraction eligibility:</strong> {{ dossier.if_published.atomic_extraction_eligibility }}</p>{% endif %}
+      {% if dossier.unlocks|length > 1 %}
+      <h3 class="publication-review-section-title">Potential uses</h3>
+      <ul class="bullet-list">{% for item in dossier.unlocks %}<li>{{ item }}</li>{% endfor %}</ul>
+      {% elif dossier.unlocks %}<p><strong>Potential use:</strong> {{ dossier.unlocks[0] }}</p>{% endif %}
+      {% if dossier.limitations %}<ul class="bullet-list">{% for item in dossier.limitations %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+      {% if dossier.translation_note %}<p><strong>Translation:</strong> {{ dossier.translation_note }}</p>{% endif %}
+    </div>
+  </details>
+{% elif draft.transcript_excerpt %}
+  <h3 class="publication-review-section-title">Supporting transcript excerpt</h3>
+  <p>{{ draft.transcript_excerpt }}</p>
+{% endif %}
+
+<details class="publication-review-disclosure">
+  <summary>Original submission and provenance</summary>
+  <div class="publication-review-detail-body">
+    <table class="publication-review-sheet" aria-label="Original submission">
+      <tbody>
+        <tr><th scope="row">Intake type</th><td>{{ draft.intake_type|replace('_',' ')|title }}</td></tr>
+        <tr><th scope="row">Submitted by</th><td>{{ draft.submitted_by }}</td></tr>
+        {% if dossier and dossier.body.author %}<tr><th scope="row">Author</th><td>{{ dossier.body.author }}</td></tr>{% endif %}
+        {% if dossier and dossier.body.requested_url %}<tr><th scope="row">Requested URL</th><td>{{ dossier.body.requested_url }}</td></tr>{% endif %}
+        {% if dossier and dossier.body.final_url and dossier.body.final_url != dossier.body.requested_url %}<tr><th scope="row">Final URL</th><td>{{ dossier.body.final_url }}</td></tr>{% endif %}
+        {% if dossier and dossier.body.acquisition %}<tr><th scope="row">Acquisition</th><td>{{ dossier.body.acquisition.extractor or dossier.body.acquisition.method }} · {{ dossier.body.word_count }} words{% if dossier.body.paragraph_count %} · {{ dossier.body.paragraph_count }} paragraphs{% endif %}</td></tr>{% endif %}
+      </tbody>
+    </table>
+    {% set publisher_description = dossier.body.publisher_description if dossier else draft.publisher_description %}
+    {% if publisher_description %}<h3>Original publisher description</h3><p>{{ publisher_description }}</p>{% endif %}
+    {% if publication_card %}
+    <h3>Suggested metadata</h3>
+    <table class="publication-review-sheet" aria-label="Suggested metadata">
+      <tbody>
+        {% for key, label in [('berries', 'Berries'), ('entities', 'Entities'), ('geographies', 'Geographies'), ('tags', 'Tags')] %}
+        <tr><th scope="row">{{ label }}</th><td>{{ publication_card[key]|join(', ') or '—' }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% if draft.suggested_competitors or draft.suggested_varieties %}
+    <h3>Suggested entities</h3>
+    <p>Companies: {{ draft.suggested_competitors|join(', ') or '—' }} · Varieties: {{ draft.suggested_varieties|join(', ') or '—' }}</p>
+    {% endif %}
+    {% if draft.ai_enrichment %}
+    <h3>AI provenance <span class="badge badge-muted">Untrusted</span></h3>
+    {% if draft.ai_enrichment.caveats %}<p><strong>Caveats:</strong> {{ draft.ai_enrichment.caveats }}</p>{% endif %}
+    {% if draft.ai_enrichment.topical_relevance %}<p><strong>Relevance:</strong> {{ draft.ai_enrichment.topical_relevance }}</p>{% endif %}
+    {% if draft.ai_enrichment.model_provenance %}
+    {% set provenance = draft.ai_enrichment.model_provenance %}
+    <p>{{ provenance.provider or 'Provider unset' }} / {{ provenance.model or 'No model' }} · {{ provenance.status }} · {{ provenance.trust_state }}</p>
+    {% endif %}
+    {% endif %}
+    {% if draft.attachments %}
+    <h3>Attachments</h3>
+    <ul>{% for file in draft.attachments %}<li><a href="{{ file.url }}">{{ file.filename }}</a></li>{% endfor %}</ul>
+    {% endif %}
+  </div>
+</details>

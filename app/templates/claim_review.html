@@ -1,73 +1,118 @@
 {% extends "base.html" %}
+{% from "_review_prose.html" import brief_points %}
 {% block title %}Approve claim — {{ evidence.title }}{% endblock %}
+{% block workspace_styles %}
+{{ super() }}
+<link rel="stylesheet" href="/static/publication_review.css?v=2">
+{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
-  <div>
-    <p class="eyebrow">EVIDENCE CLAIM DECISION</p>
-    <h1>{{ evidence.title }}</h1>
-    <p class="also-known-as">{{ evidence.source_name or 'Source not recorded' }}{% if evidence.published_date %} · {{ evidence.published_date|us_date }}{% endif %}</p>
-  </div>
-</section>
-
-{% if not authoring_mode %}
-  <p class="empty-state" role="alert">Review is disabled. This deployment is running in read-only mode.</p>
-{% else %}
-
-<section class="v2-company-section" id="source-decision-recap">
-  <h2>Source decision (already recorded)</h2>
-  <p class="context-limit">
-    <span class="badge">{{ trust_tier_label }}</span>
-    This Publication was already approved as a source -- that decision is separate and does not change here.
-  </p>
-  {% if evidence.summary %}<p class="v2-company-lede">{{ evidence.summary|truncate(320) }}</p>{% endif %}
-  {% if evidence.source_url %}<p class="v2-meta"><a href="{{ evidence.source_url }}" rel="noreferrer" target="_blank">Open original source</a></p>{% endif %}
-</section>
-
-<section class="v2-company-section" id="claim-decision">
-  <h2>Evidence claim decision</h2>
-  <p class="context-limit">
-    Which explicit factual claim from this source should enter trusted Evidence? A candidate statement is prepared below from
-    {% if origin == 'structured_registry_claim_review' %}this record's own structured registry fields{% else %}the source's own summary/why-it-matters text{% endif %}
-    -- you are not retyping the article. Edit it if it is not exactly right, then approve. This record has no trusted factual claim until one is approved here.
-  </p>
-
-  <form method="post" action="/review/{{ evidence.id }}/claim/approve">
-    <input type="hidden" name="proposed_statement" value="{{ candidate_statement }}">
-    <input type="hidden" name="origin" value="{{ origin }}">
-    <input type="hidden" name="return_to" value="{{ return_to }}">
-    <label for="claim-reviewer">Reviewer *</label>
-    <input id="claim-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
-    <label for="claim-statement"><strong>Proposed factual statement</strong></label>
-    <textarea id="claim-statement" name="statement" rows="4" style="width:100%; max-width:720px;" required>{{ candidate_statement }}</textarea>
-    <p class="v2-meta">Edit above if needed, then Approve. Editing is recorded automatically -- no separate step.</p>
-    <div class="v2-card-actions" style="margin-top:0.75rem;">
-      <label>Classification
-        <select name="classification">
-          <option value="fact" selected>Fact</option>
-          <option value="claim">Claim</option>
-        </select>
-      </label>
-      <label>Confidence
-        <select name="confidence">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-      </label>
-      <button class="v2-btn v2-btn-primary" type="submit">Approve</button>
+<div class="publication-review claim-review">
+  <header class="publication-review-heading">
+    <div>
+      <p class="publication-review-kicker">EVIDENCE CLAIM DECISION</p>
+      <h1>{{ evidence.title }}</h1>
     </div>
-  </form>
+  </header>
 
-  <form method="post" action="/review/{{ evidence.id }}/claim/reject" style="margin-top:0.75rem;">
-    <label for="claim-reject-reviewer">Reviewer for leaving claim unapproved *</label>
-    <input id="claim-reject-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
-    <input type="hidden" name="return_to" value="{{ return_to }}">
-    <input type="hidden" name="reason" value="No distinct factual claim in this source">
-    <button class="v2-btn" type="submit">No claim to approve -- leave as approved source only</button>
-  </form>
-</section>
+  {% if not authoring_mode %}
+  <p class="empty-state" role="alert">Review is disabled. This deployment is running in read-only mode.</p>
+  {% else %}
+  <div class="publication-review-grid">
+    <div class="claim-review-context">
+      <section class="publication-review-panel" id="source-decision-recap" aria-labelledby="claim-source-heading">
+        <header class="publication-review-panel-head">
+          <h2 id="claim-source-heading">Source recap</h2>
+          {% if evidence.source_url %}<a class="publication-review-source-link" href="{{ evidence.source_url }}" rel="noopener noreferrer" target="_blank">Open original source ↗</a>{% endif %}
+        </header>
+        <div class="publication-review-panel-body">
+          <table class="publication-review-sheet" aria-label="Source metadata">
+            <tbody>
+              <tr><th scope="row">Source decision</th><td><span class="badge">{{ trust_tier_label }}</span></td></tr>
+              <tr><th scope="row">Publisher</th><td>{{ evidence.source_name or 'Source not recorded' }}</td></tr>
+              {% if evidence.published_date %}<tr><th scope="row">Published</th><td>{{ evidence.published_date|us_date }}</td></tr>{% endif %}
+            </tbody>
+          </table>
+          {% if evidence.summary %}
+          <div class="publication-review-summary">
+            <h3>Source summary</h3>
+            {{ brief_points(evidence.summary) }}
+          </div>
+          {% endif %}
+        </div>
+      </section>
 
-{% endif %}
+      <section class="publication-review-panel" aria-labelledby="claim-guide-heading">
+        <header class="publication-review-panel-head"><h2 id="claim-guide-heading">Review guide</h2></header>
+        <div class="publication-review-panel-body">
+          <div class="publication-review-summary">
+            <ul class="bullet-list">
+              <li>The proposal comes from {% if origin == 'structured_registry_claim_review' %}this record’s registry fields{% else %}the source summary or rationale{% endif %}.</li>
+              <li>Check the statement against the source and edit it if needed. Approval records your edits.</li>
+              <li>Approval adds the statement to trusted Evidence.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="publication-review-panel" id="claim-decision" aria-labelledby="claim-editor-heading">
+      <header class="publication-review-panel-head"><h2 id="claim-editor-heading">Review proposed claim</h2></header>
+      <div class="publication-review-panel-body">
+        <form class="publication-review-form" method="post" action="/review/{{ evidence.id }}/claim/approve">
+          <input type="hidden" name="proposed_statement" value="{{ candidate_statement }}">
+          <input type="hidden" name="origin" value="{{ origin }}">
+          <input type="hidden" name="return_to" value="{{ return_to }}">
+          <div class="form-field publication-review-field">
+            <label for="claim-statement">Proposed factual statement</label>
+            <textarea id="claim-statement" name="statement" rows="6" required>{{ candidate_statement }}</textarea>
+          </div>
+          <div class="publication-review-form-grid claim-review-fields">
+            <div class="form-field publication-review-field">
+              <label for="claim-reviewer">Reviewer *</label>
+              <input id="claim-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
+            </div>
+            <div class="form-field publication-review-field">
+              <label for="claim-classification">Classification</label>
+              <select id="claim-classification" name="classification">
+                <option value="fact" selected>Fact</option>
+                <option value="claim">Claim</option>
+              </select>
+            </div>
+            <div class="form-field publication-review-field">
+              <label for="claim-confidence">Confidence</label>
+              <select id="claim-confidence" name="confidence">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+          <div class="publication-review-decisions">
+            <div class="publication-review-actions">
+              <button class="publication-review-publish" type="submit">Approve claim</button>
+            </div>
+          </div>
+        </form>
+
+        <details class="publication-review-disclosure claim-review-source-only">
+          <summary>Keep as approved source only</summary>
+          <div class="publication-review-detail-body">
+            <form class="publication-review-form" method="post" action="/review/{{ evidence.id }}/claim/reject">
+              <input type="hidden" name="return_to" value="{{ return_to }}">
+              <input type="hidden" name="reason" value="No distinct factual claim in this source">
+              <div class="form-field publication-review-field">
+                <label for="claim-reject-reviewer">Reviewer *</label>
+                <input id="claim-reject-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
+              </div>
+              <div class="publication-review-actions">
+                <button type="submit">Keep as source only</button>
+              </div>
+            </form>
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
