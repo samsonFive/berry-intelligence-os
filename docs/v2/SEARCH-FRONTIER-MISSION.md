@@ -126,6 +126,14 @@ The [supplemental judgments](../../artifacts/search-research-quality/frontier-pr
 
 Hosted acceptance covers the user flow and is separate from the benchmark. The frozen prospective results show a quality gap and still require independent pooled judgment before any Google parity claim. The seven source approvals cover the propositions listed above.
 
+## Independent benchmark handoff
+
+Use the [blank review template](../../artifacts/search-research-quality/frontier-prospective-independent-review-template-2026-11-09.json) to grade 103 question-and-source pairs across eight questions and 99 distinct URLs. Reviewers see the original URLs without provider names, ranks or previous grades. Complete the entire template before comparing it with the development judgments.
+
+Read each source against the full question. Use grade 3 for a direct answer, 2 for substantial but incomplete evidence, 1 for useful background, and 0 for unrelated evidence. For inspected pages, set `source_checked` to true and enter a locator and rationale. For inaccessible sources, leave the grade blank, set `access_status` to `unassessable`, and record the access limitation. For grade 3, assign the same `event_group` to URLs that describe the same trial, publication, or other underlying event.
+
+Pass the completed template to `scripts/score_topic_search.py` as `--judgments`. Use the frozen `frontier-prospective-e08f7c9a-2026-11-09.json` application run and `frontier-prospective-google-organic-2026-11-09.json` baseline. Store the independent judgments and score separately from development grading. An incomplete pool can show individual retrieval misses, while aggregate parity remains unverified.
+
 ## References
 
 - [Previous search quality mission](SEARCH-RESEARCH-QUALITY-V1.md)
