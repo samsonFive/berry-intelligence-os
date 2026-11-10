@@ -42,6 +42,26 @@ def test_saved_primary_urls_respect_positive_name_and_crop():
     assert not client._registry('strawberry Synthetic Scarlet')
 
 
+def test_named_patent_query_prioritizes_exact_linked_grant_copy(tmp_path):
+    from app.services.public_research_search import registered_primary_sources
+
+    variety = {"id": "v", "name": "Synthetic Scarlet", "entity_type": "variety", "berry_ids": ["berry-strawberry"]}
+    patent = {"id": "p", "name": "Synthetic grant", "entity_type": "patent",
+              "attributes": {"patent_number": "USPP032186P3"}}
+    entities = {"v": variety, "p": patent}
+    folder = tmp_path / "evidence"
+    folder.mkdir()
+    evidence = {"id": "ev-fixture", "status": "published", "source_type": "patent_record",
+                "entity_ids": ["v", "p"], "title": "Synthetic Scarlet",
+                "source_url": "https://index.example/grant"}
+    (folder / "source.json").write_text(json.dumps(evidence), encoding="utf-8")
+    sources = registered_primary_sources(tmp_path, entities)
+    client = PublicResearchSearchClient(entities=entities, primary_sources=sources)
+    assert client._registry("strawberry Synthetic Scarlet patent")[0].url == "https://patents.google.com/patent/USPP32186P3/en"
+    assert client._registry("strawberry Synthetic Scarlet")[0].url == evidence["source_url"]
+    assert not client._registry("blueberry Synthetic Scarlet patent")
+
+
 def test_registered_catalog_follows_exact_named_sheet_without_recursive_or_external_links():
     entity=dict(id='v',entity_type='variety',name='Synthetic Scarlet',berry_ids=['berry-strawberry'],attributes={'identity_review':{'source_url':'https://breeder.example/varieties/'}})
     body=b'<main><a href="/sheets/synthetic-scarlet.pdf">Technical sheet</a><a href="/sheets/other.pdf">Other Scarlet</a><a href="https://outside.example/synthetic-scarlet.pdf">Synthetic Scarlet</a><a href="http://127.0.0.1/synthetic-scarlet">Synthetic Scarlet</a></main>'
@@ -55,11 +75,115 @@ def test_registered_catalog_follows_exact_named_sheet_without_recursive_or_exter
     assert not any('outside.example'in h.url or 'other.pdf'in h.url for h in hits)
 
 
-def test_total_public_outage_is_failure_even_with_registered_seed():
+def test_total_public_outage_without_source_leads_is_failure():
     def fail(url):raise TimeoutError('private transport detail')
     client=PublicResearchSearchClient(get=fail)
     with pytest.raises(GatewayUnavailableError):client.search('strawberry trial')
     assert client.requests==5 and all('private'not in x for x in client.failures)
+
+
+def test_total_public_outage_keeps_named_primary_source_lead():
+    def fail(url):
+        raise TimeoutError()
+
+    entity = {"id": "ervin", "entity_type": "variety", "name": "Ervin", "berry_ids": ["berry-blackberry"]}
+    url = "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+    client = PublicResearchSearchClient(
+        get=fail, entities={"ervin": entity},
+        primary_sources={"ervin": [{"title": "Ervin blackberry", "url": url}]},
+    )
+    response = client.search("Ervin blackberry")
+    assert [hit.url for hit in response.hits] == [url]
+    assert len(client.failures) == 5
+
+
+def test_benchmark_audit_tracks_capture_rank_and_budget_without_source_text(tmp_path, monkeypatch):
+    import hashlib
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    monkeypatch.setattr("app.services.topic_discovery.MAX_CAPTURE_CANDIDATES", 2)
+    urls = ["https://publisher.example/trial", "https://publisher.example/blocked", "https://publisher.example/other"]
+    hits = tuple(SearchHit("Strawberry field trial", url, "") for url in urls)
+    client = SimpleNamespace(search=lambda query, **kwargs: SearchResponse("fixture", query, hits, 0))
+
+    def fetch(url):
+        if url == urls[1]:
+            raise TimeoutError("private transport detail")
+        return {"availability": "full", "passages": ["The strawberry field trial compared fruit yield."]}
+
+    audit = []
+    progress = []
+    plan = plan_query("strawberry field trial")
+    result = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch,
+                            capture_audit=audit.extend, progress=progress.append)
+    assert result["capture_count"] == 1
+    assert progress[-1]["captured"] == progress[-1]["capture_total"] == 2
+    assert progress[-1]["text_captures"] == 1
+    assert audit[0]["candidate_sha256"] == hashlib.sha256(b"publisher.example/trial").hexdigest()
+    assert audit[0]["capture_status"] == "full"
+    assert audit[0]["retained"] and audit[0]["support_status"] == "body_supported"
+    assert audit[1]["capture_status"] == "snippet_only"
+    assert audit[2]["capture_status"] == "budget_excluded"
+    assert "https://" not in str(audit) and "private transport detail" not in str(audit)
+    audit.clear()
+    warm = discover_topic(plan, inbox_dir=tmp_path, client=client, fetcher=fetch, capture_audit=audit.extend)
+    assert warm["cache_hit"] and not audit
+
+
+def test_discovery_follow_up_only_adds_a_new_cultivar_name(tmp_path):
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    calls = []
+    query = "blueberry Sekoya Pop plant patent"
+    hits = (
+        SearchHit("SEKOYA Pop patent", "https://publisher.example/pop", ""),
+        SearchHit("Synthetic Blue trial", "https://publisher.example/blue", ""),
+    )
+
+    def search(text, **kwargs):
+        calls.append(text)
+        return SearchResponse("fixture", text, hits, 0)
+
+    result = discover_topic(
+        plan_query(query), inbox_dir=tmp_path, client=SimpleNamespace(search=search),
+        fetcher=lambda url: {"availability": "metadata_only"},
+        constraints={"public_variety_names": ["SEKOYA Pop", "Synthetic Blue"]},
+    )
+    assert calls == [query, "Synthetic Blue " + query]
+    assert result["queries_this_request"] == 2
+
+
+def test_first_capture_preview_precedes_follow_up_and_reuses_same_bounded_sources(tmp_path, monkeypatch):
+    from app.services.ai_gateway.results import SearchHit, SearchResponse
+
+    monkeypatch.setattr("app.services.topic_discovery.MAX_CAPTURE_CANDIDATES", 2)
+    query = "floricane blackberry varieties"
+    urls = [f"https://publisher.example/{name}" for name in ("a", "b", "c")]
+    calls, fetched, previews = [], [], []
+
+    def search(text, **kwargs):
+        calls.append(text)
+        hits = [SearchHit("Floricane blackberry introduction", url, "")
+                for url in (urls[:2] if text == query else urls[2:])]
+        return SearchResponse("fixture", text, tuple(hits), 0)
+
+    def fetch(url):
+        fetched.append(url)
+        return {"availability": "full", "passages": [f"Floricane blackberry varieties were introduced. Source {url[-1]}."]}
+
+    def progress(event):
+        if event["stage"] == "capture" and any(item["passage"] for item in event["items"]):
+            previews.append(len(calls))
+
+    plan = plan_query(query)
+    client = SimpleNamespace(search=search)
+    streamed = discover_topic(plan, inbox_dir=tmp_path / "stream", client=client, fetcher=fetch, progress=progress)
+    assert previews and previews[0] == 1
+    assert sorted(fetched) == urls[:2]
+    fetched.clear()
+    final_only = discover_topic(plan, inbox_dir=tmp_path / "final", client=client, fetcher=fetch)
+    assert sorted(fetched) == urls[:2]
+    assert [row["source_url"] for row in streamed["items"]] == [row["source_url"] for row in final_only["items"]]
 
 
 def test_openaire_repository_leads_are_public_metadata_only():

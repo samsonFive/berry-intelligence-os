@@ -352,12 +352,19 @@
       searchResults.innerHTML = "";
       return;
     }
-    if (payload.empty) {
-      searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
+    if (payload.error) {
+      searchStatus.textContent = payload.error;
       searchResults.innerHTML = "";
       return;
     }
-    var html = "";
+    var html = payload.blackberry_season
+      ? '<p><a href="/varieties/season?berry=berry-blackberry">Compare floricane blackberry varieties for the 2027 season</a></p>'
+      : "";
+    if (payload.empty) {
+      searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
+      searchResults.innerHTML = html;
+      return;
+    }
     if (payload.ambiguous) {
       html += '<p class="banner banner-warning">More than one record matches. Choose the record you need.</p>';
     }

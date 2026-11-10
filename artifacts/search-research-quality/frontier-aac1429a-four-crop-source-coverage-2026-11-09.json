@@ -1,0 +1,204 @@
+{
+  "application_revision": "aac1429aa77e79441076a917cf298dadbed088f3",
+  "scope": "Exact URL and configured-host matches against this worktree’s source registry, published evidence and local research cache.",
+  "blackberry": {
+    "season": 2027,
+    "research_cache_status": "available",
+    "references": [
+      {
+        "source_id": "nc",
+        "title": "NC State Extension",
+        "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+        "configured_host": true,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "gpg",
+        "title": "Global Plant Genetics",
+        "url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+        "configured_host": true,
+        "captured_for_research": true,
+        "published_evidence": true
+      },
+      {
+        "source_id": "ar",
+        "title": "University of Arkansas breeders",
+        "url": "https://smallfruits.org/2026/01/sweet-ark-immaculate/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": true
+      },
+      {
+        "source_id": "se",
+        "title": "Southeast Regional Caneberry Production Guide",
+        "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "hutton",
+        "title": "James Hutton Institute",
+        "url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/",
+        "configured_host": true,
+        "captured_for_research": true,
+        "published_evidence": true
+      },
+      {
+        "source_id": "berryplant",
+        "title": "Berryplant",
+        "url": "https://www.berryplant.com/blackberry/?lang=en",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": true
+      },
+      {
+        "source_id": "osu",
+        "title": "Oregon State Extension",
+        "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "fontana",
+        "title": "Pairwise",
+        "url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+        "configured_host": true,
+        "captured_for_research": false,
+        "published_evidence": false
+      },
+      {
+        "source_id": "patent",
+        "title": "University of Arkansas patent repository",
+        "url": "https://scholarworks.uark.edu/pat/496/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": true
+      },
+      {
+        "source_id": "nursery",
+        "title": "Agromillora US",
+        "url": "https://www.agromillora.com/en-us/our-products/berries/blackberries/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": true
+      },
+      {
+        "source_id": "nc_trial",
+        "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+        "url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": true
+      },
+      {
+        "source_id": "berryneo",
+        "title": "BerrYum exclusive blackberry varieties",
+        "url": "https://www.berryneo.com/variedades-berryum/",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "ars_machine",
+        "title": "USDA ARS mechanical harvest validation for blackberry and blueberry",
+        "url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      }
+    ]
+  },
+  "blueberry": {
+    "season": 2027,
+    "research_cache_status": "available",
+    "references": [
+      {
+        "source_id": "osu",
+        "title": "Oregon State University Extension",
+        "url": "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "fall_creek",
+        "title": "Fall Creek Digital Catalogue",
+        "url": "https://fallcreekcatalogs.com/sekoya-pop-fcm14-052/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      },
+      {
+        "source_id": "grant",
+        "title": "US plant patent PP32,186",
+        "url": "https://patents.google.com/patent/USPP32186P3/en",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      },
+      {
+        "source_id": "ars",
+        "title": "USDA Agricultural Research Service",
+        "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-barc/beltsville-agricultural-research-center/genetic-improvement-for-fruits-vegetables-laboratory/docs/chanticleer/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      }
+    ]
+  },
+  "raspberry": {
+    "season": 2027,
+    "research_cache_status": "available",
+    "references": [
+      {
+        "source_id": "osu",
+        "title": "Oregon State University Extension",
+        "url": "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+        "configured_host": false,
+        "captured_for_research": true,
+        "published_evidence": false
+      },
+      {
+        "source_id": "wsu",
+        "title": "Washington State University",
+        "url": "https://news.wsu.edu/press-release/2019/07/30/wsu-debuts-flavorful-easy-to-harvest-new-raspberry-cascade-premier/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      },
+      {
+        "source_id": "wsu_rights",
+        "title": "Washington State University Innovation and Entrepreneurship",
+        "url": "https://research.wsu.edu/innovation/opportunity-announcement/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      }
+    ]
+  },
+  "strawberry": {
+    "season": 2027,
+    "research_cache_status": "available",
+    "references": [
+      {
+        "source_id": "uga",
+        "title": "University of Georgia Extension",
+        "url": "https://fieldreport.caes.uga.edu/publications/C1327/productivity-and-postharvest-quality-of-strawberry-cultivars-grown-in-southeast-georgia/",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      },
+      {
+        "source_id": "uf",
+        "title": "University of Florida IFAS",
+        "url": "https://ask.ifas.ufl.edu/publication/CV134",
+        "configured_host": false,
+        "captured_for_research": false,
+        "published_evidence": false
+      }
+    ]
+  }
+}

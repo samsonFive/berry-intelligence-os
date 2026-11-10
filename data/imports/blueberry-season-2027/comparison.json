@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "season": 2027,
+  "checked_on": "2026-11-09",
+  "sources": {
+    "osu": [
+      "Oregon State University Extension",
+      "https://extension.oregonstate.edu/catalog/pnw-656-blueberry-cultivars-pacific-northwest",
+      "Regional adaptation and Table 1"
+    ],
+    "fall_creek": [
+      "Fall Creek Digital Catalogue",
+      "https://fallcreekcatalogs.com/sekoya-pop-fcm14-052/",
+      "Cultivar identity and growing conditions"
+    ],
+    "grant": [
+      "US plant patent PP32,186",
+      "https://patents.google.com/patent/USPP32186P3/en",
+      "Denomination and background"
+    ],
+    "ars": [
+      "USDA Agricultural Research Service",
+      "https://www.ars.usda.gov/northeast-area/beltsville-md-barc/beltsville-agricultural-research-center/genetic-improvement-for-fruits-vegetables-laboratory/docs/chanticleer/",
+      "Release notice and Hammonton comparison"
+    ],
+    "osu_pdf": [
+      "Oregon State University Extension, PNW 656 PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/documents/pnw656.pdf",
+      "Regional adaptation and Table 1"
+    ]
+  },
+  "rows": [
+    {
+      "name": "Duke",
+      "variety_id": "variety-duke-a7be720d",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Northern highbush",
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Early",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU describes Duke as an early cultivar that generally blooms later than other early cultivars.",
+      "citations": [
+        "osu",
+        "osu_pdf"
+      ],
+      "events": []
+    },
+    {
+      "name": "Draper",
+      "variety_id": "variety-draper-a753ce75",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Northern highbush",
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Early–mid",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU describes firm, crisp berries with concentrated ripening and good storage. It reports premature fruit drop in some northern regions.",
+      "citations": [
+        "osu",
+        "osu_pdf"
+      ],
+      "events": []
+    },
+    {
+      "name": "Liberty",
+      "variety_id": "variety-liberty-dc3c1bec",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Northern highbush",
+      "crops": [],
+      "markets": [
+        "Fresh",
+        "Processing"
+      ],
+      "window": "Late",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU reports good flavor and notes that fruit may soften in high temperatures.",
+      "citations": [
+        "osu",
+        "osu_pdf"
+      ],
+      "events": []
+    },
+    {
+      "name": "Sekoya Pop",
+      "variety_id": "variety-sekoya-pop",
+      "aliases": [
+        "FCM14-052",
+        "PP32186"
+      ],
+      "region": "Low-chill production",
+      "habit": "Southern highbush",
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Very early",
+      "trial_site": "Tala, Jalisco, Mexico",
+      "system": "Evergreen",
+      "observation": "Fall Creek identifies Sekoya Pop as FCM14-052 and describes its fit for zero- and low-chill sites. The US grant describes selection in Jalisco under an evergreen system.",
+      "citations": [
+        "fall_creek"
+      ],
+      "events": [
+        [
+          "US plant patent grant",
+          "2020-09-15",
+          "FCM14-052",
+          "grant"
+        ]
+      ]
+    },
+    {
+      "name": "Chanticleer",
+      "variety_id": null,
+      "aliases": [],
+      "region": "Northeast US",
+      "habit": "Northern highbush",
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Early",
+      "trial_site": "Hammonton, New Jersey",
+      "system": null,
+      "observation": "The USDA release notice gives comparative ripening and fruit measurements for Chanticleer, Duke, Weymouth and Bluecrop from a 1996 Hammonton trial.",
+      "citations": [
+        "ars"
+      ],
+      "events": []
+    }
+  ]
+}

@@ -19,7 +19,8 @@
     if (event.stage === 'research_history') {
       status.textContent = 'Checked previously captured public sources. Fresh discovery is continuing; all arriving sources remain unreviewed.';
     } else if (event.stage === 'capture') {
-      status.textContent = 'Captured ' + event.captured + ' of ' + event.capture_total + ' sources. Matches below may change as more arrive.';
+      status.textContent = 'Checked ' + event.captured + ' of ' + event.capture_total + ' sources. ' +
+        event.text_captures + ' returned text. Matches below may change as more arrive.';
     } else if (event.stage === 'search') {
       status.textContent = 'Completed ' + event.searches_completed + ' searches; checking ' + event.candidates + ' candidate sources.';
     } else if (event.stage === 'provider') {

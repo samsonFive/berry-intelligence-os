@@ -592,7 +592,7 @@ def test_scoring_does_not_write_trust_objects(tmp_path) -> None:
         published_evidence=evidence,
         varieties=varieties,
     )
-    assert scored["counts"][FULLY_REPRESENTED] == 3
+    assert scored["counts"][FULLY_REPRESENTED] == 4
     assert scored["counts"][ITEM_COLLECTED_ENTITY_MISSED] == 0
     # 11 = 8 plus 3: Source Coverage Gap Closure V1 (2026-09-01) onboarded
     # a real Source for Italian Berry, so the 3 italianberry.it benchmark
@@ -600,7 +600,8 @@ def test_scoring_does_not_write_trust_objects(tmp_path) -> None:
     # SOURCE_KNOWN_NOT_COLLECTED to SOURCE_COLLECTED_ITEM_MISSED -- the
     # publisher is now collected, these specific historical articles are
     # not yet captured as Evidence.
-    assert scored["counts"][SOURCE_COLLECTED_ITEM_MISSED] == 11
+    # The reviewed Loch Katrine trial now represents RA-EU-BK-04.
+    assert scored["counts"][SOURCE_COLLECTED_ITEM_MISSED] == 10
     assert (ROOT / "data" / "configuration" / "sources.json").stat().st_mtime == sources_mtime
     assert len(list((ROOT / "data" / "evidence").glob("*.json"))) == evidence_count
     assert len(list((ROOT / "data" / "entities" / "varieties").glob("*.json"))) == variety_count

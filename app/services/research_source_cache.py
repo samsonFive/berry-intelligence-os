@@ -20,9 +20,21 @@ def _path(inbox_dir):
     return path.absolute()
 
 
+def cached_source_urls(inbox_dir):
+    """Return URL keys for a coverage audit without reading captured text."""
+    try:
+        path = _path(inbox_dir)
+        if not path.is_file():
+            return set(), "empty"
+        with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True, timeout=3) as db:
+            return {url for (url,) in db.execute("SELECT url FROM sources")}, "available"
+    except (OSError, ValueError, sqlite3.Error):
+        return set(), "unavailable"
+
+
 def remember_sources(inbox_dir,records):
     from app.services.feed_first_reader import is_public_http_url
-    from app.services.article_dedup import normalize_canonical_url
+    from app.services.article_dedup import research_capture_url_key
     from app.services.topic_retrieval import normalize
     try:
         path=_path(inbox_dir);path.parent.mkdir(parents=True,exist_ok=True)
@@ -38,10 +50,12 @@ def remember_sources(inbox_dir,records):
         import hashlib
         if hashlib.sha256(body.encode()).hexdigest()!=record['source_version']:continue
         public={key:record.get(key)for key in FIELDS}
+        if record.get("provider") == "local_primary_citation" and record.get("reference_subject"):
+            public["reference_subject"] = record["reference_subject"]
         public['article']={'paragraphs':[{key:p[key]for key in ('index','locator','text')if key in p}for p in paragraphs if isinstance(p,dict)]}
         encoded=json.dumps(public,ensure_ascii=False)
         if len(encoded.encode())>MAX_RECORD_BYTES:continue
-        accepted.append((normalize_canonical_url(url),record['source_version'],encoded,normalize(str(record.get('title')or'')),normalize(body)))
+        accepted.append((research_capture_url_key(url),record['source_version'],encoded,normalize(str(record.get('title')or'')),normalize(body)))
     if not accepted:return {'status':'unchanged','stored':0}
     try:
         with sqlite3.connect(path,timeout=3)as db:
@@ -95,10 +109,10 @@ def cached_sources(inbox_dir,plan,*,limit=150):
 
 
 def merge_source_records(*groups):
-    from app.services.article_dedup import normalize_canonical_url
+    from app.services.article_dedup import research_capture_url_key
     rows={}
     for group in groups:
         for row in group:
-            key=normalize_canonical_url(row.get('source_url'))or row.get('id')
+            key=research_capture_url_key(row.get('source_url'))or row.get('id')
             if key:rows[key]=row
     return list(rows.values())

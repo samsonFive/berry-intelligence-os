@@ -90,6 +90,17 @@ def normalize_canonical_url(url: str | None) -> str:
     return f"{host}{path}{query}".casefold()
 
 
+def research_capture_url_key(url: str | None) -> str:
+    """Keep a page-scoped capture separate from the document and other pages."""
+    canonical = normalize_canonical_url(url)
+    if not canonical or not url:
+        return canonical
+    fragment = urlsplit(url.strip()).fragment
+    if re.fullmatch(r"page=[1-9]\d{0,5}", fragment):
+        return f"{canonical}#{fragment}"
+    return canonical
+
+
 def normalize_title(title: str | None) -> str:
     """Strips one trailing " - Publisher"/" | Publisher"-style suffix
     (the real, observed cause of a false non-match between two captures

@@ -28,7 +28,20 @@ def owned_pdf_abstracts(rows):
     body = '\n'.join(parts)
     markers = list(re.finditer(r'(?m)^\s*(S\d{2}-[A-Z]-[OP]-\d{1,3})\s*$', body))
     if len(markers) < 2:
-        return rows
+        numbered = list(re.finditer(r'(?m)^[ \t]*(\d{1,2})\.[ \t]+(?=\S)', body))
+        sections = []
+        for start, stop in zip(numbered, numbered[1:]):
+            if int(stop[1]) != int(start[1]) + 1:
+                continue
+            section = body[start.start():stop.start()]
+            abstracts = list(re.finditer(r'(?im)^[ \t]*Abstract\s*:', section))
+            if len(abstracts) != 1 or abstracts[0].start() > 1000 or len(section) > 12000:
+                continue
+            pages = [n for lo, hi, n in spans if lo < stop.start() and hi > start.start()]
+            if 1 <= len(pages) <= 3:
+                locator = f'pdf:section:{start[1]}:pages:{pages[0]}-{pages[-1]}'
+                sections.append((locator, section.strip()))
+        return sections if len(sections) >= 2 else rows
     sections = []
     for i, marker in enumerate(markers):
         end = markers[i + 1].start() if i + 1 < len(markers) else len(body)
@@ -45,11 +58,18 @@ def owned_pdf_abstracts(rows):
     return sections  # Recognized proceedings: do not also quote mixed raw pages.
 
 _RECOMMENDATIONS = {'related articles', 'related posts', 'recommended articles', 'you may also like', 'read next', 'references', 'bibliography', 'recommended citation'}
+_OBJECT_START = re.compile(r'^\s*\{\s*"[^"\r\n]{1,80}"\s*:')
+_OBJECT_FIELD = re.compile(r'[,{}]\s*"[^"\r\n]{1,80}"\s*:')
 
 
 def owned_article_passages(rows):
     """Yield (locator, text) until a standalone recommendation heading."""
     for locator, text in rows:
+        # Some direct HTML captures expose serialized application state as one
+        # paragraph. Exclude it before retrieval splits it into prose chunks.
+        # A truncated object can still have a recognizable field structure.
+        if _OBJECT_START.match(text) and len(_OBJECT_FIELD.findall(text)) >= 3:
+            continue
         heading = re.sub(r'\s+', ' ', str(text)).strip().casefold().rstrip(':')
         if heading in _RECOMMENDATIONS:
             break

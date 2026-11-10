@@ -1,0 +1,370 @@
+{
+  "candidate_ref": "f32954a962b58215d30079020baf9a13d64eb836",
+  "credit_free": true,
+  "queries": [
+    {
+      "query": "Columbia Sunrise blackberry release cultivar harvest timing versus Columbia Star Oregon",
+      "status": "partial",
+      "seconds": 28.968,
+      "capture_counts": {
+        "full": 3,
+        "excerpt_only": 2,
+        "blocked": 5
+      },
+      "fresh_retained": 2,
+      "fresh_body_supported": 0,
+      "google_url_matches": [
+        {
+          "google_rank": 1,
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        }
+      ],
+      "trace": [
+        {
+          "candidate_sha256": "e790c21059d34186a97c6a24753e938b446204e856de25ad7d0acc3985966447",
+          "capture_sha256": "99276ca074a6d90bd47be7d34267e5a5fd3108d61c9bd716a63213176c0c6fdd",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "796ac0f8b57251ae88efb8c5124770ae2c2a6ba5ff8dda65b978d912cf22c837",
+          "capture_sha256": "951e6be6f3db2f663814fd50e725966e5dedc593795d9e97e73c262835b2e47c",
+          "capture_status": "excerpt_only",
+          "retained": true,
+          "support_status": "scope_unverified"
+        },
+        {
+          "candidate_sha256": "1d24ecba69fdea9126d55ab08dd0f32099c41533d7959e362c9cf393339b946c",
+          "capture_sha256": "b5d03f56cc8a09beb16b3258098c8943ed2bdbc341a9a327ac5d2e130cd3b96e",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "66a421b2a277d5ea25bf150df0db2fe9657192f7052a910fd6671817a2a39255",
+          "capture_sha256": "66a421b2a277d5ea25bf150df0db2fe9657192f7052a910fd6671817a2a39255",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "35ad5d6307ab8da04f0de20175b1b7b3eb16ec170d56f95eaeced3283d70ee6b",
+          "capture_sha256": "35ad5d6307ab8da04f0de20175b1b7b3eb16ec170d56f95eaeced3283d70ee6b",
+          "capture_status": "full",
+          "retained": true,
+          "support_status": "scope_unverified"
+        },
+        {
+          "candidate_sha256": "a6bfbb6f0d30ad48afdc5255797e919392981e3f92736d12ceb35ad5acc59604",
+          "capture_sha256": "a6bfbb6f0d30ad48afdc5255797e919392981e3f92736d12ceb35ad5acc59604",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "84ce68f86c3c8c344c191f5c775086675b420c86addee836d92dda286bad1104",
+          "capture_sha256": "8f29cf6d3e6bd0889235f6e45b03109710c6e8bce697b3fb18b71e761d1cd978",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "4b29e2a64d32c2ad009cbd2d60ee802e63b61834829230278571c763e5d29e2a",
+          "capture_sha256": "4b29e2a64d32c2ad009cbd2d60ee802e63b61834829230278571c763e5d29e2a",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "1379034f82a1d90e133fe48b8372d105727318162801e1e91921083797df6eec",
+          "capture_sha256": "1379034f82a1d90e133fe48b8372d105727318162801e1e91921083797df6eec",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "f80a0b2452bfb5c636230819b217ca8a718ac678e9c48b085f857d28ad54866d",
+          "capture_sha256": "17cf6145a53216d7df5c6c197dbb7c0712e98001c71d3c9a0bf892c84d1ec1a1",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        }
+      ]
+    },
+    {
+      "query": "Sweet-Ark Caddo blackberry cultivar trial Clarksville postharvest firmness compared with Osage",
+      "status": "partial",
+      "seconds": 31.332,
+      "capture_counts": {
+        "blocked": 4,
+        "full": 2,
+        "partial": 1,
+        "excerpt_only": 2,
+        "metadata_only": 2
+      },
+      "fresh_retained": 1,
+      "fresh_body_supported": 0,
+      "google_url_matches": [],
+      "trace": [
+        {
+          "candidate_sha256": "9125973e38d0143aca858400915199cce1ce281e25e28f0a94485657b61e98d1",
+          "capture_sha256": "d9fa66b51ff8d5c39b2fb9efd494a39880d51242be3c6306df0b292dc211834b",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "6a269008f69d12452ba45029cfe175693d48da8a7f4c4838627fb9acbf0dae22",
+          "capture_sha256": "6a269008f69d12452ba45029cfe175693d48da8a7f4c4838627fb9acbf0dae22",
+          "capture_status": "full",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "f4eef1aed35b09c78cd3bc241ac271ecd9923d1244e96673ef7f12025283e327",
+          "capture_sha256": "877826038b3c4c1703291984fb47d8d9c3accf06e3f3e89945f5db956d885715",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "0e079deb57250614d2f7d87d9df6a8f68913c15ef877dfcd2288ea94c714d6c3",
+          "capture_sha256": "0e079deb57250614d2f7d87d9df6a8f68913c15ef877dfcd2288ea94c714d6c3",
+          "capture_status": "full",
+          "retained": true,
+          "support_status": "scope_unverified"
+        },
+        {
+          "candidate_sha256": "78c758efd4fdccd5a87fb56e0544d42b5377498a9246dd337b6768f63d51be75",
+          "capture_sha256": "836201d10e0515daf2fc6c3fa6cca3d033b8c7ae92ffeb41828198000602c85d",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "313dc129c84c8f7d61dae93c0bfc44a1d6ae9dbf26fd6303227b65ffec8c4db5",
+          "capture_sha256": "313dc129c84c8f7d61dae93c0bfc44a1d6ae9dbf26fd6303227b65ffec8c4db5",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "71637f47f0fed379f77a0c65f37f3e11ac9a1835d0e244d57b22a7cbcd3db613",
+          "capture_sha256": "d4ba512c7bc4963106617672c9241bc9062df00ec21337378db2baf6530cb0a7",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "ec8a86a11f850e65089bba57db6860564d770a760c97b03dbeca2bbd620d73c7",
+          "capture_sha256": "7d32e03705d2dc0501f3dcd398206b3cd44ad17efa0b2cfc7326a10190c0c991",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "1ab18b58e58a1127a48dd5a852f4c771f62d220dca64b3e583b92747dc856cda",
+          "capture_sha256": "eb6adaa14f923f788cd35d8b64a3698224277ad31c6eb8eaedc2dc6fe0231996",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "2545c92d8103e6506320bbe5c9d52505f6285c0577c3ff233018c2075a9e4d25",
+          "capture_sha256": "2545c92d8103e6506320bbe5c9d52505f6285c0577c3ff233018c2075a9e4d25",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "470ad0ac1ffa83c7d9e4ae3253d5d16da9c67061503d1de4c0338851ab4f4a32",
+          "capture_sha256": "7e719577ddfb9a604ec720bc85df837289c7196a3e53bcd5f5cdede0ef141023",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        }
+      ]
+    },
+    {
+      "query": "Vaccinium Sekoya Pop low chill blueberry variety official plant patent denomination",
+      "status": "partial",
+      "seconds": 32.076,
+      "capture_counts": {
+        "partial": 2,
+        "metadata_only": 2,
+        "error": 3,
+        "excerpt_only": 2,
+        "blocked": 1
+      },
+      "fresh_retained": 0,
+      "fresh_body_supported": 0,
+      "google_url_matches": [
+        {
+          "google_rank": 7,
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        }
+      ],
+      "trace": [
+        {
+          "candidate_sha256": "6748f97303f15dd1fcf6ad781178eb24cc048c2a0583abf8370ad0c057120dc6",
+          "capture_sha256": "6748f97303f15dd1fcf6ad781178eb24cc048c2a0583abf8370ad0c057120dc6",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "8b15bbd84a7af15cf6213d93970ef41d0a418263e09db59fd5482b1082be6f8c",
+          "capture_sha256": "8b15bbd84a7af15cf6213d93970ef41d0a418263e09db59fd5482b1082be6f8c",
+          "capture_status": "partial",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "0726fbf01955f7c11e43c98db0dfe0b8e95cb828c659a4a5e75c711df0289e08",
+          "capture_sha256": "0726fbf01955f7c11e43c98db0dfe0b8e95cb828c659a4a5e75c711df0289e08",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "76b72e6f49355e777deede464eae13608cde8a9c910c3496f8b431ef756ee63f",
+          "capture_sha256": "76b72e6f49355e777deede464eae13608cde8a9c910c3496f8b431ef756ee63f",
+          "capture_status": "metadata_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "3f1d473b9f33d162f091fc9b385520260e5e877586628c323a2e2992889b9101",
+          "capture_sha256": "3f1d473b9f33d162f091fc9b385520260e5e877586628c323a2e2992889b9101",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "a31503e1dc440fd4f1ac4722fc9aa5764b8651ced8695443882bb43c45311e00",
+          "capture_sha256": "0cc0965cc376c8bf6deea358641b48428ea42365a4cf410971310d89fd6672c9",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "a4650b8b157e0f5cc9b5671564e77e9f583cc3e4d29fb55cb523d2540b663cef",
+          "capture_sha256": "a4650b8b157e0f5cc9b5671564e77e9f583cc3e4d29fb55cb523d2540b663cef",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "3fc91fef39f858d903e29a148f408a343c6b7b59013a5adfc37a8cb0518bb1d8",
+          "capture_sha256": "3fc91fef39f858d903e29a148f408a343c6b7b59013a5adfc37a8cb0518bb1d8",
+          "capture_status": "error",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "db546da60b40e4668b6729accf4e3c422af0ecd71e751fdd3b63df156d6d7761",
+          "capture_sha256": "aaeb17e2a756d8a6a5a9db5080245af864307f63ad8e5116e9c945f651ee8ba6",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "381f915945f9d70a25f48a10e71946a9c8a31f5aaf18d0df17e0756acff2d601",
+          "capture_sha256": "381f915945f9d70a25f48a10e71946a9c8a31f5aaf18d0df17e0756acff2d601",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        }
+      ]
+    },
+    {
+      "query": "Strawberry cultivar Florida Brilliance versus Florida Beauty university trial yield early harvest",
+      "status": "partial",
+      "seconds": 33.742,
+      "capture_counts": {
+        "excerpt_only": 6,
+        "blocked": 4
+      },
+      "fresh_retained": 2,
+      "fresh_body_supported": 0,
+      "google_url_matches": [],
+      "trace": [
+        {
+          "candidate_sha256": "c94018317f8fd609bbfc2be462e7078e6413c20e3a57ff1b5abf96b523cc011b",
+          "capture_sha256": "b036070f4c63eb7cdceb8f1accd768c6df09c9fe1872b25fb14b126d14dabf46",
+          "capture_status": "excerpt_only",
+          "retained": true,
+          "support_status": "scope_unverified"
+        },
+        {
+          "candidate_sha256": "4f5329a2a7e545ed7455ac948e54bf21dd2af1b4f75815191ff91410df0e1931",
+          "capture_sha256": "252c17659c142d4a1336b931f9821543e6d25741764d39f64d9fc432f5aba30a",
+          "capture_status": "excerpt_only",
+          "retained": true,
+          "support_status": "scope_unverified"
+        },
+        {
+          "candidate_sha256": "893c1dd737f35666d69c5ff5ba1b897ff6c7e803d9c23e081940a774b9baace4",
+          "capture_sha256": "476538413036a408819aacf002046cb3b3225a07d0452730d010dc3c91323239",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "780cb6e6e274788d2bc3467a679529068fe6aa2f1147d447bc0c349d7edcc7fd",
+          "capture_sha256": "9fdbc3321385a3f6bac4492dfaf95fbac28c29dc62ca8d48c500b4d3cb7e5d0c",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "f4e42bf5fd7b786b543b9812ff503c96b7a93dd2a28f7696050d737993b2a2b1",
+          "capture_sha256": "f4e42bf5fd7b786b543b9812ff503c96b7a93dd2a28f7696050d737993b2a2b1",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "7a66defb89d2e02073e904440d3333a8c07f0b35800e86979ebc9cd8ed584ce7",
+          "capture_sha256": "7a66defb89d2e02073e904440d3333a8c07f0b35800e86979ebc9cd8ed584ce7",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "fd20f49104b23dceb4c8e909821e8f67ed8c78a958afcee7292e4c4bde292e49",
+          "capture_sha256": "537091a142a8624a24801ab27d965236052e93ca20e9d01b5a466eaa68f22783",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "10f98874f1316c6542c2ea6ac596e26dbdc96599dc749f786d2f8e8b823c4c0a",
+          "capture_sha256": "10f98874f1316c6542c2ea6ac596e26dbdc96599dc749f786d2f8e8b823c4c0a",
+          "capture_status": "blocked",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "469aea509875f70fde26ae5254759a75001d2f6001271fe70b81f66600d82905",
+          "capture_sha256": "d0a9dc2c4247443a720372fb4fdf5f159261a7768df80428206ab005a422eaaa",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        },
+        {
+          "candidate_sha256": "96bd737700f274eabe4f9cb896e0b236965725af8321031870120bbc63901ff8",
+          "capture_sha256": "6c6df69f35d29f24bcfc8a785d79f9b8735b0d71b703d9776db4fcccc0024ffd",
+          "capture_status": "excerpt_only",
+          "retained": false,
+          "support_status": null
+        }
+      ]
+    }
+  ]
+}

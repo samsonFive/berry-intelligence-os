@@ -1,0 +1,1226 @@
+{
+  "version": 1,
+  "started_at": "2026-11-09T18:45:37.878930+00:00",
+  "old_ref": "f198dead18c54b6e012eed896f86424d405b9b05",
+  "provider": "public_metadata_fallback",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "interpreted_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "terms": [
+          "commercial",
+          "floricane",
+          "blackberry",
+          "variety",
+          "2027",
+          "northern",
+          "hemisphere",
+          "season"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-66a421b2a277d5ea",
+          "title": "Blackberry Cultivars for Oregon | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "published_date": "2014-12-18",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season new variety releases trials",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season licensing international development",
+          "Ervin New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 15,
+        "capture_count": 10,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:45:40+00:00",
+        "latency_seconds": 147.975,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "empty",
+        "history_candidates_count": 0,
+        "history_write": {
+          "status": "ready",
+          "stored": 10
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ValueError"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [
+          "ReadTimeout",
+          "RemoteProtocolError",
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 152.233,
+      "warm_seconds": 10.758,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 3,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "interpreted_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "terms": [
+          "north",
+          "carolina",
+          "740",
+          "ervin",
+          "blackberry",
+          "mills",
+          "river",
+          "high",
+          "tunnel",
+          "yield",
+          "versus",
+          "ouachita"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+          "Ervin North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 10,
+        "capture_count": 7,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:48:37+00:00",
+        "latency_seconds": 50.212,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 9,
+        "history_write": {
+          "status": "ready",
+          "stored": 7
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 10,
+        "primary_page_requests_this_request": 4,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 56.482,
+      "warm_seconds": 2.717,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Variedades de zarzamora floricane para producción comercial en España",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "interpreted_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "terms": [
+          "variety",
+          "de",
+          "blackberry",
+          "floricane",
+          "para",
+          "producción",
+          "comercial",
+          "en",
+          "españa"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Variedades de zarzamora floricane para producción comercial en España",
+          "Variedades de zarzamora floricane para producción comercial en España new variety releases trials",
+          "Variedades de zarzamora floricane para producción comercial en España licensing international development",
+          "Ervin Variedades de zarzamora floricane para producción comercial en España"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 18,
+        "capture_count": 13,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:49:38+00:00",
+        "latency_seconds": 77.905,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 12,
+        "history_write": {
+          "status": "ready",
+          "stored": 13
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [
+          "RemoteProtocolError",
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 80.576,
+      "warm_seconds": 65.501,
+      "warm_queries": 4,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "interpreted_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "terms": [
+          "varietà",
+          "di",
+          "mora",
+          "senza",
+          "spine",
+          "loch",
+          "katrine",
+          "prove",
+          "produttive",
+          "scozia"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Varietà di mora senza spine Loch Katrine prove produttive Scozia"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 2,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:52:11+00:00",
+        "latency_seconds": 26.216,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 0,
+        "history_write": {
+          "status": "ready",
+          "stored": 2
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 30.275,
+      "warm_seconds": 1.546,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": true,
+      "google_comparable": false
+    },
+    {
+      "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "interpreted_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "terms": [
+          "comparaison",
+          "des",
+          "variétés",
+          "de",
+          "framboise",
+          "remontante",
+          "en",
+          "tunnel",
+          "france"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-ac56a07c75ee2cd2",
+          "title": "Accompagner - 26. La question des injections létales - Comparaison des pratiques en Belgique et en France - Demopolis",
+          "source_url": "https://books.openedition.org/demopolis/379",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0706504306c819ab",
+          "title": "La comparaison des processus juridiques de la libéralisation des secteurs électrique et gazier : en France et en Turquie",
+          "source_url": "https://api.crossref.org/works/10.70675%2Fb6486140z785fz45e1za8a8z57a8fd0e904b",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-55e1e06776afe508",
+          "title": "Comparaison de la structure et du déterminisme des Littorelletea uniflorae en Poméranie (Pologne) et en Bretagne (France) - Phytocoenologia Band 19 Heft 1 — Schweizerbart science publishers",
+          "source_url": "https://www.schweizerbart.de/papers/phyto/detail/19/80814/Comparaison_de_la_structure_et_du_determinisme_des",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-d2f946ab01ee1cd2",
+          "title": "Trajectoires d'européanisation : une comparaison des usages de l'Europe dans le secteur de la santé en Suède et en France (1945-2015)",
+          "source_url": "https://api.crossref.org/works/10.70675%2F9e66bec8z0459z4a0cz81abz9bcae891c845",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-4b122e1e86f78391",
+          "title": "Les États providence sont aussi des États membres : comparaison des logiques nationales de l’européanisation des politiques de l’emploi en France et au Portugal",
+          "source_url": "https://api.crossref.org/works/10.70675%2F7b8de9caz1764z48eez9a07z5bc91d46a932",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-3771ad0c2127ce58",
+          "title": "La réglementation des assurances sur la vie en France (1681-1938) : éléments de comparaison avec l’Angleterre",
+          "source_url": "https://api.crossref.org/works/10.70675%2F338ce6c5z0a9fz46fazb811zacac73059d6f",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Comparaison des variétés de framboise remontante en tunnel en France"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:52:48+00:00",
+        "latency_seconds": 27.348,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 10,
+        "history_write": {
+          "status": "ready",
+          "stored": 8
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 31.774,
+      "warm_seconds": 4.59,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 6,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "interpreted_query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "terms": [
+          "arándano",
+          "cosecha",
+          "mecánica",
+          "cultivares",
+          "ensayo",
+          "perú"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-ae613c53d5f98488",
+          "title": "INFLUENCIA DE MÉTODOS DE COSECHA Y TEMPERATURAS DE ALMACENAMIENTO EN LA CALIDAD DEL ARÁNDANO (Vaccinium ashei R.) | Revista Fitotecnia Mexicana",
+          "source_url": "https://revfitotecnia.mx/index.php/RFM/article/view/1041",
+          "published_date": "2005-12-26",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Arándano cosecha mecánica cultivares ensayo Perú"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 7,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:53:28+00:00",
+        "latency_seconds": 24.434,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 1,
+        "history_write": {
+          "status": "ready",
+          "stored": 7
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 27.649,
+      "warm_seconds": 2.309,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "interpreted_query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "terms": [
+          "fresa",
+          "variety",
+          "tolerantes",
+          "al",
+          "calor",
+          "ensayo",
+          "huelva"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-80c79804a83a19de",
+          "title": "Brasil - Produtividade de genótipos de batata inglesa tolerantes ao calor em duas épocas de plantio, no vale do São Francisco Produtividade de genótipos de batata inglesa tolerantes ao calor em duas épocas de plantio, no vale do São Francisco",
+          "source_url": "http://www.scielo.br/j/hb/a/q6Tw4FVZp8GnP6N76ycMqYv/?lang=pt",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Fresa variedades tolerantes al calor ensayo Huelva"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:54:03+00:00",
+        "latency_seconds": 20.365,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 18,
+        "history_write": {
+          "status": "ready",
+          "stored": 5
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 23.668,
+      "warm_seconds": 2.253,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    },
+    {
+      "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "interpreted_query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "terms": [
+          "pacific",
+          "northwest",
+          "blackberry",
+          "mechanical",
+          "harvesting",
+          "variety",
+          "trial",
+          "processing"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v24"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-7334ef02c4abfc1b",
+          "title": "GCRI — Development of a robotic system for harvest of blackberries",
+          "source_url": "https://www.gcritrust.org/wp-content/uploads/2024/12/Report-to-GCRI-Development-of-a-robotic-system-for-harvest-of-blackberries-final-2-Marcello.pdf",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-ed13e347240f5701",
+          "title": "Morphological Variation in Western Trailing Blackberry (Rubus ursinus) in the Pacific Northwest",
+          "source_url": "https://api.crossref.org/works/10.21273%2Fhortsci.30.4.767",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-1010cb8aab33c07a",
+          "title": "Variation in Reproductive Traits of Western Trailing Blackberry (Rubus ursinus) in the Pacific Northwest",
+          "source_url": "https://api.crossref.org/works/10.21273%2Fhortsci.30.4.833f",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [],
+      "google_depth_complete": false,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 9,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T18:54:32+00:00",
+        "latency_seconds": 17.226,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 19,
+        "history_write": {
+          "status": "ready",
+          "stored": 9
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 1,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 19.402,
+      "warm_seconds": 1.586,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": false
+    }
+  ],
+  "summary": {
+    "queries": 8,
+    "median_seconds": 31.0245,
+    "p95_seconds": 152.233,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": false
+  },
+  "quality_evaluation": {
+    "version": 1,
+    "source_run_started_at": "2026-11-09T18:45:37.878930+00:00",
+    "query_count": 8,
+    "unique_pooled_urls": 15,
+    "judgment_pairs_missing": 15,
+    "non_comparable_google_queries": [
+      "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+      "Variedades de zarzamora floricane para producción comercial en España",
+      "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+      "Comparaison des variétés de framboise remontante en tunnel en France",
+      "Arándano cosecha mecánica cultivares ensayo Perú",
+      "Fresa variedades tolerantes al calor ensayo Huelva",
+      "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing"
+    ],
+    "acceptance_ready": false,
+    "aggregate_metrics": {},
+    "individual_regressions": [],
+    "same_day_capture_pairing": false,
+    "google_parity": "UNVERIFIED",
+    "queries": [
+      {
+        "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 3,
+        "pool_urls": [
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme"
+        ],
+        "missing_judgments": [
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 3,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "split": "held_out",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Variedades de zarzamora floricane para producción comercial en España",
+        "split": "held_out",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "split": "held_out",
+        "judged_pool_complete": true,
+        "pool_size": 0,
+        "pool_urls": [],
+        "missing_judgments": [],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 6,
+        "pool_urls": [
+          "api.crossref.org/works/10.70675%2f338ce6c5z0a9fz46fazb811zacac73059d6f",
+          "api.crossref.org/works/10.70675%2f7b8de9caz1764z48eez9a07z5bc91d46a932",
+          "api.crossref.org/works/10.70675%2f9e66bec8z0459z4a0cz81abz9bcae891c845",
+          "api.crossref.org/works/10.70675%2fb6486140z785fz45e1za8a8z57a8fd0e904b",
+          "books.openedition.org/demopolis/379",
+          "schweizerbart.de/papers/phyto/detail/19/80814/comparaison_de_la_structure_et_du_determinisme_des"
+        ],
+        "missing_judgments": [
+          "api.crossref.org/works/10.70675%2f338ce6c5z0a9fz46fazb811zacac73059d6f",
+          "api.crossref.org/works/10.70675%2f7b8de9caz1764z48eez9a07z5bc91d46a932",
+          "api.crossref.org/works/10.70675%2f9e66bec8z0459z4a0cz81abz9bcae891c845",
+          "api.crossref.org/works/10.70675%2fb6486140z785fz45e1za8a8z57a8fd0e904b",
+          "books.openedition.org/demopolis/379",
+          "schweizerbart.de/papers/phyto/detail/19/80814/comparaison_de_la_structure_et_du_determinisme_des"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 6,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 1,
+        "pool_urls": [
+          "revfitotecnia.mx/index.php/rfm/article/view/1041"
+        ],
+        "missing_judgments": [
+          "revfitotecnia.mx/index.php/rfm/article/view/1041"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 1,
+        "pool_urls": [
+          "scielo.br/j/hb/a/q6tw4fvzp8gnp6n76ycmqyv?lang=pt"
+        ],
+        "missing_judgments": [
+          "scielo.br/j/hb/a/q6tw4fvzp8gnp6n76ycmqyv?lang=pt"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 4,
+        "pool_urls": [
+          "api.crossref.org/works/10.21273%2fhortsci.30.4.767",
+          "api.crossref.org/works/10.21273%2fhortsci.30.4.833f",
+          "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
+        ],
+        "missing_judgments": [
+          "api.crossref.org/works/10.21273%2fhortsci.30.4.767",
+          "api.crossref.org/works/10.21273%2fhortsci.30.4.833f",
+          "gcritrust.org/wp-content/uploads/2024/12/report-to-gcri-development-of-a-robotic-system-for-harvest-of-blackberries-final-2-marcello.pdf",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": false,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 4,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      }
+    ]
+  }
+}

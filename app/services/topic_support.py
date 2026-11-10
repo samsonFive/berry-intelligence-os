@@ -2,6 +2,12 @@
 import re
 
 CROPS={'blackberry','blueberry','raspberry','strawberry'}
+_PLACE_ALIASES = {
+    'peru': ('perú',),
+    'spain': ('españa', 'espagne', 'spagna'),
+    'scotland': ('scozia', 'scottish'),
+    'pacific northwest': ('oregon', 'washington state'),
+}
 
 
 def passage_intent_supported(text, plan):
@@ -43,7 +49,9 @@ def passage_intent_supported(text, plan):
         ({'cold','storage'},r'\b(?:cold stor\w*|chill\w* stor\w*|stor\w*[^.!?]{0,35}\b(?:cold|[0-9]+\s*(?:c|degrees)))\b'),
         ({'tray'},r'\btray\w*\b'),
         ({'bruising'},r'\b(?:bruis\w*|damag\w*|injur\w*)\b'),
-        ({'mechanical'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*)\b'),
+        ({'mechanical'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*|mec[aá]nic\w*)\b'),
+        ({'mechanical','harvest'},r'\b(?:mechanical\w*|machine|mechaniz\w*|mechanis\w*)[ -]+harvest\w*\b|\bharvest\w*\b[^.!?]{0,40}\b(?:by machine|mechanically)\b|\bcosecha\b[^.!?]{0,30}\bmec[aá]nica\b'),
+        ({'processing'},r'\b(?:processing|processed markets?|frozen markets?|iqf)\b'),
         ({'netting'},r'\b(?:netting|netted|exclusion nets?)\b'),
         ({'pollination'},r'\b(?:pollinat\w*|bumblebee\w*)\b'),
     ]
@@ -72,7 +80,7 @@ def passage_intent_supported(text, plan):
         if not re.search(r'\broot zone\b',plain):return False
         if not re.search(r'\b(?:cool\w*|temperatur\w*|reduc\w*)\b',plain):return False
     if any(t.startswith(('trial','experiment','evaluat')) for t in words):
-        if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*)\b',plain):return False
+        if not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|test\w*|compar\w*|field demonstration)\b',plain):return False
         if 'field' in words:
             # Field capacity is a substrate-water measure, not a field site.
             if not re.search(r'\b(?:field(?! capacity)|outdoor)\b',plain):return False
@@ -134,12 +142,19 @@ def support_context(plan, entities, identifiers):
         # Geographic scope vocabulary does not create registry entities or
         # equate a climate with a country. Unresolved regional requests stay
         # literal, including subdivisions absent from the country registry.
-        for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland',
-                     'Central America','South America','North America','Southeast Asia'):
+        for name in ('Mediterranean','Scotland','England','Wales','Northern Ireland','Pacific Northwest',
+                     'Central America','South America','North America','Southeast Asia',
+                     'Peru','Spain','France','Huelva'):
             term=normalize(name)
-            if re.search(r'(?<!\w)'+re.escape(term)+r'(?!\w)',place_positive):
-                places.append((term,))
-                place_terms.update(term.split())
+            names = (term, *_PLACE_ALIASES.get(term, ()))
+            query_names = (term,) if term == 'pacific northwest' else names
+            matched_names = [name for name in query_names if re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',place_positive)]
+            if matched_names:
+                existing = next((group for group in places if term in group), ())
+                if existing:
+                    places.remove(existing)
+                places.append(tuple(dict.fromkeys((*existing, *names))))
+                place_terms.update(word for name in matched_names for word in name.split())
     return {'identities':list(identities.values()),'trial_places':places,
             'place_terms':tuple(sorted(place_terms)),'organizations':organizations}
 
@@ -169,6 +184,14 @@ def identity_in_passage(text, entity):
         if re.search(r'\b(?:includes?|including|such as)\s+(?:the\s+)?(?:variety|cultivar)\s+[^.!?]{0,350}(?<!\w)'+name+r'(?!\w)',text):return True
         descriptors=r'(?:(?:ever bearer|everbearer|primocane fruiting|floricane fruiting|thornless|early|late|midseason|main season|mid late|june bearing|day neutral|short day|low chilling|low chill|southern highbush|northern highbush|highbush)\s+){0,3}'
         if re.search(r'(?<!\w)'+name+r'\s+(?:(?:is|was)\s+)?(?:(?:a|the)\s+)?(?:new\s+)?'+descriptors+r'(?:blackberry|raspberry|blueberry|strawberry|variety|cultivar)\b',text):return True
+        # An explicit agronomic comparison identifies a control cultivar even
+        # when the source omits the word cultivar beside its name.
+        if re.search(
+            r'\b(?:yield|harvest|fruit|firmness|productivity)\b[^.]{0,100}\b'
+            r'(?:compared (?:with|to)|similar to|comparable to|more than|less than|relative to) '
+            r'(?:[\w]+ and )?' + name + r'(?!\w| (?:county|parish|river|mountains)\b)', text,
+        ):
+            return True
         # A parenthesized experimental cultivar list owns its crop context,
         # including when a PDF page break falls inside the list. Names outside
         # that explicit list (authors, other crops) do not inherit the context.
@@ -185,6 +208,7 @@ def cane_in_passage(text, cane):
     from app.services.topic_retrieval import normalize
     text=normalize(text)
     if re.search(r'\b'+cane+r'[- ]?(?:fruit\w*|bear\w*|crop|yield\w*|flower\w*|production|blackberr\w*|raspberr\w*|variet\w*|cultivar\w*|trial\w*)\b',text,re.I):return True
+    if re.search(r'\bvariety de (?:blackberry|raspberry) '+cane+r'\b',text):return True
     return bool(re.search(r'\b(?:fruit\w*|crop|yield\w*|flower\w*|produc\w*)\b[^.!?]{0,65}\b'+cane+r'\b',text,re.I))
 
 
@@ -193,6 +217,6 @@ def trial_location_in_passage(text, places, *, require_trial=True):
     if not places:return True
     text=normalize(text)
     if require_trial and not re.search(r'\b(?:trial\w*|evaluat\w*|experiment\w*|research|study|studies)\b',text):return False
-    prepositions='in|at|across|within|near'if require_trial else'in|at|across|within|near|for|throughout|outside'
+    prepositions='in|at|across|within|near|en|dans'if require_trial else'in|at|across|within|near|for|throughout|outside|en|dans'
     subjects='trial|evaluation|experiment'if require_trial else'licen[sc]\\w*|territor\\w*|agreement'
     return all(any(re.search(r'\b(?:'+prepositions+r') (?:the )?'+re.escape(place)+r'(?!\w)|(?<!\w)'+re.escape(place)+r' (?:field )?(?:'+subjects+r')',text) for place in group) for group in places)

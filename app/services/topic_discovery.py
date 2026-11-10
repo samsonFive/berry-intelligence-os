@@ -18,14 +18,14 @@ from urllib.parse import urlsplit
 
 from app.services.ai_gateway.credentials import resolve_perplexity_api_key, MissingCredentialError
 from app.services.ai_gateway.perplexity_search import PerplexitySearchClient
-from app.services.article_dedup import normalize_canonical_url
+from app.services.article_dedup import normalize_canonical_url, research_capture_url_key
 from app.services.feed_first_reader import fetch_public_article, is_public_http_url
 from app.services.open_research_copy import fetch_topic_source
 from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v13'  # Credit-free discovery and exact deposited/document captures.
+CAPTURE_VERSION = 'topic-capture-v19'  # Keep cited PDF pages distinct during capture.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -85,18 +85,20 @@ def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str |
     return None
 
 
-def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None) -> dict[str, Any]:
+def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None, capture_audit: Callable | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     from app.services.public_research_search import registered_primary_sources,registered_primary_terms
+    from app.services.variety_season import season_candidate_sources
     primary_sources=registered_primary_sources(data_dir,entities or {}) if data_dir is not None else {}
     primary_terms=registered_primary_terms(data_dir,entities or {})if data_dir is not None else {}
+    reference_sources = season_candidate_sources(data_dir, plan) if data_dir is not None else []
     identity_basis = [{**{k:e.get(k) for k in ('id','name','aliases','berry_ids')},
         'identity_source':((e.get('attributes') or {}).get('identity_review') or {}).get('source_url'),
         'removed':bool((e.get('attributes') or {}).get('catalog_removed'))}
         for e in (entities or {}).values() if e.get('entity_type')=='variety']
     geography_variant = geographic_query_variant(plan, entities)
     from app.services.resilient_topic_search import credit_free_mode
-    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, credit_free_mode(), plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant,primary_sources,primary_terms], sort_keys=True).encode()).hexdigest()
+    key = hashlib.sha256(json.dumps([VERSION, CAPTURE_VERSION, credit_free_mode(), plan.as_dict(), constraints, sorted(identity_basis,key=lambda e:e['id']), geography_variant,primary_sources,primary_terms,reference_sources], sort_keys=True).encode()).hexdigest()
     path = inbox_dir / "topic_research_cache" / f"{key}.json"
     from app.services.research_source_cache import cached_sources,remember_sources,merge_source_records
     history,history_status=cached_sources(inbox_dir,plan)
@@ -148,41 +150,16 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
         suffix = " ".join(str(v) for v in constraints.get("public_labels", []) if v)
         failures: list[str] = []
         candidates: dict[str, dict[str, Any]] = {}
-        successes = 0
-        for query in queries:
-            try:
-                response = client.search((query + " " + suffix).strip(), max_results=10)
-                successes += 1
-                for rank, hit in enumerate(response.hits, 1):
-                    url = hit.url
-                    identity = normalize_canonical_url(url)
-                    if not identity or not is_public_http_url(url):
-                        continue
-                    candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
-            except Exception as exc:
-                # Error class only: provider exception text can contain secrets.
-                failures.append(type(exc).__name__)
-            if progress:
-                progress({'stage':'search', 'searches_completed':successes+len(failures), 'candidates':len(candidates), 'items':[]})
-
-        # Follow at most two registry names actually present in discovered
-        # titles. No topic-specific result URLs or invented cultivar traits.
-        from app.services.topic_retrieval import normalize
-        titles = " ".join(normalize(r["title"]) for r in candidates.values())
-        followed = [str(name) for name in constraints.get("public_variety_names", []) if len(str(name)) >= 4 and re.search(r"(?<!\w)" + re.escape(normalize(str(name))) + r"(?!\w)", titles)][:2]
-        for name in followed:
-            query = name + " " + plan.interpreted_query
-            queries.append(query)
-            try:
-                response = client.search(query, max_results=10)
-                successes += 1
-                for rank, hit in enumerate(response.hits, 1):
-                    identity = normalize_canonical_url(hit.url)
-                    if identity and is_public_http_url(hit.url):
-                        candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": hit.url, "url": hit.url, "source_name": urlsplit(hit.url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
-            except Exception as exc:
-                failures.append(type(exc).__name__)
-
+        for title, url, subject in reference_sources:
+            identity = research_capture_url_key(url)
+            if identity and is_public_http_url(url):
+                candidates[identity] = {
+                    "id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16],
+                    "title": title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname,
+                    "snippet": "", "published_date": "", "provider": "local_primary_citation",
+                    "reference_subject": subject,
+                    "provider_rank": 0, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED",
+                }
         def capture(row):
             try:
                 captured = fetcher(row["source_url"])
@@ -191,7 +168,7 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
                 canonical = captured.get("canonical_url") or row["source_url"]
                 if not is_public_http_url(canonical):
                     canonical = row['source_url']
-                identity = normalize_canonical_url(canonical)
+                identity = research_capture_url_key(canonical)
                 locators = captured.get('passage_locators') or []
                 paragraphs = [{'index':i,'text':str(p), **({'locator':locators[i]} if i<len(locators) else {})} for i,p in enumerate(body)]
                 row['capture_provenance'] = {k:captured[k] for k in ('method','copy_scope','original_url','repository_identifiers','original_capture_status','original_capture_reason') if k in captured}
@@ -199,25 +176,99 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             except Exception as exc:
                 return {**row, "search_date": row.get("published_date") or "", "published_date": "", "publication_date_basis": "unknown", "capture_status": "snippet_only", "capture_reason": type(exc).__name__}
 
+        def show_capture(captured, total):
+            if not progress:
+                return
+            preview = scoped_rows(captured)
+            progress({
+                'stage': 'capture', 'captured': len(captured), 'capture_total': total,
+                'text_captures': sum(bool(row.get('source_version')) for row in captured),
+                'items': [
+                    {k: (('Quotation withheld · verification required' if k == 'capture_status' else None)
+                         if k in {'capture_status', 'passage', 'passage_locator'}
+                         and row.get('support_status') in {'scope_unverified', 'source_review_hold'}
+                         else row.get(k))
+                     for k in ('id', 'title', 'source_url', 'published_date', 'capture_status',
+                               'relevance', 'passage', 'passage_locator')}
+                    for row in preview
+                ],
+            })
+
+        first_batch = []
+        prefetched = {}
+        successes = 0
+        for query_index, query in enumerate(queries):
+            try:
+                response = client.search((query + " " + suffix).strip(), max_results=10)
+                successes += 1
+                for rank, hit in enumerate(response.hits, 1):
+                    url = hit.url
+                    identity = research_capture_url_key(url)
+                    if not identity or not is_public_http_url(url):
+                        continue
+                    candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": url, "url": url, "source_name": urlsplit(url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
+            except Exception as exc:
+                # Error class only: provider exception text can contain secrets.
+                failures.append(type(exc).__name__)
+            if progress:
+                progress({'stage':'search', 'searches_completed':successes+len(failures), 'candidates':len(candidates), 'items':[]})
+            if query_index == 0 and len(queries) > 1:
+                first_batch = list(candidates.items())[:min(2, MAX_CAPTURE_CANDIDATES)]
+                if progress and first_batch:
+                    # Reserve the same slots in both modes. Streaming can
+                    # show them early and reuse them in the final capture.
+                    with ThreadPoolExecutor(max_workers=2) as pool:
+                        futures = {pool.submit(capture, row): identity for identity, row in first_batch}
+                        for future in as_completed(futures):
+                            prefetched[futures[future]] = future.result()
+                            show_capture(list(prefetched.values()), len(first_batch))
+
+        # Keep named candidates early for capture, but only send a follow-up
+        # when it adds an identity absent from the original question.
+        from app.services.topic_retrieval import normalize
+        titles = " ".join(normalize(r["title"]) for r in candidates.values())
+        followed = [str(name) for name in constraints.get("public_variety_names", []) if len(str(name)) >= 4 and re.search(r"(?<!\w)" + re.escape(normalize(str(name))) + r"(?!\w)", titles)][:2]
+        original = normalize(plan.interpreted_query)
+        for name in followed:
+            if re.search(r"(?<!\w)" + re.escape(normalize(name)) + r"(?!\w)", original):
+                continue
+            query = name + " " + plan.interpreted_query
+            queries.append(query)
+            try:
+                response = client.search(query, max_results=10)
+                successes += 1
+                for rank, hit in enumerate(response.hits, 1):
+                    identity = research_capture_url_key(hit.url)
+                    if identity and is_public_http_url(hit.url):
+                        candidates.setdefault(identity, {"id": "web-" + hashlib.sha256(identity.encode()).hexdigest()[:16], "title": hit.title, "source_url": hit.url, "url": hit.url, "source_name": urlsplit(hit.url).hostname, "snippet": hit.snippet, "published_date": hit.published_date or "", "provider": response.provider, "provider_rank": rank, "retrieved_at": stamp, "trust_class": "LIVE / UNREVIEWED"})
+            except Exception as exc:
+                failures.append(type(exc).__name__)
+
+        first_identities = {identity for identity, _ in first_batch}
         with ThreadPoolExecutor(max_workers=4) as pool:
             # Follow-up candidates precede generic gardening results for body
             # acquisition, while ranking still uses the original topic plan.
-            ordered = sorted(candidates.values(), key=lambda r: any(normalize(n) in normalize(r["title"]) for n in followed), reverse=True)
+            ordered = sorted(
+                candidates.values(),
+                key=lambda row: (
+                    research_capture_url_key(row['source_url']) in first_identities,
+                    any(normalize(name) in normalize(row['title']) for name in followed),
+                ),
+                reverse=True,
+            )
             bounded = ordered[:MAX_CAPTURE_CANDIDATES]
-            positions = {pool.submit(capture, row):i for i,row in enumerate(bounded)}
             completed = {}
+            positions = {}
+            for i, row in enumerate(bounded):
+                identity = research_capture_url_key(row['source_url'])
+                if identity in prefetched:
+                    completed[i] = prefetched[identity]
+                else:
+                    positions[pool.submit(capture, row)] = i
             for future in as_completed(positions):
                 completed[positions[future]] = future.result()
                 # Completion order must not change final ranking or the cache.
-                captured = [completed[i] for i in sorted(completed)]
-                if progress:
-                    preview = retrieve(captured, plan, entities=entities, limit=20)
-                    groups = constraints.get('required_label_groups') or []
-                    if groups:
-                        from app.services.topic_retrieval import record_passages
-                        preview = [r for r in preview if all(any(normalize(label) in normalize(' '.join(p for _,p in record_passages(r))) for label in group) for group in groups)]
-                    progress({'stage':'capture', 'captured':len(completed), 'capture_total':len(bounded),
-                              'items':[{k:(('Quotation withheld · verification required' if k=='capture_status' else None) if k in {'capture_status','passage','passage_locator'} and r.get('support_status') in {'scope_unverified','source_review_hold'} else r.get(k)) for k in ('id','title','source_url','published_date','capture_status','relevance','passage','passage_locator')} for r in preview]})
+                show_capture([completed[i] for i in sorted(completed)], len(bounded))
             captured = [completed[i] for i in sorted(completed)]
         try:history_write=remember_sources(inbox_dir,captured)
         except (OSError,ValueError):history_write={'status':'unavailable','stored':0}
@@ -230,7 +281,27 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
             rows = [r for r in rows if all(any(normalize(label) in normalize(" ".join(p for _, p in record_passages(r))) for label in group) for group in required_groups)]
         diagnostics=client.diagnostics() if hasattr(client,'diagnostics') else {}
         degraded=bool(diagnostics.get('fallback_used'))
-        result = {"items": rows, "status": "partial" if (failures or degraded) and successes else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
+        fresh_versions = {(r["source_url"], r["source_version"]) for r in captured if r.get("source_version")}
+        has_live_match = any((r["source_url"], r.get("source_version")) in fresh_versions for r in rows)
+        if capture_audit is not None:
+            def fingerprint(url):
+                return hashlib.sha256(normalize_canonical_url(url).encode()).hexdigest()
+
+            ranked_by_capture = {(row["source_url"], row.get("source_version")): row for row in rows}
+            trace = []
+            for original, capture_row in zip(ordered, captured):
+                ranked = ranked_by_capture.get((capture_row["source_url"], capture_row.get("source_version")))
+                trace.append({
+                    "candidate_sha256": fingerprint(original["source_url"]),
+                    "capture_sha256": fingerprint(capture_row["source_url"]),
+                    "capture_status": capture_row["capture_status"],
+                    "retained": ranked is not None,
+                    "support_status": ranked.get("support_status") if ranked else None,
+                })
+            trace.extend({"candidate_sha256": fingerprint(row["source_url"]), "capture_status": "budget_excluded"}
+                         for row in ordered[len(captured):])
+            capture_audit(trace)
+        result = {"items": rows, "status": "partial" if (failures or degraded) and (successes or has_live_match) else "failed" if failures else "complete", "failures": failures, "queries": queries, "queries_this_request": len(queries), "candidate_count": len(candidates), "capture_count": sum(bool(r.get("source_version")) for r in captured), "cache_hit": False, "retrieved_at": stamp, "latency_seconds": round(time.monotonic() - started, 3), "cost": None, "provider": "public_metadata_fallback" if degraded else "perplexity_search",'history_status':history_status,'history_candidates_count':len(history),'history_write':history_write, **diagnostics}
         # Cache successful searches, including honest empty results. Failures
         # remain retryable immediately after credentials/provider recovery.
         if not failures:

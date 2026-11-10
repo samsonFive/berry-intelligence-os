@@ -1,0 +1,20 @@
+{
+  "id": "fact-frontier-immaculate-breeder-update-1",
+  "record_type": "fact",
+  "statement": "The University of Arkansas breeders describe Sweet-Ark Immaculate as a floricane-fruiting blackberry and report its performance in a Clarksville, Arkansas trial.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "User approval, Search Frontier mission review (2026-11-09)",
+  "created_at": "2026-11-09",
+  "evidence_ids": [
+    "ev-frontier-immaculate-breeder-update"
+  ],
+  "entity_ids": [
+    "variety-sweet-ark-immaculate-850b3936"
+  ],
+  "origin": "publication_claim_review",
+  "proposed_statement": "The University of Arkansas breeders describe Sweet-Ark Immaculate as a floricane-fruiting blackberry and report its performance in a Clarksville, Arkansas trial.",
+  "edited_before_approval": false,
+  "reviewed_at": "2026-11-09"
+}

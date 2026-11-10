@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "season": 2027,
+  "checked_on": "2026-11-09",
+  "sources": {
+    "uga": [
+      "University of Georgia Extension",
+      "https://fieldreport.caes.uga.edu/publications/C1327/productivity-and-postharvest-quality-of-strawberry-cultivars-grown-in-southeast-georgia/",
+      "Circular 1327, Table 2"
+    ],
+    "uf": [
+      "University of Florida IFAS",
+      "https://ask.ifas.ufl.edu/publication/CV134",
+      "Cultivars section"
+    ]
+  },
+  "rows": [
+    {
+      "name": "Florida Brilliance",
+      "variety_id": "variety-florida-brilliance-194cdb94",
+      "aliases": [],
+      "region": "Southeast US",
+      "habit": null,
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Winter–spring",
+      "trial_site": "Southeast Georgia",
+      "system": null,
+      "observation": "In the 2019–20 southeast Georgia demonstration, first harvest was January 28 and the season yielded 66.9 g per plant.",
+      "citations": [
+        "uga"
+      ],
+      "events": []
+    },
+    {
+      "name": "Florida Beauty",
+      "variety_id": "variety-florida-beauty-aa2dfdd1",
+      "aliases": [],
+      "region": "Southeast US",
+      "habit": null,
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Winter–spring",
+      "trial_site": "Southeast Georgia",
+      "system": null,
+      "observation": "In the same demonstration, first harvest was February 4 and the season yielded 41.9 g per plant.",
+      "citations": [
+        "uga"
+      ],
+      "events": []
+    },
+    {
+      "name": "Camarosa",
+      "variety_id": "variety-camarosa-c99bf142",
+      "aliases": [],
+      "region": "Southeast US",
+      "habit": null,
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Winter–spring",
+      "trial_site": "Southeast Georgia",
+      "system": null,
+      "observation": "In the same demonstration, first harvest was February 4 and the season yielded 153.0 g per plant.",
+      "citations": [
+        "uga"
+      ],
+      "events": []
+    },
+    {
+      "name": "Florida Ember",
+      "variety_id": null,
+      "aliases": [
+        "FL 20.80-4"
+      ],
+      "region": "Florida",
+      "habit": null,
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": null,
+      "trial_site": null,
+      "system": null,
+      "observation": "The UF/IFAS production handbook describes a 2024 release with bright external color, low acidity and high soluble solids.",
+      "citations": [
+        "uf"
+      ],
+      "events": [
+        [
+          "Breeder-reported release",
+          "2024",
+          "UF/IFAS production handbook",
+          "uf"
+        ]
+      ]
+    },
+    {
+      "name": "Florida Encore",
+      "variety_id": null,
+      "aliases": [
+        "FL 20.34-183"
+      ],
+      "region": "Florida",
+      "habit": null,
+      "crops": [],
+      "markets": [
+        "Fresh"
+      ],
+      "window": null,
+      "trial_site": null,
+      "system": null,
+      "observation": "The UF/IFAS production handbook describes firm fruit with good shipping quality and gives an October 12–22 planting window for its Florida guidance.",
+      "citations": [
+        "uf"
+      ],
+      "events": [
+        [
+          "Breeder-reported release",
+          "2024",
+          "UF/IFAS production handbook",
+          "uf"
+        ]
+      ]
+    }
+  ]
+}

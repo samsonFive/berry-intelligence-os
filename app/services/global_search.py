@@ -808,9 +808,29 @@ def search_documents(
 ) -> dict[str, Any]:
     sort = sort if sort in {"newest", "relevance"} else "newest"
     needle = (query or "").strip()
-    from app.services.topic_retrieval import plan_query
-    query_plan = plan_query(needle)
+    from app.services.topic_retrieval import match_record, plan_query
+    from app.services.topic_support import support_context
+    try:
+        query_plan = plan_query(needle)
+    except ValueError as error:
+        return {
+            "q": needle,
+            "berry": berry,
+            "include_private": include_private,
+            "include_global": include_global,
+            "sort": sort,
+            "error": str(error),
+            "empty": True,
+            "ambiguous": False,
+            "alias_resolutions": [],
+            "groups": [],
+            "result_count": 0,
+            "total_matches": 0,
+            "related_added": 0,
+        }
     needle = query_plan.interpreted_query
+    topic_context = support_context(query_plan, None, ())
+    has_publication_window = bool(query_plan.start or query_plan.end)
     folded_query = _fold(needle)
     hits: dict[str, dict[str, Any]] = {}
     docs_by_id = {doc.id: doc for doc in docs}
@@ -818,10 +838,17 @@ def search_documents(
     for doc in docs_by_id.values():
         if doc.private and not include_private:
             continue
-        rank, matched_as = _match_rank(doc, query=needle.casefold(), folded_query=folded_query)
-        if rank <= 0 and doc.group == "intelligence":
-            from app.services.topic_retrieval import match_record
-            matched = match_record({"title": doc.title, "body_text": doc.haystack}, query_plan)
+        if has_publication_window and (doc.group != "intelligence" or doc.date_basis != "published_date"):
+            continue
+        rank, matched_as = (0, "") if has_publication_window else _match_rank(
+            doc, query=needle.casefold(), folded_query=folded_query,
+        )
+        if rank <= 0 and query_plan.terms and doc.group == "intelligence":
+            matched = match_record({
+                "title": doc.title,
+                "body_text": doc.haystack,
+                "published_date": doc.date if doc.date_basis == "published_date" else "",
+            }, query_plan, _identifiers=(), _support_context=topic_context)
             if matched:
                 rank, matched_as = RANK_WEAK_TEXT, "text"
         if rank <= 0:
@@ -919,15 +946,17 @@ def search_documents(
 
     groups = []
     total = 0
+    total_matches = 0
     exact_groups = 0
     for group_id in GROUP_ORDER:
-        # Relevance rank decides which results make the cut (selection);
-        # `sort` only decides the order they are then displayed in.
-        in_context = sorted(grouped[group_id]["in_context"], key=_sort_key)[:limit_per_group]
-        also_global = sorted(grouped[group_id]["also_global"], key=_sort_key)[:limit_per_group]
+        in_context = sorted(grouped[group_id]["in_context"], key=_sort_key)
+        also_global = sorted(grouped[group_id]["also_global"], key=_sort_key)
+        total_matches += len(in_context) + len(also_global)
         if sort == "newest":
             in_context = _sort_rows_newest_first(in_context)
             also_global = _sort_rows_newest_first(also_global)
+        in_context = in_context[:limit_per_group]
+        also_global = also_global[:limit_per_group]
         if not in_context and not also_global:
             continue
         if any(int(row.get("rank") or 0) >= RANK_EXACT_ALIAS for row in in_context + also_global):
@@ -948,8 +977,11 @@ def search_documents(
         and any(int(row.get("rank") or 0) >= RANK_EXACT_ALIAS for row in group["in_context"] + group["also_global"])
         for group in groups
     )
+    from app.services.variety_season import is_blackberry_floricane
+
     return {
         "q": needle,
+        "blackberry_season": is_blackberry_floricane(query_plan, berry),
         "berry": berry,
         "include_private": include_private,
         "include_global": include_global,
@@ -959,6 +991,7 @@ def search_documents(
         "alias_resolutions": alias_resolutions,
         "groups": groups,
         "result_count": total,
+        "total_matches": total_matches,
         "related_added": related_added,
     }
 

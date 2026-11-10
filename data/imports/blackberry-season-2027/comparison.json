@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "season": 2027,
+  "checked_on": "2026-11-09",
+  "reviewed_sources": {
+    "Ervin": {
+      "gpg": "ev-frontier-ervin-gpg-license",
+      "nc_trial": "ev-frontier-ervin-mills-river-trial"
+    },
+    "Sweet-Ark Immaculate": {
+      "ar": "ev-frontier-immaculate-breeder-update",
+      "nursery": "ev-frontier-immaculate-nursery-listing",
+      "patent": "ev-frontier-immaculate-uspp36781"
+    },
+    "Loch Katrine": {
+      "berryplant": "ev-frontier-loch-katrine-fruiting-habit",
+      "hutton": "ev-frontier-loch-katrine-scottish-trial"
+    }
+  },
+  "sources": {
+    "nc": [
+      "NC State Extension",
+      "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "Key Attributes and Plant Performance"
+    ],
+    "gpg": [
+      "Global Plant Genetics",
+      "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+      "September 2026 licensing announcement"
+    ],
+    "ar": [
+      "University of Arkansas breeders",
+      "https://smallfruits.org/2026/01/sweet-ark-immaculate/",
+      "Key Details, Clarksville trial"
+    ],
+    "se": [
+      "Southeast Regional Caneberry Production Guide",
+      "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+      "Tables 2-1a and 2-1b"
+    ],
+    "hutton": [
+      "James Hutton Institute",
+      "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/",
+      "Scottish breeding and on-farm trials"
+    ],
+    "berryplant": [
+      "Berryplant",
+      "https://www.berryplant.com/blackberry/?lang=en",
+      "Loch Katrine entry"
+    ],
+    "osu": [
+      "Oregon State Extension",
+      "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+      "Trailing blackberry cultivar tables"
+    ],
+    "fontana": [
+      "Pairwise",
+      "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+      "Release and fruiting description"
+    ],
+    "patent": [
+      "University of Arkansas patent repository",
+      "https://scholarworks.uark.edu/pat/496/",
+      "USPP36781 grant record"
+    ],
+    "nursery": [
+      "Agromillora US",
+      "https://www.agromillora.com/en-us/our-products/berries/blackberries/",
+      "Sweet-Ark Immaculate listing"
+    ],
+    "nc_trial": [
+      "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+      "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+      "Poster 11, NC 740 replicated trial"
+    ],
+    "berryneo": [
+      "BerrYum exclusive blackberry varieties",
+      "https://www.berryneo.com/variedades-berryum/",
+      "Floricane, partially primocane, and primocane portfolio entries"
+    ],
+    "ars_machine": [
+      "USDA ARS mechanical harvest validation for blackberry and blueberry",
+      "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025",
+      "2025 accomplishments, item 3, Aurora Oregon evaluation"
+    ]
+  },
+  "market_catalogs": [
+    {"source_id": "berryneo", "habit": "floricane", "market_terms": ["spain", "españa", "huelva"]},
+    {"source_id": "ars_machine", "required_terms": ["mechanical", "harvest"], "market_terms": ["pacific northwest", "oregon"]}
+  ],
+  "rows": [
+    {
+      "name": "Ervin",
+      "variety_id": "variety-ervin",
+      "aliases": [
+        "NC 740"
+      ],
+      "region": "Southeast US",
+      "window": "Midseason",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "NC State reports a thornless, firm fresh-market blackberry ripening slightly before Von, with moderate yields. In a replicated Mills River tunnel trial, marketable yield was 3.1 and 2.8 kg per plant in successive years. Total yield trailed Von and Ouachita in year two, with pruning a possible factor.",
+      "citations": [
+        "nc",
+        "nc_trial"
+      ],
+      "events": [
+        [
+          "Introduction",
+          "2026-02-08",
+          "NC State breeder announcement",
+          "nc"
+        ],
+        [
+          "International license",
+          "2026-09-01",
+          "Development outside the United States",
+          "gpg"
+        ]
+      ],
+      "trial_site": "Mills River, NC",
+      "system": "High tunnel"
+    },
+    {
+      "name": "Sweet-Ark Immaculate",
+      "variety_id": "variety-sweet-ark-immaculate-850b3936",
+      "aliases": [
+        "A-2718T"
+      ],
+      "region": "Southeast US",
+      "window": "Late",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "Arkansas breeders report an average June 26 first pick and July 7 peak at Clarksville, Arkansas.",
+      "citations": [
+        "ar"
+      ],
+      "events": [
+        [
+          "Release",
+          "2023",
+          "University of Arkansas breeding program",
+          "ar"
+        ],
+        [
+          "US patent grant",
+          "2025-07-01",
+          "USPP36781",
+          "patent"
+        ],
+        [
+          "Supplier listing",
+          null,
+          "Listed by Agromillora US",
+          "nursery"
+        ]
+      ],
+      "trial_site": "Clarksville, AR"
+    },
+    {
+      "name": "Ponca",
+      "variety_id": "variety-ponca",
+      "aliases": [
+        "Sweet-Ark Ponca"
+      ],
+      "region": "Southeast US",
+      "window": "Early",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "An early flavor comparator in the Southeast guide.",
+      "citations": [
+        "se"
+      ],
+      "events": []
+    },
+    {
+      "name": "Caddo",
+      "variety_id": "variety-sweet-ark-caddo-8572da8c",
+      "aliases": [
+        "Sweet-Ark Caddo"
+      ],
+      "region": "Southeast US",
+      "window": "Early",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "An early fresh-market comparator with large berries.",
+      "citations": [
+        "se"
+      ],
+      "events": []
+    },
+    {
+      "name": "Ouachita",
+      "variety_id": "variety-ouachita",
+      "aliases": [],
+      "region": "Southeast US",
+      "window": "Early to midseason",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "A widely recommended thornless regional comparator.",
+      "citations": [
+        "se"
+      ],
+      "events": []
+    },
+    {
+      "name": "Von",
+      "variety_id": null,
+      "aliases": [],
+      "region": "Southeast US",
+      "window": "Midseason to late",
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "The later harvest comparator used by both NC State and the Arkansas breeders.",
+      "citations": [
+        "nc",
+        "ar",
+        "se"
+      ],
+      "events": []
+    },
+    {
+      "name": "Loch Katrine",
+      "variety_id": null,
+      "aliases": [],
+      "region": "UK and Europe",
+      "window": null,
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "James Hutton reports yields competitive with Loch Ness in Scottish trials. Berryplant identifies the fruiting habit.",
+      "citations": [
+        "hutton",
+        "berryplant"
+      ],
+      "events": [
+        [
+          "Release",
+          "2024",
+          "James Hutton breeding program",
+          "hutton"
+        ]
+      ],
+      "trial_site": "Scotland"
+    },
+    {
+      "name": "Marion",
+      "variety_id": null,
+      "aliases": [
+        "Marionberry"
+      ],
+      "region": "Pacific Northwest",
+      "window": null,
+      "markets": [
+        "Processing"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "Established Oregon trailing blackberry and processing comparator.",
+      "citations": [
+        "osu"
+      ],
+      "events": []
+    },
+    {
+      "name": "Columbia Star",
+      "variety_id": "variety-columbia-star-ea4b1a65",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "window": null,
+      "markets": [
+        "Fresh",
+        "Processing"
+      ],
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "observation": "Thornless trailing blackberry suitable for fresh use and mechanical harvest.",
+      "citations": [
+        "osu"
+      ],
+      "events": []
+    },
+    {
+      "name": "Prime-Ark Horizon",
+      "variety_id": "variety-prime-ark-horizon-847f051c",
+      "aliases": [],
+      "region": "Southeast US",
+      "window": null,
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Primocane",
+      "crops": [
+        "Floricane",
+        "Primocane"
+      ],
+      "observation": "The Southeast guide identifies its floricane crop as an option in North Carolina.",
+      "citations": [
+        "se"
+      ],
+      "events": []
+    },
+    {
+      "name": "Fontana",
+      "variety_id": null,
+      "aliases": [],
+      "region": null,
+      "window": null,
+      "markets": [
+        "Fresh"
+      ],
+      "habit": "Primocane",
+      "crops": [
+        "Primocane"
+      ],
+      "observation": "Pairwise introduced Fontana as a commercial fresh-market primocane cultivar.",
+      "citations": [
+        "fontana"
+      ],
+      "events": [
+        [
+          "Introduction",
+          "2026-10-14",
+          "Pairwise announcement",
+          "fontana"
+        ]
+      ]
+    }
+  ]
+}

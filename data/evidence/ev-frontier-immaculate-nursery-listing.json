@@ -1,0 +1,65 @@
+{
+  "id": "ev-frontier-immaculate-nursery-listing",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "web_article",
+  "title": "Agromillora US — Sweet-Ark Immaculate listing",
+  "source_name": "Agromillora US",
+  "source_url": "https://www.agromillora.com/en-us/our-products/berries/blackberries/",
+  "published_date": null,
+  "captured_date": "2026-11-09",
+  "summary": "Agromillora US listed Sweet-Ark Immaculate in its blackberry catalog as inspected on November 9, 2026.",
+  "why_it_matters": "Source-scoped evidence for the 2027 blackberry season comparison.",
+  "submitted_by": "Search Frontier original-source review",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [
+    "variety-sweet-ark-immaculate-850b3936"
+  ],
+  "fact_ids": [
+    "fact-frontier-immaculate-nursery-listing-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "search-frontier",
+    "blackberry-season-2027"
+  ],
+  "attachments": [],
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": ""
+    }
+  },
+  "review_state": "published",
+  "reviewed_by": "User approval, Search Frontier mission review (2026-11-09)",
+  "reviewed_at": "2026-11-09",
+  "evidence_role": "publication_artifact",
+  "does_not_prove": [
+    "2027 nursery stock or commercial availability."
+  ],
+  "verification_state": "single_source",
+  "source_completeness": {
+    "version": "source-completeness-v1",
+    "class": "THIN_DESCRIPTION",
+    "failure_category": null,
+    "retryable": false,
+    "content_sha256": null,
+    "operator_accepted_thin": true
+  }
+}

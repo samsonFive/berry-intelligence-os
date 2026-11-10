@@ -1,0 +1,501 @@
+{
+  "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season": {
+    "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "article:1;article:2",
+      "source_version": "a321cf839ec2140ff8ff726ebd994abe04cd9c5f31abea47dcfd2b9624e60741",
+      "reason": "The licensee identifies Ervin as a new floricane cultivar and reports the international development license. Its announcement does not establish 2027 plant stock.",
+      "event_group": "ervin-international-license-2026-09",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:19",
+      "source_version": "2aca4eadd767cc1f2c6ce0a6c0f01bc895c505b18649a88b75d29e18a2d69601",
+      "reason": "The selected passage describes Prime-Ark Horizon, a 2020 primocane cultivar. The wider guide provides historical regional comparison.",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:19",
+      "source_version": "487140cbef6e91ab8b2184e4ef29fa4ef32720a587c0e76c20c5f3f88f4afd85",
+      "reason": "The selected passage explains the second-year crop of a primocane cultivar. The Oregon guide provides historical regional context without a new 2027 release.",
+      "checked_against": "2026-11-09 application capture and original publisher page",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.globalplantgenetics.com/crop/blackberries/natchez/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Overview and Comparative results",
+      "reason": "The licensee describes an established floricane cultivar and its comparison set. This does not establish a new 2027 development.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://extension.okstate.edu/fact-sheets/commercial-blackberry-production": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Commercial Blackberry Production, February 2017",
+      "reason": "The fact sheet covers commercial growing practices and older varieties. It does not establish a new commercial release for the 2027 season.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://plotmygarden.com/plants/blackberry-trailing": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Overview and When to plant",
+      "reason": "General planting and harvest guidance for trailing blackberry does not identify a recent commercial cultivar.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "February 13, 2024 release account and commercial propagators paragraph",
+      "reason": "The Arkansas Extension bylined article establishes the Immaculate launch and 2024 material. It does not establish a 2027 release or current supply.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.emcocal.com/emcocal-rubus-varieties/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "New Blackberry Variety section",
+      "reason": "The licensee names commercial thornless floricane cultivars and market uses. The article does not date a 2027 introduction or confirm stock.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Blackberry Varieties section",
+      "reason": "General seasonal guidance compares established varieties and omits a new commercial 2027 milestone.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "January 21, 2020 cultivar introduction and Type paragraph",
+      "reason": "The breeder introduces a relevant historical floricane comparator. Its dated supply outlook is for 2020 and 2021.",
+      "checked_against": "Original breeder article inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:1;article:2",
+      "source_version": "0d64071b04033e91af79aa7114aef6d88d9c8e68a939f9460657e8dddc359e8b",
+      "reason": "Extension production guide provides long-running regional comparison context. It does not identify a new 2027 commercial release.",
+      "checked_against": "Frozen application capture and original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "pdf:section:11:pages:10-11",
+      "source_version": "ff53551ff13eccf778184b59e0685ed7779bef922ee1fe57f94cf570906d0f36",
+      "reason": "The breeder abstract supplies Ervin trial evidence and a comparison with established cultivars. It does not establish 2027 market availability.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "article:20;article:21;article:22",
+      "source_version": "9caac1ea922acbe1a1f8346db3271c518a3a1cda06f4789867d077193553a4ee",
+      "reason": "The selected section describes historic primocane releases. The page gives general Arkansas blackberry context and no new 2027 floricane event.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://ehc.usamv.ro/wp-content/uploads/2024/05/S05_Book-of-abstracts_2.pdf": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "pdf:section:S05-I-O-6:pages:5-6",
+      "source_version": "65a6f4c8a741faff0708a04672321b260f11445463b7cfbd6762ab53f7435b00",
+      "reason": "The selected abstract concerns primocane cultivars and tunnel cropping cycles. It is adjacent background for a strict floricane shortlist.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Variedades de zarzamora floricane para producción comercial en España": {
+    "https://www.berryneo.com/variedades-berryum/": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "Variedades BerrYum, Furia / Equa / Nemus / Kalika",
+      "reason": "The commercial catalog explicitly distinguishes floricane varieties and the partially primocane behavior of Equa.",
+      "event_group": "berryneo-berryum-commercial-portfolio",
+      "checked_against": "Original publisher catalog inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.emcocal.com/emcocal-rubus-latinoamerica-langes/?lang=es": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Blackberry portfolio section",
+      "reason": "The licensee identifies commercial floricane cultivars for Latin American and other markets. Its explicit Spain planting statement concerns strawberries.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "July 2021 publisher introduction",
+      "reason": "The article introduces a generic cultivation chapter by an Argentina-based agronomist. It does not establish a Spain-specific commercial floricane portfolio.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "June 6, 2019 article",
+      "reason": "The article concerns primocane production. It does not identify a Spanish commercial floricane cultivar.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://hitplant.com/zarzamoras/": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Source fetch timed out.",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.frutas-hortalizas.com/Frutas/Tipos-variedades-Zarzamora.html": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Source fetch could not decode the page.",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.pairwise.com/es/productos": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The exact localized result page could not be opened. The English release is a different URL.",
+      "checked_at": "2026-11-09"
+    },
+    "https://verpaalen.eu/es/plantas-de-zarzamora/": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Publisher blocked source inspection with HTTP 403.",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Varietà di mora senza spine Loch Katrine prove produttive Scozia": {
+    "https://www.berryplant.com/mora-3/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Loch Katrine cultivar section",
+      "reason": "The propagator identifies Loch Katrine, its thornless habit and the Scottish breeder. It gives a comparison with Loch Ness without locating or documenting a Scottish trial.",
+      "checked_against": "Original Italian catalog inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.letuepiante.it/blog/piante-di-more-senza-spine": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Chester and Loch Ness cultivar sections",
+      "reason": "The nursery describes thornless cultivars Chester and Loch Ness. It does not document a Scottish trial of Loch Katrine.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva/": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Molari propagation agreement and cultivar sections",
+      "reason": "The article describes an Italian commercialization agreement for Prime-Ark 45, Natchez and Ouachita. Loch Ness is mentioned as a comparison, without Loch Katrine trial evidence.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.berryverona.it/varieta-pianta-di-mora.html": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Publisher returned HTTP 429.",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Publisher blocked source inspection with HTTP 403.",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/blackberry-breeding/": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "article:4",
+      "source_version": "62219c672eb6d36048f11608e14dfcad295b4c4a08f642115275f233d1d30c5a",
+      "reason": "The breeder reports a Scottish single- and double-cropping trial and the measured yield for both systems.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09",
+      "event_group": "hutton-loch-katrine-scottish-cropping-trial"
+    },
+    "https://www.berryplant.com/blackberry/?lang=en": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:17",
+      "source_version": "541c5179d80c830fd760d00e30ceef7c359147106e178eb334404ae2c089eb0c",
+      "reason": "The propagator names Loch Katrine, its floricane habit, the Scottish breeder and 2024 release. It does not report the Scottish yield trial results.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "title and captured article",
+      "source_version": "2aca4eadd767cc1f2c6ce0a6c0f01bc895c505b18649a88b75d29e18a2d69601",
+      "reason": "The Mid-Atlantic guide does not name Loch Katrine or report its Scottish trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita": {
+    "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Plant Performance in the Field",
+      "reason": "The breeder establishes Ervin and NC 740 identity and comments on yield but does not report the Mills River trial comparison with Ouachita.",
+      "checked_against": "Original breeder page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://projects.sare.org/sare_project/fnc09-749/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Process section, Readstown and Rosemount plantings",
+      "reason": "The grower trial includes Ouachita in high tunnels in Wisconsin and Minnesota. It does not study Ervin or the Mills River site.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Tunnel Production",
+      "reason": "The extension guide provides general tunnel methods and does not establish the requested Mills River cultivar comparison.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.researchgate.net/publication/267278396_Performance_of_High_Tunnel_Organic_Blackberry_and_Raspberry": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "2009 conference abstract",
+      "reason": "The author-posted abstract is historical high-tunnel background and does not report the NC 740 trial.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://content.ces.ncsu.edu/blackberries-for-the-home-garden": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "Table 1, comparison of blackberry varieties",
+      "reason": "The home garden guide compares established cultivars including Ouachita but does not report an Ervin high-tunnel trial.",
+      "checked_against": "Original page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://journals.ashs.org/view/journals/horttech/20/6/article-p996.xml": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Publisher blocked source inspection with HTTP 403.",
+      "checked_at": "2026-11-09"
+    },
+    "https://ishs.org/app/uploads/2025/01/ch5702.pdf": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The PDF exceeded the web fetch size limit.",
+      "checked_at": "2026-11-09"
+    },
+    "https://southcenters.osu.edu/horticulture/fruits/blackberries": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "Publisher blocked source inspection with HTTP 403.",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.govinfo.gov/content/pkg/GPO-CRECB-1968-pt13/pdf/GPO-CRECB-1968-pt13-2-2.pdf": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The government PDF exceeded the web fetch size limit.",
+      "checked_at": "2026-11-09"
+    },
+    "https://archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The repository did not respond before timeout.",
+      "checked_at": "2026-11-09"
+    },
+    "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "pdf:section:11:pages:10-11",
+      "source_version": "ff53551ff13eccf778184b59e0685ed7779bef922ee1fe57f94cf570906d0f36",
+      "reason": "The breeder abstract reports the Mills River tunnel trial, NC 740 marketable yield, and the total-yield comparison with Von and Ouachita.",
+      "event_group": "nc740-mills-river-tunnel-yield-trial",
+      "checked_against": "Frozen application capture and original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Comparaison des variétés de framboise remontante en tunnel en France": {
+    "https://books.openedition.org/demopolis/379": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "article:43",
+      "source_version": "631daf33985a1b1ce07699e6dc2f62e21f7953154f15ee3a7fd0f3350436cef2",
+      "reason": "The legal and medical ethics chapter is unrelated to raspberry cultivar trials. The selected passage is a copyright notice.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Observation de 4 variétés remontantes",
+      "reason": "The public index names four remontant cultivars and links a trial report for members. The public page does not verify the tunnel setup or results.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Arándano cosecha mecánica cultivares ensayo Perú": {
+    "https://revfitotecnia.mx/index.php/RFM/article/view/1041": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:3",
+      "source_version": "5f36f6912360dc0bb0ca95f895e98fb328018302a9e1735581aa16fcae69cdd0",
+      "reason": "The study measures manual versus mechanical harvest effects in rabbiteye blueberry but does not establish a Peru trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico/": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Fruit firmness trial section and methods paragraphs",
+      "reason": "The study compares mechanical and manual harvest of named cultivars in Linares, Chile. It does not establish a Peruvian trial.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "article:6",
+      "source_version": "beb7cde1747710df11bf8d60efd75e96c1abb5602343905a31d66261358b9e95",
+      "reason": "The USDA passage reports blueberry and blackberry mechanical harvest validation in Aurora, Oregon. It provides no Peruvian trial evidence.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Fresa variedades tolerantes al calor ensayo Huelva": {
+    "http://www.scielo.br/j/hb/a/q6Tw4FVZp8GnP6N76ycMqYv/?lang=pt": {
+      "grade": 0,
+      "source_checked": true,
+      "source_locator": "article:1",
+      "source_version": "0118daeaa9266f78e67525e143e41ac655ed9f1655d523c1f42052dead1a262f",
+      "reason": "The study concerns heat-tolerant potato genotypes in Petrolina, Brazil, outside the requested crop and trial location.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    }
+  },
+  "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing": {
+    "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "pdf:page:2",
+      "source_version": "ff53551ff13eccf778184b59e0685ed7779bef922ee1fe57f94cf570906d0f36",
+      "reason": "The selected table of contents does not establish a Pacific Northwest machine-harvest trial. The NC 740 abstract concerns a North Carolina tunnel trial.",
+      "checked_against": "Frozen application capture inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "article:6",
+      "source_version": "beb7cde1747710df11bf8d60efd75e96c1abb5602343905a31d66261358b9e95",
+      "reason": "The captured USDA accomplishment identifies the 2025 Aurora, Oregon mechanical harvest validation and fruit quality for fresh and processed markets.",
+      "event_group": "usda-ars-2025-aurora-harvester-trial",
+      "checked_against": "Frozen application capture and original source inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://www.ars.usda.gov/research/publications/publication/?seqNo115=188551": {
+      "grade": 2,
+      "source_checked": true,
+      "source_locator": "Technical Abstract",
+      "reason": "The 2008 paper identifies named processing cultivars with machine-harvest suitability and reports fruit-quality comparisons. It gives limited mechanical trial conditions.",
+      "checked_against": "Original publisher page inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://oregon-berries.com/wp-content/uploads/2024/04/2023-24-ORBC-Research-Reports-Book.pdf": {
+      "grade": 3,
+      "source_checked": true,
+      "source_locator": "PDF pp. 3–5, Columbia Star objectives and treatments; pp. 32–33, grower trials",
+      "reason": "The OSU investigators describe the named Columbia Star machine-harvested processing trial at the North Willamette Research and Extension Center, with yield and production-system measures.",
+      "checked_against": "Original research text inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09",
+      "event_group": "osunwrec-columbia-star-machine-harvest-production-trial"
+    },
+    "https://scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf": {
+      "grade": 1,
+      "source_checked": true,
+      "source_locator": "PDF pp. 1–2, Brambles: Harvesters",
+      "reason": "The original article describes blackberry harvester design and the Arkansas prototype. The inspected sections do not give Pacific Northwest processing cultivar trial results.",
+      "checked_against": "Original research text inspected on 2026-11-09",
+      "reviewer": "Codex source inspection",
+      "checked_at": "2026-11-09"
+    },
+    "https://ashs.org/news/716937/-Advances-in-Breeding-and-Production-of-Caneberries-in-the-Pacific-Northwest.htm": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The publisher returned HTTP 403.",
+      "checked_at": "2026-11-09"
+    },
+    "https://ourimpact.oregonstate.edu/type-work/field-trials?page=1": {
+      "grade": null,
+      "source_checked": false,
+      "access_status": "unassessable",
+      "reason": "The field-trial index was unavailable in the browsing environment.",
+      "checked_at": "2026-11-09"
+    }
+  }
+}

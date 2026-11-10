@@ -26,6 +26,31 @@ def test_epub_archive_bytes_cannot_become_article_passages(monkeypatch):
     assert capture['reason']=='unsupported-archive-format'
 
 
+def test_extensionless_pdf_uses_the_pdf_limit_only_for_pdf_bytes(monkeypatch):
+    import httpx
+    from app.services import feed_first_reader as reader
+
+    monkeypatch.setattr(reader, "is_public_http_url", lambda url: True)
+    pdf = b"%PDF-1.5\n" + b"x" * reader.MAX_BYTES
+    html = b"<html>" + b"x" * reader.MAX_BYTES
+
+    def respond(request):
+        if request.url.path == "/entry":
+            return httpx.Response(302, headers={"location": "/report/pdf"})
+        body = pdf if request.url.path == "/report/pdf" else html
+        return httpx.Response(200, content=body, headers={"content-type": "application/pdf"})
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        final, raw, _, _, _, limited = reader._bounded_public_response(
+            "https://publisher.example/entry", client, limit=reader.MAX_BYTES, pdf_limit=reader.MAX_PDF_BYTES
+        )
+        assert final.endswith("/report/pdf") and raw == pdf and not limited
+        _, raw, _, _, _, limited = reader._bounded_public_response(
+            "https://publisher.example/page", client, limit=reader.MAX_BYTES, pdf_limit=reader.MAX_PDF_BYTES
+        )
+        assert len(raw) == reader.MAX_BYTES and limited
+
+
 def test_frame_policy_is_honest():
     assert frame_allowed({}) is True
     assert frame_allowed({"x-frame-options": "DENY"}) is False

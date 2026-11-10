@@ -67,3 +67,37 @@ def test_changed_cached_body_is_not_reused(tmp_path):
         row=source();row['article']['paragraphs'][0]['text']='Unverified replacement text'
         db.execute('UPDATE sources SET record=?',(json.dumps(row),))
     assert cached_sources(tmp_path,plan_query('blackberry'))==([],'ready')
+
+
+
+def test_cited_pages_from_one_pdf_survive_capture_and_cache(tmp_path):
+    from app.services.research_source_cache import cached_source_urls
+
+    class Client:
+        def search(self, query, **kwargs):
+            hits = tuple(
+                SearchHit("Blackberry field trial", f"https://publisher.example/trial.pdf#page={page}", "")
+                for page in (4, 6)
+            )
+            return SearchResponse("fixture", query, hits, 0.01)
+
+    calls = set()
+
+    def fetch(url):
+        calls.add(url)
+        page = url.rsplit("=", 1)[1]
+        return {
+            "availability": "excerpt_only",
+            "passages": [f"A floricane blackberry field trial measured crop yield on page {page}."],
+            "passage_locators": [f"pdf:page:{page}"],
+        }
+
+    discover_topic(plan_query("blackberry trial"), inbox_dir=tmp_path, client=Client(), fetcher=fetch)
+    assert calls == {
+        "https://publisher.example/trial.pdf#page=4",
+        "https://publisher.example/trial.pdf#page=6",
+    }
+    assert cached_source_urls(tmp_path) == ({
+        "publisher.example/trial.pdf#page=4",
+        "publisher.example/trial.pdf#page=6",
+    }, "available")

@@ -255,25 +255,36 @@ class PdfPassages(list):
         self.page_count = page_count
 
 
-def extract_pdf_text(raw: bytes) -> list[str]:
+def extract_pdf_text(raw: bytes, *, page: int | None = None) -> list[str]:
     """Selectable page text, with bounded subprocess parsing; never a full-article claim."""
     if not raw.lstrip().startswith(b"%PDF"):
         return []
     try:
         with _pdf_parse_slots:
-            result = subprocess.run([sys.executable,str(Path(__file__).with_name('pdf_text_worker.py'))],
+            command = [sys.executable, str(Path(__file__).with_name("pdf_text_worker.py"))]
+            if page is not None:
+                command.append(str(page))
+            result = subprocess.run(command,
                 input=raw[:MAX_PDF_BYTES],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=6,
                 creationflags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0)
         parsed = json.loads(result.stdout)
         pages = parsed.get('pages') or []
         if pages:
             return PdfPassages([f"[PDF page {page['page']}]\n{page['text']}" for page in pages], truncated=bool(parsed.get('truncated')), page_count=parsed.get('page_count'))
-    except (OSError,ValueError,subprocess.TimeoutExpired):
+    except subprocess.TimeoutExpired:
+        return []
+    except (OSError, ValueError):
         pass
-    # Keep the existing minimal literal fallback for damaged legacy documents.
+    if page is not None:
+        return []
+    # Keep the minimal literal fallback for damaged legacy documents. Raw
+    # compressed or encoded strings are not evidence of selectable text.
     passages: list[str] = []
     for match in _PDF_TJ_RE.finditer(raw[:MAX_BYTES]):
-        chunk = match.group(1).decode("latin-1", errors="replace")
+        raw_literal = match.group(1)
+        if any(byte < 32 or byte > 126 for byte in raw_literal):
+            continue
+        chunk = raw_literal.decode("ascii")
         chunk = (
             chunk.replace("\\n", " ")
             .replace("\\r", " ")
@@ -464,7 +475,7 @@ def empty_capture(url: str, *, reason: str) -> dict[str, Any]:
     }
 
 
-def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
+def _bounded_public_response(url: str, http: httpx.Client, *, limit: int, pdf_limit: int | None = None):
     """Preflight each redirect; stream only a bounded response for parsing."""
     current = url
     deadline = monotonic() + FETCH_TIMEOUT
@@ -484,10 +495,13 @@ def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
                 current = urljoin(str(response.url), location)
                 continue
             parts, size, limited = [], 0, False
+            body_limit = limit
             for chunk in response.iter_bytes(chunk_size=64_000):
                 if monotonic() >= deadline:
                     raise ValueError("capture-timeout")
-                room = limit - size
+                if not parts and pdf_limit is not None and chunk.lstrip().startswith(b"%PDF"):
+                    body_limit = pdf_limit
+                room = body_limit - size
                 parts.append(chunk[:room])
                 size += min(len(chunk), room)
                 if len(chunk) > room:
@@ -510,7 +524,9 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_PDF_BYTES if looks_like_pdf(url) else MAX_BYTES)
+        final, raw, headers, encoding, status_code, limited = _bounded_public_response(
+            url, http, limit=MAX_PDF_BYTES if looks_like_pdf(url) else MAX_BYTES, pdf_limit=MAX_PDF_BYTES
+        )
         if google_access_page(final):
             return empty_capture(final, reason="blocked")
         if status_code >= 400:
@@ -523,7 +539,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             # gaps rather than decoding compressed bytes into source passages.
             return {**empty_capture(final,reason='unsupported-archive-format'),'content_kind':'archive','status_code':status_code}
         if looks_like_pdf(final, content_type=content_type, body=raw):
-            passages = extract_pdf_text(raw)
+            page_fragment = re.fullmatch(r"page=([1-9]\d{0,5})", urlparse(url).fragment)
+            passages = extract_pdf_text(raw, page=int(page_fragment[1])) if page_fragment else extract_pdf_text(raw)
             availability = "excerpt_only" if passages else "metadata_only"
             parse_limited = bool(getattr(passages,'truncated',False))
             return {

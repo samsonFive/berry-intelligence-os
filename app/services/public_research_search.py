@@ -42,12 +42,17 @@ def _text(value):
 
 def registered_primary_sources(data_dir, entities):
     """Reuse attributed profile citations as leads, never their trait claims."""
+    from app.services.patent_monitor.normalize import canonical_publication_number, google_patents_url
     from app.services.variety_profile_sources import all_profile_source_details
+    from app.services.variety_season import season_source_leads
     varieties=[e for e in entities.values() if e.get('entity_type')=='variety']
     notes=all_profile_source_details(data_dir,varieties=varieties)
     sources={key:[{'url':s['url'],'title':s['title']}for s in note['sources'].values()
                  if is_public_http_url(s['url'])]
             for key,note in notes.items() if note['status'] in {'source_reported','limited'}}
+    for key, title, url, _ in season_source_leads(data_dir):
+        if key in entities and (notes.get(key) or {}).get("status") != "identity_hold" and is_public_http_url(url):
+            sources.setdefault(key, []).append({"url": url, "title": title})
     # Canonical varieties may predate identity-review metadata and already have
     # inspected public citations. Reuse explicit published links, not fuzzy
     # entity-name matches or private note text, as discovery leads.
@@ -71,6 +76,22 @@ def registered_primary_sources(data_dir, entities):
         for key in record.get('entity_ids',[]):
             if key in eligible_ids and (notes.get(key)or{}).get('status')!='identity_hold':
                 sources.setdefault(key,[]).append({'url':url,'title':record.get('title')or entities[key]['name']})
+        if record.get('status') == 'published' and record.get('source_type') == 'patent_record':
+            # Add the numbered public grant copy only for an unambiguous
+            # publication link. Its text still goes through normal capture.
+            linked = [entities[key] for key in record.get('entity_ids', []) if key in entities]
+            patents = [row for row in linked if row.get('entity_type') == 'patent']
+            varieties = [row for row in linked if row.get('entity_type') == 'variety']
+            if len(patents) == len(varieties) == 1:
+                patent, variety = patents[0], varieties[0]
+                number = canonical_publication_number((patent.get('attributes') or {}).get('patent_number') or '')
+                grant = re.fullmatch(r'USPP0*(\d{1,6})(P[23])', number)
+                key = variety['id']
+                if grant and (notes.get(key) or {}).get('status') != 'identity_hold':
+                    sources.setdefault(key, []).append({
+                        'url': google_patents_url('USPP' + grant[1] + grant[2]),
+                        'title': record.get('title') or patent['name'], 'kind': 'patent_grant_copy',
+                    })
     for entity in eligible:
         if (notes.get(entity['id']) or {}).get('status')=='identity_hold':continue
         for eid in entity.get('evidence_ids') or []:
@@ -96,9 +117,13 @@ def registered_primary_terms(data_dir,entities):
     source bodies, identity-held material and user annotations are excluded.
     """
     from app.services.variety_profile_sources import all_profile_source_details
+    from app.services.variety_season import season_source_leads
     from app.services.topic_retrieval import normalize
     notes=all_profile_source_details(data_dir,varieties=[e for e in entities.values()if e.get('entity_type')=='variety'])
     terms={}
+    for key, _, url, words in season_source_leads(data_dir):
+        if key in entities and (notes.get(key) or {}).get("status") != "identity_hold" and is_public_http_url(url):
+            terms.setdefault(url, set()).update(normalize(" ".join(words)).split())
     for note in notes.values():
         if note['status']not in {'source_reported','limited'}:continue
         for row in note['details']:
@@ -139,6 +164,7 @@ class PublicResearchSearchClient:
         # enforces quoted phrases; this does not rewrite or approve aliases.
         positive = normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)', '', query))
         out = []
+        grant_copies = set()
         named=False
         for entity in self.entities.values():
             if entity.get('entity_type') not in {'variety','company','breeding_program'}:continue
@@ -161,6 +187,8 @@ class PublicResearchSearchClient:
             for source in self.primary_sources.get(entity['id'],[]):
                 if is_public_http_url(source.get('url')):
                     out.append(SearchHit(source.get('title') or entity['name'],source['url'],'Attributed technical-source lead; claims and dates require source inspection.'))
+                    if 'patent' in plan.terms and source.get('kind') == 'patent_grant_copy':
+                        grant_copies.add(source['url'])
         if not named and not plan.phrases:
             # Match existing cited research notes locally, without exporting
             # their values to a search provider or treating them as traits.
@@ -183,7 +211,7 @@ class PublicResearchSearchClient:
         # Relevant titles affect only which known URLs get acquired. Final
         # passage ranking still enforces the complete original query.
         words=set(plan.terms)
-        out.sort(key=lambda hit:sum(w in normalize(hit.title).split() for w in words),reverse=True)
+        out.sort(key=lambda hit:(hit.url in grant_copies,sum(w in normalize(hit.title).split() for w in words)),reverse=True)
         seen=set();unique=[]
         for hit in out:
             key=normalize_canonical_url(hit.url)
@@ -376,10 +404,9 @@ class PublicResearchSearchClient:
                 try:results.append((name,future.result()))
                 except Exception as e:errors.append(name+':'+type(e).__name__)
         self.failures.extend(errors)
-        if not results:
-            # A few saved identity URLs are not evidence that live search ran.
+        registry = self._registry(query)
+        if not results and not registry:
             raise GatewayUnavailableError('All public metadata discovery routes failed')
-        registry=self._registry(query)
         # Interleave scholarly/news lanes so one fuzzy index cannot consume the
         # acquisition budget. Preserve ordering within each provider lane.
         rows=[*self._primary_links(query,registry),*registry[:4]]

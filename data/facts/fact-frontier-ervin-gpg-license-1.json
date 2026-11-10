@@ -1,0 +1,20 @@
+{
+  "id": "fact-frontier-ervin-gpg-license-1",
+  "record_type": "fact",
+  "statement": "On September 1, 2026, Global Plant Genetics announced that Ervin had been licensed to it for development outside the United States.",
+  "classification": "claim",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "User approval, Search Frontier mission review (2026-11-09)",
+  "created_at": "2026-11-09",
+  "evidence_ids": [
+    "ev-frontier-ervin-gpg-license"
+  ],
+  "entity_ids": [
+    "variety-ervin"
+  ],
+  "origin": "publication_claim_review",
+  "proposed_statement": "On September 1, 2026, Global Plant Genetics announced that Ervin had been licensed to it for development outside the United States.",
+  "edited_before_approval": false,
+  "reviewed_at": "2026-11-09"
+}

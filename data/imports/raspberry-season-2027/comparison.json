@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "season": 2027,
+  "checked_on": "2026-11-09",
+  "sources": {
+    "osu": [
+      "Oregon State University Extension",
+      "https://extension.oregonstate.edu/catalog/pnw-655-raspberry-cultivars-pacific-northwest",
+      "Tables 1 and 2 and regional harvest notes"
+    ],
+    "wsu": [
+      "WSU Puyallup Small Fruit Breeding & Genetics",
+      "https://puyallup.wsu.edu/smallfruit/raspberries/",
+      "Cascade Premier cultivar entry"
+    ],
+    "wsu_rights": [
+      "Washington State University Innovation and Entrepreneurship",
+      "https://research.wsu.edu/innovation/opportunity-announcement/",
+      "Cascade Premier opportunity announcement"
+    ],
+    "osu_pdf_4": [
+      "Raspberry Cultivars for the Pacific Northwest, OSU Extension PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=4",
+      "Page 4"
+    ],
+    "osu_pdf_6": [
+      "Raspberry Cultivars for the Pacific Northwest, OSU Extension PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=6",
+      "Page 6"
+    ],
+    "osu_pdf_8": [
+      "Raspberry Cultivars for the Pacific Northwest, OSU Extension PDF",
+      "https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/PNW655.pdf#page=8",
+      "Page 8"
+    ]
+  },
+  "rows": [
+    {
+      "name": "Meeker",
+      "variety_id": "variety-meeker-7b6c9434",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "markets": [
+        "Processing"
+      ],
+      "window": "Summer",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU reports that harvest begins about June 20 in the Willamette Valley and about July 4 at Puyallup and Lynden. These dates describe local experience.",
+      "citations": [
+        "osu_pdf_4",
+        "osu"
+      ],
+      "events": []
+    },
+    {
+      "name": "Tulameen",
+      "variety_id": "variety-tulameen-b46f6cf4",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Summer",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU lists Tulameen for fresh use and reports large, firm fruit and high susceptibility to root rot.",
+      "citations": [
+        "osu_pdf_6",
+        "osu"
+      ],
+      "events": []
+    },
+    {
+      "name": "Autumn Bliss",
+      "variety_id": "variety-autumn-bliss-166ac20d",
+      "aliases": [],
+      "region": "Pacific Northwest",
+      "habit": "Primocane",
+      "crops": [
+        "Primocane"
+      ],
+      "markets": [
+        "Fresh"
+      ],
+      "window": "Late summer",
+      "trial_site": null,
+      "system": null,
+      "observation": "OSU reports that the primocane crop starts roughly two weeks before Heritage in Oregon’s Willamette Valley.",
+      "citations": [
+        "osu_pdf_8",
+        "osu"
+      ],
+      "events": []
+    },
+    {
+      "name": "Cascade Premier",
+      "variety_id": null,
+      "aliases": [
+        "WSU 2166"
+      ],
+      "region": "Pacific Northwest",
+      "habit": "Floricane",
+      "crops": [
+        "Floricane"
+      ],
+      "markets": [
+        "Fresh",
+        "Processing"
+      ],
+      "window": "Early",
+      "trial_site": null,
+      "system": null,
+      "observation": "WSU describes an early raspberry selected for mechanical harvesting. The licensing notice excludes North America from the territory it offers.",
+      "citations": [
+        "wsu",
+        "wsu_rights"
+      ],
+      "events": [
+        [
+          "Breeder-reported release",
+          "2018",
+          "WSU cultivar entry",
+          "wsu"
+        ]
+      ]
+    }
+  ]
+}

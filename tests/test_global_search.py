@@ -6,7 +6,9 @@ import json
 import time
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
+from lxml import html
 
 from app import main
 from app.main import app
@@ -251,6 +253,95 @@ def test_overlay_and_search_page_render() -> None:
     assert 'id="v2ReaderOffcanvas"' in page.text
 
 
+@pytest.mark.parametrize(("berry", "query", "variety_id"), [
+    ("berry-blackberry", "Ervin", "variety-ervin"),
+    ("berry-blueberry", "Duke", "variety-duke-a7be720d"),
+    ("berry-raspberry", "Autumn Bliss", "variety-autumn-bliss-166ac20d"),
+    ("berry-strawberry", "Amandine", "variety-amandine-116b315d"),
+])
+def test_search_form_keeps_crop_and_sort_across_all_four_berries(berry, query, variety_id):
+    page = client.get("/search", params={"q": query, "berry": berry})
+    assert page.status_code == 200
+    form = html.fromstring(page.text).xpath('//form[@action="/search"]')[0]
+    form.fields["include_global"] = "0"
+    form.fields["sort"] = "newest"
+
+    filtered = client.get(form.action, params=form.form_values())
+    assert filtered.status_code == 200
+    results = html.fromstring(filtered.text)
+    returned = results.xpath('//form[@action="/search"]')[0]
+    assert returned.fields["berry"] == berry
+    assert returned.fields["include_global"] == "0"
+    assert returned.fields["sort"] == "newest"
+    assert results.xpath(f'//div[contains(@class, "v2-search-page-results")]//a[@href="/entities/variety/{variety_id}"]')
+
+
+def test_search_routes_to_filterable_blackberry_comparison() -> None:
+    search = client.get("/search", params={"q": "Blackberry Floricans", "berry": "berry-blackberry"})
+    assert search.status_code == 200 and 'href="/varieties/season?berry=berry-blackberry"' in search.text
+    assert "Source-reported shortlist" in search.text and "Loch Katrine" in search.text
+    season = client.get("/varieties/season", params={"berry": "berry-blackberry", "q": "NC 740", "system": "High tunnel"})
+    assert season.status_code == 200
+    assert "Mills River, NC" in season.text and "1 matching variety" in season.text
+    assert 'href="/evidence/ev-frontier-ervin-mills-river-trial"' in season.text
+    assert 'name="berry" value="berry-blackberry"' in season.text
+    assert client.get("/varieties/season", params={"berry": "berry-cranberry"}).status_code == 404
+
+
+@pytest.mark.parametrize(("crop", "variety", "source_host"), [
+    ("blueberry", "Sekoya Pop", "fallcreekcatalogs.com"),
+    ("raspberry", "Autumn Bliss", "extension.oregonstate.edu"),
+    ("strawberry", "Florida Brilliance", "fieldreport.caes.uga.edu"),
+])
+def test_search_connects_to_the_cited_season_comparison_for_each_crop(crop, variety, source_host):
+    berry = f"berry-{crop}"
+    search = client.get("/search", params={"q": f"2027 {crop} season", "berry": berry})
+    assert search.status_code == 200
+    path = f"/varieties/season?berry={berry}"
+    assert f'href="{path}"' in search.text
+    comparison = client.get("/varieties/season", params={"berry": berry, "q": variety})
+    assert comparison.status_code == 200
+    assert f"2027 {crop} season" in comparison.text
+    assert variety in comparison.text and source_host in comparison.text
+    assert "1 matching variety" in comparison.text
+    if crop != "raspberry":
+        assert "Harvested cane" not in comparison.text
+
+
+def test_warm_search_reuses_documents_without_reloading_pools(monkeypatch) -> None:
+    monkeypatch.setattr(main, "_SEARCH_DOC_CACHE", {"key": None, "docs": None})
+    monkeypatch.setattr(main, "_search_index_key", lambda **kwargs: ("unchanged",))
+    calls = []
+
+    def pools(**kwargs):
+        calls.append(kwargs)
+        return SearchPools()
+
+    monkeypatch.setattr(main, "_search_pools", pools)
+    main.run_global_search("Blackberry")
+    main.run_global_search("Ervin")
+    assert calls == [{"include_private": False}]
+
+
+def test_invalid_search_dates_return_validation_feedback() -> None:
+    page = client.get("/search", params={"q": "blackberry 2026-02-30"})
+    assert page.status_code == 200
+    assert '<span role="alert">' in page.text
+    response = client.get("/api/search/global", params={"q": "blackberry 2026-12-01 2026-01-01"})
+    assert response.status_code == 200
+    assert response.json()["error"] == "Start date must precede end date"
+
+
+def test_search_date_window_uses_publication_date_not_capture() -> None:
+    pools = SearchPools(published_evidence=[
+        _evidence(id="ev-in", title="Blackberry trials", published_date="2026-06-30"),
+        _evidence(id="ev-after", title="Blackberry trials update", published_date="2026-07-01"),
+        _evidence(id="ev-capture", title="Blackberry trials notes", published_date=None, captured_date="2026-06-15"),
+    ])
+    results = search_global("blackberry trials 2026-06-01 through 2026-06-30", pools)
+    assert [row["id"] for row in _group(results, "intelligence")] == ["ev-in"]
+
+
 def test_public_api_flag_excludes_pending(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     _write(
@@ -458,6 +549,9 @@ def test_default_sort_is_newest_first_with_undated_last() -> None:
     intel = _group(payload, "intelligence")
     ids_in_order = [r["id"] for r in intel if r["id"] in {"ev-old", "ev-new", "ev-mid", "ev-undated"}]
     assert ids_in_order == ["ev-new", "ev-mid", "ev-old", "ev-undated"]
+    limited = search_global("Chrono Bay", pools, include_private=False, limit_per_group=2)
+    assert [row["id"] for row in _group(limited, "intelligence")] == ["ev-new", "ev-mid"]
+    assert limited["total_matches"] == payload["result_count"]
 
 
 def test_deterministic_tie_sort_is_stable_across_calls() -> None:

@@ -97,7 +97,16 @@ def test_primary_expansion_keeps_records_conditions_and_disagreements_scoped():
     for row in manifest['created']:
         variety = next(v for v in varieties if v['id'] == row['variety_id'])
         assert variety['status'] == 'unverified' and variety['aliases'] == []
-        assert not variety['evidence_ids'] and not variety['relationship_ids']
+        if variety['id'] == 'variety-sweet-ark-immaculate-850b3936':
+            # These source-scoped claims were reviewed after catalog admission.
+            assert set(variety['evidence_ids']) == {
+                'ev-frontier-immaculate-breeder-update',
+                'ev-frontier-immaculate-uspp36781',
+                'ev-frontier-immaculate-nursery-listing',
+            }
+        else:
+            assert not variety['evidence_ids']
+        assert not variety['relationship_ids']
         assert not variety.get('attributes', {}).get('traits')
         if 'Caddo' in row['name'] or 'Freedom' in row['name']:
             note = notes[variety['id']]

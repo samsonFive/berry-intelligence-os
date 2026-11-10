@@ -33,6 +33,16 @@ def test_compressed_pdf_is_searchable_with_page_locators_and_is_not_a_full_artic
 def test_pdf_timeout_fails_closed_without_claiming_body_availability():
     with patch.object(reader.subprocess,'run',side_effect=subprocess.TimeoutExpired('fixture',6)):
         assert reader.extract_pdf_text(compressed_pdf())==[]
+        literal = b"%PDF-1.1\nBT\n(Do not return this text after the worker timed out.) Tj\nET"
+        assert reader.extract_pdf_text(literal) == []
+
+
+def test_pdf_fallback_skips_binary_pdf_literals():
+    binary = b"%PDF-1.1\nBT\n(" + b"\x80q" * 30 + b") Tj\nET"
+    failed_parse = subprocess.CompletedProcess([], 0, stdout=b'{"pages":[],"error":"PdfReadError"}')
+    with patch.object(reader.subprocess, "run", return_value=failed_parse):
+        assert reader.extract_pdf_text(binary) == []
+
 
 
 def test_pdf_page_limit_is_disclosed_in_capture_status():
@@ -41,3 +51,36 @@ def test_pdf_page_limit_is_disclosed_in_capture_status():
         result=reader.fetch_public_article('https://publisher.example/trials.pdf',client=client)
     assert len(result['passages'])==32 and result['pdf_page_count']==33
     assert result['truncated'] and result['reason']=='pdf-text-limit'
+
+
+
+def test_pdf_citation_reads_only_its_requested_page():
+    raw = compressed_pdf(34)
+    with httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(200, content=raw))) as client:
+        result = reader.fetch_public_article("https://publisher.example/trials.pdf#page=34", client=client)
+        missing = reader.fetch_public_article("https://publisher.example/trials.pdf#page=35", client=client)
+    assert result["passage_locators"] == ["pdf:page:34"]
+    assert "reported on page 34" in result["passages"][0]
+    assert result["pdf_page_count"] == 34 and not result["truncated"]
+    assert missing["availability"] == "metadata_only"
+
+
+
+def test_named_publisher_pdf_page_supports_only_its_cited_cultivar():
+    entity = {"id": "autumn-bliss", "name": "Autumn Bliss", "entity_type": "variety", "berry_ids": ["berry-raspberry"]}
+    record = {
+        "title": "Raspberry Cultivars for the Pacific Northwest",
+        "source_url": "https://publisher.example/guide.pdf#page=8",
+        "provider": "local_primary_citation",
+        "reference_subject": "Autumn Bliss",
+        "article": {"paragraphs": [{
+            "locator": "pdf:page:8",
+            "text": "The harvest starts around August 20 for Heritage in Oregon. Autumn Bliss is about two weeks earlier.",
+        }]},
+    }
+    query = plan_query("Autumn Bliss raspberry harvest")
+    result = match_record(record, query, entities={entity["id"]: entity})
+    assert result["support_status"] == "body_supported"
+    assert result["passage_locator"] == "pdf:page:8"
+    unseeded = {**record, "provider": "public_metadata_fallback"}
+    assert match_record(unseeded, query, entities={entity["id"]: entity})["support_status"] == "scope_unverified"

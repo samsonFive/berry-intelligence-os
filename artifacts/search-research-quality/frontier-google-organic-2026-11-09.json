@@ -1,0 +1,303 @@
+{
+  "provider": "Google Search organic",
+  "captured_date": "2026-11-09",
+  "language": "en",
+  "country": "us",
+  "personalization": "Signed-in Chrome; personalization was not disabled or controlled.",
+  "depth": 10,
+  "method": "Captured organic heading links in visible page order. Continued on page two as needed. Excluded AI overview, ads and video modules. Removed tracking parameters from recorded URLs.",
+  "limitations": [
+    "Eight questions captured in two same-day Chrome sessions. Provider replay and Google organic rankings can vary by engine, locale and personalization.",
+    "This is an organic ranking snapshot. Source inspections and relevance judgments are separate."
+  ],
+  "queries": [
+    {
+      "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.instagram.com/p/DctDQjljj3w/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/crop/blackberries/natchez/"
+        },
+        {
+          "url": "https://extension.okstate.edu/fact-sheets/commercial-blackberry-production"
+        },
+        {
+          "url": "https://plotmygarden.com/plants/blackberry-trailing"
+        },
+        {
+          "url": "https://www.instagram.com/reel/DcpGFANBv8r/"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-varieties/"
+        },
+        {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon"
+        },
+        {
+          "url": "https://smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry/"
+        },
+        {
+          "url": "https://www.foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season/"
+        }
+      ]
+    },
+    {
+      "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://projects.sare.org/sare_project/fnc09-749/"
+        },
+        {
+          "url": "https://journals.ashs.org/view/journals/horttech/20/6/article-p996.xml"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/267278396_Performance_of_High_Tunnel_Organic_Blackberry_and_Raspberry"
+        },
+        {
+          "url": "https://ishs.org/app/uploads/2025/01/ch5702.pdf"
+        },
+        {
+          "url": "https://southcenters.osu.edu/horticulture/fruits/blackberries"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "url": "https://www.govinfo.gov/content/pkg/GPO-CRECB-1968-pt13/pdf/GPO-CRECB-1968-pt13-2-2.pdf"
+        },
+        {
+          "url": "https://archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt"
+        }
+      ]
+    },
+    {
+      "query": "Variedades de zarzamora floricane para producción comercial en España",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.berryneo.com/variedades-berryum/"
+        },
+        {
+          "url": "https://hitplant.com/zarzamoras/"
+        },
+        {
+          "url": "https://www.frutas-hortalizas.com/Frutas/Tipos-variedades-Zarzamora.html"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-latinoamerica-langes/?lang=es"
+        },
+        {
+          "url": "https://www.pairwise.com/es/productos"
+        },
+        {
+          "url": "https://www.instagram.com/p/Dc_vX2mFWeT/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana/"
+        },
+        {
+          "url": "https://verpaalen.eu/es/plantas-de-zarzamora/"
+        },
+        {
+          "url": "https://www.sidalc.net/search/Search2Record/oai:localhost:20.500.12123-12071/Export?style=RefWorks"
+        }
+      ]
+    },
+    {
+      "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.berryplant.com/mora-3/"
+        },
+        {
+          "url": "https://www.berryverona.it/varieta-pianta-di-mora.html"
+        },
+        {
+          "url": "https://www.letuepiante.it/blog/piante-di-more-senza-spine"
+        },
+        {
+          "url": "https://www.fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa/"
+        },
+        {
+          "url": "https://www.vivaibevilacqua.it/product-page/mora-senza-spine"
+        },
+        {
+          "url": "https://www.vivaimolari.it/more/"
+        },
+        {
+          "url": "https://www.savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html"
+        },
+        {
+          "url": "https://vivairampicanticaterina.com/product-category/frutti/mora-senza-spine/"
+        },
+        {
+          "url": "https://www.freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva/"
+        },
+        {
+          "url": "https://www.instagram.com/p/DZc83ryDeK9/"
+        }
+      ]
+    },
+    {
+      "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier"
+        },
+        {
+          "url": "https://plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://www.gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers"
+        },
+        {
+          "url": "https://conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers/"
+        },
+        {
+          "url": "https://www.invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9"
+        },
+        {
+          "url": "https://www.truffaut.com/framboisier-quelles-varietes-choisir.html"
+        },
+        {
+          "url": "https://www.quitoque.fr/blog/article/varietes-framboises-culture"
+        },
+        {
+          "url": "https://www.gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html"
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france"
+        }
+      ]
+    },
+    {
+      "query": "Arándano cosecha mecánica cultivares ensayo Perú",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://repositorio.lamolina.edu.pe/bitstreams/db044b46-b227-40af-8b8b-3f9240b35c2a/download"
+        },
+        {
+          "url": "https://es.scribd.com/document/330985723/Monografia-Del-Cultivo-de-Arandano"
+        },
+        {
+          "url": "https://repositorio.unica.edu.pe/bitstreams/00c7066f-3def-4340-9b5e-a3f1d9023050/download"
+        },
+        {
+          "url": "https://redagricola.com/ensayos-cosecha-mediante-vibrador-neumatico/"
+        },
+        {
+          "url": "https://redagricola.com/video/agromillora-y-peru-frut-genetica-mecanizacion-y-los-cultivos-del-futuro/"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/356760922_Avances_en_el_cultivo_de_las_berries_en_el_tropico"
+        },
+        {
+          "url": "https://proyectosperuanos.com/cultivo_de_arandanos/"
+        },
+        {
+          "url": "https://bibliotecavirtual.midagri.gob.pe/index.php/analisis-economicos/boletines/2016/36-el-arandano-en-el-peru-y-el-mundo/file"
+        },
+        {
+          "url": "https://cdn.blueberriesconsulting.com/2016/10/elcultivodelarandano.pdf"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2024/09/30/el-potencial-impacto-de-la-cosecha-mecanizada-en-la-industria-del-arandano/"
+        }
+      ]
+    },
+    {
+      "query": "Fresa variedades tolerantes al calor ensayo Huelva",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://www.juntadeandalucia.es/agriculturaypesca/ifapa/web/noticias/el-ifapa-presenta-en-huelva-los-resultados-de-sus-ensayos-de-variedades-de-fresa-durante-0"
+        },
+        {
+          "url": "https://huelvabuenasnoticias.com/2025/07/03/presentados-en-huelva-los-resultados-de-los-ensayos-de-variedades-de-fresa-durante-la-actual-campana/"
+        },
+        {
+          "url": "https://www.hortidaily.es/article/9883810/nuevas-variedades-de-fresa-permitiran-adelantar-y-prolongar-la-campana-en-huelva/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/las-variedades-de-fresa-de-hoy-en-huelva"
+        },
+        {
+          "url": "https://www.europapress.es/esandalucia/huelva/noticia-ifapa-presenta-huelva-resultados-ensayos-variedades-fresa-actual-campana-20250703152415.html"
+        },
+        {
+          "url": "https://www.fresasnm.com/fresa/"
+        },
+        {
+          "url": "https://www.mapa.gob.es/ministerio/pags/Biblioteca/Revistas/pdf_vrural%2FVrural_2003_169_42_48.pdf"
+        },
+        {
+          "url": "https://agrodiariohuelva.es/planasa-presenta-a-productores-de-huelva-resultados-de-tres-nuevas-variedades-de-fresa-marcadas-por-su-productividad/"
+        },
+        {
+          "url": "https://www.facebook.com/unihuelva/posts/-innovaci%C3%B3n-desde-la-universidad-de-huelvala-uhu-investiga-el-uso-de-bioestimula/1604651871079049/"
+        },
+        {
+          "url": "https://actualfruveg.com/2025/03/26/fresa-variedades-huelva-2/"
+        }
+      ]
+    },
+    {
+      "query": "Pacific Northwest blackberry mechanical harvesting cultivar trials for processing",
+      "complete_depth": true,
+      "results": [
+        {
+          "url": "https://ourimpact.oregonstate.edu/type-work/field-trials?page=1"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2025"
+        },
+        {
+          "url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/14_strik_blackberry_cvs_fvj_46_202-206_1992.pdf"
+        },
+        {
+          "url": "https://ashs.org/news/716937/-Advances-in-Breeding-and-Production-of-Caneberries-in-the-Pacific-Northwest.htm"
+        },
+        {
+          "url": "https://agris.fao.org/search/en/providers/122535/records/65defd3463b8185d9caa3757"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/43272507_NEW_USDA-ARS_BLACKBERRY_CULTIVARS_BRING_DIVERSITY_TO_THE_MARKET"
+        },
+        {
+          "url": "https://oregon-berries.com/wp-content/uploads/2024/04/2023-24-ORBC-Research-Reports-Book.pdf"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=188551"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/view/1977/1981"
+        },
+        {
+          "url": "https://scispace.com/pdf/developing-mechanized-systems-for-producing-harvesting-and-gvp9www3f6.pdf"
+        }
+      ]
+    }
+  ]
+}

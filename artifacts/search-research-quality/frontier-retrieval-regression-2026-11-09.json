@@ -1,0 +1,1014 @@
+{
+  "version": 1,
+  "started_at": "2026-11-09T19:01:48.882967+00:00",
+  "old_ref": "f198dead18c54b6e012eed896f86424d405b9b05",
+  "provider": "public_metadata_fallback",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "interpreted_query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "terms": [
+          "commercial",
+          "floricane",
+          "blackberry",
+          "variety",
+          "2027",
+          "northern",
+          "hemisphere",
+          "season"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v26"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State’s Breeding Programme - Global Plant Genetics",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-66a421b2a277d5ea",
+          "title": "Blackberry Cultivars for Oregon | OSU Extension Service",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "published_date": "2014-12-18",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024-0709) | University of Maryland Extension",
+          "source_url": "https://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.instagram.com/p/DctDQjljj3w/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/crop/blackberries/natchez/"
+        },
+        {
+          "url": "https://extension.okstate.edu/fact-sheets/commercial-blackberry-production"
+        },
+        {
+          "url": "https://plotmygarden.com/plants/blackberry-trailing"
+        },
+        {
+          "url": "https://www.instagram.com/reel/DcpGFANBv8r/"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-varieties/"
+        },
+        {
+          "url": "https://extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon"
+        },
+        {
+          "url": "https://smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry/"
+        },
+        {
+          "url": "https://www.foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season new variety releases trials",
+          "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season licensing international development",
+          "Ervin New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 14,
+        "capture_count": 11,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:01:51+00:00",
+        "latency_seconds": 44.179,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 23,
+        "history_write": {
+          "status": "ready",
+          "stored": 11
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout",
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [
+          "RemoteProtocolError",
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 46.554,
+      "warm_seconds": 1.624,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 4,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.93,
+      "first_body_supported_seconds": 35.263
+    },
+    {
+      "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "interpreted_query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "terms": [
+          "north",
+          "carolina",
+          "740",
+          "ervin",
+          "blackberry",
+          "mills",
+          "river",
+          "high",
+          "tunnel",
+          "yield",
+          "versus",
+          "ouachita"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v26"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-717126dee8e08e8c",
+          "title": "NC 740: A Premium Label Blackberry from the NCSU Breeding Program",
+          "source_url": "https://seregionalconference.org/wp-content/uploads/2024/12/Poster-Session-Handout-Packet-2025.pdf#page=10",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://projects.sare.org/sare_project/fnc09-749/"
+        },
+        {
+          "url": "https://journals.ashs.org/view/journals/horttech/20/6/article-p996.xml"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production"
+        },
+        {
+          "url": "https://www.researchgate.net/publication/267278396_Performance_of_High_Tunnel_Organic_Blackberry_and_Raspberry"
+        },
+        {
+          "url": "https://ishs.org/app/uploads/2025/01/ch5702.pdf"
+        },
+        {
+          "url": "https://southcenters.osu.edu/horticulture/fruits/blackberries"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "url": "https://www.govinfo.gov/content/pkg/GPO-CRECB-1968-pt13/pdf/GPO-CRECB-1968-pt13-2-2.pdf"
+        },
+        {
+          "url": "https://archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 11,
+        "capture_count": 7,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:02:44+00:00",
+        "latency_seconds": 18.575,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 21,
+        "history_write": {
+          "status": "ready",
+          "stored": 7
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 2,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 20.859,
+      "warm_seconds": 1.025,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.96,
+      "first_body_supported_seconds": null
+    },
+    {
+      "query": "Variedades de zarzamora floricane para producción comercial en España",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "interpreted_query": "Variedades de zarzamora floricane para producción comercial en España",
+        "terms": [
+          "variety",
+          "de",
+          "blackberry",
+          "floricane",
+          "para",
+          "producción",
+          "comercial",
+          "en",
+          "españa"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v26"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-9112a4363ce6ef30",
+          "title": "Variedades de Zarzamora Exclusivas - Berryum",
+          "source_url": "https://www.berryneo.com/variedades-berryum/",
+          "published_date": "2022-09-20",
+          "capture_status": "full",
+          "relevance": "adjacent"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.berryneo.com/variedades-berryum/"
+        },
+        {
+          "url": "https://hitplant.com/zarzamoras/"
+        },
+        {
+          "url": "https://www.frutas-hortalizas.com/Frutas/Tipos-variedades-Zarzamora.html"
+        },
+        {
+          "url": "https://www.emcocal.com/emcocal-rubus-latinoamerica-langes/?lang=es"
+        },
+        {
+          "url": "https://www.pairwise.com/es/productos"
+        },
+        {
+          "url": "https://www.instagram.com/p/Dc_vX2mFWeT/"
+        },
+        {
+          "url": "https://www.tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas"
+        },
+        {
+          "url": "https://www.portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana/"
+        },
+        {
+          "url": "https://verpaalen.eu/es/plantas-de-zarzamora/"
+        },
+        {
+          "url": "https://www.sidalc.net/search/Search2Record/oai:localhost:20.500.12123-12071/Export?style=RefWorks"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Variedades de zarzamora floricane para producción comercial en España",
+          "Variedades de zarzamora floricane para producción comercial en España new variety releases trials",
+          "Variedades de zarzamora floricane para producción comercial en España licensing international development",
+          "Ervin Variedades de zarzamora floricane para producción comercial en España"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 17,
+        "capture_count": 12,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:03:07+00:00",
+        "latency_seconds": 33.828,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 45,
+        "history_write": {
+          "status": "ready",
+          "stored": 12
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 20,
+        "primary_page_requests_this_request": 8,
+        "primary_page_failures": [
+          "RemoteProtocolError",
+          "RemoteProtocolError"
+        ],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 34.952,
+      "warm_seconds": 0.972,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 1,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.533,
+      "first_body_supported_seconds": null
+    },
+    {
+      "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "interpreted_query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "terms": [
+          "varietà",
+          "di",
+          "mora",
+          "senza",
+          "spine",
+          "loch",
+          "katrine",
+          "trial",
+          "scozia"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v26"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [
+        {
+          "url": "https://www.berryplant.com/mora-3/"
+        },
+        {
+          "url": "https://www.berryverona.it/varieta-pianta-di-mora.html"
+        },
+        {
+          "url": "https://www.letuepiante.it/blog/piante-di-more-senza-spine"
+        },
+        {
+          "url": "https://www.fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa/"
+        },
+        {
+          "url": "https://www.vivaibevilacqua.it/product-page/mora-senza-spine"
+        },
+        {
+          "url": "https://www.vivaimolari.it/more/"
+        },
+        {
+          "url": "https://www.savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html"
+        },
+        {
+          "url": "https://vivairampicanticaterina.com/product-category/frutti/mora-senza-spine/"
+        },
+        {
+          "url": "https://www.freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva/"
+        },
+        {
+          "url": "https://www.instagram.com/p/DZc83ryDeK9/"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Varietà di mora senza spine Loch Katrine prove produttive Scozia"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 12,
+        "capture_count": 4,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:03:46+00:00",
+        "latency_seconds": 17.273,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 10,
+        "history_write": {
+          "status": "ready",
+          "stored": 4
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 1800
+      },
+      "cold_seconds": 19.041,
+      "warm_seconds": 1.973,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 0.805,
+      "first_body_supported_seconds": null
+    },
+    {
+      "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "interpreted_query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "terms": [
+          "comparaison",
+          "des",
+          "variétés",
+          "de",
+          "raspberry",
+          "remontante",
+          "en",
+          "tunnel",
+          "france"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v26"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [
+        {
+          "url": "https://www.le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier"
+        },
+        {
+          "url": "https://plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://www.gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers"
+        },
+        {
+          "url": "https://plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers"
+        },
+        {
+          "url": "https://conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers/"
+        },
+        {
+          "url": "https://www.invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9"
+        },
+        {
+          "url": "https://www.truffaut.com/framboisier-quelles-varietes-choisir.html"
+        },
+        {
+          "url": "https://www.quitoque.fr/blog/article/varietes-framboises-culture"
+        },
+        {
+          "url": "https://www.gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html"
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france"
+        }
+      ],
+      "google_depth_complete": true,
+      "discovery": {
+        "status": "partial",
+        "failures": [],
+        "queries": [
+          "Comparaison des variétés de framboise remontante en tunnel en France"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-11-09T19:04:15+00:00",
+        "latency_seconds": 27.994,
+        "cost": null,
+        "provider": "public_metadata_fallback",
+        "history_status": "ready",
+        "history_candidates_count": 37,
+        "history_write": {
+          "status": "ready",
+          "stored": 8
+        },
+        "fallback_used": true,
+        "credit_free_only": true,
+        "primary_failure": "CreditFreeMode",
+        "fallback_failures": [
+          "europe_pmc:ReadTimeout"
+        ],
+        "primary_requests_this_request": 0,
+        "fallback_requests_this_request": 5,
+        "primary_page_requests_this_request": 0,
+        "primary_page_failures": [],
+        "coverage_limit": "Anonymous Mwmbl web search, scholarly indexes (OpenAIRE Graph, Europe PMC, Crossref), Google News RSS and locally cited primary-source leads. Coverage is bounded and is not guaranteed equivalent to Google.",
+        "cache_ttl_seconds": 120
+      },
+      "cold_seconds": 31.136,
+      "warm_seconds": 2.595,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "improved_app": {
+          "result_count": 0,
+          "top_checked": true,
+          "direct_precision_at_10": 0.0,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        },
+        "google": {
+          "result_count": 10,
+          "top_checked": false,
+          "direct_precision_at_10": null,
+          "ndcg_at_10": null,
+          "pooled_development_coverage_sample": null
+        }
+      },
+      "judged_pool_complete": false,
+      "google_comparable": true,
+      "local_retrieval_seconds": 1.175,
+      "first_body_supported_seconds": null
+    }
+  ],
+  "summary": {
+    "queries": 5,
+    "median_seconds": 31.136,
+    "p95_seconds": 46.554,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": true
+  },
+  "quality_evaluation": {
+    "version": 1,
+    "source_run_started_at": "2026-11-09T19:01:48.882967+00:00",
+    "query_count": 5,
+    "unique_pooled_urls": 53,
+    "judgment_pairs_missing": 54,
+    "non_comparable_google_queries": [],
+    "acceptance_ready": false,
+    "aggregate_metrics": {},
+    "individual_regressions": [],
+    "same_day_capture_pairing": true,
+    "google_parity": "UNVERIFIED",
+    "queries": [
+      {
+        "query": "New commercial floricane blackberry cultivars for the 2027 Northern Hemisphere season",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 13,
+        "pool_urls": [
+          "emcocal.com/emcocal-rubus-varieties",
+          "extension.okstate.edu/fact-sheets/commercial-blackberry-production",
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season",
+          "globalplantgenetics.com/crop/blackberries/natchez",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry",
+          "instagram.com/p/dctdqjljj3w",
+          "instagram.com/reel/dcpgfanbv8r",
+          "plotmygarden.com/plants/blackberry-trailing",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry"
+        ],
+        "missing_judgments": [
+          "emcocal.com/emcocal-rubus-varieties",
+          "extension.okstate.edu/fact-sheets/commercial-blackberry-production",
+          "extension.oregonstate.edu/catalog/ec-1617-blackberry-cultivars-oregon",
+          "extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "foodforestnursery.com/growing-guides/berries/blackberries/when-are-blackberries-in-season",
+          "globalplantgenetics.com/crop/blackberries/natchez",
+          "globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme",
+          "growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry",
+          "instagram.com/p/dctdqjljj3w",
+          "instagram.com/reel/dcpgfanbv8r",
+          "plotmygarden.com/plants/blackberry-trailing",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 4,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "North Carolina 740 Ervin blackberry Mills River high tunnel yield versus Ouachita",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 11,
+        "pool_urls": [
+          "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+          "content.ces.ncsu.edu/blackberries-for-the-home-garden",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production",
+          "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+          "ishs.org/app/uploads/2025/01/ch5702.pdf",
+          "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
+          "projects.sare.org/sare_project/fnc09-749",
+          "researchgate.net/publication/267278396_performance_of_high_tunnel_organic_blackberry_and_raspberry",
+          "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "southcenters.osu.edu/horticulture/fruits/blackberries"
+        ],
+        "missing_judgments": [
+          "archive.org/stream/reportcommissio02statgoog/reportcommissio02statgoog_djvu.txt",
+          "content.ces.ncsu.edu/blackberries-for-the-home-garden",
+          "content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/tunnel-production",
+          "govinfo.gov/content/pkg/gpo-crecb-1968-pt13/pdf/gpo-crecb-1968-pt13-2-2.pdf",
+          "ishs.org/app/uploads/2025/01/ch5702.pdf",
+          "journals.ashs.org/view/journals/horttech/20/6/article-p996.xml",
+          "projects.sare.org/sare_project/fnc09-749",
+          "researchgate.net/publication/267278396_performance_of_high_tunnel_organic_blackberry_and_raspberry",
+          "rubus.ces.ncsu.edu/news/meet-ervin-blackberry",
+          "seregionalconference.org/wp-content/uploads/2024/12/poster-session-handout-packet-2025.pdf",
+          "southcenters.osu.edu/horticulture/fruits/blackberries"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Variedades de zarzamora floricane para producción comercial en España",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 10,
+        "pool_urls": [
+          "berryneo.com/variedades-berryum",
+          "emcocal.com/emcocal-rubus-latinoamerica-langes?lang=es",
+          "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+          "hitplant.com/zarzamoras",
+          "instagram.com/p/dc_vx2mfwet",
+          "pairwise.com/es/productos",
+          "portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana",
+          "sidalc.net/search/search2record/oai:localhost:20.500.12123-12071/export?style=refworks",
+          "tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas",
+          "verpaalen.eu/es/plantas-de-zarzamora"
+        ],
+        "missing_judgments": [
+          "berryneo.com/variedades-berryum",
+          "emcocal.com/emcocal-rubus-latinoamerica-langes?lang=es",
+          "frutas-hortalizas.com/frutas/tipos-variedades-zarzamora.html",
+          "hitplant.com/zarzamoras",
+          "instagram.com/p/dc_vx2mfwet",
+          "pairwise.com/es/productos",
+          "portalfruticola.com/noticias/2019/06/06/zarzamora-la-innovacion-productiva-a-traves-de-la-primocana",
+          "sidalc.net/search/search2record/oai:localhost:20.500.12123-12071/export?style=refworks",
+          "tecnologiahorticola.com/es/cultivos/el-cultivo-de-zarzamoras-o-moras-hibridas",
+          "verpaalen.eu/es/plantas-de-zarzamora"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 1,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Varietà di mora senza spine Loch Katrine prove produttive Scozia",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 10,
+        "pool_urls": [
+          "berryplant.com/mora-3",
+          "berryverona.it/varieta-pianta-di-mora.html",
+          "freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva",
+          "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
+          "instagram.com/p/dzc83rydek9",
+          "letuepiante.it/blog/piante-di-more-senza-spine",
+          "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
+          "vivaibevilacqua.it/product-page/mora-senza-spine",
+          "vivaimolari.it/more",
+          "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
+        ],
+        "missing_judgments": [
+          "berryplant.com/mora-3",
+          "berryverona.it/varieta-pianta-di-mora.html",
+          "freshplaza.it/article/9195815/finalmente-una-varieta-di-more-a-produzione-tardiva",
+          "fruitjournal.com/2024/08/07/mora-senza-semi-la-prima-varieta-arriva-dagli-usa",
+          "instagram.com/p/dzc83rydek9",
+          "letuepiante.it/blog/piante-di-more-senza-spine",
+          "savinivivai.it/it/shop/mora-tardiva-nera-loch-ness.html",
+          "vivaibevilacqua.it/product-page/mora-senza-spine",
+          "vivaimolari.it/more",
+          "vivairampicanticaterina.com/product-category/frutti/mora-senza-spine"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      },
+      {
+        "query": "Comparaison des variétés de framboise remontante en tunnel en France",
+        "split": "held_out",
+        "judged_pool_complete": false,
+        "pool_size": 10,
+        "pool_urls": [
+          "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+          "conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers",
+          "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+          "gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html",
+          "invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9",
+          "le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier",
+          "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+          "plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers",
+          "quitoque.fr/blog/article/varietes-framboises-culture",
+          "truffaut.com/framboisier-quelles-varietes-choisir.html"
+        ],
+        "missing_judgments": [
+          "chambres-agriculture.fr/actualites/actualite/la-production-de-framboises-en-france",
+          "conseils-jardin.willemsefrance.fr/8-meilleures-varietes-framboisiers",
+          "gammvert.fr/conseils-idees/les-10-meilleures-varietes-de-framboisiers",
+          "gerbeaud.com/jardin/fiches/les-meilleures-varietes-de-framboise,1514.html",
+          "invenio-fl.fr/framboise/experimentation-framboise/materiel-vegetal-framboise?start=9",
+          "le-chatel-des-vivaces.com/content/365-comparatif-meilleure-framboisier",
+          "plantes-avenue.fr/content/73-les-10-meilleures-varietes-de-framboisiers",
+          "plantspetitsfruits.com/pages/quelle-variete-de-framboisiers-choisir-caracteristiques-et-usages-des-framboisiers",
+          "quitoque.fr/blog/article/varietes-framboises-culture",
+          "truffaut.com/framboisier-quelles-varietes-choisir.html"
+        ],
+        "missing_event_judgments": [],
+        "event_judgments_complete": true,
+        "google_comparable": true,
+        "metrics": {
+          "old_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "improved_app": {
+            "result_count": 0,
+            "top_checked": true,
+            "direct_precision_at_10": 0.0,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          },
+          "google": {
+            "result_count": 10,
+            "top_checked": false,
+            "direct_precision_at_10": null,
+            "ndcg_at_10": null,
+            "pooled_development_coverage_sample": null
+          }
+        }
+      }
+    ]
+  }
+}
