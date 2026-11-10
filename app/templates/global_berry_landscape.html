@@ -1,0 +1,190 @@
+{% extends 'glasshouse_base.html' %}
+{% block title %}{% if crop %}{{ crops[crop] }} · {% endif %}Global Berry Landscape{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/landscape_workspace.css?v=1">{% endblock %}
+
+{% macro person(row) %}
+  {% if row.href %}<a href="{{ row.href }}">{{ row.name }}</a>{% else %}{{ row.name }}{% endif %}
+{% endmacro %}
+
+{% macro crop_names(keys) %}
+  {% for key in keys %}{{ crops[key] }}{% if not loop.last %}, {% endif %}{% endfor %}
+{% endmacro %}
+
+{% macro role_names(keys) %}
+  {% for key in keys %}{{ roles[key] }}{% if not loop.last %}, {% endif %}{% else %}Role unrecorded{% endfor %}
+{% endmacro %}
+
+{% macro citations(rows) %}
+  <ul class="mb-0">
+  {% for row in rows %}
+    <li>
+      {% if row.href %}<a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.source_name or row.title }}</a>{% endif %}
+      {% if row.source_url %}<a href="{{ row.source_url }}" rel="noopener noreferrer">{{ 'Original' if row.href else 'Primary source' }}</a>{% endif %}
+      <small>{{ row.verification_state|humanize_label if row.verification_state else 'Published record' if row.href else 'Source checked' }} · {{ row.published_date|us_date if row.published_date else 'Publication date unrecorded' }}</small>
+      {% if row.basis %}<small>{{ row.basis }}</small>{% endif %}
+    </li>
+  {% else %}<li>No linked source recorded</li>{% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro pagination(page, label) %}
+  {% if page.pages > 1 %}
+  <nav class="landscape-handoffs" aria-label="{{ label }} pages">
+    {% if page.previous %}<a href="{{ page.previous }}">Previous {{ label|lower }}</a>{% endif %}
+    <span>Page {{ page.number }} of {{ page.pages }}</span>
+    {% if page.next %}<a href="{{ page.next }}">Next {{ label|lower }}</a>{% endif %}
+  </nav>
+  {% endif %}
+{% endmacro %}
+
+{% block content %}
+<div class="landscape-workspace" data-global-berry-landscape>
+  <header class="digest-heading">
+    <div>
+      <p class="eyebrow">{{ crops[crop] if crop else 'All four berries' }}</p>
+      <h1>Global Berry Landscape</h1>
+      <p>Trace genetics, propagation, fruit production and routes to market across the public record.</p>
+    </div>
+    <a class="outline-button" href="{{ map_href }}">Open Map Explorer</a>
+  </header>
+
+  <nav class="landscape-jump" aria-label="Crop views">
+    {% for slug, href in tabs.items() %}
+      <a href="{{ href }}"{% if slug == crop %} aria-current="page" class="fw-bold"{% endif %}>{{ crops[slug] if slug else 'All berries' }}</a>
+    {% endfor %}
+  </nav>
+
+  <form method="get" action="{{ path }}" class="landscape-customize" aria-label="Landscape filters">
+    <div class="landscape-filters">
+      {% for field, label, choices, all_label in [('region','Macroregion',regions,'Worldwide'), ('role','Value-chain role',roles,'All roles'), ('event_type','Milestone type',event_types,'All types')] %}
+      <label>{{ label }}
+        <select name="{{ field }}">
+          <option value="">{{ all_label }}</option>
+          {% for key, value in choices.items() %}<option value="{{ key }}"{% if filters[field] == key %} selected{% endif %}>{{ value }}</option>{% endfor %}
+        </select>
+      </label>
+      {% endfor %}
+      <label>From <input type="date" name="start" value="{{ filters.start }}"></label>
+      <label>Through <input type="date" name="end" value="{{ filters.end }}"></label>
+      <label>Search milestones <input type="search" name="q" maxlength="120" value="{{ filters.q }}" placeholder="Name, cultivar, identifier"></label>
+      <label>Sort directory
+        <select name="sort">{% for key, value in directory_sorts.items() %}<option value="{{ key }}"{% if filters.sort == key %} selected{% endif %}>{{ value }}</option>{% endfor %}</select>
+      </label>
+      <button class="green-button">Apply filters</button><a href="{{ path }}">Reset</a>
+    </div>
+    <p class="landscape-note">Region and role constrain scoped evidence. Dates constrain relationship effective dates and milestone dates. Milestone type and search apply to the register. The directory and coverage matrix describe standing records.</p>
+  </form>
+
+  <p class="landscape-caveat">These counts describe captured records. Gaps show where evidence is missing or where this research pass has yet to look. A reviewed source and a verified claim have separate statuses.</p>
+
+  <nav class="landscape-jump" aria-label="Landscape sections">
+    <a href="#companies">Organizations <b>{{ pages.companies.total }}</b></a>
+    <a href="#footprint">Geographic footprint <b>{{ pages.footprint.total }}</b></a>
+    <a href="#relationships">Relationships <b>{{ pages.relationships.total }}</b></a>
+    <a href="#events">Milestones <b>{{ pages.events.total + coverage.milestones|length }}</b></a>
+    <a href="#coverage">Research coverage</a>
+    {% if authoring_mode and strategy %}<a href="#berry-strategy-review">Strategy Review</a>{% endif %}
+  </nav>
+
+  <section class="landscape-panel" id="companies">
+    <header><h2>Company and organization directory</h2><span>{{ pages.companies.total }} tracked</span></header>
+    <p class="landscape-note">Directory roles include stored profile labels and supported links. Profile roles may apply at the organization level. Open the relationship or research rows for crop-specific evidence.</p>
+    <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Organization directory">
+      <table>
+        <thead><tr><th scope="col">Organization</th><th scope="col">Crop scope</th><th scope="col">Roles</th><th scope="col">Headquarters</th><th scope="col">Linked sources</th></tr></thead>
+        <tbody>
+          {% for row in pages.companies.rows %}<tr><th scope="row">{{ person(row) }}<small>{{ row.status|humanize_label }} profile</small></th><td>{{ crop_names(row.crops) }}</td><td>{{ role_names(row.roles) }}</td><td>{{ row.headquarters or 'Unrecorded' }}</td><td>{{ citations(row.sources) }}</td></tr>
+          {% else %}<tr><td colspan="5">No organizations match the documented scope.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {{ pagination(pages.companies, 'Organizations') }}
+  </section>
+
+  <section class="landscape-panel" id="footprint">
+    <header><h2>Geographic footprint</h2><span>{{ pages.footprint.total }} recorded entries</span></header>
+    <p class="landscape-note">Headquarters, growing, markets and rights each have their own basis. General operations include nursery, breeding and trial sites. Scale is unknown where a sourced measure is unavailable.</p>
+    <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Geographic footprint">
+      <table>
+        <thead><tr><th scope="col">Place and scope</th><th scope="col">Profile</th><th scope="col">Crop</th><th scope="col">Evidence and scale</th></tr></thead>
+        <tbody>
+          {% for row in pages.footprint.rows %}<tr>
+            <th scope="row">{{ row.place }}<small>{{ footprint_types[row.kind] }} · {{ regions[row.region] if row.region else 'Macroregion unrecorded' }}</small></th>
+            <td>{{ person(row.actor) }}<small>{{ row.status|humanize_label }}{% if row.date %} · Effective {{ row.date|us_date }}{% endif %}</small></td>
+            <td>{{ crop_names(row.crops) }}</td>
+            <td>{% if row.notes %}<p>{{ row.notes }}</p>{% endif %}
+              {% if row.metric %}<p><strong>{{ row.metric.value }} {{ row.metric.units }}</strong> · {{ row.metric.year or 'Metric year unrecorded' }} · {{ row.metric.scope }}{% if row.metric.qualifier %} · {{ row.metric.qualifier }}{% endif %}</p>{% else %}<small>Scale unrecorded</small>{% endif %}
+              {{ citations(row.sources) }}
+            </td>
+          </tr>{% else %}<tr><td colspan="4">No explicit geographic footprint matches. Check the research coverage below for gaps.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {{ pagination(pages.footprint, 'Locations') }}
+  </section>
+
+  <section class="landscape-panel" id="relationships">
+    <header><h2>Value-chain relationships</h2><span>{{ pages.relationships.total }} documented links</span></header>
+    <p class="landscape-note">Each row follows a stored relationship. Geography attached to a supporting source describes its documented scope. Read the cited terms for actual legal or operating territory.</p>
+    <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Value-chain relationships">
+      <table>
+        <thead><tr><th scope="col">Organization or variety</th><th scope="col">Relationship and target</th><th scope="col">Scope</th><th scope="col">Support</th></tr></thead>
+        <tbody>
+          {% for row in pages.relationships.rows %}<tr>
+            <th scope="row">{{ person(row.actor) }}</th><td>{{ row.label }} · {{ person(row.target) }}<small>{{ row.status|humanize_label }}</small></td>
+            <td>{{ crop_names(row.crops) }}<small>{{ row.places|join(', ') or 'Geographic scope unrecorded' }}</small><small>{{ 'Effective ' ~ (row.date|us_date) if row.date else 'Effective date unrecorded' }}</small></td>
+            <td>{% if row.notes %}<p>{{ row.notes }}</p>{% endif %}{{ citations(row.sources) }}</td>
+          </tr>{% else %}<tr><td colspan="4">No evidence-linked relationships match this scope.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {{ pagination(pages.relationships, 'Relationships') }}
+  </section>
+
+  <section class="landscape-panel" id="events">
+    <header><h2>IP and corporate milestone register</h2><span>{{ pages.events.total }} published · {{ coverage.milestones|length }} source checked</span></header>
+    <p class="landscape-note">Entries use stored source classifications and dates. Where only a publication date exists, the register labels it separately. Registry records establish their documented stage. Confirm current rights or transaction status in the underlying source before acting.</p>
+    <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Milestone register">
+      <table>
+        <thead><tr><th scope="col">Milestone and date</th><th scope="col">Linked profiles and geography</th><th scope="col">Evidence</th></tr></thead>
+        <tbody>
+          {% for row in pages.events.rows %}<tr>
+            <th scope="row"><a href="/intelligence/{{ row.id }}">{{ row.title }}</a><small>{{ row.type_label }} · {{ row.date_label }}{% if row.date %} {{ row.date|us_date }}{% endif %}</small>{% if row.identifier %}<small>{{ row.identifier }}{% if row.jurisdiction %} · {{ row.jurisdiction }}{% endif %}</small>{% endif %}{% if row.application_number and row.application_number != row.identifier %}<small>Application {{ row.application_number }}</small>{% endif %}{% if row.cultivar_name %}<small>Cultivar as filed · {{ row.cultivar_name }}</small>{% endif %}</th>
+            <td>{{ crop_names(row.crops) }}<small>{{ row.places|join(', ') or 'Geography unrecorded' }}</small>{% for party in row.parties %}<div>{{ person(party) }}</div>{% endfor %}{% if row.applicants %}<small>Applicant as filed · {{ row.applicants|join(', ') }}</small>{% endif %}{% if row.assignees %}<small>Assignee as filed · {{ row.assignees|join(', ') }}</small>{% endif %}</td>
+            <td>{% if row.summary %}<p>{{ row.summary|truncate(450) }}</p>{% endif %}{{ citations(row.sources) }}{% if row.prior %}<small><a href="{{ row.prior.href }}">Prior milestone source</a></small>{% endif %}</td>
+          </tr>{% else %}<tr><td colspan="3">No published milestones match the selected filters.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {{ pagination(pages.events, 'Milestones') }}
+    {% if coverage.milestones %}
+    <h3>Source-checked research milestones</h3>
+    <p class="landscape-note">These research findings link to original sources. Publication in the canonical feed follows the platform review workflow.</p>
+    <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Source-checked research milestones">
+      <table>
+        <thead><tr><th scope="col">Milestone and stage</th><th scope="col">Parties and scope</th><th scope="col">Evidence</th></tr></thead>
+        <tbody>
+          {% for row in coverage.milestones %}<tr>
+            <th scope="row">{{ row.title }}<small>{{ row.type_label }} · {{ row.stage }}</small><small>{{ row.date_label }}{% if row.date %} {{ row.date|us_date }}{% endif %}</small>{% if row.identifier %}<small>{{ row.identifier }}{% if row.jurisdiction %} · {{ row.jurisdiction }}{% endif %}</small>{% endif %}</th>
+            <td>{{ crop_names(row.crops) }}{% for place in row.places %}<small>{{ place }}</small>{% endfor %}{% for region in row.regions %}<small>{{ regions[region] }}</small>{% endfor %}{% for party in row.parties %}<div>{{ person(party) }}</div>{% endfor %}</td>
+            <td><p>{{ row.summary }}</p>{{ citations(row.sources) }}{% if row.related_evidence %}<small><a href="{{ row.related_evidence.href }}">Related platform source</a></small>{% endif %}</td>
+          </tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </section>
+
+  {% include '_global_berry_coverage.html' %}
+  {% if authoring_mode and strategy %}{% include '_berry_strategy_review.html' %}{% endif %}
+
+  <section class="landscape-panel">
+    <h2>Continue your analysis</h2>
+    <div class="landscape-handoffs">
+      <a href="{{ '/landscapes/berries/' ~ crop if crop else '/landscapes' }}">{{ crops[crop] ~ ' briefing' if crop else 'Configurable Landscape' }}</a>
+      <a href="/entities/variety{% if crop %}?berry=berry-{{ crop }}{% endif %}">Variety Universe</a>
+      {% if authoring_mode %}<a href="/global-watchlist">Global Watchlist</a><a href="/workspaces">Research workspaces</a><a href="/review">Review queue</a>{% endif %}
+    </div>
+  </section>
+</div>
+{% endblock %}

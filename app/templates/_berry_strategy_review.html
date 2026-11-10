@@ -1,0 +1,138 @@
+{% macro cited(ids, sources) -%}
+  {% for key in ids %}{% set source = sources[key] %}
+    <li><a href="{{ source.record_href or source.url }}">{{ source.title }}</a>
+      {% if source.record_href %} · <a href="{{ source.url }}">Original source</a>{% endif %}
+      {% if source.published_date %} · Published {{ source.published_date }}{% endif %}
+      {% if source.event_date and source.event_date != source.published_date %} · Milestone {{ source.event_date }}{% endif %}
+      {% if source.stage %} · {{ source.stage }}{% endif %}
+    </li>
+  {% endfor %}
+{%- endmacro %}
+{% if strategy %}
+{% set review = strategy.review %}
+{% set snapshot = review.snapshot %}
+<section id="berry-strategy-review" class="landscape-panel" aria-labelledby="berry-strategy-title">
+  <header><h2 id="berry-strategy-title">Strategy Review</h2><span>{{ strategy.scope_label }}</span></header>
+  <p><strong>{{ 'Analyst approved' if review.state == 'approved' else 'Draft · analyst review required' }}</strong> · {{ review.method }}
+    {% if review.generated_at %} · Generated <time datetime="{{ review.generated_at }}">{{ review.generated_at[:16]|replace('T', ' ') }} UTC</time>{% endif %}
+    · Evidence cutoff {{ snapshot.cutoff or 'undated or unavailable' }}
+  </p>
+  {% if strategy.stale %}<p>The evidence changed. Refresh this scope to record a new revision. Earlier decisions remain in the history.</p>{% endif %}
+  {% if review.notice %}<p>{{ review.notice }}</p>{% endif %}
+  {% if review.state == 'approved' %}<p><strong>Approved by {{ review.updated_by }}</strong>{% if review.approval_note %}. {{ review.approval_note }}{% endif %}</p>{% endif %}
+  {% if review.focal %}<p><strong>Focal organization</strong> {{ strategy.profiles.get(review.focal, {}).get('label', review.focal) }}</p>{% endif %}
+  {% if snapshot.scope.role or snapshot.scope.event_type or snapshot.scope.start or snapshot.scope.end or snapshot.scope.q %}
+    <p>Additional scope
+    {% if snapshot.scope.role %} · {{ snapshot.scope.role|replace('-', ' ') }}{% endif %}
+    {% if snapshot.scope.event_type %} · {{ snapshot.scope.event_type|replace('-', ' ') }}{% endif %}
+    {% if snapshot.scope.start or snapshot.scope.end %} · {{ snapshot.scope.start or 'earliest' }} to {{ snapshot.scope.end or 'latest' }}{% endif %}
+    {% if snapshot.scope.q %} · Search “{{ snapshot.scope.q }}”{% endif %}
+    </p>
+  {% endif %}
+  <h3>Executive readout</h3>
+  <p>{{ review.summary }}</p>
+  {% if snapshot.priorities %}
+    {% set top = snapshot.priorities[0] %}
+    <p><strong>Highest-scored lead</strong> <a href="#priority-{{ top.id }}">{{ top.title }}</a>. {{ top.next_step }}</p>
+    <ul>{{ cited(top.source_ids, snapshot.sources) }}</ul>
+  {% endif %}
+  {% if snapshot.gaps %}
+  <details><summary>{{ snapshot.gaps|length }} baseline coverage gaps by crop, region and role{% if snapshot.coverage_as_of %} · checked {{ snapshot.coverage_as_of }}{% endif %}</summary>
+    <ul>{% for gap in snapshot.gaps %}<li>{{ gap.crop|title }} · {{ gap.region|replace('-', ' ')|title }} · {{ gap.role|replace('-', ' ')|title }} · {{ gap.state|replace('_', ' ') }}. {{ gap.reason }} {{ gap.next_step }}{% if gap.next_source %} <a href="{{ gap.next_source }}">{{ gap.next_source_name or 'Next source' }}</a>{% endif %}</li>{% endfor %}</ul>
+  </details>
+  {% endif %}
+  {% if not strategy_history %}
+  <form method="post" action="{{ strategy.refresh_href }}" class="landscape-filters">
+    <input type="hidden" name="version" value="{{ review.version }}">
+    <label>Focal organization (optional)
+      <select name="focal">
+        <option value="">Choose a named organization</option>
+        {% for key, profile in strategy.profiles|dictsort if profile.kind in ['company', 'retailer', 'breeding_program'] %}
+          <option value="{{ key }}" {% if review.focal == key %}selected{% endif %}>{{ profile.label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button class="outline-button" name="method" value="local">{{ 'Refresh cited review' if review.generated_at else 'Save cited review' }}</button>
+    {% if strategy.model_enabled %}<button class="outline-button" name="method" value="ai">Generate AI draft from public sources</button>{% endif %}
+  </form>
+  {% if strategy.has_history %}<p><a href="{{ strategy.history_href }}">Review history and evidence snapshots</a></p>{% endif %}
+  {% endif %}
+
+  <h3>Frameworks</h3>
+  {% for key, labels in strategy.framework_labels.items() %}
+    {% set section = review.frameworks[key] %}
+    <details id="strategy-framework-{{ key }}">
+      <summary>{{ labels[0] }} · {{ (section.entries|length)|string + ' observations or assessments' if section.entries else 'Insufficient evidence' }}</summary>
+      <p>{{ labels[1] }}</p>
+      {% for entry in section.entries %}
+        <article>
+          <p><strong>{{ entry.kind }}</strong> · {{ entry.confidence }}. {{ entry.text }}</p>
+          {% if entry.limits %}<p>{{ entry.limits }}</p>{% endif %}
+          <ul>{{ cited(entry.source_ids, snapshot.sources) }}</ul>
+          {% if entry.contrary_ids %}<p>Contrary evidence or limiting context</p><ul>{{ cited(entry.contrary_ids, snapshot.sources) }}</ul>{% endif %}
+        </article>
+      {% endfor %}
+      {% for correction in review.corrections if correction.framework == key %}
+        <article><p><strong>Analyst correction</strong> · {{ correction.author }}. {{ correction.text }}</p>
+          <ul>{{ cited(correction.source_ids, snapshot.sources) }}</ul>
+        </article>
+      {% endfor %}
+      <p>{{ section.gap }}</p>
+    </details>
+  {% endfor %}
+
+  <h3>2027–2029 priorities</h3>
+  <p>{{ 'Approved priorities for this evidence snapshot.' if review.state == 'approved' else 'Ranked hypotheses for analyst review.' }} Equal weights on a 1–5 scale for each criterion. Strategic fit assumes a genetics and trials program and needs internal validation.</p>
+  {% for priority in snapshot.priorities %}
+    <details id="priority-{{ priority.id }}">
+      <summary>{{ loop.index }}. {{ priority.title }} · {{ priority.horizon }} · {{ priority.score }}/20</summary>
+      <p>{{ priority.crop|title }} · {{ priority.geography }} · {{ priority.target }}</p>
+      {% for key in priority.entity_ids if key in strategy.profiles %}
+        <p><a href="{{ strategy.profiles[key].href }}">{{ strategy.profiles[key].label }}</a></p>
+      {% endfor %}
+      <dl>
+        <dt>Expected benefit</dt><dd>{{ priority.benefit }}</dd>
+        <dt>Risk and unknowns</dt><dd>{{ priority.risk }}</dd>
+        <dt>Evidence confidence</dt><dd>{{ priority.confidence }}</dd>
+        <dt>Next decision and trigger</dt><dd>{{ priority.next_step }}</dd>
+        {% for key, label in strategy.criteria.items() %}
+          <dt>{{ label }} · {{ priority.scores[key][0] }}/5</dt><dd>{{ priority.scores[key][1] }}</dd>
+        {% endfor %}
+      </dl>
+      <p><strong>Supporting analyses</strong> {% for key in priority.frameworks %}<a href="#strategy-framework-{{ key }}">{{ strategy.framework_labels[key][0] }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+      <p><strong>Where the analyses differ</strong> {{ priority.tension }}</p>
+      <ul>{{ cited(priority.source_ids, snapshot.sources) }}</ul>
+    </details>
+  {% else %}<p>No ranked opportunities have complete supporting evidence in this scope.</p>{% endfor %}
+
+  {% if snapshot.sources %}<details><summary>Evidence snapshot · {{ snapshot.sources|length }} sources</summary>
+    <ul>{% for key, source in snapshot.sources|dictsort %}<li id="strategy-source-{{ key }}">
+      <a href="{{ source.record_href or source.url }}">{{ source.title }}</a>{% if source.record_href %} · <a href="{{ source.url }}">Original source</a>{% endif %}
+      · <code>{{ key }}</code><p>{{ source.summary }}</p>
+    </li>{% endfor %}</ul>
+  </details>{% endif %}
+
+  {% if not strategy_history and review.generated_at and snapshot.sources and not strategy.stale %}
+  <details>
+    <summary>Record an analyst correction</summary>
+    <form method="post" action="{{ strategy.review_href }}" class="landscape-filters">
+      <input type="hidden" name="version" value="{{ review.version }}">
+      <label>Framework <select name="framework" required>{% for key, labels in strategy.framework_labels.items() if key not in strategy.company_frameworks %}<option value="{{ key }}">{{ labels[0] }}</option>{% endfor %}</select></label>
+      <label>Evidence citation <select name="citations" required>{% for key, source in snapshot.sources|dictsort %}<option value="{{ key }}">{{ source.title }}</option>{% endfor %}</select></label>
+      <label>Correction <textarea name="notes" maxlength="4000" required rows="3"></textarea></label>
+      <button class="outline-button" name="action" value="correct">Record correction</button>
+    </form>
+  </details>
+  {% if review.state != 'approved' %}
+  <details>
+    <summary>Approve the reviewed priorities</summary>
+    <form method="post" action="{{ strategy.review_href }}" class="landscape-filters">
+      <input type="hidden" name="version" value="{{ review.version }}">
+      <label>Decision note (optional) <textarea name="notes" maxlength="4000" rows="3"></textarea></label>
+      <button class="outline-button" name="action" value="approve">Approve this revision</button>
+    </form>
+  </details>
+  {% endif %}
+  {% endif %}
+</section>
+{% endif %}

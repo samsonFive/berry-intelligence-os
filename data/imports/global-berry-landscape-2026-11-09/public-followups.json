@@ -1,0 +1,968 @@
+{
+  "as_of": "2026-11-09",
+  "observations": [
+    {
+      "id": "bl-mea-onssa-fc13-122-rights",
+      "crop": "blueberry",
+      "region": "mea",
+      "geography_type": "rights",
+      "country": "Morocco",
+      "role": "rights",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "entity_name": "Fall Creek Farm and Nursery, Inc.",
+      "title": "Moroccan protection for FC13-122",
+      "summary": "ONSSA's register as of June 22, 2026 lists FC13-122 under highbush blueberry and names Fall Creek Farm and Nursery, Inc. as holder. The listed protection expiry is April 15, 2051. Grant date, certificate number, licensees and local production scale are unrecorded in this list.",
+      "source_name": "Morocco ONSSA protected-variety register, p. 39",
+      "source_url": "https://www.onssa.gov.ma/wp-content/uploads/2026/06/liste-des-varietes-protegees-maroc-juin-2026-.pdf#page=39",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-mea-charter-uc-davis-master-licensee",
+      "crop": "strawberry",
+      "region": "mea",
+      "geography_type": "rights",
+      "country": "South Africa",
+      "role": "rights",
+      "entity_id": null,
+      "entity_name": "Charter Horticulture (Pty) Ltd",
+      "title": "Charter Horticulture's UC Davis strawberry master license",
+      "summary": "UC Davis lists Charter Horticulture as a South Africa master licensee for 19 named cultivars. The program defines this role as exclusive sublicensing rights for specified cultivars and territories for propagation and transfer of plants for fruit production. Agreement dates, sublicensees and actual nursery volumes are undisclosed.",
+      "source_name": "UC Davis Office of Research licensed nurseries and master licensees",
+      "source_url": "https://research.ucdavis.edu/industry-support/plant-variety-licensing-program/strawberry-licensing-program/licensed-nurseries/",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-ap-yotsuboshi-miyoshi-agritech-seed",
+      "crop": "strawberry",
+      "region": "asia-pacific",
+      "geography_type": "operations",
+      "country": "Japan",
+      "role": "propagation",
+      "entity_id": null,
+      "entity_name": "Miyoshi Agritech (三好アグリテック)",
+      "title": "Miyoshi Agritech's YOTSUBOSHI seed production license",
+      "summary": "The March 2025 MAFF IP handbook names Miyoshi Agritech as one of three licensed domestic YOTSUBOSHI seed producers under agreements with Mie, Chiba and Kagawa prefectures and NARO. Individual production and agreement dates are undisclosed.",
+      "source_name": "Japan MAFF IP management handbook, p. 112",
+      "source_url": "https://www.affrc.maff.go.jp/docs/attach/pdf/intellect-46.pdf",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-ap-yotsuboshi-bio-yu-seed",
+      "crop": "strawberry",
+      "region": "asia-pacific",
+      "geography_type": "operations",
+      "country": "Japan",
+      "role": "propagation",
+      "entity_id": null,
+      "entity_name": "Bio-Yu (バイオ・ユー)",
+      "title": "Bio-Yu's YOTSUBOSHI seed production license",
+      "summary": "The March 2025 MAFF IP handbook names Bio-Yu as one of three licensed domestic YOTSUBOSHI seed producers under agreements with Mie, Chiba and Kagawa prefectures and NARO. Individual production and agreement dates are undisclosed.",
+      "source_name": "Japan MAFF IP management handbook, p. 112",
+      "source_url": "https://www.affrc.maff.go.jp/docs/attach/pdf/intellect-46.pdf",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-ap-yotsuboshi-mie-kono-anotsu-enken-seed",
+      "crop": "strawberry",
+      "region": "asia-pacific",
+      "geography_type": "operations",
+      "country": "Japan",
+      "role": "propagation",
+      "entity_id": null,
+      "entity_name": "Mie Kono Anotsu Enken (三重興農あの津園研)",
+      "title": "Mie Kono Anotsu Enken's YOTSUBOSHI seed production license",
+      "summary": "The March 2025 MAFF IP handbook names Mie Kono Anotsu Enken as one of three licensed domestic YOTSUBOSHI seed producers under agreements with Mie, Chiba and Kagawa prefectures and NARO. Individual production and agreement dates are undisclosed.",
+      "source_name": "Japan MAFF IP management handbook, p. 112",
+      "source_url": "https://www.affrc.maff.go.jp/docs/attach/pdf/intellect-46.pdf",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-la-gpg-argentina-nursery-license-rights",
+      "crop": "strawberry",
+      "region": "latin-america",
+      "geography_type": "rights",
+      "country": "Argentina",
+      "role": "rights",
+      "entity_id": "company-global-plant-genetics",
+      "entity_name": "Global Plant Genetics",
+      "title": "GPG announces two Argentine nursery licenses for UC strawberry genetics",
+      "summary": "Global Plant Genetics announced nursery licenses for Kleppe S.A. and Vivero Altus. It identified San Andreas and Fronteras for propagation by both nurseries and described newer cultivars as a future focus. Effective dates, terms and plant volumes were undisclosed.",
+      "source_name": "Global Plant Genetics nursery licensing announcement",
+      "source_url": "https://www.globalplantgenetics.com/global-plant-genetics-strengthens-latam-strawberry-nursery-supply-chain/",
+      "source_date": "2026-02-18",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-la-kleppe-argentina-nursery-license",
+      "crop": "strawberry",
+      "region": "latin-america",
+      "geography_type": "rights",
+      "country": "Argentina",
+      "role": "propagation",
+      "entity_id": null,
+      "entity_name": "Kleppe S.A.",
+      "title": "Kleppe S.A. named for UC strawberry propagation in Argentina",
+      "summary": "Global Plant Genetics named Kleppe as a newly licensed strawberry nursery and identified San Andreas and Fronteras for propagation. Nursery throughput, realized plant sales and exact contract dates were undisclosed. Kleppe's broader fruit acreage is separate from strawberry nursery capacity.",
+      "source_name": "Global Plant Genetics nursery licensing announcement",
+      "source_url": "https://www.globalplantgenetics.com/global-plant-genetics-strengthens-latam-strawberry-nursery-supply-chain/",
+      "source_date": "2026-02-18",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-la-vivero-altus-argentina-nursery-license",
+      "crop": "strawberry",
+      "region": "latin-america",
+      "geography_type": "rights",
+      "country": "Argentina",
+      "role": "propagation",
+      "entity_id": null,
+      "entity_name": "Vivero Altus",
+      "title": "Vivero Altus named for UC strawberry propagation in Argentina",
+      "summary": "Global Plant Genetics named Vivero Altus, based in El Maitén, Patagonia, as a newly licensed strawberry nursery and identified San Andreas and Fronteras for propagation. Nursery throughput, realized plant sales and exact contract dates were undisclosed.",
+      "source_name": "Global Plant Genetics nursery licensing announcement",
+      "source_url": "https://www.globalplantgenetics.com/global-plant-genetics-strengthens-latam-strawberry-nursery-supply-chain/",
+      "source_date": "2026-02-18",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-eu-bayer-baya-solara-em2836-announced-markets",
+      "crop": "strawberry",
+      "region": "europe",
+      "geography_type": "market",
+      "country": "United Kingdom, Germany and Benelux",
+      "role": "marketing",
+      "entity_id": "company-bayer",
+      "entity_name": "Bayer",
+      "title": "Bayer's announced Baya Solara availability for Northern European protected cropping",
+      "summary": "Bayer announced Baya Solara (EM2836) as De Ruiter's first commercial strawberry variety on January 8, 2026, naming the United Kingdom, Germany and Benelux as intended availability markets. Grower adoption, hectares, volumes and cultivar-rights status are outside the release's disclosed scope.",
+      "source_name": "Bayer Baya Solara launch announcement",
+      "source_url": "https://www.bayer.com/media/en-us/bayer-to-launch-innovative-strawberry-variety/",
+      "source_date": "2026-01-08",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "st-eu-angus-dalicia-cpvo-grant",
+      "crop": "strawberry",
+      "region": "europe",
+      "geography_type": "rights",
+      "country": "European Union",
+      "role": "rights",
+      "entity_id": "company-angus-soft-fruits",
+      "entity_name": "Angus Soft Fruits Ltd.",
+      "title": "EU plant variety right granted for Dalicia strawberry",
+      "summary": "CPVO's August 15, 2025 journal records EU plant variety right 69689 for the legal denomination Dalicia under application 2022/1955. The grant decision date is June 2, 2025, and the journal's holder code 03292 identifies Angus Soft Fruits Ltd. Subsequent status, expiry and commercial scale were not established by this grant record.",
+      "source_name": "CPVO Official Gazette 4/2025, p. 70",
+      "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2025-08/cpvo_2025_4.pdf#page=72",
+      "source_date": "2025-08-15",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bk-ap-jiangsu-youwei-blackberry-growing",
+      "crop": "blackberry",
+      "region": "asia-pacific",
+      "geography_type": "production",
+      "country": "China",
+      "role": "growing",
+      "entity_id": null,
+      "entity_name": "Jiangsu Youwei Organic Food Co., Ltd. (江苏悠维有机食品有限公司)",
+      "title": "Jiangsu Youwei's blackberry growing base in Nanjing",
+      "summary": "A June 2025 report published by Nanjing's Agriculture and Rural Affairs Bureau describes an organic blackberry site that Jiangsu Youwei established in 2017 in Aimin Village, Dongping, Lishui District. The report puts planted blackberry area at that site above 1,000 mu. Site yield and shipment volumes are undisclosed.",
+      "source_name": "Nanjing Agriculture and Rural Affairs Bureau site report",
+      "source_url": "https://nyncj.nanjing.gov.cn/nygzdt/202506/t20250627_5594755.html",
+      "source_date": "2025-06-27",
+      "verification_date": "2026-11-09",
+      "metric": {
+        "value": 1000,
+        "units": "mu",
+        "year": 2025,
+        "scope": "Planted blackberry area at the Aimin Village site",
+        "qualifier": "Strict lower bound reported in June 2025"
+      }
+    },
+    {
+      "id": "bl-na-fall-creek-fce18-015-us-plant-patent",
+      "crop": "blueberry",
+      "region": "north-america",
+      "geography_type": "rights",
+      "country": "United States",
+      "role": "rights",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "entity_name": "Fall Creek Farm and Nursery, Inc.",
+      "title": "U.S. plant patent issued for Fall Creek's FCE18-015 blueberry",
+      "summary": "USPTO issued plant patent PP37,387 P3 for denomination FCE18-015 on April 28, 2026, naming Fall Creek Farm and Nursery, Inc. as assignee at issue. The U.S. application 19/063,460 was filed February 26, 2025. Current ownership, enforceability, licensees and production scale require separate evidence.",
+      "source_name": "USPTO Official Gazette plant patent PP37,387 P3",
+      "source_url": "https://patentsgazette.uspto.gov/week17/OG/html/1545-4/USPP037387-20260428.html",
+      "source_date": "2026-04-28",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bk-la-agv-22-mexico-rights-transfer",
+      "crop": "blackberry",
+      "region": "latin-america",
+      "geography_type": "rights",
+      "country": "Mexico",
+      "role": "rights",
+      "entity_id": null,
+      "entity_name": "AGV Innovation & Varieties LLC",
+      "title": "Mexico records AGV-22 blackberry title and transfer of exploitation rights",
+      "summary": "Mexico's official gazette lists breeder's title 3455 for AGV-22, issued August 23, 2024 with a listed term through August 23, 2042. It records the August 6, 2025 resolution registering transfer from Agro Soil de México to AGV Innovation & Varieties LLC for production, reproduction, distribution and sale. Subsequent title status, licenses, brand and deployment are unverified.",
+      "source_name": "Mexico Diario Oficial de la Federación, notice 5769311, section TERCERO",
+      "source_url": "https://sidof.segob.gob.mx/notas/docFuente/5769311",
+      "source_date": "2025-10-06",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bk-mea-onssa-drisblacktwenty-rights",
+      "crop": "blackberry",
+      "region": "mea",
+      "geography_type": "rights",
+      "country": "Morocco",
+      "role": "rights",
+      "entity_id": "company-driscolls",
+      "entity_name": "Driscoll's, Inc.",
+      "title": "Morocco lists DrisBlackTwenty blackberry protection",
+      "summary": "ONSSA's register as of June 22, 2026 lists DRISBLACKTWENTY under blackberry (Rubus subgenus), names Driscoll's, Inc. as holder and gives July 24, 2044 as the listed expiry. The grant date, certificate number, local licensees and deployment remain unverified.",
+      "source_name": "Morocco ONSSA protected-variety register, p. 33",
+      "source_url": "https://www.onssa.gov.ma/wp-content/uploads/2026/06/liste-des-varietes-protegees-maroc-juin-2026-.pdf#page=33",
+      "source_date": null,
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bk-ap-australia-drisblacktwenty-pbr-grant",
+      "crop": "blackberry",
+      "region": "asia-pacific",
+      "geography_type": "rights",
+      "country": "Australia",
+      "role": "rights",
+      "entity_id": "company-driscolls",
+      "entity_name": "Driscoll's, Inc.",
+      "title": "Australia records DrisBlackTwenty blackberry grant 7324",
+      "summary": "IP Australia's December 2025 journal records a November 19, 2025 grant for DrisBlackTwenty, application 2023/082 and certificate 7324. It lists Driscoll's, Inc. as applicant and November 19, 2045 as the scheduled expiry. Subsequent status, ownership, local licenses and deployment remain unverified.",
+      "source_name": "IP Australia Plant Varieties Journal 38(3), grants table, PDF p. 249",
+      "source_url": "https://www.ipaustralia.gov.au/tools-and-research/professional-resources/ip-rights-journals/~/-/media/Project/IPA/IPAustralia/PDF/PBR-Journals/Volume-38-Number-3.pdf?rev=05abe6e6ffab41beae928b9c3f1a3579#page=249",
+      "source_date": "2025-12-10",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bk-na-uspto-agv-22-rights",
+      "crop": "blackberry",
+      "region": "north-america",
+      "geography_type": "rights",
+      "country": "United States",
+      "role": "rights",
+      "entity_id": null,
+      "entity_name": "AGV Innovation & Varieties LLC",
+      "title": "U.S. patent issuance for AGV-22 blackberry",
+      "summary": "The USPTO lists AGV Innovation & Varieties LLC as assignee at issuance of U.S. plant patent PP37,457 on June 9, 2026. Later title status, brand and commercial terms remain open.",
+      "source_name": "USPTO Official Gazette",
+      "source_url": "https://patentsgazette.uspto.gov/week23/OG/html/1547-2/USPP037457-20260609.html",
+      "source_date": "2026-06-09",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "ra-na-uspto-crimson-beauty-rights",
+      "crop": "raspberry",
+      "region": "north-america",
+      "geography_type": "rights",
+      "country": "United States",
+      "role": "rights",
+      "entity_id": "breeding_program-cornell-berry",
+      "entity_name": "Cornell University",
+      "title": "U.S. patent issuance for Crimson Beauty raspberry",
+      "summary": "The USPTO lists Cornell University as assignee at issuance of U.S. plant patent PP37,595 on August 18, 2026. The milestone separately records its filing date and linked cultivar. Later title status remains open.",
+      "source_name": "USPTO Official Gazette patentee index",
+      "source_url": "https://patentsgazette.uspto.gov/week33/OG/patentee/alphaC.html",
+      "source_date": "2026-08-18",
+      "verification_date": "2026-11-09"
+    },
+    {
+      "id": "bl-eu-fv-blueberry-cpvo-grants",
+      "crop": "blueberry",
+      "region": "europe",
+      "geography_type": "rights",
+      "country": "European Union",
+      "role": "rights",
+      "entity_id": null,
+      "entity_name": "FV B.V.",
+      "title": "CPVO records eight EU blueberry grants for FV B.V.",
+      "summary": "The April 15, 2026 CPVO Gazette lists FV B.V. as holder at grant for eight separately numbered blueberry rights. The February 16 decisions cover FV1901 through FV1908 under grant numbers 71461 through 71468, respectively. Current status, license territories and commercial deployment require separate evidence.",
+      "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+      "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+      "source_date": "2026-04-15",
+      "verification_date": "2026-11-09"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "ma-fc13-122-protection-snapshot-2026-06-22",
+      "kind": "ip",
+      "stage": "Protection listed",
+      "title": "FC13-122 blueberry protection in Morocco",
+      "summary": "ONSSA's June 22, 2026 snapshot records Fall Creek Farm and Nursery, Inc. as holder and April 15, 2051 as the protection expiry. The source lists the legal denomination FC13-122. Fall Creek uses Sekoya Grande as the commercial brand. Grant date and certificate number are unrecorded in the snapshot.",
+      "date": "2026-06-22",
+      "date_label": "Register snapshot as of",
+      "crops": ["blueberry"],
+      "regions": ["mea"],
+      "roles": ["rights"],
+      "entity_ids": ["company-fall-creek-farm-and-nursery", "variety-sekoya-grande"],
+      "places": ["Morocco"],
+      "identifier": "FC13-122",
+      "jurisdiction": "MA",
+      "sources": [
+        {
+          "source_name": "Morocco ONSSA protected-variety register, p. 39",
+          "source_url": "https://www.onssa.gov.ma/wp-content/uploads/2026/06/liste-des-varietes-protegees-maroc-juin-2026-.pdf#page=39",
+          "published_date": null
+        },
+        {
+          "source_name": "Fall Creek cultivar disclosure",
+          "source_url": "https://www.fallcreeknursery.com/blog/sekoya-looks-to-extend-premium-blueberry-supply-across-chinas-growing-regions",
+          "published_date": "2026-09-01"
+        }
+      ]
+    },
+    {
+      "id": "za-uc-davis-charter-horticulture-master-licensee",
+      "kind": "licensing",
+      "stage": "Master sublicense rights listed",
+      "title": "UC Davis lists Charter Horticulture as a South Africa master licensee",
+      "summary": "UC Davis lists 19 strawberry cultivars in Charter's South African scope: Monterey, Portola, San Andreas, Benicia, Petaluma, Fronteras, Cabrillo, UCD Moxie, UCD Royal Royce, UCD Valiant, UCD Victor, UCD Warrior, UCD Finn, UCD Mojo, UC Eclipse, UC Surfline, UC Monarch, UC Keystone and UC Golden Gate. The master role covers exclusive sublicensing for propagation and transfer of plants for fruit production within the listed territory and cultivars. Sublicensees, effective dates and nursery throughput are undisclosed.",
+      "date": "",
+      "date_label": "Agreement date unrecorded",
+      "crops": ["strawberry"],
+      "regions": ["mea"],
+      "roles": ["rights", "propagation"],
+      "entity_ids": ["breeding_program-uc-davis-strawberry"],
+      "places": ["South Africa"],
+      "identifier": "",
+      "jurisdiction": "ZA",
+      "sources": [
+        {
+          "source_name": "UC Davis Office of Research licensed nurseries and master licensees",
+          "source_url": "https://research.ucdavis.edu/industry-support/plant-variety-licensing-program/strawberry-licensing-program/licensed-nurseries/",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "jp-yotsuboshi-domestic-seed-producer-licenses",
+      "kind": "licensing",
+      "stage": "Domestic seed production licenses reported",
+      "title": "YOTSUBOSHI Japanese seed supply through three licensed producers",
+      "summary": "The March 2025 MAFF handbook names Miyoshi Agritech, Bio-Yu and Mie Kono Anotsu Enken as licensed domestic seed producers. Mie, Chiba, Kagawa and NARO hold the Japanese rights. The report names Sakata Seed and Miyoshi as overseas registration partners, reports applications in 12 countries or regions, and describes a Japan-only seed production model. NARO records domestic sales starting in fiscal 2016 and aggregate fiscal 2019 sales of 1.10 million plug seedlings and 970,000 seeds, equivalent to about 30 hectares. Current volumes, contract dates and each foreign grant status are unrecorded here.",
+      "date": "",
+      "date_label": "MAFF handbook revised March 2025",
+      "crops": ["strawberry"],
+      "regions": ["asia-pacific"],
+      "roles": ["propagation"],
+      "entity_ids": [],
+      "places": ["Japan"],
+      "identifier": "25605",
+      "jurisdiction": "JP",
+      "sources": [
+        {
+          "source_name": "Japan MAFF IP management handbook, pp. 111–112",
+          "source_url": "https://www.affrc.maff.go.jp/docs/attach/pdf/intellect-46.pdf",
+          "published_date": null
+        },
+        {
+          "source_name": "NARO YOTSUBOSHI seed supply follow-up",
+          "source_url": "https://www.naro.go.jp/laboratory/brain/contents/follow_up/pickup/141038.html",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "italy-masaf-easyrose-qvi-25a06708",
+      "kind": "regulatory",
+      "stage": "QVI certification eligibility effective",
+      "title": "Italy recognizes an EasyRose raspberry accession as eligible for QVI certification",
+      "summary": "Italy's November 28, 2025 decree took effect upon gazette publication on December 18, 2025. The signed annex lists Rubus idaeus, the denomination ALEL101PVR, the EasyRose brand, clone ALCAV and accession RID0010. The measure recognizes eligibility for Italy's voluntary propagation material certification scheme. The annex lists CPVO authorization code 20250014 and leaves Italian or EU plant-rights grant number and date blank. Certified plant volumes are unrecorded.",
+      "date": "2025-12-18",
+      "date_label": "Effective upon publication",
+      "crops": ["raspberry"],
+      "regions": ["europe"],
+      "roles": ["propagation"],
+      "entity_ids": [],
+      "places": ["Italy"],
+      "identifier": "25A06708 · RID0010",
+      "jurisdiction": "IT",
+      "sources": [
+        {
+          "source_name": "Italian Official Gazette decree 25A06708",
+          "source_url": "https://www.gazzettaufficiale.it/eli/id/2025/12/18/25A06708/SG",
+          "published_date": "2025-12-18"
+        },
+        {
+          "source_name": "Italian Ministry of Agriculture signed decree annex, p. 4",
+          "source_url": "https://www.protezionedellepiante.it/wp-content/uploads/2025/12/masaf-2025-0645749-dm-agg-reg-qvi.pdf#page=4",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "gpg-argentina-uc-davis-strawberry-nursery-licenses-2026-02-18",
+      "kind": "licensing",
+      "stage": "Nursery licenses announced",
+      "title": "GPG names Kleppe and Vivero Altus as Argentine strawberry nursery licensees",
+      "summary": "Global Plant Genetics announced that it licensed Kleppe S.A. and Vivero Altus in Argentina to propagate UC strawberry cultivars including San Andreas and Fronteras. It identified UCD Royal Royce, UC Eclipse and UC Golden Gate as forward priorities. The two announced nursery licenses establish scope at the announcement date. Exact contract dates, terms, planted volume and sales were undisclosed.",
+      "date": "2026-02-18",
+      "date_label": "Announced",
+      "crops": ["strawberry"],
+      "regions": ["latin-america"],
+      "roles": ["rights", "propagation"],
+      "entity_ids": ["company-global-plant-genetics"],
+      "places": ["Argentina"],
+      "identifier": "",
+      "jurisdiction": "",
+      "sources": [
+        {
+          "source_name": "Global Plant Genetics nursery licensing announcement",
+          "source_url": "https://www.globalplantgenetics.com/global-plant-genetics-strengthens-latam-strawberry-nursery-supply-chain/",
+          "published_date": "2026-02-18"
+        }
+      ]
+    },
+    {
+      "id": "bayer-baya-solara-strawberry-launch-announcement-2026-01-08",
+      "kind": "commercial",
+      "stage": "Launch and intended availability announced",
+      "title": "Bayer announces Baya Solara (EM2836) for protected strawberry cropping",
+      "summary": "Bayer announced De Ruiter's first commercial strawberry cultivar on January 8, 2026. The company described Baya Solara (EM2836) as an early to mid-season June-bearer for protected cropping and named the United Kingdom, Germany and Benelux as its availability scope. The announcement gives no measured commercial adoption, acreage, production volume or cultivar-rights status.",
+      "date": "2026-01-08",
+      "date_label": "Announced",
+      "crops": ["strawberry"],
+      "regions": ["europe"],
+      "roles": ["marketing"],
+      "entity_ids": ["company-bayer", "variety-baya-solara-c89953da"],
+      "places": ["United Kingdom", "Germany", "Benelux"],
+      "identifier": "EM2836",
+      "jurisdiction": "",
+      "sources": [
+        {
+          "source_name": "Bayer Baya Solara launch announcement",
+          "source_url": "https://www.bayer.com/media/en-us/bayer-to-launch-innovative-strawberry-variety/",
+          "published_date": "2026-01-08"
+        },
+        {
+          "source_name": "Bayer De Ruiter cultivar introduction",
+          "source_url": "https://www.vegetables.bayer.com/gb/en-uk/knowledge-centre/news/introducing-de-ruiter-first-strawberry-variety.html",
+          "published_date": "2026-01-05"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-dalicia-grant-69689-2025-06-02",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants right 69689 for Dalicia strawberry",
+      "summary": "The CPVO grants table records Dalicia under application 2022/1955 with decision date June 2, 2025 and holder Angus Soft Fruits Ltd. (03292 in the same journal's party index). The AVA Berries catalogue presents the cultivar as AVA Dalicia. The grant applies to the EU rights territory. Later register status, expiry and deployment require separate evidence.",
+      "date": "2025-06-02",
+      "date_label": "Grant decision",
+      "crops": ["strawberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": ["company-angus-soft-fruits", "variety-ava-dalicia-f81f64b7"],
+      "places": ["European Union"],
+      "identifier": "69689 · Application 2022/1955",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 4/2025, p. 70",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2025-08/cpvo_2025_4.pdf#page=72",
+          "published_date": "2025-08-15"
+        },
+        {
+          "source_name": "AVA Berries variety catalogue",
+          "source_url": "https://www.avaberries.com/varieties/",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "fall-creek-berryplant-berrytech-acquisition-announcement-2026-06-10",
+      "kind": "ownership",
+      "stage": "Acquisition reported complete",
+      "title": "Fall Creek reports acquisition of Italy's Berryplant and Berrytech",
+      "summary": "Fall Creek's release dated June 10, 2026 says it acquired Berryplant, a Trentino raspberry and blackberry nursery, and Berrytech, its breeding and IP sister company. Berryplant will continue as Fall Creek Italia, with both businesses operating separately during the initial transition. Fall Creek's press index lists the same release under June 4, so the first posting date is unclear. Transaction counsel reported the acquisition on June 11. The precise legal closing date and financial terms are undisclosed.",
+      "date": "2026-06-10",
+      "date_label": "Company release dated",
+      "crops": ["raspberry", "blackberry"],
+      "regions": ["europe"],
+      "roles": ["breeding", "rights", "propagation"],
+      "entity_ids": ["company-fall-creek-farm-and-nursery", "company-fall-creek-italia", "company-berrytech"],
+      "places": ["Trentino, Italy"],
+      "existing_evidence_id": "ev-20260806173541-de69-fall-creek-acquires-berryplant-berrytech",
+      "identifier": "",
+      "jurisdiction": "",
+      "sources": [
+        {
+          "source_name": "Fall Creek acquisition release",
+          "source_url": "https://www.fallcreeknursery.com/blog/fall-creek-acquires-italy-based-berryplant-and-berrytech-expanding-into-raspberries-and-blackberries",
+          "published_date": "2026-06-10"
+        },
+        {
+          "source_name": "Fall Creek press index (displays June 4 for the same release)",
+          "source_url": "https://www.fallcreeknursery.com/blog/category/fall-creek-news-press",
+          "published_date": null
+        },
+        {
+          "source_name": "Osborne Clarke transaction counsel statement",
+          "source_url": "https://www.osborneclarke.com/news/osborne-clarke-advises-fall-creek-acquisition-berrytech-and-berryplant",
+          "published_date": "2026-06-11"
+        }
+      ]
+    },
+    {
+      "id": "fall-creek-lucchini-easy-rose-propagation-and-sales-license-announcement-2026-10-01",
+      "kind": "licensing",
+      "stage": "Exclusive propagation and sales license announced",
+      "title": "Fall Creek announces exclusive Easy Rose raspberry propagation and sales license",
+      "summary": "Fall Creek announced on October 1, 2026 that it entered an exclusive propagation and sales license with Lucchini Berries SRL for the primocane raspberry Easy Rose (ALEL101), developed by Elisa and Alessandro Lucchini in Verona. The company describes evaluation or planting in Italy, Spain, Portugal, Mexico, Morocco and Egypt. The agreement's territory, exact signing date, term and volumes are undisclosed.",
+      "date": "2026-10-01",
+      "date_label": "Announced",
+      "crops": ["raspberry"],
+      "regions": ["europe"],
+      "roles": ["rights", "propagation"],
+      "entity_ids": ["company-fall-creek-farm-and-nursery"],
+      "places": ["Verona, Italy (licensor and breeding base)"],
+      "identifier": "ALEL101",
+      "jurisdiction": "",
+      "sources": [
+        {
+          "source_name": "Fall Creek exclusive Easy Rose license announcement",
+          "source_url": "https://www.fallcreeknursery.com/blog/fall-creek-signs-exclusive-propagation-and-sales-agreement-for-easyrose-alel101-raspberry",
+          "published_date": "2026-10-01"
+        },
+        {
+          "source_name": "Fall Creek press index (announcement dated October 1)",
+          "source_url": "https://www.fallcreeknursery.com/blog/category/fall-creek-news-press",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "cnipa-baima-blackberry-gi-640-2025-07-16",
+      "kind": "regulatory",
+      "stage": "Geographical indication recognized",
+      "title": "CNIPA recognizes Baima blackberry as a geographical indication product",
+      "summary": "China's National Intellectual Property Administration recognized Baima blackberry (白马黑莓) under Announcement 640, dated July 16, 2025 and published August 13. Annex 1 lists the Lishui District Blackberry Association as applicant and defines the origin as specified localities in and around Baima Town. The decision protects a geographical product designation. Cultivar ownership and plant variety rights are separate legal questions.",
+      "date": "2025-07-16",
+      "date_label": "Recognition decision dated",
+      "crops": ["blackberry"],
+      "regions": ["asia-pacific"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["Baima Town and specified nearby localities, Lishui District, Nanjing, China"],
+      "identifier": "Announcement 640 · Annex 1 entry 301",
+      "jurisdiction": "CN",
+      "sources": [
+        {
+          "source_name": "China National Intellectual Property Administration Announcement 640",
+          "source_url": "https://www.cnipa.gov.cn/art/2025/8/13/art_74_201168.html",
+          "published_date": "2025-08-13"
+        },
+        {
+          "source_name": "CNIPA Announcement 640 annex 1, p. 138, entry 301",
+          "source_url": "https://www.cnipa.gov.cn/module/download/downfile.jsp?classid=0&filename=135c22eff50349248b0cc45acf3cee56.pdf&showname=1.+%E5%BB%B6%E5%BA%86%E5%9B%BD%E5%85%89%E8%8B%B9%E6%9E%9C%E7%AD%891409%E4%B8%AA%E5%9C%B0%E7%90%86%E6%A0%87%E5%BF%97%E4%BA%A7%E5%93%81%E5%85%AC%E5%91%8A%E4%BF%A1%E6%81%AF.pdf#page=138",
+          "published_date": "2025-08-13"
+        }
+      ]
+    },
+    {
+      "id": "uspto-fall-creek-fce18-015-pp37387-2026-04-28",
+      "kind": "ip",
+      "stage": "U.S. plant patent granted",
+      "title": "USPTO grants plant patent PP37,387 for FCE18-015 blueberry",
+      "summary": "USPTO issued plant patent PP37,387 P3 on April 28, 2026 and named Fall Creek Farm and Nursery, Inc. as assignee at issue. Application 19/063,460 was filed February 26, 2025 and published as US 2025/0280745 P1 on September 4, 2025. The grant identifies the U.S. jurisdiction. Current ownership, enforceability, licenses and commercial deployment require separate evidence.",
+      "date": "2026-04-28",
+      "date_label": "Grant issued",
+      "crops": ["blueberry"],
+      "regions": ["north-america"],
+      "roles": ["rights"],
+      "entity_ids": ["company-fall-creek-farm-and-nursery"],
+      "places": ["United States"],
+      "identifier": "PP37,387 P3 · Application 19/063,460",
+      "jurisdiction": "US",
+      "sources": [
+        {
+          "source_name": "USPTO Official Gazette plant patent PP37,387 P3",
+          "source_url": "https://patentsgazette.uspto.gov/week17/OG/html/1545-4/USPP037387-20260428.html",
+          "published_date": "2026-04-28"
+        }
+      ]
+    },
+    {
+      "id": "uspto-pp37457-agv-22-blackberry-grant-2026-06-09",
+      "kind": "ip",
+      "stage": "U.S. plant patent granted",
+      "title": "USPTO grants plant patent PP37,457 for AGV-22 blackberry",
+      "summary": "USPTO issued plant patent PP37,457 P2 on June 9, 2026 for the denomination AGV-22, naming AGV Innovation & Varieties LLC as applicant and assignee at issue and Héctor Uri Gómez Alvarado as inventor. U.S. application 19/204,284 was filed May 9, 2025. Current title, brand and commercial territories require separate evidence.",
+      "date": "2026-06-09",
+      "date_label": "Grant issued",
+      "crops": ["blackberry"],
+      "regions": ["north-america"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["United States"],
+      "identifier": "PP37,457 P2 · Application 19/204,284",
+      "jurisdiction": "US",
+      "sources": [
+        {
+          "source_name": "USPTO Official Gazette plant patent PP37,457 P2",
+          "source_url": "https://patentsgazette.uspto.gov/week23/OG/html/1547-2/USPP037457-20260609.html",
+          "published_date": "2026-06-09"
+        }
+      ]
+    },
+    {
+      "id": "uspto-pp37595-crimson-beauty-raspberry-grant-2026-08-18",
+      "kind": "ip",
+      "stage": "U.S. plant patent granted",
+      "title": "USPTO grants plant patent PP37,595 for Crimson Beauty raspberry",
+      "summary": "USPTO issued plant patent PP37,595 on August 18, 2026, naming Cornell University as assignee at issue and Courtney Weber as inventor. U.S. application 19/327,950 was filed September 12, 2025. The grant identifies the cultivar as Crimson Beauty and records NY17-25 as its trial designation. Cornell's earlier cultivar introduction and the current status of the patent are separate from this grant milestone.",
+      "date": "2026-08-18",
+      "date_label": "Grant issued",
+      "crops": ["raspberry"],
+      "regions": ["north-america"],
+      "roles": ["rights"],
+      "entity_ids": ["variety-crimson-beauty-ee9138c1", "breeding_program-cornell-berry"],
+      "places": ["United States"],
+      "identifier": "PP37,595 · Application 19/327,950",
+      "jurisdiction": "US",
+      "sources": [
+        {
+          "source_name": "USPTO Official Gazette patentee index, August 18, 2026",
+          "source_url": "https://patentsgazette.uspto.gov/week33/OG/patentee/alphaC.html",
+          "published_date": "2026-08-18"
+        },
+        {
+          "source_name": "Full text of USPTO plant patent PP37,595 (Justia reproduction)",
+          "source_url": "https://patents.justia.com/patent/PP37595",
+          "published_date": "2026-08-18"
+        }
+      ]
+    },
+    {
+      "id": "mx-snics-agv-22-title-3455-issued-2024-08-23",
+      "kind": "ip",
+      "stage": "Breeder's title issued",
+      "title": "Mexico records issuance of AGV-22 blackberry title 3455",
+      "summary": "Mexico's October 6, 2025 official notice records breeder's title 3455 for the blackberry denomination AGV-22 as issued August 23, 2024. The notice lists a term through August 23, 2042. The subsequent registered transfer is a separate milestone. Later title status and brand are unverified.",
+      "date": "2024-08-23",
+      "date_label": "Title issued",
+      "crops": ["blackberry"],
+      "regions": ["latin-america"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["Mexico"],
+      "identifier": "Breeder's title 3455",
+      "jurisdiction": "MX",
+      "sources": [
+        {
+          "source_name": "Mexico Diario Oficial de la Federación, notice 5769311, section TERCERO",
+          "source_url": "https://sidof.segob.gob.mx/notas/docFuente/5769311",
+          "published_date": "2025-10-06"
+        }
+      ]
+    },
+    {
+      "id": "mx-snics-agv-22-rights-transfer-110-03-rna-vv-007-25-2025-08-06",
+      "kind": "ip",
+      "stage": "Transfer of exploitation rights registered",
+      "title": "Mexico registers transfer of AGV-22 blackberry exploitation rights",
+      "summary": "Resolution 110.03.RNA-VV-007/25 approved and registered the transfer from Agro Soil de México, S. de R.L. de C.V. to AGV Innovation & Varieties LLC on August 6, 2025. The notice identifies production, reproduction, distribution and sale of AGV-22 under title 3455 as the transferred scope. Subsequent title status, licenses, brand and deployment are unverified.",
+      "date": "2025-08-06",
+      "date_label": "Transfer registered",
+      "crops": ["blackberry"],
+      "regions": ["latin-america"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["Mexico"],
+      "identifier": "110.03.RNA-VV-007/25 · Title 3455",
+      "jurisdiction": "MX",
+      "sources": [
+        {
+          "source_name": "Mexico Diario Oficial de la Federación, notice 5769311, section TERCERO",
+          "source_url": "https://sidof.segob.gob.mx/notas/docFuente/5769311",
+          "published_date": "2025-10-06"
+        }
+      ]
+    },
+    {
+      "id": "ma-onssa-drisblacktwenty-protection-snapshot-2026-06-22",
+      "kind": "ip",
+      "stage": "Protection listed",
+      "title": "Morocco lists protection for DrisBlackTwenty blackberry",
+      "summary": "ONSSA's June 22, 2026 snapshot lists DRISBLACKTWENTY, names Driscoll's, Inc. as holder and gives July 24, 2044 as the listed expiry. The snapshot does not give a grant date, certificate number or local licensees.",
+      "date": "2026-06-22",
+      "date_label": "Register snapshot as of",
+      "crops": ["blackberry"],
+      "regions": ["mea"],
+      "roles": ["rights"],
+      "entity_ids": ["company-driscolls"],
+      "places": ["Morocco"],
+      "identifier": "DRISBLACKTWENTY",
+      "jurisdiction": "MA",
+      "sources": [
+        {
+          "source_name": "Morocco ONSSA protected-variety register, p. 33",
+          "source_url": "https://www.onssa.gov.ma/wp-content/uploads/2026/06/liste-des-varietes-protegees-maroc-juin-2026-.pdf#page=33",
+          "published_date": null
+        }
+      ]
+    },
+    {
+      "id": "au-pbr-drisblacktwenty-grant-7324-2025-11-19",
+      "kind": "ip",
+      "stage": "Australian plant breeder's right granted",
+      "title": "Australia grants DrisBlackTwenty blackberry plant breeder's right 7324",
+      "summary": "IP Australia's Plant Varieties Journal records certificate 7324 under application 2023/082 for DrisBlackTwenty, with Driscoll's, Inc. listed as applicant. The grant date is November 19, 2025 and the listed expiry is November 19, 2045. Current status, ownership and local licensing require separate evidence.",
+      "date": "2025-11-19",
+      "date_label": "Grant issued",
+      "crops": ["blackberry"],
+      "regions": ["asia-pacific"],
+      "roles": ["rights"],
+      "entity_ids": ["company-driscolls"],
+      "places": ["Australia"],
+      "identifier": "Certificate 7324 · Application 2023/082",
+      "jurisdiction": "AU",
+      "sources": [
+        {
+          "source_name": "IP Australia Plant Varieties Journal 38(3), grants table, PDF p. 249",
+          "source_url": "https://www.ipaustralia.gov.au/tools-and-research/professional-resources/ip-rights-journals/~/-/media/Project/IPA/IPAustralia/PDF/PBR-Journals/Volume-38-Number-3.pdf?rev=05abe6e6ffab41beae928b9c3f1a3579#page=249",
+          "published_date": "2025-12-10"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1901-grant-71461-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71461 for FV1901 blueberry",
+      "summary": "The CPVO grants table records FV1901 under application 2020/0959, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71461 · Application 2020/0959",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1902-grant-71462-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71462 for FV1902 blueberry",
+      "summary": "The CPVO grants table records FV1902 under application 2020/0960, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71462 · Application 2020/0960",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1903-grant-71463-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71463 for FV1903 blueberry",
+      "summary": "The CPVO grants table records FV1903 under application 2020/0961, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71463 · Application 2020/0961",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1904-grant-71464-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71464 for FV1904 blueberry",
+      "summary": "The CPVO grants table records FV1904 under application 2020/0962, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71464 · Application 2020/0962",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1905-grant-71465-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71465 for FV1905 blueberry",
+      "summary": "The CPVO grants table records FV1905 under application 2020/0963, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71465 · Application 2020/0963",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1906-grant-71466-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71466 for FV1906 blueberry",
+      "summary": "The CPVO grants table records FV1906 under application 2020/0964, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71466 · Application 2020/0964",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1907-grant-71467-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71467 for FV1907 blueberry",
+      "summary": "The CPVO grants table records FV1907 under application 2020/0965, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71467 · Application 2020/0965",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "cpvo-fv1908-grant-71468-2026-02-16",
+      "kind": "ip",
+      "stage": "EU plant variety right granted",
+      "title": "CPVO grants EU plant variety right 71468 for FV1908 blueberry",
+      "summary": "The CPVO grants table records FV1908 under application 2021/0121, with FV B.V. (party code 10594) listed as holder at grant. The decision is dated February 16, 2026. Current status, licensing terms and commercial deployment require separate evidence.",
+      "date": "2026-02-16",
+      "date_label": "Grant decision",
+      "crops": ["blueberry"],
+      "regions": ["europe"],
+      "roles": ["rights"],
+      "entity_ids": [],
+      "places": ["European Union"],
+      "identifier": "71468 · Application 2021/0121",
+      "jurisdiction": "EU",
+      "sources": [
+        {
+          "source_name": "CPVO Official Gazette 2/2026, grants table, p. 74",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=76",
+          "published_date": "2026-04-15"
+        },
+        {
+          "source_name": "CPVO Official Gazette 2/2026, party index, p. 193",
+          "source_url": "https://cpvo.europa.eu/sites/default/files/documents/2026-04/cpvo_2026_2.pdf#page=195",
+          "published_date": "2026-04-15"
+        }
+      ]
+    }
+  ]
+}

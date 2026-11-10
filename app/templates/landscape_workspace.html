@@ -6,6 +6,7 @@
 {% include '_landscape_workspace_links.html' %}
 <div class="landscape-workspace" data-landscape-workspace>
 <header class="digest-heading"><div><p class="eyebrow">YOUR COMPETITIVE PICTURE</p><h1>Competitive Landscape</h1><p>Choose the businesses, berries and places you want to understand.</p></div><a class="outline-button" href="#landscape-customize">Customize view</a></header>
+<p><a href="/landscapes/global">Open Global Berry Landscape</a> for the company directory, geographic footprint, value-chain roles and milestone register across all four crops.</p>
 <div class="landscape-scope"><strong>{{ selected_view.name if selected_view else 'Current view' }}</strong><span>{{ chips|join(' · ') if chips else 'All berries · All tracked companies · Worldwide' }}</span><a href="/landscapes">Reset</a></div>
 <form method="get" id="landscape-customize" class="landscape-customize">
 <input type="hidden" name="configured" value="1">

@@ -1,0 +1,14 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Berry Strategy Review history{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/landscape_workspace.css?v=1">{% endblock %}
+{% block content %}
+<div class="landscape-workspace">
+  <p><a href="{{ strategy.back_href }}">Return to the current Strategy Review</a></p>
+  <h1>Strategy Review history</h1>
+  <ul>{% for revision in revisions %}
+    <li><a href="{{ strategy.history_href }}{{ '&' if '?' in strategy.history_href else '?' }}version={{ revision.version }}" {% if revision.version == strategy.review.version %}aria-current="page"{% endif %}>Revision {{ revision.version }}</a>
+      · {{ revision.state|title }} · {{ revision.actor }} · <time datetime="{{ revision.at }}">{{ revision.at[:16]|replace('T', ' ') }} UTC</time></li>
+  {% endfor %}</ul>
+  {% include '_berry_strategy_review.html' %}
+</div>
+{% endblock %}
