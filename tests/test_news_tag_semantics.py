@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import pytest
 
@@ -45,6 +46,40 @@ def test_semantic_assignments_cache_and_manual_race(tmp_path):
         decision=db.execute('SELECT * FROM automatic WHERE article=? AND tag=?',(row['id'],'markets')).fetchone()
         assert decision['classifier_version'].startswith(semantic.VERSION+':perplexity-agent:')
         assert decision['rationale'] in semantic.projection(row)['text']
+
+
+def test_credit_free_rules_fill_pending_sources_and_preserve_semantic_and_manual_decisions(tmp_path, monkeypatch):
+    monkeypatch.setenv('BIOS_NEWS_TAG_CLASSIFIER', 'semantic')
+    monkeypatch.setenv('BIOS_RESEARCH_CREDIT_FREE_ONLY', '1')
+    previous = source('previous', 'Blackberry exports rose.')
+    pending = source('pending', 'Raspberry exports rose after the frost.')
+    semantic.enqueue(tmp_path, [previous])
+    semantic.run(tmp_path, complete_json=completer([], select=None))
+    tags.override(tmp_path, pending['id'], 'weather', 'remove', 'alice')
+
+    def unexpected_worker(*args, **kwargs):
+        pytest.fail('Credit-free classification must not start a semantic worker')
+
+    monkeypatch.setattr(semantic, 'start_worker', unexpected_worker)
+    tags.incremental(tmp_path, [pending])
+    automatic, manual = tags.snapshot(tmp_path)
+    assert automatic[(pending['id'], 'markets')]
+    assert automatic[(pending['id'], 'weather')]
+    assert not automatic[(previous['id'], 'markets')]
+    assert 'weather' not in tags.effective(pending, tags.catalog(tmp_path), automatic, manual)
+
+    from app import news_workspace_routes as routes
+    from app.services import personal_digest
+    corpus = {row['id']: row for row in [previous, pending]}
+    main = SimpleNamespace(INBOX_DIR=tmp_path, AUTHORING_MODE=False, published_evidence=lambda: [])
+    monkeypatch.setattr(routes, 'world', lambda: (main, {}, corpus, {}))
+    monkeypatch.setattr(personal_digest, 'source_records', lambda *args, **kwargs: corpus)
+    monkeypatch.setattr(semantic, 'run', unexpected_worker)
+    assert routes._classify_stored_tags()['sources'] == 2
+    state = tags.job_state(tmp_path)
+    assert (state['status'], state['processed'], state['total']) == ('partial', 1, 2)
+    assert 'credit-free mode' in state['error']
+    assert tags.snapshot(tmp_path) == (automatic, manual)
 
 
 @pytest.mark.parametrize('source,support',[
