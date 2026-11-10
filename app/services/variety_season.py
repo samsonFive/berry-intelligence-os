@@ -45,16 +45,19 @@ def season_query_crop(plan, berry):
     return None
 
 
-def season_preview(data_dir, plan):
-    """Show the bounded comparison separately from archive search results."""
-    terms = set(plan.terms)
-    if plan.start or plan.end or plan.exclusions or plan.phrases:
-        return []
+def is_blackberry_season_overview(plan, berry=None):
+    if not is_blackberry_floricane(plan, berry) or plan.start or plan.end or plan.exclusions or plan.phrases:
+        return False
     overview_terms = {
         "blackberry", "floricane", "variety", "commercial", "season", "year", "2027",
         "this", "next", "upcoming", "note", "noteworthy", "northern", "hemisphere",
     }
-    if terms - overview_terms:
+    return set(plan.terms) <= overview_terms
+
+
+def season_preview(data_dir, plan):
+    """Show the bounded comparison separately from archive search results."""
+    if not is_blackberry_season_overview(plan, "berry-blackberry"):
         return []
     if not (Path(data_dir) / COMPARISON).is_file():
         return []
@@ -96,6 +99,8 @@ def season_candidate_sources(data_dir, plan):
     """Seed explicit public discovery from inspected references, including uncataloged names."""
     terms = set(plan.terms)
     positive = normalize(re.sub(r'(?<!\w)-("[^"]+"|[\w-]+)', "", plan.interpreted_query))
+    if is_blackberry_season_overview(plan) and terms.intersection({"season", "2027"}):
+        return [(*row["sources"][0][:2], row["name"]) for row in season_preview(data_dir, plan) if row["sources"]]
     hits = {}
     for berry in SEASON_CROPS:
         if berry == "berry-blackberry" and not terms.intersection({"blackberry", "mora", "floricane", "primocane"}):

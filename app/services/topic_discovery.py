@@ -6,6 +6,7 @@ runtime, never generated/. No research model, subscriptions, or trust writes.
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import replace
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -25,7 +26,7 @@ from app.services.topic_retrieval import VERSION, QueryPlan, retrieve
 
 _LOCK = threading.Lock()
 CACHE_SECONDS = 1800
-CAPTURE_VERSION = 'topic-capture-v19'  # Keep cited PDF pages distinct during capture.
+CAPTURE_VERSION = 'topic-capture-v20'  # Seed the blackberry season overview with cited background.
 MAX_CAPTURE_CANDIDATES = 40
 
 
@@ -88,7 +89,7 @@ def cultivar_code_query_variant(plan: QueryPlan, entities: dict | None) -> str |
 def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetcher: Callable = fetch_topic_source, constraints: dict[str, Any] | None = None, progress: Callable | None = None, entities: dict | None = None, data_dir: Path | None = None, capture_audit: Callable | None = None) -> dict[str, Any]:
     constraints = constraints or {}
     from app.services.public_research_search import registered_primary_sources,registered_primary_terms
-    from app.services.variety_season import season_candidate_sources
+    from app.services.variety_season import is_blackberry_season_overview, season_candidate_sources
     primary_sources=registered_primary_sources(data_dir,entities or {}) if data_dir is not None else {}
     primary_terms=registered_primary_terms(data_dir,entities or {})if data_dir is not None else {}
     reference_sources = season_candidate_sources(data_dir, plan) if data_dir is not None else []
@@ -103,8 +104,16 @@ def discover_topic(plan: QueryPlan, *, inbox_dir: Path, client: Any = None, fetc
     from app.services.research_source_cache import cached_sources,remember_sources,merge_source_records
     history,history_status=cached_sources(inbox_dir,plan)
 
+    season_overview = is_blackberry_season_overview(plan) and bool(set(plan.terms) & {"season", "2027"})
+    match_plan = replace(plan, terms=("blackberry", "floricane", "variety")) if season_overview else plan
+
     def scoped_rows(records):
-        selected=retrieve(records,plan,entities=entities,limit=20)
+        selected=retrieve(records,match_plan,entities=entities,limit=20)
+        if season_overview:
+            for row in selected:
+                if row["relevance"] == "direct":
+                    row["relevance"] = "background"
+                    row["match_reason"] += "; variety background for season planning"
         groups=constraints.get('required_label_groups')or[]
         if groups:
             from app.services.topic_retrieval import normalize,record_passages
