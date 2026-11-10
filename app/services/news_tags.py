@@ -243,7 +243,10 @@ def incremental(inbox_dir, records):
         try:
             from app.services import news_tag_semantics
             if news_tag_semantics.enabled():
-                news_tag_semantics.enqueue(inbox_dir,records,schedule=True)
+                if news_tag_semantics.credit_free_research_enabled():
+                    news_tag_semantics.apply_local_rules(inbox_dir, records, track_job=False)
+                else:
+                    news_tag_semantics.enqueue(inbox_dir, records, schedule=True)
                 return
             backfill(inbox_dir, records, track_job=False)
         except Exception:
@@ -253,7 +256,7 @@ def incremental(inbox_dir, records):
 
 
 @serialized_write
-def backfill(inbox_dir, records, batch_size=100, track_job=True):
+def backfill(inbox_dir, records, batch_size=100, track_job=True, *, preserve_semantic=False):
     """Resumable bounded transactions; content/version cache avoids repeat work.
 
     No provider calls. A failed batch retains previous decisions and overrides.
@@ -267,9 +270,14 @@ def backfill(inbox_dir, records, batch_size=100, track_job=True):
             with database(inbox_dir) as db:
                 for record in rows[offset:offset+batch_size]:
                     for tag in tags:
+                        old = db.execute('''SELECT fingerprint, classifier_version, definition_version
+                            FROM automatic WHERE article=? AND tag=?''', (record['id'], tag['id'])).fetchone()
+                        if (preserve_semantic and old and old['definition_version'] == tag['version']
+                                and (old['classifier_version'] or '').startswith('semantic-')):
+                            processed += 1
+                            continue
                         fingerprint = hashlib.sha256((VERSION + str(tag['version']) + tag['description'] + text(record) + json.dumps(record.get('classification')) + json.dumps(record.get('tags'))).encode()).hexdigest()
-                        old = db.execute('SELECT fingerprint FROM automatic WHERE article=? AND tag=?', (record['id'], tag['id'])).fetchone()
-                        if not old or old[0] != fingerprint:
+                        if not old or old['fingerprint'] != fingerprint:
                             present, rationale = decision(record, tag)
                             db.execute('INSERT OR REPLACE INTO automatic VALUES(?,?,?,?,?,?,?,?)',
                                        (record['id'], tag['id'], fingerprint, int(present), rationale, stamp(), VERSION, tag['version']))

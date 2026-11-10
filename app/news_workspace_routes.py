@@ -162,8 +162,11 @@ def _classify_stored_tags():
         corpus = {key: merge_capture(row, load_capture(main.INBOX_DIR, key)) for key, row in corpus.items()}
     from app.services import news_tag_semantics
     if news_tag_semantics.enabled():
-        news_tag_semantics.enqueue(main.INBOX_DIR,corpus)
-        news_tag_semantics.run(main.INBOX_DIR)
+        if news_tag_semantics.credit_free_research_enabled():
+            news_tag_semantics.apply_local_rules(main.INBOX_DIR, corpus)
+        else:
+            news_tag_semantics.enqueue(main.INBOX_DIR, corpus)
+            news_tag_semantics.run(main.INBOX_DIR)
     else:
         news_tags.backfill(main.INBOX_DIR, corpus)
     from app.services.source_body import article_full_text

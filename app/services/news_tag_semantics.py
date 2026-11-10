@@ -14,6 +14,7 @@ from threading import Lock
 from uuid import uuid4
 
 from app.services import news_tags
+from app.services.ai_gateway.credentials import credit_free_research_enabled
 
 VERSION = 'semantic-tags-3'
 MAX_TEXT = 6000
@@ -92,6 +93,25 @@ def enqueue(inbox_dir, records, *, schedule=False):
                 db.execute('DELETE FROM tag_pending WHERE article=?',(record['id'],))
     if schedule:
         start_worker(inbox_dir)
+
+
+def apply_local_rules(inbox_dir, records, *, track_job=True):
+    """Fill tag coverage while retaining the semantic backlog and its counts."""
+    if not isinstance(records, dict):
+        records = list(records)
+    enqueue(inbox_dir, records)
+    news_tags.backfill(inbox_dir, records, track_job=False, preserve_semantic=True)
+    if not track_job:
+        return
+    with news_tags.database(inbox_dir) as db:
+        db.execute('BEGIN IMMEDIATE')
+        remaining = db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]
+        total = db.execute('SELECT count(*) FROM tag_sources').fetchone()[0]
+        status = 'partial' if remaining else 'ready'
+        message = ('Local tag rules are active. The semantic classifier is paused in credit-free mode.'
+                   if remaining else '')
+        db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)',
+                   (status, total - remaining, total, message, news_tags.stamp()))
 
 
 def start_worker(inbox_dir):

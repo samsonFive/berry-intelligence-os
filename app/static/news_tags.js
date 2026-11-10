@@ -90,7 +90,7 @@
       fetch('/api/news/tags/status', {credentials:'same-origin', cache:'no-store'}).then(function (res) {if (!res.ok) throw new Error('Could not check classification.'); return res.json();}).then(function (state) {
         status.hidden=false; status.textContent = state.status === 'ready' ? 'Stored article classification complete. Reload to show updated assignments.' :
           (state.error || 'Classifying stored articles: '+state.processed+' / '+state.total+'. Results may be incomplete.');
-        if (state.status==='ready') {
+        if (state.status==='ready' || state.status==='partial') {
           var link=document.createElement('a'); link.href=window.location.href; link.textContent=' Show updated news'; status.appendChild(link);
         } else if (state.status!=='failed' && state.status!=='partial' && Date.now()<deadline) poll();
       }).catch(function (e) {status.hidden=false; status.textContent=e.message+' Use Recheck stored articles to retry.';});
