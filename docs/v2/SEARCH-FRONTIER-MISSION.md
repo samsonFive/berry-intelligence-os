@@ -126,6 +126,8 @@ The [supplemental judgments](../../artifacts/search-research-quality/frontier-pr
 
 Hosted acceptance covers the user flow and is separate from the benchmark. The frozen prospective results show a quality gap and still require independent pooled judgment before any Google parity claim. The seven source approvals cover the propositions listed above.
 
+The source check also exposed a retrieval miss. The overview had no publisher seeds, and the terms “note” and “2027” counted as literal matching requirements. [The retrieval follow-up](https://github.com/samsonfive/berry-intelligence-os/pull/542) recovers cited cultivar background without treating it as proof of 2027 stock. An isolated integration check combined the retrieval and coverage fixes against the original public publisher sources with the general provider disabled. The saved view rendered first, and the streamed final response contained NC State’s Ervin link and the partial-coverage status. Both fixes await production review.
+
 ## Independent benchmark handoff
 
 Use the [blank review template](../../artifacts/search-research-quality/frontier-prospective-independent-review-template-2026-11-09.json) to grade 103 question-and-source pairs across eight questions and 99 distinct URLs. Reviewers see the original URLs without provider names, ranks or previous grades. Complete the entire template before comparing it with the development judgments.
