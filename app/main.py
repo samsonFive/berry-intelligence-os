@@ -956,13 +956,14 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
+    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
+    landscape_workspace = request.url.path.startswith(("/landscapes/explorer", "/landscapes/global", "/strategy-reviews/berries"))
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
     # Statement detail uses the same lightweight Library shell. Its selected
     # references must not hydrate every article merely to calculate old badges.
     if request.url.path.startswith("/facts/"):
         return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
-    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    if variety_workspace or landscape_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -8060,6 +8061,7 @@ def landscape_berry(
         name="landscape.html",
         context={
             **_cached_landscape_context(berry_id, region, intelligence_state),
+            "global_berry_landscape_href": f"/landscapes/global/{berry_slug}",
             "nav": world["nav"],
             "active_href": "/landscapes",
             "counts": world["counts"],
@@ -11340,6 +11342,10 @@ from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.landscape_explorer_routes import router as landscape_explorer_router
 app.include_router(landscape_explorer_router)
+from app.berry_landscape_routes import router as berry_landscape_router
+app.include_router(berry_landscape_router)
+from app.berry_strategy_routes import router as berry_strategy_router
+app.include_router(berry_strategy_router)
 from app.social_routes import router as social_router
 app.include_router(social_router)
 from app.learn_routes import router as learn_router

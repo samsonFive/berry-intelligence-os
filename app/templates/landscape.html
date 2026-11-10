@@ -25,6 +25,7 @@
        docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md for what it would require. #}
     {% set region_labels = {'global':'Global', 'americas':'Americas', 'emea':'EMEA', 'australia-nz':'Australia / New Zealand', 'asia':'Asia'} %}
     <p class="landscape-scope" data-berry-label="{{ berry_label }}">Berries / {{ berry_label }} / {{ region_labels[selected_region] }}</p>
+    {% if global_berry_landscape_href %}<p><a href="{{ global_berry_landscape_href }}">Open the {{ berry_label }} Global Berry Landscape</a></p>{% endif %}
   </div>
 </section>
 

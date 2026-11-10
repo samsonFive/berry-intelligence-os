@@ -378,6 +378,18 @@ class ReviewPublishService:
                     continue
             evidence_record[field_name] = value
 
+        if request.draft.get("submitted_by") == "berry-landscape-intake" and request.source_url == request.draft.get("source_url"):
+            for field_name in ("event_date", "event_type", "landscape_event_key"):
+                if request.draft.get(field_name):
+                    evidence_record[field_name] = request.draft[field_name]
+            provenance = request.draft.get("discovery_provenance") or {}
+            for field_name in ("announcement_date", "effective_date", "prior_event_key"):
+                if provenance.get(field_name):
+                    evidence_record[field_name] = provenance[field_name]
+            evidence_record["evidence_links"] = [deepcopy(link) for link in request.draft.get("evidence_links", [])
+                                                 if link.get("status") == "proposed" and link.get("target_evidence_id")
+                                                 and self._repos.evidence.get(link["target_evidence_id"]) is not None]
+
         # Publishing a visibly warned thin candidate is an explicit analyst
         # acceptance of source incompleteness, not a new trust state. Rich
         # source artifacts remain carried verbatim through this transaction.

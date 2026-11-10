@@ -3955,3 +3955,5 @@ November 5 bounded blog/feed continuation: registered UF blog Source observed 10
 
 
 November 5 approved source-file ownership repair: exactly four new podcast discovery/draft files changed UID 0 to 1000 under explicit human approval. Fresh hashes, groups, modes, modification times, sizes, inodes and unreviewed decisions were preserved; app UID read/write access passes for all four. Durable before/after receipt is sourcegap-canary-owner-repair-20261105T161521Z. No other owner, data, account, review, collection, model/STT or recurring setting changed. #517 remains undeployed and must reconcile the separately approved #516 release before fresh private preservation testing and exact-head CI. See [capture review](SOURCE-INTELLIGENCE-CAPTURE-REVIEW-2026-11-05.md).
+
+TD-GLOBAL-BERRY-LANDSCAPE-001 tracks outstanding role and legal-territory checks for sparse markets and current licensing terms. Hosted reconciliation and analyst publication decisions are pending. Company-specific Strategy Review assessments require approved internal capability inputs.

@@ -1,0 +1,34 @@
+<section class="landscape-panel" id="coverage">
+  <header><h2>Research coverage</h2>{% if coverage.as_of %}<span>Baseline checked {{ coverage.as_of|us_date }}</span>{% endif %}</header>
+  <p class="landscape-note">Primary-source spot checks form a separate research baseline. Cells describe the depth of this pass. Open a cell for actors, source freshness and the next check.</p>
+  {% set states = {'evidenced':'Source checked', 'searched_gap':'Searched gap', 'unresearched':'To research'} %}
+  <ul class="landscape-jump list-unstyled" aria-label="Research coverage counts">
+    {% for state, label in states.items() %}<li><strong>{{ coverage.counts[state] }}</strong> {{ label|lower }}</li>{% endfor %}
+  </ul>
+  <div class="landscape-table-wrap" tabindex="0" role="region" aria-label="Crop by macroregion and role coverage matrix">
+    <table>
+      <thead><tr><th scope="col">Crop and macroregion</th>{% for key, label in roles.items() if not filters.role or filters.role == key %}<th scope="col">{{ label }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for crop_key, crop_label in crops.items() if not crop or crop == crop_key %}
+        {% for region_key, region_label in regions.items() if not filters.region or filters.region == region_key %}
+        <tr>
+          <th scope="row">{{ crop_label }}<small>{{ region_label }}</small></th>
+          {% for cell in coverage.cells if cell.crop == crop_key and cell.region == region_key %}
+          <td>
+            <details>
+              <summary>{{ states[cell.state] }}</summary>
+              <p>{{ cell.reason }}</p>
+              {% if cell.actors %}<ul>{% for actor in cell.actors %}<li>{{ actor.name }}</li>{% endfor %}</ul>{% endif %}
+              {% if cell.latest_dated_evidence %}<p>Latest dated source {{ cell.latest_dated_evidence|us_date }}</p>{% elif cell.actors %}<p>Source date unrecorded</p>{% endif %}
+              <p>{{ cell.next_step }}{% if cell.next_source %} <a href="{{ cell.next_source }}" rel="noopener noreferrer">{{ cell.next_source_name or 'Next source' }}</a>{% endif %}</p>
+            </details>
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="landscape-note"><a href="#footprint">See checked locations, actors, source links and scale in the geographic footprint</a>.</p>
+</section>
