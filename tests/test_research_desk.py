@@ -270,6 +270,20 @@ def test_live_endpoint_uses_structured_selection_state(monkeypatch) -> None:
     assert "Time to first content" in response.text
 
 
+def test_live_topic_result_preserves_partial_coverage_without_provider_errors(monkeypatch):
+    def discover(*args, **kwargs):
+        return {"status": "partial", "items": [], "queries_this_request": 1, "failures": [], "fallback_used": True}
+
+    monkeypatch.setattr("app.services.topic_discovery.discover_topic", discover)
+    monkeypatch.setattr("app.main.maybe_untrusted_completer", lambda: None)
+    payload = {"scope": _scope(question="2027 blackberry floricane season", berry_id="berry-blackberry").as_dict()}
+    response = TestClient(app).post("/api/research/live", json=payload)
+    assert response.status_code == 200
+    assert 'data-live-status="partial"' in response.text
+    assert "source coverage was limited" in response.text
+    assert "Fresh coverage is incomplete or unavailable" in response.text
+
+
 # --- Overnight Flagship Integration V1: Market Reality + Radar seams ---
 
 

@@ -5,7 +5,7 @@
     <section class="rd-section rd-lead-section">
       <div class="rd-section-title"><h2>What you need to know</h2>
         {% if phase == 'trusted' %}<span id="rd-live-status">Saved intelligence ready</span>
-        {% else %}<span class="rd-complete" data-live-status="{{ live_status }}">{% if live_status == 'complete' %}Source check complete{% elif live_status == 'partial' %}Partial results · some source checks failed{% elif live_status == 'failed' %}Source checks failed · saved intelligence retained{% else %}Fresh source check unavailable · no web provider ran{% endif %}</span>{% endif %}
+        {% else %}<span class="rd-complete" data-live-status="{{ live_status }}">{% if live_status == 'complete' %}Source check complete{% elif live_status == 'partial' %}Partial results · source coverage was limited{% elif live_status == 'failed' %}Source checks failed · saved intelligence retained{% else %}Fresh source check unavailable · no web provider ran{% endif %}</span>{% endif %}
       </div>
       {% if answer.findings %}
       <ol class="rd-findings">
