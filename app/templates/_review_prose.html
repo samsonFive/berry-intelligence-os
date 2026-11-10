@@ -1,0 +1,10 @@
+{% macro brief_points(text) %}
+  {% set points = text|as_bullets %}
+  {% if points|length > 1 %}
+  <ul class="bullet-list">
+    {% for point in points %}<li>{{ point }}</li>{% endfor %}
+  </ul>
+  {% elif points %}
+  <p>{{ text }}</p>
+  {% endif %}
+{% endmacro %}
