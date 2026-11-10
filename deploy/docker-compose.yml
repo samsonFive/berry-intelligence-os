@@ -11,6 +11,7 @@ services:
       BIOS_BACKUP_DIR: /app/backups
       BIOS_MODE: authoring
       ENABLE_SOURCE_POLLING: "false"
+      BIOS_NEWS_PROSPECTIVE_START_UTC: ${BIOS_NEWS_PROSPECTIVE_START_UTC:-}
       # Explicit operator-triggered prepaid social requests; never a scheduler.
       BIOS_SOCIAL_MANUAL_COLLECTION: ${BIOS_SOCIAL_MANUAL_COLLECTION:-false}
       SOCIAVAULT_API_KEY: ${SOCIAVAULT_API_KEY:-}

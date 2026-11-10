@@ -24,7 +24,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from typing import Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable
 
 from app.services.analyst_state_io import atomic_json
 from app.services.article_dedup import normalize_canonical_url
@@ -63,6 +63,9 @@ from app.services.industry_pulse.specialist_feeds import (
 from app.services.recall_audit.classify import hostname
 from app.services.industry_pulse.canonical_urls import preferred_url
 from app.services.today_relevance import apply_today_relevance, collapse_story_clusters, filter_today_records
+
+if TYPE_CHECKING:
+    from app.services.news_prospective import ProspectiveRun
 
 CACHE_SUBDIR = "feed_first_live"
 CACHE_TTL = timedelta(minutes=15)
@@ -507,6 +510,7 @@ def _run_lane(
     *,
     workers: int = 8,
     route_attempts: list[dict[str, Any]] | None = None,
+    prospective: ProspectiveRun | None = None,
 ) -> tuple[list[DiscoveryHit], list[dict[str, str]]]:
     if not queries:
         return [], []
@@ -518,6 +522,8 @@ def _run_lane(
         for future in as_completed(futures):
             batch, error = future.result()
             hits.extend(batch)
+            if prospective is not None:
+                prospective.observe_hits("raw", batch)
             if error:
                 errors.append(error)
             if route_attempts is not None:
@@ -591,6 +597,7 @@ def _keep_window_hits(
     entities: list[dict[str, Any]],
     sources: list[dict[str, Any]],
     today: date,
+    prospective: ProspectiveRun | None = None,
 ) -> tuple[list[DiscoveryHit], dict[str, int]]:
     company_names = names_from_entities(entities, prefix="company-")
     variety_names = names_from_entities(entities, prefix="variety-")
@@ -607,6 +614,8 @@ def _keep_window_hits(
             hit.qualify_reasons = ["operator-requested sustainability source"]
             hit.editorial_topic = "other_industry"
     relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
+    if prospective is not None:
+        prospective.observe_hits("qualified", (hit for hit in relevant if not _is_blackberry_stock(hit)))
     deduped = unique_hits(dedupe_hits(relevant))
     kept: list[DiscoveryHit] = []
     dropped_not_today = 0
@@ -649,6 +658,7 @@ def collect_same_day_hits(
     official_hosts: set[str] | None = None,
     official_provider: DiscoveryProvider | None = None,
     inbox_dir: Path | None = None,
+    prospective: ProspectiveRun | None = None,
 ) -> tuple[list[DiscoveryHit], dict[str, Any]]:
     today = today or utc_today()
     google_provider = google_provider or GoogleNewsRssProvider()
@@ -675,11 +685,13 @@ def collect_same_day_hits(
     from app.services.official_rotation import reserve, record_results
     rotation_inbox = inbox_dir or resolve_inbox_dir()
     attempts: list[dict[str, Any]] = []
-    google_hits, google_errors = _run_lane(google_provider, today_google_queries(), route_attempts=attempts)
+    google_hits, google_errors = _run_lane(google_provider, today_google_queries(), route_attempts=attempts,
+                                          prospective=prospective)
     regional_queries = reserve(regional_news_queries(), rotation_inbox, REGIONAL_QUERY_CAP,
                                state_name=REGIONAL_ROTATION)
     regional_lane = RelabeledProvider(google_provider, REGIONAL_NEWS_PROVIDER)
-    regional_hits, regional_errors = _run_lane(regional_lane, regional_queries, route_attempts=attempts)
+    regional_hits, regional_errors = _run_lane(regional_lane, regional_queries, route_attempts=attempts,
+                                              prospective=prospective)
     record_results(regional_queries, regional_errors, rotation_inbox, state_name=REGIONAL_ROTATION)
     official_queries = reserve(today_official_site_queries(official_hosts, include_all=True), rotation_inbox, OFFICIAL_SITE_HOST_CAP)
     official_source = official_provider or google_provider
@@ -688,7 +700,8 @@ def collect_same_day_hits(
         if getattr(official_source, "name", "") == LIVE_LANE_OFFICIAL
         else RelabeledProvider(official_source, LIVE_LANE_OFFICIAL)
     )
-    official_hits, official_errors = _run_lane(official_lane, official_queries, route_attempts=attempts)
+    official_hits, official_errors = _run_lane(official_lane, official_queries, route_attempts=attempts,
+                                              prospective=prospective)
     record_results(official_queries, official_errors, rotation_inbox)
     specialist_queries = week_specialist_feed_queries(include_priority=True)
     priority_queries = reserve(
@@ -700,6 +713,7 @@ def collect_same_day_hits(
         specialist_provider,
         [query for query in specialist_queries if not query.id.startswith(PRIORITY_PUBLISHER_PREFIX)] + priority_queries,
         route_attempts=attempts,
+        prospective=prospective,
     )
     record_results(priority_queries, specialist_errors, rotation_inbox, state_name=PRIORITY_PUBLISHER_ROTATION)
     primary_raw = [*google_hits, *regional_hits, *official_hits, *specialist_hits]
@@ -731,7 +745,8 @@ def collect_same_day_hits(
             apitube_provider, today_keyed_queries(), workers=2, route_attempts=attempts,
         )
     raw = [*primary_raw, *perplexity_hits, *exa_hits, *apitube_hits]
-    kept, drop_stats = _keep_window_hits(raw, entities=entities, sources=sources, today=today)
+    kept, drop_stats = _keep_window_hits(raw, entities=entities, sources=sources, today=today,
+                                        prospective=prospective)
     same_day = [hit for hit in kept if is_same_calendar_day(hit.published_date, today)]
 
     official_kept = [hit for hit in kept if hit.provider == LIVE_LANE_OFFICIAL]
@@ -881,6 +896,7 @@ def live_feed_bundle(
     acquire_on_miss: bool = True,
     fetch_preview_images: bool = True,
     translate_live: bool = True,
+    prospective: ProspectiveRun | None = None,
 ) -> dict[str, Any]:
     today = today or utc_today()
     now = now or datetime.now(UTC)
@@ -926,6 +942,7 @@ def live_feed_bundle(
         today=today,
         official_hosts=official_hosts,
         official_provider=official_provider,
+        **({"prospective": prospective} if prospective is not None else {}),
     )
     records = [
         hit_to_record(
