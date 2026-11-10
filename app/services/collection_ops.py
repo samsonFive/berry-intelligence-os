@@ -24,6 +24,7 @@ import os
 import subprocess
 import sys
 from datetime import UTC, datetime, timedelta
+from math import ceil
 from pathlib import Path
 from typing import Any, Callable
 
@@ -168,6 +169,7 @@ def list_recent_runs(inbox_dir: Path, *, limit: int = RUN_HISTORY_LIMIT) -> list
 def priority_news_route_health(inbox_dir: Path) -> list[dict[str, Any]]:
     """Latest observed publisher checks from private News run receipts."""
     from app.services.collection_settings import effective_feeds
+    from app.services.feed_first_live import PRIORITY_PUBLISHER_QUERY_CAP
     from app.services.industry_pulse.specialist_feeds import priority_publisher_feeds
 
     feeds = priority_publisher_feeds()
@@ -176,6 +178,9 @@ def priority_news_route_health(inbox_dir: Path) -> list[dict[str, Any]]:
         feed["id"]: {**enabled.get(feed["id"], feed), "status": "unverified" if feed["id"] in enabled else "paused"}
         for feed in feeds
     }
+    ticks_per_rotation = ceil(sum(key in enabled for key in rows) / PRIORITY_PUBLISHER_QUERY_CAP)
+    # Each route gets a turn once per rotation of the 15-minute News timer.
+    stale_after = timedelta(minutes=2 * 15 * ticks_per_rotation)
     runs = Path(inbox_dir) / "operations" / "pipelines" / "news_workspace_refresh" / "runs"
     now = datetime.now(UTC)
     for path in sorted(runs.glob("*.json"), reverse=True)[:RUN_HISTORY_LIMIT]:
@@ -197,7 +202,7 @@ def priority_news_route_health(inbox_dir: Path) -> list[dict[str, Any]]:
                 continue
             if not row.get("last_check"):
                 row.update(status=status, last_check=checked.isoformat(), hits=attempt.get("hits"),
-                           stale=now - checked > timedelta(minutes=30))
+                           stale=now - checked > stale_after)
             if status != "failed" and not row.get("last_success"):
                 row["last_success"] = checked.isoformat()
     return list(rows.values())

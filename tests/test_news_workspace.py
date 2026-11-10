@@ -1,6 +1,6 @@
 """Core feed ordering/scope, source trust and read-only entry points."""
 from copy import deepcopy
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 import json
 
 import pytest
@@ -375,6 +375,12 @@ def test_news_route_attempt_receipt_feeds_collection_ops(tmp_path, monkeypatch):
     routes = {item['id']: item for item in priority_news_route_health(tmp_path)}
     assert routes[route['query_id']]['hits'] == 4
     assert routes['feed:priority:wsj:indexed']['status'] == 'unverified'
+    receipt = json.loads(runs[0].read_text(encoding='utf-8'))
+    for age, stale in [(50, False), (95, True)]:
+        receipt['completed_at'] = (datetime.now(UTC) - timedelta(minutes=age)).isoformat()
+        runs[0].write_text(json.dumps(receipt), encoding='utf-8')
+        routes = {item['id']: item for item in priority_news_route_health(tmp_path)}
+        assert routes[route['query_id']]['stale'] is stale
 
 
 def test_refresh_cross_site_read_only_and_failure_disclosure(workspace, monkeypatch):
