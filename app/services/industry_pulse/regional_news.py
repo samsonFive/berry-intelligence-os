@@ -20,11 +20,12 @@ EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "indexed"})
 ENGLISH_RISKS = (
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
     "water restrictions", "labor dispute", "labour dispute", "labor strike",
-    "recall", "tariff", "drought",
+    "recall", "tariff", "drought", "soil fumigation", "fewer chemicals",
 )
 NATIVE_TOPICS = {
     "es": ("variedad", "cultivo", "exportación", "cosecha", "vivero", "patente",
-           "despido", "despidos", "cierre de finca", "cierre de fincas", "sequía", "aranceles"),
+           "despido", "despidos", "cierre de finca", "cierre de fincas", "sequía", "aranceles",
+           "plantación", "hectárea", "hectáreas", "fumigación"),
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
            "fermeture de ferme", "sécheresse", "rappel sanitaire", "droits de douane"),
     "pt": ("variedade", "melhoramento", "produção", "exportação", "colheita", "cultivo",
