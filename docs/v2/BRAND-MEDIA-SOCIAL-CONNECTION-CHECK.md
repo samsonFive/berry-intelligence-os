@@ -177,6 +177,14 @@ local-only uncertainty about current production flags and latest retained run.
 
 ## Official-site discovery without another provider
 
+Later user instruction enabled immediate reference-image display. Retained
+Facebook image references returned HTTP 403. The verified official websites
+provided two genuine company logos and three actual Driscoll's blueberry pack
+images; all five loaded in the private app/browser with expansion and comparison.
+The shared asset model records the explicit display request separately from
+verified policy, caching and export. No paid provider API or production change.
+See the current status and proof in BRAND-MEDIA-INTEGRATION-2026-11-11.md.
+
 `app/services/brand_media_discovery.py` accepts bounded HTML and an already
 verified official page URL. It extracts only schema Organization/Brand `logo`
 and Product `image` references, supports JSON-LD graphs/ImageObjects, retains

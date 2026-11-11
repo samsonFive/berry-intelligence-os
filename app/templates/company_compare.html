@@ -67,11 +67,18 @@
   </div>
 </section>
 
-{% set media_cards = namespace(rows=[]) %}
-{% for card in companies %}{% if card.media is defined and (card.media.packaging or card.media.observations) %}{% set media_cards.rows = media_cards.rows + [card] %}{% endif %}{% endfor %}
+{% set media_cards = namespace(rows=[], has_packaging=false, has_social=false, has_official=false) %}
+{% for card in companies %}
+  {% if card.media is defined and (card.media.packaging or card.media.observations or card.media.social_images or card.media.official_images) %}
+    {% set media_cards.rows = media_cards.rows + [card] %}
+    {% if card.media.packaging or card.media.observations %}{% set media_cards.has_packaging = true %}{% endif %}
+    {% if card.media.social_images %}{% set media_cards.has_social = true %}{% endif %}
+    {% if card.media.official_images %}{% set media_cards.has_official = true %}{% endif %}
+  {% endif %}
+{% endfor %}
 {% if media_cards.rows %}
 <section class="v2-company-section" id="compare-packaging">
-  <h2>Packaging comparison</h2>
+  <h2>{{ 'Image comparison' if media_cards.has_official or (media_cards.has_packaging and media_cards.has_social) else 'Social imagery comparison' if media_cards.has_social else 'Packaging comparison' }}</h2>
   <div class="v2-compare-grid" style="--compare-count: {{ media_cards.rows|length }};">
   {% for card in media_cards.rows %}
     <div class="v2-compare-column">

@@ -26,11 +26,11 @@ from app.services.social_intelligence.store import media_reference_key
 VERSION = 1
 KINDS = {
     'logo': 'Actual logo', 'profile_image': 'Other profile image',
-    'pack_photo': 'Packaging photograph', 'pack_render': 'Official packaging rendering',
+    'pack_image': 'Packaging image', 'pack_photo': 'Packaging photograph', 'pack_render': 'Official packaging rendering',
     'label_closeup': 'Label close-up', 'shelf_observation': 'Retail shelf / display',
     'campaign': 'Campaign / lifestyle', 'unclassified': 'Needs image inspection',
 }
-PACK_KINDS = {'pack_photo', 'pack_render', 'label_closeup'}
+PACK_KINDS = {'pack_image', 'pack_photo', 'pack_render', 'label_closeup'}
 ASSET_ID = re.compile(r'^asset-[a-f0-9]{24}$')
 SOCIAL_ID = re.compile(r'^ev-social-[a-f0-9]{24}$')
 
@@ -70,12 +70,14 @@ class Policy(Strict):
     display: bool = False
     cache: bool = False
     export: bool = False
+    reference_display_requested: bool = False
     basis: str = Field(default='Usage unresolved; references only', min_length=1, max_length=1000)
     source_url: str | None = None
     checked_at: datetime | None = None
     expires_at: datetime | None = None
-    # This version serves permitted local raster bytes only. A source URL is
-    # never silently turned into a hotlink or an arbitrary server-side fetch.
+    # An explicit operator request can display retained CDN references without
+    # claiming a verified license or permitting storage/export. No server-side
+    # URL fetcher or automatic permission grant is introduced.
     _url = field_validator('source_url')(lambda v: safe_url(v) if v else v)
 
     @field_validator('checked_at', 'expires_at')
@@ -100,7 +102,7 @@ class Asset(Strict):
     height: int | None = Field(default=None, ge=1, le=100000)
     published_at: datetime | None = None
     source_kind: Literal['official', 'retailer', 'consumer', 'unknown'] = 'unknown'
-    kind: Literal['logo', 'profile_image', 'pack_photo', 'pack_render', 'label_closeup', 'shelf_observation', 'campaign', 'unclassified'] = 'unclassified'
+    kind: Literal['logo', 'profile_image', 'pack_image', 'pack_photo', 'pack_render', 'label_closeup', 'shelf_observation', 'campaign', 'unclassified'] = 'unclassified'
     match_status: Literal['matched', 'review_needed'] = 'review_needed'
     match_basis: str = Field(min_length=1, max_length=1500)
     classification_basis: str | None = Field(default=None, max_length=1500)
@@ -275,17 +277,19 @@ def inspect_asset(asset, records, *, now=None):
     row = dict(asset)
     row.update(kind_label=KINDS[asset['kind']], blockers=[], image_url=None, inspection_href=None)
     policy = asset['policy']
+    reference_requested = asset['origin'] in {'social', 'official_reference'} and policy.get('reference_display_requested', False)
     if asset['rejected']:
         row['blockers'].append('Analyst rejected')
     if asset['match_status'] != 'matched':
         row['blockers'].append('Identity needs review')
-    if asset['kind'] == 'unclassified' or not asset.get('classification_basis'):
+    source_image_only = reference_requested and asset['kind'] in {'unclassified', 'profile_image', 'campaign'}
+    if not source_image_only and (asset['kind'] == 'unclassified' or not asset.get('classification_basis')):
         row['blockers'].append('Image classification needs inspection')
     if asset['kind'] == 'pack_render' and asset['source_kind'] != 'official':
         row['blockers'].append('Rendering needs an official publisher')
-    if not policy['display'] or not policy.get('source_url') or not policy.get('checked_at'):
+    if not reference_requested and (not policy['display'] or not policy.get('source_url') or not policy.get('checked_at')):
         row['blockers'].append('Display policy unresolved')
-    elif datetime.fromisoformat(policy['checked_at']) > now:
+    elif policy.get('checked_at') and datetime.fromisoformat(policy['checked_at']) > now:
         row['blockers'].append('Policy check date is in the future')
     if policy.get('expires_at') and datetime.fromisoformat(policy['expires_at']) <= now:
         row['blockers'].append('Retention expired')
@@ -307,17 +311,76 @@ def inspect_asset(asset, records, *, now=None):
                            inspection_href=f"/api/social/{record['id']}/reader?media=metadata-only")
             if media.get('object_ref') and media['storage_permission'] == 'permitted_bytes' and policy['cache']:
                 delivery = ('social', record, media)
+            elif reference_requested and media['kind'] in {'image', 'thumbnail'}:
+                reference = retained_image_reference(record['source'], media.get('source_url'))
+                if reference:
+                    delivery = ('reference', record, media)
+                    row.update(image_url=reference, image_delivery='reference',
+                               display_basis='operator_requested_reference',
+                               policy_status='unresolved' if not policy['display'] else 'recorded')
+                    if asset['kind'] == 'unclassified':
+                        row['kind_label'] = 'Post image'
+                else:
+                    row['blockers'].append('Source image destination is not an approved public CDN')
+    elif asset['origin'] == 'official_reference' and reference_requested:
+        reference = official_image_reference(asset.get('original_image_url'), asset.get('source_page_url'))
+        if reference:
+            delivery = ('reference', None, None)
+            row.update(image_url=reference, image_delivery='reference',
+                       display_basis='operator_requested_reference',
+                       policy_status='unresolved' if not policy['display'] else 'recorded')
+            if asset['kind'] == 'unclassified':
+                row['kind_label'] = 'Official image'
+        else:
+            row['blockers'].append('Official image destination is not approved')
     elif asset.get('object_ref') and policy['cache']:
         delivery = ('upload', None, None)
     if delivery is None:
         row['blockers'].append('No permitted local raster bytes; no hotlink fallback')
-    elif not policy['cache']:
+    elif delivery[0] != 'reference' and not policy['cache']:
         row['blockers'].append('Local delivery requires caching permission')
     row['display_eligible'] = not row['blockers']
-    row['export_eligible'] = row['display_eligible'] and policy['export']
-    if row['display_eligible']:
+    row['export_eligible'] = row['display_eligible'] and policy['export'] and delivery[0] != 'reference'
+    if row['display_eligible'] and delivery[0] != 'reference':
         row['image_url'] = f"/api/brand-media/{asset['id']}/image"
+        row['image_delivery'] = 'local'
+    elif not row['display_eligible']:
+        row['image_url'] = None
     return row
+
+
+def retained_image_reference(source, url):
+    """Browser-only delivery from existing platform image-CDN references."""
+    if not isinstance(url, str) or re.search(r'[\x00-\x20\x7f\\]', url):
+        return None
+    domains = {
+        'facebook': ('fbcdn.net',), 'instagram': ('cdninstagram.com', 'fbcdn.net'),
+        'linkedin': ('licdn.com',), 'x': ('twimg.com',),
+        'reddit': ('redd.it',), 'youtube': ('ytimg.com', 'img.youtube.com'),
+        'bluesky': ('cdn.bsky.app',),
+    }
+    try:
+        safe_url(url)
+        host = (urlsplit(url).hostname or '').lower()
+        return url if any(host == domain or host.endswith('.' + domain) for domain in domains.get(source, ())) else None
+    except ValueError:
+        return None
+
+
+def official_image_reference(url, source_page_url):
+    """Verified-page image references on its own host or known image CDNs."""
+    if any(not isinstance(v, str) or re.search(r'[\x00-\x20\x7f\\]', v) for v in (url, source_page_url)):
+        return None
+    try:
+        safe_url(url)
+        safe_url(source_page_url)
+        host = (urlsplit(url).hostname or '').lower()
+        page_host = (urlsplit(source_page_url).hostname or '').lower().removeprefix('www.')
+        same_site = host == page_host or host.endswith('.' + page_host)
+        image_cdn = host == 'edge.sitecorecloud.io'
+        return url if same_site or image_cdn else None
+    except ValueError:
+        return None
 
 
 def inventory(inbox, *, now=None):
@@ -330,6 +393,8 @@ def inventory(inbox, *, now=None):
         return []  # A broken acquisition index cannot break investigation pages.
     for row in rows:
         if not row['display_eligible']:
+            continue
+        if row.get('image_delivery') == 'reference':
             continue
         if row['origin'] == 'social':
             record = records.get(row['observation_id']) or {}
@@ -363,7 +428,7 @@ def inventory(inbox, *, now=None):
 
 def entity_media(inbox, entity_ids, *, now=None):
     """One scan for a comparison/cohort; no I/O to source/provider networks."""
-    result = {key: {'logo': None, 'packaging': [], 'observations': []} for key in entity_ids}
+    result = {key: {'logo': None, 'packaging': [], 'observations': [], 'social_images': [], 'official_images': []} for key in entity_ids}
     rows = sorted(inventory(inbox, now=now), key=lambda a: (not a['analyst_selected'], not a['primary'], a['id']))
     for row in rows:
         if row['entity_id'] not in result or not row['display_eligible']:
@@ -376,6 +441,8 @@ def entity_media(inbox, entity_ids, *, now=None):
             group['packaging'].append(row)
         elif row['kind'] in PACK_KINDS | {'shelf_observation'} and row['source_kind'] in {'retailer', 'consumer'}:
             group['observations'].append(row)
+        elif row.get('image_delivery') == 'reference' and row['kind'] in {'unclassified', 'profile_image', 'campaign'}:
+            group['official_images' if row['origin'] == 'official_reference' else 'social_images'].append(row)
     return result
 
 
@@ -492,6 +559,8 @@ def image_file(inbox, key, *, now=None):
     row = next((r for r in inventory(inbox, now=now) if r['id'] == key), None)
     if not row or not row['display_eligible']:
         raise ValueError('Image is not display eligible')
+    if row.get('image_delivery') == 'reference':
+        raise ValueError('Reference images are displayed directly; no local image bytes are stored')
     if row['origin'] == 'social':
         records = retained_records(inbox, ids={row['observation_id']})
         record = next((r for r in records if r['id'] == row['observation_id']), None)

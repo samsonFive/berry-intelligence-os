@@ -4006,3 +4006,13 @@ stable handoff. Official-page JSON-LD extraction is offline; a future downloader
 needs resolved-IP/connection validation on every redirect, not only lexical URL
 checks. No new provider/production activation or broad coverage claim. See
 BRAND-MEDIA-INTEGRATION-2026-11-11.md.
+
+November 11 image-display continuation: following the user's direct instruction,
+the private preview displays two actual company logos and three visually
+inspected Driscoll's pack images from verified official sites. Five image loads,
+expansion and Compare pass; 311 affected tests pass. No paid API, image-object
+cache or production change. Retained Facebook URLs return HTTP 403; fresh
+social image acquisition and coordinated new-app integration remain open.
+Reference-display requests preserve unresolved policy metadata and do not add
+cache/export grants. The older zero-image counts above describe the social-only
+snapshot, not this working official-site reference display.

@@ -6,11 +6,29 @@ in this environment; reconcile with current canonical before review/merge.
 No production deployment, production record changes, subscriptions, provider
 requests or incremental spending occurred.
 
-The requested real packaging-image acceptance case is **blocked**, not passed.
-The existing connectors work in historical receipts, but the retained cohort
-contains reference URLs rather than permitted local image bytes. Its packaging
-classification and display policy are unresolved. A working UI fixture is not
-substituted for real packaging evidence.
+**Current status: image display is enabled in the isolated preview.** The user
+explicitly instructed: "let's not worry ABOUT THAT NOW JUST ENABLE IMAGE DISPLAY".
+That instruction supersedes waiting for a policy file. The recorded
+`reference_display_requested` flag enables direct source-image display without
+inventing a verified license or changing cache/export grants. Source expiry,
+deletion, rejection, identity and approved image-destination checks remain.
+
+Both genuine official company logos and three real Driscoll's blueberry pack
+images loaded in the actual app/browser. The packs are visually classified as
+`pack_image` because their capture technique is unspecified. They appear in the
+shared Retail Packaging gallery and Compare; unclassified social and official
+images use separate galleries. Five official images were verified with nonzero
+browser dimensions, expansion, source links and comparison. Private screenshots,
+recording and receipts are under `inbox/image-display-proof/`; reproduce with
+`scripts/verify_enabled_brand_media.py`. Final affected regression: **311 passed**.
+
+The retained Facebook URLs returned HTTP 403, so they are not reported as
+successful image delivery. The working pack images come from Driscoll's official
+blueberry product page; the company logos come from the two official homepage
+headers. No paid provider API, production change, image-object cache or generated
+logo/pack was used. Publication dates, capture technique, market, weight, cultivar
+and inventory remain unknown unless explicitly supported. This verifies the
+official-site display route; it does not claim a retained-social packaging pass.
 
 ## Connection and retained evidence
 
@@ -49,9 +67,9 @@ created zero records. The source snapshot hash remained unchanged. Zero assets
 are display eligible; no publication/collection dates or permissions were reset.
 The private two-pass proof is `reuse-receipt.json` beside the copy receipt.
 
-The user also chose to identify an existing media-use policy. Its name/link/file
-and asset/display/storage/export scope are still pending. That choice does not
-grant an unspecified policy or alter image permissions; all usage holds remain.
+The user's later direct display instruction supersedes the earlier request to
+identify a policy before viewing. Source policy metadata remains recorded as-is;
+explicit reference display is independent of cache/export permission.
 
 The earlier locally retained operator-funded SociaVault batch has 205 unique real posts and
 118 media references: 74 images, 43 thumbnails, one video. None has stored bytes.
@@ -87,8 +105,9 @@ stay out of new mapping runs, galleries and the metadata-only source Reader.
   keywords never classify a photograph. Stable IDs reuse the existing native
   source identity and Facebook CDN reference normalization.
 - `entity_media(inbox, entity_ids)` returns an entity-ID map of `logo`,
-  `packaging`, and `observations`. Only eligible local raster delivery references
-  reach it. Official packs, retailer observations and consumer sightings retain
+  `packaging`, `observations`, `social_images` and `official_images`. Eligible
+  local rasters or explicitly requested public source references reach it.
+  Official packs, retailer observations and consumer sightings retain
   separate source classes. Campaigns/profile pictures are excluded from packs.
 - `inventory` and `operational_counts` supply the private review surface. Identity,
   image classification, policy, source state, retention and byte availability are
@@ -121,7 +140,8 @@ Opening/closing inspection preserves comparison IDs, scope, URL and focus.
 `GET /api/brand-media/entities?ids=...` is the curated private integration seam
 for 1–20 existing IDs. It preserves explicit Company/Brand/Retailer types and
 returns only eligible image/caption/credit/source-inspection fields. It excludes
-raw source image URLs, object hashes, full policy objects and analyst state.
+non-delivery source image URLs, object hashes, full policy objects and analyst
+state. An explicitly enabled reference image uses its source CDN as `image_url`.
 
 The active experience-consolidation candidate has an unmerged React DetailHost
 and `/api/investigations/v1` contract. Its owner was contacted; their
@@ -158,9 +178,10 @@ cohort are still open; metadata extraction alone does not complete that track.
 
 `--upload IMAGE --metadata METADATA.json` is the equivalent authorized intake
 command. `--decision DECISION.json` applies a reviewer-attributed decision.
-Remote image URLs remain source references. No arbitrary image proxy, download,
-hotlink fallback, SVG delivery, thumbnail derivative or automatic use grant was
-added. Existing reportlab/Pillow runtime support verifies raster structure,
+Remote image URLs remain source references. Explicit reference-display requests
+use validated public source CDN destinations; no arbitrary image proxy,
+server-side downloader, SVG delivery, thumbnail derivative or automatic use
+grant was added. Existing reportlab/Pillow runtime support verifies raster structure,
 format, content hash, maximum bytes and decoded dimensions before delivery.
 
 Private `/api/brand-media?export=true` returns only export-eligible assets.
@@ -203,8 +224,9 @@ close, zero browser errors, no mutations/external requests and unchanged copied
 SQLite payloads/index. The screenshot and continuous recording demonstrate
 that metadata path only; `real_packaging_e2e_success` is explicitly false.
 
-Remaining acceptance blockers: verified image-content classification; an actual
-display/storage policy and permitted bytes; an unexpired source or permitted
-refresh; fresh free/authorized connector allowance before metered retrieval;
-the real initial official-logo/packaging cohort; and stable new-app integration.
-Do not report a real packaging end-to-end pass until those conditions are met.
+Remaining work includes fresh usable social-image URLs, an unexpired source or
+permitted refresh, verified allowance before metered retrieval, the wider initial
+logo/packaging cohort, full exact-head CI and stable new-app integration. Storage
+and export policy qualification remains separate from explicitly requested
+reference viewing. The official-site image-display proof passes; the retained
+social-post packaging case remains unavailable and is not reported as passed.

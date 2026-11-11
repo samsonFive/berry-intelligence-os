@@ -322,4 +322,4 @@ def test_corrupt_store_never_breaks_shared_entity_read_model(tmp_path, failure):
         with sqlite3.connect(store.path) as db:
             db.execute('UPDATE observations SET payload=? WHERE id=?',
                        (json.dumps({'mode': 'live', 'media': source_row(count=1)['media']}), observation_id))
-    assert media.entity_media(tmp_path, ['company-test'], now=NOW) == {'company-test': {'logo': None, 'packaging': [], 'observations': []}}
+    assert media.entity_media(tmp_path, ['company-test'], now=NOW) == {'company-test': {'logo': None, 'packaging': [], 'observations': [], 'social_images': [], 'official_images': []}}

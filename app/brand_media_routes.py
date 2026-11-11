@@ -67,7 +67,9 @@ def entity_galleries(ids: str):
     for key, model in models.items():
         result[key] = {'entity_id': key, 'entity_type': entities[key]['entity_type'],
                        'logo': present(model['logo']), 'packaging': [present(a) for a in model['packaging']],
-                       'observations': [present(a) for a in model['observations']]}
+                       'observations': [present(a) for a in model['observations']],
+                       'social_images': [present(a) for a in model.get('social_images', [])],
+                       'official_images': [present(a) for a in model.get('official_images', [])]}
     return JSONResponse({'version': 1, 'entities': result}, headers=HEADERS)
 
 

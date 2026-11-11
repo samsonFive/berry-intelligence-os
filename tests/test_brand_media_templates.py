@@ -73,3 +73,28 @@ def test_existing_logo_keeps_full_identity_alt_and_safe_neutral_error_fallback()
     assert 'data-brand-logo-fallback="DR"' in page
     assert 'data-brand-logo-style="company"' in page
     assert 'onerror=' not in page
+
+
+def test_existing_media_dto_without_social_group_remains_compatible():
+    page = render({'packaging': [asset()], 'observations': []})
+    assert 'Retail Packaging' in page
+    assert 'Social imagery' not in page
+    assert 'company-test-social-imagery' not in page
+
+
+def test_unclassified_social_images_are_named_without_a_packaging_claim():
+    social = asset(kind_label='Social post image', caption='Official account photograph', image_url='https://images.example.org/post-image.jpg')
+    page = render({'packaging': [], 'observations': [], 'social_images': [social]})
+    assert 'Social imagery' in page and 'Official imagery' in page
+    assert 'Published 2020-04-01' in page and 'Required photographer credit' in page
+    assert 'https://images.example.org/post-image.jpg' in page
+    assert 'data-reader-url=' in page
+    assert 'Retail Packaging' not in page and 'Packaging photograph' not in page
+
+
+def test_unclassified_official_images_use_official_gallery_without_packaging_claim():
+    official = asset(kind_label='Official product image', caption='Official blueberry product tile', image_url='https://images.example.org/official-product.png', inspection_href=None)
+    page = render({'packaging': [], 'observations': [], 'official_images': [official]})
+    assert 'Official imagery' in page and 'company-test-official-imagery' in page
+    assert 'Official blueberry product tile' in page and 'Required photographer credit' in page
+    assert 'Retail Packaging' not in page and 'Social imagery' not in page

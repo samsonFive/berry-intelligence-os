@@ -21,7 +21,7 @@
 {% if asset.inspection_href %}<a href="{{ asset.source_page_url }}" data-open-reader data-item-id="{{ asset.inspection_href.split('/')[3] }}" data-reader-url="{{ asset.inspection_href }}" data-brand-source>Inspect source</a>{% elif asset.source_page_url %}<a href="{{ asset.source_page_url }}" target="_blank" rel="noopener noreferrer">Open source ↗</a>{% endif %}
 {%- endmacro %}
 
-{% macro gallery(assets, title='Retail Packaging', gallery_id='entity-packaging') -%}
+{% macro gallery(assets, title='Retail Packaging', gallery_id='entity-packaging', show_date=false) -%}
 {% set visible = assets|selectattr('image_url')|list %}
 {% if visible %}
 <section class="brand-media-section" id="{{ gallery_id }}" data-brand-gallery aria-labelledby="{{ gallery_id }}-title">
@@ -34,7 +34,7 @@
         <img src="{{ asset.image_url }}" alt="{{ asset.caption or asset.kind_label }}" width="300" height="210" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-brand-image>
         <div class="brand-media-hover" id="{{ image_id }}-context">{{ context(asset) }}</div>
       </a>
-      <figcaption><span class="brand-media-kind">{{ asset.kind_label }}{% if asset.source_kind %} · {{ {'official':'Official imagery','retailer':'Retailer observation','consumer':'Consumer sighting'}.get(asset.source_kind, asset.source_kind) }}{% endif %}</span>{% if asset.caption %}<span class="brand-media-caption">{{ asset.caption }}</span>{% endif %}{% if asset.historical_status and asset.historical_status != 'unknown' %}<span class="brand-media-date">{{ asset.historical_status|replace('_',' ') }}</span>{% endif %}{% if asset.attribution %}<small class="brand-media-credit">{{ asset.attribution }}</small>{% endif %}</figcaption>
+      <figcaption><span class="brand-media-kind">{{ asset.kind_label }}{% if asset.source_kind %} · {{ {'official':'Official imagery','retailer':'Retailer observation','consumer':'Consumer sighting'}.get(asset.source_kind, asset.source_kind) }}{% endif %}</span>{% if asset.caption %}<span class="brand-media-caption">{{ asset.caption }}</span>{% endif %}{% if show_date and asset.published_at %}<span class="brand-media-date">Published {{ asset.published_at[:10] }}</span>{% endif %}{% if asset.historical_status and asset.historical_status != 'unknown' %}<span class="brand-media-date">{{ asset.historical_status|replace('_',' ') }}</span>{% endif %}{% if asset.attribution %}<small class="brand-media-credit">{{ asset.attribution }}</small>{% endif %}</figcaption>
       <dialog id="{{ image_id }}" class="brand-media-inspector" aria-labelledby="{{ image_id }}-title" data-brand-dialog>
         <header><h3 id="{{ image_id }}-title">{{ asset.caption or asset.kind_label }}</h3><button type="button" data-brand-close aria-label="Close image inspection">×</button></header>
         <div class="brand-media-inspector-image"><img src="{{ asset.image_url }}" alt="{{ asset.caption or asset.kind_label }}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-brand-image></div>
@@ -48,5 +48,5 @@
 {%- endmacro %}
 
 {% macro entity_galleries(media, entity_id) -%}
-{% if media %}{{ gallery(media.packaging or [], 'Retail Packaging', entity_id ~ '-packaging') }}{{ gallery(media.observations or [], 'Retail observations', entity_id ~ '-retail-observations') }}{% endif %}
+{% if media %}{{ gallery(media.packaging or [], 'Retail Packaging', entity_id ~ '-packaging') }}{{ gallery(media.observations or [], 'Retail observations', entity_id ~ '-retail-observations') }}{{ gallery(media.social_images or [], 'Social imagery', entity_id ~ '-social-imagery', true) }}{{ gallery(media.official_images or [], 'Official imagery', entity_id ~ '-official-imagery', true) }}{% endif %}
 {%- endmacro %}
