@@ -1,0 +1,29 @@
+.strategy-inputs-heading { display:flex; align-items:start; justify-content:space-between; gap:16px; margin:0 0 14px; }
+.strategy-inputs-heading h1 { margin:0 0 6px; font-size:27px; }
+.strategy-inputs-heading p { margin:0 0 5px; }
+.strategy-inputs-heading nav { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.strategy-inputs-layout { display:grid; grid-template-columns:minmax(0,3fr) minmax(240px,1fr); gap:12px; align-items:start; }
+.strategy-inputs .landscape-panel { padding:12px; margin-bottom:12px; min-width:0; }
+.strategy-inputs .landscape-panel > header { margin-bottom:8px; }
+.strategy-inputs .landscape-panel h2 { font-size:17px; }
+.strategy-input-form fieldset { min-width:0; border:0; padding:0; margin:0 0 12px; }
+.strategy-input-form legend { font-size:15px; font-weight:650; margin:0 0 5px; }
+.strategy-input-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px 12px; }
+.strategy-input-fields label,.strategy-vrio-card label { display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:600; min-width:0; }
+.strategy-input-wide { grid-column:1 / -1; }
+.strategy-inputs textarea { width:100%; resize:vertical; padding:6px 8px; border:1px solid #9cb191; border-radius:5px; background:#f8fcf2; color:#254432; font:inherit; font-weight:400; line-height:1.45; }
+.strategy-inputs .strategy-input-form input,.strategy-inputs .strategy-input-form select { width:100%; padding:6px 8px; font-weight:400; }
+.strategy-vrio-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+.strategy-vrio-card { display:grid; gap:8px; padding:9px; border:1px solid #c5d6b9; border-radius:6px; background:#f1f6eb; }
+.strategy-input-steps { margin:0 0 12px; padding-left:20px; font-size:13px; }
+.strategy-input-steps li { margin:0 0 8px; }
+.strategy-input-history { list-style:none; margin:0; padding:0; }
+.strategy-input-history li { border-bottom:1px solid #dce6d4; padding:7px 0; }
+.strategy-input-history small,.strategy-inputs td small { display:block; color:#526957; font-size:11px; margin-top:3px; }
+.strategy-input-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.strategy-input-error { border:1px solid #b96450; padding:9px 12px; background:#fff1e8; border-radius:6px; }
+.strategy-inputs .landscape-filters { margin:9px 0; }
+.strategy-inputs td,.strategy-inputs th { padding:7px 9px; border:1px solid #d0ddc7; }
+.strategy-inputs .landscape-note { margin:0 0 9px; }
+@media(max-width:1000px) { .strategy-inputs-layout { grid-template-columns:1fr; } .strategy-input-aside { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; } }
+@media(max-width:650px) { .strategy-inputs-heading { flex-direction:column; gap:9px; } .strategy-input-fields,.strategy-vrio-grid,.strategy-input-aside { grid-template-columns:1fr; } }

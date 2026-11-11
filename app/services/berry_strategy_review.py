@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from urllib.parse import urlsplit
 
-from app.services import living_workspaces as living
+from app.services import berry_strategy_inputs as inputs, living_workspaces as living
 
 FRAMEWORKS = {
     "porter": ("Porter’s Five Forces", "Supplier and buyer leverage, rivalry, substitutes and barriers to entry"),
@@ -101,7 +101,7 @@ def _event_sources(events, scope, *, public):
                 yield source
 
 
-def snapshot_for(model, *, opportunities=()):
+def snapshot_for(model, *, opportunities=(), analyst_inputs=(), focal=""):
     """Preserve precisely the reviewed basis. Metadata and headlines never imply market share."""
     scope = scope_for(model)
     sources, priorities = {}, []
@@ -144,12 +144,25 @@ def snapshot_for(model, *, opportunities=()):
             priorities.append({**candidate, "source_ids": [source["id"] for source in selected],
                                "score": sum(score for score, _ in candidate["scores"].values())})
 
+    selected_inputs = inputs.matching_inputs(analyst_inputs, scope, [focal]) if focal else []
+    for row in selected_inputs:
+        sources[row["id"]] = {
+            "id": row["id"], "title": row["title"], "summary": row["statement"], "url": row["source_url"],
+            "published_date": "", "event_date": row["observed_date"], "public_for_model": False,
+            "verified_event": False, "record_href": f"/strategy-inputs/{row['id']}?version={row['version']}",
+            "crops": [row["crop"]] if row["crop"] else [], "regions": [row["region"]] if row["region"] else [],
+            "entity_ids": [row["entity_id"]], "contrary_ids": [], "stage": "Approved private analyst input",
+            "analyst_input": True, "input_version": row["version"], "reference": row["reference"],
+        }
     priorities.sort(key=lambda row: (-row["score"], row["id"]))
     dates = [_known_day(value) for row in sources.values() for value in (row["published_date"], row["event_date"])]
     cells = coverage.get("cells", [])
     gaps = [cell for cell in cells if cell["state"] != "evidenced"]
-    return {"scope": scope, "sources": sources, "priorities": priorities, "cutoff": max(dates, default=""),
-            "gaps": gaps, "coverage_as_of": coverage.get("as_of")}
+    snapshot = {"scope": scope, "sources": sources, "priorities": priorities, "cutoff": max(dates, default=""),
+                "gaps": gaps, "coverage_as_of": coverage.get("as_of")}
+    if selected_inputs:
+        snapshot.update(focal=focal, analyst_inputs=selected_inputs)
+    return snapshot
 
 
 def _entry(text, source_ids, *, confidence, kind="Analyst hypothesis", limits="", contrary_ids=()):
@@ -174,7 +187,7 @@ def _draft_sections(snapshot, focal):
     sources = snapshot["sources"]
     priorities = snapshot["priorities"]
     priority_sources = dict.fromkeys(key for row in priorities for key in row["source_ids"])
-    ordered = [*priority_sources, *(key for key in sorted(sources) if key not in priority_sources)]
+    ordered = [*priority_sources, *(key for key in sorted(sources) if key not in priority_sources and not sources[key].get("analyst_input"))]
     for key in ordered[:8]:
         source = sources[key]
         kind = "Verified event record" if source.get("verified_event", not source["public_for_model"]) else "Observed disclosure"
@@ -212,7 +225,34 @@ def _draft_sections(snapshot, focal):
             "This record has an accepted contradiction link. Resolve the disputed point before relying on it.",
             [key], confidence="Unresolved", kind="Evidence conflict", contrary_ids=[target] if target in sources else [],
             limits="The contrary record is outside the scoped verified snapshot." if target not in sources else ""))
+    _company_sections(snapshot, sections, focal)
     return sections
+
+
+def _company_sections(snapshot, sections, focal):
+    rows = inputs.matching_inputs(snapshot.get("analyst_inputs", []), snapshot["scope"], [focal]) if focal else []
+    for row in rows:
+        label = {"strength": "Analyst-recorded strength", "weakness": "Analyst-recorded weakness",
+                 "capability": "Internal capability recorded by the analyst"}[row["category"]]
+        sections["swot_tows"]["entries"].append(_entry(
+            f"{label}. {row['statement']}", [row["id"]], confidence="Analyst judgment", kind="Approved analyst input",
+            limits=f"Observed {row['observed_date']}. The input retains its recorded crop and regional scope."))
+        for opportunity in snapshot["priorities"]:
+            if any(row[field] and row[field] != opportunity[field] for field in ("crop", "region")):
+                continue
+            action = "Address the recorded weakness before pursuing" if row["category"] == "weakness" else "Test whether the recorded input can support"
+            sections["swot_tows"]["entries"].append(_entry(
+                f"TOWS option for analyst testing. {action} {opportunity['title']}. Internal input: {row['statement']}",
+                [row["id"], *opportunity["source_ids"]], confidence="Low", kind="TOWS hypothesis",
+                limits=opportunity["risk"], contrary_ids=[key for key in opportunity.get("contrary_source_ids", []) if key in opportunity["source_ids"]]))
+        if row["category"] == "capability":
+            sections["vrio"]["entries"].append({**_entry(
+                row["statement"], [row["id"]], confidence="Analyst judgment", kind="Approved analyst VRIO judgments",
+                limits="These judgments require analyst validation of their scope and continuing relevance."), "vrio": row["vrio"]})
+    if rows:
+        sections["swot_tows"]["gap"] = "External opportunities and threats need cited evidence. TOWS options remain hypotheses for analyst testing."
+    if sections["vrio"]["entries"]:
+        sections["vrio"]["gap"] = "Unknown judgments remain unresolved. Comparative performance and the durability of any advantage need independent evidence."
 
 
 def _model_sections(snapshot, sections, completer):
@@ -274,12 +314,18 @@ def _model_sections(snapshot, sections, completer):
 
 
 def prepare(snapshot, *, focal="", completer=None):
+    if snapshot.get("focal") and snapshot["focal"] != focal:
+        raise ValueError("The selected focal organization differs from the reviewed input scope.")
     sections = _draft_sections(snapshot, focal)
     method, notice = ("Local cited draft", "") if completer is None else _model_sections(snapshot, sections, completer)
     summary = (f"Verified source records in scope: {len(snapshot['sources'])}. "
                f"Scored opportunities with a complete source set: {len(snapshot['priorities'])}.")
     if not snapshot["sources"]:
         summary = "Insufficient evidence to assess this scope."
+    if snapshot.get("analyst_inputs"):
+        summary = (f"Source records in scope: {len(snapshot['sources'])}. "
+                   f"Approved private analyst inputs: {len(snapshot['analyst_inputs'])}. "
+                   f"Scored opportunities with a complete source set: {len(snapshot['priorities'])}.")
     return {"id": scope_key(snapshot["scope"]), "basis": living.digest(snapshot), "snapshot": snapshot,
             "generated_at": living.now(), "method": method, "notice": notice, "summary": summary, "frameworks": sections,
             "focal": focal, "state": "draft", "corrections": [], "approval_note": ""}
@@ -290,22 +336,38 @@ def save_draft(store, review, actor, expected):
         old = store.get(review["id"], db)
         if expected != (old["version"] if old else 0):
             raise living.Conflict("The review changed. Reload before refreshing it.")
+        _check_current_inputs(store, db, review["snapshot"], review.get("focal", ""))
         return store.put(db, KIND, review, actor, expected)
 
 
-def record_decision(store, snapshot, actor, expected, action, notes, framework="", citations=()):
+def _check_current_inputs(store, db, snapshot, focal):
+    current = inputs.scoped_inputs(store, snapshot["scope"], [focal], db=db) if focal else []
+    if current != snapshot.get("analyst_inputs", []):
+        raise living.Conflict("The approved analyst inputs changed. Refresh this review before saving a decision.")
+
+
+def record_decision(store, snapshot, actor, expected, action, notes, framework="", citations=(), *, focal=None):
     with store.transaction() as db:
         current = store.get(scope_key(snapshot["scope"]), db)
         if not current or current["version"] != expected or current["basis"] != living.digest(snapshot):
             raise living.Conflict("The review or evidence changed. Reload and refresh before recording a decision.")
+        selected_focal = current.get("focal", "") if focal is None else focal
+        if selected_focal != current.get("focal", "") or (snapshot.get("focal") and snapshot["focal"] != selected_focal):
+            raise living.Conflict("The focal organization changed. Refresh this review before recording a decision.")
+        _check_current_inputs(store, db, snapshot, selected_focal)
         if action not in {"correct", "approve"} or len(notes) > 4000:
             raise ValueError("Choose an approval or correction of at most 4,000 characters.")
         if action == "approve" and not snapshot["sources"]:
             raise ValueError("An empty evidence scope cannot be approved.")
         if action == "correct":
-            if (framework not in FRAMEWORKS or framework in COMPANY_FRAMEWORKS or not notes.strip()
+            if (framework not in FRAMEWORKS or not notes.strip()
                 or not citations or not set(citations) <= snapshot["sources"].keys()):
                 raise ValueError("Choose a framework, add a correction, and cite source IDs from this snapshot.")
+            if framework in COMPANY_FRAMEWORKS:
+                eligible = {row["id"] for row in snapshot.get("analyst_inputs", [])
+                            if row["entity_id"] == selected_focal and (framework != "vrio" or row["category"] == "capability")}
+                if not selected_focal or not eligible.intersection(citations):
+                    raise ValueError("Company framework corrections require approved internal inputs for the selected focal organization.")
             correction = {"framework": framework, "author": actor, "recorded_at": living.now(),
                           **_entry(notes.strip(), dict.fromkeys(citations), confidence="Analyst judgment", kind="Analyst correction")}
             updated = {**current, "state": "draft", "approval_note": "", "corrections": [*current["corrections"], correction]}

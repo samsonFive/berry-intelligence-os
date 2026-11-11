@@ -1,3 +1,18 @@
+# Private Strategy inputs — November 11, 2026
+
+The Strategy input candidate closes the missing private capability-input workflow
+behind company SWOT/TOWS and VRIO. Inputs use the existing versioned analyst store,
+explicit approval and withdrawal, scoped evidence references, and frozen revision
+links. Editing an approved input requires a new approval. Changed inputs make
+associated saved reviews stale, including changes concurrent with generation or
+review. Private input contents are excluded from public model packets.
+
+Inputs currently describe organization, crop and macroregion. Role-specific and
+milestone-specific reviews require evidence with those documented scopes. The
+current release excludes capability inputs from those narrower reviews. Actual
+internal evidence and analyst decisions are still required to populate company
+assessments. Exact deployed revisions and live acceptance belong in the release receipt.
+
 # Global berry news coverage gaps — November 10, 2026
 
 The global News candidate adds route-level discovery evidence. Publisher and

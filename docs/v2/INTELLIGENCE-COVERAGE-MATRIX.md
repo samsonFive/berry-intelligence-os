@@ -1,3 +1,19 @@
+# Berry Strategy and priority research — November 11, 2026
+
+The private Strategy input candidate adds governed internal evidence to named
+company assessments. Approval, withdrawal, input history and review freshness use
+the existing analyst workspace store. Source references retain their recorded
+company, crop, geography and observation date.
+
+A separate primary-source research pass investigates Morocco raspberry packing
+and strawberry plant access, Italian acquisition and cultivar-license scope,
+China legal-entity distinctions, and retailer-owned supplier disclosures. Its
+source notes, retained captures and unresolved questions stay in private research
+workspaces for analyst review. The earlier public spot-check matrix still records
+55 source-checked cells, two searched gaps and 103 cells awaiting role-specific
+research. Research notes do not establish current plant availability, legal
+freedom to operate or commercial throughput.
+
 # Global berry news candidate — November 10, 2026
 
 The candidate adds bounded regional-edition searches and publisher-specific

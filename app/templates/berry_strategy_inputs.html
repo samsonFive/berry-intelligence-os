@@ -1,0 +1,107 @@
+{% extends 'glasshouse_base.html' %}
+{% block title %}Private Strategy Inputs{% endblock %}
+{% block head_extra %}
+<link rel="stylesheet" href="/static/landscape_workspace.css?v=1">
+<link rel="stylesheet" href="/static/berry_strategy_inputs.css?v=1">
+{% endblock %}
+{% block content %}
+<div class="landscape-workspace strategy-inputs" data-strategy-inputs>
+  <header class="strategy-inputs-heading">
+    <div><p class="eyebrow">Private analyst workspace</p><h1>Strategy inputs</h1>
+      <p>Record company capabilities, strengths and weaknesses with their supporting evidence.</p></div>
+    <nav aria-label="Strategy input navigation"><a href="{{ back_href }}">Open Strategy Review</a><a class="outline-button" href="/strategy-inputs">New input</a></nav>
+  </header>
+
+  {% if error %}<p class="strategy-input-error" role="alert">{{ error }}</p>{% endif %}
+  <div class="strategy-inputs-layout">
+    <section class="landscape-panel" aria-labelledby="input-editor-title">
+      <header><h2 id="input-editor-title">{{ 'Input revision ' ~ selected.version if historical else 'Edit input' if selected else 'New input' }}</h2>
+        <span>{{ selected.state|title if selected else 'Draft' }}</span></header>
+      {% if selected %}
+        <p class="landscape-note">Revision {{ selected.version }} · {{ selected.updated_by }} · {{ selected.updated_at|us_date }}
+        {% if selected.approved_by %} · Approved by {{ selected.approved_by }}{% endif %}</p>
+      {% endif %}
+      {% if selected and (historical or conflict) %}<p><a href="/strategy-inputs/{{ selected.id }}">Open the current input to compare</a></p>{% endif %}
+      <form method="post" action="/strategy-inputs" class="strategy-input-form">
+        <input type="hidden" name="input_id" value="{{ selected.id if selected else '' }}">
+        <input type="hidden" name="version" value="{{ form_version }}">
+        <input type="hidden" name="token" value="{{ token }}">
+        <fieldset {% if historical %}disabled{% endif %}>
+          <legend class="visually-hidden">Company and evidence</legend>
+          <div class="strategy-input-fields">
+            <label>Organization
+              <select name="entity_id" required><option value="">Choose an organization</option>
+              {% for entity in entities.values()|sort(attribute='name') %}<option value="{{ entity.id }}" {% if form.get('entity_id') == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}
+              </select>
+            </label>
+            <label>Assessment type
+              <select name="category" required>{% for key, label in categories.items() %}<option value="{{ key }}" {% if form.get('category') == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+            </label>
+            <label>Crop
+              <select name="crop"><option value="">All four berries</option>{% for key, label in crops.items() %}<option value="{{ key }}" {% if form.get('crop') == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+            </label>
+            <label>Macroregion
+              <select name="region"><option value="">All regions</option>{% for key, label in regions.items() %}<option value="{{ key }}" {% if form.get('region') == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+            </label>
+            <label class="strategy-input-wide">Input title<input name="title" maxlength="240" required value="{{ form.get('title', '') }}"></label>
+            <label class="strategy-input-wide">Supported statement<textarea name="statement" rows="3" maxlength="4000" required>{{ form.get('statement', '') }}</textarea></label>
+            <label class="strategy-input-wide">Evidence reference<textarea name="reference" rows="2" maxlength="2000" required placeholder="Report or document title, author, section and location">{{ form.get('reference', '') }}</textarea></label>
+            <label>Evidence date<input type="date" name="observed_date" required value="{{ form.get('observed_date', '') }}"></label>
+            <label>Source URL, when available<input type="url" name="source_url" maxlength="2000" value="{{ form.get('source_url', '') }}"></label>
+          </div>
+        </fieldset>
+        <fieldset {% if historical %}disabled{% endif %}>
+          <legend>VRIO judgments</legend>
+          <p class="landscape-note">For a capability assessment, record the evidence behind each judgment. Use Unknown where evidence is incomplete.</p>
+          <div class="strategy-vrio-grid">
+          {% for key, label in vrio_fields.items() %}
+            {% set judgment = form.get('vrio', {}).get(key, {}) %}
+            <div class="strategy-vrio-card">
+              <label>{{ label }}<select name="vrio_{{ key }}">{% for value, text in vrio_values.items() %}<option value="{{ value }}" {% if judgment.get('judgment', 'unknown') == value %}selected{% endif %}>{{ text }}</option>{% endfor %}</select></label>
+              <label>Evidence and rationale<textarea name="vrio_{{ key }}_rationale" rows="2" maxlength="1200">{{ judgment.get('rationale', '') }}</textarea></label>
+            </div>
+          {% endfor %}
+          </div>
+        </fieldset>
+        {% if not historical and not conflict %}<button class="outline-button" type="submit">Save draft revision</button>{% endif %}
+      </form>
+    </section>
+
+    <aside class="strategy-input-aside">
+      <section class="landscape-panel" aria-labelledby="input-review-title">
+        <header><h2 id="input-review-title">Review status</h2></header>
+        <ol class="strategy-input-steps"><li>Save the evidence and its company, crop and region.</li><li>Review the record and approve this revision for Strategy Review.</li><li>Select the company in Strategy Review and save a cited review.</li></ol>
+        {% if selected and not historical and not error %}
+          <form method="post" action="/strategy-inputs/{{ selected.id }}/decision" class="strategy-input-actions">
+            <input type="hidden" name="version" value="{{ selected.version }}"><input type="hidden" name="token" value="{{ token }}-decision">
+            {% if selected.state == 'draft' %}<button class="outline-button" name="action" value="approve">Approve for Strategy Review</button>{% endif %}
+            {% if selected.state == 'approved' %}<button class="outline-button" name="action" value="withdraw">Withdraw approval</button>{% endif %}
+          </form>
+        {% endif %}
+        {% if selected and selected.state == 'approved' %}<p class="landscape-note">This revision can support company analysis in its selected scope. Saving an edit creates a draft that needs approval.</p>{% endif %}
+      </section>
+      {% if revisions %}<section class="landscape-panel" aria-labelledby="input-history-title"><header><h2 id="input-history-title">Revision history</h2></header>
+        <ul class="strategy-input-history">{% for revision in revisions %}<li><a href="/strategy-inputs/{{ selected.id }}?version={{ revision.version }}">Revision {{ revision.version }} · {{ revision.state|title }}</a><small>{{ revision.actor }} · {{ revision.at|us_date }}</small></li>{% endfor %}</ul>
+      </section>{% endif %}
+    </aside>
+  </div>
+
+  <section class="landscape-panel" aria-labelledby="input-library-title">
+    <header><h2 id="input-library-title">Input library</h2><span>{{ inputs|length }} records in scope</span></header>
+    <form method="get" action="/strategy-inputs" class="landscape-filters">
+      <label>Organization<select name="entity_id"><option value="">All organizations</option>{% for entity in entities.values()|sort(attribute='name') %}<option value="{{ entity.id }}" {% if company == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}</select></label>
+      <label>Crop<select name="crop"><option value="">All berries</option>{% for key, label in crops.items() %}<option value="{{ key }}" {% if scope.crop == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <label>Macroregion<select name="region"><option value="">All regions</option>{% for key, label in regions.items() %}<option value="{{ key }}" {% if scope.region == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <button class="outline-button">Apply scope</button>
+    </form>
+    <div class="landscape-table-wrap"><table id="strategy-input-library"><thead><tr><th>Input</th><th>Organization</th><th>Scope</th><th>Evidence</th><th>Review</th></tr></thead>
+      <tbody>{% for row in inputs %}<tr><th scope="row"><a href="/strategy-inputs/{{ row.id }}">{{ row.title }}</a><small>{{ categories[row.category] }}</small></th>
+        <td>{{ entities.get(row.entity_id, {}).get('name', row.entity_id) }}</td>
+        <td>{{ crops.get(row.crop, 'All four berries') }}<small>{{ regions.get(row.region, 'All regions') }}</small></td>
+        <td>{{ row.reference }}<small>Evidence date {{ row.observed_date|us_date }}</small></td>
+        <td>{{ row.state|title }}<small>Revision {{ row.version }} · {{ row.updated_by }}</small></td></tr>
+      {% else %}<tr><td colspan="5">Add an input to record the internal evidence behind a company assessment.</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+</div>
+{% endblock %}

@@ -1,9 +1,10 @@
 {% macro cited(ids, sources) -%}
   {% for key in ids %}{% set source = sources[key] %}
     <li><a href="{{ source.record_href or source.url }}">{{ source.title }}</a>
-      {% if source.record_href %} · <a href="{{ source.url }}">Original source</a>{% endif %}
+      {% if source.record_href and source.url %} · <a href="{{ source.url }}">Original source</a>{% endif %}
+      {% if source.analyst_input %} · Approved private input · Revision {{ source.input_version }}{% endif %}
       {% if source.published_date %} · Published {{ source.published_date }}{% endif %}
-      {% if source.event_date and source.event_date != source.published_date %} · Milestone {{ source.event_date }}{% endif %}
+      {% if source.event_date and source.event_date != source.published_date %} · {{ 'Observed' if source.analyst_input else 'Milestone' }} {{ source.event_date }}{% endif %}
       {% if source.stage %} · {{ source.stage }}{% endif %}
     </li>
   {% endfor %}
@@ -21,6 +22,7 @@
   {% if review.notice %}<p>{{ review.notice }}</p>{% endif %}
   {% if review.state == 'approved' %}<p><strong>Approved by {{ review.updated_by }}</strong>{% if review.approval_note %}. {{ review.approval_note }}{% endif %}</p>{% endif %}
   {% if review.focal %}<p><strong>Focal organization</strong> {{ strategy.profiles.get(review.focal, {}).get('label', review.focal) }}</p>{% endif %}
+  {% if not strategy_history %}<p><a href="{{ strategy.input_href }}">Manage private strategy inputs</a>{% if snapshot.analyst_inputs %} · {{ snapshot.analyst_inputs|length }} approved inputs in this snapshot{% endif %}</p>{% endif %}
   {% if snapshot.scope.role or snapshot.scope.event_type or snapshot.scope.start or snapshot.scope.end or snapshot.scope.q %}
     <p>Additional scope
     {% if snapshot.scope.role %} · {{ snapshot.scope.role|replace('-', ' ') }}{% endif %}
@@ -67,6 +69,7 @@
       {% for entry in section.entries %}
         <article>
           <p><strong>{{ entry.kind }}</strong> · {{ entry.confidence }}. {{ entry.text }}</p>
+          {% if entry.vrio %}<dl class="landscape-analysis-grid">{% for key, judgment in entry.vrio.items() %}<div><dt>{{ strategy.vrio_fields[key] }} · {{ judgment.judgment|title }}</dt><dd>{{ judgment.rationale or 'Evidence needed' }}</dd></div>{% endfor %}</dl>{% endif %}
           {% if entry.limits %}<p>{{ entry.limits }}</p>{% endif %}
           <ul>{{ cited(entry.source_ids, snapshot.sources) }}</ul>
           {% if entry.contrary_ids %}<p>Contrary evidence or limiting context</p><ul>{{ cited(entry.contrary_ids, snapshot.sources) }}</ul>{% endif %}
@@ -107,8 +110,9 @@
 
   {% if snapshot.sources %}<details><summary>Evidence snapshot · {{ snapshot.sources|length }} sources</summary>
     <ul>{% for key, source in snapshot.sources|dictsort %}<li id="strategy-source-{{ key }}">
-      <a href="{{ source.record_href or source.url }}">{{ source.title }}</a>{% if source.record_href %} · <a href="{{ source.url }}">Original source</a>{% endif %}
-      · <code>{{ key }}</code><p>{{ source.summary }}</p>
+      <a href="{{ source.record_href or source.url }}">{{ source.title }}</a>{% if source.record_href and source.url %} · <a href="{{ source.url }}">Original source</a>{% endif %}
+      · <code>{{ key }}</code>{% if source.analyst_input %} · Approved private input · Revision {{ source.input_version }}{% endif %}<p>{{ source.summary }}</p>
+      {% if source.reference %}<p>{{ source.reference }}</p>{% endif %}
     </li>{% endfor %}</ul>
   </details>{% endif %}
 
@@ -117,7 +121,8 @@
     <summary>Record an analyst correction</summary>
     <form method="post" action="{{ strategy.review_href }}" class="landscape-filters">
       <input type="hidden" name="version" value="{{ review.version }}">
-      <label>Framework <select name="framework" required>{% for key, labels in strategy.framework_labels.items() if key not in strategy.company_frameworks %}<option value="{{ key }}">{{ labels[0] }}</option>{% endfor %}</select></label>
+      <input type="hidden" name="focal" value="{{ review.focal or '' }}">
+      <label>Framework <select name="framework" required>{% for key in strategy.correction_frameworks %}<option value="{{ key }}">{{ strategy.framework_labels[key][0] }}</option>{% endfor %}</select></label>
       <label>Evidence citation <select name="citations" required>{% for key, source in snapshot.sources|dictsort %}<option value="{{ key }}">{{ source.title }}</option>{% endfor %}</select></label>
       <label>Correction <textarea name="notes" maxlength="4000" required rows="3"></textarea></label>
       <button class="outline-button" name="action" value="correct">Record correction</button>
@@ -128,6 +133,7 @@
     <summary>Approve the reviewed priorities</summary>
     <form method="post" action="{{ strategy.review_href }}" class="landscape-filters">
       <input type="hidden" name="version" value="{{ review.version }}">
+      <input type="hidden" name="focal" value="{{ review.focal or '' }}">
       <label>Decision note (optional) <textarea name="notes" maxlength="4000" rows="3"></textarea></label>
       <button class="outline-button" name="action" value="approve">Approve this revision</button>
     </form>
