@@ -1,11 +1,19 @@
 (function () {
   'use strict';
   function fallback(image) {
-    if (!image.matches('[data-publisher-image]')) return;
     var figure = image.closest('[data-article-visual]');
     if (!figure) return;
     var panel = figure.querySelector('[data-image-fallback]');
     if (!panel) return;
+    if (image.matches('[data-reference-image]')) {
+      image.hidden = true;
+      var credit = figure.querySelector('[data-reference-credit]');
+      if (credit) credit.hidden = true;
+      var empty = figure.querySelector('[data-last-resort]');
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (!image.matches('[data-publisher-image]')) return;
     panel.hidden = false;
     image.hidden = true;
   }
@@ -15,7 +23,7 @@
   }, true);
   function check(node) {
     if (!node.querySelectorAll) return;
-    node.querySelectorAll('[data-publisher-image]').forEach(function (image) {
+    node.querySelectorAll('[data-publisher-image], [data-reference-image]').forEach(function (image) {
       if (image.complete && image.naturalWidth === 0) fallback(image);
     });
   }

@@ -324,6 +324,19 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
                 except Exception as exc:
                     prospective.projection_status = f"failed:{type(exc).__name__}"
                     logger.warning("News prospective eligibility failed: %s", type(exc).__name__)
+            if update_publishers:
+                # The bundle is already saved. Recover a bounded number of
+                # images for eligible recent pages without fetching on GET.
+                try:
+                    main, current_context, current_records, entities = world()
+                    selection = news_workspace.model(records=current_records, entities=entities,
+                        relationships=main.all_relationships(), facts=main.all_facts(), state=current_context['state'], params={})
+                    image_result = news_images.collect(inbox_dir,
+                        [current_records[key] for key in selection['matching_ids'][:108]], limit=12, scan_limit=108)
+                    result.update(image_checked=image_result['checked'], image_found=image_result['found'])
+                except Exception as exc:
+                    result['image_error'] = type(exc).__name__
+                    logger.warning('Scheduled News thumbnails failed: %s', type(exc).__name__)
     except Exception as exc:
         # Provider details and exception traces belong in operations, never UI.
         error_class = type(exc).__name__
@@ -343,7 +356,8 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
         "outcome": {"failed": "FAILED", "partial": "PARTIAL"}.get(result["status"], "SUCCESS"),
         "started_at": result["started_at"], "completed_at": result["completed_at"],
         "failure_count": result.get("error_count", 0), "items_new": result.get("story_count", 0), "publication_drafts": 0,
-        "counts": {"items_new": result.get("story_count", 0), "publication_drafts_created": 0},
+        "counts": {"items_new": result.get("story_count", 0), "publication_drafts_created": 0,
+                   "image_checked": result.get('image_checked', 0), "image_found": result.get('image_found', 0)},
         "route_attempts": route_attempts,
         "error_class": error_class,
     })

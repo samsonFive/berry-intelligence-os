@@ -319,6 +319,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         card['assigned_tags'] = [tag for tag in tags if tag['id'] in effective[record['id']]]
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
+    from app.services.news_visuals import diversify
+    diversify(cards)
     date_label = {'': 'All dated news', 'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days',
                   'ytd': 'Year to date', 'undated': 'Publication date unavailable'}.get(filters['window'])
     if filters['window'] == 'custom':
