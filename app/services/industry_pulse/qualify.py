@@ -149,7 +149,7 @@ _INDUSTRY = re.compile(
     r"new variety|variety launch|variety strategy|varieties|"
     r"seedless|crispr|gene-?edit(?:ed|ing)?|genome edit|"
     r"primocane|floricane|commercial deployment|commercial launch|"
-    r"partnership|planting|harvest|pricing|spot price|"
+    r"partnership|planting|harvest(?:ing)?|pricing|spot price|"
     r"market report|supply|frost|drought|weather|"
     r"trade|tariff|university|extension|research station|"
     r"producing|yield|brix|volumes?|bumper|heatwave|"
@@ -189,7 +189,9 @@ _RESEARCH_TERMS = re.compile(
     r"\b(university|extension|research station|field trial|regulation|pbr|cpvo)\b",
     re.IGNORECASE,
 )
-_FOOD_RECALL = re.compile(r"\b(food recall|outbreak|pesticide residue|berry recall)\b", re.IGNORECASE)
+_FOOD_RECALL = re.compile(
+    r"\b(food recall|outbreak|pesticide residue|berry recall|recall warning|"
+    r"recalled (?:due to|because of)|rappel sanitaire|rappel de)\b", re.IGNORECASE)
 
 _UNRELATED_GOV_SUFFIXES = (
     "fda.gov",
@@ -299,7 +301,7 @@ def _hard_exclusion(text: str, hit: DiscoveryHit) -> str | None:
     if blackberry_company_noise(text) or (
             _BLACKBERRY_DEVICE.search(text) and not has_agriculture_context(text)):
         return "BlackBerry device/company ambiguity"
-    if _RECIPE_FOOD.search(text):
+    if _RECIPE_FOOD.search(text) and not (_BERRY_CROP.search(text) and _FOOD_RECALL.search(text)):
         return "recipe/foodservice noise"
     if _JOBS.search(text) or _JOB_TITLE_LEAD.search(hit.title or ""):
         return "jobs/recruiting"

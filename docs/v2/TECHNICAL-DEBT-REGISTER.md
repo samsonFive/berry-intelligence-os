@@ -3985,3 +3985,6 @@ November 11 local News translation integrity: actual global-expansion output cha
 
 
 November 11 global News product ambiguity: actual live stock-token and decorative shelf-paper false positives are excluded by shared deterministic discovery and News screens. Existing retained records receive the same projection correction without URL/publisher blacklists or trust mutation. Agricultural packaging, traceability and robotics controls remain eligible. Broader consumer/SEO precision remains unmeasured. See NEWS-PRODUCT-NOISE-CONTROLS-2026-11-11.md.
+
+
+November 11 material-event recovery: shared source-metadata screens now recognize labor enforcement, wage protections, irrigation restrictions and explicit food-recall actions. The consumed Australian blueberry labor case was discovered but hidden by News; recovery must retain the failed pilot observation. English/French official Canada food-alert routes expand the priority lane to 48, with current transport/dated entries verified and zero current berry hits. The shallow feed window, archive completeness, original-body retrieval, other languages and independent gate scoring remain open. See NEWS-MATERIAL-EVENTS-2026-11-11.md.

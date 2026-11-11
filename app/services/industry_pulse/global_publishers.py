@@ -20,6 +20,8 @@ DIRECT = (
  ('bbc-business','BBC News','bbc.co.uk','global','en-GB','GB','en','https://feeds.bbci.co.uk/news/business/rss.xml'),
  ('bbc-kent','BBC Kent','bbc.co.uk','europe','en-GB','GB','en','https://feeds.bbci.co.uk/news/england/kent/rss.xml'),
  ('agrarheute','agrarheute','agrarheute.com','europe','de-DE','DE','de','https://www.agrarheute.com/news.xml'),
+ ('canada-food-en','Canadian Food Inspection Agency','recalls-rappels.canada.ca','americas','en-CA','CA','en','https://recalls-rappels.canada.ca/en/feed/cfia-alerts-recalls'),
+ ('canada-food-fr','Agence canadienne d’inspection des aliments','recalls-rappels.canada.ca','americas','fr-CA','CA','fr','https://recalls-rappels.canada.ca/fr/fil-de-nouvelles/acia-rappels-avis-securite'),
 )
 
 INDEXED = (
@@ -52,7 +54,7 @@ def expanded_publisher_feeds():
             rows.append(dict(id=f'feed:priority:{key}:{"rss" if route=="direct_rss" else "indexed"}',
                 label=label,host=host,geography=geo,hl=hl,gl=gl,ceid=f'{gl}:{language}',
                 adapter='article_rss' if route=='direct_rss' else 'news_search_rss',route=route,
-                source_type='trade_press' if key in {'la-terre','agrarheute','agronegocios'} else 'news_search',feed_url=target))
+                source_type='government_document' if key.startswith('canada-food-') else 'trade_press' if key in {'la-terre','agrarheute','agronegocios'} else 'news_search',feed_url=target))
             if key in {'hespress-ar','hespress-fr','rnz'}:
                 rows[-1]['access_note']='Direct feed blocked during verification; indexed metadata only. No access bypass.'
     return rows
