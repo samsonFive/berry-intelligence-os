@@ -13,7 +13,8 @@ _SOFTWARE = re.compile(
 )
 _CORPORATE = re.compile(
     r"\b(licensing|licen[cs]es?|sovereignty|shareholders?|earnings|stock|investors?|patent portfolio|"
-    r"ceo|automotive|auto industry|automakers?|connected vehicles?)\b",
+    r"ceo|automotive|auto industry|automakers?|connected vehicles?|employees?|"
+    r"workforce|payroll|underpayments?)\b",
     re.IGNORECASE,
 )
 _AGRICULTURE = re.compile(

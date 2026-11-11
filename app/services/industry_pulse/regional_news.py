@@ -21,6 +21,10 @@ ENGLISH_RISKS = (
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
     "water restrictions", "labor dispute", "labour dispute", "labor strike",
     "recall", "tariff", "drought", "soil fumigation", "fewer chemicals",
+    "labor hire", "labour hire", "worker underpayments", "wage underpayments",
+    "underpaid workers", "minimum wage", "back-payments", "court penalties",
+    "worker safety", "labor shortage", "labour shortage", "water rights",
+    "irrigation restrictions", "recall warning", "recalled",
 )
 NATIVE_TOPICS = {
     "es": ("variedad", "cultivo", "exportación", "cosecha", "vivero", "patente",
@@ -28,7 +32,8 @@ NATIVE_TOPICS = {
            "plantación", "hectárea", "hectáreas", "fumigación", "precios", "precio",
            "temporada de arándanos", "temporada de frutillas"),
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
-           "fermeture de ferme", "sécheresse", "rappel sanitaire", "droits de douane", "prix", "rendement"),
+           "fermeture de ferme", "sécheresse", "rappel sanitaire", "rappel de", "rappelés", "rappelées",
+           "droits de douane", "prix", "rendement"),
     "pt": ("variedade", "melhoramento", "produção", "exportação", "colheita", "cultivo",
            "demissões", "fechamento de fazenda", "seca", "tarifas"),
     "pl": ("odmiana", "odmiany", "hodowla", "uprawa", "eksport", "zbiory", "susza",
@@ -96,7 +101,8 @@ _LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl", "de",
 _REGIONAL_TOPIC_WORDS = _whole_words((*ENGLISH_RISKS, *_LATIN_SCRIPT_TOPICS))
 _EAST_ASIAN_TOPICS = (*NATIVE_TOPICS["zh"], *NATIVE_TOPICS["ja"])
 _ADDITIONAL_CROPS = {
-    "blueberry": ("arándano", "arándanos", "arandano", "arandanos"),
+    "blueberry": ("arándano", "arándanos", "arandano", "arandanos",
+                  "bleuets de marque", "bleuets frais", "bleuets surgelés"),
     "raspberry": ("frambuesa", "frambuesas"),
 }
 _CROP_WORDS = {
