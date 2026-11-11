@@ -46,6 +46,30 @@ def media_kind(record):
 PAGE_SIZE = 36
 
 
+def retained_source_links(record):
+    """Expose retained URLs without fetching or asserting source independence."""
+    from app.services.article_dedup import normalize_canonical_url
+    from app.services.feed_first_reader import is_public_http_url
+    from app.services.industry_pulse.canonical_urls import is_wrapper
+    values = record.get('discovery_urls')
+    if not isinstance(values, list):
+        return []
+    seen = {normalize_canonical_url(str(record.get('source_url') or ''))}
+    links = []
+    for value in values[:128]:
+        if not isinstance(value, str) or len(value) > 4096 or not is_public_http_url(value):
+            continue
+        key = normalize_canonical_url(value)
+        if key in seen:
+            continue
+        seen.add(key)
+        links.append({'url': value, 'label': (urlsplit(value).hostname or '').removeprefix('www.'),
+                      'kind': 'Index link · publisher URL unresolved' if is_wrapper(value) else 'Publisher link'})
+        if len(links) == 16:
+            break
+    return links
+
+
 @lru_cache(maxsize=8)
 def _qualification_index(company_names, variety_names):
     return QualificationIndex.compile(company_names=company_names, variety_names=variety_names)
@@ -313,6 +337,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
             card['source_link_label'] = 'Listen at source' if kind == 'podcast' else 'Watch at source'
             card['source_link_url'] = (record.get('media_url') if is_public_http_url(record.get('media_url') or '') else '') or card['source_url']
         card["company_mentions"] = mentions
+        card['retained_source_links'] = retained_source_links(record)
         card['topic_match'] = classify(record)
         if record['id'] not in effective:
             effective[record['id']] = news_tags.effective(record, tags, *(tag_assignments or (None, None)))

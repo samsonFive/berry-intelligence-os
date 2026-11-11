@@ -384,6 +384,23 @@ def collapse_story_clusters(records: list[dict[str, Any]]) -> list[dict[str, Any
         lead["story_cluster_id"] = f"cluster-{digest}"
         lead["cluster_size"] = len(rows)
         lead["cluster_sources"] = extra
-        lead["discovery_urls"] = [str(row.get("source_url") or "") for row in rows if row.get("source_url")]
+        # Refreshes may receive an already grouped lead. Preserve its earlier
+        # links instead of replacing them with only the current lead URL.
+        urls = []
+        seen_urls = set()
+        for row in rows:
+            inherited = row.get('discovery_urls')
+            candidates = [row.get('source_url'), *(inherited[:128] if isinstance(inherited, list) else [])]
+            for value in candidates:
+                if not isinstance(value, str) or len(value) > 4096:
+                    continue
+                if value and value not in seen_urls:
+                    seen_urls.add(value)
+                    urls.append(value)
+                if len(urls) >= 128:
+                    break
+            if len(urls) >= 128:
+                break
+        lead["discovery_urls"] = urls
         collapsed.append(lead)
     return collapsed

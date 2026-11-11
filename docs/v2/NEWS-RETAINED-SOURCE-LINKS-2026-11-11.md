@@ -1,0 +1,7 @@
+# Retained source links in News
+
+The November 11 independent assessment found a HortiDaily article previously observed as News-eligible while the current primary link was FreshPlaza. Inspection of the retained daily cache established both URLs under the same Greek strawberry-acreage headline. The read-only publication preview omitted `discovery_urls`, so the News card could not expose the retained HortiDaily link. This is a demonstrated presentation loss, not an undiscovered event or evidence that the publishers are independent.
+
+The bounded metadata preview now preserves discovery URLs. News exposes up to sixteen distinct safe additional links, removes primary/tracking twins from presentation, and labels unresolved index wrappers. It performs no fetch, inference, body hydration or storage write. The display explicitly says similar reporting may share an origin and links do not establish independent corroboration. Source review, claim trust and the primary article remain unchanged. URLs retained for grouped leads also survive another collection refresh; original tracking variants remain discovery provenance.
+
+The known Greek story is a consumed engineering control. Keep its original pilot assessment and distinguish current primary-link visibility from additional retained-link visibility. Do not retrospectively credit new discovery or count syndicated copies as independent corroboration. Original-body acquisition, publisher-positive controls, archive retrieval and independently measured recall remain open under the original fixed pilot window.
