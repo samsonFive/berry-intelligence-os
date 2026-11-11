@@ -957,7 +957,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
-    landscape_workspace = request.url.path.startswith(("/landscapes/explorer", "/landscapes/global", "/strategy-reviews/berries"))
+    landscape_workspace = request.url.path.startswith(("/landscapes/explorer", "/landscapes/global", "/strategy-reviews/berries", "/strategy-inputs"))
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
     # Statement detail uses the same lightweight Library shell. Its selected
     # references must not hydrate every article merely to calculate old badges.
