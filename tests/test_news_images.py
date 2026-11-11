@@ -67,14 +67,14 @@ def test_decodable_wrapper_keeps_original_identity_and_explicit_retry(tmp_path):
     assert json.loads(news_images.preview_path(tmp_path, row['id']).read_text())['source_url'] == row['source_url']
 
 
-def test_news_reader_digest_show_labeled_illustrations_and_real_images_win(workspace, monkeypatch):
+def test_news_reader_digest_use_honest_no_photo_placeholders_and_real_images_win(workspace, monkeypatch):
     html = workspace.get('/today').text
-    assert '/static/news-images/blueberry-orchard.webp' in html
-    assert 'AI-generated agricultural illustration' in html
+    assert '/static/news-images/' not in html
+    assert 'Article photo unavailable' in html
     assert workspace.post('/digest/stories/live-raw', json={'action': 'save'}).status_code == 200
-    assert '/static/news-images/blueberry-orchard.webp' in workspace.get('/digest').text
+    assert 'Article photo unavailable' in workspace.get('/digest').text
     reader_html = workspace.get('/api/intelligence/live-raw/reader?personal=1').text
-    assert 'Illustration' in reader_html and 'not an article photograph' in reader_html
+    assert 'Article photo unavailable' in reader_html and '/static/news-images/' not in reader_html
     monkeypatch.setattr(reader, 'fetch_source_preview_image', lambda url: 'https://publisher.example/article.jpg')
     assert workspace.post('/api/news/images?company=company-grower').status_code == 202
     state = workspace.get('/api/news/images').json()
