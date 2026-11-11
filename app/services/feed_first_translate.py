@@ -161,6 +161,9 @@ def apply_english_translation(
     local_only: bool = False,
 ) -> dict[str, Any]:
     """Keep the item. Translate title/summary when a translator can."""
+    from app.services.news_translation_quality import checked_translation,plain_source
+    if record.get('translated') and record.get('original_title'):
+        record=cached_translations({str(record.get('id') or ''):record},inbox_dir)[str(record.get('id') or '')]
     title = str(record.get("title") or "")
     summary = str(record.get("summary") or "")
     display = f"{title} {summary}"
@@ -175,13 +178,18 @@ def apply_english_translation(
     cache = _load_cache(inbox_dir)
     key = _cache_key(updated["original_title"], updated["original_summary"])
     result = cache.get(key) if isinstance(cache.get(key), dict) else None
+    result=checked_translation(updated['original_title'],updated['original_summary'],result,
+                               source_name=updated.get('source_name') or '')
     if result is None and (translator is None or local_only):
         from app.services.news_local_translation import translate
         try:
             local = translator if local_only and translator is not None else translate
-            result = local(updated['original_title'], updated['original_summary'])
+            result = local(plain_source(updated['original_title'],updated.get('source_name') or ''),
+                           plain_source(updated['original_summary'],updated.get('source_name') or ''))
         except Exception:
             result = None
+        result=checked_translation(updated['original_title'],updated['original_summary'],result,
+                                   source_name=updated.get('source_name') or '')
         if result and result.get('title'):
             cache[key] = result
             _save_cache(inbox_dir, cache)
@@ -210,12 +218,16 @@ def apply_english_translation(
 
 def cached_translations(records, inbox_dir):
     """Overlay saved English presentation without inference, requests or writes."""
+    from app.services.news_translation_quality import checked_translation
     cache = _load_cache(inbox_dir)
     result = {}
     for key, record in records.items():
         title = record.get('original_title') or record.get('title') or ''
         summary = record.get('original_summary') or record.get('summary') or ''
-        cached = cache.get(_cache_key(title, summary))
+        raw_cached=cache.get(_cache_key(title,summary))
+        cached=checked_translation(title,summary,raw_cached,source_name=record.get('source_name') or '')
+        if raw_cached and not cached:
+            record={**record,'title':title,'summary':summary,'translated':False,'translation_pending':True}
         if isinstance(cached, dict) and cached.get('title'):
             record = {**record, 'original_title': title, 'original_summary': summary,
                       'title': cached['title'], 'summary': cached.get('summary') or summary,

@@ -66,6 +66,8 @@ def _engine(directory):
 
 
 def translate(title, summary):
+    from app.services.news_translation_quality import checked_translation,plain_source
+    title,summary=plain_source(title),plain_source(summary)
     code = language(f'{title} {summary}')
     root = Path(os.environ.get('BIOS_NEWS_TRANSLATION_MODELS') or '/app/translation-models') / code
     if code in {'en', 'und'} or not (root / 'metadata.json').is_file():
@@ -85,5 +87,5 @@ def translate(title, summary):
             if len(value) > max(120, len(str(text)) * 5) or re.search(r'(.{3,25})\1{4,}', value):
                 raise ValueError('Local translation produced repetitive or oversized output')
             return value
-        return {'title': render(title), 'summary': render(summary), 'source_language': code,
-                'translation_method': 'local-argos-ctranslate2'}
+        return checked_translation(title,summary,{'title': render(title), 'summary': render(summary),
+            'source_language': code,'translation_method': 'local-argos-ctranslate2'})
