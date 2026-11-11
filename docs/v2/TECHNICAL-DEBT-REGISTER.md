@@ -13,6 +13,18 @@ current release excludes capability inputs from those narrower reviews. Actual
 internal evidence and analyst decisions are still required to populate company
 assessments. Exact deployed revisions and live acceptance belong in the release receipt.
 
+# Experience consolidation candidate - November 11, 2026
+
+The supported CopilotKit v2 provider currently brings unused UI rendering modules
+into the new private application's initial bundle (approximately 3.8 MB, 1.09 MB
+gzip in the first integrated production build). Domain hooks use the supported
+headless entry, which does not export the provider. Keep the working supported
+lifecycle for the presentation; measure startup and investigate a supported lazy
+loading or smaller provider entry afterward. No private records or credentials
+are embedded in these code assets. The client is excluded from the public static
+snapshot. This is a candidate performance limitation, not an accepted experience
+or production-release result.
+
 # Global berry news coverage gaps — November 10, 2026
 
 The global News candidate adds route-level discovery evidence. Publisher and

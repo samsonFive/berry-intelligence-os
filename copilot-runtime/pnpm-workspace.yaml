@@ -1,0 +1,6 @@
+storeDir: ../frontend/.pnpm-store
+verifyDepsBeforeRun: error
+ignoreScripts: true
+minimumReleaseAgeExclude:
+  - '@copilotkit/runtime@1.86.0'
+  - '@copilotkit/shared@1.86.0'

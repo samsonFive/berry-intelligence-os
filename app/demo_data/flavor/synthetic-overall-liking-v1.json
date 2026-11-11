@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "namespace": "synthetic-sensory-v1",
+  "metric": {
+    "id": "overall_liking",
+    "label": "Synthetic overall liking",
+    "minimum": 1,
+    "maximum": 9,
+    "unit": "illustrative score"
+  },
+  "specimens": [
+    {"id": "demo-specimen-amber", "label": "Specimen Amber", "value": 5.8},
+    {"id": "demo-specimen-birch", "label": "Specimen Birch", "value": 6.4},
+    {"id": "demo-specimen-clover", "label": "Specimen Clover", "value": 4.6},
+    {"id": "demo-specimen-dune", "label": "Specimen Dune", "value": 7.0},
+    {"id": "demo-specimen-elm", "label": "Specimen Elm", "value": 5.2},
+    {"id": "demo-specimen-fern", "label": "Specimen Fern", "value": 6.1}
+  ],
+  "scope_note": "Fictitious specimens only. Country, actor, portfolio and development-date filters do not apply.",
+  "disclaimer": "Synthetic demonstration. These illustrative values are not measured consumer results and do not describe commercial cultivars. Each specimen has one example value; no distribution or statistical inference is supported."
+}

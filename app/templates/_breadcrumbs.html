@@ -1,4 +1,9 @@
 {# Shared hierarchy navigation. Pass ordered {label, href} items; the last is current. #}
+{% if investigation_return_href and authoring_mode and not static_build %}
+<nav class="workspace-breadcrumbs" aria-label="Investigation return" data-pagefind-ignore>
+  <ol><li><a href="{{ investigation_return_href }}">← Return to investigation</a></li></ol>
+</nav>
+{% endif %}
 {% if breadcrumb_items %}
 <nav class="workspace-breadcrumbs" aria-label="Breadcrumb" data-pagefind-ignore>
   <ol>

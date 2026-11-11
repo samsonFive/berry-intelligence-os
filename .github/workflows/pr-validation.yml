@@ -64,12 +64,56 @@ jobs:
             echo "data-migration=false" >> "$GITHUB_OUTPUT"
           fi
 
+  frontend-validation:
+    name: Frontend validation
+    needs: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Docs-only fast path
+        if: needs.change-scope.outputs.docs-only == 'true'
+        run: echo "Markdown-only change; frontend source and dependencies are unchanged."
+      - uses: actions/setup-node@v4
+        if: needs.change-scope.outputs.docs-only != 'true'
+        with:
+          node-version: "24.22.1"
+      - name: Install pinned package manager
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - name: Install locked frontend dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Test investigation state and API contracts
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm test
+      - name: Typecheck and build the persistent application
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm build
+      - name: Install locked command runtime dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: copilot-runtime
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Test runtime authorization without provider calls
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: copilot-runtime
+        run: pnpm test
+
   repository-integrity:
     name: Repository integrity
-    needs: change-scope
+    needs: [change-scope, frontend-validation]
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Require successful scope and frontend checks
+        if: needs.change-scope.result != 'success' || needs.frontend-validation.result != 'success'
+        run: exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0

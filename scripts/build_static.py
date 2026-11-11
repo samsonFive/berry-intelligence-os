@@ -172,6 +172,11 @@ def write_page(template_name: str, route_path: str, context: dict[str, Any]) -> 
     return output_file
 
 
+def copy_public_static_assets(source: Path, destination: Path) -> None:
+    """Keep the private application's code/entry out of the published snapshot."""
+    shutil.copytree(source, destination, dirs_exist_ok=True, ignore=shutil.ignore_patterns("investigation"))
+
+
 def build() -> list[Path]:
     if OUTPUT_DIR.exists():
         shutil.rmtree(OUTPUT_DIR)
@@ -233,7 +238,7 @@ def build() -> list[Path]:
 
     # Static asset.
     static_out = OUTPUT_DIR / "static"
-    shutil.copytree(ROOT / "app" / "static", static_out, dirs_exist_ok=True)
+    copy_public_static_assets(ROOT / "app" / "static", static_out)
 
     # Newsfeed.
     written.append(

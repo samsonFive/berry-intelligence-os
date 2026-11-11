@@ -50,6 +50,10 @@ def load(inbox_dir):
 def return_path(value):
     try:
         parts = urlsplit(str(value or ""))
+        from app.session_auth import is_investigation_path, safe_next_path
+        if not parts.scheme and not parts.netloc and is_investigation_path(parts.path):
+            candidate = safe_next_path(str(value))
+            return candidate if is_investigation_path(urlsplit(candidate).path) else "/learn"
         available = parts.path in {"/today", "/news", "/digest", "/explorer", "/learn", "/landscapes"} or parts.path.startswith(("/entities/", "/intelligence/", "/learn/", "/reports/"))
         if parts.scheme or parts.netloc or not available or "\\" in str(value) or any(ord(c) < 32 for c in str(value)):
             return "/learn"

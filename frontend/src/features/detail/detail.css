@@ -1,0 +1,19 @@
+.berry-app .berry-detail-header { display: grid; gap: 10px; align-items: start; }
+.berry-app .berry-detail-header h2 { margin: 0; overflow-wrap: anywhere; }
+.berry-app .berry-detail-header > .berry-badge { justify-self: start; }
+.berry-app .berry-detail-actions { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.berry-app .berry-detail-breadcrumbs { display: flex; flex-wrap: wrap; gap: 4px; font-size: 12px; }
+.berry-app .berry-detail-breadcrumbs button, .berry-app .berry-definition-list dt button { padding: 0; border: 0; background: transparent; color: var(--berry-forest); text-align: left; text-decoration: underline; cursor: pointer; font: inherit; }
+.berry-app .berry-detail .berry-definition-list { display: block; }
+.berry-app .berry-detail .berry-definition-list > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 12px 0; border-bottom: 1px solid var(--berry-line); }
+.berry-app .berry-detail .berry-definition-list dd { margin: 0; }
+.berry-app .berry-detail .berry-definition-list p { margin: 4px 0 7px; }
+.berry-app .berry-citations { display: grid; gap: 9px; margin-top: 10px; font-size: 12px; }
+.berry-app .berry-reader-article { line-height: 1.7; }
+.berry-app .berry-reader-article h3, .berry-app .berry-reader-article h4 { margin: 24px 0 9px; }
+.berry-app .berry-reader-article img, .berry-app .berry-reader-article video, .berry-app .berry-reader-article audio { max-width: 100%; height: auto; }
+.berry-app .berry-reader figure { margin: 16px 0; }
+.berry-app .berry-reader figure img { display: block; width: 100%; max-height: 220px; object-fit: contain; background: var(--berry-surface); }
+.berry-app .berry-reader figcaption { margin-top: 7px; font-size: 11px; line-height: 1.5; color: var(--berry-muted); }
+.berry-app .berry-detail-resizer { position: absolute; inset: 0 auto 0 0; width: 9px; cursor: col-resize; touch-action: none; border-radius: var(--berry-radius) 0 0 var(--berry-radius); }
+.berry-app .berry-detail-resizer:hover, .berry-app .berry-detail-resizer:focus-visible { background: var(--berry-sage); outline-offset: -2px; }
