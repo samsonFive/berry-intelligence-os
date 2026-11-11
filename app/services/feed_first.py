@@ -649,6 +649,7 @@ def present_item(
         geography_chips=geography_chips,
         crops=crops,
     )
+    from app.services.news_visuals import reference_for
     return {
         "id": item_id,
         "headline": decode_html_text(record.get("title") or item_id),
@@ -679,6 +680,7 @@ def present_item(
         "review_state": record.get("review_state") or "",
         "acquisition_lane": record.get("acquisition_lane") or "",
         "image_url": safe_image_url(record),
+        "reference_image": reference_for(record),
         "images": list(record.get("images") or (capture or {}).get("images") or []),
         "family": card_family(record, lead=lead, rank=rank),
         "decision": decision,

@@ -1,6 +1,9 @@
 {% macro article_visual(card, reader=false) %}
 <figure class="article-visual{% if reader %} article-visual-reader{% endif %}" data-article-visual>
 {% if card.image_url %}<img class="{{ 'reader-image' if reader else 'digest-image' }}" src="{{ card.image_url }}" alt="Article image from {{ card.source_name }}" loading="{{ 'eager' if reader else 'lazy' }}" decoding="async" referrerpolicy="no-referrer" data-publisher-image>{% endif %}
-<div data-image-fallback{% if card.image_url %} hidden{% endif %} class="article-visual-placeholder"><span>{{ card.source_name or 'Source article' }}</span><small>Article photo unavailable</small></div>
+{% set reference = card.reference_image|default(none) %}
+<div data-image-fallback{% if card.image_url %} hidden{% endif %}>
+{% if reference %}<img class="{{ 'reader-image' if reader else 'digest-image' }}" src="{{ reference.url }}" alt="{{ reference.alt }}. {{ reference.note }}" loading="lazy" decoding="async" data-reference-image><figcaption data-reference-credit><a href="{{ reference.source_url }}" target="_blank" rel="noopener noreferrer" title="{{ reference.credit }} · {{ reference.license }} · {{ reference.note }}">Reference photo{% if reader %} · {{ reference.credit }} · {{ reference.license }}{% endif %}</a></figcaption>{% endif %}
+<div data-last-resort{% if reference %} hidden{% endif %} class="article-visual-placeholder"><span>{{ card.source_name or 'Source article' }}</span><small>Article photo unavailable</small></div></div>
 </figure>
 {% endmacro %}

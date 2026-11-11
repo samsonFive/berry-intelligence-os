@@ -19,11 +19,11 @@ def preview_path(inbox_dir, item_id):
     return path.parent / 'previews' / path.name
 
 
-def collect(inbox_dir, records, *, fetch=None, retry_missing=False):
+def collect(inbox_dir, records, *, fetch=None, retry_missing=False, limit=LIMIT, scan_limit=LIMIT):
     """Capture only images for this page; retain original source identity/edits."""
     getter = fetch or reader.fetch_source_preview_image
     selected = []
-    for row in records[:LIMIT]:
+    for row in records[:scan_limit]:
         key, source = str(row.get('id') or ''), str(row.get('source_url') or '')
         if not feed_first.SAFE_ID_RE.fullmatch(key) or len(source) > 4096:
             continue
@@ -40,6 +40,8 @@ def collect(inbox_dir, records, *, fetch=None, retry_missing=False):
         except (OSError, ValueError, AttributeError):
             pass
         selected.append(row)
+        if len(selected) >= limit:
+            break
 
     def capture(row):
         source = str(row['source_url'])
@@ -79,7 +81,7 @@ def run(inbox_dir, records):
         with pipeline_lock(inbox_dir, 'news_images'):
             atomic_json(state_path(inbox_dir), {'status': 'running', 'started_at': datetime.now(UTC).isoformat()})
             result = collect(inbox_dir, records, retry_missing=True)
-            result.update(status='ready', message='Article images checked. Illustrations cover unavailable photos.')
+            result.update(status='ready', message='Article images checked. Reference photos cover unavailable source photos.')
     except Exception:
         logging.getLogger(__name__).exception('Article thumbnail capture failed')
         result = {'status': 'failed', 'message': 'Article images could not be checked. Try again.'}

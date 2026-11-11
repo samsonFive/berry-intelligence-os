@@ -77,6 +77,11 @@ def test_scheduled_refresh_records_discovery_qualification_and_actual_news_eligi
     monkeypatch.setattr(feed_first_live, "today_google_queries", lambda: [query])
     monkeypatch.setattr(publisher_coverage, "refresh_publisher_coverage", lambda _: [])
     monkeypatch.setattr(routes, "classify_stored_tags", lambda: None)
+    image_calls = []
+    def thumbnails(inbox, records, **kwargs):
+        image_calls.append(([row['source_url'] for row in records], kwargs))
+        return {'checked': 1, 'found': 1}
+    monkeypatch.setattr(routes.news_images, 'collect', thumbnails)
     entity = {"id": "company-hidden-farm", "name": "Hidden Farm", "entity_type": "company"}
     context = {"entities": [entity], "official_hosts": set(), "official_host_map": {}, "muted_entity_ids": set(),
                "state": {"entity_tiers": {entity["id"]: "muted"}}}
@@ -87,7 +92,11 @@ def test_scheduled_refresh_records_discovery_qualification_and_actual_news_eligi
 
     routes.run_refresh(tmp_path, context, [], update_publishers=False)
     assert not list(tmp_path.rglob("observations.sqlite3"))
+    assert image_calls == []
     routes.run_refresh(tmp_path, context, [], update_publishers=True)
+    assert len(image_calls) == 1
+    assert image_calls[0][0] == [f'https://{publisher}/news/eligible']
+    assert image_calls[0][1] == {'limit': 12, 'scan_limit': 108}
     assert routes.refresh_state(tmp_path)["status"] == "ready"
     path = next(tmp_path.rglob("observations.sqlite3"))
     with closing(sqlite3.connect(path)) as db:
