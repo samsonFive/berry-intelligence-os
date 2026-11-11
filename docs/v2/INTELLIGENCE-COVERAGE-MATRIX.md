@@ -1698,3 +1698,6 @@ November 11 global News expansion: 26 additional publisher metadata routes exten
 
 
 November 11 local News translation integrity: actual global-expansion output changed source quantities, crop terminology and a place name. Six public presentation-cache corrections are audited separately from trust. Source-conserving local validation now checks numeric values, percentages/currency markers, controlled berry terms and regional place names before cache admission and cached display; unsafe output retains the original as pending. Existing originals/cache contents remain unchanged by read-time checks. Full semantic accuracy, unsupported languages and body translation remain open. See NEWS-LOCAL-TRANSLATION-INTEGRITY-2026-11-11.md.
+
+
+November 11 global News product ambiguity: actual live stock-token and decorative shelf-paper false positives are excluded by shared deterministic discovery and News screens. Existing retained records receive the same projection correction without URL/publisher blacklists or trust mutation. Agricultural packaging, traceability and robotics controls remain eligible. Broader consumer/SEO precision remains unmeasured. See NEWS-PRODUCT-NOISE-CONTROLS-2026-11-11.md.

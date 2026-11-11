@@ -111,6 +111,7 @@ _GARDENING_HOBBY = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+_DECOR_PRODUCT = re.compile(r"\bshelf[ -]+(?:paper|liners?)\b", re.IGNORECASE)
 _PROMO = re.compile(
     r"\b(weekly ad|on sale|specials this week|club card|buy one get one|instacart deal)\b",
     re.IGNORECASE,
@@ -310,6 +311,8 @@ def _hard_exclusion(text: str, hit: DiscoveryHit) -> str | None:
         return "unrelated scientific usage"
     if _GARDENING_HOBBY.search(text):
         return "gardening/hobby"
+    if _DECOR_PRODUCT.search(hit.title or ""):
+        return "decorative household product, not berry production"
     if _PROMO.search(text) and not _INDUSTRY.search(text):
         return "generic retail promotion"
     other = _OTHER_CROP.search(text)
