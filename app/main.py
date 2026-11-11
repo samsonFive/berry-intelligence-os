@@ -10574,9 +10574,11 @@ def _review_context(
 
 
 @app.get("/review/{draft_id}", response_class=HTMLResponse)
-def review_form(request: Request, draft_id: str) -> HTMLResponse:
+def review_form(request: Request, draft_id: str) -> Response:
     draft = get_draft(draft_id)
     if draft is None:
+        if get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(draft_id) is not None:
+            return RedirectResponse(url=f"/evidence/{quote(draft_id, safe='')}", status_code=302)
         raise HTTPException(status_code=404, detail="Draft not found")
     return templates.TemplateResponse(
         request=request,
