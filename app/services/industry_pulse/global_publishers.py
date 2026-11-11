@@ -13,7 +13,7 @@ DIRECT = (
  ('nyt','The New York Times','nytimes.com','global','en-US','US','en','https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'),
  ('diario-huelva','Diario de Huelva','diariodehuelva.es','europe','es-ES','ES','es','https://www.diariodehuelva.es/rss/'),
  ('huelva-hoy','Huelva Hoy','huelvahoy.com','europe','es-ES','ES','es','https://www.huelvahoy.com/rss/'),
- ('la-discusion','La Discusión','ladiscusion.cl','americas','es-419','CL','es','https://ladiscusion.cl/feed/'),
+ ('la-discusion','La Discusión','ladiscusion.cl','americas','es-419','CL','es','https://ladiscusion.cl/tag/arandanos/feed/'),
  ('la-republica','La República','larepublica.pe','americas','es-419','PE','es','https://larepublica.pe/rss/economia.xml'),
  ('la-terre','La Terre de chez nous','laterre.ca','americas','fr-CA','CA','fr','https://www.laterre.ca/feed/'),
  ('cbc-bc','CBC British Columbia','cbc.ca','americas','en-CA','CA','en','https://www.cbc.ca/webfeed/rss/rss-canada-britishcolumbia'),
