@@ -62,7 +62,8 @@ def _qualifying_news(title, snippet, url, published_date, company_names, variety
 
 def _berry_identity(record, berry_companies):
     """Require source wording, never inferred crop IDs or incidental cultivar aliases."""
-    text = ' '.join(str(record.get(key) or '') for key in ('title', 'summary', 'original_title', 'original_summary'))
+    title = str(record.get('original_title') or record.get('title') or '')
+    text = title + ' ' + str(record.get('original_summary') or record.get('summary') or '')
     if blackberry_company_noise(text):
         return False
     if regional_crop_ids(text) or re.search(r'\b(?:berries|berry|soft fruit|fruits rouges|frutos rojos)\b', text, re.I):
@@ -70,7 +71,7 @@ def _berry_identity(record, berry_companies):
     index = _qualification_index(berry_companies, ())
     # A broad institution or a company mentioned incidentally in the summary
     # cannot supply the missing crop subject (e.g. UF citrus research).
-    return bool(index.company_re and index.company_re.search(str(record.get('title') or '').replace('’', "'")))
+    return bool(index.company_re and index.company_re.search(title.replace('’', "'")))
 
 
 def escalations(facts):
@@ -223,7 +224,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         if not adjacent and not _berry_identity(record, berry_companies):
             exclusions[key] = 'No demonstrated berry-industry subject in source metadata'
             continue
-        if not adjacent and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
+        if not adjacent and not _qualifying_news(str(record.get('original_title') or record.get("title") or ""),
+                                str(record.get('original_summary') or record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             exclusions[key] = 'Metadata relevance screen excluded'
             continue

@@ -56,6 +56,11 @@ def test_latin_script_language_detection_and_cached_english_presentation(tmp_pat
     saved = feed_first_translate.cached_translations({row['id']: row}, tmp_path)[row['id']]
     assert saved['title'] == translated['title'] and saved['status'] == row['status']
     assert saved['entity_ids'] == row['entity_ids']
+    # Translation is presentation, never a new relevance decision. Even a
+    # weak English rendering must not hide a qualifying source-language item.
+    saved['title'] = 'Research examines a new growing region'
+    saved['summary'] = 'The research examines cultivation in the region.'
+    assert project([saved])['matching_ids'] == [row['id']]
 
 
 def test_regional_metadata_can_use_local_translation_without_remote_calls(tmp_path, monkeypatch):
@@ -79,3 +84,10 @@ def test_bpe_word_segments_are_flattened_into_model_vocabulary_tokens():
     tokenizer.tokenizer = SimpleNamespace(tokenize=lambda _: ['cultivo', 'fresas'])
     tokenizer.bpe = SimpleNamespace(segment_tokens=lambda _: ['cul@@ tivo', 'fresas'])
     assert tokenizer.encode('cultivo fresas') == ['cul@@', 'tivo', 'fresas']
+
+
+def test_translation_cannot_invent_a_berry_subject_for_an_unrelated_source():
+    row = article(title='Blueberry nursery expands production', summary='Blueberry growers expand acreage.',
+        original_title='Carrot harvest report', original_summary='Caroline discusses carrot yields in commercial production.',
+        translated=True)
+    assert project([row])['matching_ids'] == []
