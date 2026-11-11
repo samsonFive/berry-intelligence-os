@@ -1,4 +1,5 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+{% from '_brand_media.html' import entity_galleries, logo as media_logo %}
 {% macro lettermark(name) -%}
 {%- set parts = (name or '?').split() -%}
 {%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}
@@ -10,7 +11,7 @@
 <a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#what-changed{% endif %}">Skip to {% if competitor_profile is defined and competitor_profile %}profile concerns{% else %}recent activity{% endif %}</a>
 <section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div class="pvs-profile-hero">
-    <span class="pvs-lettermark" data-tone="company" aria-hidden="true">{{ lettermark(entity.name) }}</span>
+    {% if entity_media is defined and entity_media.logo %}{{ media_logo(entity_media.logo, entity.name) }}{% else %}<span class="pvs-lettermark" data-tone="company" aria-hidden="true">{{ lettermark(entity.name) }}</span>{% endif %}
     <div>
     <p class="sh-kicker eyebrow">Company</p>
     <h1>{{ entity.name }}</h1>
@@ -53,6 +54,7 @@
 
 {% if not static_build %}<p class="sh-actions"><a class="sh-btn" href="/profiles/{{ entity.id }}/regions">Operating regions · view / edit</a></p>{% endif %}
 {% include "_competitor_profile_concerns.html" %}
+{{ entity_galleries(entity_media|default({}), entity.id) }}
 {% include "_feed_first_entity_statements.html" %}
 
 {% if company_news is defined and not static_build %}

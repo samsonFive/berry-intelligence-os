@@ -19,7 +19,15 @@ def context():
     state = feed_first.load_state(main.INBOX_DIR) if main.AUTHORING_MODE else feed_first.empty_state()
     private = directory.load_profiles(main.INBOX_DIR) if main.AUTHORING_MODE else {"profiles": {}, "history": []}
     logos = load_logo_overrides(main.INBOX_DIR) if main.AUTHORING_MODE else {}
-    return main, entities, state, private, directory.catalog(entities, logos=logos, profiles=private["profiles"], state=state)
+    rows = directory.catalog(entities, logos=logos, profiles=private["profiles"], state=state)
+    if main.AUTHORING_MODE:
+        from app.services.brand_media import entity_media
+        media = entity_media(main.INBOX_DIR, rows)
+        for key, row in rows.items():
+            asset = media.get(key, {}).get('logo')
+            if asset and not logos.get(key):
+                row.update(logo_url=asset['image_url'], logo_attribution=asset['attribution'])
+    return main, entities, state, private, rows
 
 
 def company_directory_page(request):

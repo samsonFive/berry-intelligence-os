@@ -1,3 +1,14 @@
+# Brand/packaging social-media candidate — November 11, 2026
+
+An isolated retained-first media integration scans the existing 205-post
+SociaVault batch without provider requests. It creates 16 attachment references,
+15 matched to historically verified exact Driscoll's/Fall Creek account paths.
+There are zero classified/display-eligible packaging images and zero acquired
+logos in this run. Rights, permitted local bytes, image-content inspection,
+source retention and stable new-app integration remain open. This is not a
+social coverage/recall or packaging-delivery upgrade. See
+[the integration candidate](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
 # Berry Strategy and priority research — November 11, 2026
 
 The private Strategy input candidate adds governed internal evidence to named

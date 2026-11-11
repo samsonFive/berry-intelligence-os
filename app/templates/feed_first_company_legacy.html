@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% from '_brand_media.html' import entity_galleries, logo as media_logo, existing_logo %}
 {% block title %}{{ name }} — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/berry_os.css">
+<link rel="stylesheet" href="/static/brand_media.css?v=1">
 {% endblock %}
 {% block content %}
 {% if authoring_mode and not static_build %}<aside class="lw-entity-material" data-lw-entity-material><a href="/workspaces?entity={{ entity.id if entity is defined else company.id if company is defined else '' }}">Linked workspace evidence and analyst hypotheses</a><div data-lw-entity-items></div></aside>{% endif %}
@@ -17,7 +19,7 @@
       <header class="bos-dossier-header">
         <div class="bos-entity-lockup">
           <div class="bos-entity-logo-frame">
-            {% if logo_url %}<img class="bos-logo bos-entity-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="80" height="80">
+            {% if entity_media is defined and entity_media.logo and not logo_override %}{{ media_logo(entity_media.logo, name) }}{% elif logo_url %}{{ existing_logo(logo_url, name, monogram, 'dossier') }}
             {% else %}<span class="bos-monogram bos-entity-logo-fallback">{{ monogram }}</span>{% endif %}
           </div>
           <div>
@@ -33,6 +35,7 @@
           {% if registry_seed_count %}<a class="bos-btn" href="/variety-seeds?company={{ entity_id }}">Registry varieties · {{ registry_seed_count }}</a>{% endif %}
         </div>
       </header>
+      {{ entity_galleries(entity_media|default({}), entity_id) }}
 
       <nav class="bos-dossier-outline" aria-label="Dossier sections">
         {% for item in dossier.outline %}<a href="#{{ item.id }}">{{ item.label }}</a>{% endfor %}
@@ -340,3 +343,4 @@
 </div>
 <script src="/static/feed_first.js"></script>
 {% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=1"></script>{% endblock %}

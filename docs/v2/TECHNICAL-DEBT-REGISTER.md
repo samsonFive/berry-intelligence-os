@@ -3991,3 +3991,16 @@ November 11 material-event recovery: shared source-metadata screens now recogniz
 
 
 November 11 retained News source links: the stored Greek strawberry story contained both FreshPlaza and HortiDaily URLs, but the read-only metadata preview omitted discovery_urls. Preserve bounded link metadata, expose safe distinct additional URLs with an explicit independence limitation, and retain grouped URLs across refreshes without discarding raw tracking provenance. This restores access to consumed source metadata; it is not new discovery or independent recall credit. Original-body and archive acquisition remain open. See NEWS-RETAINED-SOURCE-LINKS-2026-11-11.md.
+
+
+TD-BRAND-MEDIA-001 (November 11, 2026): Retained social references are not a
+display-ready packaging cohort. The isolated shared media candidate has 16
+unclassified references, 15 exact historical official-account matches and zero
+display-eligible images. Usage qualification, image inspection, permitted bytes,
+unexpired source/deletion refresh and fresh provider allowance remain open.
+The active experience-consolidation DetailHost has no Brand detail kind; consume
+the bounded shared media projection only through a coordinated adapter after a
+stable handoff. Official-page JSON-LD extraction is offline; a future downloader
+needs resolved-IP/connection validation on every redirect, not only lexical URL
+checks. No new provider/production activation or broad coverage claim. See
+BRAND-MEDIA-INTEGRATION-2026-11-11.md.
