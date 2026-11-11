@@ -84,9 +84,9 @@ OFFICIAL_HOSTS = {
     "britishberrygrowers.org.uk",
 }
 OFFICIAL_SITE_HOST_CAP = 6
-REGIONAL_QUERY_CAP = 4
+REGIONAL_QUERY_CAP = 6
 REGIONAL_ROTATION = "regional_news_rotation"
-PRIORITY_PUBLISHER_QUERY_CAP = 7
+PRIORITY_PUBLISHER_QUERY_CAP = 12
 PRIORITY_PUBLISHER_ROTATION = "priority_publisher_rotation"
 _GEO_EXTRA_ALIASES = {
     "geography-united-states": ("u.s.", "u.s.a.", "usa"),
@@ -750,6 +750,12 @@ def collect_same_day_hits(
     same_day = [hit for hit in kept if is_same_calendar_day(hit.published_date, today)]
 
     official_kept = [hit for hit in kept if hit.provider == LIVE_LANE_OFFICIAL]
+    # Route transport success alone does not establish relevant coverage.
+    # This is the run's retained discovery yield, before final News projection.
+    from collections import Counter
+    retained_by_route = Counter((hit.provider, hit.query_id) for hit in kept)
+    for attempt in attempts:
+        attempt['retained_hits'] = retained_by_route[(attempt['provider'], attempt['query_id'])]
     stats = {
         **drop_stats,
         "same_day": len(same_day),

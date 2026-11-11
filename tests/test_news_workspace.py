@@ -363,7 +363,7 @@ def test_news_route_attempt_receipt_feeds_collection_ops(tmp_path, monkeypatch):
     from app.services.collection_ops import priority_news_route_health
 
     route = {'query_id': 'feed:priority:latimes:business', 'provider': 'specialist_rss',
-             'status': 'returned', 'hits': 4, 'edition': 'US:en'}
+             'status': 'returned', 'hits': 4, 'retained_hits': 0, 'edition': 'US:en'}
     monkeypatch.setattr('app.services.feed_first_live.live_feed_bundle',
                         lambda **kwargs: {'records': [article()], 'route_attempts': [route]})
     monkeypatch.setattr(news_workspace_routes, 'classify_stored_tags', lambda: None)
@@ -374,9 +374,14 @@ def test_news_route_attempt_receipt_feeds_collection_ops(tmp_path, monkeypatch):
     assert json.loads(runs[0].read_text(encoding='utf-8'))['route_attempts'] == [route]
     routes = {item['id']: item for item in priority_news_route_health(tmp_path)}
     assert routes[route['query_id']]['hits'] == 4
+    assert routes[route['query_id']]['retained_hits'] == 0
     assert routes['feed:priority:wsj:indexed']['status'] == 'unverified'
     receipt = json.loads(runs[0].read_text(encoding='utf-8'))
-    for age, stale in [(50, False), (95, True)]:
+    from math import ceil
+    from app.services.feed_first_live import PRIORITY_PUBLISHER_QUERY_CAP
+    from app.services.industry_pulse.specialist_feeds import priority_publisher_feeds
+    stale_minutes = 2 * 15 * ceil(len(priority_publisher_feeds()) / PRIORITY_PUBLISHER_QUERY_CAP)
+    for age, stale in [(stale_minutes - 5, False), (stale_minutes + 5, True)]:
         receipt['completed_at'] = (datetime.now(UTC) - timedelta(minutes=age)).isoformat()
         runs[0].write_text(json.dumps(receipt), encoding='utf-8')
         routes = {item['id']: item for item in priority_news_route_health(tmp_path)}

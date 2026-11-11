@@ -7,6 +7,15 @@ EXTRA_CROP_TERMS = {
     'raspberry': ('framboesa', 'framboesas', 'malina', 'maliny', 'malin', 'framboise', 'framboises'),
     'blackberry': ('amora-preta', 'amoras-pretas', 'amora preta', 'amoras pretas', 'jeżyna', 'jeżyny', 'jeżyn', 'jezyna', 'jezyny', 'zarzamora', 'zarzamoras'),
 }
+# Keep generic Arabic "توت" (also mulberry) out of crop identity.
+for _crop, _terms in {
+    'blueberry': ('Heidelbeere', 'Heidelbeeren', 'Blaubeere', 'Blaubeeren', 'bleuets sauvages', 'bleuets en corymbe', 'التوت الأزرق', 'توت أزرق'),
+    'strawberry': ('Erdbeere', 'Erdbeeren', 'frutilla', 'frutillas', 'الفراولة', 'فراولة', 'الفريز'),
+    'raspberry': ('Himbeere', 'Himbeeren'),
+    'blackberry': ('Brombeere', 'Brombeeren', 'mora de Castilla'),
+}.items():
+    EXTRA_CROP_TERMS[_crop] += _terms
+
 NATIVE_INDUSTRY_TERMS = ('odmiana', 'odmiany', 'odmian', 'hodowla', 'hodowli', 'licencja', 'licencje',
                          'variedade', 'variedades', 'melhoramento', 'licenciamento', 'produção', 'cultivo',
                          'producción agrícola', 'produccion agricola', 'agricultura de exportación',

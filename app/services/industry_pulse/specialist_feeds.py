@@ -250,7 +250,8 @@ def priority_publisher_feeds() -> list[dict[str, str]]:
              feed_url="https://www.berriesza.co.za/feed/", adapter="article_rss", geography="africa",
              route="direct_rss", source_type="trade_press"),
     ))
-    return [{"source_id": "", **row} for row in rows]
+    from app.services.industry_pulse.global_publishers import expanded_publisher_feeds
+    return [{"source_id": "", **row} for row in [*rows, *expanded_publisher_feeds()]]
 
 
 PRIORITY_PUBLISHER_PREFIX = "feed:priority:"
@@ -395,6 +396,8 @@ class SpecialistRssProvider:
             allowed_hosts = {feed["host"]}
             if feed["host"] == "independent.co.uk":
                 allowed_hosts.add("the-independent.com")
+            if feed["host"] in {"bbc.com", "bbc.co.uk"}:
+                allowed_hosts.update({"bbc.com", "bbc.co.uk"})
             verified = [hit for hit in hits if hit.source_domain in allowed_hosts]
             if hits and not verified and feed["route"] == "direct_rss":
                 raise ValueError("publisher feed links do not match the declared host")
