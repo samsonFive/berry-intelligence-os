@@ -31,6 +31,7 @@ def hit(title):
     ('Heladas afectan la cosecha de frutillas en Ñuble','strawberry'),
     ('Exportación de mora de Castilla en Colombia','blackberry'),
     ('Incertidumbre por El Niño y expectativa de mayores precios marcan la temporada de arándanos en Ñuble','blueberry'),
+    ('Hausse des recettes d’exportation de fraises au Maroc','strawberry'),
 ])
 def test_native_news_survives_both_screens_without_inferred_crop(title,crop):
     candidate=qualify_hit(hit(title))
