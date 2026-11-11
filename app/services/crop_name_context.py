@@ -7,7 +7,8 @@ _SOFTWARE = re.compile(
     r"\b(qnx|bbm|research in motion|smartphones?|cybersecurity|cyber[ -]security|"
     r"endpoint security|mobile devices?|enterprise software|software[ -]defined|"
     r"blackberry\s+(limited|os|passport|keyone|key2|z10|z30|bold|curve|stock|shares|equity))\b"
-    r"|\b(?:NYSE|NASDAQ)\s*:\s*BB\b|\$BB\b",
+    r"|\b(?:NYSE|NASDAQ)\s*:\s*BB\b|\$BB\b"
+    r"|\btokeni[sz]ed\s+b?stocks?\b|\bBBB\s+to\s+USD\s+chart\b",
     re.IGNORECASE,
 )
 _CORPORATE = re.compile(
