@@ -26,7 +26,7 @@ PREVIEW_FIELDS = {
     "created_at", "updated_at", "entity_ids", "company_ids", "berry_ids", "geography_ids", "geography_scope",
     "region", "country", "tags", "topics", "topic_ids", "priority", "source_authority", "verification_state",
     "trust_state", "live", "auto_captured", "validated", "media_type", "media_format", "content_kind",
-    "source_language", "original_title", "translated", "translation_pending", "image_url", "image_source_url",
+    "source_language", "original_title", "original_summary", "translated", "translation_pending", "image_url", "image_source_url",
     "preview_image_url", "thumbnail_url", "source_image_url", "origin_publisher_url",
     "acquisition_lane", "discovery_provenance", "transcript_status", "media_url", "discovered_item_id",
     "destination_market_ids", "origin_market_ids", "scope_resolution", "event_date", "first_seen_at",

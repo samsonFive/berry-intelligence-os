@@ -252,7 +252,8 @@ def is_analyst_english(text: str) -> bool:
         return False
     if cjk >= 4 and latin == 0:
         return False
-    return True
+    from app.services.news_local_translation import language
+    return language(sample) in {'en', 'und'}
 
 
 def analyst_lede(

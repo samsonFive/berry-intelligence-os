@@ -5,8 +5,7 @@
     var figure = image.closest('[data-article-visual]');
     if (!figure) return;
     var panel = figure.querySelector('[data-image-fallback]');
-    var replacement = panel.querySelector('img');
-    replacement.src = replacement.dataset.fallbackSrc;
+    if (!panel) return;
     panel.hidden = false;
     image.hidden = true;
   }

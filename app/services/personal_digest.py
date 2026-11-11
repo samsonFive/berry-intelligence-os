@@ -89,6 +89,8 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
                 continue
             records[key] = record
     if include_private:
+        from app.services.feed_first_translate import cached_translations
+        records = cached_translations(records, inbox_dir)
         from app.services.feed_first_reader import attach_capture_previews
         records = attach_capture_previews(records, inbox_dir)
     if metadata_only:

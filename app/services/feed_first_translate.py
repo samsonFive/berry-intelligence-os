@@ -1,9 +1,8 @@
 """English translation pass for non-English Today items.
 
 English is the analyst language. Global stories still enter the feed.
-When PERPLEXITY_API_KEY is present, title and summary are translated with
-the existing Perplexity chat transport. No new vendor keys. Firecrawl / Jina
-stay unused.
+Preinstalled CPU models translate public metadata without provider spend.
+The optional existing paid transport is never used in credit-free mode.
 """
 
 from __future__ import annotations
@@ -51,7 +50,8 @@ def guess_source_language(text: str) -> str:
         return "ko"
     if any("\u4e00" <= ch <= "\u9fff" for ch in sample):
         return "zh"
-    return "und"
+    from app.services.news_local_translation import language
+    return language(sample)
 
 
 def _cache_path(inbox_dir: Path) -> Path:
@@ -81,7 +81,8 @@ def _save_cache(inbox_dir: Path | None, payload: dict[str, Any]) -> None:
         return
     path = _cache_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    from app.services.analyst_state_io import atomic_json
+    atomic_json(path, payload)
 
 
 def _parse_translation(content: str) -> dict[str, str] | None:
@@ -113,6 +114,9 @@ def _parse_translation(content: str) -> dict[str, str] | None:
 
 
 def perplexity_translator(title: str, summary: str) -> dict[str, str] | None:
+    import os
+    if os.environ.get('BIOS_RESEARCH_CREDIT_FREE_ONLY') == '1':
+        return None
     from app.services.ai_gateway.credentials import MissingCredentialError, resolve_perplexity_api_key
     from app.services.ai_gateway.perplexity_chat import PerplexityChatTransport
     from app.services.industry_pulse.credentials import has_perplexity
@@ -154,6 +158,7 @@ def apply_english_translation(
     translator: Callable[[str, str], dict[str, str] | None] | None = None,
     inbox_dir: Path | None = None,
     allow_remote: bool = True,
+    local_only: bool = False,
 ) -> dict[str, Any]:
     """Keep the item. Translate title/summary when a translator can."""
     title = str(record.get("title") or "")
@@ -170,7 +175,17 @@ def apply_english_translation(
     cache = _load_cache(inbox_dir)
     key = _cache_key(updated["original_title"], updated["original_summary"])
     result = cache.get(key) if isinstance(cache.get(key), dict) else None
-    if result is None and allow_remote:
+    if result is None and (translator is None or local_only):
+        from app.services.news_local_translation import translate
+        try:
+            local = translator if local_only and translator is not None else translate
+            result = local(updated['original_title'], updated['original_summary'])
+        except Exception:
+            result = None
+        if result and result.get('title'):
+            cache[key] = result
+            _save_cache(inbox_dir, cache)
+    if result is None and allow_remote and not local_only:
         fn = translator if translator is not None else perplexity_translator
         try:
             result = fn(updated["original_title"], updated["original_summary"])
@@ -193,15 +208,33 @@ def apply_english_translation(
     return updated
 
 
+def cached_translations(records, inbox_dir):
+    """Overlay saved English presentation without inference, requests or writes."""
+    cache = _load_cache(inbox_dir)
+    result = {}
+    for key, record in records.items():
+        title = record.get('original_title') or record.get('title') or ''
+        summary = record.get('original_summary') or record.get('summary') or ''
+        cached = cache.get(_cache_key(title, summary))
+        if isinstance(cached, dict) and cached.get('title'):
+            record = {**record, 'original_title': title, 'original_summary': summary,
+                      'title': cached['title'], 'summary': cached.get('summary') or summary,
+                      'source_language': cached.get('source_language') or 'und',
+                      'translated': True, 'translation_pending': False}
+        result[key] = record
+    return result
+
+
 def translate_records(
     records: list[dict[str, Any]],
     *,
     translator: Callable[[str, str], dict[str, str] | None] | None = None,
     inbox_dir: Path | None = None,
+    local_only: bool = False,
 ) -> list[dict[str, Any]]:
     return [
         apply_english_translation(
-            row, translator=translator, inbox_dir=inbox_dir,
+            row, translator=translator, inbox_dir=inbox_dir, local_only=local_only,
             allow_remote=not uses_regional_metadata(
                 row.get("acquisition_lane"), (row.get("discovery_provenance") or {}).get("publisher_route")
             ),

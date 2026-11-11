@@ -12,6 +12,11 @@ ijson==3.5.1
 feedparser==6.0.11
 httpx==0.28.1
 langid==1.1.6
+# CPU-only inference over explicitly provisioned offline News translation models.
+ctranslate2==4.6.0
+sentencepiece==0.2.1
+sacremoses==0.1.1
+subword-nmt==0.3.8
 itsdangerous==2.2.0
 openpyxl==3.1.5
 requests==2.32.3

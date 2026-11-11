@@ -985,8 +985,10 @@ def live_feed_bundle(
     from app.services.feed_first_reader import attach_source_preview_images
     from app.services.feed_first_translate import translate_records
 
-    records = translate_records(records, inbox_dir=inbox_dir,
-                                **({} if translate_live else {"translator": lambda *args: None}))
+    if translate_live:
+        records = translate_records(records, inbox_dir=inbox_dir)
+    else:
+        records = translate_records(records, inbox_dir=inbox_dir, local_only=True)
     if fetch_preview_images:
         records = attach_source_preview_images(records)
     bundle = {

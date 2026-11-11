@@ -19,7 +19,7 @@ FEEDS = [f for f in WEEK_SPECIALIST_FEEDS if f.get('coverage') == 'sustainabilit
 
 
 @pytest.mark.parametrize('feed', FEEDS, ids=lambda f: f['id'])
-def test_requested_source_reaches_news_without_inventing_berry_identity(feed, tmp_path):
+def test_requested_source_requires_adjacent_opt_in_without_inventing_berry_identity(feed, tmp_path):
     hit = DiscoveryHit(title='Companies cut supply chain emissions with sustainable packaging',
         snippet='A new industry report explores carbon disclosure and climate resilience.',
         url=f"https://{feed['host']}/blog/example", source_domain=feed['host'],
@@ -44,9 +44,12 @@ def test_requested_source_reaches_news_without_inventing_berry_identity(feed, tm
     assert requested_sustainability_record(previews[record['id']])
     result = news_workspace.model(records={record['id']: record}, entities={}, relationships=[],
         facts=[], state={}, params={}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
-    assert result['counts']['unreviewed'] == 1
+    assert result['counts']['unreviewed'] == 0
+    adjacent = news_workspace.model(records={record['id']: record}, entities={}, relationships=[],
+        facts=[], state={}, params={'adjacent': '1'}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
+    assert adjacent['matching_ids'] == [record['id']]
     preview_result = news_workspace.model(records=previews, entities={}, relationships=[],
-        facts=[], state={}, params={}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
+        facts=[], state={}, params={'adjacent': '1'}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
     assert preview_result['matching_ids'] == [record['id']]
     record['source_url'] = record['origin_publisher_url'] = 'https://unrequested.example/article'
     assert not requested_sustainability_record(record)

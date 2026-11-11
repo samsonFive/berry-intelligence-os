@@ -16,6 +16,8 @@ from app.services import company_source_scope
 from app.services.company_source_scope import source_reviewed
 from app.services.industry_pulse.specialist_feeds import requested_sustainability_record
 from app.services.gene_editing import classify, topic_selection
+from app.services.crop_name_context import blackberry_company_noise
+from app.services.industry_pulse.regional_news import regional_crop_ids
 
 NEWS_TYPES = {
     "news_search", "trade_press", "web_article", "company_press_release", "company_website",
@@ -56,6 +58,20 @@ def _qualifying_news(title, snippet, url, published_date, company_names, variety
     hit = DiscoveryHit(title=title, snippet=snippet, url=url, source_domain="", published_date=published_date,
                        query_id="news-workspace", query_text="", geography="", berry=None, topic=None, provider="stored-source")
     return is_qualifying_hit(hit, index=_qualification_index(company_names, variety_names))
+
+
+def _berry_identity(record, berry_companies):
+    """Require source wording, never inferred crop IDs or incidental cultivar aliases."""
+    title = str(record.get('original_title') or record.get('title') or '')
+    text = title + ' ' + str(record.get('original_summary') or record.get('summary') or '')
+    if blackberry_company_noise(text):
+        return False
+    if regional_crop_ids(text) or re.search(r'\b(?:berries|berry|soft fruit|fruits rouges|frutos rojos)\b', text, re.I):
+        return True
+    index = _qualification_index(berry_companies, ())
+    # A broad institution or a company mentioned incidentally in the summary
+    # cannot supply the missing crop subject (e.g. UF citrus research).
+    return bool(index.company_re and index.company_re.search(title.replace('’', "'")))
 
 
 def escalations(facts):
@@ -147,6 +163,12 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     company_names = tuple(name for row in entities.values() if row.get("entity_type") == "company"
                           for name in [row.get("name", ""), *(row.get("aliases") or [])])
     variety_names = tuple(row.get("name", "") for row in entities.values() if row.get("entity_type") == "variety")
+    berry_companies = tuple(name.replace('’', "'") for row in entities.values()
+        if row.get('entity_type') == 'company' and set(row.get('berry_ids') or []).intersection(
+            {'berry-blueberry', 'berry-strawberry', 'berry-raspberry', 'berry-blackberry'})
+        and not re.search(r'\b(?:university|institute|department|research|extension)\b', row.get('name', ''), re.I)
+        for name in [row.get('name', ''), *(row.get('aliases') or [])]
+        if len(name.strip()) >= 8)
     counts = {"trusted": 0, "unreviewed": 0}
     matched = []
     scoped_sources = set()
@@ -197,7 +219,13 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
                     exclusions[key] = 'Outside selected company'
                     continue
                 early_company_links = candidate_links
-        if not (filters['topic'] and classification['topics']) and not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
+        adjacent = filters['adjacent'] == '1' and (
+            (filters['topic'] and classification['topics']) or requested_sustainability_record(record))
+        if not adjacent and not _berry_identity(record, berry_companies):
+            exclusions[key] = 'No demonstrated berry-industry subject in source metadata'
+            continue
+        if not adjacent and not _qualifying_news(str(record.get('original_title') or record.get("title") or ""),
+                                str(record.get('original_summary') or record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             exclusions[key] = 'Metadata relevance screen excluded'
             continue
