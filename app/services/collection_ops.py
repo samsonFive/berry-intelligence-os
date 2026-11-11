@@ -202,6 +202,7 @@ def priority_news_route_health(inbox_dir: Path) -> list[dict[str, Any]]:
                 continue
             if not row.get("last_check"):
                 row.update(status=status, last_check=checked.isoformat(), hits=attempt.get("hits"),
+                           retained_hits=attempt.get('retained_hits'),
                            stale=now - checked > stale_after)
             if status != "failed" and not row.get("last_success"):
                 row["last_success"] = checked.isoformat()

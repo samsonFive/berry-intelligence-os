@@ -132,10 +132,10 @@
 {% if priority_news_routes %}
 <section class="v2-company-section ops-section" id="collection-news-routes">
   <h2>Priority News routes</h2>
-  <p class="context-limit">Discovery results from recent News runs. Candidate counts are before topic screening and deduplication. Indexed routes provide links and metadata.</p>
+  <p class="context-limit">Discovery results from recent News runs. Candidates are before screening. Retained leads passed collection filters and deduplication; they do not prove event recall or final News visibility. Indexed routes provide links and metadata.</p>
   <div class="table-wrap">
     <table class="brief-table">
-      <thead><tr><th>Publisher</th><th>Region</th><th>Route</th><th>Last check (UTC)</th><th>Last success (UTC)</th><th>Outcome</th><th>Candidates</th></tr></thead>
+      <thead><tr><th>Publisher</th><th>Region</th><th>Route</th><th>Last check (UTC)</th><th>Last success (UTC)</th><th>Outcome</th><th>Candidates</th><th>Retained leads</th></tr></thead>
       <tbody>
         {% for row in priority_news_routes %}
         <tr>
@@ -146,6 +146,7 @@
           <td>{{ row.last_success[:16]|replace('T', ' ') if row.last_success else '—' }}</td>
           <td>{{ {'returned': 'Returned candidates', 'no_hits': 'Checked, no candidates', 'failed': 'Check failed', 'paused': 'Paused', 'unverified': 'Unverified'}[row.status] }}{% if row.stale %} · Stale{% endif %}</td>
           <td>{{ row.hits if row.hits is defined and row.status != 'failed' else '—' }}</td>
+          <td>{{ row.retained_hits if row.retained_hits is defined and row.retained_hits is not none and row.status != 'failed' else '—' }}</td>
         </tr>
         {% endfor %}
       </tbody>

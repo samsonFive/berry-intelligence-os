@@ -25,15 +25,20 @@ ENGLISH_RISKS = (
 NATIVE_TOPICS = {
     "es": ("variedad", "cultivo", "exportación", "cosecha", "vivero", "patente",
            "despido", "despidos", "cierre de finca", "cierre de fincas", "sequía", "aranceles",
-           "plantación", "hectárea", "hectáreas", "fumigación"),
+           "plantación", "hectárea", "hectáreas", "fumigación", "precios", "precio",
+           "temporada de arándanos", "temporada de frutillas"),
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
-           "fermeture de ferme", "sécheresse", "rappel sanitaire", "droits de douane"),
+           "fermeture de ferme", "sécheresse", "rappel sanitaire", "droits de douane", "prix", "rendement"),
     "pt": ("variedade", "melhoramento", "produção", "exportação", "colheita", "cultivo",
            "demissões", "fechamento de fazenda", "seca", "tarifas"),
     "pl": ("odmiana", "odmiany", "hodowla", "uprawa", "eksport", "zbiory", "susza",
            "zwolnienia", "cła"),
     "zh": ("品种", "种植", "出口", "育种", "裁员", "农场关闭", "干旱", "关税"),
     "ja": ("品種", "栽培", "輸出", "育種", "解雇", "農場閉鎖", "干ばつ", "関税"),
+    "ar": ("زراعة", "الزراعة", "مزارع", "المزارع", "حصاد", "الحصاد", "إنتاج", "الإنتاج",
+           "تصدير", "التصدير", "صادرات", "الصادرات", "استيراد", "جفاف", "الجفاف", "رسوم جمركية"),
+    "de": ("Anbau", "Ernte", "Erzeuger", "Erzeugerpreise", "Exporte", "Importe", "Züchtung",
+           "Sorten", "Dürre", "Frost", "Rückruf", "Plantagen", "Landwirtschaft"),
 }
 EAST_ASIAN_CROPS = {
     "blueberry": ("蓝莓", "ブルーベリー"),
@@ -66,6 +71,13 @@ def regional_news_queries() -> list[PulseQuery]:
     for language, region, country, crops, place in (
         ("pt", "americas", "BR", ("mirtilo", "morango", "framboesa", "amora-preta"), "Brasil"),
         ("pl", "europe", "PL", ("borówka", "truskawka", "malina", "jeżyna"), "Polska"),
+        ("fr", "americas", "CA", ("fraise", "framboise", "bleuet", "myrtille", "petits fruits"), "Québec"),
+        ("es", "americas", "PE", ("arándanos", "fresas", "frambuesas", "zarzamoras"), '("La Libertad" OR Lambayeque OR Ica OR Perú)'),
+        ("es", "americas", "CL", ("arándanos", "frutillas", "frambuesas", "zarzamoras"), '(Ñuble OR Maule OR Chile)'),
+        ("es", "americas", "CO", ("arándanos", "fresas", "frambuesas", "mora de Castilla"), 'Colombia'),
+        ("ar", "africa", "MA", ("الفراولة", "الفريز", "التوت الأزرق"), '(المغرب OR العرائش OR اللوكوس)'),
+        ("ar", "africa", "EG", ("الفراولة", "الفريز", "التوت الأزرق"), 'مصر'),
+        ("de", "europe", "DE", ("Heidelbeeren", "Erdbeeren", "Himbeeren", "Brombeeren"), 'Deutschland'),
     ):
         rows.append(PulseQuery(
             id=f"today:regional:{region}:{country}:{language}",
@@ -80,7 +92,7 @@ def _whole_words(terms: tuple[str, ...]) -> re.Pattern[str]:
     return re.compile(r"(?<!\w)(?:" + "|".join(map(re.escape, terms)) + r")(?!\w)", re.I)
 
 
-_LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl") for term in NATIVE_TOPICS[language])
+_LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl", "de", "ar") for term in NATIVE_TOPICS[language])
 _REGIONAL_TOPIC_WORDS = _whole_words((*ENGLISH_RISKS, *_LATIN_SCRIPT_TOPICS))
 _EAST_ASIAN_TOPICS = (*NATIVE_TOPICS["zh"], *NATIVE_TOPICS["ja"])
 _ADDITIONAL_CROPS = {

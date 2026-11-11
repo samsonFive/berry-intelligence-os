@@ -130,6 +130,8 @@ def test_priority_publishers_rotate_without_losing_cards_or_legacy_checks(tmp_pa
     assert publisher_id not in second_ids
     assert legacy_ids <= first_ids and legacy_ids <= second_ids
     assert first["stats"]["priority_hits"] == 1 and second["stats"]["priority_hits"] == 0
+    assert next(r for r in first['route_attempts'] if r['query_id']==publisher_id)['retained_hits']==1
+    assert next(r for r in first['route_attempts'] if r['query_id']==priority_ids[1])['retained_hits']==0
     assert [row["source_url"] for row in second["records"]] == [url]
     assert [row["berry_ids"] for row in second["records"]] == [["berry-blueberry"]]
 
