@@ -129,7 +129,7 @@ export async function runRehearsal(options) {
   const report = { v1_status: 'REWORK', application_revision: revision, environment: target.origin,
     started_at: new Date().toISOString(), record_ids: {}, screenshots: {}, checks: [],
     copilot: { status: 'NOT_RUN', reason: 'A real approved provider command was not supplied.' },
-    save_reopen: { status: 'NOT_RUN', reason: 'Native save/reopen rollout remains behind V1 unless explicitly supplied.' },
+    save_reopen: { status: 'NOT_RUN', reason: 'Use the dedicated native Workspaces save/reopen packet unless an explicit callback is supplied to this direct-flow run.' },
     defects: [], manual_visual_review: 'REQUIRED', unexpected_provider_turns: unexpectedTurns,
     approved_provider_turn_requests: approvedTurns, provider_usage: usageRecords, command_run_shapes: runShapes, client_errors: clientErrors, api_timings: apiTimings };
   const pass = (name, evidence = {}) => report.checks.push({ name, status: 'PASS', ...evidence });

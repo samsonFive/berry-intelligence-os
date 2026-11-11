@@ -1,13 +1,16 @@
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getInvestigation } from '../../api/client';
 import { useSurfaceReady } from '../../app/SurfaceScroll';
-import { Badge, Button, EmptyState, EntityButton, Preview, SourceLink } from '../../components/ui';
-import { hasBlockingIssues, serializeInvestigation, splitIds, type DetailType, type EntityType, type InvestigationContext, type Lens } from '../../contracts/investigation';
+import { Badge, Button, EmptyState, EntityButton, Preview } from '../../components/ui';
+import { hasBlockingIssues, investigationHref, serializeInvestigation, splitIds, type EntityType, type InvestigationContext, type Lens } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { BerryDataGrid } from '../grids/BerryDataGrid';
 import { SensoryDemo } from '../demo/SensoryDemo';
-import { safeHref, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNode, type NewsCard, type Portrait, type SourceMetadata } from './models';
+import { type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNode, type Portrait, type SourceMetadata } from './models';
+import { Link } from 'react-router-dom';
+import { Citation } from './Citation';
+import { DevelopmentCard } from './DevelopmentCard';
+import { useReadModel } from './useReadModel';
+import { developmentsContext } from './developments-context';
 import './landscape.css';
 
 const LENSES: Array<{ id: Lens; label: string }> = [
@@ -21,27 +24,8 @@ function standingContext(context: InvestigationContext): InvestigationContext {
     detail_path: '', demo_specimens: '', news_from: '', news_to: '', q: '', q_scope: 'scope', saved_view_id: '', saved_revision: '' };
 }
 
-function useReadModel<T>(endpoint: string, context: InvestigationContext, enabled = true) {
-  const { revision } = useInvestigation();
-  return useQuery({
-    queryKey: ['investigation', endpoint, serializeInvestigation(context)],
-    queryFn: ({ signal }) => getInvestigation<T>(endpoint, context, revision, signal),
-    enabled,
-  });
-}
-
 function Unknown({ label = 'Unknown: no recorded observation' }: { label?: string }) {
   return <span className="berry-unknown" aria-label={label}>—</span>;
-}
-
-function Citation({ id, source, parent }: { id: string; source?: SourceMetadata; parent?: { type: DetailType; id: string } }) {
-  const { dispatch } = useInvestigation();
-  return <SourceLink href={`/intelligence/${encodeURIComponent(id)}?personal=1`}
-    onOpen={() => {
-      if (parent) dispatch({ type: 'openDetail', detail: parent, origin: 'direct' });
-      dispatch({ type: 'openDetail', detail: { type: 'source', id }, origin: 'direct' });
-    }}
-    title={source?.title}>{source?.source_name ?? 'Supporting source'}{source?.number ? ` [${source.number}]` : ''}</SourceLink>;
 }
 
 function NodeControl({ node }: { node: LandscapeNode | undefined }) {
@@ -190,60 +174,19 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
   </>;
 }
 
-function publicationDate(value?: string | null) {
-  const day = value?.slice(0, 10);
-  if (!day || !/^\d{4}-\d{2}-\d{2}$/.test(day)) return 'Publication date unavailable';
-  const parsed = new Date(`${day}T00:00:00Z`);
-  return Number.isNaN(parsed.valueOf()) ? 'Publication date unavailable' : parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
-}
-
-function DevelopmentCard({ card }: { card: NewsCard }) {
-  const { dispatch } = useInvestigation();
-  const [imageFailed, setImageFailed] = useState(false);
-  const publisherImage = safeHref(card.image_url, '');
-  const reference = card.reference_image;
-  const image = publisherImage || safeHref(reference?.url, '');
-  const openSource = () => dispatch({ type: 'openDetail', detail: { type: 'source', id: card.id }, origin: 'direct' });
-  return <article className="berry-news-card">
-    {image && !imageFailed && <figure className="berry-news-figure"><img className="berry-news-image" src={image} alt="" loading="lazy" onError={() => setImageFailed(true)} />
-      {!publisherImage && reference && <figcaption><span>{reference.label ?? 'Reference photo'}</span><details><summary>Photo credit</summary>{reference.note && <span>{reference.note}</span>}<span>{reference.credit ?? reference.creator}{reference.license ? ` · ${reference.license}` : ''}{reference.source_url && <> · <SourceLink external href={safeHref(reference.source_url)}>Photo source</SourceLink></>}</span></details></figcaption>}
-    </figure>}
-    <div className="berry-news-body"><p className="berry-news-meta"><span>{card.source_name ?? 'Source name not recorded'}</span><time dateTime={card.published_at ?? undefined}>{publicationDate(card.published_at)}</time></p>
-      <a className="berry-news-title" title={card.headline} href={card.full_reader_href ?? `/intelligence/${encodeURIComponent(card.id)}?personal=1`} onClick={event => {
-        if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) { event.preventDefault(); openSource(); }
-      }}>{card.headline}</a>
-      <div className="berry-news-labels"><Badge tone={card.trusted ? 'sage' : card.source_reviewed ? 'neutral' : 'warning'}>{card.trusted ? 'Escalated' : card.source_reviewed ? 'Source reviewed' : 'Unreviewed'}</Badge>{card.crop_labels?.map(crop => <span key={crop}>{crop}</span>)}</div>
-      {card.scope_match?.kind === 'related_context' && <p className="berry-news-scope-match">{card.scope_match.primary_label && <>About {card.scope_match.primary_label} · </>}Context for {card.scope_match.subject_labels.join(' · ')}</p>}
-      {card.translated && <p className="berry-news-match">Auto-translated to English</p>}{card.translation_pending && <p className="berry-news-match">English translation pending · original source available</p>}
-      {card.media_label && <p className="berry-news-match"><strong>{card.media_label}</strong>{card.media_note ? ` · ${card.media_note}` : ''}</p>}
-      {card.deck && <details className="berry-news-summary"><summary>Summary</summary><p className="berry-news-excerpt">{card.deck}</p></details>}
-      {!!card.company_mentions?.length && <p className="berry-news-match">Mentioned in source: {card.company_mentions.map(company => company.name).join(' · ')} · company link not reviewed</p>}
-      {!!card.coverage_sources?.length && <details className="berry-news-coverage"><summary>{card.coverage_sources.length} retained sources</summary><p>{card.independence}</p>{card.coverage_sources.map(source => <p key={source.id}><Citation id={source.id} /> · Published {source.published_date || 'Unknown'} · Captured {source.captured_at || source.captured_date || 'Unknown'}</p>)}</details>}
-      <footer className="berry-news-actions"><Button variant="ghost" size="small" onClick={openSource}>Read source →</Button>{(card.source_link_url || card.source_url) && <SourceLink external aria-label={card.source_link_label ?? 'Original publisher'} href={safeHref(card.source_link_url || card.source_url)}>{card.source_link_label?.startsWith('Listen') ? 'Listen at source' : card.source_link_label?.startsWith('Watch') ? 'Watch at source' : 'Publisher'}</SourceLink>}</footer>
-    </div>
-  </article>;
-}
-
 function Developments({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
   const { context, issues } = useInvestigation();
-  const subjectContext = useMemo<InvestigationContext>(() => {
-    const next = { ...context, detail_path: '', demo_specimens: '', saved_view_id: '', saved_revision: '', q: '', q_scope: 'scope' as const, relationship_types: '' };
-    const cohort = context.comparison_kind === 'company' ? context.cohort_companies : context.cohort_varieties;
-    // Preserve an in-scope focal fallback: the server alone can determine whether
-    // an outside/invalid cohort contains any valid typed comparison subjects.
-    if (context.lens === 'comparison' && cohort) { next.focus = model.nodes[context.focus] ? context.focus : ''; return next; }
-    return { ...next, lens: 'connections', comparison_kind: 'company', cohort_companies: '', cohort_varieties: '', focus: model.nodes[context.focus] ? context.focus : '' };
-  }, [context, model.nodes]);
+  const subjectContext = useMemo(() => developmentsContext(context, model.nodes), [context, model.nodes]);
   const query = useReadModel<DevelopmentsModel>('/developments', subjectContext, !hasBlockingIssues(issues));
   useLayoutEffect(() => onReady(!query.isPending), [onReady, query.isPending]);
   const developments = query.data?.data;
   return <section className="berry-developments berry-news-rail" aria-labelledby="developments-heading">
     <div className="berry-section-heading"><div><span className="berry-eyebrow">Retained developments</span><h2 id="developments-heading">{developments?.heading ?? 'Relevant developments'}</h2><p>Source geography · publication dates</p></div>
-      {developments && <a className="berry-button berry-button--ghost berry-button--small" href={safeHref(developments.briefing_href)}>Open scoped Briefing →</a>}</div>
+      {developments && <Link className="berry-button berry-button--ghost berry-button--small" to={investigationHref('/app/briefing', context)}>Open scoped Briefing →</Link>}</div>
     {query.isPending ? <p role="status" className="berry-loading">Loading developments for the current subject…</p>
       : query.isError ? <EmptyState compact title="Developments could not be loaded">{query.error instanceof Error ? query.error.message : 'Try reopening this view.'}</EmptyState>
         : developments && developments.cards.length ? <div className="berry-news-grid">{developments.cards.slice(0, 3).map(card => <DevelopmentCard key={card.id} card={card} />)}</div>
-          : developments && <EmptyState compact title="No retained news matches this subject and scope" action={<a className="berry-button berry-button--secondary" href={safeHref(developments.briefing_href)}>Open full scoped Briefing</a>}>Missing captured news does not establish an absence of developments. The applied scope has not been broadened.</EmptyState>}
+          : developments && <EmptyState compact title="No retained news matches this subject and scope" action={<Link className="berry-button berry-button--secondary" to={investigationHref('/app/briefing', context)}>Open scoped Briefing</Link>}>Missing captured news does not establish an absence of developments. The applied scope has not been broadened.</EmptyState>}
     {developments?.briefing_scope_note && <p className="berry-scope-note berry-developments-note">{developments.briefing_scope_note}</p>}
   </section>;
 }

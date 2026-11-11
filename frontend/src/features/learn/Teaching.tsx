@@ -107,7 +107,7 @@ function Cane({ secondYear, fruit }: { secondYear?: boolean; fruit: boolean }) {
 }
 
 /** Existing authored cane-year teaching behavior; the explanation is not a crop score. */
-export function CaneCalendar() {
+export function CaneCalendar({ sourceLink }: { sourceLink?: ReactNode } = {}) {
   const [primocane, setPrimocane] = useState(false);
   return <section className="berry-learn-teaching berry-learn-cane"><p className="berry-eyebrow">Illustrative teaching diagram</p><h2>Follow the cane, then the fruit.</h2>
     <div role="group" aria-label="Fruiting habit"><button type="button" aria-pressed={!primocane} onClick={() => setPrimocane(false)}>Floricane-fruiting</button><button type="button" aria-pressed={primocane} onClick={() => setPrimocane(true)}>Primocane-fruiting</button></div>
@@ -115,6 +115,6 @@ export function CaneCalendar() {
     <div className="berry-learn-cane-stages"><article><span>Year 1</span><Cane fruit={primocane}/><h3>Primocane</h3><p>{primocane ? 'May fruit on first-year canes' : 'First-year growth'}</p></article><span aria-hidden="true">→</span><article><span>Year 2</span><Cane secondYear fruit/><h3>Floricane</h3><p>{primocane ? 'A second crop depends on pruning and region' : 'Second-year fruiting'}</p></article></div>
     <p>A cane is a primocane in year one and a floricane in year two. Fruiting habit and pruning determine whether it carries fruit in either year. The crown produces new canes as old ones finish.</p>
     <details><summary>Check your understanding: does “primocane” mean sweeter fruit?</summary><p>No. It names a cane’s first year of growth. A “primocane-fruiting” variety can fruit in that year; it is not a sweetness or quality grade.</p></details>
-    <small>Illustration by Berry Intelligence from this lesson’s cited extension guides; schematic, not to scale. Raspberry and blackberry only. Blueberry does not follow this two-year cane calendar. <a href="#learning-sources">See sources</a>.</small>
+    <small>Illustration by Berry Intelligence from this lesson’s cited extension guides; schematic, not to scale. Raspberry and blackberry only. Blueberry does not follow this two-year cane calendar. {sourceLink ?? <a href="#learning-sources">See sources</a>}.</small>
   </section>;
 }

@@ -15,6 +15,9 @@ const artifactDir = path.join(root, 'artifacts/experience-consolidation/v1');
 const port = Number(process.env.BERRY_REHEARSAL_PORT || 18992);
 if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('Use a valid explicit rehearsal port');
 const base = `http://127.0.0.1:${port}`;
+const rehearsalInbox = path.resolve(root, process.env.BERRY_REHEARSAL_INBOX || 'inbox/experience-rehearsal');
+const inboxRelative = path.relative(root, rehearsalInbox);
+if (inboxRelative.startsWith('..') || path.isAbsolute(inboxRelative)) throw new Error('Keep the rehearsal inbox inside the isolated checkout');
 const copilotEnabled = process.env.BERRY_REHEARSAL_COPILOT === '1';
 const runtimePort = Number(process.env.BERRY_REHEARSAL_RUNTIME_PORT || 18228);
 if (!Number.isInteger(runtimePort) || runtimePort < 1024 || runtimePort > 65535) throw new Error('Use a valid explicit runtime port');
@@ -118,7 +121,7 @@ async function initialize(command) {
     '--host', '127.0.0.1', '--port', String(port), '--log-level', 'warning', '--lifespan', 'off'], {
     cwd: root, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
     env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1', BIOS_MODE: 'authoring',
-      BIOS_DATA_DIR: path.join(root, 'data'), BIOS_INBOX_DIR: path.join(root, 'inbox', 'experience-rehearsal'),
+      BIOS_DATA_DIR: path.join(root, 'data'), BIOS_INBOX_DIR: rehearsalInbox,
       BIOS_REMOTE_INTERACTIVE: 'true', BIOS_REVIEW_USERNAME: username,
       BIOS_REVIEW_PASSWORD: password, BIOS_SESSION_SECRET: signingSecret,
       BIOS_COPILOT_RUNTIME_URL: copilotEnabled ? `http://127.0.0.1:${runtimePort}/copilot` : '',
@@ -195,6 +198,21 @@ async function operate(command) {
       const { runGridRehearsal } = await import(moduleURL.href);
       return runGridRehearsal({ baseURL: base, storageState: authenticatedState, browser,
         revision: command.revision || 'working checkout', outputDir: path.join(artifactDir, `grid-rehearsal-${Date.now()}`) });
+    }
+    case 'briefing-rehearse':
+    case 'workspaces-rehearse':
+    case 'learn-rehearse': {
+      if (!browser || !authenticatedState) throw new Error('Initialize the real authenticated browser first');
+      if (copilotEnabled) throw new Error('Native feature rehearsals require an explicitly provider-disabled worker');
+      await context?.close(); context = null; page = null;
+      const feature = command.op.split('-')[0];
+      const names = { briefing: 'runBriefingRehearsal', workspaces: 'runWorkspacesRehearsal', learn: 'runLearnRehearsal' };
+      const { pathToFileURL } = require('node:url');
+      const moduleURL = pathToFileURL(path.join(root, `frontend/e2e/${feature}-rehearsal.mjs`));
+      moduleURL.searchParams.set('revision', String(Date.now()));
+      const run = (await import(moduleURL.href))[names[feature]];
+      return run({ baseURL: base, storageState: authenticatedState, browser,
+        revision: command.revision || 'working checkout', outputDir: path.join(artifactDir, `${feature}-rehearsal-${Date.now()}`) });
     }
     case 'copilot-info': {
       if (!page || !copilotEnabled) throw new Error('Initialize the approved local runtime and browser first');

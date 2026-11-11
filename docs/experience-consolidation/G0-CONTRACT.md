@@ -2,8 +2,9 @@
 
 Implementation branch: `feature/experience-consolidation-20261111`.
 Canonical baseline: `3f159639a85db0dea7e93b2d5c0387efa4eb468f` (#550).
-Integrated canonical: `1ebaab37` (#552), preserving #551 Strategy inputs and the
-subsequent global News expansion. No canonical data or expansion-guide changes.
+Integrated canonical: `7e7bce57` (#555), preserving #551 Strategy inputs, #552
+global News expansion, and #554/#555 translation/noise fixes. No canonical data,
+coverage-matrix or expansion-guide changes.
 The user's current mission starts implementation. Earlier planning-only text in
 the supplied archive describes that document's prior scope. Deployment and live
 provider acceptance remain separate, concrete release steps.

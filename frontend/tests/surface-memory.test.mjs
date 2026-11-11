@@ -43,6 +43,28 @@ test("same-surface loading can defer its viewport without recording a DOM clamp"
   memory.finish({ x: 0, y: 800 });
 });
 
+test("Learn library and related readings start at the correct destination and POP restores each exact entry", () => {
+  const memory = new SurfaceMemory();
+  const library = { path: "/app/learn", key: "library" };
+  const concept = { path: "/app/learn/concept/concept-one", key: "concept" };
+  const related = { path: "/app/learn/concept/concept-two", key: "related" };
+  const lesson = { path: "/app/learn/lesson/lesson-one", key: "lesson" };
+  memory.begin(library, "POP"); memory.finish({ x: 0, y: 920 });
+  assert.equal(memory.begin(concept, "PUSH"), true);
+  assert.deepEqual(memory.pending(concept), { x: 0, y: 0 }); memory.finish({ x: 0, y: 400 });
+  assert.equal(memory.begin(related, "PUSH"), true);
+  assert.deepEqual(memory.pending(related), { x: 0, y: 0 }); memory.finish({ x: 0, y: 300 });
+  memory.begin(concept, "POP"); assert.deepEqual(memory.pending(concept), { x: 0, y: 400 }); memory.finish({ x: 0, y: 400 });
+  memory.begin(library, "POP"); assert.deepEqual(memory.pending(library), { x: 0, y: 920 }); memory.finish({ x: 0, y: 920 });
+  memory.begin(lesson, "PUSH"); assert.deepEqual(memory.pending(lesson), { x: 0, y: 0 }); memory.finish({ x: 0, y: 250 });
+  const libraryReturn = { ...library, key: "newLibrary" };
+  memory.begin(libraryReturn, "PUSH"); assert.deepEqual(memory.pending(libraryReturn), { x: 0, y: 920 });
+  const stored = memory.serialize();
+  assert.doesNotMatch(stored, /concept-one|concept-two|lesson-one/);
+  assert.ok(JSON.parse(stored).surfaces.some(row => row.path === '/app/learn/concept'));
+  assert.ok(JSON.parse(stored).surfaces.some(row => row.path === '/app/learn/lesson'));
+});
+
 test("reload retains bounded coordinate memory without source, context or learning identifiers", () => {
   const memory = new SurfaceMemory();
   const learning = { path: "/app/learn/concept/concept-private-example", key: "learning" };

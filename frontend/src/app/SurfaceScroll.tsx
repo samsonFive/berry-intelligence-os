@@ -33,6 +33,7 @@ export function SurfaceScroll({ children }: { children: ReactNode }) {
     let storageTimer: ReturnType<typeof setTimeout> | undefined;
     let discarded = false;
     let focusSurface = false;
+    const navigationTrigger = document.activeElement;
     const persist = () => {
       if (discarded) return;
       try { sessionStorage.setItem(SURFACE_MEMORY_KEY, memory.serialize()); } catch { /* Memory remains usable without storage. */ }
@@ -58,7 +59,7 @@ export function SurfaceScroll({ children }: { children: ReactNode }) {
         window.scrollTo({ left: target.x, top: target.y, behavior: "instant" });
         memory.finish(currentPoint());
         const focused = document.activeElement;
-        if (focusSurface && (focused === document.body || focused instanceof HTMLElement && focused.closest(".berry-nav")))
+        if (focusSurface && (focused === document.body || focused instanceof HTMLElement && (focused.closest(".berry-nav") || focused === navigationTrigger && focused.matches("a,button"))))
           document.getElementById("investigation-main")?.focus({ preventScroll: true });
         focusSurface = false;
         persist();

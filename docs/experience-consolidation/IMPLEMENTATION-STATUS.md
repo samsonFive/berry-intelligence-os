@@ -1,13 +1,13 @@
 # Experience consolidation implementation
 
 Updated November 11, 2026, Pacific. Presentation: November 12 morning.
-**G1 passed. V1 accepted by the integration lead. G2 and release remain in progress.**
+**G1 passed. V1 accepted. Local G2 accepted; final-head CI and release remain open.**
 
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #552 (`1ebaab37`). Canonical has
-subsequently advanced through #554/#555 (`7e7bce57`); final integration is pending.
+canonical #550 (`3f159639`), now integrated onto #555 (`7e7bce57`), including #551
+Strategy inputs, #552 News expansion and #554/#555 translation/noise fixes.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
 
@@ -83,8 +83,9 @@ Runs overlap and must not be added as unique coverage:
 * Focused integrated Python suite: 114 passed. Windows default temporary-directory
   setup errors cleared with a fresh workspace-owned `--basetemp`.
 * Learning foundation: 27 tests; additional source-date/catalog regressions passed.
-* Frontend: 58 tests before two diagnostic tests joined the normal test glob;
-  both added tests pass separately. Runtime: 12 tests. TypeScript and Vite passed.
+* Final frontend: 80 tests. Runtime: 12 tests. TypeScript and Vite passed.
+  Final copy-only client is `index-5VVPB8ZT.js`, SHA-256
+  `C4B61DA74193DE7A73BE0742291FF1B65060ABCB823F56DCD486C007867BEF16`.
 * Joined offline actual browser/gateway/SDK/runtime/parallel tools/comparison/action
   proof passed with dummy credentials and external provider access blocked.
 * Export: 16 tests. Authenticated 42-page PDF and explicit two-specimen annex
@@ -94,13 +95,17 @@ Runs overlap and must not be added as unique coverage:
 * Configured credential literal scan: no matches in 113 changed source files.
 * Locked dependency hashes are unchanged. Initial SDK-inclusive bundle is about
   3.83 MB / 1.10 MB gzip, recorded as a performance limitation in the debt register.
-* Full Python suite is running; final-head required GitHub checks remain pending.
+* The broad Python run finished with 7,380 passes, 10 skips and one release-package
+  failure. Its missing frontend/runtime build inputs are corrected; all four
+  packaging regressions now pass, including older refs and private-file exclusion.
+  Final-head required GitHub checks remain pending.
 
 ## G2 remaining work
 
 The accepted patterns may now extend to native bounded Briefing reading,
 Workspaces saved-investigation/output entry and existing Learn consumption.
-Their feature owners are implementing those pages in parallel. Existing authored
+All three native pages are source-ready and mounted in the shared shell; combined
+TypeScript passes. Their emitted-build/browser verification is next. Existing authored
 Workspace and Learn research/edit/version workflows remain explicit governed
 compatibility destinations with native return context.
 

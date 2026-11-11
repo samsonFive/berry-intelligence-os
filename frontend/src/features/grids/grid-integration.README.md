@@ -1,7 +1,8 @@
 # Portfolio grid display preferences
 
 Source status: 14 targeted codec/adapter/grid-state checks and TypeScript pass.
-No bundle build or mounted persistence result is claimed by this change.
+Mounted `index-TMvSoonX.js` integration passed all five acceptance groups; see
+`docs/experience-consolidation/acceptance/GRID-LAYOUT-QA.md` for actual proof.
 
 `BerryDataGrid.tsx` uses the Community grid, semantic cultivar row IDs and stable
 company-role column IDs. The identity and comparison-pin columns lead, remain

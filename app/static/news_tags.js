@@ -99,6 +99,8 @@
   function recheck() {post('/classify').then(function () {status.hidden=false; status.textContent='Classifying stored articles…'; deadline=undefined; poll();}).catch(function (e) {status.hidden=false; status.textContent=e.message;});}
   var retry=panel.querySelector('[data-retry-tags]');
   if (retry) retry.addEventListener('click', recheck);
-  if (retry && status.dataset.jobStatus==='pending') recheck();
+  // A validated native investigation expansion is a reading action. Keep its
+  // pending tags unchanged until the user explicitly chooses Recheck.
+  if (retry && panel.dataset.autoRecheck !== 'false' && status.dataset.jobStatus==='pending') recheck();
   else if (status.dataset.jobStatus==='running' || status.dataset.jobStatus==='queued') poll();
 }());

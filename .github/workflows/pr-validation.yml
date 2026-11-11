@@ -103,6 +103,47 @@ jobs:
         if: needs.change-scope.outputs.docs-only != 'true'
         working-directory: copilot-runtime
         run: pnpm test
+      - name: Build the web container from committed source
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: docker build --tag berry-experience-web:ci .
+      - name: Build the command container from committed source
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: docker build --file copilot-runtime/Dockerfile --tag berry-experience-command:ci .
+      - name: Check container assets and SDK metadata without external networking
+        if: needs.change-scope.outputs.docs-only != 'true'
+        shell: bash
+        run: |
+          docker run --rm --interactive --network none --entrypoint python \
+            --env BIOS_DATA_DIR=/app/seed/data --env BIOS_INBOX_DIR=/tmp/experience-ci-inbox \
+            berry-experience-web:ci - <<'PY'
+          from pathlib import Path
+          from app import main
+          entry = Path('/app/app/static/investigation/index.html')
+          assert entry.is_file() and 'id="root"' in entry.read_text()
+          assert any(Path('/app/app/static/investigation/assets').glob('*.js'))
+          paths = {getattr(route, 'path', '') for route in main.app.routes}
+          assert {'/app/{surface}', '/app/learn/{kind}/{learning_id}', '/api/investigations/v1/saved'} <= paths
+          print('Web image assets and native routes passed.')
+          PY
+          docker run --rm --interactive --network none --entrypoint node \
+            berry-experience-command:ci --input-type=module - <<'JS'
+          import assert from 'node:assert/strict';
+          import { createGuardedHandler, readConfig } from './server.mjs';
+          const token = 'isolated-container-metadata-test-token-only';
+          const handler = createGuardedHandler(readConfig({
+            BIOS_COPILOT_MODEL: 'perplexity:openai/gpt-5.6-sol',
+            PERPLEXITY_API_KEY: 'offline-metadata-fixture-only',
+            BIOS_COPILOT_RUNTIME_TOKEN: token, BIOS_RESEARCH_CREDIT_FREE_ONLY: 'true',
+          }));
+          const response = await handler(new Request('http://127.0.0.1:8200/copilot', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Berry-Runtime-Token': token },
+            body: JSON.stringify({ method: 'info' }),
+          }));
+          assert.equal(response.status, 200);
+          const body = await response.json();
+          assert.ok(Object.hasOwn(body.agents || body.data?.agents || {}, 'default'));
+          console.log('Command image SDK metadata passed; zero model turns.');
+          JS
 
   repository-integrity:
     name: Repository integrity

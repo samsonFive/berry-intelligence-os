@@ -1,8 +1,9 @@
 # Local continuous investigation rehearsal
 
-11 November 2026. Status: actual local direct-control rehearsal completed;
-manual gate and real Copilot acceptance remain separate. Fixture-only SDK or
-component checks do not pass V1.
+11 November 2026. Current status: root reviewed the fresh actual packet and
+recorded G1/V1 ACCEPTED. See `G1-V1-ACCEPTANCE.md` for exact asset hashes, current
+evidence, real command parity, token receipts and scope limits. The earlier
+packets below remain historical evidence; fixture-only checks do not pass V1.
 
 The complete deterministic packet is
 `artifacts/experience-consolidation/v1/rehearsal-1794433862446/`, mounted against
@@ -37,8 +38,9 @@ diagnostic before a process or provider request started. Its stated reason was
 that another paid workflow after prior attempts could send private investigation
 selectors and spend credits, and the user had not explicitly approved that
 additional retry. No workaround or further provider attempt was made. Explicit
-user approval is required before this additional real diagnostic. Save/reopen
-remains NOT_RUN until the native UI is integrated.
+user approval was subsequently obtained for exactly one additional real
+diagnostic, which succeeded; the accepted receipt above supersedes this prior
+block. Save/reopen remains NOT_RUN until the native UI is integrated.
 
 The root starts one local authenticated server and loads ephemeral session state
 in memory. Import `frontend/e2e/experience-rehearsal.mjs` into that session and call

@@ -2,7 +2,7 @@ import { isNativeSurfacePath } from "../contracts/investigation.ts";
 
 /** Layout memory contains only bounded native paths, opaque history keys and coordinates. */
 export const SURFACE_MEMORY_KEY = "berry:surface-scroll:v1";
-const PATHS = new Set(["/app/landscape", "/app/briefing", "/app/workspaces", "/app/learn"]);
+const PATHS = new Set(["/app/landscape", "/app/briefing", "/app/workspaces", "/app/learn", "/app/learn/concept", "/app/learn/lesson"]);
 const LIMIT = 64;
 export interface ScrollPoint { x: number; y: number }
 interface Entry extends ScrollPoint { path: string; key: string }
@@ -14,12 +14,14 @@ const point = (value: unknown): ScrollPoint | null => {
 };
 const validLocation = ({ path, key }: SurfaceLocation) => PATHS.has(path) && /^[a-zA-Z0-9_-]{1,100}$/.test(key);
 const surfaceLocation = (location: SurfaceLocation): SurfaceLocation | null => isNativeSurfacePath(location.path)
-  ? { path: location.path.startsWith("/app/learn/") ? "/app/learn" : location.path, key: location.key } : null;
+  ? { path: location.path.startsWith("/app/learn/") ? location.path.split("/").slice(0, 4).join("/") : location.path, key: location.key } : null;
 
 export class SurfaceMemory {
   private surfaces = new Map<string, ScrollPoint>();
   private entries = new Map<string, Entry>();
   private active: SurfaceLocation | null = null;
+  // Full destination exists only in this mounted owner; persistence contains fixed buckets.
+  private activeDestination: string | null = null;
   private target: ScrollPoint | null = null;
   private cleared = false;
 
@@ -27,7 +29,7 @@ export class SurfaceMemory {
     try {
       const data = JSON.parse(serialized ?? "null");
       if (data?.v !== 1) return;
-      for (const value of (Array.isArray(data.surfaces) ? data.surfaces : []).slice(-4)) {
+      for (const value of (Array.isArray(data.surfaces) ? data.surfaces : []).slice(-PATHS.size)) {
         const position = point(value);
         if (position && PATHS.has(value.path)) this.surfaces.set(value.path, position);
       }
@@ -41,26 +43,28 @@ export class SurfaceMemory {
   begin(destination: SurfaceLocation, navigation: "POP" | "PUSH" | "REPLACE"): boolean {
     const location = surfaceLocation(destination);
     if (this.cleared || !location || !validLocation(location)) return false;
-    if (this.active?.key === location.key && this.active.path === location.path) return false;
-    const sameSurface = this.active?.path === location.path;
+    if (this.active?.key === location.key && this.active.path === location.path && this.activeDestination === destination.path) return false;
+    const sameDestination = this.activeDestination === destination.path;
+    const reading = location.path === "/app/learn/concept" || location.path === "/app/learn/lesson";
     const entry = this.entries.get(location.key);
     this.active = location;
-    // Direct actions within a surface retain its current viewport; history restores its own entry.
-    this.target = sameSurface && navigation !== "POP" ? null
-      : entry?.path === location.path ? { x: entry.x, y: entry.y }
-        : this.surfaces.get(location.path) ?? { x: 0, y: 0 };
+    this.activeDestination = destination.path;
+    // A new reading starts at its heading; only its exact opaque POP entry restores a position.
+    this.target = sameDestination && navigation !== "POP" ? null
+      : navigation === "POP" && entry?.path === location.path ? { x: entry.x, y: entry.y }
+        : reading ? { x: 0, y: 0 } : this.surfaces.get(location.path) ?? { x: 0, y: 0 };
     if (!this.target) this.record(this.surfaces.get(location.path) ?? { x: 0, y: 0 });
-    return !sameSurface;
+    return !sameDestination;
   }
 
   pending(destination: SurfaceLocation): ScrollPoint | null {
     const location = surfaceLocation(destination);
-    return location && this.active?.key === location.key && this.active.path === location.path ? this.target : null;
+    return location && this.active?.key === location.key && this.active.path === location.path && this.activeDestination === destination.path ? this.target : null;
   }
 
   defer(destination: SurfaceLocation): void {
     const location = surfaceLocation(destination);
-    if (!location || this.cleared || this.target || this.active?.key !== location.key || this.active.path !== location.path) return;
+    if (!location || this.cleared || this.target || this.active?.key !== location.key || this.active.path !== location.path || this.activeDestination !== destination.path) return;
     const position = this.entries.get(location.key) ?? this.surfaces.get(location.path);
     if (position) this.target = { x: position.x, y: position.y };
   }
@@ -85,6 +89,8 @@ export class SurfaceMemory {
   clear(): void {
     this.cleared = true;
     this.target = null;
+    this.active = null;
+    this.activeDestination = null;
     this.surfaces.clear();
     this.entries.clear();
   }

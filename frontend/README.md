@@ -53,8 +53,12 @@ Native surfaces call `useSurfaceReady(ready)` from `src/app/SurfaceScroll.tsx`
 once their data DOM or final empty/error view is committed. The shell restores
 window scroll after that signal and layout, retaining exact Back/Forward entry
 positions and per-surface return positions across reloads. Its bounded session
-memory stores only native surface names, opaque history keys and numeric
-coordinates; session transition/logout clears it with the private query cache.
+memory stores only four native surface names plus two fixed Learn reading-kind
+buckets (`/app/learn/concept`, `/app/learn/lesson`), opaque history keys and numeric
+coordinates. Full Learn destinations exist only in mounted memory: new/related
+readings start at their heading, exact Back/Forward entries restore reading
+positions, and the library retains its separate position. No learning IDs enter
+the persisted layout. Session transition/logout clears it with the private query cache.
 Detail/Reader pane positions remain owned by `DetailHost`.
 
 Source detail references optionally end in `@brief`; bare references select

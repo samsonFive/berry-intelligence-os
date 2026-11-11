@@ -9,8 +9,10 @@ import subprocess
 import tarfile
 import tempfile
 
-DOCKER_PATHS = ("Dockerfile", "app", "schemas", "scripts", "benchmarks", "data",
-                "requirements-web.txt", "docker-entrypoint.sh", "docs/v2/social-source-access.json")
+LEGACY_DOCKER_PATHS = ("Dockerfile", "app", "schemas", "scripts", "benchmarks", "data",
+                       "requirements-web.txt", "docker-entrypoint.sh", "docs/v2/social-source-access.json")
+OPTIONAL_BUILD_PATHS = (".dockerignore", "frontend", "copilot-runtime", "deploy")
+DOCKER_PATHS = (*LEGACY_DOCKER_PATHS, *OPTIONAL_BUILD_PATHS)
 
 
 def package(repo: Path, ref: str, output: Path) -> dict:
@@ -27,13 +29,18 @@ def package(repo: Path, ref: str, output: Path) -> dict:
             meta, name = entry.split(b"\t", 1)
             mode, kind, oid = meta.decode().split()
             tree[name.decode()] = (mode, kind, oid)
+    # Older release commits predate the persistent client/runtime. Keep those
+    # refs packageable while including every new committed build input when it
+    # exists. Never obtain build files, dependencies or secrets from the checkout.
+    archive_paths = [name for name in DOCKER_PATHS if name not in OPTIONAL_BUILD_PATHS
+                     or name in tree or any(path.startswith(name + "/") for path in tree)]
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="berry-release-") as temporary:
         archive = Path(temporary) / "candidate.tar.gz"
         # Git archive applies core.autocrlf even though the input is a commit.
         # Disable it explicitly: a Windows-produced shell script must still be executable on Linux.
         subprocess.run([*git, "-c", "core.autocrlf=false", "archive", "--format=tar.gz",
-                        f"--output={archive}", head, *DOCKER_PATHS], check=True)
+                        f"--output={archive}", head, *archive_paths], check=True)
         verified = 0
         with tarfile.open(archive, "r:gz") as tar:
             for member in tar.getmembers():

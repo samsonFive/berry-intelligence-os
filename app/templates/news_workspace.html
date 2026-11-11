@@ -10,7 +10,7 @@
 <details class="news-filter-disclosure" data-news-filter-disclosure open><summary><b>Filters</b><span>{{ filter_summary|join(' · ') }}</span></summary>
 <form action="/today" method="get" class="digest-filters news-filters">
 <input type="hidden" name="view" value="{{ filters.view }}"><input type="hidden" name="tz" value="{{ filters.tz }}" data-news-timezone>
-<fieldset class="news-tags" data-tags-panel data-can-save="{{ '1' if authoring_mode else '0' }}">
+<fieldset class="news-tags" data-tags-panel data-can-save="{{ '1' if authoring_mode else '0' }}" data-auto-recheck="{{ 'false' if investigation_return_href else 'true' }}">
 <legend class="visually-hidden">Tags</legend><input type="hidden" name="tag" value="" data-tag-empty>
 <div class="news-tags-heading"><b>Tags</b><label class="news-tag-search"><span class="visually-hidden">Find tags</span><input type="search" data-tag-search placeholder="Find tags…" autocomplete="off"></label>
 <label class="news-tag-match"><span>Match</span><select name="tag_mode" data-tag-mode aria-label="Match tags"><option value="all" {% if filters.tag_mode == 'all' %}selected{% endif %}>All selected tags</option><option value="any" {% if filters.tag_mode == 'any' %}selected{% endif %}>Any selected tag</option></select></label>
@@ -45,6 +45,6 @@
 <dialog data-tag-dialog><form method="dialog"><h2>Add tag</h2><label>Name<input name="name" maxlength="80" required autocomplete="off" data-tag-name></label><p data-tag-matches></p><label>Description (optional)<textarea name="description" maxlength="2000"></textarea></label><p role="status" data-tag-create-status></p><button type="submit" class="green-button" data-create-tag>Create tag</button> <button type="submit" formnovalidate>Cancel</button></form></dialog>
 <p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
-{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=3"></script><script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
+{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=4"></script><script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
 
 {% block shared_overlays %}{% include "_news_article_tag_drawer.html" %}{% endblock %}
