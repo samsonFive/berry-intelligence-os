@@ -272,6 +272,16 @@ def refresh_state(inbox_dir: Path):
         return {}
 
 
+def _observe_news_eligibility(prospective, inbox_dir, bundle):
+    main, context, records, entities = world()
+    if Path(main.INBOX_DIR).resolve() != Path(inbox_dir).resolve():
+        raise ValueError("News eligibility must use the collection runtime")
+    selection = news_workspace.model(records=records, entities=entities, relationships=main.all_relationships(),
+        facts=main.all_facts(), state=context["state"], params={})
+    refreshed_ids = {row["id"] for row in bundle.get("records") or []}
+    prospective.observe_news(records[key] for key in selection["matching_ids"] if key in refreshed_ids)
+
+
 def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
     """Reuse the existing bounded public-news collector; disable paid lanes."""
     from app.services.feed_first_live import live_feed_bundle
@@ -280,6 +290,13 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
     result = {"status": "running", "started_at": started.isoformat()}
     route_attempts = []
     error_class = None
+    prospective = None
+    if update_publishers:
+        from app.services.news_prospective import ProspectiveRun
+        try:
+            prospective = ProspectiveRun.from_environment(started)
+        except ValueError as exc:
+            logger.warning("News prospective pilot disabled: %s", exc)
     try:
         with pipeline_lock(inbox_dir, "news_workspace_refresh"):
             atomic_json(refresh_path(inbox_dir), result)
@@ -292,7 +309,8 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
                                       refresh=True, today=utc_today(), official_hosts=context["official_hosts"],
                                       official_host_map=context["official_host_map"], muted_ids=context["muted_entity_ids"],
                                       enrich_lead=False, enable_perplexity=False, enable_exa=False, enable_apitube=False,
-                                      fetch_preview_images=False, translate_live=False)
+                                      fetch_preview_images=False, translate_live=False,
+                                      **({"prospective": prospective} if prospective is not None else {}))
             errors = bundle.get("lane_errors") or []
             errors = errors + [row for row in coverage if row.get('status') in {'failed', 'partial'}]
             route_attempts = bundle.get("route_attempts") or []
@@ -300,6 +318,12 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
             # must not hold the news view behind additional publisher requests.
             result.update(status="partial" if errors else "ready", story_count=len(bundle.get("records") or []),
                           error_count=len(errors), message="Some sources could not be checked." if errors else "News capture completed.")
+            if prospective is not None:
+                try:
+                    _observe_news_eligibility(prospective, inbox_dir, bundle)
+                except Exception as exc:
+                    prospective.projection_status = f"failed:{type(exc).__name__}"
+                    logger.warning("News prospective eligibility failed: %s", type(exc).__name__)
     except Exception as exc:
         # Provider details and exception traces belong in operations, never UI.
         error_class = type(exc).__name__
@@ -323,6 +347,12 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
         "route_attempts": route_attempts,
         "error_class": error_class,
     })
+    if prospective is not None:
+        try:
+            prospective.save(inbox_dir, completed_at=result["completed_at"], status=result["status"],
+                             route_attempts=route_attempts)
+        except Exception as exc:
+            logger.warning("News prospective receipt failed: %s", type(exc).__name__)
 
 
 @router.post("/api/news/refresh")
