@@ -248,6 +248,9 @@ def is_analyst_english(text: str) -> bool:
         return True
     cjk = len(_CJK_RE.findall(sample))
     latin = len(re.findall(r"[A-Za-z]", sample))
+    arabic = len(re.findall(r'[\u0621-\u064a\u066e-\u06d3]',sample))
+    if arabic >= 4 and arabic > latin:
+        return False
     if cjk >= 8 and cjk > latin:
         return False
     if cjk >= 4 and latin == 0:
