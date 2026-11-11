@@ -1,8 +1,10 @@
 # Brand/packaging social-media candidate — November 11, 2026
 
-An isolated retained-first media integration scans the existing 205-post
-SociaVault batch without provider requests. It creates 16 attachment references,
-15 matched to historically verified exact Driscoll's/Fall Creek account paths.
+After explicit user approval, an isolated private snapshot of 631 retained
+social records was copied without provider requests or production writes. The
+two-company media pass skips 249 expired records and creates 18 image/thumbnail
+references, 15 matched to historically verified exact Driscoll's/Fall Creek
+account paths. A repeat creates zero records; the source snapshot is unchanged.
 There are zero classified/display-eligible packaging images and zero acquired
 logos in this run. Rights, permitted local bytes, image-content inspection,
 source retention and stable new-app integration remain open. This is not a

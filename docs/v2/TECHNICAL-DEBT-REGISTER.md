@@ -3994,7 +3994,9 @@ November 11 retained News source links: the stored Greek strawberry story contai
 
 
 TD-BRAND-MEDIA-001 (November 11, 2026): Retained social references are not a
-display-ready packaging cohort. The isolated shared media candidate has 16
+display-ready packaging cohort. The approved private production snapshot has
+631 live records and 396 reference-only attachments; no stored objects. Its
+two-company shared media pass skips 249 expired records and has 18
 unclassified references, 15 exact historical official-account matches and zero
 display-eligible images. Usage qualification, image inspection, permitted bytes,
 unexpired source/deletion refresh and fresh provider allowance remain open.

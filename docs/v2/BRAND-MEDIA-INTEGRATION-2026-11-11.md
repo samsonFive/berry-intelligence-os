@@ -28,19 +28,38 @@ zero stored objects. Stored availability is an ingestion flag, not a current
 source-availability check. The production ledger's October 21 balance of 5,958
 is historical, not fresh allowance verification. No provider request was made.
 
-Automatic approval review rejected exporting the production SQLite into the
-local preview because its account/post/media metadata requires explicit human
-export authorization. No export or workaround occurred. The user was asked
-whether to authorize a private isolated copy; existing local records remain the
-implementation/proof source unless that authorization is supplied.
+Automatic approval review initially rejected exporting the production SQLite
+because its account/post/media metadata required explicit human export
+authorization. The user subsequently answered **"Approve the private snapshot
+copy"**. The approved copy succeeded November 11 at 2:29 PM Los Angeles through
+the existing SSH connection: a read-only SQLite source was backed up in memory
+and streamed directly into the isolated, gitignored local inbox. No remote
+temporary file, production write, provider request or media-object copy occurred.
 
-The retained operator-funded SociaVault batch has 205 unique real posts and
+The 3,502,080-byte private snapshot passed SQLite integrity checking and contains
+695 rows: the 631 live records / 396 references reported above and 64 fixture
+rows excluded from real reuse. Of the live records, 382 remain unexpired and
+249 are expired; 221 media references remain within source retention. Its SHA256 and copy scope
+are retained in `inbox/brand-media-production-retained-preview/snapshot-receipt.json`.
+Retained-first reuse scanned all 631 records with a 1,000-record bound for the
+same two-company cohort. It skipped 249 expired records, created 18 unclassified
+image/thumbnail mappings (15 exact account matches, three proposed links), and
+excluded one video reference from image intake. A second pass reused all 18 and
+created zero records. The source snapshot hash remained unchanged. Zero assets
+are display eligible; no publication/collection dates or permissions were reset.
+The private two-pass proof is `reuse-receipt.json` beside the copy receipt.
+
+The user also chose to identify an existing media-use policy. Its name/link/file
+and asset/display/storage/export scope are still pending. That choice does not
+grant an unspecified policy or alter image permissions; all usage holds remain.
+
+The earlier locally retained operator-funded SociaVault batch has 205 unique real posts and
 118 media references: 74 images, 43 thumbnails, one video. None has stored bytes.
 The source says: “Operator-funded public-source reference; no rehosting or
 redistribution rights inferred.” Historical account/credit receipts are not fresh
 entitlement evidence for another metered request. No calls were made.
 
-The local proof uses an isolated SQLite backup of that retained batch; it does
+The earlier browser proof uses an isolated SQLite backup of that retained batch; it does
 not reingest duplicate posts or create another production collection pipeline.
 Original publication/collection dates and IDs remain unchanged. Refresh scans
 205 posts, creates 16 attachment mappings and matches 15 to the historically

@@ -82,14 +82,25 @@ images, 124 thumbnails and five video references. All have stored state
 `available`; this is the retained ingestion state, not a fresh HTTP availability
 or rights check. No media bytes were fetched or exported by this inspection.
 
-A proposed full SQLite metadata copy into the isolated local preview was
-rejected by automatic approval review before execution. The stated reason was
-that full production social/account/post/media metadata export was broader
-than the user's read-only inspection authorization. No database or partial
-payload export occurred, and no workaround was attempted. Existing local
-retained records remain usable for implementation and proof. Exporting the
-production database would require explicit user authorization for that data
-and destination; the completed safe aggregate inspection does not grant it.
+Automatic approval review initially rejected the proposed SQLite copy because
+production account/post/media metadata export was broader than the read-only
+inspection authorization. No workaround was attempted. The user then explicitly
+answered **"Approve the private snapshot copy"** for the isolated gitignored
+inbox. The approved copy succeeded November 11 at 2:29 PM Los Angeles using a
+read-only SQLite source, an in-memory backup and captured binary transport.
+No remote files were written and no provider was called.
+
+The verified private snapshot contains 631 live records and 396 references,
+with zero stored live media objects; 64 fixture rows are excluded from real
+reuse. Of the live records, 382 remain unexpired and 249 have expired; 221 media
+references remain within source retention. SQLite integrity passed. Copy/hash receipts are
+under `inbox/brand-media-production-retained-preview/` and remain gitignored.
+Two-company reuse scanned all 631 records, skipped 249 expired records and
+registered 18 image/thumbnail references: 15 exact historical official-account
+matches and three proposed links. It excluded one video reference. The repeat
+created zero records and the copied database hash remained unchanged. All 18
+remain unclassified and display-ineligible. The user will identify an existing
+media-use policy; none has been applied without its actual terms and scope.
 
 The retained initial funded SociaVault SQLite has **205 unique live records**:
 Facebook 6, Instagram 40, LinkedIn 38, Reddit 53 and X 68. These include noise and
