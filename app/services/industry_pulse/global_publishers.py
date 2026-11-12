@@ -22,6 +22,8 @@ DIRECT = (
  ('agrarheute','agrarheute','agrarheute.com','europe','de-DE','DE','de','https://www.agrarheute.com/news.xml'),
  ('canada-food-en','Canadian Food Inspection Agency','recalls-rappels.canada.ca','americas','en-CA','CA','en','https://recalls-rappels.canada.ca/en/feed/cfia-alerts-recalls'),
  ('canada-food-fr','Agence canadienne d’inspection des aliments','recalls-rappels.canada.ca','americas','fr-CA','CA','fr','https://recalls-rappels.canada.ca/fr/fil-de-nouvelles/acia-rappels-avis-securite'),
+ ('serbia-stips','Serbia STIPS agriculture market information','stips.minpolj.gov.rs','europe','sr-RS','RS','sr','https://www.stips.minpolj.gov.rs/srl/taxonomy/term/6/feed'),
+ ('france-food','France RappelConso','rappel.conso.gouv.fr','europe','fr-FR','FR','fr','https://rappel.conso.gouv.fr/rss?categorie=01'),
 )
 
 INDEXED = (
@@ -54,7 +56,13 @@ def expanded_publisher_feeds():
             rows.append(dict(id=f'feed:priority:{key}:{"rss" if route=="direct_rss" else "indexed"}',
                 label=label,host=host,geography=geo,hl=hl,gl=gl,ceid=f'{gl}:{language}',
                 adapter='article_rss' if route=='direct_rss' else 'news_search_rss',route=route,
-                source_type='government_document' if key.startswith('canada-food-') else 'trade_press' if key in {'la-terre','agrarheute','agronegocios'} else 'news_search',feed_url=target))
+                source_type='government_document' if key.startswith('canada-food-') or key in {'serbia-stips','france-food'} else 'trade_press' if key in {'la-terre','agrarheute','agronegocios'} else 'news_search',feed_url=target))
             if key in {'hespress-ar','hespress-fr','rnz'}:
                 rows[-1]['access_note']='Direct feed blocked during verification; indexed metadata only. No access bypass.'
+            if key == 'serbia-stips':
+                rows[-1]['access_note']='Latest ten Agroinfo entries include attributed reporting; ministry hosting does not establish that every claim is a primary administrative record. Serbian original retained when no local translation model is available.'
+            if key == 'france-food':
+                rows[-1]['access_note']='Official food-category RSS, latest 20 notices. Shallow window; earlier notices require archive review. French mûre alone is ambiguous and does not assign blackberry.'
+    from app.services.industry_pulse.public_record_feeds import FSA_FEED
+    rows.append(dict(FSA_FEED))
     return rows

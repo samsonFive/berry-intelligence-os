@@ -1,4 +1,9 @@
-# Brand/packaging social-media candidate — November 11, 2026
+# Historical brand/packaging social-media checkpoint — November 11, 2026
+
+The following is the initial two-company audit. The bounded 20-entity expansion
+is recorded in the November 11 Pacific / November 12 UTC follow-up appended
+below; its 47-reference local preview is distinct from the original five live
+references.
 
 The user subsequently requested immediate image display. The isolated preview
 now visibly renders two official company logos and three visually inspected
@@ -1729,3 +1734,48 @@ November 11 material-event recovery: shared source-metadata screens now recogniz
 
 
 November 11 retained News source links: the stored Greek strawberry story contained both FreshPlaza and HortiDaily URLs, but the read-only metadata preview omitted discovery_urls. Preserve bounded link metadata, expose safe distinct additional URLs with an explicit independence limitation, and retain grouped URLs across refreshes without discarding raw tracking provenance. This restores access to consumed source metadata; it is not new discovery or independent recall credit. Original-body and archive acquisition remain open. See NEWS-RETAINED-SOURCE-LINKS-2026-11-11.md.
+
+November 12 public-record/local-language News expansion: three direct official routes (Serbia STIPS, France RappelConso and free UK FSA JSON) bring the rotating priority panel to 51. Original UK product details identify berries behind opaque headlines; Serbian Latin/Cyrillic and unambiguous Vietnamese crop/industry wording survive shared collection and News screens. Current STIPS and historical UK controls pass; France currently has zero eligible berry items. Two new regional queries retain the same per-refresh cap. Five unproductive indexed candidates and the stale 2023 SENASA feed remain inactive. Unsupported English translation, archives, primary-body retrieval and independent pilot recall remain open. See NEWS-PUBLIC-RECORD-LANGUAGES-2026-11-12.md.
+
+
+November 12 primary-document recovery: normal article intake v5 preserves bounded selectable-PDF text with original page locators and explicit partial status, main-article statistical tables, and GOV.UK first-publication metadata. Two previously failed PDF controls now yield text; the DEFRA raspberry table survives acquisition. Spanish plural trade, season and world-congress metadata controls also survive shared relevance. Original failures and historical dates remain auditable; none of this is independent pilot recall credit. Source-body discovery, archives, scans, unsupported translations and blocked AP/date-conflicted FDA cases remain open. See NEWS-PRIMARY-DOCUMENT-RECOVERY-2026-11-12.md.
+
+### November 11 Pacific / November 12 UTC — bounded brand/packaging expansion
+
+The original five official image references remain live. The isolated current
+cohort investigates 20 existing companies/consumer brands and prepares 47
+source-backed references across 19 entities for local preview: 17 full official
+logos, one labelled Fruitist app-icon fallback, 28 packaging images and one
+official packaging rendering. Packaging covers 13 entities and all four berries
+where product-page evidence supports participation. This is a retail-focused
+current-record selection, not a ranked Top 20, complete retailer coverage or a
+claim of current inventory. No canonical crop/role/identity or trusted Evidence
+was added or promoted.
+
+Logo targets: 20 attempted, 18 matched/display-eligible (including the icon),
+one review-needed Angus company-logo gap and one unavailable Well-Pict source.
+Retail-packaging targets: 19 attempted, 13 matched/display-eligible entities
+with 29 references, five review-needed gaps and one unavailable; Fall Creek is
+logo-only/not applicable. Good Natured keeps its own publisher/brand credit and
+historical seasonal-pack status; its logo is not used for Angus. Missing assets
+remain omitted from the main galleries.
+
+The retained-first scan covers all 20 exact IDs. At 02:07 UTC November 12, the
+approved unchanged social snapshot has 631 real rows, 448 expired/183 unexpired,
+104 unexpired reference attachments and zero stored objects; 64 fixtures are
+excluded. Only two unexpired image references have the original exact official
+account match, both Fall Creek and unclassified. The older two-company figures
+above are historical. New official-site account links establish mapping leads,
+not successful provider retrieval or collection activation. The retained-social
+packaging end-to-end case remains unproven.
+
+The 47-row additive local proof preserves existing rows and creates zero on
+repeat; an authenticated local app uses the fresh index. All rows retain
+operator-requested reference display with no verified-license, cache or export
+grant. Public source checks used no provider API or incremental spending; no
+image objects were cached. Focused checks passed 228 tests, followed by 59
+seed/template checks. Final-head CI, complete expanded browser/recording proof,
+the coordinated new experience integration and any later live activation remain
+separate gates. No source-recall or rights maturity upgrade is inferred. See
+[initial cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
+[integration checkpoint](BRAND-MEDIA-INTEGRATION-2026-11-11.md).

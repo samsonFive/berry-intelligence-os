@@ -1,5 +1,6 @@
 """Shared gallery presentation keeps source classes and empty states honest."""
 from pathlib import Path
+import json
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -98,3 +99,67 @@ def test_unclassified_official_images_use_official_gallery_without_packaging_cla
     assert 'Official imagery' in page and 'company-test-official-imagery' in page
     assert 'Official blueberry product tile' in page and 'Required photographer credit' in page
     assert 'Retail Packaging' not in page and 'Social imagery' not in page
+
+
+def test_white_wordmark_matte_preserves_original_url_in_identity_and_inspection():
+    from lxml import html
+
+    original = 'https://images.example.org/white-wordmark.svg?version=2&variant=original'
+    value = asset(image_url=original, kind_label='Official wordmark', background='dark')
+    env = Environment(loader=FileSystemLoader(ROOT / 'app/templates'), autoescape=select_autoescape())
+    template = env.from_string("{% from '_brand_media.html' import logo, gallery %}{{ logo(asset, 'Example brand') }}{{ gallery([asset], 'Official imagery') }}")
+    document = html.fromstring(template.render(asset=value))
+
+    assert document.xpath('//figure[contains(@class,"brand-identity-logo")]/img/@data-brand-background') == ['dark']
+    assert document.xpath('//a[@data-brand-expand]/@data-brand-background') == ['dark']
+    assert document.xpath('//div[contains(@class,"brand-media-inspector-image")]/@data-brand-background') == ['dark']
+    assert document.xpath('//img/@src') == [original, original, original]
+    assert document.xpath('//a[@data-brand-expand]/@href') == [original]
+    assert not document.xpath('//img/@style')  # Contrast is a matte; no inline pixel/color transform.
+
+
+def test_legacy_logo_without_matte_metadata_retains_light_default():
+    from lxml import html
+
+    env = Environment(loader=FileSystemLoader(ROOT / 'app/templates'), autoescape=select_autoescape())
+    template = env.from_string("{% from '_brand_media.html' import logo %}{{ logo(asset, 'Example brand') }}")
+    document = html.fromstring(template.render(asset=asset()))
+    assert document.xpath('//img/@data-brand-background') == ['light']
+
+
+def test_dark_wordmark_matte_is_scoped_above_company_identity_defaults():
+    import re
+
+    stylesheet = (ROOT / 'app/static/brand_media.css').read_text(encoding='utf-8')
+    stylesheet = re.sub(r'/\*.*?\*/', '', stylesheet, flags=re.DOTALL)
+    rules = re.findall(r'([^{}]+)\{([^{}]+)\}', stylesheet)
+    dark_rules = [selectors for selectors, declarations in rules
+                  if re.search(r'background\s*:\s*#243d34\s*;', declarations)]
+    selectors = {selector.strip() for group in dark_rules for selector in group.split(',')}
+    # The bare data attribute loses to .company-identity img/.company-lockup img,
+    # even when brand_media.css loads later. Cover every shared matte surface.
+    assert {
+        '.brand-identity-logo img[data-brand-background="dark"]',
+        '.company-lockup img[data-brand-background="dark"]',
+        '.brand-media-expand[data-brand-background="dark"]',
+        '.brand-media-inspector-image[data-brand-background="dark"]',
+    } <= selectors
+
+
+def test_public_seed_presentation_text_has_no_known_mojibake():
+    seed = json.loads((ROOT / 'data/configuration/brand_media_seed.json').read_text(encoding='utf-8'))
+    rows = seed['assets'].values() if isinstance(seed['assets'], dict) else seed['assets']
+    fields = ('caption', 'attribution', 'publisher', 'source_locator', 'match_basis', 'classification_basis')
+    # Catch corrupt dash/quote and replacement sequences without rejecting real accents.
+    corrupt_sequences = ('\ufffd', '\u00e2\u20ac', '\u00c2\u00ae', '\u00c2\u00a0')
+    for row in rows:
+        for field in fields:
+            value = row.get(field) or ''
+            assert not any(sequence in value for sequence in corrupt_sequences), (row['id'], field)
+
+
+def test_gallery_preserves_legitimate_unicode_caption():
+    caption = '\u00c9t\u00e9 - baies'
+    page = render({'packaging': [asset(caption=caption)], 'observations': []})
+    assert caption in page
+    assert '\ufffd' not in page

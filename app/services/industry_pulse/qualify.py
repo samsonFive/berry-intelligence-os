@@ -65,6 +65,7 @@ _CANNABIS = re.compile(
 _RECIPE_FOOD = re.compile(
     r"\b("
     r"recipe|recipes|receta|recetas|rezept|rezepte|"
+    r"recept|recepti|рецепт|рецепти|công thức|"
     r"recettes?\s+(?:de\s+(?:fraises?|myrtilles?|framboises?|mûres?|gâteaux?|tartes?)|aux?\s+(?:fraises?|myrtilles?|framboises?|mûres?))|"
     r"smoothie|smoothies|dessert|desserts|muffin|muffins|"
     r"pancake|pancakes|yogurt bowl|calories|calorie|superfood|"
@@ -107,7 +108,7 @@ _EVENT_NOISE = re.compile(
 _GARDENING_HOBBY = re.compile(
     r"\b("
     r"care & growing guide|growing guide|houseplant|backyard garden|"
-    r"how to grow .{0,20}in pots"
+    r"how to grow .{0,20}in pots|cách trồng.{0,40}(?:tại nhà|trong chậu)"
     r")\b",
     re.IGNORECASE,
 )
@@ -191,7 +192,8 @@ _RESEARCH_TERMS = re.compile(
 )
 _FOOD_RECALL = re.compile(
     r"\b(food recall|outbreak|pesticide residue|berry recall|recall warning|"
-    r"recalled (?:due to|because of)|rappel sanitaire|rappel de)\b", re.IGNORECASE)
+    r"recalled (?:due to|because of)|allergy alert|undeclared allergens|rappel sanitaire|rappel de|"
+    r"recalls\b.{0,160}\b(?:due to|because|undeclared|allergens?|contamination))\b", re.IGNORECASE)
 
 _UNRELATED_GOV_SUFFIXES = (
     "fda.gov",

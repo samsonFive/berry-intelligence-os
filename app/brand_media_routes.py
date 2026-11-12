@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 HEADERS = {'Cache-Control': 'private, no-store', 'X-Robots-Tag': 'noindex'}
 
 
+def bundled_configuration(name):
+    for data in (ROOT / 'seed/data', ROOT / 'data'):
+        path = data / 'configuration' / name
+        if path.is_file():
+            return path
+    raise FileNotFoundError('Bundled media configuration is unavailable')
+
+
 def context():
     from app import main
     if not main.AUTHORING_MODE:
@@ -60,7 +68,7 @@ def entity_galleries(ids: str):
     models = media.entity_media(main.INBOX_DIR, selected)
     fields = {'id', 'entity_id', 'kind', 'kind_label', 'caption', 'image_url', 'attribution', 'source_page_url',
               'inspection_href', 'published_at', 'historical_status', 'source_kind', 'source_account',
-              'match_basis', 'width', 'height'}
+              'match_basis', 'width', 'height', 'background'}
     def present(asset):
         return {key: value for key, value in asset.items() if key in fields} if asset else None
     result = {}
@@ -94,7 +102,7 @@ async def reuse(request: Request):
     entity = payload.get('entity_id')
     if entity and (not isinstance(entity, str) or entity not in entities):
         raise HTTPException(422, 'Entity not found')
-    accounts = json.loads((ROOT / 'data/configuration/brand_media_accounts.json').read_text(encoding='utf-8'))['accounts']
+    accounts = json.loads(bundled_configuration('brand_media_accounts.json').read_text(encoding='utf-8'))['accounts']
     try:
         with pipeline_lock(main.INBOX_DIR, 'brand_media_reuse'):
             result = media.reuse_social(main.INBOX_DIR, entities, accounts=accounts, entity_ids=[entity] if entity else [])

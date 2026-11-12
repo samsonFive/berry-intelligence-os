@@ -4045,3 +4045,50 @@ social image acquisition and coordinated new-app integration remain open.
 Reference-display requests preserve unresolved policy metadata and do not add
 cache/export grants. The older zero-image counts above describe the social-only
 snapshot, not this working official-site reference display.
+
+November 12 public-record acquisition debt: STIPS summary metadata now resolves an observed Serbian raspberry/blackberry crop miss, and the free FSA adapter preserves structured product names behind opaque recall titles. Three verified direct transports join the existing bounded rotation; this is not archive-complete coverage. RappelConso exposes only 20 current notices, FSA is capped at 100, and STIPS at its ten publisher entries. The 2023 SENASA feed and five zero-yield indexed candidates remain inactive. Fair Work original retrieval, current Latin American records, unsupported Serbian/Vietnamese local English presentation and independent global event/latency denominators remain open. Owners: News collection engineering, News language review and pilot coverage assessment. See NEWS-PUBLIC-RECORD-LANGUAGES-2026-11-12.md.
+
+
+November 12 document-intake debt: PDF-as-HTML failures and removed statistical tables had discarded material public-record content. Acquisition v5 delegates explicit PDFs to the existing bounded parser, retains page locators/partial status and main-article tables, and recognizes GOV.UK first-publication metadata without modified-date substitution. Old acquisition versions and decisions remain preserved; normal URL idempotency is unchanged. Non-suffix PDFs, scans/charts, archive completeness and crop-in-body-only discovery remain open. Spanish plural trade/campaign/congress filtering misses have source-shaped regressions. Owners: News acquisition engineering and source-language review. See NEWS-PRIMARY-DOCUMENT-RECOVERY-2026-11-12.md.
+
+### TD-BRAND-MEDIA-001 — bounded initial-cohort follow-up, November 11 Pacific / November 12 UTC
+
+Still open. The older social-only and five-image preview counts above describe
+their original checkpoints. Five official references are now live; the current
+isolated expansion prepares 47 references across 19 of 20 attempted existing
+entities, not 47 deployed references. It includes 17 full official logos, one
+labelled official Fruitist icon fallback and 29 packaging references (one an
+official rendering). All four berries occur in the supported product set.
+The wider initial-cohort preparation gap has narrowed; source coverage and live
+acceptance are not complete.
+
+Remaining source gaps: Angus has no validated company-logo reference, Well-Pict
+has an unavailable official source, and five retail-facing entities have no
+qualifying selected pack. The retained Google favicon-proxy candidates were
+not called or silently qualified; Good Natured's logo never replaces Angus.
+The full 20-ID retained scan found no hidden acquired-image library. At 02:07
+UTC November 12, 448/631 real social rows are expired; all media remain
+references, with only two unexpired originally verified-account image references
+(Fall Creek, unclassified). Fresh eligible social packaging, deletion/expiry
+refresh and verified allowance before any metered collection remain open.
+
+The additive seed now permits 100 references across at most 20 explicit known
+entities, validates before writes and preserves every existing raw analyst
+selection/rejection/primary image and omitted optional field. The final local
+47-row repeat creates zero rows; no object cache is introduced. Explicit
+reference display keeps formal license/cache/export grants unchanged. Four
+external references are bound to exact publisher-page/image pairs, and a
+light/dark matte preserves original pixels. No provider/API, subscription,
+production collection activation or incremental-spend dependency was added.
+
+Delivery gaps remain: final-head repository CI/full required checks; complete
+expanded image-load, source-inspection, scope/focus and continuous-recording
+proof; coordinated React DetailHost/Compare acceptance; and the existing fresh
+backup, isolated restore/preservation rehearsal and quiesced additive live seed
+procedure. Do not copy the private social DB/index or overwrite live logo
+overrides, and do not use an old code rollback to rewind newer runtime data.
+Focused 228-test and subsequent 59-test seed/template passes are local evidence,
+not these release gates. The real retained-post-to-packaging-image acceptance
+case remains unproven. Owners remain media acquisition/integration and release
+coordination. See [initial cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
+[integration checkpoint](BRAND-MEDIA-INTEGRATION-2026-11-11.md).

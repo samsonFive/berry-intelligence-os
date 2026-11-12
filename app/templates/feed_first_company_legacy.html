@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/berry_os.css">
-<link rel="stylesheet" href="/static/brand_media.css?v=1">
+<link rel="stylesheet" href="/static/brand_media.css?v=3">
 {% endblock %}
 {% block content %}
 {% if authoring_mode and not static_build %}<aside class="lw-entity-material" data-lw-entity-material><a href="/workspaces?entity={{ entity.id if entity is defined else company.id if company is defined else '' }}">Linked workspace evidence and analyst hypotheses</a><div data-lw-entity-items></div></aside>{% endif %}
@@ -343,4 +343,4 @@
 </div>
 <script src="/static/feed_first.js"></script>
 {% endblock %}
-{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=1"></script>{% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=2"></script>{% endblock %}

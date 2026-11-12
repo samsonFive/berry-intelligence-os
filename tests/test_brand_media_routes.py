@@ -210,3 +210,56 @@ def test_directory_shared_logo_credit_and_override_priority_render_without_sourc
     assert row.xpath(f'.//img[@src="{override["url"]}"]')
     assert not row.xpath('.//small[contains(@class,"brand-media-credit")]')
     assert len(calls) == 2  # One bounded shared-media read for each directory request.
+
+
+def test_curated_api_returns_white_wordmark_matte_without_rewriting_source_or_policy(client, tmp_path, monkeypatch):
+    import hashlib
+    import json
+    import httpx
+    import requests
+
+    image_url = 'https://example.org/brand/white-wordmark.svg?version=2&variant=original'
+    page_url = 'https://example.org/brand'
+    key = 'asset-' + hashlib.sha256(f'official:company-test:{page_url}:{image_url}'.encode()).hexdigest()[:24]
+    row = media.Asset(id=key, entity_id='company-test', origin='official_reference',
+        original_image_url=image_url, source_page_url=page_url, source_kind='official', kind='logo',
+        background='dark', match_status='matched', match_basis='Synthetic official-brand test identity',
+        classification_basis='Synthetic white wordmark reference; no real branding claim',
+        attribution='Synthetic brand credit', policy=media.Policy(reference_display_requested=True),
+        updated_at=datetime(2026, 11, 11, 12, tzinfo=UTC)).model_dump(mode='json')
+    path = media.index_path(tmp_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({'version': media.VERSION, 'assets': {key: row}}), encoding='utf-8')
+    before = path.read_bytes()
+
+    def no_network(*args, **kwargs):
+        raise AssertionError('The curated projection must never fetch or alter source image bytes')
+    monkeypatch.setattr(httpx.HTTPTransport, 'handle_request', no_network)
+    monkeypatch.setattr(requests.adapters.HTTPAdapter, 'send', no_network)
+
+    response = client.get('/api/brand-media/entities?ids=company-test')
+    assert response.status_code == 200
+    logo = response.json()['entities']['company-test']['logo']
+    assert logo['background'] == 'dark'
+    assert logo['image_url'] == image_url and logo['source_page_url'] == page_url
+    assert logo['attribution'] == 'Synthetic brand credit'
+    assert 'policy' not in logo and 'object_ref' not in logo
+    assert path.read_bytes() == before
+    assert row['policy']['display'] is False and row['policy']['cache'] is False and row['policy']['export'] is False
+
+
+def test_retained_refresh_reads_the_deployed_seed_configuration_layout(client, tmp_path, monkeypatch):
+    import json
+    image_root = tmp_path / 'image'
+    directory = image_root / 'seed/data/configuration'
+    directory.mkdir(parents=True)
+    (directory / 'brand_media_accounts.json').write_text(json.dumps({'accounts': []}), encoding='utf-8')
+    monkeypatch.setattr(routes, 'ROOT', image_root)
+    called = []
+    def reuse(inbox, entities, *, accounts, entity_ids):
+        called.append((accounts, entity_ids))
+        return {'created': 0}
+    monkeypatch.setattr(media, 'reuse_social', reuse)
+    response = client.post('/api/brand-media/reuse', json={'entity_id': 'company-test'}, headers={'Origin': 'http://testserver'})
+    assert response.status_code == 200, response.text
+    assert called == [([], ['company-test'])]

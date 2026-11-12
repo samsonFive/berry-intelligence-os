@@ -101,7 +101,7 @@ def test_acquisition_indexes_and_hash_include_retained_disclosure(monkeypatch):
     body = acquisition.fetch_article(str(Response.url))
     assert 'Goldenstar ‘FC-123’' in body.full_text
     assert [p.index for p in body.paragraphs] == list(range(len(body.paragraphs)))
-    assert body.as_dict()['acquisition']['version'] == 'article-acquisition-v4'
+    assert body.as_dict()['acquisition']['version'] == 'article-acquisition-v5'
     assert body.word_count == len(body.full_text.split())
     import hashlib
     assert body.content_sha256 == hashlib.sha256(body.full_text.encode()).hexdigest()

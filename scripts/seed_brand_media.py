@@ -32,7 +32,7 @@ def canonical_entities(data):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--inbox', type=Path, required=True, help='Explicit destination inbox; never inferred')
-    parser.add_argument('--data', type=Path, default=ROOT / 'data', help='Canonical data directory (container: /app/seed/data)')
+    parser.add_argument('--data', type=Path, default=ROOT / 'seed/data' if (ROOT / 'seed/data').is_dir() else ROOT / 'data', help='Canonical data directory (container: /app/seed/data)')
     parser.add_argument('--seed', type=Path, help='Defaults to DATA/configuration/brand_media_seed.json')
     parser.add_argument('--apply', action='store_true', help='Create missing rows; application writers must be quiescent')
     args = parser.parse_args(argv)

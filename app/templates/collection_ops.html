@@ -141,7 +141,7 @@
         <tr>
           <td>{{ row.label }}</td>
           <td>{{ {'global': 'Global', 'americas': 'Americas', 'europe': 'Europe', 'africa': 'Africa', 'apac': 'Asia-Pacific'}[row.geography] }}</td>
-          <td>{{ 'Publisher RSS' if row.route == 'direct_rss' else 'Indexed search' }}{% if row.hl %} · {{ row.hl }}{% endif %}</td>
+          <td>{{ 'Publisher RSS' if row.route == 'direct_rss' else 'Official JSON' if row.route == 'direct_json' else 'Indexed search' }}{% if row.hl %} · {{ row.hl }}{% endif %}</td>
           <td>{{ row.last_check[:16]|replace('T', ' ') if row.last_check else '—' }}</td>
           <td>{{ row.last_success[:16]|replace('T', ' ') if row.last_success else '—' }}</td>
           <td>{{ {'returned': 'Returned candidates', 'no_hits': 'Checked, no candidates', 'failed': 'Check failed', 'paused': 'Paused', 'unverified': 'Unverified'}[row.status] }}{% if row.stale %} · Stale{% endif %}</td>

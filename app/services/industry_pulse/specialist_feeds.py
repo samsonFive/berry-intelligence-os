@@ -370,6 +370,9 @@ class SpecialistRssProvider:
                     break
         if feed is None:
             return []
+        if feed.get('adapter') == 'food_alerts_json':
+            from app.services.industry_pulse.public_record_feeds import food_alert_hits
+            return food_alert_hits(query, fetch=self.fetch)
         from app.services.publisher_coverage import cached_articles
         direct = cached_articles(self.coverage_dir, query.id)
         try:
