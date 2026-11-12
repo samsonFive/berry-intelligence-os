@@ -88,3 +88,30 @@ def test_source_reviewed_spanish_trade_congress_and_season_metadata_is_not_hidde
     assert qualify_hit(hit).qualifying
     row=hit_to_record(hit,entities=[],today=date(2026,11,12))
     assert model(records={row['id']:row},entities={},relationships=[],facts=[],state={},params={})['matching_ids']==[row['id']]
+
+
+@pytest.mark.parametrize('title,summary',[
+    ('Full On Flapjacks recalls various Flapjack products because of undeclared allergens',
+     'Raspberry Yoghurt Flapjack; Blueberry Swirl Flapjack. Undeclared allergens: Soya and Wheat (gluten).'),
+    ('Supplier recalls blueberry muffins because of undeclared allergens','Blueberry muffins contain undeclared milk.'),
+    ('FRAMBOISES SURGELEES','Risques : Substances allergisantes non déclarées.'),
+])
+def test_official_recall_verb_inflections_and_allergen_details_survive(title,summary):
+    hit=DiscoveryHit(title=title,snippet=summary,url='https://publisher.example/notice',source_domain='',
+        published_date='2026-10-21',query_id='control',query_text='',geography='global',berry=None,topic=None,
+        provider='specialist_rss',provider_metadata={'publisher_route':'direct_rss'})
+    assert qualify_hit(hit).qualifying
+    row=hit_to_record(hit,entities=[],today=date(2026,11,12))
+    assert model(records={row['id']:row},entities={},relationships=[],facts=[],state={},params={})['matching_ids']==[row['id']]
+
+
+@pytest.mark.parametrize('title',[
+    'Grandmother recalls her blueberry muffin recipe',
+    'BlackBerry recalls QNX devices because of defects',
+    'Supplier recalls carrot products because of undeclared allergens',
+])
+def test_recall_inflections_do_not_override_crop_identity_or_recipe_controls(title):
+    hit=DiscoveryHit(title=title,snippet='',url='https://publisher.example/story',source_domain='',
+        published_date='2026-11-05',query_id='control',query_text='',geography='global',berry=None,topic=None,
+        provider='specialist_rss',provider_metadata={'publisher_route':'direct_rss'})
+    assert not qualify_hit(hit).qualifying

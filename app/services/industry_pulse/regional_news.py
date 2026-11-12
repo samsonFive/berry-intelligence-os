@@ -20,7 +20,7 @@ EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "direct_json", "indexed"})
 ENGLISH_RISKS = (
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
     "water restrictions", "labor dispute", "labour dispute", "labor strike",
-    "recall", "tariff", "drought", "soil fumigation", "fewer chemicals",
+    "recall", "recalls", "recalling", "allergy alert", "undeclared allergens", "tariff", "drought", "soil fumigation", "fewer chemicals",
     "labor hire", "labour hire", "worker underpayments", "wage underpayments",
     "underpaid workers", "minimum wage", "back-payments", "court penalties",
     "worker safety", "labor shortage", "labour shortage", "water rights",
@@ -37,7 +37,8 @@ NATIVE_TOPICS = {
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
            "fermeture de ferme", "sécheresse", "rappel sanitaire", "rappel de", "rappelés", "rappelées",
            "droits de douane", "prix", "rendement", "rendements", "production", "exportations",
-           "main-d’œuvre", "main-d'œuvre", "main-d'oeuvre", "canicule", "irrigation", "gel printanier", "gelées tardives"),
+           "main-d’œuvre", "main-d'œuvre", "main-d'oeuvre", "canicule", "irrigation", "gel printanier", "gelées tardives",
+           "allergènes non déclarés", "substances allergisantes non déclarées"),
     "pt": ("variedade", "melhoramento", "produção", "exportação", "colheita", "cultivo",
            "demissões", "fechamento de fazenda", "seca", "tarifas"),
     "pl": ("odmiana", "odmiany", "hodowla", "uprawa", "eksport", "zbiory", "susza",
