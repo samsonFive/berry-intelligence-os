@@ -144,6 +144,67 @@ jobs:
           assert.ok(Object.hasOwn(body.agents || body.data?.agents || {}, 'default'));
           console.log('Command image SDK metadata passed; zero model turns.');
           JS
+      - name: Package the client and verify its exact image bytes
+        if: needs.change-scope.outputs.docs-only != 'true'
+        shell: bash
+        env:
+          CLIENT_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+          import { createHash } from 'node:crypto';
+          if (!/^[a-f0-9]{40}$/.test(process.env.CLIENT_SOURCE_SHA || '')) throw new Error('Expected the checked-out source SHA.');
+          const source = 'app/static/investigation', output = 'artifacts/experience-client';
+          const files = [];
+          async function collect(relative = '') {
+            for (const entry of await fs.readdir(path.join(source, relative), { withFileTypes: true })) {
+              if (entry.name.startsWith('.') || entry.isSymbolicLink()) throw new Error('Unexpected hidden or linked client entry.');
+              const name = path.posix.join(relative, entry.name);
+              if (entry.isDirectory()) await collect(name);
+              else if (entry.isFile()) {
+                const body = await fs.readFile(path.join(source, name));
+                files.push({ path: name, bytes: body.length, sha256: createHash('sha256').update(body).digest('hex') });
+              } else throw new Error('Expected regular client files.');
+            }
+          }
+          await collect(); files.sort((a, b) => a.path.localeCompare(b.path, 'en'));
+          if (!files.some(row => row.path === 'index.html') || files.length > 2000 || files.reduce((sum, row) => sum + row.bytes, 0) > 64 * 1024 * 1024)
+            throw new Error('Unexpected compiled client size or entry.');
+          await fs.mkdir(path.join(output, 'client'), { recursive: true });
+          for (const row of files) {
+            const target = path.join(output, 'client', row.path);
+            await fs.mkdir(path.dirname(target), { recursive: true });
+            await fs.copyFile(path.join(source, row.path), target);
+          }
+          await fs.writeFile(path.join(output, 'client-manifest.json'), JSON.stringify({ version: 1, source_sha: process.env.CLIENT_SOURCE_SHA, files }, null, 2) + '\n', { flag: 'wx' });
+          JS
+          docker run --rm --interactive --network none --entrypoint python \
+            --volume "$PWD/artifacts/experience-client/client-manifest.json:/tmp/client-manifest.json:ro" \
+            berry-experience-web:ci - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          manifest = json.loads(Path('/tmp/client-manifest.json').read_text())
+          root = Path('/app/app/static/investigation')
+          actual = {file.relative_to(root).as_posix(): file for file in root.rglob('*') if file.is_file()}
+          assert set(actual) == {row['path'] for row in manifest['files']}
+          for row in manifest['files']:
+              body = actual[row['path']].read_bytes()
+              assert len(body) == row['bytes'] and hashlib.sha256(body).hexdigest() == row['sha256']
+          print('Compiled client manifest matches every web-image asset byte.')
+          PY
+          docker image inspect --format '{"image_id":{{json .Id}},"bytes":{{.Size}}}' \
+            berry-experience-command:ci > artifacts/experience-client/runtime-image.json
+      - name: Retain the verified client for the reviewed release
+        if: needs.change-scope.outputs.docs-only != 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: experience-client-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: artifacts/experience-client/
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 6
+          include-hidden-files: false
 
   repository-integrity:
     name: Repository integrity

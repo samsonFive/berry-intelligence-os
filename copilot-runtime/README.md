@@ -82,6 +82,15 @@ authorize another paid attempt.
 
 ## Local release-shaped smoke plan
 
+PR CI retains `experience-client-<source SHA>-<run attempt>` for three days.
+It contains only the compiled `client/`, a versioned `client-manifest.json`
+with every path, byte count and SHA-256, and command-image size metadata.
+CI requires those client bytes to match the independently built web image.
+This permits a reviewed release to copy the verified client without repeating
+the frontend dependency build on a constrained Docker host. Validate the source
+SHA and every manifest entry before use. Existing offline model resources and
+the actual production configuration still require explicit preservation.
+
 This is a prepared plan, not an executed deployment. Docker is unavailable in
 the current Windows tool environment, so image builds, merged Compose validation
 and container health remain unrun. Local source tests/builds do not replace
