@@ -302,9 +302,10 @@ def test_profile_tabs_preserve_backbone_and_shared_reader(tmp_path, monkeypatch)
     assert not list(tmp_path.iterdir())
 
 
-@pytest.mark.parametrize("authoring,static", [(True, False), (False, False), (True, True)])
-def test_company_secondary_research_keeps_destinations_and_public_boundary(tmp_path, monkeypatch, authoring, static):
+@pytest.mark.parametrize("authoring,static,native_return", [(True, False, False), (False, False, False), (True, True, False), (True, False, True)])
+def test_company_secondary_research_keeps_destinations_and_public_boundary(tmp_path, monkeypatch, authoring, static, native_return):
     from html.parser import HTMLParser
+    from urllib.parse import parse_qs, urlencode, urlsplit
 
     class CompanyNavigation(HTMLParser):
         def __init__(self):
@@ -344,8 +345,10 @@ def test_company_secondary_research_keeps_destinations_and_public_boundary(tmp_p
     monkeypatch.setattr(main, 'AUTHORING_MODE', authoring)
     # Render the actual route context, including its authoring/read-only gates.
     from starlette.requests import Request
+    destination = '/app/landscape?ctx_v=1&berry=berry-blueberry&countries=geography-china&lens=comparison'
+    query = {'tab': 'details', **({'return_to': destination} if native_return else {})}
     request = Request({'type': 'http', 'app': main.app, 'method': 'GET', 'scheme': 'http',
-                       'path': '/entities/company/company-planasa', 'query_string': b'tab=details',
+                       'path': '/entities/company/company-planasa', 'query_string': urlencode(query).encode(),
                        'headers': [], 'server': ('fixture.local', 80), 'client': ('127.0.0.1', 1), 'root_path': ''})
     response = main.entity_detail(request, 'company', 'company-planasa')
     assert response.status_code == 200
@@ -355,14 +358,30 @@ def test_company_secondary_research_keeps_destinations_and_public_boundary(tmp_p
     navigation.feed(html)
     if authoring and not static:
         assert navigation.menu is not None and 'open' not in navigation.menu
-        assert navigation.destinations == ['/workspaces?entity=company-planasa', '/social?entity=company-planasa',
-                                           '/landscapes/explorer?countries=&focus=company-planasa']
+        expected_destinations = ['/workspaces?entity=company-planasa', '/social?entity=company-planasa',
+                                 '/landscapes/explorer?countries=&focus=company-planasa']
+        if native_return:
+            for href, expected in zip(navigation.destinations, expected_destinations, strict=True):
+                actual, previous = urlsplit(href), urlsplit(expected)
+                assert actual.path == previous.path
+                parameters = parse_qs(actual.query, keep_blank_values=True)
+                assert parameters.pop('return_to') == [destination]
+                assert parameters == parse_qs(previous.query, keep_blank_values=True)
+        else:
+            assert navigation.destinations == expected_destinations
         assert navigation.workspace_hook and navigation.workspace_items
     else:
         assert navigation.menu is None and not navigation.destinations
         assert not navigation.workspace_hook and not navigation.workspace_items
-    assert navigation.tabs == [('?tab=' + tab, 'page' if tab == 'details' else None)
-                               for tab in ['overview', 'news', 'intelligence', 'varieties', 'regions', 'people', 'details']]
+    tabs = ['overview', 'news', 'intelligence', 'varieties', 'regions', 'people', 'details']
+    if native_return:
+        for (href, current), tab in zip(navigation.tabs, tabs, strict=True):
+            target = urlsplit(href)
+            assert target.path == '/entities/company/company-planasa'
+            assert parse_qs(target.query) == {'tab': [tab], 'return_to': [destination]}
+            assert current == ('page' if tab == 'details' else None)
+    else:
+        assert navigation.tabs == [('?tab=' + tab, 'page' if tab == 'details' else None) for tab in tabs]
     assert not list(tmp_path.iterdir())
 
 

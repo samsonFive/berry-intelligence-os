@@ -102,7 +102,7 @@ def test_default_company_uses_glasshouse_and_dossiers_remain_available():
     dossier = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert "Learner context" in dossier.text
     assert "data-feed-first-company" in dossier.text
-    assert 'href="/learn"' in default.text
+    assert 'href="/app/learn"' in default.text
     legacy = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert "data-feed-first-company" not in legacy.text
 
@@ -111,7 +111,9 @@ def test_feed_nav_restores_full_landscape_and_learner_entry_points():
     client = TestClient(app)
     today = client.get("/today?view=legacy")
     assert 'href="/landscapes"' in today.text
-    assert 'href="/learn"' in today.text
+    assert 'href="/app/landscape"' in today.text
+    assert 'href="/app/learn"' in today.text
+    assert '<a href="/news"><b>News</b>' in today.text
     assert 'href="/landscapes?view=feed"' not in today.text
 
     full = client.get("/landscapes")

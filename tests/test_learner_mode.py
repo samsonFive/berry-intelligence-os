@@ -319,7 +319,7 @@ def test_learn_nav_entry_present():
     client = TestClient(app)
     page = client.get("/learn")
     assert page.status_code == 200
-    assert 'href="/learn"' in page.text
+    assert 'href="/app/learn" aria-current="page">Learn</a>' in page.text
 
 
 def test_learn_deterministic_ordering_across_requests():

@@ -38,8 +38,10 @@ def test_today_uses_the_product_visual_system_briefing_shell() -> None:
     html = page.text
     assert 'class="glass-header"' in html
     assert 'class="v2-sidebar"' not in html
-    assert ">News</a>" in html
-    assert ">Companies</a>" in html
+    for path, label in (("/app/landscape", "Landscape"), ("/app/briefing", "Briefing"), ("/workspaces", "Workspaces"), ("/app/learn", "Learn")):
+        assert f'href="{path}"' in html and f'>{label}</a>' in html
+    assert '<a href="/news"><b>News</b>' in html
+    assert '<a href="/entities/company"><b>Companies</b>' in html
     assert 'href="/briefings"' in html
     assert ">Reports & Briefings</b>" in html
     assert 'href="/monitor"' in html
