@@ -180,7 +180,7 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
     valueGetter: params => isRosterTierHeader(params.data) ? TIER_HEADER_FILTER : params.data
       ? column.colId === 'company.compare' ? pins.includes(params.data.id) ? 'Selected' : 'Not selected' : text.get(params.data.id)?.[column.colId] ?? '' : '',
     cellRenderer: (params: ICellRendererParams<CompanyRosterRow>) => params.data && !isRosterTierHeader(params.data) && <div className="berry-roster-cell">{cells(params.data)[column.colId]}</div>,
-  })), [text, model, context.focus, context.company_set, dispatch, pins.join(','), media, renderNode, renderEdge, blocked, layout.visible]);
+  })), [text, model, context.focus, context.company_set, dispatch, pins.join(','), media, renderNode, renderEdge, blocked]);
   const resetLayout = () => {
     grid.current?.applyColumnState({ state: COMPANY_ROSTER_COLUMNS.map(column => ({ colId: column.colId, width: column.defaultWidth,
       hide: Boolean(column.defaultHidden) && !column.lockedVisible, sort: null, pinned: column.lockedVisible ? 'left' : null })), applyOrder: true });

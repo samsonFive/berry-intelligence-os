@@ -32,7 +32,11 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
   const signature = JSON.stringify(specs);
   const cancelSave = useCallback(() => { clearTimeout(timer.current); timer.current = undefined; }, []);
   const syncVisibility = useCallback(() => {
-    if (api.current && !api.current.isDestroyed()) setVisible(Object.fromEntries(api.current.getColumnState().map(column => [column.colId, !column.hide])));
+    if (api.current && !api.current.isDestroyed()) {
+      const next = Object.fromEntries(api.current.getColumnState().map(column => [column.colId, !column.hide]));
+      setVisible(current => Object.keys(current).length === Object.keys(next).length
+        && Object.entries(next).every(([id, show]) => current[id] === show) ? current : next);
+    }
   }, []);
 
   const applyPending = useCallback(async () => {
