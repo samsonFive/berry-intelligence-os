@@ -58,10 +58,11 @@ def test_retained_shell_has_shared_navigation_search_and_reader(monkeypatch, tmp
     html = page.text
     assert 'class="glass-header"' in html
     assert 'aria-label="Primary"' in html
-    assert ">News</a>" in html
-    assert ">Map Explorer</a>" in html
-    assert "<strong>Learn</strong></a>" in html
-    assert ">Personal Digest</a>" in html
+    for path, label in (("/app/landscape", "Landscape"), ("/app/briefing", "Briefing"), ("/workspaces", "Workspaces"), ("/app/learn", "Learn")):
+        assert f'href="{path}"' in html and f'>{label}</a>' in html
+    assert '<a href="/news"><b>News</b>' in html
+    assert '<a href="/explorer"><b>Map Explorer</b>' in html
+    assert '<a href="/digest"><b>Personal Digest</b>' in html
     assert ">Your workspace</h2>" in html
     assert ">Analysis & action</h2>" in html
     assert ">Workspace support</h2>" in html

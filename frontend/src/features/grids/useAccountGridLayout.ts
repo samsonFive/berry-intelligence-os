@@ -10,7 +10,7 @@ interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: 
 const initial: LayoutStatus = { phase: 'loading', message: 'Loading your saved grid layout…', retainedUnknownColumns: 0 };
 
 /** Account preferences are independent of investigation state and never dispatch it. */
-export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1', persistView = false) {
+export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1', persistView = false, fitDefaultColumns = false) {
   const [status, setStatus] = useState<LayoutStatus>(initial);
   const [quickFilter, setQuickFilter] = useState('');
   const [visible, setVisible] = useState<Record<string, boolean>>({});
@@ -32,7 +32,11 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
   const signature = JSON.stringify(specs);
   const cancelSave = useCallback(() => { clearTimeout(timer.current); timer.current = undefined; }, []);
   const syncVisibility = useCallback(() => {
-    if (api.current && !api.current.isDestroyed()) setVisible(Object.fromEntries(api.current.getColumnState().map(column => [column.colId, !column.hide])));
+    if (api.current && !api.current.isDestroyed()) {
+      const next = Object.fromEntries(api.current.getColumnState().map(column => [column.colId, !column.hide]));
+      setVisible(current => Object.keys(current).length === Object.keys(next).length
+        && Object.entries(next).every(([id, show]) => current[id] === show) ? current : next);
+    }
   }, []);
 
   const applyPending = useCallback(async () => {
@@ -57,12 +61,15 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     // API filter/column events can finish after applyColumnState returns.
     await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
     if (active.current !== generation || loadSerial.current !== attempt || api.current !== grid || grid.isDestroyed()) return;
+    // Fill a new display without replacing an account's recorded column widths.
+    // This is still restoration, so fitting never writes a layout preference.
+    if (fitDefaultColumns && loaded.status === 'default') grid.sizeColumnsToFit();
     restoring.current = false; writable.current = loaded.writable; retained.current = loaded.retainedUnknownColumns;
     setStatus({ phase: loaded.writable ? 'ready' : 'local', retainedUnknownColumns: loaded.retainedUnknownColumns,
       message: loaded.status === 'legacy-unmapped'
         ? 'An earlier layout cannot be matched safely. It remains saved. Showing default columns; changes stay in this tab.'
         : loaded.status === 'restored' ? 'Saved grid layout restored.' : 'Default grid layout. Display changes save automatically.' });
-  }, [syncVisibility, persistView]);
+  }, [syncVisibility, persistView, fitDefaultColumns]);
 
   useEffect(() => {
     const generation = ++active.current;

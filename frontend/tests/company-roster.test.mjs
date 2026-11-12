@@ -36,8 +36,11 @@ test('invalid display enums reject without changing older portfolio snapshots or
 test('roster semantic columns remain stable across company pages and collection starts secondary', async () => {
   const a = await createColumnCatalog(COMPANY_ROSTER_COLUMNS), b = await createColumnCatalog([...COMPANY_ROSTER_COLUMNS]);
   assert.equal(COMPANY_ROSTER_VIEW_KEY, 'berry-company-roster-v1');
-  assert.equal(a.columns.length, 5); assert.deepEqual(a.columns.map(column => column.key), b.columns.map(column => column.key));
-  assert.equal(defaultGridLayout(a).columns.filter(column => !column.hide).length, 4);
+  assert.equal(a.columns.length, 7); assert.deepEqual(a.columns.map(column => column.key), b.columns.map(column => column.key));
+  assert.equal(defaultGridLayout(a).columns.filter(column => !column.hide).length, 6);
+  assert.deepEqual(a.columns.slice(0, 3).map(column => column.colId), ['company.identity', 'company.tier', 'company.compare']);
+  assert.equal(a.columns.filter(column => column.lockedVisible).length, 1, 'only the original identity is frozen');
+  for (const id of ['company.tier', 'company.compare']) assert.equal(a.byId.get(id).restoreAfter, 'company.identity');
   const protectedIdentity = await createColumnCatalog([{ colId: 'company.identity', lockedVisible: true, defaultHidden: true }]);
   assert.equal(defaultGridLayout(protectedIdentity).columns[0].hide, false);
 });

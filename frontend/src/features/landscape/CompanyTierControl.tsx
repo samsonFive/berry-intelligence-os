@@ -35,14 +35,14 @@ export function CompanyTierControl({ company, disabled, saved }: { company: Moni
       else setError(cause instanceof Error ? cause.message : 'The company tier could not be saved.');
     } finally { if (serial.current === attempt) setPending(false); }
   };
-  if (!company.assigned_tier) return <span className="berry-material-caveat">Assigned tier unavailable</span>;
+  if (!company.assigned_tier) return <span>—</span>;
   const legacy = !EDITABLE_COMPANY_TIERS.some(option => option.value === company.assigned_tier);
   return <div className="berry-company-tier" data-assigned-tier={company.assigned_tier}>
-    <label>Tier<select aria-label={`Assigned tier for ${company.label}`} value={draft} disabled={disabled || pending || conflict || ended} onChange={event => setDraft(event.target.value)}>
+    <label><span className="berry-sr-only">Tier</span><select aria-label={`Assigned tier for ${company.label}`} value={draft} disabled={disabled || pending || conflict || ended} onChange={event => setDraft(event.target.value)}>
       {EDITABLE_COMPANY_TIERS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
       {legacy && <option value={company.assigned_tier}>{company.assigned_tier_label} · retained legacy</option>}
     </select></label>
-    <Button size="small" variant="ghost" busy={pending} disabled={disabled || pending || conflict || ended || draft === company.assigned_tier} aria-label={`Save tier for ${company.label}`} onClick={() => void save()}>Save tier</Button>
+    {(draft !== company.assigned_tier || pending) && <Button size="small" variant="ghost" busy={pending} disabled={disabled || pending || conflict || ended} aria-label={`Save tier for ${company.label}`} onClick={() => void save()}>✓</Button>}
     {error && <p className="berry-roster-tier-error" role="alert">{error}</p>}
     {conflict && <Button size="small" variant="ghost" onClick={() => void reload()}>Reload roster</Button>}
   </div>;

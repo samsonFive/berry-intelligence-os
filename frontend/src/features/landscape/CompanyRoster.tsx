@@ -7,23 +7,33 @@ import { legacyHref } from '../../app/legacy';
 import { Button, EmptyState, EntityButton } from '../../components/ui';
 import { hasBlockingIssues, serializeInvestigation, splitIds } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
-import { BrandLogo } from '../brand-media/BrandMedia';
 import { useBrandMedia } from '../brand-media/useBrandMedia';
 import { companyPageSwitchBlocked } from '../grids/company-pages';
 import { isUserLayoutEvent } from '../grids/grid-state';
 import { useAccountGridLayout } from '../grids/useAccountGridLayout';
 import { workspaceGridTheme } from '../grids/workspace-grid-theme';
-import { CompactCollection, CompactGenetics, CompactRoles } from './RosterCompactCells';
+import { CompactCollection, CompactGenetics, CompactGeographies, CompactRoles } from './RosterCompactCells';
 import { CompanyTierControl } from './CompanyTierControl';
+import { CompanyRosterDetails } from './CompanyRosterDetails';
+import type { CompanyRosterDetailsHandle } from './CompanyRosterDetails';
 import { monitoringContext } from './company-set-context';
 import { COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, TIER_HEADER_FILTER, companyRosterText, companyTierBucket, companyTierRows, isRosterTierHeader, orderCompanyTierNodes, rosterTextMatch } from './company-roster-data';
 import type { CompanyRosterRow } from './company-roster-data';
 import type { LandscapeEdge, LandscapeModel, LandscapeNode, MonitoringCompany, MonitoringModel } from './models';
 import { useReadModel } from './useReadModel';
+import { rosterGenetics } from './roster-genetics';
 import '../grids/grid.css';
 import './CompanyRoster.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
+
+// AG Grid treats a new defaultColDef object as a column-definition change.
+// Keep it stable across local Info/dialog renders so cells and tier drafts survive.
+const ROSTER_COLUMN_DEFAULTS: ColDef<CompanyRosterRow> = {
+  sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2,
+    filterOptions: ['contains', 'notContains', 'equals', 'notEqual', 'startsWith', 'endsWith'], textMatcher: rosterTextMatch },
+  cellDataType: false, resizable: true, wrapText: true, autoHeight: true, wrapHeaderText: true, autoHeaderHeight: true,
+};
 
 export interface CompanyRosterProps {
   model: LandscapeModel;
@@ -64,16 +74,17 @@ export function CompanyRoster(props: CompanyRosterProps) {
   return <RosterDisplay {...props} roster={roster} onReady={displayReady} changePage={value => setPage({ key, offset: value })} />;
 }
 
-function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderEdge, renderGeographies }: CompanyRosterProps & {
+function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderEdge }: CompanyRosterProps & {
   roster: MonitoringModel; changePage: (offset: number) => void;
 }) {
   const { context, dispatch } = useInvestigation();
   const media = useBrandMedia(roster.companies.map(company => company.id));
-  const layout = useAccountGridLayout<CompanyRosterRow>(COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, true);
+  const layout = useAccountGridLayout<CompanyRosterRow>(COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, true, true);
   const grid = useRef<GridApi<CompanyRosterRow> | null>(null), columns = useRef<HTMLDetailsElement>(null);
   const [gridMounted, setGridMounted] = useState(false), [cards, setCards] = useState(roster.companies);
   const [cardOrder, setCardOrder] = useState(COMPANY_ROSTER_COLUMNS.map(column => column.colId));
   const [tierReceipt, setTierReceipt] = useState('');
+  const root = useRef<HTMLElement>(null), companyDetails = useRef<CompanyRosterDetailsHandle>(null);
   const rowData = useMemo(() => companyTierRows(roster.companies, roster.tier_groups ?? []), [roster.companies, roster.tier_groups]);
   const tierHeaders = rowData.filter(isRosterTierHeader);
   const pins = splitIds(context.cohort_companies), blocked = companyPageSwitchBlocked(layout.status.phase);
@@ -92,31 +103,40 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
     document.addEventListener('pointerdown', outside); return () => document.removeEventListener('pointerdown', outside);
   }, []);
   const identity = (company: MonitoringCompany) => <div className="berry-roster-company" data-company-id={company.id}>
-    <div className="berry-roster-identity"><BrandLogo asset={media?.[company.id]?.logo} name={company.label} /><EntityButton compact name={company.label} selected={context.focus === company.id}
-      onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} /></div>
-    <Button size="small" variant="ghost" aria-pressed={pins.includes(company.id)} disabled={!pins.includes(company.id) && pins.length >= 5}
-      title={!pins.includes(company.id) && pins.length >= 5 ? 'Remove a comparison pin before adding another; the company roster is uncapped.' : undefined}
-      onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{pins.includes(company.id) ? 'Unpin' : 'Compare +'}</Button>
-    <CompanyTierControl company={company} disabled={blocked} saved={setTierReceipt} />
-    <div className="berry-roster-marks">{company.identity_note && <span className="berry-material-caveat">{company.identity_note}</span>}
-      {!company.in_scope && <span>No standing links in this scope</span>}{context.company_set === 'all' && company.watched && <span>Shared watch</span>}</div>
-    {layout.visible['company.collection'] !== true && <details className="berry-roster-monitoring"><summary>Monitoring details</summary><CompactCollection monitoring={company.monitoring} /></details>}
+    <div className="berry-roster-identity">{media?.[company.id]?.logo && <img className="berry-roster-logo" src={media[company.id].logo!.image_url}
+      data-background={media[company.id].logo!.background ?? 'light'} alt="" width="24" height="24" decoding="async" referrerPolicy="no-referrer" onError={event => { event.currentTarget.hidden = true; }} />}
+      <EntityButton compact name={company.label} selected={context.focus === company.id}
+        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
+      <Button size="small" variant="ghost" className="berry-roster-info" aria-label={`Details for ${company.label}`} data-roster-details-for={company.id}
+        onClick={event => companyDetails.current?.open(company.id, event.currentTarget)}>Info</Button>
+    </div>
   </div>;
+  const comparison = (company: MonitoringCompany) => <input type="checkbox" className="berry-roster-compare" aria-label={`Compare ${company.label}`}
+      checked={pins.includes(company.id)} disabled={!pins.includes(company.id) && pins.length >= 5}
+      title={!pins.includes(company.id) && pins.length >= 5 ? 'Remove a comparison pin before adding another; the company roster is uncapped.' : undefined}
+      onChange={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })} />;
   const cells = (company: MonitoringCompany): Record<string, ReactNode> => ({
     'company.identity': identity(company),
+    'company.tier': <CompanyTierControl company={company} disabled={blocked} saved={setTierReceipt} />,
+    'company.compare': comparison(company),
     'company.genetics': <CompactGenetics id={company.id} model={model} renderNode={renderNode} renderEdge={renderEdge} />,
     'company.roles': <CompactRoles roles={company.roles} berryIds={company.berry_ids} />,
-    'company.geography': renderGeographies(company.geographies),
+    'company.geography': <CompactGeographies geographies={company.geographies} open={id => dispatch({ type: 'openDetail', detail: { type: 'relationship', id }, origin: 'grid' })} />,
     'company.collection': <CompactCollection monitoring={company.monitoring} />,
   });
   const definitions = useMemo<ColDef<CompanyRosterRow>[]>(() => COMPANY_ROSTER_COLUMNS.map(column => ({
     colId: column.colId, headerName: column.label, initialWidth: column.defaultWidth, minWidth: column.minWidth, maxWidth: column.maxWidth,
+    suppressSizeToFit: ['company.tier', 'company.compare'].includes(column.colId),
+    sortable: !['company.tier', 'company.compare'].includes(column.colId),
+    filter: ['company.tier', 'company.compare'].includes(column.colId) ? false : 'agTextColumnFilter',
+    suppressHeaderMenuButton: ['company.tier', 'company.compare'].includes(column.colId),
     pinned: column.lockedVisible ? 'left' : undefined, lockPinned: true, lockVisible: Boolean(column.lockedVisible),
     initialHide: Boolean(column.defaultHidden),
     lockPosition: column.lockedVisible ? 'left' : undefined, suppressMovable: Boolean(column.lockedVisible),
-    valueGetter: params => isRosterTierHeader(params.data) ? TIER_HEADER_FILTER : params.data ? text.get(params.data.id)?.[column.colId] ?? '' : '',
+    valueGetter: params => isRosterTierHeader(params.data) ? TIER_HEADER_FILTER : params.data
+      ? column.colId === 'company.compare' ? pins.includes(params.data.id) ? 'Selected' : 'Not selected' : text.get(params.data.id)?.[column.colId] ?? '' : '',
     cellRenderer: (params: ICellRendererParams<CompanyRosterRow>) => params.data && !isRosterTierHeader(params.data) && <div className="berry-roster-cell">{cells(params.data)[column.colId]}</div>,
-  })), [text, model, context.focus, context.company_set, dispatch, pins.join(','), media, renderNode, renderEdge, renderGeographies, blocked, layout.visible]);
+  })), [text, model, context.focus, context.company_set, dispatch, pins.join(','), media, renderNode, renderEdge, blocked]);
   const resetLayout = () => {
     grid.current?.applyColumnState({ state: COMPANY_ROSTER_COLUMNS.map(column => ({ colId: column.colId, width: column.defaultWidth,
       hide: Boolean(column.defaultHidden) && !column.lockedVisible, sort: null, pinned: column.lockedVisible ? 'left' : null })), applyOrder: true });
@@ -125,7 +145,14 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
   const pages = <nav className="berry-roster-pages" aria-label="Company roster pages"><span aria-live="polite">{roster.companies.length ? `${roster.offset + 1}–${roster.offset + roster.companies.length} of ${roster.total}` : `${roster.total} results · no rows on this page`}</span>
     <Button size="small" variant="ghost" disabled={blocked || roster.offset === 0} onClick={() => changePage(Math.max(0, roster.offset - roster.limit))}>Previous</Button>
     <Button size="small" variant="ghost" disabled={blocked || !roster.has_more || roster.next_offset === null} onClick={() => { if (roster.next_offset !== null) changePage(roster.next_offset); }}>Next</Button></nav>;
-  return <section className="berry-company-roster" aria-label="Company roster">
+  const showLayoutStatus = !['ready', 'saved'].includes(layout.status.phase);
+  const hasCardContent = (company: MonitoringCompany, id: string) => {
+    if (id === 'company.roles') return company.roles.length > 0 || company.berry_ids.length > 0;
+    if (id === 'company.geography') return company.geographies.length > 0;
+    if (id === 'company.genetics') { const genetics = rosterGenetics(model, company.id); return genetics.programs.length > 0 || genetics.varieties.length > 0 || genetics.edges.length > 0; }
+    return id === 'company.collection';
+  };
+  return <section ref={root} tabIndex={-1} className="berry-company-roster" aria-label="Company roster">
     <div className="berry-roster-title"><h2>Company roster</h2>{pages}</div>
     <CompanySearch key={`${context.q}\u0000${context.q_scope}`} disabled={blocked} />
     <div className="berry-roster-tier-summary" aria-label="Tiers across the selected company set">{roster.tier_groups?.map(group => <span key={group.tier}><strong>{group.label}</strong> {group.count}{context.q && <small> · {group.matching_count} search matches</small>}</span>)}</div>
@@ -135,18 +162,21 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
       <span className="berry-roster-row-count">{cards.length} / {roster.companies.length} loaded companies</span>
       <details className="berry-grid-columns" ref={columns} onKeyDown={event => { if (event.key === 'Escape') { columns.current!.open = false; columns.current?.querySelector('summary')?.focus(); } }}><summary>Columns</summary>
         <div className="berry-grid-column-options">{COMPANY_ROSTER_COLUMNS.map(column => <label key={column.colId}><input type="checkbox" checked={layout.visible[column.colId] ?? true} disabled={layout.busy || column.lockedVisible}
-          onChange={event => layout.changeVisibility(column.colId, event.target.checked)} />{column.label}{column.lockedVisible && <small>Frozen identity</small>}</label>)}</div>
+          onChange={event => layout.changeVisibility(column.colId, event.target.checked)} />{column.label}{column.lockedVisible && <small>Frozen identity</small>}</label>)}
+          <Button size="small" variant="ghost" aria-label="Fit columns" disabled={blocked || !gridMounted} onClick={() => {
+            grid.current?.sizeColumnsToFit(); layout.changed(); if (columns.current) columns.current.open = false;
+          }}>Fit columns</Button>
+          <Button size="small" variant="ghost" aria-label="Reload saved layout" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button></div>
       </details><Button size="small" variant="ghost" disabled={blocked} onClick={resetLayout}>Reset layout</Button>
     </div>
-    <div className="berry-grid-layout-status berry-roster-layout-status" data-phase={layout.status.phase}><p role="status">{layout.status.message}</p><Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button></div>
+    <div className="berry-grid-layout-status berry-roster-layout-status" data-phase={layout.status.phase} hidden={!showLayoutStatus}><p role="status">{showLayoutStatus ? layout.status.message : ''}</p></div>
     {!!roster.unavailable_watch_count && <p className="berry-issue">{roster.unavailable_watch_count} shared watched identities are unavailable; no replacement identity has been selected.</p>}
     {tierReceipt && <p className="berry-roster-tier-receipt" role="status">{tierReceipt}</p>}
     <>
       <div className="berry-roster-grid lw-research-grid" hidden={layout.view === 'cards'} aria-busy={layout.busy} inert={layout.busy}>
         <AgGridReact<CompanyRosterRow> theme={workspaceGridTheme} rowData={rowData} columnDefs={definitions} getRowId={params => params.data.id} maintainColumnOrder
-          defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2,
-            filterOptions: ['contains', 'notContains', 'equals', 'notEqual', 'startsWith', 'endsWith'], textMatcher: rosterTextMatch }, cellDataType: false, resizable: true, wrapText: true, autoHeight: true, wrapHeaderText: true, autoHeaderHeight: true }}
-          includeHiddenColumnsInQuickFilter quickFilterText={layout.quickFilter} rowHeight={64} headerHeight={34} animateRows={false}
+          defaultColDef={ROSTER_COLUMN_DEFAULTS}
+          includeHiddenColumnsInQuickFilter quickFilterText={layout.quickFilter} rowHeight={54} headerHeight={34} animateRows={false}
           quickFilterMatcher={(parts, aggregate) => aggregate.includes(TIER_HEADER_FILTER.toUpperCase()) || parts.every(part => aggregate.includes(part))}
           postSortRows={params => { const ordered = orderCompanyTierNodes(params.nodes); params.nodes.splice(0, params.nodes.length, ...ordered); }}
           isFullWidthRow={params => isRosterTierHeader(params.rowNode.data)}
@@ -163,12 +193,18 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
           overlayNoRowsTemplate="No loaded companies match this page filter." />
       </div>
       {layout.view === 'cards' && <div className="berry-roster-card-groups" aria-label="Company roster cards">{tierHeaders.filter(group => cards.some(company => companyTierBucket(company.assigned_tier) === group.tier)).map(group => <section className="berry-roster-tier-cards" key={group.tier} aria-label={group.label}><h3 className="berry-roster-tier-heading">{group.label}<span>{group.count === null ? 'Universe count unavailable' : `${group.count} in company set`} · {cards.filter(company => companyTierBucket(company.assigned_tier) === group.tier).length} shown on this page</span></h3><div className="berry-roster-cards">{cards.filter(company => companyTierBucket(company.assigned_tier) === group.tier).map(company => <article className="berry-roster-card" key={company.id} data-company-id={company.id}>
-        <header>{identity(company)}</header>{cardOrder.flatMap(id => COMPANY_ROSTER_COLUMNS.filter(column => column.colId === id && !column.lockedVisible && layout.visible[id] !== false)).map(column => <section key={column.colId}><h3>{column.label}</h3>{cells(company)[column.colId]}</section>)}
+        <header>{identity(company)}</header><div className="berry-roster-card-selectors">
+          {layout.visible['company.tier'] !== false && <div><span>Tier</span>{cells(company)['company.tier']}</div>}
+          {layout.visible['company.compare'] !== false && <label>Compare{comparison(company)}</label>}
+        </div>{cardOrder.flatMap(id => COMPANY_ROSTER_COLUMNS.filter(column => column.colId === id && !column.lockedVisible
+          && !['company.tier', 'company.compare'].includes(id) && layout.visible[id] !== false && hasCardContent(company, id)))
+          .map(column => <section key={column.colId}><h3>{column.label}</h3>{cells(company)[column.colId]}</section>)}
       </article>)}</div></section>)}</div>}
       {layout.view === 'cards' && !cards.length && <EmptyState compact title="No loaded companies match this page filter">Clear or change the loaded-page filter; the server-wide roster search remains separate.</EmptyState>}
     </>
     {!roster.companies.length && <EmptyState compact title={context.q ? 'No company names or aliases match' : 'No companies are available in this set'}>Change the roster search or company set explicitly. No companies have been substituted.</EmptyState>}
     <details className="berry-roster-explanation"><summary>{roster.universe_count} companies in this set{context.q ? ` · ${roster.matching_count} matches · ${roster.search_basis}` : ''} · Roster basis</summary><p>{roster.scope_note} Comparison is limited to five pins; the roster is not.</p>{roster.tier_basis && <p>{roster.tier_basis}</p>}<p>Genetics follow recorded paths; roles do not transfer. Location-only records do not specify activity or cultivar growing. Unrecorded activity remains unknown. Grid filters and sorting apply only to this loaded company page. Cards use that same filtered and sorted page.</p><a href={legacyHref('/queues/monitoring', '/app/landscape', context)}>Manage shared watches ↗</a></details>
+    <CompanyRosterDetails ref={companyDetails} model={model} companies={roster.companies} media={media} rosterRoot={root} />
   </section>;
 }
 
