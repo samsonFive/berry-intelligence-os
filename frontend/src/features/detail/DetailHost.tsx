@@ -299,7 +299,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
   </SourceLink>;
   const pinKind = selected.type === 'company' || selected.type === 'variety' ? selected.type : null;
   const pinned = pinKind ? splitIds(context[pinKind === 'company' ? 'cohort_companies' : 'cohort_varieties']).includes(selected.id) : false;
-  const compactProfile = selected.type === 'company' || selected.type === 'relationship';
+  const compactProfile = selected.type === 'company' || selected.type === 'relationship' || selected.type === 'variety';
   const profileIdentity = `${selected.type}:${selected.id}`;
   const profileSectionOpen = (section: string, defaultOpen = false) => {
     const key = `${profileIdentity}:${section}`;
@@ -331,7 +331,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       onLostPointerCapture={() => { drag.current = null; }} />}
     <div className="berry-detail-actions"><Button size="small" onClick={() => dispatch({ type: 'closeDetail', origin: 'direct' })}>
         {ancestry.length > 1 ? '← Back to previous detail' : '← Return to investigation'}
-      </Button>{expandHref && <SourceLink href={expandHref}>{selected.type === 'company' ? 'Company profile ↗' : 'Expand ↗'}</SourceLink>}
+      </Button>{expandHref && <SourceLink href={expandHref}>{selected.type === 'company' ? 'Company profile ↗' : selected.type === 'variety' ? 'Cultivar profile ↗' : 'Expand ↗'}</SourceLink>}
         <button type="button" className="berry-icon-button berry-detail-close" aria-label={selected.type === 'source' ? 'Close Reader and all details' : 'Close all details'}
           title="Close all details" onClick={() => dispatch({ type: 'dismissDetails', origin: 'direct' })}>×</button></div>
     <header className="berry-detail-header">
@@ -342,7 +342,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       <p className="berry-eyebrow">{model?.kind_label ?? selected.type}</p>
       <div className="berry-detail-identity"><BrandLogo asset={selected.type === 'company' ? media?.[selected.id]?.logo : null} name={model?.title ?? selected.id} />
       <h2 id="berry-detail-heading" ref={heading} tabIndex={-1}>{model?.title ?? 'Loading selected detail…'}</h2></div>
-      {model?.status && (!compactProfile || materialStatus) && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
+      {model?.status && (!compactProfile || selected.type === 'variety' || materialStatus) && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
       {model?.outside_scope && <div className="berry-outside-scope berry-scope-context"><Preview label="Outside the applied scope"
         className="berry-scope-info" content={<p>Outside the applied scope. Inspection keeps the landscape and developments unchanged.</p>}>
           <span aria-hidden="true">ⓘ</span><span className="berry-sr-only">Outside-scope information</span></Preview>
@@ -360,10 +360,10 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     {model && <>
       {compactProfile ? <>
         {!!model.roles?.length && <p className="berry-profile-roles">{model.roles.map(role => role.replaceAll('_', ' ')).join(' · ')}</p>}
-        <details className={`berry-profile-basis${selected.type === 'company' ? ' berry-profile-overview' : ''}`} key={`${profileIdentity}:basis`}
-          open={profileSectionOpen('basis', selected.type === 'company')} onToggle={event => rememberProfileSection('basis', event.currentTarget.open)}>
+        <details className={`berry-profile-basis${selected.type !== 'relationship' ? ' berry-profile-overview' : ''}`} key={`${profileIdentity}:basis`}
+          open={profileSectionOpen('basis', selected.type !== 'relationship')} onToggle={event => rememberProfileSection('basis', event.currentTarget.open)}>
           <summary>Profile info</summary>{model.summary && <p>{model.summary}</p>}
-          {selected.type === 'company' ? <details className="berry-profile-basis berry-profile-context" key={`${profileIdentity}:context`}
+          {selected.type !== 'relationship' ? <details className="berry-profile-basis berry-profile-context" key={`${profileIdentity}:context`}
             open={profileSectionOpen('context')} onToggle={event => rememberProfileSection('context', event.currentTarget.open)}>
             <summary>Context</summary>{model.scope_note && <p>{model.scope_note}</p>}{model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}
           </details> : <>{model.scope_note && <p>{model.scope_note}</p>}{model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}</>}
@@ -415,7 +415,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       </section>}
       {selected.type === 'company' && <SourceLink className="berry-profile-catalog" href={`/entities/variety?${new URLSearchParams({ berry: '', return_to: investigationHref('/app/landscape', context) })}`}>Full cultivar catalog ↗</SourceLink>}
       {compactProfile ? <ProfileSheet key={profileIdentity} sections={model.sections} sources={model.sources} open={open} renderSource={source}
-        expansions={profileExpansions.current} scrollPositions={profileScroll.current} identity={profileIdentity} /> : model.sections.map((section, index) => section.items.length > 0 && <section className="berry-detail-section" key={`${section.title}-${index}`}>
+        expansions={profileExpansions.current} scrollPositions={profileScroll.current} identity={profileIdentity} cultivar={selected.type === 'variety'} /> : model.sections.map((section, index) => section.items.length > 0 && <section className="berry-detail-section" key={`${section.title}-${index}`}>
         <h3>{section.title}</h3><dl className="berry-definition-list">{section.items.map((item, itemIndex) => <div key={item.id ?? itemIndex}>
           <dt>{item.id && item.type && ['company', 'variety', 'geography', 'relationship', 'source', 'observation'].includes(item.type)
             ? <button type="button" data-detail-trigger={`${item.type}:${item.id}`} onClick={() => open({ type: item.type!, id: item.id! })}>{item.label || 'Inspect record'}</button>

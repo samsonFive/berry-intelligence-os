@@ -47,6 +47,7 @@
 .berry-app .berry-profile-sheet thead th { position: sticky; top: 0; z-index: 2; background: #254b36; color: #fff; text-align: left; font-size: 11px; font-weight: 650; }
 .berry-app .berry-profile-sheet thead th:first-child { width: 47%; }
 .berry-app .berry-profile-sheet thead th:last-child { width: 43px; }
+.berry-app .berry-profile-sheet--observations thead th:first-child { width: 25%; }
 .berry-app .berry-profile-sheet tbody:nth-of-type(even) .berry-profile-record > * { background: #f0f5ef; }
 .berry-app .berry-profile-sheet tbody:hover .berry-profile-record > * { background: #e8f1e5; }
 .berry-app .berry-profile-sheet th[scope='row'] { text-align: left; font-weight: 550; }
