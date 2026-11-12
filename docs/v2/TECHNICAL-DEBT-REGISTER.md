@@ -4016,3 +4016,5 @@ social image acquisition and coordinated new-app integration remain open.
 Reference-display requests preserve unresolved policy metadata and do not add
 cache/export grants. The older zero-image counts above describe the social-only
 snapshot, not this working official-site reference display.
+
+November 12 public-record acquisition debt: STIPS summary metadata now resolves an observed Serbian raspberry/blackberry crop miss, and the free FSA adapter preserves structured product names behind opaque recall titles. Three verified direct transports join the existing bounded rotation; this is not archive-complete coverage. RappelConso exposes only 20 current notices, FSA is capped at 100, and STIPS at its ten publisher entries. The 2023 SENASA feed and five zero-yield indexed candidates remain inactive. Fair Work original retrieval, current Latin American records, unsupported Serbian/Vietnamese local English presentation and independent global event/latency denominators remain open. Owners: News collection engineering, News language review and pilot coverage assessment. See NEWS-PUBLIC-RECORD-LANGUAGES-2026-11-12.md.
