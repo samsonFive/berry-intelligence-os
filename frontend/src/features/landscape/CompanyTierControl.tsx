@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { InvestigationApiError } from '../../api/client';
 import { clearPrivateSession, SESSION_TRANSITION_EVENT } from '../../app/PrivateQueryProvider';
 import { Button } from '../../components/ui';
 import { CompanyTierConflict, EDITABLE_COMPANY_TIERS, saveCompanyTier } from './company-tier';
 import type { MonitoringCompany } from './models';
+import { RosterLayoutBusy } from './roster-layout-context';
 
 /** Tier is the existing analyst mark; saving does not dispatch selector actions. */
-export function CompanyTierControl({ company, disabled, saved }: { company: MonitoringCompany; disabled: boolean; saved: (message: string) => void }) {
+export function CompanyTierControl({ company, disabled: explicitlyDisabled, saved }: { company: MonitoringCompany; disabled: boolean; saved: (message: string) => void }) {
+  const layoutBusy = useContext(RosterLayoutBusy), disabled = explicitlyDisabled || layoutBusy;
   const client = useQueryClient();
   const [draft, setDraft] = useState(company.assigned_tier), [pending, setPending] = useState(false);
   const [error, setError] = useState(''), [conflict, setConflict] = useState(false), [ended, setEnded] = useState(false);

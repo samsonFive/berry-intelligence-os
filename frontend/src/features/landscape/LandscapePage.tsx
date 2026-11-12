@@ -14,9 +14,13 @@ import { useReadModel } from './useReadModel';
 import { developmentsContext } from './developments-context';
 import { landscapeNewsContext } from './company-set-context';
 import { CompanyRoster } from './CompanyRoster';
-import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
+import { mergeConnectionPortraits } from './connection-portraits';
+import { BrandMediaGallery } from '../brand-media/BrandMedia';
+import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
 import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './landscape.css';
+import './connections.css';
+import './landscape-workspace.css';
 import { InvestigationScopeBar } from '../../components/InvestigationScopeBar';
 import { LANDSCAPE_VIEWS as LENSES } from '../../components/WorkspaceChrome';
 
@@ -46,23 +50,23 @@ function EdgeSupport({ edge, sources }: { edge: LandscapeEdge; sources: Map<stri
     <div className="berry-inline-citations">{edge.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: edge.id }} />)}</div></>;
 }
 
-function Relationship({ edge, model, sources }: { edge: LandscapeEdge; model: LandscapeModel; sources: Map<string, SourceMetadata> }) {
+function Relationship({ edge, model, sources, compact = false }: { edge: LandscapeEdge; model: LandscapeModel; sources: Map<string, SourceMetadata>; compact?: boolean }) {
   const { dispatch } = useInvestigation();
-  return <div className="berry-relationship-edge">
+  return <div className={`berry-relationship-edge${compact ? ' berry-connection-compact-edge' : ''}`}>
     <div>
       <span className="berry-relationship-role"><Preview label="Recorded relationship" content={<EdgeSupport edge={edge} sources={sources} />}
         onOpenDetail={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'direct' })}>{edge.role}</Preview></span>
       <div className="berry-explicit-path"><NodeControl node={model.nodes[edge.subject_id]} /><span aria-label="connects to">→</span><NodeControl node={model.nodes[edge.object_id]} /></div>
       {edge.status !== 'active' && <Badge tone={edge.status === 'disputed' ? 'warning' : 'neutral'}>{edge.status_label}</Badge>}
       {edge.caveat && <p className="berry-material-caveat">{edge.caveat}</p>}
-      <div className="berry-inline-citations berry-relationship-evidence">{edge.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: edge.id }} />)}</div>
+      {!compact && <div className="berry-inline-citations berry-relationship-evidence">{edge.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: edge.id }} />)}</div>}
     </div>
   </div>;
 }
 
-function CompanyBand({ portrait, model, sources }: { portrait: Portrait; model: LandscapeModel; sources: Map<string, SourceMetadata> }) {
+function CompanyBand({ portrait, model, sources, companyIds }: { portrait: Portrait; model: LandscapeModel; sources: Map<string, SourceMetadata>; companyIds: string[] }) {
   const { context, dispatch } = useInvestigation();
-  const pinned = splitIds(context.cohort_companies).includes(portrait.actor.id);
+  const pins = splitIds(context.cohort_companies), pinned = pins.includes(portrait.actor.id);
   const edgeOrder = (edge: LandscapeEdge) => {
     const subject = model.nodes[edge.subject_id]; const object = model.nodes[edge.object_id];
     if (edge.subject_id === portrait.actor.id && object?.type === 'breeding_program') return 0;
@@ -81,30 +85,40 @@ function CompanyBand({ portrait, model, sources }: { portrait: Portrait; model: 
       .map(variety => ({ source, name: variety.name })));
   const [expanded, setExpanded] = useState(false);
   const visibleEdges = expanded ? edges : edges.slice(0, 2);
+  const markets = portrait.markets.filter(market => market.edges.length);
+  const allEdges = [...new Map([...portrait.edges, ...portrait.portfolio_edges, ...markets.flatMap(market => market.edges)].map(edge => [edge.id, edge])).values()];
   return <article className="berry-relationship-row" data-selected={context.focus === portrait.actor.id ? 'true' : undefined}>
     <div className="berry-relationship-actor">
-      <EntityButton name={portrait.actor.label} kind="Company" selected={context.focus === portrait.actor.id}
-        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: portrait.actor.id }, origin: 'direct' })} />
-      {portrait.actor.identity_note && <Badge tone="warning">{portrait.actor.identity_note}</Badge>}
-      <Button size="small" variant="ghost" aria-pressed={pinned} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: portrait.actor.id }, origin: 'direct' })}>{pinned ? 'Unpin comparison' : 'Pin for comparison'}</Button>
+      <div className="berry-comparison-identity"><VerifiedCompanyLogo id={portrait.actor.id} name={portrait.actor.label} companyIds={companyIds} inspectable />
+        <EntityButton compact name={portrait.actor.label} selected={context.focus === portrait.actor.id}
+          onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: portrait.actor.id }, origin: 'direct' })} /></div>
+      <Button size="small" variant="ghost" aria-pressed={pinned} disabled={!pinned && pins.length >= 5}
+        onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: portrait.actor.id }, origin: 'direct' })}>{pinned ? 'Unpin comparison' : 'Pin for comparison'}</Button>
+      <details className="berry-connection-info"><summary aria-label={`Connection details for ${portrait.actor.label}`}>Info</summary><div>
+        <p><strong>Identity</strong> · {portrait.actor.identity_status}</p>{portrait.actor.identity_note && <p>{portrait.actor.identity_note}</p>}
+        {allEdges.map(edge => <section key={edge.id}><button className="berry-text-button" type="button"
+          onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'direct' })}>{edge.label}</button>
+          <EdgeSupport edge={edge} sources={sources} /></section>)}
+        {!!portrait.actor.evidence_ids.length && <section><strong>Company sources</strong><div className="berry-inline-citations">{portrait.actor.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} />)}</div></section>}
+      </div></details>
     </div>
     <div className="berry-relationship-path">
-      {visibleEdges.map(edge => <Relationship key={edge.id} edge={edge} model={model} sources={sources} />)}
-      {!edges.length && <p className="berry-scope-note">Recorded geographic activity; no explicit program or cultivar edge in this scope.</p>}
+      {visibleEdges.map(edge => <Relationship compact key={edge.id} edge={edge} model={model} sources={sources} />)}
+      {!edges.length && <Unknown label="No genetics path recorded in this scope" />}
       {edges.length > 2 && <Button size="small" variant="ghost" onClick={() => setExpanded(value => !value)}>{expanded ? 'Show fewer connections' : `Show all ${edges.length} connections`}</Button>}
       {sourceNames.length > 0 && <details className="berry-source-named"><summary>Source-named cultivars · role unassigned</summary>
         {sourceNames.map((item, index) => <span key={`${item.source.id}-${index}`}>{item.name} <Citation id={item.source.id} source={item.source} /></span>)}
       </details>}
     </div>
-    <div className="berry-relationship-activity">{portrait.markets.filter(market => market.edges.length).map(market => <div className="berry-activity-record" key={market.country}>
+    <div className="berry-relationship-activity">{markets.map(market => <div className="berry-activity-record" key={market.country}>
       <strong>{market.country}</strong>{market.edges.map(edge => <div key={edge.id}>
+        <span className="berry-connection-direction" aria-label={`${model.nodes[edge.subject_id]?.label ?? 'Recorded subject'} connects to ${model.nodes[edge.object_id]?.label ?? 'recorded object'}`}>{edge.subject_id === portrait.actor.id ? '→' : '←'}</span>{' '}
         <Preview label="Geographic activity basis" onOpenDetail={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'direct' })}
-          content={<EdgeSupport edge={edge} sources={sources} />}>{edge.location_label}</Preview>
+          content={<EdgeSupport edge={edge} sources={sources} />}>{edge.location_label === 'Location reported · check source' ? 'Location only' : edge.location_label}</Preview>
         {edge.caveat && <p className="berry-material-caveat">{edge.caveat}</p>}
         {edge.status !== 'active' && <Badge tone="warning">{edge.status_label}</Badge>}
-        <div className="berry-inline-citations berry-relationship-evidence">{edge.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: edge.id }} />)}</div>
       </div>)}</div>)}
-      {!portrait.markets.some(market => market.edges.length) && <p className="berry-scope-note">Connected genetics · company location not established by these links.</p>}
+      {!markets.length && <Unknown label="No geographic activity recorded in this scope" />}
     </div>
   </article>;
 }
@@ -113,22 +127,21 @@ function Connections({ model }: { model: LandscapeModel }) {
   const sources = useMemo(() => new Map(model.sources.map(source => [source.id, source])), [model.sources]);
   const [allActors, setAllActors] = useState(false);
   const portraits = useMemo(() => {
-    const rows = new Map<string, Portrait>();
-    for (const row of [...model.market_rows, ...model.portfolios]) if (!rows.has(row.actor.id)) rows.set(row.actor.id, row);
+    const rows = mergeConnectionPortraits(model);
     // Presentation order uses populated record types, never a performance score.
     const genetics = (row: Portrait) => [...row.edges, ...row.portfolio_edges].some(edge =>
       [model.nodes[edge.subject_id]?.type, model.nodes[edge.object_id]?.type].some(type => type === 'variety' || type === 'breeding_program'));
     const typedActivity = (row: Portrait) => row.markets.some(market => market.edges.some(edge => Boolean(edge.location_label && edge.location_label !== 'Location reported · check source')));
-    return [...rows.values()].sort((a, b) => Number(genetics(b) && typedActivity(b)) - Number(genetics(a) && typedActivity(a))
+    return rows.sort((a, b) => Number(genetics(b) && typedActivity(b)) - Number(genetics(a) && typedActivity(a))
       || Number(genetics(b)) - Number(genetics(a)) || Number(typedActivity(b)) - Number(typedActivity(a)) || a.actor.label.localeCompare(b.actor.label));
   }, [model]);
   const visible = allActors ? portraits : portraits.slice(0, 4);
   if (!portraits.length) return <EmptyState title="No role-bearing connections match this scope">Change the applied scope to inspect other recorded relationships. Missing captured relationships do not establish an absence of activity.</EmptyState>;
-  return <><div className="berry-section-heading"><h2>Companies, genetics and activity</h2></div>
+  return <section className="berry-connections-table" aria-label="Companies, genetics and activity"><div className="berry-section-heading"><h2>Companies, genetics and activity</h2></div>
     <div className="berry-relationship-header" aria-hidden="true"><span>Actor</span><span>Recorded genetics connections</span><span>Geographic activity</span></div>
-    <div className="berry-relationship-bands">{visible.map(portrait => <CompanyBand key={portrait.actor.id} portrait={portrait} model={model} sources={sources} />)}</div>
+    <div className="berry-relationship-bands">{visible.map(portrait => <CompanyBand key={portrait.actor.id} portrait={portrait} model={model} sources={sources} companyIds={portraits.map(row => row.actor.id)} />)}</div>
     {portraits.length > 4 && <Button variant="ghost" onClick={() => setAllActors(value => !value)}>{allActors ? 'Show the initial connected actors' : `Show all ${portraits.length} actors in this scope`}</Button>}
-  </>;
+  </section>;
 }
 
 function PageControls({ page, count, label, onPage }: { page: CompanyPage; count: number; label: string; onPage: (offset: number) => void }) {
@@ -213,7 +226,7 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
         : query.isError ? <EmptyState title="Comparison unavailable">{query.error instanceof Error ? query.error.message : 'The selected profiles could not be loaded.'}</EmptyState>
           : result && <>
             {(result.invalid_ids.length > 0 || result.overflow_ids.length > 0) && <div className="berry-issue">Unavailable: {result.invalid_ids.join(', ') || 'None'}. Beyond the supported comparison: {result.overflow_ids.join(', ') || 'None'}. All pins remain visible for explicit removal.</div>}
-            {result.comparison_kind === 'company' ? result.companies.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded dimension</th>{result.companies.map(company => <th key={company.id}><div className="berry-comparison-identity"><BrandLogo asset={media?.[company.id]?.logo} name={company.name} /><EntityButton compact name={company.name} onClick={() => openEntity(company.id, 'company')} /></div></th>)}</tr></thead><tbody>
+            {result.comparison_kind === 'company' ? result.companies.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded dimension</th>{result.companies.map(company => <th key={company.id}><div className="berry-comparison-identity"><VerifiedCompanyLogo id={company.id} name={company.name} companyIds={result.companies.map(row => row.id)} inspectable /><EntityButton compact name={company.name} onClick={() => openEntity(company.id, 'company')} /></div></th>)}</tr></thead><tbody>
               {hasPackaging && <tr><th scope="row">Retail packaging</th>{result.companies.map(company => <td key={company.id}><BrandMediaGallery compact model={media?.[company.id]} /></td>)}</tr>}
               <tr><th scope="row">Declared berry portfolio</th>{result.companies.map(company => <td key={company.id}>{company.berries.join(' · ') || <Unknown />}</td>)}</tr>
               {result.role_matrix.map((role, index) => <tr key={role.bucket} className={index === 0 ? 'berry-comparison-section-start' : undefined}><th scope="row">{role.label}</th>{result.companies.map(company => <td key={company.id}>{company.roles[role.bucket]?.length ? <ul className="berry-comparison-list berry-cell-grid">{company.roles[role.bucket].map(party => <li key={party.id}><button type="button" className="berry-text-button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'variety', id: party.id }, origin: 'direct' })}>{party.name || model.nodes[party.id]?.label || party.id}</button></li>)}</ul> : <Unknown label="Unknown: no recorded cultivar relationship in this role" />}</td>)}</tr>)}
@@ -254,6 +267,7 @@ function CohortTray({ model }: { model: LandscapeModel }) {
     const ids = splitIds(kind === 'company' ? context.cohort_companies : context.cohort_varieties);
     if (!ids.length) return null;
     return <div className="berry-comparison-tray" key={kind}><span>{kind === 'company' ? 'Company pins' : 'Cultivar pins'}</span>{ids.map(id => <span className="berry-pin" data-outside-scope={!model.nodes[id] || undefined} key={id}>
+      {kind === 'company' && <VerifiedCompanyLogo id={id} name={model.nodes[id]?.label ?? id} companyIds={ids} />}
       <button className="berry-pin-name" type="button" title={model.nodes[id]?.label ?? id} onClick={() => dispatch({ type: 'openDetail', detail: { type: kind, id }, origin: 'direct' })}>{model.nodes[id]?.label ?? id}</button>
       {!model.nodes[id] && <span>Outside scope / unavailable</span>}<button type="button" aria-label={`Remove ${model.nodes[id]?.label ?? id} from ${kind} comparison`} onClick={() => dispatch({ type: 'togglePin', entity: { type: kind, id }, origin: 'direct' })}>×</button>
     </span>)}<Button size="small" variant="ghost" onClick={() => dispatch({ type: 'setLens', lens: 'comparison', comparison_kind: kind, origin: 'direct' })}>Compare {kind === 'company' ? 'companies' : 'cultivars'}</Button></div>;
@@ -301,7 +315,7 @@ export function LandscapePage() {
             {context.lens !== 'news' && model.findings.length > 0 && <section className="berry-readout" aria-labelledby="scope-readout-heading"><h2 className="berry-readout-title berry-sr-only" id="scope-readout-heading">Scope highlights</h2>
               <div className="berry-findings">{model.findings.slice(0, 3).map(finding => <article className="berry-finding" key={finding.id}><p>{finding.text}</p><div className="berry-inline-citations">{finding.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</div></article>)}</div>
             </section>}
-            <div className="berry-investigation-tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} />{context.lens !== 'news' && <Button size="small" variant="ghost" aria-expanded={needsRail} aria-controls="landscape-developments" onClick={() => setRailPreferences(previous => ({ ...previous, [context.lens]: !needsRail }))}>Developments</Button>}<SubjectSelector model={model} /></div>
+            <div className="berry-investigation-tools lw-view-tools berry-landscape-tools" role="group" aria-label="Landscape research tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} />{context.lens !== 'news' && <Button size="small" variant="ghost" aria-expanded={needsRail} aria-controls="landscape-developments" onClick={() => setRailPreferences(previous => ({ ...previous, [context.lens]: !needsRail }))}>Developments</Button>}<SubjectSelector model={model} /></div>
             <div className={`berry-analysis-layout${!needsRail ? ' berry-analysis-layout--full' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
               {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} />}
               {context.lens === 'portfolio' && <><div className="berry-section-heading"><h2>Cultivar portfolio</h2></div><BerryDataGrid model={model} onReady={fieldReady} /></>}

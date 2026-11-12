@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { companyPage, companyPageSwitchBlocked, companyPageViewKey, LEGACY_PORTFOLIO_VIEW_KEY } from '../src/features/grids/company-pages.ts';
+import { companyPage, companyPageSwitchBlocked, companyPageViewKey, LEGACY_PORTFOLIO_VIEW_KEY, DEFAULT_COMPANY_COLUMN_SIZE } from '../src/features/grids/company-pages.ts';
 import { createColumnCatalog, defaultGridLayout, encodeGridLayout, validViewKey } from '../src/features/grids/layout-codec.ts';
 import { AccountGridLayouts } from '../src/features/grids/account-layout.ts';
 
@@ -40,10 +40,40 @@ test('paged namespaces bind exact canonical membership, not page number, labels 
 
 test('invalid or duplicate identities cannot retarget a saved page and only unsafe switch phases block navigation', async () => {
   assert.throws(() => companyPage([{ id: 'company-a' }, { id: 'company-a' }]), /distinct/);
-  await assert.rejects(companyPageViewKey(companies(11).map(company => company.id), true), /identified safely/);
+  await assert.rejects(companyPageViewKey(companies(11).map(company => company.id), false), /identified safely/);
   await assert.rejects(companyPageViewKey(['company-a', '../other'], true), /identified safely/);
   for (const phase of ['loading', 'pending', 'saving', 'conflict']) assert.equal(companyPageSwitchBlocked(phase), true);
   for (const phase of ['ready', 'saved', 'error', 'local']) assert.equal(companyPageSwitchBlocked(phase), false);
+});
+
+test('variable company windows expose every column, including All, while the legacy ten-column default remains intact', async () => {
+  const all = companies(103);
+  assert.equal(DEFAULT_COMPANY_COLUMN_SIZE, 25);
+  assert.equal(companyPage(all).size, 10);
+  for (const size of [10, 25, 50, 'all']) {
+    const seen = [];
+    for (let index = 0; index < companyPage(all, 0, size).count; index++) {
+      const page = companyPage(all, index, size); seen.push(...page.companies.map(row => row.id));
+      assert.equal(page.membershipBound, true);
+      assert.notEqual(await companyPageViewKey(page.companies.map(row => row.id), page.membershipBound), LEGACY_PORTFOLIO_VIEW_KEY);
+    }
+    assert.deepEqual(seen, all.map(row => row.id));
+  }
+  const everything = companyPage(all, 99, 'all');
+  assert.equal(everything.companies.length, 103); assert.equal(everything.index, 0); assert.equal(everything.paged, false);
+  assert.equal(everything.membershipBound, true, 'All must never fall back to the old full-portfolio layout');
+  assert.equal(companyPage(companies(10), 0, 'all').membershipBound, false);
+  assert.throws(() => companyPage(all, 0, 38), /supported/);
+});
+
+test('twenty-five company windows fit unchanged account caps and fifty never relaxes that wire', async () => {
+  const columns = count => [{ colId: 'cultivar.identity', lockedVisible: true }, { colId: 'cultivar.comparison-pin', lockedVisible: true },
+    ...companies(count).map(row => ({ colId: `company.${row.id}.recorded-role` }))];
+  const catalog = await createColumnCatalog(columns(25));
+  assert.equal(encodeGridLayout(defaultGridLayout(catalog), catalog).order.length, 27);
+  await assert.rejects(createColumnCatalog(columns(50)), /forty/);
+  const firstTen = companies(10).map(row => row.id);
+  assert.equal(await companyPageViewKey(firstTen, true), await companyPageViewKey(companyPage(companies(20)).companies.map(row => row.id), true));
 });
 
 test('saving two company pages preserves each page and the earlier full-portfolio layout independently', async () => {

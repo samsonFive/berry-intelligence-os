@@ -9,10 +9,13 @@ import { Citation } from '../landscape/Citation';
 import type { LayoutColumn } from './layout-codec';
 import { isUserLayoutEvent } from './grid-state';
 import { useAccountGridLayout } from './useAccountGridLayout';
-import { COMPANY_COLUMNS_PER_PAGE, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
+import { COMPANY_COLUMN_SIZES, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
 import type { CompanyPage } from './company-pages';
+import type { CompanyColumnSize } from './company-pages';
 import { portfolioData, type PortfolioRow } from './portfolio-data';
 import { useCompanyPageMemory } from './useCompanyPageMemory';
+import { usePortfolioSessionLayout } from './usePortfolioSessionLayout';
+import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
 import './grid.css';
 import { workspaceGridTheme } from './workspace-grid-theme';
 
@@ -48,15 +51,15 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
   const pagination = useCompanyPageMemory(companies);
   const pageIndex = pagination.index;
   const plan = useMemo(() => {
-    try { return { page: companyPage(companies, pageIndex), error: '' }; }
+    try { return { page: companyPage(companies, pageIndex, pagination.size), error: '' }; }
     catch (error) { return { page: null, error: error instanceof Error ? error.message : 'Company columns are unavailable.' }; }
-  }, [companies, pageIndex]);
+  }, [companies, pageIndex, pagination.size]);
   const page = plan.page;
-  const pageIdentity = JSON.stringify([page?.paged, page?.companies.map(company => company.id)]);
+  const pageIdentity = JSON.stringify([page?.membershipBound, page?.companies.map(company => company.id)]);
   const [resolvedLayout, setResolvedLayout] = useState<{ identity: string; key: string; error: string } | null>(null);
   useEffect(() => {
     let active = true;
-    if (page && pagination.ready) void companyPageViewKey(page.companies.map(company => company.id), page.paged)
+    if (page && pagination.ready) void companyPageViewKey(page.companies.map(company => company.id), page.membershipBound)
       .then(key => { if (active) setResolvedLayout({ identity: pageIdentity, key, error: '' }); })
       .catch(() => { if (active) setResolvedLayout({ identity: pageIdentity, key: '', error: 'The display layout for these company columns could not be identified. Reopen the portfolio to try again.' }); });
     return () => { active = false; };
@@ -70,12 +73,12 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
   if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
-    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} onReady={onReady} />;
+    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady} />;
 }
 
-function ColumnVisibility({ columns, visible, busy, change, reload }: {
+function ColumnVisibility({ columns, visible, busy, change, reload, sessionOnly = false }: {
   columns: Array<{ id: string; label: string; locked?: boolean }>; visible: Record<string, boolean>; busy: boolean;
-  change: (id: string, show: boolean) => void; reload: () => void;
+  change: (id: string, show: boolean) => void; reload: () => void; sessionOnly?: boolean;
 }) {
   const popup = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
@@ -95,24 +98,39 @@ function ColumnVisibility({ columns, visible, busy, change, reload }: {
       {columns.map(column => <label key={column.id}><input type="checkbox" checked={visible[column.id] ?? true} disabled={busy || column.locked}
         aria-label={`Show ${column.label} column`} onChange={event => change(column.id, event.target.checked)} />
         <span>{column.label}{column.locked && <small>Fixed</small>}</span></label>)}
-      <Button size="small" variant="ghost" disabled={busy} onClick={reload}>Reload saved layout</Button>
+      <Button size="small" variant="ghost" disabled={busy} onClick={reload}>{sessionOnly ? 'Reload session layout' : 'Reload saved layout'}</Button>
     </div>
   </details>;
 }
 
-function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onReady }: {
+interface PortfolioGridProps {
   model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
-  viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void; onReady?: (ready: boolean) => void;
-}) {
-  const { context, dispatch } = useInvestigation();
-  const selectedCompanies = splitIds(context.cohort_companies);
-  const selectedVarieties = splitIds(context.cohort_varieties);
+  viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
+  changeSize: (size: CompanyColumnSize) => void; onReady?: (ready: boolean) => void;
+}
+function PortfolioGrid(props: PortfolioGridProps) {
+  const { companies } = props;
   const specs = useMemo<LayoutColumn[]>(() => [
     { colId: 'cultivar.identity', defaultWidth: 220, minWidth: 150, maxWidth: 1200, lockedVisible: true },
     { colId: 'cultivar.comparison-pin', defaultWidth: 75, minWidth: 65, maxWidth: 90, lockedVisible: true },
     ...companies.map(company => ({ colId: `company.${company.id}.recorded-role`, defaultWidth: 260, minWidth: 220, maxWidth: 1200 })),
   ], [companies]);
-  const layout = useAccountGridLayout<PortfolioRow>(specs, viewKey);
+  return specs.length > 40 ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
+}
+function AccountPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
+  const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey);
+  return <PortfolioDisplay {...props} layout={layout} sessionOnly={false} />;
+}
+function SessionPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
+  const layout = usePortfolioSessionLayout<PortfolioRow>(props.specs, props.viewKey);
+  return <PortfolioDisplay {...props} layout={layout} sessionOnly />;
+}
+function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly }: PortfolioGridProps & {
+  layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean;
+}) {
+  const { context, dispatch } = useInvestigation();
+  const selectedCompanies = splitIds(context.cohort_companies);
+  const selectedVarieties = splitIds(context.cohort_varieties);
   const [gridMounted, setGridMounted] = useState(false);
   useLayoutEffect(() => onReady?.(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
@@ -137,6 +155,7 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
     },
     ...companies.map(company => ({
       colId: `company.${company.id}.recorded-role`, headerName: company.label, minWidth: 220, maxWidth: 1200, initialWidth: 260, lockPinned: true,
+      headerComponentParams: { innerHeaderComponent: () => <span><VerifiedCompanyLogo id={company.id} name={company.label} companyIds={companies.map(row => row.id)} /><span>{company.label}</span></span> },
       wrapText: true, autoHeight: true,
       valueGetter: (params: { data?: PortfolioRow }) => (params.data?.byCompany[company.id] ?? []).map(edge => edge.label).join('; '),
       cellRenderer: (params: ICellRendererParams<PortfolioRow>) => {
@@ -151,9 +170,12 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
   return <section aria-label="Recorded company and cultivar portfolio">
     <nav className="berry-portfolio-pages" aria-label="Portfolio company pages">
       <p aria-live="polite"><strong>Companies {page.start + 1}–{page.end} of {page.total}</strong><span> · {rows.length} cultivars</span>{page.paged && <span> · Page {page.index + 1} of {page.count}</span>}</p>
+      <label>Company columns<select value={page.choice} disabled={pageBlocked} onChange={event => changeSize(event.target.value === 'all' ? 'all' : Number(event.target.value) as CompanyColumnSize)}>
+        {COMPANY_COLUMN_SIZES.map(size => <option key={size} value={size}>{size === 'all' ? 'All' : size}</option>)}
+      </select></label>
       {page.paged && <div><Button size="small" variant="secondary" disabled={pageBlocked || page.index === 0} onClick={() => changePage(page.index - 1)}>Previous companies</Button>
         <label>Company page<select value={page.index} disabled={pageBlocked} onChange={event => changePage(Number(event.target.value))}>
-          {Array.from({ length: page.count }, (_, index) => <option key={index} value={index}>{index + 1} · {index * COMPANY_COLUMNS_PER_PAGE + 1}–{Math.min((index + 1) * COMPANY_COLUMNS_PER_PAGE, page.total)}</option>)}
+          {Array.from({ length: page.count }, (_, index) => <option key={index} value={index}>{index + 1} · {index * page.size + 1}–{Math.min((index + 1) * page.size, page.total)}</option>)}
         </select></label>
         <Button size="small" variant="secondary" disabled={pageBlocked || page.index === page.count - 1} onClick={() => changePage(page.index + 1)}>Next companies</Button></div>}
     </nav>
@@ -163,12 +185,13 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
     </div>)}</div>
     <div className="berry-grid-preferences"><label className="berry-field-label">Filter this company group<input className="berry-input" type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="Cultivar, role or company in this group" /></label>
-      <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} reload={layout.reloadSavedLayout} />
+      <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} reload={layout.reloadSavedLayout} sessionOnly={sessionOnly} />
     </div>
-    <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
+    {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than forty columns keep resize, order, visibility and filter preferences in this session. Account layouts remain unchanged. Return to 10 or 25 company columns to restore their saved account layout.</p>}>Session layout</Preview>
+      {layout.status.phase === 'error' && <span role="status">{layout.status.message}</span>}</div> : <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
       <p role="status" aria-live="polite">{layout.status.message}</p>
       {['error', 'conflict', 'local'].includes(layout.status.phase) && <Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button>}
-    </div>
+    </div>}
     <div className="berry-grid berry-portfolio-grid" data-grid-edition="community" aria-busy={layout.busy} inert={layout.busy}>
       <AgGridReact<PortfolioRow> theme={berryGridTheme} rowData={rows} columnDefs={columnDefs}
         getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder

@@ -1,0 +1,30 @@
+/* Reuse the mature Workspace toolbar/overview language within Landscape only.
+   Its existing controls, table/grid engines and source renderers retain ownership. */
+.berry-app .berry-landscape-page .berry-landscape-tools.lw-view-tools {
+  justify-content: flex-start; gap: 6px 8px; padding: 6px 8px; margin: 0 0 7px;
+  border: 1px solid #c5d3c7; border-radius: 5px; background: #f0f4ef;
+}
+.berry-app .berry-landscape-tools .berry-company-set { margin: 0; font-weight: 550; }
+.berry-app .berry-landscape-tools .berry-cohort-trays:empty { display: none; }
+.berry-app .berry-landscape-tools :is(.berry-button, .berry-company-set select, .berry-subject-selector > summary) {
+  min-height: 28px; padding: 3px 7px; border-radius: 4px; border-color: #b9cbbd;
+  font-size: 12px; line-height: 1.4;
+}
+.berry-app .berry-landscape-tools > .berry-button[aria-expanded='true'] {
+  background: #204f39; border-color: #204f39; color: #fff;
+}
+.berry-app .berry-landscape-tools .berry-subject-selector[open] { border-radius: 4px; }
+.berry-app .berry-landscape-page :is(.berry-deeper-connections, .berry-method-notes) {
+  margin-top: 7px; padding: 0; border: 1px solid #c5d3c7; border-radius: 5px; background: #fff;
+}
+.berry-app .berry-landscape-page :is(.berry-deeper-connections, .berry-method-notes) > summary {
+  padding: 6px 8px; background: #f0f4ef; color: #294c3e; font-size: 12px; font-weight: 650; cursor: pointer;
+}
+.berry-app .berry-landscape-page :is(.berry-deeper-connections, .berry-method-notes)[open] > summary { border-bottom: 1px solid #c5d3c7; }
+.berry-app .berry-landscape-page .berry-deeper-connections > .berry-connections-table { margin: 7px 8px; }
+.berry-app .berry-landscape-page .berry-method-notes > p { margin: 6px 8px; font-size: 12px; }
+@media (max-width: 600px) {
+  .berry-app .berry-landscape-tools .berry-company-set { min-width: 0; flex-wrap: wrap; }
+  .berry-app .berry-landscape-tools .berry-company-set select { max-width: 100%; }
+  .berry-app .berry-landscape-tools .berry-subject-selector { max-width: 100%; margin-left: 0; }
+}

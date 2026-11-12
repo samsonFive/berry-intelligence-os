@@ -1,7 +1,11 @@
 .berry-app .berry-detail-header { display: grid; gap: 10px; align-items: start; }
 .berry-app .berry-detail-header h2 { margin: 0; overflow-wrap: anywhere; }
 .berry-app .berry-detail-header > .berry-badge { justify-self: start; }
-.berry-app .berry-detail-actions { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.berry-app .berry-detail-actions { position: sticky; top: -12px; z-index: 5; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 8px; padding: 4px 0; background: #fff; border-bottom: 1px solid var(--berry-line); }
+.berry-app .berry-detail-close { margin-left: auto; flex: 0 0 auto; font-size: 23px; line-height: 1; }
+.berry-app .berry-scope-context { display: flex; align-items: center; gap: 6px; padding: 0; border: 0; background: transparent; }
+.berry-app .berry-scope-info { min-width: 28px; min-height: 28px; font-size: 17px; }
+.berry-app .berry-profile-catalog { display: inline-block; margin: 5px 0; font-size: 12px; }
 .berry-app .berry-detail-breadcrumbs { display: flex; flex-wrap: wrap; gap: 4px; font-size: 12px; }
 .berry-app .berry-detail-breadcrumbs button, .berry-app .berry-definition-list dt button { padding: 0; border: 0; background: transparent; color: var(--berry-forest); text-align: left; text-decoration: underline; cursor: pointer; font: inherit; }
 .berry-app .berry-detail .berry-definition-list { display: block; }
@@ -17,3 +21,49 @@
 .berry-app .berry-reader figcaption { margin-top: 7px; font-size: 11px; line-height: 1.5; color: var(--berry-muted); }
 .berry-app .berry-detail-resizer { position: absolute; inset: 0 auto 0 0; width: 9px; cursor: col-resize; touch-action: none; border-radius: var(--berry-radius) 0 0 var(--berry-radius); }
 .berry-app .berry-detail-resizer:hover, .berry-app .berry-detail-resizer:focus-visible { background: var(--berry-sage); outline-offset: -2px; }
+
+/* Company and relationship profiles use the same compact sheet hierarchy. */
+.berry-app .berry-detail--sheet { padding: 8px 10px; }
+.berry-app .berry-detail--sheet .berry-detail-header { gap: 5px; }
+.berry-app .berry-detail--sheet .berry-detail-header h2 { margin: 0; font-size: 18px; line-height: 1.25; }
+.berry-app .berry-detail--sheet .berry-detail-actions { top: -8px; gap: 5px; margin: 0 0 5px; font-size: 12px; }
+.berry-app .berry-detail--sheet .berry-eyebrow { margin: 0; }
+.berry-app .berry-detail--sheet .berry-detail-breadcrumbs { margin: 0; font-size: 11px; }
+.berry-app .berry-detail--sheet .berry-detail-identity { gap: 7px; }
+.berry-app .berry-detail--sheet .berry-brand-logo img { width: 64px; height: 28px; }
+.berry-app .berry-detail--sheet .berry-detail-identity .berry-brand-credit { display: none; }
+.berry-app .berry-profile-lead { margin: 6px 0; font-size: 12px; line-height: 1.4; }
+.berry-app .berry-profile-roles { margin: 4px 0; color: #355b43; font-size: 12px; font-weight: 600; }
+.berry-app :is(.berry-profile-basis, .berry-profile-media) { margin: 5px 0; font-size: 12px; }
+.berry-app :is(.berry-profile-basis, .berry-profile-media) > summary { width: fit-content; cursor: pointer; color: #315f48; font-weight: 600; }
+.berry-app .berry-profile-basis p { margin: 5px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.berry-app .berry-profile-section { margin-top: 8px; padding-top: 7px; }
+.berry-app .berry-profile-section h3 { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 3px 8px; margin: 0 0 5px; font-size: 13px; }
+.berry-app .berry-profile-section h3 small { font-size: 11px; color: #52695c; font-weight: 400; }
+.berry-app .berry-profile-table-wrap { max-height: 43dvh; overflow: auto; border: 1px solid #b9cbbd; }
+.berry-app .berry-profile-sheet { width: 100%; min-width: 300px; border-collapse: separate; border-spacing: 0; table-layout: fixed; color: #20372d; font: 12px/1.35 var(--berry-font-ui); }
+.berry-app .berry-profile-sheet :is(th, td) { padding: 4px 5px; vertical-align: top; border-right: 1px solid #d0dcd1; border-bottom: 1px solid #d0dcd1; overflow-wrap: anywhere; white-space: normal; }
+.berry-app .berry-profile-sheet :is(th, td):last-child { border-right: 0; }
+.berry-app .berry-profile-sheet thead th { position: sticky; top: 0; z-index: 2; background: #254b36; color: #fff; text-align: left; font-size: 11px; font-weight: 650; }
+.berry-app .berry-profile-sheet thead th:first-child { width: 47%; }
+.berry-app .berry-profile-sheet thead th:last-child { width: 43px; }
+.berry-app .berry-profile-sheet tbody:nth-of-type(even) .berry-profile-record > * { background: #f0f5ef; }
+.berry-app .berry-profile-sheet tbody:hover .berry-profile-record > * { background: #e8f1e5; }
+.berry-app .berry-profile-sheet th[scope='row'] { text-align: left; font-weight: 550; }
+.berry-app .berry-profile-record-link { border: 0; padding: 0; background: none; color: #214f39; text-align: left; font: inherit; cursor: pointer; }
+.berry-app .berry-profile-record-link:hover { text-decoration: underline; }
+.berry-app .berry-profile-qualification { display: block; margin-top: 3px; font-size: 11px; line-height: 1.35; color: #655025; font-weight: 500; }
+.berry-app .berry-profile-info-cell > button { padding: 2px 4px; min-height: 24px; font: 11px/1.35 var(--berry-font-ui); color: #315f48; background: #fff; border: 1px solid #b9cbbd; border-radius: 3px; cursor: pointer; }
+.berry-app .berry-profile-info-row > td { background: #f4f8f2; padding: 7px; }
+.berry-app .berry-profile-info-row p { margin: 0 0 6px; white-space: pre-wrap; }
+.berry-app .berry-profile-info-row dl { display: grid; grid-template-columns: minmax(80px, auto) minmax(0, 1fr); gap: 3px 8px; margin: 5px 0; }
+.berry-app .berry-profile-info-row dt { color: #52695c; font-weight: 500; }
+.berry-app .berry-profile-info-row dd { margin: 0; }
+.berry-app .berry-profile-sources { display: grid; gap: 5px; font-size: 12px; }
+.berry-app .berry-reader-companies { display: flex; flex-wrap: wrap; gap: 5px 12px; margin: 7px 0; font-size: 12px; }
+.berry-app .berry-reader-companies > div { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; max-width: 100%; }
+.berry-app .berry-reader-companies .berry-verified-company-logo:has(.berry-brand-logo-area--expanded) { flex-basis: 100%; width: 100%; }
+.berry-app .berry-reader-companies small { display: block; max-width: 26ch; font-size: 10px; color: var(--berry-muted); }
+@media (max-width: 850px) {
+  .berry-app .berry-detail:not(.berry-detail--sheet) .berry-detail-actions { top: -24px; }
+}

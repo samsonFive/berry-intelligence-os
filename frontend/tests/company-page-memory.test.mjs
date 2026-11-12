@@ -85,3 +85,20 @@ test('explicit session clearing invalidates old reads and late writes without re
   assert.equal(memory.remember(fresh, 1), true);
   assert.equal(memory.resolve(fresh, 'POP'), 1);
 });
+
+test('display size and index restore independently for Back/Forward entries without changing membership', () => {
+  const memory = new CompanyPageMemory();
+  const first = request(memory, 'entry-size-25', { size: 25, count: 5 });
+  memory.remember(first, 3);
+  const prior = { ...mounted(first, 3), size: 25 };
+  const focus = request(memory, 'entry-size-all', { size: 25, count: 5 });
+  assert.equal(memory.resolveSize(focus, 'PUSH', prior), 25);
+  memory.remember({ ...focus, size: 'all', count: 1 }, 0);
+  assert.equal(memory.resolveSize(first, 'POP'), 25); assert.equal(memory.resolve(first, 'POP'), 3);
+  assert.equal(memory.resolveSize(focus, 'POP'), 'all');
+  assert.equal(memory.resolve({ ...focus, size: 'all', count: 1 }, 'POP'), 0);
+  assert.equal(memory.resolveSize({ ...first, universe: 'changed-membership' }, 'POP'), 25);
+  assert.equal(memory.remember({ ...first, size: 999 }, 0), false);
+  memory.clear(); assert.equal(memory.resolveSize(first, 'POP'), 25);
+  assert.equal(memory.remember(first, 2), false);
+});

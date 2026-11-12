@@ -14,6 +14,7 @@ export type InvestigationAction = ActionMetadata & (
   | { type: "openDetail"; detail: DetailRef }
   | { type: "setDetailSection"; section: DetailSection }
   | { type: "closeDetail" }
+  | { type: "dismissDetails" }
   | { type: "setDemoCohort"; ids: string[] }
   | { type: "replaceContext"; context: Partial<InvestigationContext> }
   | { type: "setSearch"; q: string; q_scope?: "scope" | "catalog" }
@@ -62,6 +63,7 @@ export function reduceInvestigation(state: InvestigationState, action: Investiga
       break;
     }
     case "closeDetail": candidate.detail_path = detailPath(state.context).slice(0, -1).map(refString).join("~"); break;
+    case "dismissDetails": candidate.detail_path = ""; break;
     case "setDemoCohort": candidate.demo_specimens = action.ids.join(","); break;
     case "replaceContext": candidate = action.context; break;
     case "setSearch": candidate.q = action.q; if (action.q_scope) candidate.q_scope = action.q_scope; history = "replace"; break;
