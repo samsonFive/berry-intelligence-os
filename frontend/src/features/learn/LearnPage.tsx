@@ -11,6 +11,7 @@ import { DEFAULT_LEARNING_SELECTION, getLearningCatalog, getLearningContent, leg
 import type { LearningCatalog, LearningCollection, LearningContent, LearningItem, LearningKind, LearningSelection } from './models';
 import { ConceptSections, LearningCitations, LessonMarkdown } from './Reading';
 import { CaneCalendar, LearningFigure, TeachingDiagram, TeachingResources } from './Teaching';
+import { groupCropNotes } from './crop-notes';
 import './learn-page.css';
 
 const UI_KEY = ['learning-ui-selection'];
@@ -142,6 +143,7 @@ function LearningReading({ data, nativeHref }: { data: LearningContent; nativeHr
   const item = data.item;
   const expansion = legacyExpansionHref(data.expand_href, nativeHref);
   const teaching = data.teaching;
+  const cropNotes = groupCropNotes(data.berry_notes, context.berry);
   return <article><header className="berry-learn-heading"><div><p className="berry-eyebrow">Learn / {item.pillar_label}</p><h1>{item.title}</h1><ItemStatus item={item}/></div>
     {expansion && <a className="berry-button" href={expansion}>{item.kind === 'lesson' ? 'Edit / versions ↗' : 'Research & expand ↗'}</a>}</header>
     <EducationNotice />
@@ -166,7 +168,11 @@ function LearningReading({ data, nativeHref }: { data: LearningContent; nativeHr
         <p>{data.clarification.retained_original.summary}</p><p>{data.clarification.retained_original.what_is_it}</p></details>}
     </div><aside className="berry-learn-companion" aria-label="Crop notes and teaching resources">
       {teaching?.figure && <LearningFigure figure={teaching.figure}/>}
-      {data.berry_notes.length > 0 && <section><h2>By crop</h2>{data.berry_notes.map(note => <article key={note.berry_id}><h3>{note.berry_label}</h3><p>{note.note}</p></article>)}</section>}
+      {data.berry_notes.length > 0 && <section aria-label="Crop notes"><h2>{cropNotes.isGlobal ? 'By crop' : `In ${cropNotes.berryLabel} context`}</h2>
+        {cropNotes.inContext.map((note, index) => <article key={`${note.berry_id}-${index}`}><h3>{note.berry_label}</h3><p>{note.note}</p></article>)}
+        {!cropNotes.isGlobal && !cropNotes.inContext.length && <p className="berry-learn-applicability">No {cropNotes.berryLabel}-specific crop note is recorded.</p>}
+        {cropNotes.alsoGlobal.length > 0 && <><h2>Also in other berries</h2>{cropNotes.alsoGlobal.map((note, index) => <article key={`${note.berry_id}-${index}`}><h3>{note.berry_label}</h3><p>{note.note}</p></article>)}</>}
+      </section>}
       {data.media.length > 0 && <TeachingResources resources={data.media}/>}
       {data.related.length > 0 && <section><h2>Related concepts</h2><ul>{data.related.map(row => <li key={row.id}><Link to={investigationHref(row.href, context)}>{row.title}</Link></li>)}</ul></section>}
     </aside></div>

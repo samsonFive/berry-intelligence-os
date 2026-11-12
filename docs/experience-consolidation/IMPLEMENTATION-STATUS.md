@@ -43,9 +43,9 @@ implementation; production promotion remains a separate concrete release step.
 
 ## G1 and V1 evidence
 
-Current accepted client: `index-TMvSoonX.js`; SHA-256
+Client used for the accepted real G1/V1 packet: `index-TMvSoonX.js`; SHA-256
 `9B99CE8BFD6C68134E37ADE6B0248D81574CABF2BB81FDC6E8349CC761F3F0F3`.
-Runtime source SHA-256:
+Runtime source SHA-256 for that packet:
 `C03E771606A72044E42F635504D3260511C481E263817321E26B986A996D72E9`.
 
 The user explicitly approved one additional diagnostic after automatic review
@@ -83,9 +83,17 @@ Runs overlap and must not be added as unique coverage:
 * Focused integrated Python suite: 114 passed. Windows default temporary-directory
   setup errors cleared with a fresh workspace-owned `--basetemp`.
 * Learning foundation: 27 tests; additional source-date/catalog regressions passed.
-* Final frontend: 80 tests. Runtime: 12 tests. TypeScript and Vite passed.
-  Final copy-only client is `index-5VVPB8ZT.js`, SHA-256
-  `C4B61DA74193DE7A73BE0742291FF1B65060ABCB823F56DCD486C007867BEF16`.
+* Final frontend: 84 tests passed, including four crop-note grouping tests.
+  Runtime: 12 tests. TypeScript and Vite passed. Current emitted client:
+  `index-BCSIw7In.js`, SHA-256
+  `5167FA4370A4D1BAEC331DBECC4480BFC7A2DD7D600222D7F53F13821AA7D500`.
+  Build receipt: `artifacts/experience-consolidation/final-learn-grouping-build-proof.json`.
+* Final Learn applicability review passed on that exact asset. Blueberry Cane
+  quietly states that no Blueberry-specific crop note is recorded, while keeping
+  the authored Raspberry and Blackberry notes under other berries. All berries
+  retains the complete authored text and original order under By crop. The three
+  mounted checks, including a 390px viewport, passed with no page errors or model
+  turns. Receipt: `artifacts/experience-consolidation/v1/learn-crop-note-qa-1794441712227/acceptance.json`.
 * Joined offline actual browser/gateway/SDK/runtime/parallel tools/comparison/action
   proof passed with dummy credentials and external provider access blocked.
 * Export: 16 tests. Authenticated 42-page PDF and explicit two-specimen annex
@@ -98,20 +106,26 @@ Runs overlap and must not be added as unique coverage:
 * The broad Python run finished with 7,380 passes, 10 skips and one release-package
   failure. Its missing frontend/runtime build inputs are corrected; all four
   packaging regressions now pass, including older refs and private-file exclusion.
-  Final-head required GitHub checks remain pending.
+* A subsequent Linux CI run recorded 7,412 passes, 11 skips and one failure:
+  `tests/test_ui_v2_shell.py::test_reader_overlay_warm_is_under_500ms` measured
+  522.8ms against the existing 500ms budget. The recorded log is
+  `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log`. That run did
+  not pass. The focused local retest passed with the 500ms threshold unchanged;
+  it does not clear the recorded CI failure. Required final-head CI remains open.
 
-## G2 remaining work
+## Release work after local G2
 
-The accepted patterns may now extend to native bounded Briefing reading,
-Workspaces saved-investigation/output entry and existing Learn consumption.
-All three native pages are source-ready and mounted in the shared shell; combined
-TypeScript passes. Their emitted-build/browser verification is next. Existing authored
-Workspace and Learn research/edit/version workflows remain explicit governed
-compatibility destinations with native return context.
+Native bounded Briefing reading, Workspaces saved-investigation/output entry and
+existing Learn consumption are mounted and locally accepted. Their browser,
+save/conflict/export and cross-surface restoration receipts are recorded in
+`acceptance/G2-LOCAL-ACCEPTANCE.md`. The final Learn crop-note labeling proof above
+adds no authored facts and makes no provider request. Existing authored Workspace
+and Learn research/edit/version workflows remain explicit governed compatibility
+destinations with native return context.
 
-Complete native save/reopen/reload and output UI proof, cross-surface restoration,
-final canonical integration, final build/records/static/tests and required
-final-head CI. Prepare the concrete server build/backup/rollback receipt before
+Resolve the recorded CI performance failure and complete required final-head
+checks. Prepare the concrete server build/backup/rollback receipt before
 production promotion. The optional Node network-namespace deployment override is
-source-ready, but local Docker is unavailable; images and Compose have not run.
-No production service, configuration, data or inbox change has been made here.
+source-ready. Local Docker is unavailable; final-head container checks and the
+separately authorized live smoke remain release gates. No production service,
+configuration, data or inbox change has been made here.
