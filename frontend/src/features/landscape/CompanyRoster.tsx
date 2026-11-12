@@ -26,6 +26,14 @@ import './CompanyRoster.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
+// AG Grid treats a new defaultColDef object as a column-definition change.
+// Keep it stable across local Info/dialog renders so cells and tier drafts survive.
+const ROSTER_COLUMN_DEFAULTS: ColDef<CompanyRosterRow> = {
+  sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2,
+    filterOptions: ['contains', 'notContains', 'equals', 'notEqual', 'startsWith', 'endsWith'], textMatcher: rosterTextMatch },
+  cellDataType: false, resizable: true, wrapText: true, autoHeight: true, wrapHeaderText: true, autoHeaderHeight: true,
+};
+
 export interface CompanyRosterProps {
   model: LandscapeModel;
   onReady: (ready: boolean) => void;
@@ -233,8 +241,7 @@ function RosterDisplay({ model, roster, onReady, changePage, renderNode, renderE
     <>
       <div className="berry-roster-grid lw-research-grid" hidden={layout.view === 'cards'} aria-busy={layout.busy} inert={layout.busy}>
         <AgGridReact<CompanyRosterRow> theme={workspaceGridTheme} rowData={rowData} columnDefs={definitions} getRowId={params => params.data.id} maintainColumnOrder
-          defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2,
-            filterOptions: ['contains', 'notContains', 'equals', 'notEqual', 'startsWith', 'endsWith'], textMatcher: rosterTextMatch }, cellDataType: false, resizable: true, wrapText: true, autoHeight: true, wrapHeaderText: true, autoHeaderHeight: true }}
+          defaultColDef={ROSTER_COLUMN_DEFAULTS}
           includeHiddenColumnsInQuickFilter quickFilterText={layout.quickFilter} rowHeight={54} headerHeight={34} animateRows={false}
           quickFilterMatcher={(parts, aggregate) => aggregate.includes(TIER_HEADER_FILTER.toUpperCase()) || parts.every(part => aggregate.includes(part))}
           postSortRows={params => { const ordered = orderCompanyTierNodes(params.nodes); params.nodes.splice(0, params.nodes.length, ...ordered); }}
