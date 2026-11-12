@@ -1704,3 +1704,6 @@ November 11 global News product ambiguity: actual live stock-token and decorativ
 
 
 November 11 material-event recovery: shared source-metadata screens now recognize labor enforcement, wage protections, irrigation restrictions and explicit food-recall actions. The consumed Australian blueberry labor case was discovered but hidden by News; recovery must retain the failed pilot observation. English/French official Canada food-alert routes expand the priority lane to 48, with current transport/dated entries verified and zero current berry hits. The shallow feed window, archive completeness, original-body retrieval, other languages and independent gate scoring remain open. See NEWS-MATERIAL-EVENTS-2026-11-11.md.
+
+
+November 11 retained News source links: the stored Greek strawberry story contained both FreshPlaza and HortiDaily URLs, but the read-only metadata preview omitted discovery_urls. Preserve bounded link metadata, expose safe distinct additional URLs with an explicit independence limitation, and retain grouped URLs across refreshes without discarding raw tracking provenance. This restores access to consumed source metadata; it is not new discovery or independent recall credit. Original-body and archive acquisition remain open. See NEWS-RETAINED-SOURCE-LINKS-2026-11-11.md.
