@@ -4095,3 +4095,13 @@ coordination. See [initial cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
 
 
 November 12 official-listing debt: direct bounded SAG/SENASA metadata discovery closes opaque resolution-title crop misses without relying on a news index. Fixed first-page native crop filters and two-page Peru budgets leave body-only crop mentions, deeper archives, synonyms, document attachments and independent first-public visibility open. Chile latest berry listing remains September 8; do not present checked transport as fresh berry yield. Unknown dates and failed pages remain explicit. Fair Work original transport and Morocco/Egypt positive controls remain unresolved. Owners: News source operations, language review and pilot assessment. See NEWS-OFFICIAL-LISTINGS-2026-11-12.md.
+
+November 12 Landscape layout debt: the existing account sheet contract accepts
+40 columns. Wider Portfolio company windows remain fully viewable, sortable,
+resizable and reorderable, but their layout preferences are session-only when
+that wire bound is exceeded. Smaller exact-membership layouts retain the
+account adapter; wider views must never truncate or overwrite them. Extending
+account persistence requires a separate compatible server/storage migration.
+The company-row roster keeps its existing account persistence at every row
+count. Curated logos remain available only for identities with eligible assets;
+brand imagery must not substitute for a parent company's absent logo.

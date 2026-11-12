@@ -4,7 +4,7 @@ import { SESSION_TRANSITION_EVENT } from '../../app/PrivateQueryProvider';
 import { Button, SourceLink } from '../../components/ui';
 import { serializeInvestigation } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
-import type { EntityBrandMedia } from '../brand-media/api';
+import { useBrandMedia } from '../brand-media/useBrandMedia';
 import { CompactCollection, CompactGenetics, CompactRoles } from './RosterCompactCells';
 import type { LandscapeEdge, LandscapeModel, LandscapeNode, MonitoringCompany } from './models';
 import { rosterGenetics } from './roster-genetics';
@@ -13,18 +13,18 @@ export interface CompanyRosterDetailsHandle { open(companyId: string, trigger: H
 interface Props {
   model: LandscapeModel;
   companies: MonitoringCompany[];
-  media: Record<string, EntityBrandMedia> | undefined;
   rosterRoot: RefObject<HTMLElement | null>;
 }
 
 // Local modal state must never update the AG Grid owner: AG refresh can remount
 // framework cell renderers, including an analyst's still-unsaved tier control.
-export const CompanyRosterDetails = forwardRef<CompanyRosterDetailsHandle, Props>(function CompanyRosterDetails({ model, companies, media, rosterRoot }, ref) {
+export const CompanyRosterDetails = forwardRef<CompanyRosterDetailsHandle, Props>(function CompanyRosterDetails({ model, companies, rosterRoot }, ref) {
   const { context, dispatch } = useInvestigation();
   const dialog = useRef<HTMLDialogElement>(null), dialogClose = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLElement | null>(null), restoreDetailsFocus = useRef(true), openedCompany = useRef('');
   const detailsActive = useRef(false), detailsClosing = useRef(false), detailsCycle = useRef(0);
   const [detailsId, setDetailsId] = useState<string | null>(null);
+  const media = useBrandMedia(detailsId ? [detailsId] : []);
   const detailsCompany = companies.find(company => company.id === detailsId);
   const dialogHeading = useId();
   const finishDetails = useCallback(() => {

@@ -39,6 +39,20 @@ test("source identity ignores section when reopening an ancestor and stale secti
   assert.equal(reduceInvestigation(entity, { type: "setDetailSection", section: "brief" }).changed, false);
 });
 
+test("dismissDetails closes the entire stack while Back pops one and investigation selectors survive", () => {
+  const state = initial({ berry: 'berry-blueberry', countries: 'geography-china', actor_roles: 'breeder',
+    cohort_companies: 'company-one,company-two', cohort_varieties: 'variety-one', focus: 'company-one',
+    company_set: 'watched', q: 'flavor', news_from: '2026-11-01',
+    detail_path: 'company:company-one~relationship:rel-one~source:ev-parent@brief' });
+  assert.equal(step(state, { type: 'closeDetail' }).context.detail_path, 'company:company-one~relationship:rel-one');
+  const result = reduceInvestigation(state, { type: 'dismissDetails' });
+  assert.deepEqual(result.state.context, { ...state.context, detail_path: '' });
+  assert.equal(result.history, 'push');
+  assert.equal(result.state.revision, state.revision + 1);
+  assert.equal(reduceInvestigation(result.state, { type: 'dismissDetails' }).changed, false);
+  assert.equal(reduceInvestigation(state, { type: 'dismissDetails', expectedRevision: state.revision + 1 }).accepted, false);
+});
+
 test("synthetic cohort is URL state independent of real cohorts and scope", () => {
   let state = initial({ ...EMPTY_CONTEXT, cohort_companies: "company-one", cohort_varieties: "variety-one", countries: "geography-china", focus: "company-one" });
   state = step(state, { type: "setDemoCohort", ids: ["demo-specimen-fern", "demo-specimen-amber", "demo-specimen-fern"] });

@@ -4,19 +4,21 @@ import { getInvestigation } from '../../api/client';
 import { currentDetail, detailPath, hasBlockingIssues, investigationHref, parseRef, refString, sameDetailIdentity, splitIds } from '../../contracts/investigation';
 import type { DetailRef, DetailType } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
-import { Badge, Button, EmptyState, SourceLink } from '../../components/ui';
+import { Badge, Button, EmptyState, Preview, SourceLink } from '../../components/ui';
 import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
 import { useBrandMedia } from '../brand-media/useBrandMedia';
+import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
+import { companyLogoBatch } from '../brand-media/company-logo-batches';
+import { ProfileSheet } from './ProfileSheet';
+import type { ProfileItem } from './ProfileSheet';
+import { readerOrganizations } from './reader-companies';
 import './detail.css';
 
 interface SourceRef {
   id: string; title: string; url?: string; source_name?: string;
   status?: string; review?: string; published?: string; captured?: string;
 }
-interface DetailItem {
-  id?: string; type?: DetailType; label?: string; value?: string; summary?: string;
-  status?: string; sources?: SourceRef[];
-}
+interface DetailItem extends ProfileItem {}
 interface ArticleBlock { text: string; heading?: boolean; level?: number }
 interface DocumentBlock {
   kind: string; text?: string; level?: number; cells?: string[];
@@ -34,6 +36,8 @@ interface DetailModel {
   sources: SourceRef[];
   article_text?: string[]; article_blocks?: ArticleBlock[]; document_blocks?: DocumentBlock[];
   card?: { headline?: string; source_name?: string; source_url?: string; image_url?: string; published_at?: string;
+    entities?: Array<{ id: string; name: string; entity_type?: string }>;
+    company_mentions?: Array<{ id: string; name: string }>;
     reference_image?: { url?: string; caption?: string; credit?: string; attribution?: string; source_url?: string; license?: string } };
   body_availability?: {
     available?: boolean; auto_acquisition?: boolean; state?: string;
@@ -44,6 +48,15 @@ interface DetailModel {
 }
 interface ReturnTarget { element: HTMLElement | null; token: string | null }
 
+function visibleReturnTarget(target: ReturnTarget | null): HTMLElement | null {
+  const usable = (element: HTMLElement | null): element is HTMLElement => Boolean(element?.isConnected
+    && element.getClientRects().length && !element.closest('[inert], [aria-hidden="true"]')
+    && !element.matches(':disabled') && getComputedStyle(element).visibility !== 'hidden');
+  if (usable(target?.element ?? null)) return target!.element;
+  const replacement = target?.token ? document.querySelector<HTMLElement>(`[data-detail-trigger="${CSS.escape(target.token)}"]`) : null;
+  return usable(replacement) ? replacement : null;
+}
+
 function safeLink(value: string | undefined): string | undefined {
   if (!value) return undefined;
   if (value.startsWith('/') && !value.startsWith('//') && !value.includes('\\')) return value;
@@ -53,6 +66,13 @@ function safeLink(value: string | undefined): string | undefined {
   } catch { return undefined; }
 }
 function sourceFallback(id: string): string { return `/intelligence/${encodeURIComponent(id)}`; }
+
+function ReaderBrandLogo({ id, name, ids }: { id: string; name: string; ids: string[] }) {
+  const media = useBrandMedia(companyLogoBatch(id, ids));
+  const entity = media?.[id];
+  return entity?.entity_type === 'brand' && entity.logo
+    ? <div className="berry-verified-company-logo berry-verified-company-logo--inspectable"><BrandLogo asset={entity.logo} name={name} /></div> : null;
+}
 
 function DocumentBody({ blocks }: { blocks: DocumentBlock[] }) {
   const output = [];
@@ -103,10 +123,13 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
   const targets = useRef(new Map<string, ReturnTarget>());
   const scrollPositions = useRef(new Map<string, number>());
   const titles = useRef(new Map<string, string>());
+  const profileExpansions = useRef(new Set<string>());
+  const profileScroll = useRef(new Map<string, number>());
   const returnToMain = useRef(false);
   const wasSuspended = useRef(suspended);
   const previousPath = useRef('');
   const pendingReturn = useRef<ReturnTarget | null>(null);
+  const openingTarget = useRef<ReturnTarget | null>(null);
   const focusApplied = useRef('');
   const endpoint = selected ? `/detail?type=${selected.type}&id=${encodeURIComponent(selected.id)}` : '';
   const query = useQuery({
@@ -142,6 +165,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     if (sectionOnly) {
       const target = targets.current.get(previous);
       if (target) targets.current.set(path, target);
+      openingTarget.current = null;
       previousPath.current = path;
       focusApplied.current = path;
       if (panel.current) panel.current.scrollTop = scrollPositions.current.get(path) ?? 0;
@@ -149,8 +173,13 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     }
     if (path && (!previous || path.startsWith(previous + '~'))) {
       const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      targets.current.set(path, { element: active, token: active?.getAttribute('data-detail-trigger') ?? null });
-    } else if (previous) pendingReturn.current = targets.current.get(previous) ?? null;
+      targets.current.set(path, openingTarget.current ?? { element: active, token: active?.getAttribute('data-detail-trigger') ?? null });
+    } else if (previous) {
+      // Dismissing the stack returns to the main-page opener. A one-level Back
+      // instead restores the citation/record that opened the previous detail.
+      pendingReturn.current = targets.current.get(path ? previous : previous.split('~')[0]) ?? null;
+    }
+    openingTarget.current = null;
     previousPath.current = path;
     focusApplied.current = '';
     if (path) heading.current?.focus({ preventScroll: true });
@@ -165,8 +194,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     if (panel.current) panel.current.scrollTop = scrollPositions.current.get(path) ?? 0;
     const target = pendingReturn.current;
     pendingReturn.current = null;
-    const restored = target?.element?.isConnected ? target.element
-      : target?.token ? document.querySelector<HTMLElement>(`[data-detail-trigger="${CSS.escape(target.token)}"]`) : null;
+    const restored = visibleReturnTarget(target);
     (restored ?? heading.current)?.focus({ preventScroll: true });
   }, [path, query.data, selected]);
   useLayoutEffect(() => {
@@ -200,6 +228,9 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     for (const { element } of background) { element.inert = true; element.setAttribute('aria-hidden', 'true'); }
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Tab' || !panel.current) return;
+      // The shared informational/image Preview owns its enterable portal and
+      // tab order while open; it must not be pulled back into the panel.
+      if (document.querySelector('.berry-preview')) return;
       const controls = [...panel.current.querySelectorAll<HTMLElement>('a[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),audio[controls],video[controls],summary,[contenteditable="true"],[tabindex]:not([tabindex="-1"])')]
         .filter(element => element.getClientRects().length > 0);
       const first = controls[0]; const last = controls.at(-1);
@@ -227,8 +258,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     // Passive cleanup has now removed narrow-mode inert attributes. Focusing
     // during the layout phase would target the still-inert main investigation.
     const frame = requestAnimationFrame(() => {
-      const restored = target?.element?.isConnected ? target.element
-        : target?.token ? document.querySelector<HTMLElement>(`[data-detail-trigger="${CSS.escape(target.token)}"]`) : null;
+      const restored = visibleReturnTarget(target);
       (restored ?? document.getElementById('investigation-main'))?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
@@ -251,20 +281,36 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
   const referenceImage = safeLink(model?.card?.reference_image?.url);
   const readerImage = publisherImage || referenceImage;
   const usingReferenceImage = !publisherImage && !!referenceImage;
+  const sourceCompanies = selected.type === 'source' ? readerOrganizations(model?.card) : [];
+  const sourceCompanyIds = sourceCompanies.map(company => company.id);
   const selectedSource = model?.sources.find(item => item.id === model.id);
   const chooseReaderView = (section: 'article' | 'brief') => dispatch({ type: 'setDetailSection', section, origin: 'direct' });
-  const open = (detail: DetailRef) => dispatch({ type: 'openDetail', detail, origin: 'direct' });
-  const source = (item: SourceRef) => <SourceLink key={item.id} href={sourceFallback(item.id)}
-    data-detail-trigger={`source:${item.id}`} onOpen={() => open({ type: 'source', id: item.id })}>
+  const open = (detail: DetailRef) => {
+    // Capture before React removes the selected profile's source/record link.
+    // Capturing in the path layout effect is too late: activeElement is body.
+    const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    openingTarget.current = sameDetailIdentity(selected, detail) ? null
+      : { element: active, token: active?.getAttribute('data-detail-trigger') ?? null };
+    dispatch({ type: 'openDetail', detail, origin: 'direct' });
+  };
+  const source = (item: SourceRef, trigger?: string) => <SourceLink key={item.id} href={sourceFallback(item.id)}
+    data-detail-trigger={trigger ?? `source:${item.id}`} onOpen={() => open({ type: 'source', id: item.id })}>
     {item.title || item.source_name || item.id}{item.published ? ` · ${item.published}` : ' · Publication date not recorded'}
   </SourceLink>;
   const pinKind = selected.type === 'company' || selected.type === 'variety' ? selected.type : null;
   const pinned = pinKind ? splitIds(context[pinKind === 'company' ? 'cohort_companies' : 'cohort_varieties']).includes(selected.id) : false;
+  const compactProfile = selected.type === 'company' || selected.type === 'relationship';
+  const profileIdentity = `${selected.type}:${selected.id}`;
+  const cited = new Set(model?.sections.flatMap(section => section.items.flatMap(item => [...(item.evidence_ids ?? []), ...(item.sources ?? []).map(source => source.id)])) ?? []);
+  const additionalSources = model?.sources.filter(item => !cited.has(item.id)) ?? [];
+  const materialStatus = model?.status && /historical|disputed|planned|validation|inactive|inferred/i.test(model.status);
+  const description = selected.type === 'company' && model?.summary ? model.summary.split(/\n\s*\n/)[0] : '';
+  const lead = description.length > 220 ? description.slice(0, 220).replace(/\s+\S*$/, '') + '…' : description;
   const expanded = safeLink(model?.expand_href);
   const expandHref = expanded && expanded.startsWith('/') ? expanded + (expanded.includes('?') ? '&' : '?')
     + new URLSearchParams({ return_to: investigationHref('/app/landscape', context) }) : expanded;
   const resize = (width: number) => setPanelWidth(Math.max(340, Math.min(720, window.innerWidth - 520, width)));
-  return <aside ref={panel} className="berry-detail" role="dialog" aria-modal={narrow || undefined}
+  return <aside ref={panel} className={`berry-detail${compactProfile ? ' berry-detail--sheet' : ''}`} role="dialog" aria-modal={narrow || undefined}
     aria-labelledby="berry-detail-heading" aria-busy={query.isFetching || undefined}
     onScroll={event => scrollPositions.current.set(path, event.currentTarget.scrollTop)}>
     {!narrow && <div className="berry-detail-resizer" role="separator" tabIndex={0} aria-label="Resize detail panel"
@@ -276,10 +322,12 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       onPointerMove={event => { if (drag.current) resize(drag.current.width + drag.current.start - event.clientX); }}
       onPointerUp={event => { drag.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }}
       onLostPointerCapture={() => { drag.current = null; }} />}
-    <header className="berry-detail-header">
-      <div className="berry-detail-actions"><Button size="small" onClick={() => dispatch({ type: 'closeDetail', origin: 'direct' })}>
+    <div className="berry-detail-actions"><Button size="small" onClick={() => dispatch({ type: 'closeDetail', origin: 'direct' })}>
         {ancestry.length > 1 ? '← Back to previous detail' : '← Return to investigation'}
-      </Button>{expandHref && <SourceLink href={expandHref}>Expand ↗</SourceLink>}</div>
+      </Button>{expandHref && <SourceLink href={expandHref}>{selected.type === 'company' ? 'Company profile ↗' : 'Expand ↗'}</SourceLink>}
+        <button type="button" className="berry-icon-button berry-detail-close" aria-label={selected.type === 'source' ? 'Close Reader and all details' : 'Close all details'}
+          title="Close all details" onClick={() => dispatch({ type: 'dismissDetails', origin: 'direct' })}>×</button></div>
+    <header className="berry-detail-header">
       {ancestry.length > 1 && <nav className="berry-detail-breadcrumbs" aria-label="Detail ancestry">{ancestry.map((ref, index) =>
         <span key={refString(ref)}>{index > 0 && <span aria-hidden="true"> / </span>}{index < ancestry.length - 1
           ? <button type="button" onClick={() => open(ref)}>{titles.current.get(`${ref.type}:${ref.id}`) ?? ref.type.slice(0, 1).toUpperCase() + ref.type.slice(1)}</button>
@@ -287,11 +335,13 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       <p className="berry-eyebrow">{model?.kind_label ?? selected.type}</p>
       <div className="berry-detail-identity"><BrandLogo asset={selected.type === 'company' ? media?.[selected.id]?.logo : null} name={model?.title ?? selected.id} />
       <h2 id="berry-detail-heading" ref={heading} tabIndex={-1}>{model?.title ?? 'Loading selected detail…'}</h2></div>
-      {model?.status && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
-      {model?.outside_scope && <div className="berry-outside-scope"><p>Outside the applied scope. Inspection keeps the landscape and developments unchanged.</p>
+      {model?.status && (!compactProfile || materialStatus) && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
+      {model?.outside_scope && <div className="berry-outside-scope berry-scope-context"><Preview label="Outside the applied scope"
+        className="berry-scope-info" content={<p>Outside the applied scope. Inspection keeps the landscape and developments unchanged.</p>}>
+          <span aria-hidden="true">ⓘ</span><span className="berry-sr-only">Outside-scope information</span></Preview>
         {pinKind && <Button size="small" onClick={() => dispatch({ type: 'applyScope', origin: 'direct',
-          scope: { berry: 'all', countries: '', actor_roles: '', relationship_types: '' } })}>View in All berries and countries</Button>}</div>}
-      {model?.scope_note && <p className="berry-subtitle">{model.scope_note}</p>}
+          scope: { berry: 'all', countries: '', actor_roles: '', relationship_types: '' } })}>All berries / countries</Button>}</div>}
+      {model?.scope_note && !compactProfile && <p className="berry-subtitle">{model.scope_note}</p>}
       {pinKind && <Button size="small" aria-pressed={pinned}
         onClick={() => dispatch({ type: 'togglePin', entity: { type: pinKind, id: selected.id }, origin: 'direct' })}>
         {pinned ? 'Remove from comparison' : 'Add to comparison'}</Button>}
@@ -301,9 +351,24 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       {query.error instanceof Error ? query.error.message : 'Return to the investigation or open the original record.'}
     </EmptyState>}
     {model && <>
-      {model.summary && selected.type !== 'source' && <p className="berry-detail-summary">{model.summary}</p>}
-      {selected.type === 'company' && <BrandMediaGallery key={selected.id} model={media?.[selected.id]} />}
+      {compactProfile ? <>
+        {lead && <p className="berry-profile-lead">{lead}</p>}
+        {!!model.roles?.length && <p className="berry-profile-roles">{model.roles.map(role => role.replaceAll('_', ' ')).join(' · ')}</p>}
+        <details className="berry-profile-basis" key={`${profileIdentity}:basis`} open={profileExpansions.current.has(`${profileIdentity}:basis`)}
+          onToggle={event => { if (event.currentTarget.open) profileExpansions.current.add(`${profileIdentity}:basis`); else profileExpansions.current.delete(`${profileIdentity}:basis`); }}>
+          <summary>Profile info</summary>{model.summary && <p>{model.summary}</p>}{model.scope_note && <p>{model.scope_note}</p>}
+          {model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}
+        </details>
+      </> : model.summary && selected.type !== 'source' && <p className="berry-detail-summary">{model.summary}</p>}
+      {selected.type === 'company' && <details className="berry-profile-media"><summary>Images</summary><BrandMediaGallery key={selected.id} model={media?.[selected.id]} /></details>}
       {selected.type === 'source' && <section className="berry-reader" aria-label="Source Reader">
+        {sourceCompanies.length > 0 && <div className="berry-reader-companies" aria-label="Companies and brands associated with this source">{sourceCompanies.map(company => <div key={company.id}>
+          {company.kind === 'company' ? <VerifiedCompanyLogo id={company.id} name={company.name} companyIds={sourceCompanyIds} inspectable />
+            : <ReaderBrandLogo id={company.id} name={company.name} ids={sourceCompanyIds} />}
+          <div>{company.kind === 'company' ? <button type="button" className="berry-text-button" data-detail-trigger={`company:${company.id}`}
+            onClick={() => open({ type: 'company', id: company.id })}>{company.name}</button> : <span>{company.name}<small>Brand</small></span>}
+            {company.association === 'mentioned' && <small>Mentioned in source · company link not reviewed</small>}</div>
+        </div>)}</div>}
         <p className="berry-reader-meta">{selectedSource?.source_name || model.card?.source_name || 'Source publication'}
           {' · '}{selectedSource?.published || 'Publication date not recorded'}
           {safeLink(selectedSource?.url || model.card?.source_url) && <span> · <SourceLink external href={safeLink(selectedSource?.url || model.card?.source_url)!}>Original publisher</SourceLink></span>}</p>
@@ -337,17 +402,22 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
         {model.sources.map(item => safeLink(item.url) && <p key={item.id}><SourceLink href={safeLink(item.url)!} external>
           Open {item.source_name || 'original publisher'}</SourceLink></p>)}
       </section>}
-      {model.sections.map((section, index) => section.items.length > 0 && <section className="berry-detail-section" key={`${section.title}-${index}`}>
+      {selected.type === 'company' && <SourceLink className="berry-profile-catalog" href={`/entities/variety?${new URLSearchParams({ berry: '', return_to: investigationHref('/app/landscape', context) })}`}>Full cultivar catalog ↗</SourceLink>}
+      {compactProfile ? <ProfileSheet key={profileIdentity} sections={model.sections} sources={model.sources} open={open} renderSource={source}
+        expansions={profileExpansions.current} scrollPositions={profileScroll.current} identity={profileIdentity} /> : model.sections.map((section, index) => section.items.length > 0 && <section className="berry-detail-section" key={`${section.title}-${index}`}>
         <h3>{section.title}</h3><dl className="berry-definition-list">{section.items.map((item, itemIndex) => <div key={item.id ?? itemIndex}>
           <dt>{item.id && item.type && ['company', 'variety', 'geography', 'relationship', 'source', 'observation'].includes(item.type)
             ? <button type="button" data-detail-trigger={`${item.type}:${item.id}`} onClick={() => open({ type: item.type!, id: item.id! })}>{item.label || 'Inspect record'}</button>
             : item.label || 'Recorded observation'}</dt>
           <dd>{item.value ? <p>{item.value}</p> : null}{item.summary && <p>{item.summary}</p>}{item.status && <Badge>{item.status}</Badge>}
-            {!!item.sources?.length && <div className="berry-citations">{item.sources.map(source)}</div>}</dd>
+            {!!item.sources?.length && <div className="berry-citations">{item.sources.map(item => source(item))}</div>}</dd>
         </div>)}</dl>
       </section>)}
-      {selected.type !== 'source' && model.sources.length > 0 && <section className="berry-detail-section"><h3>Sources</h3>
-        <div className="berry-citations">{model.sources.map(source)}</div></section>}
+      {compactProfile ? additionalSources.length > 0 && <details className="berry-profile-basis" key={`${profileIdentity}:sources`} open={profileExpansions.current.has(`${profileIdentity}:sources`)}
+        onToggle={event => { if (event.currentTarget.open) profileExpansions.current.add(`${profileIdentity}:sources`); else profileExpansions.current.delete(`${profileIdentity}:sources`); }}>
+        <summary>Additional sources · {additionalSources.length}</summary><div className="berry-profile-sources">{additionalSources.map(item => source(item))}</div>
+      </details> : selected.type !== 'source' && model.sources.length > 0 && <section className="berry-detail-section"><h3>Sources</h3>
+        <div className="berry-citations">{model.sources.map(item => source(item))}</div></section>}
     </>}
   </aside>;
 }

@@ -16,6 +16,7 @@ import {
   safePolygon,
   shift,
   useDismiss,
+  useClick,
   useFloating,
   useFocus,
   useHover,
@@ -130,7 +131,7 @@ export interface PreviewProps {
   children: ReactNode;
   content: ReactNode;
   /** Click, tap and Enter open the persistent, domain-owned detail area. */
-  onOpenDetail: () => void;
+  onOpenDetail?: () => void;
   label?: string;
   detailLabel?: string;
   className?: string;
@@ -155,12 +156,13 @@ export function Preview({ children, content, onOpenDetail, label = 'Supporting c
     handleClose: safePolygon({ buffer: 8 }),
   });
   const focus = useFocus(context, { enabled: !disabled });
+  const click = useClick(context, { enabled: !disabled && !onOpenDetail });
   const dismiss = useDismiss(context, { escapeKey: true, outsidePress: true });
   const role = useRole(context, { role: 'dialog' });
-  const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, click, dismiss, role]);
   const openDetail = () => {
     setOpen(false);
-    onOpenDetail();
+    onOpenDetail?.();
   };
 
   return (
@@ -170,7 +172,7 @@ export function Preview({ children, content, onOpenDetail, label = 'Supporting c
         ref={refs.setReference}
         disabled={disabled}
         className={classes('berry-preview-trigger', className)}
-        {...getReferenceProps({ onClick: openDetail })}
+        {...getReferenceProps(onOpenDetail ? { onClick: openDetail } : {})}
       >
         {children}
       </button>
@@ -189,7 +191,7 @@ export function Preview({ children, content, onOpenDetail, label = 'Supporting c
                 <button type="button" className="berry-icon-button" aria-label="Dismiss preview" onClick={() => setOpen(false)}>×</button>
               </div>
               <div className="berry-preview-content">{content}</div>
-              <Button size="small" variant="ghost" onClick={openDetail}>{detailLabel}<span aria-hidden="true"> →</span></Button>
+              {onOpenDetail && <Button size="small" variant="ghost" onClick={openDetail}>{detailLabel}<span aria-hidden="true"> →</span></Button>}
             </div>
           </FloatingFocusManager>
         </FloatingPortal>

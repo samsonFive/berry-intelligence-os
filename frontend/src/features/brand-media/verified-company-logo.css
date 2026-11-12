@@ -1,0 +1,7 @@
+.berry-app .berry-verified-company-logo { display: inline-flex; flex: 0 0 64px; width: 64px; height: 28px; vertical-align: middle; }
+.berry-app .berry-verified-company-logo > img, .berry-app .berry-verified-company-logo .berry-brand-logo img { display: block; width: 64px; height: 28px; object-fit: contain; background: #fff; border-radius: 2px; }
+.berry-app .berry-verified-company-logo > img[data-background='dark'], .berry-app .berry-verified-company-logo .berry-brand-logo img[data-background='dark'] { background: #20372d; }
+.berry-app .berry-verified-company-logo--inspectable { width: auto; height: auto; }
+.berry-app .berry-verified-company-logo--inspectable .berry-brand-logo { margin: 0; }
+.berry-app .berry-verified-company-logo--inspectable .berry-brand-logo > .berry-brand-credit { display: none; }
+.berry-app .berry-verified-logo-credit { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

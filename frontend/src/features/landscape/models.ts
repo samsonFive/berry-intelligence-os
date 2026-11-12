@@ -116,6 +116,7 @@ export interface MonitoringCompany {
   geographies: Array<{ id: string; label: string; relationship_id: string; activity: string; status: string; review: string; caveat: string; evidence_ids: string[] }>;
 }
 export interface MonitoringModel extends CompanyPage {
+  company_set_key: string;
   companies: MonitoringCompany[];
   universe_count: number;
   matching_count: number;
