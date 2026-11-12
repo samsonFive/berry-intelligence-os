@@ -503,7 +503,11 @@ def test_publish_draft_deletion_failure_rolls_back_and_remains_safely_retryable(
     assert repositories.evidence.get(draft_id) is not None
     assert len([record for record in repositories.facts.list() if record["id"].startswith(f"fact-{draft_id[3:]}")]) == 1
     assert len([record for record in repositories.relationships.list() if record["id"].startswith(f"rel-{draft_id[3:]}")]) == 1
-    assert client.get(f"/review/{draft_id}").status_code == 404
+    assert main.get_draft(draft_id) is None
+    published_link = client.get(f"/review/{draft_id}", follow_redirects=False)
+    assert published_link.status_code == 302
+    assert published_link.headers["location"] == f"/evidence/{draft_id}"
+    assert client.get(published_link.headers["location"]).status_code == 200
 
 
 def test_publish_attachment_survives_structured_failure_and_retry(monkeypatch, tmp_path) -> None:
