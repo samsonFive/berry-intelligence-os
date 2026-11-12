@@ -1,4 +1,4 @@
-"""Real HTML fetch + readable-text extraction for written articles.
+"""Public HTML and bounded PDF readable-text acquisition for review.
 
 This module owns exactly one job: given a URL, produce a normalized,
 paragraph-indexed article body a human can review and a future qualified
@@ -32,7 +32,7 @@ import trafilatura
 
 from app.services.google_news_url import resolve_google_news_url
 
-ARTICLE_ACQUISITION_VERSION = "article-acquisition-v4"
+ARTICLE_ACQUISITION_VERSION = "article-acquisition-v5"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
 ARTICLE_FETCH_USER_AGENT = "berry-intelligence-os-article-acquisition/1.0"
 MIN_BODY_CHARS = 200
@@ -89,11 +89,14 @@ class ArticleParagraph:
     index: int
     text: str
     heading_level: int | None = None
+    locator: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         row = {"index": self.index, "text": self.text}
         if self.heading_level is not None:
             row["heading_level"] = self.heading_level
+        if self.locator:
+            row['locator'] = self.locator
         return row
 
 
@@ -118,13 +121,17 @@ class ArticleBody:
     language: str | None = None
     image_url: str | None = None
     published_date_basis: str | None = None
+    content_kind: str | None = None
+    availability: str | None = None
+    pdf_page_count: int | None = None
+    acquisition_version: str | None = None
 
     @property
     def full_text(self) -> str:
         return "\n\n".join(p.text for p in self.paragraphs)
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        result = {
             "source_url": self.source_url,
             "final_url": self.final_url,
             "paragraphs": [p.as_dict() for p in self.paragraphs],
@@ -142,9 +149,13 @@ class ArticleBody:
                 "extractor": self.extractor,
                 "extractor_version": self.extractor_version,
                 "fetched_at": self.fetched_at,
-                "version": ARTICLE_ACQUISITION_VERSION,
+                "version": self.acquisition_version or ARTICLE_ACQUISITION_VERSION,
             },
         }
+        if self.content_kind:
+            result.update(content_kind=self.content_kind, availability=self.availability,
+                          pdf_page_count=self.pdf_page_count)
+        return result
 
 
 def _now_iso() -> str:
@@ -219,6 +230,8 @@ def publisher_publication_date(html: str, page_url: str) -> tuple[str | None, st
     metadata_keys = {"article:published_time", "og:published_time", "datepublished",
                      "pubdate", "publish-date", "publication_date", "dc.date.issued",
                      "dcterms.issued"}
+    if (urlparse(page_url).hostname or '').casefold() in {'gov.uk', 'www.gov.uk'}:
+        metadata_keys.add('govuk:first-published-at')
     values = [node.get("content") for node in tree.iter("meta")
               if (node.get("property") or node.get("name") or "").casefold() in metadata_keys]
     if any(_publication_date(value) for value in values):
@@ -384,6 +397,37 @@ def _split_paragraphs(text: str, *, title: str | None = None) -> tuple[ArticlePa
     return tuple(ArticleParagraph(index=i, text=block) for i, block in enumerate(blocks))
 
 
+def _fetch_pdf_article(requested: str, target: str, *, timeout: float) -> ArticleBody:
+    """Reuse the Reader's bounded public PDF transport and isolated parser.
+
+    Selectable text is an excerpt, not proof that scanned text or figures were
+    captured. Never infer publication dates from filenames or PDF creation time.
+    """
+    from importlib.metadata import version
+    from app.services.feed_first_reader import fetch_public_article
+    with httpx.Client(timeout=timeout, follow_redirects=False,
+                      headers={'User-Agent': ARTICLE_FETCH_USER_AGENT}) as client:
+        capture = fetch_public_article(target, client=client)
+    if not capture.get('ok') or capture.get('content_kind') != 'pdf' or capture.get('truncated'):
+        reason = str(capture.get('reason') or 'pdf-text-unavailable').replace('-', '_')
+        category = reason if reason in {'blocked', 'paywall', 'timeout', 'transport_error', 'interstitial'} else 'empty_body'
+        raise ArticleAcquisitionError(f'PDF acquisition unavailable: {reason}', category=category,
+                                      http_status=capture.get('status_code'))
+    passages = [text for text in capture.get('passages', []) if isinstance(text, str) and text.strip()]
+    text = '\n\n'.join(passages)
+    if len(text) < MIN_BODY_CHARS:
+        raise ArticleAcquisitionError('PDF selectable text too short', category='empty_body')
+    final = capture.get('url') or target
+    return ArticleBody(source_url=requested, final_url=final if final != requested else None,
+        paragraphs=tuple(ArticleParagraph(index, text, locator=(f'pdf:page:{match[1]}'
+            if (match := re.match(r'^\[PDF page (\d+)\]', text)) else 'pdf:excerpt:page-unknown'))
+            for index, text in enumerate(passages)),
+        word_count=len(text.split()), content_sha256=hashlib.sha256(text.encode('utf-8')).hexdigest(),
+        fetched_at=capture.get('retrieved_at') or _now_iso(), extractor='pypdf-bounded-subprocess',
+        extractor_version=version('pypdf'), content_kind='pdf', availability='excerpt_only',
+        pdf_page_count=capture.get('pdf_page_count'))
+
+
 def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -> ArticleBody:
     """Fetch one article URL and extract its readable body.
 
@@ -396,6 +440,8 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
 
     requested = url.strip()
     target = resolve_google_news_url(requested)
+    if urlparse(target).path.casefold().endswith('.pdf'):
+        return _fetch_pdf_article(requested, target, timeout=timeout)
 
     try:
         response = httpx.get(
@@ -448,7 +494,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
             with_metadata=True,
             favor_precision=True,
             include_comments=False,
-            include_tables=False,
+            include_tables=True,
         )
         if not extracted_json:
             from app.services.article_semantics import prose_navigation_html
@@ -457,7 +503,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
                 extracted_json = trafilatura.extract(
                     repaired, url=str(response.url), output_format="json",
                     with_metadata=True, favor_precision=True,
-                    include_comments=False, include_tables=False,
+                    include_comments=False, include_tables=True,
                 )
                 if extracted_json:
                     extraction_html = repaired

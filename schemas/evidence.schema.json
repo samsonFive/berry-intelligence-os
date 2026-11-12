@@ -331,7 +331,7 @@
     },
     "article": {
       "type": "object",
-      "$comment": "Article Ingestion vertical slice, optional and additive. The normalized, readable-text body of a web_article Evidence record -- this project's text-artifact analogue of `transcript`, deliberately a separate object rather than forced into transcript_provenance's audio-segment shape (paragraph index is the locator; there are no timestamps for written text). Present only on web_article drafts/Evidence that completed real HTML acquisition; absence does not imply failure -- see `discovery_provenance`/operational run state for why. This is raw derived material carried for human review and later, qualified-model Atomic Evidence extraction -- it is not itself trusted intelligence and `summary`/`why_it_matters` are never overwritten by it.",
+      "$comment": "Article Ingestion vertical slice, optional and additive. The normalized, readable-text body of a web_article Evidence record -- this project's text-artifact analogue of `transcript`, deliberately a separate object rather than forced into transcript_provenance's audio-segment shape (paragraph index is the locator; there are no timestamps for written text). Present only on web_article drafts/Evidence that completed real HTML or bounded selectable-PDF text acquisition; absence does not imply failure -- see `discovery_provenance`/operational run state for why. This is raw derived material carried for human review and later, qualified-model Atomic Evidence extraction -- it is not itself trusted intelligence and `summary`/`why_it_matters` are never overwritten by it.",
       "properties": {
         "paragraphs": {
           "type": "array",
@@ -341,12 +341,16 @@
             "properties": {
               "index": {"type": "integer", "minimum": 0},
               "text": {"type": "string", "minLength": 1},
-              "heading_level": {"type": "integer", "minimum": 2, "maximum": 6, "$comment": "Optional display hint matched to an original publisher h2–h6. Text, paragraph indexes and source body hash remain unchanged."}
+              "heading_level": {"type": "integer", "minimum": 2, "maximum": 6, "$comment": "Optional display hint matched to an original publisher h2–h6. Text, paragraph indexes and source body hash remain unchanged."},
+              "locator": {"type": "string", "minLength": 1, "$comment": "Optional source locator; bounded PDF acquisition preserves the parser's original page number, not an inferred timestamp."}
             }
           },
           "$comment": "Paragraph index is the article's locator, the written-text equivalent of a transcript's segment index -- a future qualified extraction step cites paragraph indexes, never an invented timestamp."
         },
         "word_count": {"type": "integer", "minimum": 0},
+        "content_kind": {"enum": ["html", "pdf"], "$comment": "Optional bounded PDF selectable-text capture. Absence preserves legacy HTML behavior."},
+        "availability": {"enum": ["full_article", "excerpt_only", "metadata_only"], "$comment": "PDF text excludes unrecognized scanned text and figures; never upgrades body or source completeness to full."},
+        "pdf_page_count": {"type": ["integer", "null"], "minimum": 1},
         "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
         "author": {"type": ["string", "null"]},
         "title": {"type": ["string", "null"]},

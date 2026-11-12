@@ -172,7 +172,9 @@ def reader_content(record: dict[str, Any]) -> dict[str, Any]:
     # when cleaning changed it; removed UI must not hide a remaining access wall.
     already_checked = body["state"] in {"body_available", "body_partial"} and cleaned == body["body"]
     if cleaned and len(cleaned.split()) >= 6 and (already_checked or not looks_like_interstitial(cleaned)):
-        body = {**body, "body": cleaned, "state": "body_available" if len(cleaned) >= 400 else "body_partial", "usable_in_app": True}
+        article = record.get('article') if isinstance(record.get('article'), dict) else {}
+        limited = article.get('availability') == 'excerpt_only'
+        body = {**body, "body": cleaned, "state": "body_available" if len(cleaned) >= 400 and not limited else "body_partial", "usable_in_app": True}
         contaminated = False
     candidates = [record.get("summary"), record.get("publisher_description")]
     summary = ""
@@ -227,6 +229,8 @@ def classify_source_body(record: dict[str, Any]) -> dict[str, Any]:
         state = "interstitial"
     elif not body and looks_like_interstitial(combined_wall_text):
         state = "interstitial"
+    elif body and (record.get('article') or {}).get('availability') == 'excerpt_only':
+        state = "body_partial"
     elif body and len(body) >= 400:
         state = "body_available"
     elif body:
