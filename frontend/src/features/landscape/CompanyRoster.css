@@ -20,13 +20,17 @@
 .berry-app .berry-roster-grid .ag-cell-wrapper, .berry-app .berry-roster-grid .ag-cell-value { min-width: 0; width: 100%; }
 .berry-app .berry-roster-cell { min-width: 0; white-space: normal; }
 .berry-app .berry-roster-company { min-width: 0; }
-.berry-app .berry-roster-company > .berry-button { margin-top: 3px; }
-.berry-app .berry-roster-company .berry-roster-identity { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
-.berry-app .berry-roster-marks { display: flex; flex-direction: column; gap: 2px; margin-top: 3px; color: #52695c; font-size: 11px; line-height: 1.3; }
-.berry-app .berry-company-tier { display: flex; flex-wrap: wrap; align-items: center; gap: 3px 5px; margin-top: 5px; }
-.berry-app .berry-company-tier > label { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; }
-.berry-app .berry-company-tier select { max-width: 150px; min-height: 27px; padding: 2px 4px; border: 1px solid #b9cbbd; border-radius: 4px; color: #20372d; background: #fff; font: inherit; }
-.berry-app .berry-company-tier .berry-button { min-height: 27px; padding: 2px 5px; font-size: 11px; }
+.berry-app .berry-roster-company .berry-roster-identity { display: flex; align-items: center; gap: 5px; }
+.berry-app .berry-roster-identity > .berry-entity-button { flex: 1; min-width: 0; padding-block: 0; }
+.berry-app .berry-roster-identity .berry-entity-name { font-size: 12px; font-weight: 650; line-height: 1.25; }
+.berry-app .berry-roster-logo { flex: 0 0 24px; width: 24px; height: 24px; object-fit: contain; background: #fff; }
+.berry-app .berry-roster-info { flex: 0 0 auto; min-height: 24px; padding: 2px 4px; font-size: 11px; }
+.berry-app .berry-roster-compare { display: block; width: 16px; height: 16px; margin: 5px auto; accent-color: #204f39; }
+.berry-app .berry-company-tier { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin: 0; }
+.berry-app .berry-company-tier > label { display: inline-flex; align-items: center; font-size: 11px; }
+.berry-app .berry-company-tier select { width: 70px; min-height: 26px; padding: 2px; border: 1px solid #b9cbbd; border-radius: 3px; color: #20372d; background: #fff; font: 12px/1.2 var(--berry-font-ui); }
+.berry-app .berry-company-tier .berry-button { min-height: 24px; min-width: 20px; padding: 1px 2px; font-size: 12px; }
+.berry-app .berry-company-tier .berry-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .berry-app .berry-roster-tier-error { flex-basis: 100%; margin: 2px 0; color: var(--berry-danger); font-size: 11px; white-space: normal; }
 .berry-app .berry-roster-tier-receipt { margin: 5px 0; font-size: 12px; color: #204f39; }
 .berry-app .berry-roster-tier-summary { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 0 7px; font-size: 11px; color: #52695c; }
@@ -36,13 +40,42 @@
 .berry-app .berry-roster-tier-heading > span { color: #52695c; font-size: 11px; font-weight: 400; }
 .berry-app .berry-roster-tier-cards { margin-top: 8px; min-width: 0; }
 .berry-app .berry-roster-tier-cards > h3.berry-roster-tier-heading { height: auto; margin: 0; }
-.berry-app .berry-roster-company .berry-roster-monitoring { font-size: 11px; margin-top: 4px; }
 .berry-app .berry-roster-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 8px; padding-top: 8px; }
-.berry-app .berry-roster-card { min-width: 0; padding: 10px 12px; border: 1px solid #b9cbbd; border-top: 3px solid #355d89; background: #fff; }
+.berry-app .berry-roster-card { min-width: 0; padding: 8px 10px; border: 1px solid #b9cbbd; border-top: 3px solid #355d89; background: #fff; }
 .berry-app .berry-roster-card > header { padding-bottom: 7px; border-bottom: 1px solid #b9cbbd; }
 .berry-app .berry-roster-card > header .berry-entity-name { font-size: 15px; font-weight: 700; }
 .berry-app .berry-roster-card > section { padding-top: 7px; min-width: 0; }
+.berry-app .berry-roster-card-selectors { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; padding-top: 6px; }
+.berry-app .berry-roster-card-selectors > div, .berry-app .berry-roster-card-selectors > label { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.berry-app .berry-roster-card-selectors .berry-roster-compare { margin: 0; }
 .berry-app .berry-roster-card h3 { margin: 0 0 4px; color: #52695c; font: 700 11px/1.3 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .025em; }
 .berry-app .berry-company-roster .berry-roster-explanation { margin-top: 8px; font-size: 11px; color: #52695c; }
 .berry-app .berry-company-roster .berry-roster-explanation p { margin: 5px 0; }
+.berry-app .berry-roster-dialog { width: min(920px, calc(100vw - 32px)); max-height: 86dvh; overflow: auto; overscroll-behavior: contain; padding: 0; border: 1px solid #8da694; border-radius: 7px; color: #20372d; background: #fff; box-shadow: 0 18px 70px #132e3159; }
+.berry-app .berry-roster-dialog::backdrop { background: #16352766; }
+.berry-app .berry-roster-dialog > header { display: flex; position: sticky; top: 0; z-index: 2; align-items: center; justify-content: space-between; gap: 15px; padding: 10px 14px; border-bottom: 1px solid #b9cbbd; background: #f0f5ef; }
+.berry-app .berry-roster-dialog > header h2 { margin: 0; font-size: 20px; }
+.berry-app .berry-roster-dialog-body { display: grid; gap: 18px; padding: 14px; }
+.berry-app .berry-roster-dialog-body > section { min-width: 0; }
+.berry-app .berry-roster-dialog h3 { margin: 0 0 8px; font-size: 15px; }
+.berry-app .berry-roster-dialog-body p { font-size: 13px; }
+.berry-app .berry-roster-context-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px 20px; margin: 0 0 10px; }
+.berry-app .berry-roster-context-list dt { color: #52695c; font-size: 11px; font-weight: 650; }
+.berry-app .berry-roster-context-list dd { margin: 2px 0 0; font-size: 13px; overflow-wrap: anywhere; }
+.berry-app .berry-roster-context-list p { margin-top: 3px; }
+.berry-app .berry-roster-dialog-sources { margin: 0; padding-left: 18px; }
+.berry-app .berry-roster-dialog-sources li + li { margin-top: 7px; }
+.berry-app .berry-roster-dialog-sources span { margin-left: 7px; font-size: 11px; color: #52695c; }
+.berry-app .berry-roster-dialog-path, .berry-app .berry-roster-dialog-evidence { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 7px; }
+.berry-app .berry-roster-dialog-evidence { margin-top: 5px; }
+.berry-app .berry-roster-dialog-evidence .berry-text-button { text-align: left; }
+.berry-app .berry-roster-full-geographies { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(280px,100%),1fr)); gap: 10px; }
+.berry-app .berry-roster-full-geographies > article { padding: 8px; border: 1px solid #d0ddcf; }
+.berry-app .berry-roster-logo-credit { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin: 0; }
+.berry-app .berry-roster-logo-credit img { object-fit: contain; background: #fff; }
+.berry-app .berry-roster-logo-credit figcaption { flex: 1; min-width: 200px; }
+.berry-app .berry-roster-logo-credit p { margin: 0 0 4px; }
+.berry-app .berry-roster-logo-credit a + a { margin-left: 10px; }
+.berry-app .berry-roster-logo[data-background='dark'], .berry-app .berry-roster-logo-credit img[data-background='dark'] { background: #242a28; }
+@media (max-width: 600px) { .berry-app .berry-roster-context-list { grid-template-columns: 1fr; } .berry-app .berry-roster-dialog { width: calc(100vw - 16px); max-height: 94dvh; } }
 @media (max-width: 600px) { .berry-app .berry-roster-grid { min-height: 360px; height: 58dvh; } .berry-app .berry-roster-view-tools input[type='search'] { width: min(220px, 100%); } }

@@ -27,9 +27,16 @@ def test_map_and_snapshot_keep_the_same_primary_links_and_fresh_news_action(monk
     assert snapshot.context["authoring_mode"] is authoring
     assert primary_links(snapshot.text) == primary_links(map_page.text)
     links = set(primary_links(snapshot.text))
-    assert ("/today?refresh=1" if authoring else "/today") in links
-    for href in ("/workspaces", "/social", "/global-watchlist"):
-        assert (href in links) is authoring
+    if authoring:
+        assert links == {"/app/landscape", "/app/briefing", "/workspaces", "/app/learn"}
+        assert 'class="glass-more"' in snapshot.text
+        assert 'href="/app/workspaces"' in snapshot.text  # Separate Save / export utility.
+        for href in ("/social", "/global-watchlist"):
+            assert f'href="{href}"' in snapshot.text  # Retained under More.
+    else:
+        assert "/today" in links
+        for href in ("/workspaces", "/social", "/global-watchlist"):
+            assert href not in links
     assert ('href="/landscapes/explorer"' in snapshot.text) is authoring
     assert ('href="/social?view=atlas"' in snapshot.text) is authoring
     assert snapshot.context["query"].params()["countries"] == "iso:FR"

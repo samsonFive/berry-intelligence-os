@@ -47,10 +47,12 @@ export function rosterTextMatch({ data, value, filterText, filterOption }: { dat
 /** Fixed semantic columns: changing a company page never creates another layout. */
 export const COMPANY_ROSTER_VIEW_KEY = 'berry-company-roster-v1';
 export const COMPANY_ROSTER_COLUMNS: readonly (LayoutColumn & { label: string })[] = [
-  { colId: 'company.identity', label: 'Company / comparison', defaultWidth: 210, minWidth: 170, maxWidth: 1200, lockedVisible: true },
+  { colId: 'company.identity', label: 'Company', defaultWidth: 210, minWidth: 170, maxWidth: 1200, lockedVisible: true },
+  { colId: 'company.tier', label: 'Tier', defaultWidth: 110, minWidth: 100, maxWidth: 240, restoreAfter: 'company.identity' },
+  { colId: 'company.compare', label: 'Compare', defaultWidth: 76, minWidth: 60, maxWidth: 160, restoreAfter: 'company.identity' },
   { colId: 'company.genetics', label: 'Genetics / portfolio', defaultWidth: 360, minWidth: 250, maxWidth: 1200 },
-  { colId: 'company.roles', label: 'Authored roles / berries', defaultWidth: 185, minWidth: 140, maxWidth: 1200 },
-  { colId: 'company.geography', label: 'Geographic activity', defaultWidth: 240, minWidth: 180, maxWidth: 1200 },
+  { colId: 'company.roles', label: 'Roles / berries', defaultWidth: 185, minWidth: 140, maxWidth: 1200 },
+  { colId: 'company.geography', label: 'Geography', defaultWidth: 240, minWidth: 180, maxWidth: 1200 },
   { colId: 'company.collection', label: 'Collection context', defaultWidth: 180, minWidth: 150, maxWidth: 1200, defaultHidden: true },
 ];
 
@@ -60,6 +62,8 @@ export function companyRosterText(company: MonitoringCompany, model: LandscapeMo
   const nodeLabel = (id: string) => model.nodes[id]?.label ?? id;
   return {
     'company.identity': [company.label, company.identity_note, company.assigned_tier_label, company.in_scope ? '' : 'No standing links in this scope', company.watched ? 'Shared watch' : ''].filter(Boolean).join(' · '),
+    'company.tier': company.assigned_tier_label,
+    'company.compare': '',
     'company.genetics': [...genetics.programs.map(node => node.label), ...genetics.varieties.map(node => node.label),
       ...genetics.edges.map(edge => [nodeLabel(edge.subject_id), edge.role, nodeLabel(edge.object_id), edge.status_label, edge.caveat, edge.notes].filter(Boolean).join(' · '))].join('; '),
     'company.roles': [...company.roles.map(role => role.replaceAll('_', ' ')), ...company.berry_ids.map(id => id.replace(/^berry-/, '').replaceAll('-', ' '))].join(' · '),

@@ -313,7 +313,7 @@ body:has(> #root > .berry-app) { margin: 0; background: #f3f6f4; }
 .berry-table thead th { position: sticky; top: 0; z-index: 2; }
 .berry-table .berry-frozen-identity { position: sticky; left: 0; z-index: 1; background: var(--berry-surface); min-width: 150px; }
 .berry-table thead .berry-frozen-identity { z-index: 3; background: var(--berry-surface-subtle); }
-.berry-grid { --ag-font-family: var(--berry-font-ui); --ag-font-size: 13px; --ag-background-color: var(--berry-surface); --ag-foreground-color: var(--berry-ink); --ag-header-background-color: var(--berry-surface-subtle); --ag-header-foreground-color: var(--berry-ink); --ag-border-color: var(--berry-line-strong); --ag-row-border-color: var(--berry-line); --ag-cell-horizontal-border: solid var(--berry-line); --ag-selected-row-background-color: var(--berry-sage); --ag-row-hover-color: #f1f6f2; --ag-accent-color: var(--berry-forest); --ag-wrapper-border-radius: 0; --ag-header-height: 44px; --ag-row-height: 52px; width: 100%; min-height: 300px; }
+.berry-grid { --ag-font-family: var(--berry-font-ui); --ag-font-size: 13px; --ag-background-color: var(--berry-surface); --ag-foreground-color: var(--berry-ink); --ag-border-color: var(--berry-line-strong); --ag-row-border-color: var(--berry-line); --ag-cell-horizontal-border: solid var(--berry-line); --ag-selected-row-background-color: var(--berry-sage); --ag-row-hover-color: #f1f6f2; --ag-accent-color: var(--berry-forest); --ag-wrapper-border-radius: 0; width: 100%; min-height: 300px; }
 .berry-grid .ag-cell { font-size: 13px; line-height: 1.4; padding: 4px 7px; }
 .berry-grid .ag-cell-wrap-text { white-space: normal; }
 .berry-grid .ag-header-cell-text { font-size: 12px; font-weight: 650; }

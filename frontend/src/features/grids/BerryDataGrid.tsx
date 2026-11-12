@@ -20,7 +20,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 const berryGridTheme = workspaceGridTheme;
 
-/** One actual directed edge, with material qualifiers outside the hover preview. */
+/** A directed role and compact qualifier; the complete source basis stays on demand. */
 function PortfolioRelationship({ edge, model, open }: {
   edge: LandscapeEdge; model: LandscapeModel; open: () => void;
 }) {
@@ -33,17 +33,12 @@ function PortfolioRelationship({ edge, model, open }: {
       onOpenDetail={open} content={<div className="berry-portfolio-edge-preview"><strong>{edge.role}</strong><p>{path}</p>
         <dl><div><dt>Recorded status</dt><dd>{edge.status_label}</dd></div><div><dt>Source review</dt><dd>{edge.review}</dd></div></dl>
         {identityNotes.map(note => <p key={note}>{note}</p>)}{edge.caveat && <p>{edge.caveat}</p>}{edge.notes && <p>{edge.notes}</p>}
-        <p>Source review and recorded relationships retain their separate meanings.</p>
+        {!!edge.evidence_ids.length && <div className="berry-portfolio-edge-sources"><span>Sources</span><div>{edge.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} parent={{ type: 'relationship', id: edge.id }} />)}</div></div>}
       </div>}>
       <strong className="berry-portfolio-edge-role">{edge.role}</strong>
       {edge.status !== 'active' && <span className="berry-portfolio-edge-status">{edge.status_label}</span>}
       <span className="berry-portfolio-edge-path">{path}</span>
     </Preview>
-    {identityNotes.length > 0 && <p className="berry-portfolio-identity-note">{identityNotes.join(' · ')}</p>}
-    {edge.caveat && <p className="berry-portfolio-edge-caveat">{edge.caveat}</p>}
-    <div className="berry-portfolio-edge-sources"><span>Sources</span><div>{edge.evidence_ids.length
-      ? edge.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} parent={{ type: 'relationship', id: edge.id }} />)
-      : <span className="berry-unknown">No supporting source recorded</span>}</div></div>
   </article>;
 }
 
@@ -78,9 +73,9 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
     viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} onReady={onReady} />;
 }
 
-function ColumnVisibility({ columns, visible, busy, change }: {
+function ColumnVisibility({ columns, visible, busy, change, reload }: {
   columns: Array<{ id: string; label: string; locked?: boolean }>; visible: Record<string, boolean>; busy: boolean;
-  change: (id: string, show: boolean) => void;
+  change: (id: string, show: boolean) => void; reload: () => void;
 }) {
   const popup = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
@@ -96,10 +91,11 @@ function ColumnVisibility({ columns, visible, busy, change }: {
   }, []);
   return <details className="berry-grid-columns" ref={popup}>
     <summary className="berry-button berry-button--quiet">Columns</summary>
-    <div className="berry-grid-column-options"><p>Show or hide company columns. Cultivar identity and its separate comparison pin stay visible.</p>
+    <div className="berry-grid-column-options">
       {columns.map(column => <label key={column.id}><input type="checkbox" checked={visible[column.id] ?? true} disabled={busy || column.locked}
         aria-label={`Show ${column.label} column`} onChange={event => change(column.id, event.target.checked)} />
-        <span>{column.label}{column.locked && <small>Fixed identity / comparison control</small>}</span></label>)}
+        <span>{column.label}{column.locked && <small>Fixed</small>}</span></label>)}
+      <Button size="small" variant="ghost" disabled={busy} onClick={reload}>Reload saved layout</Button>
     </div>
   </details>;
 }
@@ -130,8 +126,7 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
       valueGetter: params => params.data?.variety.label ?? '',
       cellRenderer: (params: ICellRendererParams<PortfolioRow>) => params.data && <div className="berry-portfolio-identity"><EntityButton compact name={params.data.variety.label}
         selected={context.focus === params.data.id}
-        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'variety', id: params.data!.id }, origin: 'grid' })} />
-        {params.data.variety.identity_note && <p className="berry-portfolio-identity-note">{params.data.variety.identity_note}</p>}</div>,
+        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'variety', id: params.data!.id }, origin: 'grid' })} /></div>,
     },
     {
       colId: 'cultivar.comparison-pin', headerName: 'Pin', pinned: 'left', initialWidth: 75, minWidth: 65, maxWidth: 90,
@@ -155,27 +150,25 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
 
   return <section aria-label="Recorded company and cultivar portfolio">
     <nav className="berry-portfolio-pages" aria-label="Portfolio company pages">
-      <p aria-live="polite"><strong>Company columns {page.start + 1}–{page.end} of {page.total}</strong>{page.paged && <span> · Page {page.index + 1} of {page.count}</span>}</p>
+      <p aria-live="polite"><strong>Companies {page.start + 1}–{page.end} of {page.total}</strong><span> · {rows.length} cultivars</span>{page.paged && <span> · Page {page.index + 1} of {page.count}</span>}</p>
       {page.paged && <div><Button size="small" variant="secondary" disabled={pageBlocked || page.index === 0} onClick={() => changePage(page.index - 1)}>Previous companies</Button>
         <label>Company page<select value={page.index} disabled={pageBlocked} onChange={event => changePage(Number(event.target.value))}>
           {Array.from({ length: page.count }, (_, index) => <option key={index} value={index}>{index + 1} · {index * COMPANY_COLUMNS_PER_PAGE + 1}–{Math.min((index + 1) * COMPANY_COLUMNS_PER_PAGE, page.total)}</option>)}
         </select></label>
         <Button size="small" variant="secondary" disabled={pageBlocked || page.index === page.count - 1} onClick={() => changePage(page.index + 1)}>Next companies</Button></div>}
     </nav>
-    {page.paged && <p className="berry-scope-note berry-portfolio-page-note">All {rows.length} cultivar rows remain loaded on every company page. Display preferences save separately for each group of company columns; earlier full-portfolio layouts remain saved.</p>}
     {page.paged && pageBlocked && <p className="berry-scope-note" role="status">{layout.status.phase === 'conflict' ? 'Reload the saved layout before changing company page.' : 'Wait for the current layout to finish loading or saving before changing company page.'}</p>}
     <div className="berry-grid-company-controls" aria-label="Company focus and comparison pins">{companies.map(company => <div key={company.id}>
       <EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
     </div>)}</div>
     <div className="berry-grid-preferences"><label className="berry-field-label">Filter this company group<input className="berry-input" type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="Cultivar, role or company in this group" /></label>
-      <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} />
+      <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} reload={layout.reloadSavedLayout} />
     </div>
-    <div className="berry-grid-layout-status" data-phase={layout.status.phase}>
-      <p role="status" aria-live="polite">{layout.status.message}{layout.status.retainedUnknownColumns > 0 && <small>Preferences for {layout.status.retainedUnknownColumns} columns outside this scope remain saved.</small>}</p>
-      <Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout} title="Replace this tab's display settings with the last saved layout.">Reload saved layout</Button>
+    <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
+      <p role="status" aria-live="polite">{layout.status.message}</p>
+      {['error', 'conflict', 'local'].includes(layout.status.phase) && <Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button>}
     </div>
-    <p className="berry-scope-note">Standing portfolio records · {rows.length} loaded cultivars · roles retain their recorded direction. Company columns include actual program links where recorded.</p>
     <div className="berry-grid berry-portfolio-grid" data-grid-edition="community" aria-busy={layout.busy} inert={layout.busy}>
       <AgGridReact<PortfolioRow> theme={berryGridTheme} rowData={rows} columnDefs={columnDefs}
         getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder
@@ -191,7 +184,6 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onRe
         getRowClass={params => params.data?.id === context.focus ? 'berry-grid-row-focused' : ''}
         overlayNoRowsTemplate="No loaded cultivar rows match this filter." />
     </div>
-    <p className="berry-scope-note berry-grid-caption">Select a name to inspect. Use the explicit pins to build company or variety comparisons. Every loaded cultivar identity is searchable; role and company filters use this company group. The investigation's scope stays unchanged.</p>
   </section>;
 }
 

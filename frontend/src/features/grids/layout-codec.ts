@@ -7,8 +7,8 @@ export class GridLayoutError extends Error {
   readonly kind: "invalid" | "conflict" | "session" | "network" | "unloaded" | "disposed" | "migration";
   constructor(message: string, kind: GridLayoutError["kind"] = "invalid") { super(message); this.name = "GridLayoutError"; this.kind = kind; }
 }
-export interface LayoutColumn { colId: string; defaultWidth?: number; minWidth?: number; maxWidth?: number; lockedVisible?: boolean; defaultHidden?: boolean }
-export interface CatalogColumn { colId: string; key: string; defaultWidth: number; minWidth: number; maxWidth: number; lockedVisible: boolean; defaultHidden?: boolean }
+export interface LayoutColumn { colId: string; defaultWidth?: number; minWidth?: number; maxWidth?: number; lockedVisible?: boolean; defaultHidden?: boolean; restoreAfter?: string }
+export interface CatalogColumn { colId: string; key: string; defaultWidth: number; minWidth: number; maxWidth: number; lockedVisible: boolean; defaultHidden?: boolean; restoreAfter?: string }
 export interface ColumnCatalog { columns: readonly CatalogColumn[]; byId: ReadonlyMap<string, CatalogColumn>; byKey: ReadonlyMap<string, CatalogColumn> }
 export interface GridLayoutSnapshot {
   columns: Array<{ colId: string; width: number; hide: boolean }>;
@@ -42,11 +42,17 @@ export async function createColumnCatalog(columns: readonly LayoutColumn[], dige
     const minWidth = Math.max(48, Math.ceil(column.minWidth ?? 48)), maxWidth = Math.min(1200, Math.floor(column.maxWidth ?? 1200));
     if (![minWidth, maxWidth, column.defaultWidth ?? 160].every(Number.isFinite) || minWidth > maxWidth) fail("The grid's column size limits are invalid.");
     if (column.defaultHidden !== undefined && typeof column.defaultHidden !== 'boolean') fail("The default column visibility is invalid.");
+    if (column.restoreAfter !== undefined && typeof column.restoreAfter !== 'string') fail("The new column's default position is invalid.");
     const entry = { colId: column.colId, key, minWidth, maxWidth, defaultWidth: Math.min(maxWidth, Math.max(minWidth, Math.round(column.defaultWidth ?? 160))), lockedVisible: Boolean(column.lockedVisible),
-      ...(column.defaultHidden ? { defaultHidden: true } : {}) };
+      ...(column.defaultHidden ? { defaultHidden: true } : {}), ...(column.restoreAfter !== undefined ? { restoreAfter: column.restoreAfter } : {}) };
     byId.set(column.colId, entry); byKey.set(key, entry);
   }
-  return { columns: [...byId.values()], byId, byKey };
+  const entries = [...byId.values()];
+  for (const [index, column] of entries.entries()) if (column.restoreAfter !== undefined) {
+    const anchor = entries.findIndex(item => item.colId === column.restoreAfter);
+    if (column.lockedVisible || anchor < 0 || anchor >= index) fail("A new column's default position needs an earlier available column.");
+  }
+  return { columns: entries, byId, byKey };
 }
 export function defaultGridLayout(catalog: ColumnCatalog): GridLayoutSnapshot {
   return { columns: catalog.columns.map(column => ({ colId: column.colId, width: column.defaultWidth, hide: !column.lockedVisible && Boolean(column.defaultHidden) })), sort: [], filterModel: {}, quickFilter: "" };
@@ -110,6 +116,19 @@ function assertSemanticWire(wire: SheetLayout): void {
   cleanText(wire.filters.quick ?? ""); storedSort(wire);
   if (wire.filters.view !== undefined && !["grid", "cards"].includes(wire.filters.view)) fail("The saved display view is unsupported.");
 }
+/** Only genuinely new columns get a default position; every saved reference wins. */
+function positionMissingColumns(order: string[], catalog: ColumnCatalog, savedReferences: ReadonlySet<string>): string[] {
+  const result = [...order], tails = new Map<string, string>();
+  for (const column of catalog.columns) {
+    if (column.restoreAfter === undefined || savedReferences.has(column.key)) continue;
+    const anchor = catalog.byId.get(column.restoreAfter)!.key;
+    result.splice(result.indexOf(column.key), 1);
+    const after = result.indexOf(tails.get(anchor) ?? anchor);
+    result.splice(after + 1, 0, column.key);
+    tails.set(anchor, column.key);
+  }
+  return result;
+}
 export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): LoadedGridLayout {
   const wire = validateSheetLayout(value), snapshot = defaultGridLayout(catalog);
   const empty = wire.revision === 0 && !wire.order.length && !wire.hidden.length && !Object.keys(wire.widths).length && !Object.keys(wire.filters).length;
@@ -117,8 +136,9 @@ export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): Loaded
   if (wire.filters.schema !== LAYOUT_SCHEMA) return { status: "legacy-unmapped", revision: wire.revision, snapshot, writable: false, retainedUnknownColumns: 0,
     notice: "The earlier layout cannot be matched safely to current columns. It remains saved; use a new layout namespace for these columns." };
   assertSemanticWire(wire);
+  const refs = new Set([...wire.order, ...wire.hidden, ...Object.keys(wire.widths), ...storedSort(wire).map(([key]) => key), ...Object.keys(wire.filters).filter(key => !META.has(key))]);
   const pinned = catalog.columns.filter(column => column.lockedVisible).map(column => column.key);
-  const ordered = [...new Set([...pinned, ...wire.order, ...catalog.columns.map(column => column.key)])];
+  const ordered = positionMissingColumns([...new Set([...pinned, ...wire.order, ...catalog.columns.map(column => column.key)])], catalog, refs);
   snapshot.columns = ordered.flatMap(key => { const column = catalog.byKey.get(key); return column ? [{ colId: column.colId, width: width(wire.widths[key] ?? column.defaultWidth, column),
     hide: !column.lockedVisible && (wire.hidden.includes(key) || !wire.order.includes(key) && wire.widths[key] === undefined && Boolean(column.defaultHidden)) }] : []; });
   snapshot.sort = storedSort(wire).flatMap(([key, sort]) => { const column = catalog.byKey.get(key); return column ? [{ colId: column.colId, sort }] : []; });
@@ -127,7 +147,6 @@ export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): Loaded
   }
   snapshot.quickFilter = wire.filters.quick ?? "";
   if (wire.filters.view !== undefined) snapshot.view = wire.filters.view as "grid" | "cards";
-  const refs = new Set([...wire.order, ...wire.hidden, ...Object.keys(wire.widths), ...storedSort(wire).map(([key]) => key), ...Object.keys(wire.filters).filter(key => !META.has(key))]);
   return { status: "restored", revision: wire.revision, snapshot, writable: true, retainedUnknownColumns: [...refs].filter(key => !catalog.byKey.has(key)).length };
 }
 export function encodeGridLayout(snapshot: GridLayoutSnapshot, catalog: ColumnCatalog, previous?: SheetLayout): SheetLayout {

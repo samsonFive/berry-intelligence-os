@@ -1,58 +1,36 @@
-.berry-app .berry-roster-compact {
-  min-width: 0;
-  color: #273c30;
-  font: 12px/1.22 var(--berry-font-ui);
-}
+.berry-app .berry-roster-compact { min-width: 0; color: #273c30; font: 12px/1.2 var(--berry-font-ui); }
 .berry-app .berry-roster-compact p { margin: 0; }
-.berry-app .berry-roster-compact-counts,
-.berry-app .berry-roster-compact-type,
-.berry-app .berry-roster-compact-berries,
-.berry-app .berry-roster-compact-unknown { color: #59685e; font-size: 11px; }
+.berry-app .berry-roster-compact-counts, .berry-app .berry-roster-compact-type,
+.berry-app .berry-roster-compact-berries { color: #52695c; font-size: 11px; }
 .berry-app .berry-roster-compact-counts { margin-bottom: 2px; }
-.berry-app .berry-roster-compact-names,
-.berry-app .berry-roster-compact-role-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2px 7px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.berry-app .berry-roster-compact-names, .berry-app .berry-roster-compact-role-list {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 7px; margin: 0; padding: 0; list-style: none;
 }
-.berry-app .berry-roster-compact-names > li,
-.berry-app .berry-roster-compact-role-list > li { min-width: 0; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-names > li, .berry-app .berry-roster-compact-role-list > li { min-width: 0; overflow-wrap: anywhere; }
 .berry-app .berry-roster-compact-type { margin-right: 4px; font-size: 10px; }
-.berry-app .berry-roster-compact-identity-note { margin-left: 4px; color: #765018; font-size: 11px; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-identity-note { display: block; margin-top: 3px; color: #765018; font-size: 12px; overflow-wrap: anywhere; }
 .berry-app .berry-roster-compact-names .berry-program-label { display: none; }
-.berry-app .berry-roster-compact-names .berry-entity-name { font-size: inherit; font-weight: 550; line-height: inherit; }
-.berry-app .berry-roster-compact-role-list { font-size: 11px; font-weight: 600; }
+.berry-app .berry-roster-compact-names .berry-entity-name { font-size: 12px; font-weight: 600; line-height: 1.2; }
+.berry-app .berry-roster-compact-names .berry-entity-button { padding-block: 0; gap: 0; }
+.berry-app .berry-roster-compact-role-list { font-size: 12px; font-weight: 600; }
 .berry-app .berry-roster-compact-berries { display: flex; flex-wrap: wrap; gap: 1px 6px; margin-top: 3px; }
 .berry-app .berry-roster-compact-berries > span:not(:last-child)::after { content: ' ·'; }
-.berry-app .berry-roster-compact-details { margin-top: 2px; }
-.berry-app .berry-roster-compact-details > summary {
-  color: #355340;
-  font-size: 11px;
-  line-height: 1.25;
-  cursor: pointer;
-  overflow-wrap: anywhere;
-}
-.berry-app .berry-roster-compact-details[open] > summary { margin-bottom: 4px; }
-.berry-app .berry-roster-compact-details:focus-within { position: relative; z-index: 1; }
-.berry-app .berry-roster-compact-qualification > summary > span:first-child { font-weight: 400; }
-.berry-app .berry-roster-compact-qualification strong { font-weight: 650; }
-.berry-app .berry-roster-compact-flow { margin-left: 5px; color: #59685e; font-size: 10px; }
-.berry-app .berry-roster-compact-direct { margin: 0; padding: 0; list-style: none; }
-.berry-app .berry-roster-compact-direct > li { min-width: 0; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-direct, .berry-app .berry-roster-compact-geographies { margin: 0; padding: 0; list-style: none; }
+.berry-app .berry-roster-compact-direct > li, .berry-app .berry-roster-compact-geographies > li { min-width: 0; overflow-wrap: anywhere; }
 .berry-app .berry-roster-compact-direction { margin-right: 4px; font-weight: 650; }
-.berry-app .berry-roster-compact-direct-role { color: #59685e; font-size: 11px; }
-.berry-app .berry-roster-compact-limit {
-  display: block;
-  color: #765018;
-  font-size: 11px;
-  line-height: 1.25;
-}
-.berry-app .berry-roster-compact-limit:empty { display: none; }
-.berry-app .berry-roster-compact-paths { display: grid; gap: 4px; }
-.berry-app .berry-roster-compact-paths .berry-relationship-edge { border-left: 0; }
-.berry-app .berry-roster-compact-paths .berry-material-caveat { margin-top: 2px; }
-.berry-app .berry-roster-compact-collection .berry-roster-compact-state { display: block; font-size: 11px; font-weight: 650; }
-.berry-app .berry-roster-compact-collection .berry-roster-compact-details p + p { margin-top: 3px; }
+.berry-app .berry-roster-compact-direct-role { color: #52695c; font-size: 11px; }
+.berry-app .berry-roster-compact-qualifier, .berry-app .berry-roster-geo-status { color: #815715; font-size: 10.5px; font-weight: 600; }
+.berry-app .berry-roster-compact-qualifier { margin-top: 2px; }
+.berry-app .berry-roster-note-mark { margin-left: 2px; color: #815715; font-size: 10px; }
+.berry-app .berry-roster-compact-geographies .berry-text-button { padding: 0; font: 12px/1.25 var(--berry-font-ui); text-align: left; white-space: normal; }
+.berry-app .berry-roster-compact-geographies li + li { margin-top: 2px; }
+.berry-app .berry-roster-compact-state { font-size: 11px; font-weight: 600; }
+.berry-app .berry-roster-compact--expanded { font-size: 13px; line-height: 1.4; }
+.berry-app .berry-roster-compact--expanded .berry-roster-compact-names { gap: 8px 14px; }
+.berry-app .berry-roster-compact-paths { display: grid; gap: 10px; }
+.berry-app .berry-roster-compact-paths > div { padding: 8px; border: 1px solid #d0ddcf; }
+.berry-app .berry-roster-compact-paths p { margin-top: 5px; overflow-wrap: anywhere; }
+.berry-app .berry-roster-path-review { color: #52695c; font-size: 12px; }
+.berry-app .berry-roster-full-paths { margin-top: 12px; }
+.berry-app .berry-roster-full-paths h4 { margin: 0 0 7px; font-size: 13px; }
+.berry-app .berry-roster-compact-collection p { margin-top: 4px; }
