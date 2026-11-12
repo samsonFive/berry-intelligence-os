@@ -31,6 +31,16 @@
 .variety-sheet-shell .variety-profile-sheet-page .variety-row-info > summary { width: fit-content; padding: 0; color: #31573e; cursor: pointer; font-weight: 500; }
 .variety-sheet-shell .variety-profile-sheet-page .variety-row-info p { margin: 4px 0; }
 .variety-sheet-shell .variety-profile-sheet-page .variety-scope-qualifier { color: #795419; font-size: 11px; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip { margin: 7px 0; min-width: 0; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo-gallery { gap: 8px; padding: 0 0 5px; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo { display: grid; grid-template-columns: 108px minmax(0, 1fr); flex: 0 0 400px; max-width: 100%; border-radius: 2px; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo > :is(.variety-photo-frame, [data-photo-session]) { grid-column: 1; grid-row: 1; min-width: 0; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo-frame { height: 108px; aspect-ratio: auto; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo-frame img { max-height: 108px; object-fit: contain; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo figcaption { grid-column: 2; grid-row: 1 / span 2; padding: 6px 8px; font-size: 11px; line-height: 1.35; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo figcaption b { font-size: 12px; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip .variety-photo-zoom { grid-column: 1; padding: 4px; font-size: 10px; }
+.variety-sheet-shell .variety-profile-sheet-page .variety-profile-photo-strip > p { margin: 3px 0; font-size: 11px; }
 @media (max-width: 800px) {
   .variety-sheet-shell .variety-profile-sheet-page .variety-profile-heading h1 { font-size: 21px; }
   .variety-sheet-shell .variety-profile-sheet-page .variety-section-body { padding: 6px; }

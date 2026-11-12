@@ -114,10 +114,33 @@ def test_performance_groups_share_one_rectangular_sheet_without_hidden_rows():
     assert tables[0].xpath('./thead/tr/th[1]/text()') == ['Trait']
     assert tables[0].xpath('./thead/tr/th[1]/@data-column-label') == ['Performance / Trait']
     assert tables[0].xpath('./thead/tr/th[2]/text()') == ['Group']
+    # The table is initially closed, so the existing controller must not rely on
+    # zero-width DOM measurements and collapse every column to its160px fallback.
+    assert [int(value) for value in tables[0].xpath('./thead/tr/th/@data-width')] == [190, 140, 500, 130, 240, 190]
     rows = tables[0].xpath('./tbody/tr')
     assert len(rows) == 2 and all(len(row.xpath('./th|./td')) == 6 for row in rows)
     assert [row.xpath('./td[1]/text()')[0] for row in rows] == ['Product / sensory', 'Postharvest / quality']
     assert not tables[0].xpath('.//td[@colspan]|.//th[@colspan]|.//tr[@hidden]')
+
+
+def test_credited_photos_are_a_top_strip_outside_the_full_width_table_layout():
+    photo = dict(display_image=True, image_url='https://example.test/credited-photo.jpg',
+                 caption='Recorded cultivar photo', named_variety='Fixture cultivar', kind_label='Fruit',
+                 credit='Recorded photographer credit', origin='Publisher-labelled photo',
+                 source_url='https://example.test/original', license_url='https://example.test/license',
+                 reuse_label='Recorded license', reuse_note='Exact reuse limitation', checked_on='2024-02-03')
+    tree, _ = render(authoring_mode=True, photo_gallery=[photo])
+    strip = tree.xpath('//aside[contains(@class,"variety-profile-photo-strip")]')[0]
+    layout = tree.xpath('//div[@class="variety-profile-layout"]')[0]
+    assert strip.getnext() is layout
+    assert not layout.xpath('.//aside') and not tree.xpath('//*[contains(@class,"variety-profile-with-photos")]')
+    assert strip.xpath('.//img[@src="https://example.test/credited-photo.jpg"][@referrerpolicy="no-referrer"]')
+    for value in ['Recorded cultivar photo', 'Recorded photographer credit', 'Publisher-labelled photo',
+                  'Recorded license', 'Exact reuse limitation', '2024-02-03']:
+        assert value in strip.text_content()
+    assert strip.xpath('.//a[@href="https://example.test/original"]')
+    assert strip.xpath('.//a[@href="https://example.test/license"]')
+    assert strip.xpath('.//a[@href="/varieties/photos/catalog/variety-fixture"]')
 
 
 @pytest.mark.parametrize('prefix', ['confidence=high', ' CONFIDENCE=MEDIUM ', 'confidence=low'])

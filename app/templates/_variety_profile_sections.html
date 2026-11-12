@@ -59,7 +59,7 @@
   <details class="variety-section"{% if role_state.any %} open{% endif %}><summary>Company roles</summary><div class="variety-section-body">
   {% if role_state.any %}
   <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Recorded company roles"><table class="variety-data-sheet">
-    <thead><tr><th scope="col">Role</th><th scope="col">Company / party</th><th scope="col">Recorded basis</th></tr></thead><tbody>
+    <thead><tr><th scope="col" data-width="160">Role</th><th scope="col" data-width="300">Company / party</th><th scope="col" data-width="930">Recorded basis</th></tr></thead><tbody>
     {% set role_predicates = {'breeder':'develops', 'owner_rights_holder':'owns', 'licensee':'licenses', 'marketer':'markets', 'grower':'grows', 'distributor':'distributes'} %}
     {% for bucket, label in role_labels.items() %}{% for party in roles.get(bucket, []) %}
       <tr><th scope="row">{{ label }}</th><td><a href="{{ party.href }}">{{ party.name }}</a></td><td>
@@ -77,7 +77,7 @@
   <details class="variety-section"><summary>Rights / IP</summary><div class="variety-section-body">
   <details class="variety-row-info"><summary>Info</summary><p>USPTO, CPVO, and other filings as recorded. Pending-review drafts are not trusted grants.</p></details>
   <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Recorded rights references"><table class="variety-data-sheet" data-pagefind-ignore>
-    <thead><tr><th scope="col">Reference</th><th scope="col">Recorded value / limitation</th></tr></thead><tbody>
+    <thead><tr><th scope="col" data-width="200">Reference</th><th scope="col" data-width="1190">Recorded value / limitation</th></tr></thead><tbody>
     <tr><th scope="row">Breeding program</th><td>
       {% if variety_breeding_program %}
         <a href="/entities/breeding_program/{{ variety_breeding_program.id }}">{{ variety_breeding_program.name }}</a>
@@ -123,7 +123,7 @@
   </p>
   {% if observations %}
     <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Retail observations"><table class="variety-data-sheet variety-observation-sheet">
-      <thead><tr><th scope="col">Observation / status</th><th scope="col">Variety / brand</th><th scope="col">Market / channel / date</th><th scope="col">Pack / price / origin</th><th scope="col">Source / verification</th><th scope="col">Claims / limitations</th></tr></thead><tbody>
+      <thead><tr><th scope="col" data-width="300">Observation / status</th><th scope="col" data-width="190">Variety / brand</th><th scope="col" data-width="230">Market / channel / date</th><th scope="col" data-width="190">Pack / price / origin</th><th scope="col" data-width="190">Source / verification</th><th scope="col" data-width="290">Claims / limitations</th></tr></thead><tbody>
       {% for obs in observations %}<tr id="obs-{{ obs.id }}"{% if obs.id %} data-intel-card data-item-id="{{ obs.id }}" tabindex="-1"{% endif %}>
         <th scope="row">{% if obs.href and not static_build %}<a href="{{ obs.href }}" data-open-reader data-item-id="{{ obs.id }}">{{ obs.title }}</a>{% elif obs.trusted_href %}<a href="{{ obs.trusted_href }}">{{ obs.title }}</a>{% else %}{{ obs.title }}{% endif %}
           <small><span class="v2-mark {{ 'v2-mark-pending' if obs.is_draft else 'v2-mark-trusted' }}">{{ 'Pending review' if obs.is_draft else 'Trusted' }}</span> Commercial observation</small></th>
@@ -157,7 +157,7 @@
   </details>
   {% if variety_intelligence and variety_intelligence.has_any %}
       <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Performance and production evidence"><table class="variety-data-sheet variety-performance-sheet">
-        <thead><tr><th scope="col" data-column-label="Performance / Trait">Trait</th><th scope="col">Group</th><th scope="col">Recorded statement</th><th scope="col">Classification / status</th><th scope="col">Scope / limits / dates</th><th scope="col">Source / attribution</th></tr></thead><tbody>
+        <thead><tr><th scope="col" data-column-label="Performance / Trait" data-width="190">Trait</th><th scope="col" data-width="140">Group</th><th scope="col" data-width="500">Recorded statement</th><th scope="col" data-width="130">Classification / status</th><th scope="col" data-width="240">Scope / limits / dates</th><th scope="col" data-width="190">Source / attribution</th></tr></thead><tbody>
       {% for group in variety_intelligence.groups %}
         {% for row in group.rows %}
           <tr id="fact-{{ row.id }}"{% if row.evidence_id %} data-intel-card data-item-id="{{ row.evidence_id }}" tabindex="-1"{% endif %}>
@@ -213,7 +213,7 @@
   {% if variety_trait_profile %}
     <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Reported traits">
     <table class="trait-table">
-      <thead><tr><th>Trait</th><th>Reported value</th><th>Source of claim</th><th>Asserted by</th></tr></thead>
+      <thead><tr><th data-width="190">Trait</th><th data-width="640">Reported value</th><th data-width="240">Source of claim</th><th data-width="320">Asserted by</th></tr></thead>
       <tbody>
         {% for row in variety_trait_profile %}
           <tr>
@@ -296,7 +296,7 @@
   <details class="variety-row-info"><summary>Info</summary><p>Recorded company and geography relationships. Marketing does not imply ownership.</p></details>
   {% if grouped_relationships %}
     <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Recorded relationships"><table class="variety-data-sheet">
-      <thead><tr><th scope="col">Recorded relationship</th><th scope="col">Status / effective date</th><th scope="col">Notes / sources</th></tr></thead><tbody>
+      <thead><tr><th scope="col" data-width="500">Recorded relationship</th><th scope="col" data-width="200">Status / effective date</th><th scope="col" data-width="690">Notes / sources</th></tr></thead><tbody>
       {% for rel in grouped_relationships %}
         <tr><th scope="row">
           {% if rel.direction == 'outgoing' %}
