@@ -192,7 +192,8 @@ _RESEARCH_TERMS = re.compile(
 )
 _FOOD_RECALL = re.compile(
     r"\b(food recall|outbreak|pesticide residue|berry recall|recall warning|"
-    r"recalled (?:due to|because of)|rappel sanitaire|rappel de)\b", re.IGNORECASE)
+    r"recalled (?:due to|because of)|allergy alert|undeclared allergens|rappel sanitaire|rappel de|"
+    r"recalls\b.{0,160}\b(?:due to|because|undeclared|allergens?|contamination))\b", re.IGNORECASE)
 
 _UNRELATED_GOV_SUFFIXES = (
     "fda.gov",
