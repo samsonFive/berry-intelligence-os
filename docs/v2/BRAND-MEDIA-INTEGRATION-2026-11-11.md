@@ -1,4 +1,112 @@
-# Brand and packaging media: isolated integration candidate
+# Brand and packaging media: integration and bounded initial cohort
+
+## Current expansion checkpoint
+
+November 11 Pacific / November 12 UTC, 2026. The original **five official
+references are live**. The isolated branch
+`feature/brand-media-initial-cohort-20261111` prepares
+**47 references for local preview**, not a 47-reference production deployment.
+The [initial-cohort report](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
+`data/configuration/brand_media_cohort.json` record all 20 attempted existing
+companies/consumer brands, their source pages and specific gaps. This is a
+retail-focused current-record cohort, not a ranked Top 20. FreshKampo and Cuna
+de Platero are documented four-berry retail additions; no entity was created.
+
+The 47 selected official references cover 19 entities: 17 full official logos,
+one explicitly labelled Fruitist app-icon fallback, 28 packaging images of
+unspecified capture technique and one labelled official packaging rendering.
+There are 42 references beyond the initial five. Packaging covers 13 entities
+and includes all four berries where supported by the inspected product pages;
+it does not broaden canonical crop scopes or establish current stock.
+
+| Track | Attempted entities | Matched/display-eligible entities | References | Review needed | Unavailable | Not applicable |
+|---|---:|---:|---:|---:|---:|---:|
+| Logos, including the labelled icon fallback | 20 | 18 | 18 | 1 | 1 | 0 |
+| Retail packaging | 19 | 13 | 29 | 5 | 1 | 1 |
+
+Angus has no selected company logo: its associated Good Natured consumer-brand
+logo is not substituted. Well-Pict's official website was unavailable and its
+retained Google favicon-proxy candidate has no verified source/image binding;
+the proxy was not called. Five retail-facing entities have no qualifying pack
+selected from the inspected material. Fall Creek is a valid logo-only
+breeder/nursery case. These gaps stay in operational metadata; missing packs
+are omitted from ordinary galleries.
+
+Source-page identity, visual classification, reference delivery and use grants
+remain separate. Every selected row has an explicit operator-requested
+reference-display flag; verified-license `display`, `cache` and `export` grants
+remain false. Original publisher credit, source locator, dimensions, inspection
+basis and supported dates are retained. The four external CDN references have
+exact publisher-page/image bindings observed in retained official HTML; these
+are not host-wide CDN exceptions. Light/dark matte hints preserve the original
+wordmark pixels. No provider API request, subscription, incremental spend,
+image-object cache or generated logo/pack was added by this expansion.
+
+The retained-first check now covers all 20 exact IDs, rather than only the
+original two-company target. At `2026-11-12T02:07:20Z`, the unchanged approved
+snapshot has 631 real records and 64 excluded fixtures: 448 real records have
+expired and 183 remain unexpired, with 104 unexpired references and zero stored
+media objects. Only Driscoll's, Fall Creek and one expired text-only Camposol
+record have existing links in this selected cohort; all stored analysis links
+are proposed text matches. The original preverified account configuration
+leaves only two unexpired exact-account image references, both Fall Creek and
+unclassified. Driscoll's exact-account references have expired. Newly recorded
+official-site account links support future exact matching; they do not prove
+profile/post retrieval, current allowance or production collection activation.
+The earlier retention counts below remain a dated audit, not current totals.
+
+The existing additive command remains dry-run by default:
+
+```powershell
+python scripts/seed_brand_media.py --inbox ISOLATED_INBOX --data data
+```
+
+The seed permits up to 100 references across at most 20 explicit existing
+entities. It validates the complete payload and existing index before writes,
+adds missing IDs only, and preserves every existing raw analyst decision,
+rejection, primary image and omitted optional field. New seed rows are neither
+primary nor analyst-selected. The container resolves bundled configuration
+under `/app/seed/data`; an apply still requires the existing quiesced-writer
+release procedure. No private social DB, replacement index or company-logo
+override file belongs in the release seed.
+
+The isolated additive proof starts with the exact five original raw seed rows,
+adds 42 references and creates zero rows on repeat; all five original rows and
+their omitted optional fields remain unchanged. No object files were cached.
+The authenticated local preview uses the expanded
+fresh index; anonymous company/API requests redirect to login, backend network
+and collection startup are blocked, and production is not used. Private
+receipts are under `inbox/coverage-expansion/batch-proof/` and
+`authenticated-preview/`; representative real screenshots are under
+`browser-proof/`. The current template/read-model path covers entity detail,
+directory and Company Compare, with visible credit, hover/focus context,
+click/tap inspection, safe source links, and broken-image text fallback.
+
+The expanded affected check set passed 228 tests; subsequent checks passed 59
+after the caption-encoding correction, 87 after the container configuration-path
+fix and 33 after the white-wordmark cascade fix. Actual browser inspection
+confirmed the four-berry Cuna gallery, company comparison, exact source links,
+keyboard gallery movement, close/focus return, typed Fruitist and OZblu brands,
+the explicit icon fallback, historical Good Natured attribution and readable
+white wordmarks. The OZblu cup reference was corrected after browser inspection
+caught an erroneous emblem URL; the retained cup photograph was verified
+directly before selection. These are local focused
+checks, not final-head CI or a full-suite claim. Current-head repository gates,
+the complete expanded browser image-load/interaction ledger and continuous
+recording, isolated restore/preservation rehearsal, and any later live seed
+activation must be recorded separately. The five-image live/pilot proof below
+does not certify all 47 browser loads. The experience-consolidation React
+adapter remains a separately coordinated handoff; this seed does not certify
+that later DetailHost/Compare release or introduce a new Brand detail kind.
+The retained-social-post-to-packaging-image case remains unproven; the working
+official-page packaging route is reported separately.
+
+## Historical initial integration audit
+
+The following preserves the original two-company investigation and its
+point-in-time proof. Its branch state, retention totals and remaining-work
+statements describe that checkpoint. Current cohort and deployment status are
+stated above.
 
 November 11, 2026. Branch `feature/brand-packaging-social-20261111`, based on
 locally retained canonical `44f00b90` (#551). A fresh `git fetch origin` failed
@@ -6,7 +114,7 @@ in this environment; reconcile with current canonical before review/merge.
 No production deployment, production record changes, subscriptions, provider
 requests or incremental spending occurred.
 
-**Current status: image display is enabled in the isolated preview.** The user
+**Original preview status: image display is enabled in the isolated preview.** The user
 explicitly instructed: "let's not worry ABOUT THAT NOW JUST ENABLE IMAGE DISPLAY".
 That instruction supersedes waiting for a policy file. The recorded
 `reference_display_requested` flag enables direct source-image display without
@@ -30,7 +138,7 @@ logo/pack was used. Publication dates, capture technique, market, weight, cultiv
 and inventory remain unknown unless explicitly supported. This verifies the
 official-site display route; it does not claim a retained-social packaging pass.
 
-## Connection and retained evidence
+### Historical connection and retained evidence
 
 The [narrow connection report](BRAND-MEDIA-SOCIAL-CONNECTION-CHECK.md) distinguishes
 implementation, credential presence, runtime enablement, actual retrieval and
@@ -40,7 +148,7 @@ SSH provided authenticated read-only production inspection: SociaVault manual
 collection is enabled and unscheduled; Apify has no production token. The latest
 completed manual batch is October 21, 1:24 PM Los Angeles (193 raw returns).
 
-Production currently retains 631 live social records and 396 media references
+Production inspection at that checkpoint retained 631 live social records and 396 media references
 (267 images, 124 thumbnails, 5 videos). All 396 are `reference_only`; there are
 zero stored objects. Stored availability is an ingestion flag, not a current
 source-availability check. The production ledger's October 21 balance of 5,958
@@ -95,7 +203,7 @@ Its 30-day source retention ends **November 11, 2026, 4:44 PM Los Angeles**.
 Reading or refreshing the mapping never extends that deadline. Expired records
 stay out of new mapping runs, galleries and the metadata-only source Reader.
 
-## Shared contract and integration ownership
+### Original shared contract and integration ownership
 
 `app/services/brand_media.py` provides one private asset-reference model:
 
@@ -153,7 +261,7 @@ an explicit detail-kind adapter; do not cast it as a Company. The new app's
 Landscape logo/detail integration remains pending that coordinated integration.
 No primary navigation entry was added.
 
-## Repeatable operation
+### Original operation checkpoint
 
 All mutations target an explicit isolated inbox. Retained reuse needs no API key:
 
@@ -189,9 +297,9 @@ The image endpoint rechecks source policy/deletion/retention and serves with
 private/no-store, nosniff and sandbox headers. No private media index is added
 to public static output. Export=false is an application policy, not browser DRM.
 
-## Verification and acceptance
+### Original verification and acceptance checkpoint
 
-The final affected regression run passed **195 tests**, including identity/parent-name
+An earlier affected regression run passed **195 tests**, including identity/parent-name
 holds, carousel children, idempotence/overrides, deletion/tombstones, rights and
 export, source expiry, metadata-only Reader, authorized logo presentation,
 corrupt raster/CRC and decompression bounds, and 2 MB upload handling.
@@ -199,7 +307,7 @@ It covers the new media workflow, company directory/compare/tab preparation,
 social routes/deletion/cross-provider behavior and remote authentication. The
 preceding broader social/comparison/authentication regression passed **175
 tests**. These tests use explicitly synthetic pixels and source rows. Two
-existing dependency/deprecation warnings remain in the final run.
+existing dependency/deprecation warnings remain in that run.
 
 Record validation passed. Static build wrote **2,429 pages**, built its search
 index and passed the unpublished-draft leakage check. A preliminary full-suite
@@ -224,9 +332,10 @@ close, zero browser errors, no mutations/external requests and unchanged copied
 SQLite payloads/index. The screenshot and continuous recording demonstrate
 that metadata path only; `real_packaging_e2e_success` is explicitly false.
 
-Remaining work includes fresh usable social-image URLs, an unexpired source or
+Remaining work at that checkpoint included fresh usable social-image URLs, an unexpired source or
 permitted refresh, verified allowance before metered retrieval, the wider initial
-logo/packaging cohort, full exact-head CI and stable new-app integration. Storage
+logo/packaging cohort, full exact-head CI and stable new-app integration. The
+current bounded expansion above supersedes the cohort-preparation gap only. Storage
 and export policy qualification remains separate from explicitly requested
 reference viewing. The official-site image-display proof passes; the retained
 social-post packaging case remains unavailable and is not reported as passed.

@@ -4,7 +4,7 @@
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% from '_brand_media.html' import entity_galleries, logo as media_logo, existing_logo %}
 {% block title %}{{ name }} · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/company_dossier.css?v=1"><link rel="stylesheet" href="/static/news_workspace.css"><link rel="stylesheet" href="/static/brand_media.css?v=1">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=9"><link rel="stylesheet" href="/static/company_dossier.css?v=1"><link rel="stylesheet" href="/static/news_workspace.css"><link rel="stylesheet" href="/static/brand_media.css?v=3">{% endblock %}
 {% block content %}
 {% set linked_varieties = company_linked_varieties|default([]) %}
 {% set has_company_portfolio = dossier.backbone and dossier.backbone.portfolio %}
@@ -47,4 +47,4 @@
 {% endif %}
 </div><p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
-{% block scripts %}{% if tab == 'intelligence' %}<script src="/static/feed_first.js"></script>{% endif %}<script src="/static/brand_media.js?v=1"></script>{% endblock %}
+{% block scripts %}{% if tab == 'intelligence' %}<script src="/static/feed_first.js"></script>{% endif %}<script src="/static/brand_media.js?v=2"></script>{% endblock %}

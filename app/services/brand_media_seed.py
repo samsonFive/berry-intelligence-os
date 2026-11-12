@@ -12,7 +12,8 @@ from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.brand_media import Asset, PACK_KINDS, VERSION, index_path, official_image_reference
 from app.services.pipeline_lock import pipeline_lock
 
-MAX_SEED_ASSETS = 20
+MAX_SEED_ASSETS = 100
+MAX_SEED_ENTITIES = 20
 
 
 def _pairs(values):
@@ -64,7 +65,7 @@ def validate_seed(payload, entities):
             raise ValueError('Seed asset keys must match their identities')
         rows = list(rows.values())
     if not isinstance(rows, list) or not 1 <= len(rows) <= MAX_SEED_ASSETS:
-        raise ValueError('Seed must contain 1–20 official image references')
+        raise ValueError('Seed must contain 1–100 official image references')
     prepared = {}
     for number, raw in enumerate(rows, 1):
         try:
@@ -95,6 +96,8 @@ def validate_seed(payload, entities):
             prepared[asset.id] = asset.model_dump(mode='json')
         except (ValueError, TypeError, AttributeError, KeyError):
             raise ValueError(f'Seed asset {number} failed official-reference validation') from None
+    if len({asset['entity_id'] for asset in prepared.values()}) > MAX_SEED_ENTITIES:
+        raise ValueError('Seed must target at most 20 distinct entities')
     return prepared
 
 

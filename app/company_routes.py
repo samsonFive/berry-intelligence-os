@@ -26,7 +26,8 @@ def context():
         for key, row in rows.items():
             asset = media.get(key, {}).get('logo')
             if asset and not logos.get(key):
-                row.update(logo_url=asset['image_url'], logo_attribution=asset['attribution'])
+                row.update(logo_url=asset['image_url'], logo_attribution=asset['attribution'],
+                           logo_background=asset.get('background', 'light'))
     return main, entities, state, private, rows
 
 

@@ -150,6 +150,29 @@ def test_official_discovery_metadata_is_held_idempotent_and_does_not_match_paren
     assert media.load(tmp_path)[exact['id']]['rejected']
 
 
+def test_background_hint_defaults_light_and_analyst_dark_matte_does_not_change_pixels_or_policy(tmp_path):
+    uploaded = media.authorized_upload(tmp_path, upload_metadata(), PNG, entities=ENTITIES)
+    key = uploaded['id']
+    original_path, _ = media.image_file(tmp_path, key, now=NOW)
+    original_bytes = original_path.read_bytes()
+    assert uploaded['background'] == 'light'
+    changed = media.decide(tmp_path, key, {'background': 'dark'}, reviewer='Synthetic reviewer')
+    assert changed['background'] == 'dark' and changed['policy'] == uploaded['policy']
+    row = media.inventory(tmp_path, now=NOW)[0]
+    assert row['background'] == 'dark' and row['display_eligible']
+    assert media.image_file(tmp_path, key, now=NOW)[0].read_bytes() == original_bytes == PNG
+    assert row['object_ref'] == hashlib.sha256(PNG).hexdigest()
+    # Legacy rows with the optional field absent remain readable with light matte.
+    payload = json.loads(media.index_path(tmp_path).read_text())
+    payload['assets'][key].pop('background')
+    media.index_path(tmp_path).write_text(json.dumps(payload))
+    assert media.load(tmp_path)[key]['background'] == 'light'
+    before = media.index_path(tmp_path).read_bytes()
+    with pytest.raises(ValueError):
+        media.decide(tmp_path, key, {'background': 'custom-css-or-url'}, reviewer='Synthetic reviewer')
+    assert media.index_path(tmp_path).read_bytes() == before
+
+
 def test_same_caption_without_account_needs_identity_review(tmp_path):
     store, key = seed(tmp_path, source_row(author='UnverifiedAccount', count=1))
     with sqlite3.connect(store.path) as db:

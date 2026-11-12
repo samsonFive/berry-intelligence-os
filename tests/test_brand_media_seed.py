@@ -162,13 +162,102 @@ def test_invalid_seed_envelope_is_read_only(tmp_path, payload):
     assert not list(tmp_path.iterdir())
 
 
-def test_bundled_seed_is_only_five_canonical_official_metadata_references():
+def test_bundled_seed_is_bounded_canonical_official_metadata_references():
     prepared = service.validate_seed(service.read_json(ROOT/'data/configuration/brand_media_seed.json'),
                                      canonical_entities(ROOT/'data'))
-    assert len(prepared) == 5
+    assert 1 <= len(prepared) <= service.MAX_SEED_ASSETS
+    assert len({row['entity_id'] for row in prepared.values()}) <= service.MAX_SEED_ENTITIES
     assert all(row['origin'] == 'official_reference' and row['source_kind'] == 'official' for row in prepared.values())
     assert all(row['object_ref'] is None and row['observation_id'] is None for row in prepared.values())
     assert all(not row['policy']['cache'] and not row['policy']['export'] and not row['policy']['display'] for row in prepared.values())
+
+
+def cohort_seed(entity_count=20, refs_each=3):
+    """Synthetic logo/pack references for a bounded multi-entity seed."""
+    entities = {f'company-cohort-{i}': {'id': f'company-cohort-{i}', 'entity_type': 'company',
+                                      'name': f'Synthetic Cohort Company {i}'} for i in range(entity_count)}
+    rows = [asset(number=j, entity=eid) for eid in entities for j in range(refs_each)]
+    return entities, envelope(*rows)
+
+
+def test_twenty_entities_with_sixty_references_validate_dry_run_apply_and_repeat(tmp_path, monkeypatch):
+    entities, payload = cohort_seed()
+    existing = deepcopy(payload['assets'][0])
+    # Existing decisions, including omitted defaults, must survive a larger seed.
+    existing.pop('background')
+    existing.update(rejected=True, analyst_selected=True, primary=True, caption='Keep analyst decision')
+    existing['policy'].update(reference_display_requested=False, basis='Keep existing hold')
+    path = write_index(tmp_path, [existing])
+    original_bytes = path.read_bytes()
+    dry = service.install_seed(tmp_path, payload, entities=entities)
+    assert dry['requested'] == 60 and dry['missing'] == 59 and dry['preserved'] == 1
+    assert not dry['changed'] and dry['created'] == 0 and path.read_bytes() == original_bytes
+    applied = service.install_seed(tmp_path, payload, entities=entities, apply=True)
+    saved = json.loads(path.read_text())['assets']
+    assert applied['created'] == 59 and len(saved) == 60
+    assert saved[existing['id']] == existing
+    assert all(not row['primary'] and not row['analyst_selected'] for key, row in saved.items() if key != existing['id'])
+    applied_bytes = path.read_bytes()
+    def no_write(*args, **kwargs): raise AssertionError('An unchanged full-cohort seed must not write')
+    monkeypatch.setattr(service, 'atomic_json', no_write)
+    monkeypatch.setattr(service, 'pipeline_lock', no_write)
+    repeated = service.install_seed(tmp_path, payload, entities=entities, apply=True)
+    assert repeated['preserved'] == 60 and repeated['created'] == 0 and not repeated['changed']
+    assert path.read_bytes() == applied_bytes
+    assert not (tmp_path/'brand_media'/'objects').exists() and not (tmp_path/'social').exists()
+
+
+def test_one_hundred_references_are_allowed_for_twenty_entities():
+    entities, payload = cohort_seed(refs_each=5)
+    prepared = service.validate_seed(payload, entities)
+    assert len(prepared) == 100 and len({row['entity_id'] for row in prepared.values()}) == 20
+
+
+@pytest.mark.parametrize('limit', ['references', 'entities'])
+def test_seed_bounds_fail_without_writing_or_replacing_existing_rows(tmp_path, monkeypatch, limit):
+    entities, payload = cohort_seed()
+    if limit == 'references':
+        payload['assets'].extend(asset(number=i+3, entity='company-cohort-0') for i in range(41))
+        message = '1–100 official image references'
+    else:
+        extra_id = 'company-cohort-20'
+        entities[extra_id] = {'id': extra_id, 'entity_type': 'company', 'name': 'Synthetic Twenty-first Company'}
+        payload['assets'].append(asset(entity=extra_id))
+        message = 'at most 20 distinct entities'
+    original = asset(8)
+    path = write_index(tmp_path, [original]); before = path.read_bytes()
+    def no_write(*args, **kwargs): raise AssertionError('Invalid seed must fail before the lease or atomic writer')
+    monkeypatch.setattr(service, 'atomic_json', no_write)
+    monkeypatch.setattr(service, 'pipeline_lock', no_write)
+    with pytest.raises(ValueError, match=message):
+        service.install_seed(tmp_path, payload, entities=entities, apply=True)
+    assert path.read_bytes() == before and not (tmp_path/'operations').exists()
+
+
+def test_late_invalid_reference_in_full_cohort_is_transactional(tmp_path, monkeypatch):
+    entities, payload = cohort_seed()
+    payload['assets'][-1]['original_image_url'] = 'https://127.0.0.1/private-image.png'
+    path = write_index(tmp_path, [asset(8)]); before = path.read_bytes()
+    def no_write(*args, **kwargs): raise AssertionError('All sixty rows must validate before writing')
+    monkeypatch.setattr(service, 'atomic_json', no_write)
+    monkeypatch.setattr(service, 'pipeline_lock', no_write)
+    with pytest.raises(ValueError, match='Seed asset 60'):
+        service.install_seed(tmp_path, payload, entities=entities, apply=True)
+    assert path.read_bytes() == before
+
+
+def test_seed_dark_matte_is_metadata_only_and_preserves_existing_background(tmp_path):
+    original = asset(9, background='dark', analyst_selected=True)
+    path = write_index(tmp_path, [original])
+    incoming = asset(background='dark')
+    service.install_seed(tmp_path, envelope(incoming, {**original, 'background': 'light'}), entities=ENTITIES, apply=True)
+    rows = json.loads(path.read_text())['assets']
+    assert rows[original['id']] == original and rows[incoming['id']]['background'] == 'dark'
+    displayed = media.entity_media(tmp_path, ['company-test'], now=NOW)['company-test']['logo']
+    assert displayed['id'] == original['id'] and displayed['background'] == 'dark'
+    assert displayed['image_url'] == original['original_image_url']
+    assert not displayed['policy']['display'] and not displayed['policy']['cache'] and not displayed['export_eligible']
+    assert not (tmp_path/'brand_media'/'objects').exists()
 
 
 def test_cli_defaults_dry_run_loads_real_entity_files_and_apply_is_additive(tmp_path, capsys):
