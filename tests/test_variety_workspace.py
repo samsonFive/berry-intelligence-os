@@ -311,8 +311,10 @@ def test_detail_calls_footprint_once() -> None:
     assert "Carlotta" in html
     assert "Breeder" in html
     assert "Owner / rights holder" in html
-    assert "Marketer" in html
-    assert "Licensee" in html
+    from lxml import html as html_parser
+    role_rows = html_parser.fromstring(html).xpath('//*[@id="roles"]//tbody/tr/th/text()')
+    # Only develops/owns are recorded for this cultivar; do not add four empty roles.
+    assert role_rows == ["Breeder", "Owner / rights holder"]
     assert html.count("Driscoll") >= 2
     assert "Company roles" in html
     assert "Retail markets &amp; observations" in html or "Retail markets & observations" in html
@@ -682,8 +684,10 @@ def test_detail_route_shows_variety_intelligence_for_real_data() -> None:
     assert page.status_code == 200
     assert "Performance &amp; production evidence" in page.text or "Performance & production evidence" in page.text
     assert "POSTHARVEST / QUALITY" in page.text.upper()
-    assert "FACT" in page.text
-    assert "CLAIM" in page.text
+    from lxml import html as html_parser
+    labels = html_parser.fromstring(page.text).xpath('//table[contains(@class,"variety-performance-sheet")]//td[3]/span/text()')
+    assert "Fact" in labels
+    assert "Claim" in labels
     assert "View Fact" in page.text
     assert "Overall variety evidence coverage" in page.text
 
