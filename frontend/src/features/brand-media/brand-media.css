@@ -1,0 +1,30 @@
+.berry-app .berry-brand-logo { display: inline-flex; flex-direction: column; gap: 3px; margin: 0; flex: 0 0 auto; max-width: 110px; }
+.berry-app .berry-brand-logo img { display: block; width: 100px; height: 64px; object-fit: contain; background: var(--berry-surface); }
+.berry-app .berry-brand-credit { display: block; font-size: 10px; font-weight: 400; line-height: 1.35; color: var(--berry-muted); overflow-wrap: anywhere; }
+.berry-app .berry-detail-identity { display: flex; gap: 14px; align-items: center; }
+.berry-app .berry-detail-identity h2 { min-width: 0; }
+.berry-app .berry-brand-galleries { margin-block: 18px; }
+.berry-app .berry-brand-gallery { margin-block: 16px; }
+.berry-app .berry-brand-gallery h3 { margin: 0 0 8px; }
+.berry-app .berry-brand-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 12px; }
+.berry-app .berry-brand-card { margin: 0; min-width: 0; }
+.berry-app .berry-brand-card > button { display: block; width: 100%; }
+.berry-app .berry-brand-card img { display: block; width: 100%; height: 140px; object-fit: contain; background: var(--berry-surface); border: 1px solid var(--berry-line); border-radius: 4px; }
+.berry-app .berry-brand-card figcaption { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; font-size: 11px; line-height: 1.4; font-weight: 400; }
+.berry-app .berry-brand-context { margin: 0; font-size: 12px; }
+.berry-app .berry-brand-context > div { margin-block: 7px; }
+.berry-app .berry-brand-context dt { color: var(--berry-muted); font-size: 10px; }
+.berry-app .berry-brand-context dd { margin: 0; overflow-wrap: anywhere; }
+.berry-app .berry-brand-galleries--compact { margin: 0; }
+.berry-app .berry-brand-galleries--compact .berry-brand-gallery { margin: 0; }
+.berry-app .berry-brand-galleries--compact .berry-brand-grid { grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); }
+.berry-app .berry-brand-galleries--compact img { height: 120px; }
+.berry-app.berry-brand-inspector { box-sizing: border-box; width: min(900px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); min-height: 0; margin: auto; padding: 18px; border: 1px solid var(--berry-line-strong); border-radius: 8px; overflow-y: auto; box-shadow: var(--berry-shadow); }
+.berry-brand-inspector::backdrop { background: rgb(14 27 19 / 65%); }
+.berry-app.berry-brand-inspector header, .berry-app.berry-brand-inspector footer { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.berry-app.berry-brand-inspector header { justify-content: space-between; }
+.berry-app.berry-brand-inspector h3 { margin: 0; }
+.berry-app .berry-brand-expanded { display: block; width: 100%; height: min(55dvh, 560px); object-fit: contain; background: var(--berry-surface); margin-block: 14px; }
+.berry-app.berry-brand-inspector footer { margin-top: 14px; }
+@media (max-width: 600px) { .berry-app.berry-brand-inspector { padding: 12px; } .berry-app .berry-brand-card img { height: 125px; } }
+@media print { .berry-brand-logo, .berry-brand-galleries, .berry-brand-inspector { display: none !important; } }

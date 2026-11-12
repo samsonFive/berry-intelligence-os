@@ -5,6 +5,8 @@ import { currentDetail, detailPath, hasBlockingIssues, investigationHref, parseR
 import type { DetailRef, DetailType } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { Badge, Button, EmptyState, SourceLink } from '../../components/ui';
+import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
+import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './detail.css';
 
 interface SourceRef {
@@ -86,6 +88,7 @@ function timeLabel(seconds: number): string {
 export function DetailHost({ suspended = false }: { suspended?: boolean }) {
   const { context, revision, issues, dispatch } = useInvestigation();
   const selected = currentDetail(context);
+  const media = useBrandMedia(selected?.type === 'company' && !suspended && !hasBlockingIssues(issues) ? [selected.id] : []);
   const path = context.detail_path;
   const ancestry = detailPath(context);
   const readerView = selected?.type === 'source' && selected.section === 'brief' ? 'brief' : 'article';
@@ -268,7 +271,8 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
           ? <button type="button" onClick={() => open(ref)}>{titles.current.get(`${ref.type}:${ref.id}`) ?? ref.type.slice(0, 1).toUpperCase() + ref.type.slice(1)}</button>
           : <span aria-current="page">{ref.type}</span>}</span>)}</nav>}
       <p className="berry-eyebrow">{model?.kind_label ?? selected.type}</p>
-      <h2 id="berry-detail-heading" ref={heading} tabIndex={-1}>{model?.title ?? 'Loading selected detail…'}</h2>
+      <div className="berry-detail-identity"><BrandLogo asset={selected.type === 'company' ? media?.[selected.id]?.logo : null} name={model?.title ?? selected.id} />
+      <h2 id="berry-detail-heading" ref={heading} tabIndex={-1}>{model?.title ?? 'Loading selected detail…'}</h2></div>
       {model?.status && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
       {model?.outside_scope && <div className="berry-outside-scope"><p>Outside the applied scope. Inspection keeps the landscape and developments unchanged.</p>
         {pinKind && <Button size="small" onClick={() => dispatch({ type: 'applyScope', origin: 'direct',
@@ -284,6 +288,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     </EmptyState>}
     {model && <>
       {model.summary && selected.type !== 'source' && <p className="berry-detail-summary">{model.summary}</p>}
+      {selected.type === 'company' && <BrandMediaGallery key={selected.id} model={media?.[selected.id]} />}
       {selected.type === 'source' && <section className="berry-reader" aria-label="Source Reader">
         <p className="berry-reader-meta">{selectedSource?.source_name || model.card?.source_name || 'Source publication'}
           {' · '}{selectedSource?.published || 'Publication date not recorded'}
