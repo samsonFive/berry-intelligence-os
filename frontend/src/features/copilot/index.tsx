@@ -82,7 +82,7 @@ function RegisteredTools() {
   useAgentContext({ description: "Berry investigation selectors only. Source bodies, authored workspaces and account details are not included. Actions must use the exact revision and canonical IDs. No ranking or factual synthesis is authorized.", value: {
     revision, ctx_v: context.ctx_v, berry: context.berry, countries: context.countries,
     geo_basis: context.geo_basis, actor_roles: context.actor_roles, relationship_types: context.relationship_types,
-    news_from: context.news_from, news_to: context.news_to, focus: context.focus,
+    news_from: context.news_from, news_to: context.news_to, company_set: context.company_set, focus: context.focus,
     cohort_companies: context.cohort_companies, cohort_varieties: context.cohort_varieties,
     lens: context.lens, comparison_kind: context.comparison_kind,
   } });

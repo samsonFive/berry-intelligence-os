@@ -13,6 +13,15 @@ test('saving captures selectors independently and new saves never carry an overw
   assert.equal(saved.context.demo_specimens, 'demo-specimen-fern'); assert.equal('document_body' in saved.context, false);
   assert.equal('id' in saved, false); assert.equal('revision' in saved, false);
 });
+
+test('saved monitored News resolves the current shared watch universe without copying its members', () => {
+  const saved = captureSave({ ...EMPTY_CONTEXT, company_set: 'watched', lens: 'news', cohort_companies: 'company-one' }, 'Monitored news', 'new');
+  assert.equal(saved.context.company_set, 'watched');
+  assert.equal(saved.context.lens, 'news');
+  assert.equal(saved.context.cohort_companies, 'company-one');
+  assert.equal('watched_company_ids' in saved.context, false);
+  assert.notEqual(outputKey(capturedOutput(saved.context, ['readout'], false)), outputKey(capturedOutput({ ...saved.context, company_set: 'all' }, ['readout'], false)));
+});
 test('updates require an explicit current investigation revision and preserve legacy rows', () => {
   const saved = captureSave(EMPTY_CONTEXT, 'Updated', 'update', row);
   assert.equal(saved.id, row.id); assert.equal(saved.revision, 3); assert.equal(saved.save_as_new, false);

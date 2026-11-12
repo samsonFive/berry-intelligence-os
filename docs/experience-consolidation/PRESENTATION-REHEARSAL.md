@@ -9,6 +9,18 @@ packets are rehearsals, not proof that production has changed.
 
 ## A short investigation
 
+The evening design revision adds a dense monitored-company starting point and a
+Landscape News view. For the isolated ten-company review, use
+`/app/landscape?ctx_v=1&berry=all&countries=&company_set=watched`.
+Production Watch membership is not seeded by this prototype. “Shared watched
+companies” reads the existing workspace Watch list; it does not assert that
+collection is active. “All companies” exposes the full company universe through
+pages rather than a fixed ten-company limit. Compare pins remain separate.
+Open the News tab to scan retained cards for that company set, then open a source
+in the same Reader. The feed retains berry, source geography and publication-date
+filters; focus and comparison pins do not retarget it. Empty watched sets stay
+empty. Older saved investigations and URLs default to All companies.
+
 1. Start with the three findings and visible connections. Explain the recorded
    distinction between Fall Creek's validation/planned-entry context and Costa's
    growing/licensing context. Company presence does not establish cultivar growing.

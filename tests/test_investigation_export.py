@@ -59,6 +59,25 @@ def test_preview_is_complete_and_selector_source_body_safe(export_world):
     assert len(result["content_hash"]) == 64
 
 
+def test_news_output_exports_complete_monitored_feed_instead_of_comparison_precedence(export_world, monkeypatch):
+    calls = []
+
+    def news(world, context, bundle, *, all_cards=False):
+        calls.append((context["company_set"], context["cohort_companies"], all_cards))
+        return {"heading": "News for shared watched companies", "basis": "watched",
+                "cards": [{"id": f"source-{index}", "headline": f"Watched story {index}"} for index in range(13)],
+                "matching_count": 13, "sources": [api.source_metadata(row) for row in world.evidence]}
+
+    monkeypatch.setattr(api, "news_data", news)
+    selection = selectors(lens="news", company_set="watched", cohort_companies="company-b", focus="company-b")
+    result = export.build_payload(export_world, selection, ["developments"])
+    assert calls == [("watched", "company-b", True)]
+    assert result["scope"]["company_set"] == "watched"
+    assert result["sections"][0]["row_count"] == 13
+    assert len(result["data"]["developments"]["cards"]) == 13
+    assert result["data"]["developments"]["basis"] == "watched"
+
+
 def test_changed_record_or_output_choice_rejects_stale_preview(export_world):
     selected = ["relationships"]
     original = export.preview(export_world, selectors(), selected)["content_hash"]

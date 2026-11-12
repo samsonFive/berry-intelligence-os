@@ -151,3 +151,212 @@
   .berry-analysis-layout .berry-relationship-header { display: none; }
   .berry-news-rail .berry-news-grid, .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: 1fr; }
 }
+
+/* Dense light workspace prototype: source text and material caveats remain fully visible. */
+.berry-app .berry-landscape-page > .berry-landscape-titlebar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; min-height: 30px; margin: 0 0 4px; }
+.berry-app .berry-landscape-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-width: 0; }
+.berry-app .berry-landscape-titlebar h1 { margin: 0; font: 700 18px/1.3 var(--berry-font-ui); }
+.berry-app .berry-landscape-titlebar .berry-subtitle { margin: 0; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-landscape-titlebar .berry-segmented { padding: 2px; border-radius: 3px; }
+.berry-app .berry-landscape-titlebar .berry-segmented button { min-height: 25px; padding: 3px 8px; font-size: 12px; }
+.berry-app .berry-landscape-page .berry-readout { padding: 0; border: 1px solid var(--berry-line-strong); background: #fff; }
+.berry-app .berry-landscape-page .berry-findings { gap: 0; }
+.berry-app .berry-landscape-page .berry-finding, .berry-app .berry-landscape-page .berry-finding + .berry-finding { padding: 5px 8px; }
+.berry-app .berry-landscape-page .berry-finding p { display: inline; margin: 0; font: 500 12px/1.4 var(--berry-font-ui); color: var(--berry-ink-strong); }
+.berry-app .berry-landscape-page .berry-finding .berry-inline-citations { display: inline; margin-left: 6px; }
+.berry-app .berry-landscape-page .berry-finding .berry-inline-citations > * { display: inline; margin-right: 7px; font-size: 11px; }
+.berry-app .berry-investigation-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 8px; padding: 4px 0; min-height: 31px; }
+.berry-app .berry-cohort-trays { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-width: 0; }
+.berry-app .berry-cohort-trays:empty { display: none; }
+.berry-app .berry-comparison-tray { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 0; font-size: 11px; }
+.berry-app .berry-comparison-tray > span:first-child { font-weight: 600; }
+.berry-app .berry-pin { gap: 3px; padding: 1px 3px 1px 5px; border-radius: 2px; }
+.berry-app .berry-pin .berry-pin-name { min-height: 23px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+.berry-app .berry-pin > button:last-child { min-height: 23px; min-width: 20px; }
+.berry-app .berry-investigation-tools .berry-button { min-height: 25px; padding: 2px 5px; font-size: 11px; }
+.berry-app .berry-investigation-tools .berry-subject-selector { margin-left: auto; padding: 0; border: 0; font-size: 11px; }
+.berry-app .berry-subject-selector > summary { padding: 4px 7px; border: 1px solid var(--berry-line-strong); background: #fff; border-radius: 3px; }
+.berry-app .berry-investigation-tools .berry-subject-selector[open] { flex-basis: 100%; margin: 0; padding: 5px 8px; border: 1px solid var(--berry-line-strong); background: #fff; }
+.berry-app .berry-subject-selector .berry-field-label { margin-top: 5px; }
+.berry-app .berry-subject-results { margin-block: 5px; }
+.berry-app .berry-subject-results > div { padding: 4px 0; }
+.berry-app .berry-analysis-layout { grid-template-columns: minmax(0, 1fr) 285px; gap: 10px; }
+.berry-app .berry-analysis-layout > .berry-analytical { min-width: 0; padding-top: 0; }
+.berry-app .berry-landscape-page .berry-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 4px 10px; margin: 0 0 5px; min-height: 25px; }
+.berry-app .berry-landscape-page .berry-section-heading > div:first-child { min-width: 0; }
+.berry-app .berry-landscape-page .berry-section-heading h2 { display: inline; margin: 0; font: 700 14px/1.35 var(--berry-font-ui); }
+.berry-app .berry-landscape-page .berry-section-heading p { display: inline; margin: 0 0 0 8px; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-landscape-page .berry-section-heading .berry-segmented { flex-shrink: 0; }
+.berry-app .berry-landscape-page .berry-section-heading .berry-segmented button { min-height: 24px; padding: 2px 7px; font-size: 11px; }
+.berry-app .berry-landscape-page .berry-relationship-header, .berry-app .berry-landscape-page .berry-relationship-row { grid-template-columns: minmax(150px,.85fr) minmax(260px,1.5fr) minmax(190px,1fr); gap: 0; }
+.berry-app .berry-landscape-page .berry-relationship-header { padding: 0; background: #edf2ef; color: #355340; border: 1px solid var(--berry-line-strong); font-size: 11px; font-weight: 650; letter-spacing: 0; text-transform: none; }
+.berry-app .berry-relationship-header > span { padding: 5px 7px; border-right: 1px solid var(--berry-line); }
+.berry-app .berry-relationship-header > span:last-child { border-right: 0; }
+.berry-app .berry-relationship-bands { border: 1px solid var(--berry-line-strong); border-top: 0; }
+.berry-app .berry-landscape-page .berry-relationship-row { padding: 0; border: 0; border-bottom: 1px solid var(--berry-line); background: #fff; }
+.berry-app .berry-landscape-page .berry-relationship-row:last-child { border-bottom: 0; }
+.berry-app .berry-landscape-page .berry-relationship-row:nth-child(even) { background: #f8faf8; }
+.berry-app .berry-landscape-page .berry-relationship-row:hover { background: #eef4f0; }
+.berry-app .berry-landscape-page .berry-relationship-row[data-selected='true'] { background: #eaf3ec; box-shadow: inset 3px 0 var(--berry-forest); }
+.berry-app .berry-relationship-row > div { min-width: 0; padding: 6px 7px; border-right: 1px solid var(--berry-line); }
+.berry-app .berry-relationship-row > div:last-child { border-right: 0; }
+.berry-app .berry-landscape-page .berry-relationship-actor { gap: 3px; }
+.berry-app .berry-landscape-page .berry-relationship-actor .berry-entity-name { font-size: 13px; line-height: 1.3; }
+.berry-app .berry-landscape-page .berry-relationship-path { gap: 6px; }
+.berry-app .berry-landscape-page .berry-explicit-path { gap: 4px; font-size: 12px; line-height: 1.35; }
+.berry-app .berry-landscape-page .berry-relationship-role { margin: 0 0 2px; font-size: 11px; }
+.berry-app .berry-landscape-page .berry-relationship-edge { grid-template-columns: 5px minmax(0,1fr); }
+.berry-app .berry-landscape-page .berry-relationship-activity { grid-column: auto; gap: 5px; font-size: 12px; }
+.berry-app .berry-activity-record { margin: 0; }
+.berry-app .berry-activity-record strong { display: inline; margin-right: 5px; font-size: 12px; }
+.berry-app .berry-activity-record > div + div { margin-top: 4px; }
+.berry-app .berry-landscape-page .berry-material-caveat { margin: 2px 0 0; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-relationship-evidence { gap: 3px 6px; margin-top: 2px; }
+.berry-app .berry-relationship-evidence :where(a,button) { font-size: 10.5px; }
+.berry-app .berry-landscape-page .berry-program-label { font-size: 10px; }
+.berry-app .berry-landscape-page .berry-source-named { margin: 3px 0 0; padding-top: 4px; }
+.berry-app .berry-landscape-page .berry-source-named > summary { font-size: 11px; }
+.berry-app .berry-landscape-page .berry-table-wrap { max-height: calc(100dvh - 255px); overflow: auto; border: 1px solid var(--berry-line-strong); background: #fff; }
+.berry-app .berry-landscape-page .berry-table { border-collapse: separate; border-spacing: 0; font: 400 13px/1.35 var(--berry-font-ui); }
+.berry-app .berry-landscape-page .berry-table :where(th,td) { padding: 5px 7px; border-right: 1px solid var(--berry-line); border-bottom: 1px solid var(--berry-line); vertical-align: top; }
+.berry-app .berry-landscape-page .berry-table thead th { position: sticky; top: 0; z-index: 3; background: #edf2ef; color: #355340; font-size: 12px; font-weight: 650; }
+.berry-app .berry-landscape-page .berry-table tbody tr:nth-child(even) > * { background: #f8faf8; }
+.berry-app .berry-landscape-page .berry-table tbody tr:hover > * { background: #eef4f0; }
+.berry-app .berry-comparison-table tr > :first-child { position: sticky; left: 0; z-index: 2; min-width: 145px; width: 145px; background: #f4f7f4; }
+.berry-app .berry-comparison-table thead tr > :first-child { z-index: 4; background: #e5ede7; }
+.berry-app .berry-comparison-table :where(th,td) { min-width: 190px; }
+.berry-app .berry-comparison-identity { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; min-height: 26px; }
+.berry-app .berry-comparison-identity > .berry-entity-button { flex: 1; min-width: 90px; }
+.berry-app .berry-comparison-list li + li { margin-top: 2px; }
+.berry-app .berry-comparison-table .berry-cell-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,135px),1fr)); align-items: start; gap: 3px 10px; }
+.berry-app .berry-comparison-table .berry-cell-grid li { min-width: 0; margin: 0; padding: 2px 0; border-bottom: 1px dotted #dce5df; overflow-wrap: anywhere; }
+.berry-app .berry-comparison-table .berry-cell-grid--places { grid-template-columns: repeat(auto-fit,minmax(min(100%,105px),1fr)); }
+.berry-app .berry-comparison-table .berry-cell-grid--sources { grid-template-columns: repeat(auto-fit,minmax(min(100%,155px),1fr)); }
+.berry-app .berry-comparison-table .berry-cell-grid :where(button,a) { text-align: left; line-height: 1.3; }
+.berry-app .berry-comparison-table tbody th[scope='row'] { font-size: 12px; font-weight: 750; color: #244633; }
+.berry-app .berry-comparison-table .berry-comparison-section-start > * { border-top: 2px solid #afc4b5; }
+.berry-app .berry-comparison-table .berry-comparison-section-start > th { box-shadow: inset 3px 0 #3b7250; background: #e8f0e9; }
+.berry-app .berry-comparison-footnote { padding: 5px 7px; font-size: 11px; }
+.berry-app .berry-observation + .berry-observation { margin-top: 6px; padding-top: 6px; }
+.berry-app .berry-analysis-layout > .berry-news-rail { min-width: 0; padding: 0; border: 1px solid var(--berry-line-strong); background: #fff; }
+.berry-app .berry-news-rail .berry-section-heading { display: block; position: relative; padding: 6px 7px; margin: 0; border-bottom: 1px solid var(--berry-line); background: #edf2ef; }
+.berry-app .berry-news-rail .berry-section-heading h2 { display: block; padding-right: 118px; font-size: 13px; }
+.berry-app .berry-news-rail .berry-section-heading p { display: block; margin: 3px 0 0; font-size: 10.5px; }
+.berry-app .berry-news-rail .berry-section-heading > a { position: absolute; top: 4px; right: 7px; margin: 0; padding: 1px 0; min-height: 22px; font-size: 10px; }
+.berry-app .berry-news-rail .berry-news-grid { grid-template-columns: 1fr; gap: 0; }
+.berry-app .berry-news-rail .berry-news-card { grid-template-columns: 48px minmax(0,1fr); gap: 6px; padding: 7px; margin: 0; background: #fff; }
+.berry-app .berry-news-rail .berry-news-card:last-child { border-bottom: 0; }
+.berry-app .berry-news-rail .berry-news-image { width: 48px; height: 48px; border-radius: 2px; }
+.berry-app .berry-news-rail .berry-news-body { padding: 0; }
+.berry-app .berry-news-rail .berry-news-meta { display: flex; flex-wrap: wrap; gap: 2px 6px; font-size: 10.5px; line-height: 1.25; margin-bottom: 3px; }
+.berry-app .berry-news-rail .berry-news-meta > * { width: auto; }
+.berry-app .berry-news-rail .berry-news-title { font: 650 13px/1.3 var(--berry-font-ui); margin-bottom: 4px; }
+.berry-app .berry-news-rail .berry-news-labels { gap: 3px 5px; margin-bottom: 3px; font-size: 10px; }
+.berry-app .berry-news-rail .berry-news-labels .berry-badge { font-size: 10px; }
+.berry-app .berry-news-rail .berry-news-match, .berry-app .berry-news-rail .berry-news-scope-match, .berry-app .berry-news-rail .berry-news-coverage { font-size: 10.5px; margin-bottom: 4px; line-height: 1.3; }
+.berry-app .berry-news-rail .berry-news-summary { font-size: 11px; margin-bottom: 3px; }
+.berry-app .berry-news-rail .berry-news-actions .berry-button { min-height: 23px; padding: 2px 0; font-size: 11px; }
+.berry-app .berry-news-rail .berry-news-actions .berry-source-link { font-size: 10.5px; }
+.berry-app .berry-method-notes { margin-top: 6px; padding-top: 5px; }
+.berry-app .berry-company-set, .berry-app .berry-company-search label { display: flex; align-items: center; gap: 5px; color: #355340; font-size: 11px; font-weight: 650; }
+.berry-app .berry-company-set select, .berry-app .berry-company-search :where(input,select) { min-width: 0; min-height: 27px; padding: 2px 5px; border: 1px solid var(--berry-line-strong); border-radius: 2px; background: #fff; color: var(--berry-ink); font: 400 12px/1.3 var(--berry-font-ui); }
+.berry-app .berry-roster-toolbar, .berry-app .berry-company-search, .berry-app .berry-roster-pages, .berry-app .berry-news-toolbar, .berry-app .berry-news-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.berry-app .berry-roster-toolbar, .berry-app .berry-news-toolbar { justify-content: space-between; padding: 3px 0 5px; }
+.berry-app .berry-company-search input { width: 160px; }
+.berry-app .berry-company-search .berry-button, .berry-app .berry-roster-pages .berry-button { min-height: 25px; padding: 2px 5px; font-size: 11px; }
+.berry-app .berry-roster-pages { flex-shrink: 0; font-size: 11px; }
+.berry-app .berry-roster-pages > span { font-variant-numeric: tabular-nums; }
+.berry-app .berry-landscape-page .berry-roster-basis { margin: 0 0 5px; color: #526358; font-size: 11px; line-height: 1.35; }
+.berry-app .berry-monitoring-overview .berry-section-heading > a, .berry-app .berry-landscape-news .berry-section-heading > a { font-size: 11px; white-space: nowrap; }
+.berry-app .berry-roster-toolbar h2 { margin: 0; font: 750 13px/1.3 var(--berry-font-ui); color: #244633; }
+.berry-app .berry-monitoring-table { width: 100%; min-width: 950px; table-layout: fixed; }
+.berry-app .berry-monitoring-table thead th:first-child { width: 19%; z-index: 4; left: 0; background: #e5ede7; }
+.berry-app .berry-monitoring-table thead th:nth-child(2) { width: 31%; }
+.berry-app .berry-monitoring-table thead th:nth-child(3) { width: 12%; }
+.berry-app .berry-monitoring-table thead th:nth-child(4) { width: 24%; }
+.berry-app .berry-monitoring-table thead th:nth-child(5) { width: 14%; }
+.berry-app .berry-monitoring-table tbody th { position: sticky; left: 0; z-index: 2; background: #fff; font-weight: 400; }
+.berry-app .berry-monitoring-table tr[data-selected] > * { background: #eaf3ec; }
+.berry-app .berry-monitoring-table :where(th,td) { overflow-wrap: anywhere; }
+.berry-app .berry-roster-identity { display: flex; align-items: center; gap: 5px; }
+.berry-app .berry-roster-identity .berry-entity-button { min-width: 0; }
+.berry-app .berry-roster-identity .berry-entity-name { font-size: 12px; line-height: 1.3; }
+.berry-app .berry-roster-identity > .berry-button { margin-left: auto; flex-shrink: 0; min-height: 23px; padding: 1px 3px; font-size: 10px; }
+.berry-app .berry-roster-marks { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; margin-top: 2px; color: #526358; font-size: 10px; line-height: 1.3; }
+.berry-app .berry-roster-marks .berry-button { min-height: 21px; padding: 1px 3px; font-size: 10px; }
+.berry-app .berry-roster-marks .berry-material-caveat { flex-basis: 100%; margin: 0; }
+.berry-app .berry-roster-marks:empty { display: none; }
+.berry-app .berry-roster-genetics { font-size: 11px; line-height: 1.3; }
+.berry-app .berry-roster-genetics > div + div { margin-top: 3px; }
+.berry-app .berry-roster-genetics > div > strong { display: block; margin-bottom: 2px; color: #526358; font-size: 10px; font-weight: 650; }
+.berry-app .berry-roster-genetics ul { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,110px),1fr)); gap: 2px 7px; margin: 0; padding: 0; list-style: none; }
+.berry-app .berry-roster-genetics li { min-width: 0; }
+.berry-app .berry-roster-genetics .berry-entity-name { font-size: 11px; font-weight: 500; line-height: 1.3; }
+.berry-app .berry-roster-genetics .berry-program-label { display: none; }
+.berry-app .berry-roster-genetics summary, .berry-app .berry-roster-records > summary { margin-top: 2px; font-size: 10px; color: #355340; cursor: pointer; }
+.berry-app .berry-roster-genetics .berry-material-caveat { font-size: 10px; line-height: 1.3; }
+.berry-app .berry-roster-records > div { margin-top: 5px; }
+.berry-app .berry-roster-records .berry-relationship-edge { border-left: 0; }
+.berry-app .berry-roster-roles, .berry-app .berry-roster-berries { display: flex; flex-wrap: wrap; gap: 2px 7px; font-size: 11px; line-height: 1.35; }
+.berry-app .berry-roster-roles { font-weight: 650; }
+.berry-app .berry-roster-berries { margin-top: 3px; color: #526358; }
+.berry-app .berry-roster-roles > span:not(:last-child)::after, .berry-app .berry-roster-berries > span:not(:last-child)::after { content: ' ·'; color: #7b8c80; }
+.berry-app .berry-roster-geographies { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,150px),1fr)); gap: 4px 9px; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-roster-geographies > div { min-width: 0; }
+.berry-app .berry-roster-geographies .berry-material-caveat, .berry-app .berry-monitoring-table td > .berry-material-caveat { margin-top: 2px; font-size: 10px; line-height: 1.3; }
+.berry-app .berry-roster-geographies .berry-inline-citations { gap: 2px 6px; margin-top: 2px; }
+.berry-app .berry-roster-geographies .berry-source-link { font-size: 10px; }
+.berry-app .berry-roster-state { display: block; color: #355340; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-roster-explanation, .berry-app .berry-deeper-connections { padding: 3px 0; font-size: 11px; color: #526358; }
+.berry-app .berry-roster-explanation p { margin-top: 4px; }
+.berry-app .berry-deeper-connections { margin-top: 4px; border-top: 1px solid var(--berry-line-strong); }
+.berry-app .berry-roster-explanation > summary, .berry-app .berry-deeper-connections > summary { cursor: pointer; font-weight: 650; }
+.berry-app .berry-deeper-connections[open] > summary { margin-bottom: 6px; }
+.berry-app .berry-analysis-layout--news { grid-template-columns: minmax(0,1fr); }
+.berry-app .berry-landscape-news .berry-news-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+.berry-app .berry-landscape-news .berry-news-card { display: grid; grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 7px; padding: 7px; border-radius: 1px; }
+.berry-app .berry-landscape-news .berry-news-card:not(:has(.berry-news-figure)) { grid-template-columns: minmax(0,1fr); }
+.berry-app .berry-landscape-news .berry-news-body { min-width: 0; padding: 0; }
+.berry-app .berry-landscape-news .berry-news-image { width: 76px; height: 66px; aspect-ratio: auto; border-radius: 2px; }
+.berry-app .berry-landscape-news .berry-news-figure figcaption { padding: 3px 0; border: 0; font-size: 9px; }
+.berry-app .berry-landscape-news .berry-news-title { font: 650 13px/1.35 var(--berry-font-ui); margin-bottom: 4px; }
+.berry-app .berry-landscape-news .berry-news-meta, .berry-app .berry-landscape-news .berry-news-labels, .berry-app .berry-landscape-news .berry-news-scope-match, .berry-app .berry-landscape-news .berry-news-match, .berry-app .berry-landscape-news .berry-news-summary, .berry-app .berry-landscape-news .berry-news-coverage { font-size: 10.5px; line-height: 1.35; margin-bottom: 4px; }
+.berry-app .berry-landscape-news .berry-news-excerpt { font-size: 12px; }
+.berry-app .berry-landscape-news .berry-news-actions .berry-button { min-height: 24px; padding: 2px 0; font-size: 11px; }
+.berry-app .berry-landscape-news .berry-news-actions .berry-source-link { font-size: 10.5px; }
+.berry-app .berry-news-footer { justify-content: space-between; margin-top: 7px; }
+.berry-app .berry-news-footer > p { flex: 1 1 400px; font-size: 11px; }
+@media (max-width: 1150px) {
+  .berry-app .berry-landscape-news .berry-news-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 850px) {
+  .berry-app .berry-roster-toolbar { align-items: stretch; }
+  .berry-app .berry-company-search { flex: 1 1 100%; }
+  .berry-app .berry-company-search label:first-child { flex: 1; }
+  .berry-app .berry-company-search input { width: 100%; }
+}
+@media (max-width: 600px) {
+  .berry-app .berry-landscape-news .berry-news-grid { grid-template-columns: minmax(0,1fr); }
+  .berry-app .berry-company-set { flex-wrap: wrap; }
+  .berry-app .berry-company-search label { flex-wrap: wrap; }
+  .berry-app .berry-company-search input { min-width: 100px; }
+  .berry-app .berry-monitoring-overview .berry-section-heading, .berry-app .berry-landscape-news .berry-section-heading { flex-wrap: wrap; }
+}
+@media (max-width: 1150px) {
+  .berry-app .berry-analysis-layout { grid-template-columns: minmax(0,1fr); }
+  .berry-app .berry-news-rail .berry-news-grid, .berry-app .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 850px) {
+  .berry-app .berry-landscape-page .berry-findings { grid-template-columns: 1fr !important; }
+  .berry-app .berry-landscape-page .berry-finding + .berry-finding { border-top: 1px solid var(--berry-line); }
+  .berry-app .berry-landscape-titlebar .berry-segmented { width: 100%; }
+  .berry-app .berry-landscape-page .berry-section-heading p { display: block; margin: 2px 0 0; }
+}
+@media (max-width: 600px) {
+  .berry-app .berry-landscape-page .berry-relationship-header { display: none; }
+  .berry-app .berry-landscape-page .berry-relationship-row { grid-template-columns: minmax(0,1fr); }
+  .berry-app .berry-relationship-row > div { border-right: 0; border-bottom: 1px solid var(--berry-line); }
+  .berry-app .berry-landscape-page .berry-relationship-path { margin: 0; border-left: 0; }
+  .berry-app .berry-landscape-titlebar .berry-segmented button { min-height: 36px; }
+  .berry-app .berry-news-rail .berry-news-grid, .berry-app .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: minmax(0,1fr); }
+}

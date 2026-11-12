@@ -1,6 +1,6 @@
-.berry-app .berry-grid-preferences { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 18px; margin-bottom: 12px; }
+.berry-app .berry-grid-preferences { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 12px; margin-bottom: 6px; }
 .berry-app .berry-grid-preferences .berry-field-label { min-width: min(260px, 100%); }
-.berry-app .berry-grid-preferences .berry-input { display: block; margin-top: 5px; }
+.berry-app .berry-grid-preferences .berry-input { display: block; margin-top: 3px; }
 .berry-app .berry-grid-columns { position: relative; }
 .berry-app .berry-grid-columns > summary { cursor: pointer; list-style: none; }
 .berry-app .berry-grid-columns > summary::-webkit-details-marker { display: none; }
@@ -10,12 +10,48 @@
 .berry-app .berry-grid-column-options label { display: flex; align-items: flex-start; gap: 8px; padding-block: 7px; font-size: 12px; line-height: 1.45; }
 .berry-app .berry-grid-column-options input { flex-shrink: 0; margin-top: 2px; accent-color: var(--berry-forest); }
 .berry-app .berry-grid-column-options label > span > small { display: block; font-size: 10px; color: var(--berry-muted); }
-.berry-app .berry-grid-layout-status { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; margin-bottom: 10px; min-height: 28px; }
+.berry-app .berry-grid-layout-status { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin-bottom: 6px; min-height: 28px; }
 .berry-app .berry-grid-layout-status p { flex: 1 1 240px; margin: 0; font-size: 11px; color: var(--berry-muted); }
 .berry-app .berry-grid-layout-status[data-phase='conflict'], .berry-app .berry-grid-layout-status[data-phase='error'], .berry-app .berry-grid-layout-status[data-phase='local'] { padding: 10px 12px; border-inline-start: 2px solid var(--berry-line-strong); background: var(--berry-surface-subtle); }
 .berry-app .berry-grid-layout-status[data-phase='conflict'] p, .berry-app .berry-grid-layout-status[data-phase='error'] p { color: var(--berry-ink); }
 .berry-app .berry-grid-layout-status small { display: block; margin-top: 4px; }
+.berry-app .berry-portfolio-grid { min-height: 320px; }
 .berry-app .berry-portfolio-grid[aria-busy='true'] { opacity: .65; }
+.berry-app .berry-portfolio-pages { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; margin-bottom: 6px; }
+.berry-app .berry-portfolio-pages > p { margin: 0; color: var(--berry-ink); font-size: 12px; }
+.berry-app .berry-portfolio-pages > div { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.berry-app .berry-portfolio-pages label { display: inline-flex; align-items: center; gap: 5px; color: var(--berry-muted); font-size: 11px; }
+.berry-app .berry-portfolio-pages select { min-height: 28px; padding: 3px 5px; border: 1px solid var(--berry-line-strong); border-radius: 3px; background: var(--berry-surface); color: var(--berry-ink); font: inherit; }
+.berry-app .berry-portfolio-page-note { margin: 0 0 6px; font-size: 11px; }
+
+/* Height is content-driven. Wide company columns can use multiple edge columns;
+   paths, status, identity qualifiers and source links never receive a line clamp. */
+.berry-app .berry-portfolio-grid .ag-cell { padding: 3px 7px; line-height: 1.35; }
+.berry-app .berry-portfolio-grid .ag-header-cell { padding-inline: 7px; }
+.berry-app .berry-portfolio-grid .ag-header-cell-text { font-size: 12px; font-weight: 650; line-height: 1.3; }
+.berry-app .berry-portfolio-grid .berry-portfolio-cell { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); align-items: start; gap: 4px 7px; padding: 0; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge { min-width: 0; margin: 0; padding: 3px 0; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge + .berry-portfolio-edge { border-top: 1px solid var(--berry-line); }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-trigger { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 2px 6px; width: 100%; min-width: 0; padding: 0; margin: 0; border: 0; background: transparent; color: var(--berry-ink); text-decoration: none; white-space: normal; text-align: left; line-height: 1.3; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-trigger > span { min-width: 0; text-decoration: none; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-role { color: var(--berry-ink-strong); font-size: 13px; font-weight: 650; line-height: 1.3; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-status { max-width: 115px; padding: 1px 4px; border: 1px solid var(--berry-line-strong); border-radius: 2px; background: var(--berry-surface-subtle); font-size: 11px; line-height: 1.3; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-path { grid-column: 1 / -1; display: block; color: var(--berry-ink); font-size: 12px; font-weight: 400; line-height: 1.35; overflow-wrap: anywhere; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-trigger:hover .berry-portfolio-edge-path { text-decoration: underline; text-underline-offset: 2px; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-caveat, .berry-app .berry-portfolio-grid .berry-portfolio-identity-note { margin: 3px 0 0; color: var(--berry-amber); font-size: 11px; line-height: 1.35; white-space: normal; overflow-wrap: anywhere; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-sources { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 2px 5px; margin-top: 3px; color: var(--berry-muted); font-size: 11px; line-height: 1.3; white-space: normal; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-sources > span { font-weight: 600; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-sources > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 7px; min-width: 0; }
+.berry-app .berry-portfolio-grid .berry-portfolio-edge-sources .berry-source-link { font-size: 11px; line-height: 1.3; overflow-wrap: anywhere; }
+.berry-app .berry-portfolio-grid .berry-portfolio-identity { padding-top: 2px; min-width: 0; white-space: normal; }
+.berry-app .berry-portfolio-grid .berry-portfolio-identity .berry-entity-name { font-size: 13px; line-height: 1.35; }
+.berry-app .berry-portfolio-grid .berry-portfolio-identity-note { color: var(--berry-muted); }
+.berry-app .berry-portfolio-edge-preview > strong { color: var(--berry-ink-strong); }
+.berry-app .berry-portfolio-edge-preview p { margin: 5px 0 8px; }
+.berry-app .berry-portfolio-edge-preview dl { display: grid; gap: 4px; margin: 0 0 8px; }
+.berry-app .berry-portfolio-edge-preview dl > div { display: grid; grid-template-columns: 105px minmax(0, 1fr); gap: 6px; }
+.berry-app .berry-portfolio-edge-preview dt { color: var(--berry-muted); }
+.berry-app .berry-portfolio-edge-preview dd { margin: 0; }
 @media (max-width: 560px) {
   .berry-app .berry-grid-preferences { align-items: start; }
   .berry-app .berry-grid-preferences .berry-field-label { flex: 1 1 100%; }

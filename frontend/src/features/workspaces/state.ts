@@ -28,7 +28,7 @@ export function responseStillCurrent(capturedRevision: number, currentRevision: 
   return capturedRevision === currentRevision && capturedKey === currentKey;
 }
 export const LENS_LABELS: Record<InvestigationContext['lens'], string> = {
-  connections: 'Recorded connections', portfolio: 'Cultivar portfolio', geography: 'Geographic connections', comparison: 'Selected comparison', sensory: 'Synthetic sensory demo',
+  connections: 'Recorded connections', portfolio: 'Cultivar portfolio', geography: 'Geographic connections', comparison: 'Selected comparison', news: 'Monitored company news', sensory: 'Synthetic sensory demo',
 };
 export const BERRY_LABELS: Record<string, string> = { all: 'All berries', 'berry-blueberry': 'Blueberry', 'berry-strawberry': 'Strawberry', 'berry-raspberry': 'Raspberry', 'berry-blackberry': 'Blackberry' };
 /** The export presenter already resolves IDs to display names; never run those names through an ID lookup again. */

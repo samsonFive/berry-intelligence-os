@@ -52,3 +52,41 @@ test("query keys isolate focus, both cohorts, source detail and action revision"
   assert.notDeepEqual(base, investigationQueryKey("/landscape", { ...EMPTY_CONTEXT, detail_path: "source:ev-a" }, 0));
   assert.notDeepEqual(base, investigationQueryKey("/landscape", EMPTY_CONTEXT, 1));
 });
+
+test("news and monitoring pagination retain the company universe and independent comparison selectors", async () => {
+  const original = globalThis.fetch; const requests = [];
+  globalThis.fetch = async (url, options) => { requests.push({ url, options }); return new Response(JSON.stringify(envelope(9)), { headers: { "content-type": "application/json" } }); };
+  const selected = { ...EMPTY_CONTEXT, company_set: "watched", countries: "geography-china", cohort_companies: "company-a,company-b" };
+  try {
+    for (const endpoint of ["/monitoring?offset=10&limit=10", "/news?offset=20&limit=20"]) await getInvestigation(endpoint, selected, 9);
+    for (const request of requests) {
+      const params = new URL(request.url, "https://test.invalid").searchParams;
+      assert.equal(params.get("company_set"), "watched"); assert.equal(params.get("countries"), "geography-china");
+      assert.equal(params.get("cohort_companies"), "company-a,company-b"); assert.equal(params.get("revision"), "9");
+      assert.equal(request.options.credentials, "same-origin"); assert.equal(request.options.cache, "no-store");
+    }
+    assert.equal(selected.company_set, "watched");
+  } finally { globalThis.fetch = original; }
+});
+
+test("invalid pages, duplicate parameters and selector/revision overrides fail before any request", async () => {
+  const original = globalThis.fetch; let requests = 0;
+  globalThis.fetch = async () => { requests++; throw new Error("Must not fetch invalid pagination"); };
+  try {
+    for (const endpoint of ["/landscape?offset=0", "/comparison?limit=10", "/news?offset=-1", "/news?offset=1.5", "/news?offset=1e2",
+      "/news?offset=9007199254740992", "/monitoring?limit=0", "/monitoring?limit=101", "/news?offset=0&offset=10",
+      "/news?limit=10&limit=20", "/news?revision=1", "/monitoring?company_set=all", "/news?countries="])
+      await assert.rejects(getInvestigation(endpoint, EMPTY_CONTEXT, 0), error => error instanceof InvestigationApiError && error.status === 400);
+    assert.equal(requests, 0);
+  } finally { globalThis.fetch = original; }
+});
+
+test("a safe-integer offset has no artificial company-count cap", async () => {
+  const original = globalThis.fetch; let captured;
+  globalThis.fetch = async url => { captured = url; return new Response(JSON.stringify(envelope(0)), { headers: { "content-type": "application/json" } }); };
+  try {
+    await getInvestigation("/monitoring?offset=9007199254740991&limit=100", EMPTY_CONTEXT, 0);
+    const params = new URL(captured, "https://test.invalid").searchParams;
+    assert.equal(params.get("offset"), "9007199254740991"); assert.equal(params.get("limit"), "100");
+  } finally { globalThis.fetch = original; }
+});

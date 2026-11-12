@@ -1,13 +1,13 @@
 /** Shared selectors only. Canonical records and source bodies remain server-owned. */
 export const CONTEXT_FIELDS = [
   "ctx_v", "berry", "countries", "geo_basis", "actor_roles", "relationship_types",
-  "news_from", "news_to", "focus", "cohort_companies", "cohort_varieties", "lens",
+  "news_from", "news_to", "company_set", "focus", "cohort_companies", "cohort_varieties", "lens",
   "comparison_kind", "detail_path", "q", "q_scope", "saved_view_id", "saved_revision", "demo_specimens",
 ] as const;
 export type ContextField = typeof CONTEXT_FIELDS[number];
 export type Berry = "all" | "berry-blueberry" | "berry-strawberry" | "berry-raspberry" | "berry-blackberry";
 export type GeographyBasis = "company_connections" | "source_geography" | "variety_growing" | "rights";
-export type Lens = "connections" | "portfolio" | "geography" | "comparison" | "sensory";
+export type Lens = "connections" | "portfolio" | "geography" | "comparison" | "news" | "sensory";
 export type EntityType = "company" | "variety";
 export type DetailType = EntityType | "geography" | "relationship" | "source" | "observation";
 export interface EntityRef { type: EntityType; id: string }
@@ -22,6 +22,8 @@ export interface InvestigationContext {
   relationship_types: string;
   news_from: string;
   news_to: string;
+  /** Resolves an uncapped existing company universe, independently of comparison pins. */
+  company_set: "all" | "watched";
   focus: string;
   cohort_companies: string;
   cohort_varieties: string;
@@ -45,7 +47,7 @@ export interface ContextIssue {
 export interface NormalizedContext { context: InvestigationContext; issues: ContextIssue[] }
 export const EMPTY_CONTEXT: Readonly<InvestigationContext> = Object.freeze({
   ctx_v: "1", berry: "all", countries: "", geo_basis: "company_connections",
-  actor_roles: "", relationship_types: "", news_from: "", news_to: "", focus: "",
+  actor_roles: "", relationship_types: "", news_from: "", news_to: "", company_set: "all", focus: "",
   cohort_companies: "", cohort_varieties: "", lens: "connections", comparison_kind: "company",
   detail_path: "", q: "", q_scope: "scope", saved_view_id: "", saved_revision: "", demo_specimens: "",
 });
@@ -58,7 +60,8 @@ const DETAIL_TYPES: readonly string[] = ["company", "variety", "geography", "rel
 const ENUMS = {
   berry: ["all", "berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"],
   geo_basis: ["company_connections", "source_geography", "variety_growing", "rights"],
-  lens: ["connections", "portfolio", "geography", "comparison", "sensory"],
+  lens: ["connections", "portfolio", "geography", "comparison", "news", "sensory"],
+  company_set: ["all", "watched"],
   comparison_kind: ["company", "variety"], q_scope: ["scope", "catalog"],
 } as const;
 

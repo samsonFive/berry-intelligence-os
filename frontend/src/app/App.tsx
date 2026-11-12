@@ -79,8 +79,8 @@ function ScopeBar() {
     const selected = splitIds(previous.countries);
     return { ...previous, countries: (selected.includes(id) ? selected.filter(item => item !== id) : [...selected, id]).join(",") };
   });
-  return <form className="berry-scopebar" onSubmit={apply} aria-label="Investigation scope">
-    <label>Berry<select value={draft.berry} onChange={event => set("berry", event.target.value as Berry)}>{["all", "berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"].map(berry => <option key={berry} value={berry}>{berry === "all" ? "All berries" : berry.slice(6, 7).toUpperCase() + berry.slice(7)}</option>)}</select></label>
+  return <form className="berry-scopebar" data-region="investigation-scope" onSubmit={apply} aria-label="Investigation scope">
+    <label className="berry-scope-field">Berry<select value={draft.berry} onChange={event => set("berry", event.target.value as Berry)}>{["all", "berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"].map(berry => <option key={berry} value={berry}>{berry === "all" ? "All berries" : berry.slice(6, 7).toUpperCase() + berry.slice(7)}</option>)}</select></label>
     <div className="berry-country-field"><span id={geographyLabelId} className="berry-field-label">Geography</span>
       <details className="berry-country-selector" ref={geographySelector} onKeyDown={event => {
         if (event.key === "Escape" && event.currentTarget.open) {
@@ -125,19 +125,21 @@ function Shell({ features }: { features: FeatureSlots }) {
   const search = `?${serializeInvestigation(context)}`;
   return <div className="berry-app berry-shell">
     <a className="berry-skip-link" href="#investigation-main">Skip to investigation</a>
-    <header className="berry-topbar"><Link className="berry-brand" to={investigationHref("/app/landscape", context)}>Berry <span>OS</span></Link>
+    <header className="berry-topbar" data-region="app-chrome"><Link className="berry-brand" to={investigationHref("/app/landscape", context)}>Berry <span>OS</span></Link>
       <nav className="berry-nav" aria-label="Primary">{destinations.map(([path, label]) => <NavLink key={path} to={{ pathname: `/app/${path}`, search }}>{label}</NavLink>)}</nav>
+      <div className="berry-topbar-actions">
       {Command && <button type="button" className="berry-button berry-button--ghost" aria-expanded={commandOpen} onClick={() => setCommandOpen(open => !open)}>Ask Berry</button>}
-      <details className="berry-utilities"><summary>More</summary>{[
+      <details className="berry-utilities"><summary>More</summary><div className="berry-utilities-menu">{[
         ['/entities/company', 'Browse companies'], ['/entities/variety', 'Browse varieties'],
         ['/search', 'Search catalog'], ['/research-ops', 'Research tools'],
         ['/review-ops', 'Review'], ['/operations', 'Operations'], ['/guide', 'Help'],
-      ].map(([href, label]) => <a key={href} href={legacyHref(href, pathname, context)}>{label}</a>)}</details>
+      ].map(([href, label]) => <a key={href} href={legacyHref(href, pathname, context)}>{label}</a>)}</div></details>
       <form action="/logout" method="post" onSubmit={clearPrivateSession}><button type="submit" className="berry-button berry-button--quiet">Sign out</button></form>
+      </div>
     </header>
     <ScopeBar />
     {issues.length > 0 && <section className="berry-context-issues" role="status" aria-label="Investigation selection issues"><ul>{issues.map((issue, index) => <li key={`${issue.field}-${index}`}>{issue.message}</li>)}</ul></section>}
-    <div className="berry-workspace"><main id="investigation-main" className="berry-main" tabIndex={-1}><Routes>
+    <div className="berry-workspace" data-region="investigation-workspace"><main id="investigation-main" className="berry-main" data-region="main-workspace" tabIndex={-1}><Routes>
       <Route path="/app/landscape" element={<Landscape />} /><Route path="/app/briefing" element={<Briefing />} /><Route path="/app/workspaces" element={<Workspaces />} /><Route path="/app/learn" element={<Learn />} />
       <Route path="/app/learn/concept/:learningId" element={<LearnDestination Feature={Learn} />} /><Route path="/app/learn/lesson/:learningId" element={<LearnDestination Feature={Learn} />} />
       <Route path="*" element={<Navigate to={investigationHref("/app/landscape", context)} replace />} />

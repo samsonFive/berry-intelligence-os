@@ -452,17 +452,195 @@ def test_api_envelope_revision_private_cache_and_invalid_scope(client):
     assert client.get("/api/investigations/v1/landscape?revision=-1").status_code == 422
 
 
-@pytest.mark.parametrize("endpoint", ["landscape", "comparison", "detail", "developments", "options"])
+@pytest.mark.parametrize("endpoint", ["landscape", "comparison", "detail", "developments", "options", "monitoring", "news"])
 def test_api_denies_public_only_mode(client, monkeypatch, endpoint):
     import app.main as main
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert client.get("/api/investigations/v1/" + endpoint).status_code == 403
 
 
-@pytest.mark.parametrize("endpoint", ["landscape", "comparison", "detail", "developments", "options"])
+@pytest.mark.parametrize("endpoint", ["landscape", "comparison", "detail", "developments", "options", "monitoring", "news"])
 def test_api_denies_unauthenticated_remote_session(client, monkeypatch, endpoint):
     monkeypatch.setenv("BIOS_REMOTE_INTERACTIVE", "1")
     monkeypatch.setenv("BIOS_REVIEW_USERNAME", "test-review")
     monkeypatch.setenv("BIOS_REVIEW_PASSWORD", "test-only-password")
     monkeypatch.setenv("BIOS_SESSION_SECRET", "test-only-secret-for-authenticated-investigation")
     assert client.get("/api/investigations/v1/" + endpoint, follow_redirects=False).status_code in {302, 401}
+
+
+def _monitoring_world(world, tmp_path):
+    world.main.INBOX_DIR = tmp_path / "inbox"
+    return world
+
+
+def test_company_set_is_independent_and_legacy_missing_default_is_all():
+    assert context()["company_set"] == "all"
+    selection, issues = api.normalize_context({"lens": "news", "company_set": "watched",
+        "cohort_companies": ",".join(f"company-{index}" for index in range(7))})
+    assert selection["company_set"] == "watched" and selection["lens"] == "news"
+    assert len(issues) == 2  # Comparison alone remains capped at five.
+    for value in ("", "personal", "company-a"):
+        with pytest.raises(ValueError):
+            api.normalize_context({"company_set": value})
+
+
+@pytest.mark.parametrize("query", ["limit=0", "limit=101", "limit=2&limit=3", "offset=-1", "offset=2.5", "offset=9007199254740992"])
+def test_monitoring_pagination_rejects_ambiguous_or_unsupported_pages(query):
+    from starlette.datastructures import QueryParams
+    with pytest.raises(ValueError):
+        api.pagination(QueryParams(query))
+
+
+def test_monitoring_default_page_and_safe_large_offset():
+    from starlette.datastructures import QueryParams
+    assert api.pagination(QueryParams()) == {"limit": 36, "offset": 0}
+    assert api.pagination(QueryParams("offset=9007199254740991&limit=1"))["offset"] == 9007199254740991
+
+
+def test_watched_roster_pages_all_45_members_without_comparison_or_scope_cap(world, tmp_path, monkeypatch):
+    from app.services.watchlist import add_watch
+    from app.services import competitor_registry
+    world = _monitoring_world(world, tmp_path)
+    for index in range(45):
+        key = f"company-monitored-{index:02}"
+        world.entities[key] = {**world.entities["company-a"], "id": key, "name": f"Monitored {index:02}", "aliases": [f"Alias {index:02}"]}
+        add_watch(world.main.INBOX_DIR, "company", key)
+    before = (world.main.INBOX_DIR / "watchlist_state.json").read_bytes()
+    ctx = context(company_set="watched", focus="company-a", cohort_companies="company-a,company-b")
+    frozen = deepcopy(ctx)
+    bundle = api.base_bundle(world, ctx)
+    calls = []
+    monkeypatch.setattr(competitor_registry, "monitoring_state_for_entity", lambda key, **kwargs: calls.append(key) or {"state": "no_supported_source", "detail": "No linked source"})
+    pages = [api.monitoring_data(world, ctx, bundle, offset=offset, limit=10) for offset in range(0, 50, 10)]
+    assert [len(page["companies"]) for page in pages] == [10, 10, 10, 10, 5]
+    assert all(page["total"] == page["universe_count"] == 45 for page in pages)
+    assert len({row["id"] for page in pages for row in page["companies"]}) == 45
+    assert len(calls) == 45  # Health work happens after pagination, never for hidden rows.
+    assert all(not row["in_scope"] and row["watched"] for page in pages for row in page["companies"])
+    assert pages[-1]["next_offset"] is None and not pages[-1]["has_more"]
+    assert ctx == frozen and before == (world.main.INBOX_DIR / "watchlist_state.json").read_bytes()
+    search = api.monitoring_data(world, {**ctx, "q": "ALIAS 44", "q_scope": "catalog"}, bundle)
+    assert search["universe_count"] == 45 and search["matching_count"] == 1
+    assert search["companies"][0]["id"] == "company-monitored-44"
+    assert api.monitoring_data(world, {**ctx, "q": "Alias 44", "q_scope": "scope"}, bundle)["total"] == 0
+
+
+def test_roster_geography_is_scoped_cited_activity_and_not_automatic_monitoring(world, tmp_path):
+    world = _monitoring_world(world, tmp_path)
+    ctx = context()
+    data = api.monitoring_data(world, ctx, api.base_bundle(world, ctx))
+    alpha = next(row for row in data["companies"] if row["id"] == "company-a")
+    outside = next(row for row in data["companies"] if row["id"] == "company-outside")
+    assert alpha["in_scope"] and not outside["in_scope"] and not outside["geographies"]
+    assert alpha["geographies"][0]["activity"] == "Variety validation programme"
+    assert alpha["geographies"][0]["evidence_ids"] == ["ev-a"]
+    assert alpha["monitoring"]["state"] == "no_supported_source"
+
+
+def _news_records(world, count=2):
+    first = world.evidence[0]
+    for index in range(count):
+        key = f"ev-beta-{index:03}"
+        world.news[key] = {**first, "id": key, "title": f"Beta blueberries cultivation research update {index}",
+            "entity_ids": ["company-b", "geography-peru"], "source_url": f"https://example.com/{key}"}
+
+
+def test_news_watches_filter_before_pagination_and_ignore_comparison_focus(world, tmp_path):
+    from app.services.watchlist import add_watch
+    world = _monitoring_world(world, tmp_path)
+    _news_records(world, 79)
+    add_watch(world.main.INBOX_DIR, "company", "company-b")
+    ctx = context(lens="news", company_set="watched", focus="company-a", cohort_companies="company-a")
+    before = deepcopy(ctx)
+    bundle = api.base_bundle(world, ctx)
+    full = api.news_data(world, ctx, bundle, all_cards=True)
+    assert full["matching_count"] == len(full["cards"]) == 79
+    assert full["basis"] == "workspace_watches"
+    expected = [row["id"] for row in full["cards"]]
+    paged = api.news_data(world, ctx, bundle, offset=34, limit=10)
+    assert [row["id"] for row in paged["cards"]] == expected[34:44]
+    assert paged["next_offset"] == 44 and paged["matching_count"] == 79
+    assert not api.news_data(world, ctx, bundle, offset=200)["cards"]
+    assert {card["id"] for card in full["cards"]} == {row["id"] for row in full["sources"]}
+    assert all("source_reviewed" in row and "trusted" in row and "published_at" in row for row in full["cards"])
+    assert all(set(card) <= set(api.NATIVE_NEWS_FIELDS) for card in full["cards"])
+    leaked = "MUST NOT leak" in str(full)
+    assert leaked is False, "Native News metadata must not expose unselected source bodies or excerpts"
+    assert ctx == before
+    older = api.news_data(world, {**ctx, "news_from": "2026-09-01"}, bundle)
+    assert older["matching_count"] == 0
+    wrong_place = api.news_data(world, {**ctx, "countries": "geography-china"}, api.base_bundle(world, {**ctx, "countries": "geography-china"}))
+    assert wrong_place["matching_count"] == 0
+
+
+def test_empty_or_missing_watches_never_widen_news_and_all_includes_unattributed_industry(world, tmp_path):
+    from app.services.watchlist import add_watch
+    world = _monitoring_world(world, tmp_path)
+    unattributed = {**world.evidence[0], "id": "ev-industry", "title": "Blueberry cultivation sector expands in Peru",
+                    "entity_ids": ["geography-peru"], "source_url": "https://example.com/industry"}
+    world.news[unattributed["id"]] = unattributed
+    ctx = context(lens="news", company_set="watched")
+    bundle = api.base_bundle(world, ctx)
+    assert api.news_data(world, ctx, bundle)["matching_count"] == 0
+    add_watch(world.main.INBOX_DIR, "company", "company-gone")
+    stale = api.news_data(world, ctx, bundle)
+    assert stale["matching_count"] == 0 and stale["unavailable_watch_count"] == 1
+    all_news = api.news_data(world, {**ctx, "company_set": "all"}, bundle)
+    assert "ev-industry" in {row["id"] for row in all_news["cards"]}
+    assert "unattributed" in all_news["briefing_scope_note"]
+
+
+def test_news_export_hash_changes_with_watch_membership_even_when_both_feeds_empty(world, tmp_path):
+    from app.services.watchlist import add_watch
+    from app.services import investigation_export as export
+    world = _monitoring_world(world, tmp_path)
+    ctx = context(lens="news", company_set="watched", news_from="2026-10-01")
+    first = export.preview(world, ctx, ["developments"])
+    assert first["sections"][0]["row_count"] == 0
+    add_watch(world.main.INBOX_DIR, "company", "company-b")
+    second = export.preview(world, ctx, ["developments"])
+    assert second["sections"][0]["row_count"] == 0
+    assert first["content_hash"] != second["content_hash"]
+    with pytest.raises(export.ContentChangedError):
+        export.pdf(world, ctx, ["developments"], False, first["content_hash"])
+
+
+def test_real_ten_company_model_reuses_active_canonical_identities():
+    import json
+    from pathlib import Path
+    keys = ("driscolls", "fall-creek-farm-and-nursery", "costa-group-holdings", "hortifrut", "planasa",
+            "agrovision", "berryworld", "mountain-blue-orchards", "naturipe-farms", "wish-farms")
+    folder = Path(__file__).resolve().parents[1] / "data" / "entities" / "companies"
+    rows = [json.loads((folder / f"company-{key}.json").read_text(encoding="utf-8")) for key in keys]
+    assert len({row["id"] for row in rows}) == 10
+    assert all(row["entity_type"] == "company" and row["status"] == "active" for row in rows)
+
+
+def test_watch_selector_and_news_lens_save_as_references_not_member_snapshot(tmp_path):
+    from app.services import landscape_workspace as workspace
+    from urllib.parse import parse_qs, urlsplit
+    selected = context(lens="news", company_set="watched", cohort_companies="company-a,company-b")
+    saved = workspace.save_view(tmp_path / "inbox", name="Shared watches News", kind="explorer", filters=selected)
+    assert saved["filters"]["company_set"] == "watched" and saved["filters"]["lens"] == "news"
+    assert saved["filters"]["cohort_companies"] == "company-a,company-b"
+    assert not any(key in saved["filters"] for key in ("watched_ids", "company_set_key", "members"))
+    query = {key: values[0] for key, values in parse_qs(urlsplit(workspace.view_href(saved)).query, keep_blank_values=True).items()}
+    assert api.normalize_context(query)[0]["company_set"] == "watched"
+
+
+def test_monitoring_and_news_http_envelope_page_and_private_read_boundaries(world, tmp_path, monkeypatch):
+    world = _monitoring_world(world, tmp_path)
+    monkeypatch.setattr(api, "load_world", lambda: world)
+    monkeypatch.setattr(routes, "_private", lambda: None)
+    app = FastAPI()
+    routes.register(app)
+    with TestClient(app) as client:
+        for endpoint in ("monitoring", "news"):
+            response = client.get(f"/api/investigations/v1/{endpoint}", params={**context(), "limit": 1, "offset": 0, "revision": 7})
+            assert response.status_code == 200
+            assert response.headers["cache-control"] == "private, no-store"
+            payload = response.json()
+            assert payload["api_v"] == 1 and payload["revision"] == 7
+            assert payload["data"]["limit"] == 1 and payload["data"]["offset"] == 0
+            assert client.get(f"/api/investigations/v1/{endpoint}?limit=1&limit=2").status_code == 422
+            assert client.post(f"/api/investigations/v1/{endpoint}").status_code == 405

@@ -20,13 +20,17 @@ from app.services.berries.landscape import SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE
 CONTEXT_FIELDS = (
     "ctx_v", "berry", "countries", "geo_basis", "actor_roles", "relationship_types",
     "news_from", "news_to", "focus", "cohort_companies", "cohort_varieties", "lens",
-    "comparison_kind", "detail_path", "demo_specimens", "q", "q_scope", "saved_view_id", "saved_revision",
+    "comparison_kind", "detail_path", "demo_specimens", "company_set", "q", "q_scope", "saved_view_id", "saved_revision",
 )
 DEFAULT_CONTEXT = {key: "" for key in CONTEXT_FIELDS}
 DEFAULT_CONTEXT.update(ctx_v="1", berry="all", geo_basis="company_connections",
-                       lens="connections", comparison_kind="company", q_scope="scope")
+                       lens="connections", comparison_kind="company", q_scope="scope", company_set="all")
 BERRIES = ("blueberry", "strawberry", "raspberry", "blackberry")
 DETAIL_TYPES = {"company", "variety", "geography", "relationship", "source", "observation"}
+NATIVE_NEWS_FIELDS = ("id", "headline", "deck", "source_name", "source_url", "source_link_url", "source_link_label",
+    "full_reader_href", "published_at", "image_url", "reference_image", "source_reviewed", "trusted", "translated",
+    "translation_pending", "media_kind", "media_label", "media_note", "company_mentions", "scope_match",
+    "coverage_sources", "independence", "retained_source_links", "crop_labels")
 ID_RE = re.compile(r"^[A-Za-z0-9_.-]{1,180}$")
 
 
@@ -75,7 +79,8 @@ def normalize_context(params):
     enums = {
         "ctx_v": {"1"}, "berry": {"all", *("berry-" + berry for berry in BERRIES)},
         "geo_basis": {"company_connections", "source_geography", "variety_growing", "rights"},
-        "lens": {"connections", "portfolio", "geography", "comparison", "sensory"},
+        "lens": {"connections", "portfolio", "geography", "comparison", "sensory", "news"},
+        "company_set": {"all", "watched"},
         "comparison_kind": {"company", "variety"}, "q_scope": {"scope", "catalog"},
     }
     for key, allowed in enums.items():
@@ -305,9 +310,14 @@ def module_scope(context, module):
     if module == "options":
         return {"basis": "catalog metadata", "scope_selectors": "not applied", "q": context["q"]}
     applied = {"berry": context["berry"], "countries": ids(context["countries"])}
-    if module == "developments":
+    if module in {"developments", "news"}:
         applied.update(geo_basis="source_geography", news_from=context["news_from"], news_to=context["news_to"],
-                       date_basis="source publication date", actor_roles=ids(context["actor_roles"]), relationship_types="not applied")
+                       date_basis="source publication date", actor_roles=ids(context["actor_roles"]), relationship_types="not applied",
+                       company_set=context.get("company_set", "all"))
+    elif module == "monitoring":
+        applied.update(basis="Shared workspace Watch membership or all canonical companies",
+                       company_set=context.get("company_set", "all"), countries="in_scope annotation only",
+                       berry="in_scope annotation only", news_from="not applied", news_to="not applied")
     elif module == "comparison":
         applied.update(countries="Context only; comparison contains full selected profiles",
                        berry="Context only; comparison contains full selected profiles",
@@ -316,7 +326,8 @@ def module_scope(context, module):
     else:
         applied.update(geo_basis="company_connections", actor_roles=ids(context["actor_roles"]),
                        relationship_types=ids(context["relationship_types"]),
-                       news_from="not applied", news_to="not applied", date_basis="standing recorded relationships")
+                       news_from="not applied", news_to="not applied", date_basis="standing recorded relationships",
+                       company_set="not applied; standing scope is independent of monitoring membership")
         if context["geo_basis"] != "company_connections":
             applied.update(requested_geo_basis=context["geo_basis"], omitted_scope_keys=["geo_basis"])
     return applied
@@ -523,7 +534,106 @@ def comparison_data(world, context):
     return {**result, "comparison_kind": kind, "scope_applicability": module_scope(context, "comparison")}
 
 
-def developments_data(world, context, bundle, *, all_cards=False):
+def pagination(params, *, default_limit=36):
+    """Bound transport pages, never the saved monitoring universe."""
+    result = {}
+    for key, default, maximum in (("limit", default_limit, 100), ("offset", 0, 9_007_199_254_740_991)):
+        values = params.getlist(key) if hasattr(params, "getlist") and key in params else [params.get(key, str(default))]
+        if len(values) != 1 or not re.fullmatch(r"[0-9]{1,16}", str(values[0])):
+            raise ValueError(f"Choose one non-negative decimal {key}.")
+        value = int(values[0])
+        if value > maximum or (key == "limit" and value < 1):
+            raise ValueError(f"Choose a supported {key}.")
+        result[key] = value
+    return result
+
+
+def company_selection(world, context):
+    """Existing shared Watch references; no count cap, personal copy or writes."""
+    from app.services.watchlist import load_watches
+    from app.services.global_watchlist import real_record
+    from app.services.entity_identity import merged_into_id
+    companies = {key: row for key, row in world.entities.items()
+                 if row.get("entity_type") == "company" and key not in SEED_FIXTURE_ENTITY_IDS
+                 and real_record(row) and not merged_into_id(row)}
+    watches = list(dict.fromkeys(row["object_id"] for row in load_watches(world.main.INBOX_DIR)
+                                if row["watch_type"] == "company"))
+    watched = [key for key in watches if key in companies]
+    chosen = watched if context.get("company_set", "all") == "watched" else list(companies)
+    membership_key = sha256(json.dumps({"company_set": context.get("company_set", "all"),
+        "ids": sorted(watches if context.get("company_set") == "watched" else companies)},
+        sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    return companies, chosen, set(watched), len(set(watches) - set(companies)), membership_key
+
+
+def monitoring_data(world, context, bundle, *, limit=10, offset=0):
+    from app.services.competitor_registry import monitoring_state_for_entity
+    companies, chosen, watched, unavailable, membership_key = company_selection(world, context)
+    universe_count = len(chosen)
+    query = context["q"].strip().casefold()
+    if query:
+        chosen = [key for key in chosen if (context["q_scope"] == "catalog" or key in bundle["nodes"])
+                  and any(query in str(value).casefold() for value in [companies[key].get("name", ""),
+                      *(companies[key].get("aliases") or []), *(companies[key].get("also_known_as") or [])])]
+    chosen.sort(key=lambda key: (str(companies[key].get("name", key)).casefold(), key))
+    geography_index = {}
+    for edge in bundle["edges"]:
+        if not edge.get("company_geography"):
+            continue
+        for key, other in ((edge["subject_id"], edge["object_id"]), (edge["object_id"], edge["subject_id"])):
+            if key in companies and bundle["nodes"].get(other, {}).get("type") == "geography":
+                geography_index.setdefault(key, []).append((other, edge))
+    source_rows = list(world.source_index.values())
+    rows = []
+    for key in chosen[offset:offset + limit]:
+        entity = companies[key]
+        geographies = []
+        for other, edge in geography_index.get(key, []):
+            node = bundle["nodes"].get(other, {})
+            if node.get("type") == "geography":
+                geographies.append({"id": other, "label": node["label"], "relationship_id": edge["id"],
+                    "activity": edge["location_label"], "status": edge["status_label"], "review": edge["review"],
+                    "caveat": edge["caveat"], "evidence_ids": list(edge["evidence_ids"])})
+        rows.append({"id": key, "label": entity.get("name", key), "type": "company",
+            "identity_status": entity.get("status") or "Not recorded",
+            "identity_note": "Provisional identity · review needed" if entity.get("status") == "unverified" else "",
+            "roles": list(entity.get("roles") or []), "berry_ids": list(entity.get("berry_ids") or []),
+            "watched": key in watched, "in_scope": key in bundle["nodes"], "geographies": geographies,
+            "monitoring": monitoring_state_for_entity(key, sources=source_rows, inbox_dir=world.main.INBOX_DIR)})
+    total = len(chosen)
+    return {"companies": rows, "company_set": context.get("company_set", "all"), "company_set_key": membership_key,
+            "basis": "workspace_watches" if context.get("company_set") == "watched" else "all_companies",
+            "total": total, "limit": limit, "offset": offset, "has_more": offset + limit < total,
+            "universe_count": universe_count, "matching_count": total,
+            "search_basis": "No roster search" if not query else ("Catalog names and aliases" if context["q_scope"] == "catalog" else "In-scope company names and aliases"),
+            "next_offset": offset + limit if offset + limit < total else None,
+            "watched_count": len(watched), "unavailable_watch_count": unavailable,
+            "scope_note": "Shared workspace watches express monitoring interest, not active collection or evidence approval. "
+                          "The roster is not trimmed by geography, berry or news dates; in_scope annotates the standing landscape. "
+                          "Displayed geography is scoped actor activity, never a cultivar growing footprint."}
+
+
+def news_data(world, context, bundle, *, limit=36, offset=0, all_cards=False):
+    if all_cards:
+        offset = 0
+    companies, selected, watched, unavailable, membership_key = company_selection(world, context)
+    basis = "workspace_watches" if context.get("company_set") == "watched" else "all_companies"
+    result = developments_data(world, context, bundle, all_cards=all_cards,
+        _subjects=selected if basis == "workspace_watches" else [], _basis=basis,
+        limit=None if all_cards else limit, offset=offset)
+    result.update(company_set=context.get("company_set", "all"), company_set_key=membership_key, subject_count=len(selected),
+                  total=result["matching_count"], limit=limit, offset=offset,
+                  has_more=not all_cards and offset + limit < result["matching_count"],
+                  next_offset=offset + limit if not all_cards and offset + limit < result["matching_count"] else None,
+                  unavailable_watch_count=unavailable, scope_applicability=module_scope(context, "news"))
+    result["heading"] = "News for shared workspace watched companies" if basis == "workspace_watches" else "News across the applied scope"
+    result["briefing_scope_note"] = ("Shared Watch membership is applied before pagination; focus and comparison pins do not select this feed. "
+        "The deeper legacy News view does not retain this multi-company Watch filter." if basis == "workspace_watches" else
+        "No additional company filter is applied; eligible unattributed industry News remains in scope. Focus and comparison pins do not select this feed.")
+    return result
+
+
+def developments_data(world, context, bundle, *, all_cards=False, _subjects=None, _basis=None, limit=None, offset=0):
     from app.services import news_workspace, company_source_scope
     kind = context["comparison_kind"]
     raw_cohort = ids(context["cohort_companies" if kind == "company" else "cohort_varieties"])
@@ -537,6 +647,8 @@ def developments_data(world, context, bundle, *, all_cards=False):
         focus_kind = world.entities.get(focal_id, {}).get("entity_type")
         if focal_id in bundle["nodes"] and world.entities.get(focal_id, {}).get("entity_type") == focus_kind:
             subject_ids, basis = [focal_id], "focus"
+    if _subjects is not None:
+        subject_ids, basis = list(_subjects), _basis
     labels = [world.entities[key].get("name", key) for key in subject_ids]
     params = {"berry": "" if context["berry"] == "all" else context["berry"],
               "countries": context["countries"], "view": "unreviewed", "tz": "UTC",
@@ -546,6 +658,17 @@ def developments_data(world, context, bundle, *, all_cards=False):
     # country or publication constraints. News model still verifies all semantics.
     records = world.news
     subject_mentions, subject_links = {}, {}
+    if context.get("company_set") == "watched":
+        _companies, watched_ids, _watched, _unavailable, _membership_key = company_selection(world, context)
+        watched_actors = [_companies[key] for key in watched_ids]
+        watched_ids = set(watched_ids)
+        eligible = {}
+        for key, record in records.items():
+            linked, mentions = company_source_scope.links(record, watched_actors)
+            if watched_ids.intersection(linked):
+                eligible[key] = record
+                subject_mentions[key] = mentions
+        records = eligible
     actor_roles = set(ids(context["actor_roles"]))
     if actor_roles:
         actors = [row for row in world.entities.values() if row.get("entity_type") == "company"
@@ -574,12 +697,34 @@ def developments_data(world, context, bundle, *, all_cards=False):
             following = news_workspace.model(records=records, entities=world.entities, relationships=world.relationships,
                 facts=world.facts, state=world.state, params={**params, "page": str(page)})
             model["cards"].extend(following["cards"])
-    cards = model["cards"] if all_cards else model["cards"][:6]
+    if limit is not None:
+        # Reuse exact existing eligibility/order and card presentation, fetching
+        # only legacy pages that intersect this arbitrary offset/limit window.
+        total = model["matching"]
+        pages = {}
+        if offset < total:
+            first = offset // news_workspace.PAGE_SIZE + 1
+            last = (min(offset + limit, total) - 1) // news_workspace.PAGE_SIZE + 1
+            pages[1] = model
+            for page in range(first, last + 1):
+                if page not in pages:
+                    pages[page] = news_workspace.model(records=records, entities=world.entities,
+                        relationships=world.relationships, facts=world.facts, state=world.state,
+                        params={**params, "page": str(page)})
+            window = [card for page in range(first, last + 1) for card in pages[page]["cards"]]
+            start = offset % news_workspace.PAGE_SIZE
+            cards = window[start:start + limit]
+        else:
+            cards = []
+    else:
+        cards = model["cards"] if all_cards else model["cards"][:6]
     for card in cards:
         # The feed needs personal action state and source review labels, not
         # selected-source passages or the full private statement workspace.
         card.pop("passages", None)
         card.pop("statements", None)
+        card.pop("record", None)
+        card.pop("topic_match", None)
         mentions = {item["id"]: item for item in [*card.get("company_mentions", []), *subject_mentions.get(card["id"], [])]}
         card["company_mentions"] = list(mentions.values())
         if subject_ids and card["id"] in records:
@@ -606,14 +751,21 @@ def developments_data(world, context, bundle, *, all_cards=False):
             }
     heading = "Developments across this scope" if basis == "scope" else (
         "Developments for " + ("comparison: " if basis == "comparison" else "") + " · ".join(labels))
+    if context.get("company_set") == "watched" and _subjects is None:
+        heading += " · shared workspace watches"
     legacy_params = {key: value for key, value in params.items() if value}
     if len(subject_ids) == 1 and world.entities[subject_ids[0]].get("entity_type") == "company":
         legacy_params["company"] = subject_ids[0]
+    # Native consumers receive their exact metadata contract, never the legacy
+    # raw record or classification excerpts. Legacy News presentation is unchanged.
+    cards = [{key: card[key] for key in NATIVE_NEWS_FIELDS if key in card} for card in cards]
     return {"cards": cards, "basis": basis, "subject_ids": subject_ids,
             "heading": heading, "briefing_href": "/news?" + urlencode(legacy_params),
             "sources": [source_metadata(records[card["id"]]) for card in cards if card["id"] in records],
             "matching_count": model["matching"], "scope_applicability": module_scope(context, "developments"),
-            "briefing_scope_note": "Full scoped News; the company cohort remains in this investigation." if len(subject_ids) > 1 else ""}
+            "briefing_scope_note": ("Shared company Watch membership also restricts this feed; the deeper legacy News view does not retain this multi-company Watch filter."
+                if context.get("company_set") == "watched" else
+                "Full scoped News; the company cohort remains in this investigation." if len(subject_ids) > 1 else "")}
 
 
 def _entity_sources(world, entity, bundle):

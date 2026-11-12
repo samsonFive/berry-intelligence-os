@@ -20,7 +20,7 @@ EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "e
 INVESTIGATION_FIELDS = (
     "ctx_v", "berry", "countries", "geo_basis", "actor_roles", "relationship_types",
     "news_from", "news_to", "focus", "cohort_companies", "cohort_varieties", "lens",
-    "comparison_kind", "detail_path", "demo_specimens", "q", "q_scope", "saved_view_id", "saved_revision",
+    "comparison_kind", "detail_path", "demo_specimens", "company_set", "q", "q_scope", "saved_view_id", "saved_revision",
 )
 VIEW_FILE = "landscape_views.json"
 WATCHLIST_FIELDS = ("berry", "q", "tier", "group", "region", "market", "entity", "followed", "source_type", "event_type", "priority", "type", "letter", "favorites", "company_tier", "list", "tag", "tag_mode")
@@ -308,13 +308,25 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
     return row
 
 
+def investigation_filters(row):
+    """Read old ctx_v1 rows with the additive default, without rewriting storage.
+
+    An explicitly present invalid value stays visible; only absence is legacy.
+    """
+    filters = dict(row.get("filters") or {})
+    if filters.get("ctx_v") == "1" and "company_set" not in filters:
+        filters["company_set"] = "all"
+    return filters
+
+
 def view_href(row):
+    filters = investigation_filters(row)
     if row.get('surface') == 'watchlist':
         return '/global-watchlist?' + urlencode({'saved_view': row['id']})
     if row.get("kind") == "explorer":
         if str(row.get("filters", {}).get("ctx_v") or "") == "1":
             return "/app/landscape?" + urlencode({
-                **{field: row["filters"].get(field, "") for field in INVESTIGATION_FIELDS},
+                **{field: filters.get(field, "") for field in INVESTIGATION_FIELDS},
                 "saved_view_id": row["id"], "saved_revision": str(row["revision"]),
             })
         return "/landscapes/explorer?" + urlencode({"saved_view": row["id"]})

@@ -25,6 +25,21 @@ test("focus, comparison membership and source inspection are separate actions", 
   state = step(state, { type: "closeDetail" });
   assert.deepEqual(currentDetail(state.context), { type: "company", id: "company-fall-creek" });
 });
+
+test("the uncapped monitored universe and News view restore independently of comparison pins", () => {
+  let state = initial({ ...EMPTY_CONTEXT, cohort_companies: "company-a,company-b", focus: "company-c" });
+  state = step(state, { type: "setCompanySet", company_set: "watched" });
+  state = step(state, { type: "setLens", lens: "news" });
+  assert.equal(state.context.cohort_companies, "company-a,company-b");
+  assert.equal(state.context.focus, "company-c");
+  assert.equal(state.context.company_set, "watched");
+  assert.deepEqual(parseInvestigation(serializeInvestigation(state.context)).context, state.context);
+  state = step(state, { type: "applyScope", scope: { berry: "berry-strawberry", countries: "geography-china" } });
+  assert.equal(state.context.company_set, "watched");
+  assert.equal(state.context.lens, "news");
+  assert.equal(hasBlockingIssues(normalizeContext({ company_set: "company-a,company-b" }).issues), true);
+  assert.equal(parseInvestigation("ctx_v=1&lens=connections").context.company_set, "all");
+});
 test("changing scope retains pinned outside-scope IDs and both typed cohorts", () => {
   let state = initial();
   state = step(state, { type: "setCohort", kind: "company", ids: ["company-a", "company-b"] });

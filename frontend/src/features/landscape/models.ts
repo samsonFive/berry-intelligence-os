@@ -85,6 +85,47 @@ export interface DevelopmentsModel {
   matching_count: number;
   briefing_scope_note?: string;
 }
+export interface CompanyPage {
+  company_set: 'all' | 'watched';
+  basis: 'all_companies' | 'workspace_watches';
+  total: number;
+  offset: number;
+  limit: number;
+  has_more: boolean;
+  next_offset: number | null;
+}
+export interface MonitoringCompany {
+  id: string;
+  label: string;
+  type: 'company';
+  identity_status: string;
+  identity_note: string;
+  roles: string[];
+  berry_ids: string[];
+  in_scope: boolean;
+  watched: boolean;
+  monitoring: { state: string; detail: string };
+  geographies: Array<{ id: string; label: string; relationship_id: string; activity: string; status: string; review: string; caveat: string; evidence_ids: string[] }>;
+}
+export interface MonitoringModel extends CompanyPage {
+  companies: MonitoringCompany[];
+  universe_count: number;
+  matching_count: number;
+  search_basis: string;
+  watched_count: number;
+  unavailable_watch_count: number;
+  scope_note: string;
+}
+export interface LandscapeNewsModel extends CompanyPage {
+  cards: NewsCard[];
+  sources: SourceMetadata[];
+  heading: string;
+  subject_count: number;
+  matching_count: number;
+  scope_applicability: Record<string, unknown>;
+  briefing_href: string;
+  briefing_scope_note: string;
+}
 export interface LandscapeModel {
   nodes: Record<string, LandscapeNode>;
   edges: LandscapeEdge[];

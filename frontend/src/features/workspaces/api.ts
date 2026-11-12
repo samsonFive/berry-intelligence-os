@@ -19,7 +19,7 @@ export interface OutputSelection {
 }
 export interface OutputPreview {
   api_v: 1; content_hash: string; section_ids: OutputSection[]; include_demo: boolean;
-  scope: { berry: string; countries: string[]; geographic_basis: string; news_from: string; news_to: string;
+  scope: { berry: string; countries: string[]; geographic_basis: string; news_from: string; news_to: string; company_set?: 'all' | 'watched';
     comparison_companies: string[]; comparison_varieties: string[] };
   sections: { id: OutputSection; title: string; row_count: number; basis: string; source_ids: string[] }[];
   sources: { id: string; title?: string; url?: string; published?: string; captured?: string }[];

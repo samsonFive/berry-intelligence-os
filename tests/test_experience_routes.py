@@ -243,3 +243,28 @@ def test_expanded_legacy_detail_has_safe_explicit_investigation_return():
     request = Request({"type": "http", "method": "GET", "path": "/learn/topic",
                        "query_string": b"return_to=https%3A%2F%2Fexternal.example", "headers": []})
     assert investigation_return_context(request)["investigation_return_href"] == ""
+
+
+def test_older_investigation_href_and_saved_dto_default_absent_company_set_without_rewrite():
+    from app.experience_routes import _saved_row
+    row = {"id": "lview-old", "name": "Earlier investigation", "revision": 1, "archived": False,
+           "kind": "explorer", "filters": context()}
+    row["filters"].pop("company_set", None)
+    before = deepcopy(row)
+    href = workspace.view_href(row)
+    assert parse_qs(urlsplit(href).query, keep_blank_values=True)["company_set"] == ["all"]
+    assert _saved_row(row)["filters"]["company_set"] == "all"
+    assert row == before
+
+
+@pytest.mark.parametrize("value", ["", "invalid-company-set"])
+def test_explicit_invalid_saved_company_set_is_preserved_for_resolution(value):
+    from app.experience_routes import _saved_row
+    from app.services.investigation_api import normalize_context
+    row = {"id": "lview-invalid", "name": "Needs resolution", "revision": 1, "archived": False,
+           "kind": "explorer", "filters": {**context(), "company_set": value}}
+    assert _saved_row(row)["filters"]["company_set"] == value
+    query = {key: values[0] for key, values in parse_qs(urlsplit(workspace.view_href(row)).query, keep_blank_values=True).items()}
+    assert query["company_set"] == value
+    with pytest.raises(ValueError):
+        normalize_context(query)

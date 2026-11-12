@@ -28,6 +28,7 @@ def _private_main():
 
 def _saved_row(row):
     return {**{key: row[key] for key in ("id", "name", "filters", "revision", "archived")},
+            "filters": workspace.investigation_filters(row),
             "updated_at": str(row.get("updated_at") or ""),
             "kind": row.get("kind", "overview"), "surface": row.get("surface", ""),
             "href": workspace.view_href(row),

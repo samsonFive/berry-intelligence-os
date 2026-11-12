@@ -10,7 +10,7 @@ interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: 
 const initial: LayoutStatus = { phase: 'loading', message: 'Loading your saved grid layout…', retainedUnknownColumns: 0 };
 
 /** Account preferences are independent of investigation state and never dispatch it. */
-export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[]) {
+export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1') {
   const [status, setStatus] = useState<LayoutStatus>(initial);
   const [quickFilter, setQuickFilter] = useState('');
   const [visible, setVisible] = useState<Record<string, boolean>>({});
@@ -76,7 +76,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[]) {
         const columns = await createColumnCatalog(specs);
         if (active.current !== generation) return;
         catalog.current = columns;
-        owned = new AccountGridLayouts({ viewKey: 'berry-portfolio-v1', catalog: columns });
+        owned = new AccountGridLayouts({ viewKey, catalog: columns });
         controller.current = owned;
         const load = async () => {
           const attempt = ++loadSerial.current;
@@ -110,7 +110,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[]) {
     };
     // Semantic specs define this controller's lifetime; labels/focus/pins do not.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signature, applyPending, cancelSave]);
+  }, [signature, viewKey, applyPending, cancelSave]);
 
   const changed = useCallback(() => {
     syncVisibility();

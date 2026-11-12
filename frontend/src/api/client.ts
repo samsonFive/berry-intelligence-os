@@ -27,8 +27,18 @@ export async function getInvestigation<T>(endpoint: string, context: Investigati
     throw new InvestigationApiError("Unsupported investigation endpoint.", 400);
   const [path, query = ""] = endpoint.split("?", 2);
   const params = new URLSearchParams(serializeInvestigation(context));
+  const seen = new Set<string>();
   for (const [key, value] of new URLSearchParams(query)) {
+    if (seen.has(key)) throw new InvestigationApiError("Supply each investigation parameter once.", 400);
+    seen.add(key);
     if (["type", "id"].includes(key)) params.set(key, value);
+    else if (["/monitoring", "/news"].includes(path) && ["offset", "limit"].includes(key)) {
+      const number = Number(value);
+      if (!/^\d+$/.test(value) || !Number.isSafeInteger(number) || number < (key === "limit" ? 1 : 0)
+          || key === "limit" && number > 100)
+        throw new InvestigationApiError("Choose a bounded investigation page.", 400);
+      params.set(key, value);
+    }
     else throw new InvestigationApiError("Unsupported detail parameter.", 400);
   }
   params.set("revision", String(revision));

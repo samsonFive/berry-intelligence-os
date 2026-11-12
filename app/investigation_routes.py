@@ -24,9 +24,10 @@ def response(request, module):
         revision_text = request.query_params.get("revision", "0")
         if not revision_text.isdigit() or len(revision_text) > 10:
             raise ValueError("Investigation revision must be a non-negative integer.")
+        page = service.pagination(request.query_params, default_limit=10 if module == "monitoring" else 36) if module in {"news", "monitoring"} else {}
         world = service.load_catalog_world() if module == "options" else service.load_world()
         bundle = None if module == "options" else service.base_bundle(world, context)
-        if bundle is not None:
+        if bundle is not None and module not in {"news", "monitoring"}:
             issues += service.selection_issues(world, context, bundle)
         if module == "landscape" and context["geo_basis"] != "company_connections":
             issues.append(service.issue("unsupported_in_module", "geo_basis",
@@ -39,6 +40,10 @@ def response(request, module):
             data = service.comparison_data(world, context)
         elif module == "developments":
             data = service.developments_data(world, context, bundle)
+        elif module == "monitoring":
+            data = service.monitoring_data(world, context, bundle, **page)
+        elif module == "news":
+            data = service.news_data(world, context, bundle, **page)
         else:
             data = service.detail_data(world, context, bundle, request.query_params.get("type", ""),
                                        request.query_params.get("id", ""), request=request)
@@ -75,6 +80,16 @@ def detail(request: Request):
 @router.get("/developments")
 def developments(request: Request):
     return response(request, "developments")
+
+
+@router.get("/monitoring")
+def monitoring(request: Request):
+    return response(request, "monitoring")
+
+
+@router.get("/news")
+def news(request: Request):
+    return response(request, "news")
 
 
 def register(app):

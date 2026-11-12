@@ -10,6 +10,7 @@ export type InvestigationAction = ActionMetadata & (
   | { type: "togglePin"; entity: EntityRef }
   | { type: "setCohort"; kind: EntityType; ids: string[] }
   | { type: "setLens"; lens: Lens; comparison_kind?: EntityType }
+  | { type: "setCompanySet"; company_set: InvestigationContext["company_set"] }
   | { type: "openDetail"; detail: DetailRef }
   | { type: "setDetailSection"; section: DetailSection }
   | { type: "closeDetail" }
@@ -52,6 +53,7 @@ export function reduceInvestigation(state: InvestigationState, action: Investiga
       candidate.lens = action.lens;
       if (action.comparison_kind) candidate.comparison_kind = action.comparison_kind;
       break;
+    case "setCompanySet": candidate.company_set = action.company_set; break;
     case "openDetail": candidate.detail_path = panelPath(state.context, action.detail); break;
     case "setDetailSection": {
       const path = detailPath(state.context);

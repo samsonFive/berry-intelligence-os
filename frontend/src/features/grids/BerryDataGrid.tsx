@@ -1,20 +1,23 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AllCommunityModule, ModuleRegistry, themeQuartz, type ColDef, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
-import { Button, EmptyState, EntityButton } from '../../components/ui';
+import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { splitIds } from '../../contracts/investigation';
 import type { LandscapeEdge, LandscapeModel, LandscapeNode } from '../landscape/models';
+import { Citation } from '../landscape/Citation';
 import type { LayoutColumn } from './layout-codec';
 import { isUserLayoutEvent } from './grid-state';
 import { useAccountGridLayout } from './useAccountGridLayout';
+import { COMPANY_COLUMNS_PER_PAGE, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
+import type { CompanyPage } from './company-pages';
 import './grid.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 const berryGridTheme = themeQuartz.withParams({
   fontFamily: 'var(--berry-font-ui)',
-  fontSize: 12,
+  fontSize: 13,
   backgroundColor: 'var(--berry-surface)',
   foregroundColor: 'var(--berry-ink)',
   headerBackgroundColor: 'var(--berry-surface-subtle)',
@@ -22,9 +25,9 @@ const berryGridTheme = themeQuartz.withParams({
   borderColor: 'var(--berry-line-strong)',
   rowBorder: true,
   columnBorder: true,
-  headerHeight: 44,
-  spacing: 7,
-  wrapperBorderRadius: 5,
+  headerHeight: 34,
+  spacing: 3,
+  wrapperBorderRadius: 0,
 });
 
 interface PortfolioRow {
@@ -33,9 +36,52 @@ interface PortfolioRow {
   byCompany: Record<string, LandscapeEdge[]>;
 }
 
+/** One actual directed edge, with material qualifiers outside the hover preview. */
+function PortfolioRelationship({ edge, model, open }: {
+  edge: LandscapeEdge; model: LandscapeModel; open: () => void;
+}) {
+  const subject = model.nodes[edge.subject_id];
+  const object = model.nodes[edge.object_id];
+  const path = `${subject?.label ?? 'Unresolved recorded subject'} → ${object?.label ?? 'Unresolved recorded target'}`;
+  const identityNotes = [...new Set([subject?.identity_note, object?.identity_note].filter((note): note is string => !!note))];
+  return <article className="berry-portfolio-edge" data-edge-status={edge.status}>
+    <Preview className="berry-grid-role berry-portfolio-edge-trigger" label="Recorded portfolio relationship" detailLabel="Inspect relationship"
+      onOpenDetail={open} content={<div className="berry-portfolio-edge-preview"><strong>{edge.role}</strong><p>{path}</p>
+        <dl><div><dt>Recorded status</dt><dd>{edge.status_label}</dd></div><div><dt>Source review</dt><dd>{edge.review}</dd></div></dl>
+        {identityNotes.map(note => <p key={note}>{note}</p>)}{edge.caveat && <p>{edge.caveat}</p>}{edge.notes && <p>{edge.notes}</p>}
+        <p>Source review and recorded relationships retain their separate meanings.</p>
+      </div>}>
+      <strong className="berry-portfolio-edge-role">{edge.role}</strong>
+      {edge.status !== 'active' && <span className="berry-portfolio-edge-status">{edge.status_label}</span>}
+      <span className="berry-portfolio-edge-path">{path}</span>
+    </Preview>
+    {identityNotes.length > 0 && <p className="berry-portfolio-identity-note">{identityNotes.join(' · ')}</p>}
+    {edge.caveat && <p className="berry-portfolio-edge-caveat">{edge.caveat}</p>}
+    <div className="berry-portfolio-edge-sources"><span>Sources</span><div>{edge.evidence_ids.length
+      ? edge.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} parent={{ type: 'relationship', id: edge.id }} />)
+      : <span className="berry-unknown">No supporting source recorded</span>}</div></div>
+  </article>;
+}
+
 /** A real Community grid. Canonical identity and comparison membership stay separate. */
 export function BerryDataGrid({ model }: { model: LandscapeModel }) {
   const companies = useMemo(() => model.portfolios.map(row => row.actor), [model.portfolios]);
+  const [pageIndex, setPageIndex] = useState(0);
+  const plan = useMemo(() => {
+    try { return { page: companyPage(companies, pageIndex), error: '' }; }
+    catch (error) { return { page: null, error: error instanceof Error ? error.message : 'Company columns are unavailable.' }; }
+  }, [companies, pageIndex]);
+  const page = plan.page;
+  const pageIdentity = JSON.stringify([page?.paged, page?.companies.map(company => company.id)]);
+  const [resolvedLayout, setResolvedLayout] = useState<{ identity: string; key: string; error: string } | null>(null);
+  useEffect(() => {
+    let active = true;
+    if (page) void companyPageViewKey(page.companies.map(company => company.id), page.paged)
+      .then(key => { if (active) setResolvedLayout({ identity: pageIdentity, key, error: '' }); })
+      .catch(() => { if (active) setResolvedLayout({ identity: pageIdentity, key: '', error: 'The display layout for these company columns could not be identified. Reopen the portfolio to try again.' }); });
+    return () => { active = false; };
+  }, [pageIdentity]);
+  useEffect(() => { if (page) setPageIndex(current => Math.min(current, page.count - 1)); }, [page?.count]);
   const rows = useMemo(() => {
     const result = new Map<string, PortfolioRow>();
     for (const portrait of model.portfolios) {
@@ -51,9 +97,12 @@ export function BerryDataGrid({ model }: { model: LandscapeModel }) {
     }
     return [...result.values()].sort((a, b) => a.variety.label.localeCompare(b.variety.label));
   }, [model]);
-  if (companies.length > 38) return <EmptyState title="This portfolio exceeds the grid's 40-column limit">There are {companies.length} company columns plus the fixed cultivar and pin columns. Apply a narrower scope to use the saved-layout grid. No companies have been omitted from the records.</EmptyState>;
+  if (!page) return <EmptyState title="Company columns could not be displayed">{plan.error}</EmptyState>;
   if (!rows.length) return <EmptyState title="No cultivar portfolio relationships in this scope">Recorded geographic connections can still be inspected in Connections. Missing portfolio records do not establish an absence of commercial access.</EmptyState>;
-  return <PortfolioGrid key={companies.map(company => company.id).join('|')} model={model} companies={companies} rows={rows} />;
+  if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
+  if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
+  return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
+    viewKey={resolvedLayout.key} page={page} changePage={setPageIndex} />;
 }
 
 function ColumnVisibility({ columns, visible, busy, change }: {
@@ -82,7 +131,10 @@ function ColumnVisibility({ columns, visible, busy, change }: {
   </details>;
 }
 
-function PortfolioGrid({ model, companies, rows }: { model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[] }) {
+function PortfolioGrid({ model, companies, rows, viewKey, page, changePage }: {
+  model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
+  viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
+}) {
   const { context, dispatch } = useInvestigation();
   const selectedCompanies = splitIds(context.cohort_companies);
   const selectedVarieties = splitIds(context.cohort_varieties);
@@ -91,17 +143,20 @@ function PortfolioGrid({ model, companies, rows }: { model: LandscapeModel; comp
     { colId: 'cultivar.comparison-pin', defaultWidth: 75, minWidth: 65, maxWidth: 90, lockedVisible: true },
     ...companies.map(company => ({ colId: `company.${company.id}.recorded-role`, defaultWidth: 260, minWidth: 220, maxWidth: 1200 })),
   ], [companies]);
-  const layout = useAccountGridLayout<PortfolioRow>(specs);
+  const layout = useAccountGridLayout<PortfolioRow>(specs, viewKey);
+  const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
   const columnChoices = [{ id: 'cultivar.identity', label: 'Cultivar', locked: true }, { id: 'cultivar.comparison-pin', label: 'Comparison pin', locked: true },
     ...companies.map(company => ({ id: `company.${company.id}.recorded-role`, label: company.label }))];
   const columnDefs = useMemo<ColDef<PortfolioRow>[]>(() => [
     {
       colId: 'cultivar.identity', headerName: 'Cultivar', pinned: 'left', initialWidth: 220, minWidth: 150, maxWidth: 1200,
       lockPinned: true, lockVisible: true, lockPosition: 'left', suppressMovable: true,
+      wrapText: true, autoHeight: true,
       valueGetter: params => params.data?.variety.label ?? '',
-      cellRenderer: (params: ICellRendererParams<PortfolioRow>) => params.data && <EntityButton compact name={params.data.variety.label}
+      cellRenderer: (params: ICellRendererParams<PortfolioRow>) => params.data && <div className="berry-portfolio-identity"><EntityButton compact name={params.data.variety.label}
         selected={context.focus === params.data.id}
-        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'variety', id: params.data!.id }, origin: 'grid' })} />,
+        onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'variety', id: params.data!.id }, origin: 'grid' })} />
+        {params.data.variety.identity_note && <p className="berry-portfolio-identity-note">{params.data.variety.identity_note}</p>}</div>,
     },
     {
       colId: 'cultivar.comparison-pin', headerName: 'Pin', pinned: 'left', initialWidth: 75, minWidth: 65, maxWidth: 90,
@@ -116,21 +171,29 @@ function PortfolioGrid({ model, companies, rows }: { model: LandscapeModel; comp
       valueGetter: (params: { data?: PortfolioRow }) => (params.data?.byCompany[company.id] ?? []).map(edge => edge.label).join('; '),
       cellRenderer: (params: ICellRendererParams<PortfolioRow>) => {
         const edges = params.data?.byCompany[company.id] ?? [];
-        return edges.length ? <div className="berry-grid-role-list">{edges.map(edge => <button key={edge.id} type="button"
-          className="berry-grid-role" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'grid' })}>
-          <strong>{edge.role}</strong><span>{model.nodes[edge.subject_id]?.label} → {model.nodes[edge.object_id]?.label}</span>
-          {edge.status !== 'active' && <span>{edge.status_label}</span>}
-        </button>)}</div> : <span className="berry-unknown" aria-label="Unknown: no recorded portfolio relationship">—</span>;
+        return edges.length ? <div className="berry-grid-role-list berry-portfolio-cell">{edges.map(edge => <PortfolioRelationship key={edge.id}
+          edge={edge} model={model} open={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'grid' })} />)}</div>
+          : <span className="berry-unknown" aria-label="Unknown: no recorded portfolio relationship">—</span>;
       },
     })),
-  ], [companies, context.focus, dispatch, model.nodes, selectedVarieties.join(',')]);
+  ], [companies, context.focus, dispatch, model.nodes, model.sources, selectedVarieties.join(',')]);
 
   return <section aria-label="Recorded company and cultivar portfolio">
+    <nav className="berry-portfolio-pages" aria-label="Portfolio company pages">
+      <p aria-live="polite"><strong>Company columns {page.start + 1}–{page.end} of {page.total}</strong>{page.paged && <span> · Page {page.index + 1} of {page.count}</span>}</p>
+      {page.paged && <div><Button size="small" variant="secondary" disabled={pageBlocked || page.index === 0} onClick={() => changePage(page.index - 1)}>Previous companies</Button>
+        <label>Company page<select value={page.index} disabled={pageBlocked} onChange={event => changePage(Number(event.target.value))}>
+          {Array.from({ length: page.count }, (_, index) => <option key={index} value={index}>{index + 1} · {index * COMPANY_COLUMNS_PER_PAGE + 1}–{Math.min((index + 1) * COMPANY_COLUMNS_PER_PAGE, page.total)}</option>)}
+        </select></label>
+        <Button size="small" variant="secondary" disabled={pageBlocked || page.index === page.count - 1} onClick={() => changePage(page.index + 1)}>Next companies</Button></div>}
+    </nav>
+    {page.paged && <p className="berry-scope-note berry-portfolio-page-note">All {rows.length} cultivar rows remain loaded on every company page. Display preferences save separately for each group of company columns; earlier full-portfolio layouts remain saved.</p>}
+    {page.paged && pageBlocked && <p className="berry-scope-note" role="status">{layout.status.phase === 'conflict' ? 'Reload the saved layout before changing company page.' : 'Wait for the current layout to finish loading or saving before changing company page.'}</p>}
     <div className="berry-grid-company-controls" aria-label="Company focus and comparison pins">{companies.map(company => <div key={company.id}>
       <EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
     </div>)}</div>
-    <div className="berry-grid-preferences"><label className="berry-field-label">Filter loaded rows<input className="berry-input" type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="Cultivar, role or company" /></label>
+    <div className="berry-grid-preferences"><label className="berry-field-label">Filter this company group<input className="berry-input" type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="Cultivar, role or company in this group" /></label>
       <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} />
     </div>
     <div className="berry-grid-layout-status" data-phase={layout.status.phase}>
@@ -149,11 +212,11 @@ function PortfolioGrid({ model, companies, rows }: { model: LandscapeModel; comp
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}
         onSortChanged={event => { if (isUserLayoutEvent('sort', event.source)) layout.changed(); }}
         onFilterChanged={event => { if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
-        rowHeight={70} headerHeight={48} animateRows={false} suppressCellFocus={false}
+        rowHeight={42} headerHeight={34} animateRows={false} suppressCellFocus={false}
         getRowClass={params => params.data?.id === context.focus ? 'berry-grid-row-focused' : ''}
         overlayNoRowsTemplate="No loaded cultivar rows match this filter." />
     </div>
-    <p className="berry-scope-note berry-grid-caption">Select a name to inspect. Use the explicit pins to build company or variety comparisons. The filter searches loaded rows; the investigation's scope stays unchanged.</p>
+    <p className="berry-scope-note berry-grid-caption">Select a name to inspect. Use the explicit pins to build company or variety comparisons. Every loaded cultivar identity is searchable; role and company filters use this company group. The investigation's scope stays unchanged.</p>
   </section>;
 }
 

@@ -40,10 +40,11 @@ The same explicit string fields travel through URL, API and saved selectors:
 | `actor_roles` | Comma-separated authored actor roles |
 | `relationship_types` | Comma-separated connection predicates |
 | `news_from`, `news_to` | ISO publication dates or empty; only developments |
+| `company_set` | `all` (default for older URLs/saves) or `watched`; resolves the existing uncapped company universe or shared workspace Watch membership, independently of focus and comparison pins |
 | `focus` | Canonical company or variety ID, or empty; entity type resolved separately |
 | `cohort_companies` | Stable-order canonical IDs, cap 5, preserve overflow diagnostics |
 | `cohort_varieties` | Stable-order canonical IDs, cap 4, preserve overflow diagnostics |
-| `lens` | `connections`, `portfolio`, `geography`, `comparison`, `sensory` |
+| `lens` | `connections`, `portfolio`, `geography`, `comparison`, `news`, `sensory` |
 | `comparison_kind` | `company` or `variety` |
 | `detail_path` | Up to 8 `type:ID` references, separated by `~`; source refs may carry `@brief`, bare means Article; current is last |
 | `demo_specimens` | Separate `demo-specimen-*` cohort, comma-separated; empty means the complete isolated fixture |
@@ -64,6 +65,17 @@ the sole history writer. Deliberate actions push; normalization/search replace;
 hover/focus previews do neither. Pop/reload reconstructs state without pushing.
 Late queries/tools cannot apply to a newer revision.
 
+The November 11 evening design revision adds monitored companies and the News
+view at the user's request. Watch membership is an interest selector, not proof
+of an active collection pipeline. It reuses the existing shared Watch store;
+there is no parallel monitoring store and no production auto-seeding. Ten real
+companies are modeled in the isolated review runtime. The roster and News feed
+are paginated without a total-company cap. Comparison retains its independent
+five-company/four-cultivar bounds. A saved `watched` selector resolves current
+shared membership when reopened rather than copying or freezing its members.
+Standing findings and relationships retain their applied scope independently;
+the roster explicitly labels companies outside that scope.
+
 Initial presentation URL explicitly chooses blueberry and Chile/China/Peru. A
 new URL with explicit empty scope means All, independent of cookies. Focus and
 cohort membership are independent; out-of-scope entities never seed the graph.
@@ -76,6 +88,16 @@ existing session protection. Responses carry `Cache-Control: private, no-store`.
 Every response envelope has `api_v: 1`, `request_id`, integer `revision`, `scope_key`,
 `applied_scope` (per-module applicability), `issues` and `data`. Invalid requests
 return bounded 4xx diagnostics, not silent broadening.
+
+* `GET /monitoring?limit=10&offset=0`: a page of the selected company universe,
+  full matching count, next-page position, recorded scope and monitoring state.
+* `GET /news?limit=36&offset=0`: retained source cards for the company universe,
+  berry/source-geography/publication scope, full matching count and pagination.
+  Focus and comparison pins do not retarget this feed. An empty watched set
+  produces an empty feed. All-company mode also includes scoped industry news.
+  The shared cards and Reader retain publication/capture, source review,
+  unreviewed mentions and source-independence disclosures. Neither endpoint
+  starts collection, classification or model work.
 
 * `GET /landscape`: normalized context and curated existing Explorer projection:
   `selection`, `nodes`, `edges`, `sources` (metadata only), `market_rows`,

@@ -1,7 +1,22 @@
 # Experience consolidation implementation
 
 Updated November 11, 2026, Pacific. Presentation: November 12 morning.
-**G1 passed. V1 accepted. Local G2 accepted; final-head CI and release remain open.**
+**G1 passed. Earlier local functional checks passed. Visual acceptance is reopened;
+the user rejected the sparse design. Production release remains held.**
+
+The current revision follows the user's direct feedback: a light, dense analyst
+workspace with stronger hierarchy, multiline and multicolumn data cells, a
+ten-company review model, an uncapped paginated monitored company universe and a
+Landscape News feed. The first dense prototype was described as “closer,” with
+the further requirements above; it has not been accepted as the final design.
+These direct user requirements supersede the archive's older visual suggestions.
+All changes are local review work; no design revision has been deployed.
+
+The monitored-company revision passes 112 frontend tests and TypeScript, plus
+126 targeted backend tests covering investigation reads, export, saved routes
+and workspace compatibility. The native News adapter now allowlists its card
+metadata so unselected article excerpts remain in Reader only. Browser visual
+review, current-canonical integration and final-head GitHub CI remain open.
 
 ## Source and scope
 
@@ -10,7 +25,10 @@ canonical #550 (`3f159639`), now integrated onto #559 (`0d42c764`), including #5
 (`0722e7da`), #551
 Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
 material News recovery and the published-review-link repair. Current source
-checkpoint: `727b73f5`; the new canonical/brand-adapter head still needs its own Linux CI.
+checkpoint before the design revision: `1db5370d`. Its five required GitHub checks
+passed, including frontend/runtime validation and both Docker smoke checks.
+The current dense monitored-company revision is uncommitted review work and
+requires a fresh final-head check set after integration with current canonical.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
 
@@ -67,8 +85,9 @@ The real continuous packet is
 `artifacts/experience-consolidation/v1/rehearsal-1794436693801/`, with five populated
 screens, narrow/keyboard evidence and the 71-second recording
 `page@c4767bcf70f325794f2d5a553e20d89a.webm`. All 16 interaction checks passed with
-zero defects, page errors or unexpected provider turns. The lead reviewed the
-five states and accepted V1. User design feedback remains authoritative.
+zero defects, page errors or unexpected provider turns. The lead accepted that
+packet's functional behavior. The user subsequently rejected its sparse visual
+design; current visual acceptance remains open.
 
 Mounted account-layout proof is under
 `artifacts/experience-consolidation/v1/grid-rehearsal-1794436607587/`: actual
@@ -89,8 +108,8 @@ Runs overlap and must not be added as unique coverage:
 * Focused integrated Python suite: 114 passed. Windows default temporary-directory
   setup errors cleared with a fresh workspace-owned `--basetemp`.
 * Learning foundation: 27 tests; additional source-date/catalog regressions passed.
-* Current frontend: 97 tests passed, including brand-media API boundary checks.
-  Runtime: 12 tests. TypeScript and Vite passed. Current emitted client:
+* At the pre-redesign functional checkpoint: 97 frontend tests passed, including brand-media API boundary checks.
+  Runtime: 12 tests. TypeScript and Vite passed. That checkpoint's emitted client:
   `index-CTvq3HUT.js`, SHA-256
   `8D566190E628F14123D31AF9D83BC41EE7051123A02501AAFB586E610CA71CC6`.
   Entry HTML SHA-256:

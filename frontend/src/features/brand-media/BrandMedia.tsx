@@ -6,6 +6,11 @@ import './brand-media.css';
 const sourceLabel = { official: 'Official imagery', retailer: 'Retailer observation', consumer: 'Consumer sighting', unknown: '' };
 function Context({ asset }: { asset: BrandMediaAsset }) {
   return <dl className="berry-brand-context">
+    <div><dt>Image</dt><dd>{asset.caption || asset.kind_label}</dd></div>
+    <div><dt>Classification</dt><dd>{asset.kind_label}{asset.source_kind && sourceLabel[asset.source_kind] ? ` · ${sourceLabel[asset.source_kind]}` : ''}</dd></div>
+    {asset.attribution && <div><dt>Attribution</dt><dd>{asset.attribution}</dd></div>}
+    {asset.historical_status === 'historical' && <div><dt>History</dt><dd>Historical reference</dd></div>}
+    {asset.historical_status === 'date_unknown' && <div><dt>Date</dt><dd>Publication date not recorded</dd></div>}
     {asset.source_account && <div><dt>Account</dt><dd>{asset.source_account}</dd></div>}
     {asset.published_at && <div><dt>Published</dt><dd>{asset.published_at.slice(0, 10)}</dd></div>}
     {asset.match_basis && <div><dt>Identity basis</dt><dd>{asset.match_basis}</dd></div>}
@@ -61,7 +66,7 @@ export function BrandLogo({ asset, name }: { asset?: BrandMediaAsset | null; nam
   const figure = useRef<HTMLElement>(null);
   useEffect(() => { setOpen(false); }, [asset?.id, asset?.image_url]);
   if (!asset || failed === failureKey(asset)) return null;
-  return <div className={`berry-brand-logo-area${open ? ' berry-brand-logo-area--expanded' : ''}`}><figure ref={figure} className="berry-brand-logo">
+  return <div className={`berry-brand-logo-area${open ? ' berry-brand-logo-area--expanded' : ''}`}><figure ref={figure} className="berry-brand-logo" title={[asset.caption || `${name} logo`, asset.attribution].filter(Boolean).join(' · ')}>
     <Preview label="Image source" detailLabel="Inspect image" content={<Context asset={asset} />}
       onOpenDetail={() => setOpen(true)}><img src={asset.image_url} alt={`${name} logo`} width="100" height="64"
         decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(failureKey(asset))} /></Preview>
@@ -93,7 +98,7 @@ export function BrandMediaGallery({ model, compact = false }: { model?: EntityBr
   return <div ref={root} className={`berry-brand-galleries${compact ? ' berry-brand-galleries--compact' : ''}`}>
     {groups.map(group => <section className="berry-brand-gallery" key={group.key} aria-label={group.title}>
       {!compact && <h3>{group.title}</h3>}<div className="berry-brand-grid">
-        {group.assets.map(asset => <figure className="berry-brand-card" key={asset.id} data-media-asset-id={asset.id}>
+        {group.assets.map(asset => <figure className="berry-brand-card" key={asset.id} data-media-asset-id={asset.id} title={[asset.caption, asset.kind_label, asset.attribution].filter(Boolean).join(' · ')}>
           <Preview label="Supporting image context" detailLabel="Inspect image" content={<Context asset={asset} />}
             onOpenDetail={() => {
               opener.current = root.current?.querySelector<HTMLElement>(`[data-media-asset-id="${asset.id}"] button`) ?? null;

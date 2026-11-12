@@ -152,12 +152,15 @@ def build_payload(world, context_values, section_ids=None, include_demo=False):
             for entity in content.get("companies", content.get("varieties", [])):
                 section_source_ids.update(row["id"] for row in entity.get("rights_published", []))
         else:
-            developments = api.developments_data(world, context, bundle, all_cards=True)
+            developments = (api.news_data(world, context, bundle, all_cards=True) if context["lens"] == "news"
+                            else api.developments_data(world, context, bundle, all_cards=True))
             allowed = ("id", "headline", "deck", "source_name", "source_url", "published_at", "source_reviewed", "trusted",
                        "media_label", "media_note", "company_mentions", "scope_match", "coverage_sources", "independence", "translated", "translation_pending")
             content = {"heading": developments["heading"], "basis": developments["basis"],
                        "scope_applicability": developments.get("scope_applicability", {}),
                        "cards": [{key: card.get(key) for key in allowed if key in card} for card in developments["cards"]]}
+            if developments.get("company_set_key"):
+                content["company_set_key"] = developments["company_set_key"]
             count = len(content["cards"])
             if count != developments["matching_count"]:
                 raise ValueError("The complete developments basis could not be resolved; no partial PDF was produced.")
@@ -192,6 +195,7 @@ def build_payload(world, context_values, section_ids=None, include_demo=False):
                          "developments_geographic_basis": "source_geography",
                          "relationship_types": api.ids(context["relationship_types"]),
                          "news_from": context["news_from"], "news_to": context["news_to"],
+                         "company_set": context["company_set"],
                          "comparison_companies": [label(key) for key in api.ids(context["cohort_companies"])],
                          "comparison_varieties": [label(key) for key in api.ids(context["cohort_varieties"])]},
                "nodes": {key: {field: row[field] for field in ("id", "label", "type", "identity_status", "identity_note") if field in row}
@@ -287,6 +291,7 @@ def render_pdf(payload, *, generated_at=None):
              p("Standing geographic basis: " + scope["standing_geographic_basis"].replace("_", " ") + ". Requested basis: " + scope["geographic_basis"].replace("_", " ") + ". Actor roles: " + (", ".join(scope["actor_roles"]) or "All authored roles") + ".", "meta"),
              p("Relationship filters: " + (", ".join(scope["relationship_types"]) or "All supported predicates") + ". Developments use source geography; comparison uses full selected profiles.", "meta"),
              p("Developments publication interval: " + (scope["news_from"] or "Earliest recorded") + " to " + (scope["news_to"] or "Latest recorded") + ". Dates do not trim standing portfolios.", "meta"),
+             p("Developments company universe: " + ("Shared watched companies, resolved from the current Watch list" if scope.get("company_set") == "watched" else "All companies and scoped industry news") + ". Standing findings and relationships retain the applied scope independently.", "meta"),
              p("Included sections: " + "; ".join(SECTION_TITLES[key] for key in payload["section_ids"]) + ("; explicitly selected synthetic annex" if payload["include_demo"] else ""), "meta"),
              p("Recorded roles, source review, claim approval, analyst interpretation and synthetic demonstration retain separate meanings. Missing observations remain unknown; a coverage gap does not establish inactivity.", "body")]
     for issue in payload["issues"]:
