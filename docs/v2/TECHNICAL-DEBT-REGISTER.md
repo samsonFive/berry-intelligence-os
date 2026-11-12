@@ -17,13 +17,27 @@ assessments. Exact deployed revisions and live acceptance belong in the release 
 
 The supported CopilotKit v2 provider currently brings unused UI rendering modules
 into the new private application's initial bundle (approximately 3.8 MB, 1.09 MB
-gzip in the first integrated production build). Domain hooks use the supported
+gzip in the first integrated Vite build). Domain hooks use the supported
 headless entry, which does not export the provider. Keep the working supported
 lifecycle for the presentation; measure startup and investigate a supported lazy
 loading or smaller provider entry afterward. No private records or credentials
 are embedded in these code assets. The client is excluded from the public static
-snapshot. This is a candidate performance limitation, not an accepted experience
-or production-release result.
+snapshot. Keep this bundle/startup limitation open after local G1/V1/G2
+acceptance; production performance remains unverified.
+
+TD-122 remains open. Two Linux CI heads exceeded the unchanged 500ms warm
+Reader budget (522.8ms and 543.5ms). The current Experience candidate adapts
+public [PR #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)'s
+Reader entity projection to current consumers, copying only
+display/attribution fields while retaining repository signature invalidation,
+visibility and duplicate-ID behavior. All 49 focused tests pass, including the
+unchanged budget and four new regressions; sixteen paired complete HTML outputs
+are byte-identical. Local request medians improve from 336.08 to 296.07ms for
+Atlantic Blue and 343.73 to 274.66ms for BluGenix. The receipt is
+`artifacts/experience-consolidation/reader-projection-paired-current.json`.
+These bounded local samples do not establish Linux CI, device percentiles,
+generally fast cold catalog/full Reader loading or production acceptance.
+The integrated head still requires fresh CI and separately authorized release.
 
 # Global berry news coverage gaps — November 10, 2026
 

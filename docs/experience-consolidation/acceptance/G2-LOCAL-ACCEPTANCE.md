@@ -3,17 +3,22 @@
 November 11, 2026. Integration lead review: **local functional and visual checks
 accepted**. Required final-head CI and production acceptance remain open.
 
-Current emitted client: `index-BCSIw7In.js`, SHA-256
-`5167FA4370A4D1BAEC331DBECC4480BFC7A2DD7D600222D7F53F13821AA7D500`.
+Source checkpoint `820fda87` is integrated onto canonical #558 (`0722e7da`),
+including #553/#556. Its next committed head still requires fresh Linux CI.
+
+Current emitted client: `index-XLX6kyu1.js`, SHA-256
+`5F299D22E5266D90DF97F1AC4C07498882ABA06EF9A9A1381E043BC11B69B7C5`.
 Entry HTML SHA-256:
-`D603F7D544AB73948840D73373FE53092E89B393BBB2A0D2B8B27E15DF1B772C`.
+`0E59D6092AF61F109F16DF49550440A2A40DA5A7BFAB0AE53574E6F98E5129AC`.
 CSS: `index-7qD0DpA5.css`, SHA-256
 `685FD10CDE4E4A6F7B1E75AD5F120F795486B5578DE6CF4D421B2A46A598B7F0`.
 The main functional packets below use `index-Cp5PKdjN.js`. A subsequent copy-only
 build corrected “frozen Brief Packs” to “live Brief Packs” in Workspaces. The
-current build additionally labels existing Learn crop notes by applicability;
-its focused mounted receipt is recorded below. It does not change authored note
-text, order, the API, runtime, Workspaces or PDF behavior.
+Learn crop-note build `index-BCSIw7In.js` has its own focused mounted receipt
+below. The current client adds optional retained-link metadata presentation;
+its focused proof is synthetic-only. Learn source is unchanged, but no Learn
+replay on the current asset is claimed. Earlier full-flow receipts retain their
+recorded asset and scope.
 
 ## Native surfaces and state
 
@@ -50,6 +55,15 @@ text, order, the API, runtime, Workspaces or PDF behavior.
   narrow check. All three screenshots were visually reviewed, with zero page
   errors and zero provider calls. The owned browser/server were closed and the
   private scratch inbox removed.
+* Retained-link metadata: two synthetic-only mounted groups passed on
+  `index-XLX6kyu1.js` in
+  `artifacts/experience-consolidation/v1/synthetic-retained-links-1794444670632/acceptance.json`.
+  The optional additional-link section starts collapsed. Keyboard expansion
+  preserves exact original URL strings, labels and unresolved-link kinds, with
+  safe external-link attributes and an explicit independence limitation.
+  Additional links do not increase source or corroboration counts. Both groups
+  passed with zero page errors and provider calls; this is not production-record
+  or publisher-resolution evidence.
 
 The lead inspected populated Workspaces, Briefing/Reader, Learn diagram/photo and
 the final investigation frames. The citation with a canonical null URL remains
@@ -59,30 +73,35 @@ plain text; no URL was invented. All QA workers, browsers and runtimes were clos
 
 These runs overlap; do not add them as unique test coverage.
 
-* 84 frontend tests, including four pure crop-note grouping tests, TypeScript and
-  the final Vite build passed. Build receipt:
-  `artifacts/experience-consolidation/final-learn-grouping-build-proof.json`.
+* 88 frontend tests, including crop-note grouping and retained-link metadata,
+  TypeScript and the current Vite build passed.
   Dependencies and normalized committed lockfile blobs are unchanged; Windows
   checkout line endings can change raw file SHA-256 without changing those Git blobs.
 * 12 runtime tests passed. G1's actual funded command and exact direct-control
   equality remain recorded in `G1-V1-ACCEPTANCE.md`; no further model turn occurred.
 * 195 integrated backend/auth/save/export/static/News/package regressions passed;
   48 final hardening regressions passed afterward.
-* The broad Python run had 7,380 passes, 10 skips and one packaging failure. The
-  missing Docker inputs were corrected and all four packaging tests pass. Both
+* The missing Docker inputs were corrected and all four packaging tests pass. Both
   Dockerfiles' context inputs, exact committed bytes/modes, private-file exclusion,
   older refs and existing-package preservation are covered.
-* A subsequent Linux CI run finished with 7,412 passes, 11 skips and one failure:
-  `tests/test_ui_v2_shell.py::test_reader_overlay_warm_is_under_500ms` measured
-  522.8ms against the existing 500ms limit. The failure is retained in
-  `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log`; it is not a
-  successful final-head CI result. The focused local retest passed with the 500ms
-  threshold unchanged; that local result does not clear the recorded CI failure.
-  Subsequent checkpoint `ff6a17e3` passed every required check in run
-  `43125105819`, with 7,431 Python tests passed and 11 skipped, including the
-  unchanged Reader timing test. Both Docker builds and no-network metadata/import
-  checks passed. That checkpoint precedes the newer published-link integration;
-  its 21 focused tests passed locally, but its exact-head CI remains required.
+* Earlier Linux checkpoint `ff6a17e3` passed every required check in run
+  `43125105819`: 7,431 Python tests passed / 11 skipped, both Docker builds and
+  no-network metadata/import checks passed. It does not accept the current head.
+* The unchanged 500ms warm Reader test failed on two Linux heads: 522.8ms on
+  `60d9f0a1` (7,412 other passes / 11 skips), and 543.5ms on `43e5a730`
+  (7,436 other passes / 11 skips). Logs:
+  `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log` and
+  `artifacts/experience-consolidation/ci-43e5a730-failed.log`. Neither is a
+  passing final-head result.
+* The current overlay Reader repair adapts public
+  [PR #535](https://github.com/samsonFive/berry-intelligence-os/pull/535)'s reduced entity
+  projection to current consumers while preserving repository signature
+  invalidation, visibility, isolation and duplicate-ID behavior. All 49 focused
+  tests passed, including the unchanged 500ms assertion and four new regressions.
+  Sixteen paired complete HTML comparisons were byte-identical. Local medians:
+  Atlantic Blue 336.08 → 296.07ms; BluGenix 343.73 → 274.66ms. Receipt:
+  `artifacts/experience-consolidation/reader-projection-paired-current.json`.
+  These bounded Windows/Python3.13 samples do not clear Linux CI or close TD-122.
 * Record validation passed. The 2,429-page public build and unpublished-draft
   leakage check passed; the private client remains excluded from public output.
 * Both Docker images and metadata/import smoke checks are added to the existing
@@ -92,4 +111,6 @@ These runs overlap; do not add them as unique test coverage.
 
 The reviewed changes preserve canonical data, the expansion guide, coverage matrix,
 auth boundaries, authored stores and existing trust/publication workflows.
-Production services, records and configuration have not been changed by this work.
+Production services, records and configuration have not been changed by this
+candidate. Production promotion and production paid commands remain separately
+unauthorized.

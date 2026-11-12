@@ -6,9 +6,10 @@ Updated November 11, 2026, Pacific. Presentation: November 12 morning.
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #553 (`fdfe5911`), including #551
+canonical #550 (`3f159639`), now integrated onto #558 (`0722e7da`), including #551
 Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
-material News recovery and the published-review-link repair.
+material News recovery and the published-review-link repair. Current source
+checkpoint: `820fda87`; the next committed head still needs its own Linux CI.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
 
@@ -84,17 +85,28 @@ Runs overlap and must not be added as unique coverage:
 * Focused integrated Python suite: 114 passed. Windows default temporary-directory
   setup errors cleared with a fresh workspace-owned `--basetemp`.
 * Learning foundation: 27 tests; additional source-date/catalog regressions passed.
-* Final frontend: 84 tests passed, including four crop-note grouping tests.
+* Current frontend: 88 tests passed, including crop-note grouping and retained-link
+  metadata tests.
   Runtime: 12 tests. TypeScript and Vite passed. Current emitted client:
-  `index-BCSIw7In.js`, SHA-256
-  `5167FA4370A4D1BAEC331DBECC4480BFC7A2DD7D600222D7F53F13821AA7D500`.
-  Build receipt: `artifacts/experience-consolidation/final-learn-grouping-build-proof.json`.
-* Final Learn applicability review passed on that exact asset. Blueberry Cane
+  `index-XLX6kyu1.js`, SHA-256
+  `5F299D22E5266D90DF97F1AC4C07498882ABA06EF9A9A1381E043BC11B69B7C5`.
+  Entry HTML SHA-256:
+  `0E59D6092AF61F109F16DF49550440A2A40DA5A7BFAB0AE53574E6F98E5129AC`.
+  CSS remains `index-7qD0DpA5.css`.
+* Learn applicability review passed on `index-BCSIw7In.js`. Blueberry Cane
   quietly states that no Blueberry-specific crop note is recorded, while keeping
   the authored Raspberry and Blackberry notes under other berries. All berries
   retains the complete authored text and original order under By crop. The three
   mounted checks, including a 390px viewport, passed with no page errors or model
   turns. Receipt: `artifacts/experience-consolidation/v1/learn-crop-note-qa-1794441712227/acceptance.json`.
+  That Learn source is unchanged; no Learn replay on `index-XLX6kyu1.js` is claimed.
+* Retained-link metadata: two synthetic-only mounted groups passed on
+  `index-XLX6kyu1.js`. The additional-link section starts collapsed; keyboard
+  expansion preserves exact original URLs, labels and unresolved-link kinds,
+  with source-independence wording and safe external-link attributes. Additional
+  links do not increase source or corroboration counts. No provider call or page
+  error occurred. Receipt:
+  `artifacts/experience-consolidation/v1/synthetic-retained-links-1794444670632/acceptance.json`.
 * Joined offline actual browser/gateway/SDK/runtime/parallel tools/comparison/action
   proof passed with dummy credentials and external provider access blocked.
 * Export: 16 tests. Authenticated 42-page PDF and explicit two-specimen annex
@@ -104,20 +116,28 @@ Runs overlap and must not be added as unique coverage:
 * Configured credential literal scan: no matches in 113 changed source files.
 * Locked dependency hashes are unchanged. Initial SDK-inclusive bundle is about
   3.83 MB / 1.10 MB gzip, recorded as a performance limitation in the debt register.
-* The broad Python run finished with 7,380 passes, 10 skips and one release-package
-  failure. Its missing frontend/runtime build inputs are corrected; all four
-  packaging regressions now pass, including older refs and private-file exclusion.
-* A subsequent Linux CI run recorded 7,412 passes, 11 skips and one failure:
-  `tests/test_ui_v2_shell.py::test_reader_overlay_warm_is_under_500ms` measured
-  522.8ms against the existing 500ms budget. The recorded log is
-  `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log`. That run did
-  not pass. The focused local retest passed with the 500ms threshold unchanged;
-  it does not clear the recorded CI failure. Subsequent News-integrated checkpoint
-  `ff6a17e3` passed every required check in run `43125105819`: 7,431 Python tests
-  passed, 11 skipped, including the unchanged 500ms Reader assertion. Both
-  container builds and no-network metadata/import checks passed. The newer
-  published-link integration needs its own final-head CI; its 21 focused native
-  auth/deep-link and published-review-link tests passed locally.
+* Packaging: all four regressions pass, including older refs and private-file
+  exclusion. The earlier missing frontend/runtime inputs are corrected.
+* Linux checkpoint `ff6a17e3` passed every required check in run `43125105819`:
+  7,431 Python tests passed, 11 skipped, both container builds and no-network
+  metadata/import checks passed. It is not the current integrated head.
+* Two Linux runs failed the unchanged 500ms warm Reader assertion: `60d9f0a1`
+  measured 522.8ms (7,412 other passes / 11 skips), and `43e5a730` measured
+  543.5ms (7,436 other passes / 11 skips). Logs remain in
+  `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log` and
+  `artifacts/experience-consolidation/ci-43e5a730-failed.log`. These failures
+  motivated the bounded Reader repair; they are not dismissed as flakes.
+* The Reader repair adapts the existing public
+  [PR #535](https://github.com/samsonFive/berry-intelligence-os/pull/535) method to current
+  consumers: the overlay copies only display/attribution entity fields while
+  retaining repository signature invalidation, visibility and duplicate-ID
+  semantics. All 49 focused checks passed, including the unchanged 500ms test
+  and four freshness/visibility/isolation/duplicate regressions. Sixteen paired
+  full-index/projection HTML comparisons were byte-identical. Windows/Python3.13 median
+  requests improved from 336.08 to 296.07ms for Atlantic Blue and 343.73 to
+  274.66ms for BluGenix. Receipt:
+  `artifacts/experience-consolidation/reader-projection-paired-current.json`.
+  These local samples do not replace final-head Linux CI or close TD-122.
 
 ## Release work after local G2
 
@@ -129,10 +149,12 @@ adds no authored facts and makes no provider request. Existing authored Workspac
 and Learn research/edit/version workflows remain explicit governed compatibility
 destinations with native return context.
 
-Complete required checks on the final integrated head. The later Reader pass
-does not establish a performance fix or close existing performance debt.
+Complete required checks on the final integrated head. The local Reader repair
+and bounded HTML parity proof do not clear prior CI failures or close broader
+performance debt.
 Prepare the concrete server build/backup/rollback receipt before
 production promotion. The optional Node network-namespace deployment override is
 source-ready. Local Docker is unavailable; final-head container checks and the
 separately authorized live smoke remain release gates. No production service,
-configuration, data or inbox change has been made here.
+configuration, data or inbox change has been made by this candidate. Production
+promotion and production paid commands remain separately unauthorized.
