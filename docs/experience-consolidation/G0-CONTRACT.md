@@ -6,9 +6,10 @@ as the primary Workspaces destination. The new investigation save/PDF tools are
 additive utilities at `/app/workspaces`, reached through “Save / export.” They
 do not replace the authored workspace, its controller or its saved grid layouts.
 Canonical baseline: `3f159639a85db0dea7e93b2d5c0387efa4eb468f` (#550).
-Integrated canonical: `bd297e39` (#562), preserving Strategy inputs, global News
+Integrated canonical: `46ba7f02` (#564), preserving Strategy inputs, global News
 expansion, translation/noise fixes, #560/#561 document/language recovery and the
-reviewed initial Brand media cohort. Canonical acquisition/data/coverage changes
+reviewed initial Brand media cohort, #563 official listings and #564 information-first
+Workspace reading views. Canonical acquisition/data/coverage changes
 are inherited unchanged; this candidate's own changes remain the experience.
 The user's current mission starts implementation. Earlier planning-only text in
 the supplied archive describes that document's prior scope. Deployment and live

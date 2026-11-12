@@ -23,8 +23,8 @@ experience. Primary Workspaces navigation now opens that existing editor; its
 layout, grid controller and storage remain intact. Investigation saving and PDF
 export remain additions under “Save / export,” not a replacement workspace.
 
-The restoration revision passes 132 frontend tests, TypeScript and Vite, plus
-232 post-integration backend tests and a 59-test Workspaces preservation/boundary
+The restoration revision passes 138 frontend tests, TypeScript and Vite, plus
+283 post-integration backend tests and a 59-test Workspaces preservation/boundary
 run (these runs overlap). The native News adapter now allowlists its card
 metadata so unselected article excerpts remain in Reader only. Browser visual
 review and final-head GitHub CI remain open.
@@ -32,7 +32,8 @@ review and final-head GitHub CI remain open.
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #562 (`bd297e39`), including #560/#561
+canonical #550 (`3f159639`), now integrated onto #564 (`46ba7f02`), including #563
+official-listing News discovery, the information-first Workspaces reading improvements, and #560/#561
 News language/document recovery and the reviewed initial Brand media cohort, plus #558
 (`0722e7da`), #551
 Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
