@@ -15,7 +15,7 @@ from app.services.industry_pulse.matrix import (
 )
 
 REGIONAL_NEWS_PROVIDER = "regional_google_news"
-EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "direct_json", "indexed"})
+EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "direct_json", "direct_listing", "indexed"})
 
 ENGLISH_RISKS = (
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
@@ -33,6 +33,7 @@ NATIVE_TOPICS = {
            "plantación", "hectárea", "hectáreas", "fumigación", "precios", "precio",
            "temporada de arándanos", "temporada de frutillas", "exportaciones", "importaciones",
            "campaña", "campañas", "cosechas", "rendimientos", "mano de obra",
+           "agroexportaciones", "abre mercado", "acceso fitosanitario", "autorizar el ingreso",
            "congreso mundial", "congreso internacional"),
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
            "fermeture de ferme", "sécheresse", "rappel sanitaire", "rappel de", "rappelés", "rappelées",
