@@ -34,6 +34,8 @@ def candidate(title, summary=''):
     ('Thu hoạch mâm xôi đen', '', ['blackberry']),
     ('FRAMBOISES SURGELEES', 'Risques : Norovirus. Motif : contamination par des norovirus.', ['raspberry']),
     ('MÛRES SURGELÉES', 'Motif : présence de Listeria monocytogenes.', ['blackberry']),
+    ('Myrtille marocaine : la main-d’œuvre, premier frein identifié par les professionnels',
+     'Les professionnels interrogés placent le coût de la main-d’œuvre devant l’eau et la concurrence internationale.', ['blueberry']),
 ])
 def test_native_primary_metadata_survives_discovery_projection_and_crop_filters(title, summary, crops):
     hit = qualify_hit(candidate(title, summary))
