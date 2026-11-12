@@ -4051,7 +4051,7 @@ November 12 public-record acquisition debt: STIPS summary metadata now resolves 
 
 November 12 document-intake debt: PDF-as-HTML failures and removed statistical tables had discarded material public-record content. Acquisition v5 delegates explicit PDFs to the existing bounded parser, retains page locators/partial status and main-article tables, and recognizes GOV.UK first-publication metadata without modified-date substitution. Old acquisition versions and decisions remain preserved; normal URL idempotency is unchanged. Non-suffix PDFs, scans/charts, archive completeness and crop-in-body-only discovery remain open. Spanish plural trade/campaign/congress filtering misses have source-shaped regressions. Owners: News acquisition engineering and source-language review. See NEWS-PRIMARY-DOCUMENT-RECOVERY-2026-11-12.md.
 
-### TD-BRAND-MEDIA-001 — bounded initial-cohort follow-up, November 11 Pacific / November 12 UTC
+### TD-BRAND-MEDIA-001 — historical preparation checkpoint, November 11 Pacific / November 12 UTC
 
 Still open. The older social-only and five-image preview counts above describe
 their original checkpoints. Five official references are now live; the current
@@ -4125,3 +4125,39 @@ open. Reuse existing Research Desk, News Packets,
 Workspaces and Report Builder rather than a second report catalog or trust
 store. Owner: report workflow engineering. See
 `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
+
+### TD-BRAND-MEDIA-001 — live delivery and reader compatibility, November 12 UTC
+
+The native-app initial-cohort release gates are complete for #562 and its #563
+successor: all four required CI checks passed on `c39f2153`; 47 references are
+live after a verified 29,528-file isolated restore, add42/preserve5 seed,
+29,571 protected-file check and fresh backup. Proxy/timer restoration passed.
+Public HTTPS verifies 20 typed profiles, 18 logos, 29 packaging sources and
+41 company-only Compare references. Browser loads and a 4.8-second continuous
+recording supplement the source/focus/historical/matte checks. The historical
+preparation entry above no longer describes the deployment state.
+
+Keep this item open for source gaps and compatibility: Angus lacks a selected
+company logo, Well-Pict's official source is unavailable, five packaging targets
+remain review-needed, and retained-social-post-to-pack delivery plus verified
+free/prepaid collection allowance remain unproven. Later React integration is
+separate. No new provider, spend, image-object cache or use-license grant is
+implied by these native-app results.
+
+Reader rollback debt: optional `Asset.background` requires the #562-era reader.
+Older strict readers reject that field and may omit galleries on a code-only
+old-image fallback; all stored media records remain. Preserve the records and
+analyst decisions, do not strip the field or rewind runtime data. A compatible
+reader/migration or explicit rollback acceptance is needed before relying on
+such an older image for gallery continuity.
+
+The initial strict private CSP-presence check failed and is retained. The
+reviewed header/meta image-policy check found no CSP on all 20 profiles,
+matching the pre-release baseline; no application security change was made.
+This does not claim newly enforced CSP protection. The Windows-EOL package
+failure also remains recorded: canonical Git-blob packaging replaced it while
+keeping exact requirements, model, resource, backup and cleanup gates intact.
+Explicitly approved 49-entry build-cache cleanup preserved all 297 images,
+runtime and models. Neither operation authorizes broader source/data cleanup.
+See [cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
+[integration](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
