@@ -3,22 +3,24 @@
 November 11, 2026. Integration lead review: **local functional and visual checks
 accepted**. Required final-head CI and production acceptance remain open.
 
-Source checkpoint `820fda87` is integrated onto canonical #558 (`0722e7da`),
-including #553/#556. Its next committed head still requires fresh Linux CI.
+Source checkpoint `727b73f5` is integrated onto canonical #559 (`0d42c764`),
+including #558 (`0722e7da`) and #553/#556. This new canonical/brand-adapter head
+still requires fresh Linux CI.
 
-Current emitted client: `index-XLX6kyu1.js`, SHA-256
-`5F299D22E5266D90DF97F1AC4C07498882ABA06EF9A9A1381E043BC11B69B7C5`.
+Current emitted client: `index-CTvq3HUT.js`, SHA-256
+`8D566190E628F14123D31AF9D83BC41EE7051123A02501AAFB586E610CA71CC6`.
 Entry HTML SHA-256:
-`0E59D6092AF61F109F16DF49550440A2A40DA5A7BFAB0AE53574E6F98E5129AC`.
-CSS: `index-7qD0DpA5.css`, SHA-256
-`685FD10CDE4E4A6F7B1E75AD5F120F795486B5578DE6CF4D421B2A46A598B7F0`.
+`0F795B88F4E8758BF0A69852C5E1B0A7F7101BCC2171BA75F2DE2CB46BD7C610`.
+CSS: `index-6haV-zm8.css`, SHA-256
+`490A8E2153EDBC108240EC9BFC9AB6B5D069265617A8D322B0820D2BF7A833AB`.
 The main functional packets below use `index-Cp5PKdjN.js`. A subsequent copy-only
 build corrected “frozen Brief Packs” to “live Brief Packs” in Workspaces. The
 Learn crop-note build `index-BCSIw7In.js` has its own focused mounted receipt
-below. The current client adds optional retained-link metadata presentation;
-its focused proof is synthetic-only. Learn source is unchanged, but no Learn
-replay on the current asset is claimed. Earlier full-flow receipts retain their
-recorded asset and scope.
+below. Retained-link metadata has synthetic-only proof on `index-XLX6kyu1.js`.
+Both source modules are unchanged; no replay of them or the complete G2 flow on
+the current asset is claimed. The current build adds the brand-media adapter;
+its focused mounted receipt is recorded below. Earlier receipts retain their
+recorded assets and scopes.
 
 ## Native surfaces and state
 
@@ -64,6 +66,17 @@ recorded asset and scope.
   Additional links do not increase source or corroboration counts. Both groups
   passed with zero page errors and provider calls; this is not production-record
   or publisher-resolution evidence.
+* Native brand media: seven local mounted groups passed on `index-CTvq3HUT.js` in
+  `artifacts/experience-consolidation/v1/native-brand-media-1794446371333/acceptance.json`.
+  The actual curated seed plan/apply operated only on the isolated QA store:
+  two logos and three classified official packaging references loaded with
+  HTTP200 and `no-referrer`; the explicit-ID API also returned 200. Comparison
+  and company media are visible at rest. Separate in-flow inspections preserve
+  one primary detail host and create no image dialog or history entry. Escape
+  returns focus; all selectors, pins and Back/Forward remain intact. At 390px,
+  the document fits and the inspection measures 331px. Five screenshots were
+  visually reviewed. Zero HTTP mutations, provider calls, unapproved external
+  requests or page errors occurred. This is not production proof.
 
 The lead inspected populated Workspaces, Briefing/Reader, Learn diagram/photo and
 the final investigation frames. The citation with a canonical null URL remains
@@ -73,7 +86,7 @@ plain text; no URL was invented. All QA workers, browsers and runtimes were clos
 
 These runs overlap; do not add them as unique test coverage.
 
-* 88 frontend tests, including crop-note grouping and retained-link metadata,
+* 97 frontend tests, including the brand-media adapter,
   TypeScript and the current Vite build passed.
   Dependencies and normalized committed lockfile blobs are unchanged; Windows
   checkout line endings can change raw file SHA-256 without changing those Git blobs.
@@ -81,12 +94,14 @@ These runs overlap; do not add them as unique test coverage.
   equality remain recorded in `G1-V1-ACCEPTANCE.md`; no further model turn occurred.
 * 195 integrated backend/auth/save/export/static/News/package regressions passed;
   48 final hardening regressions passed afterward.
+  The post-brand targeted backend run passed 69 tests; counts overlap.
 * The missing Docker inputs were corrected and all four packaging tests pass. Both
   Dockerfiles' context inputs, exact committed bytes/modes, private-file exclusion,
   older refs and existing-package preservation are covered.
-* Earlier Linux checkpoint `ff6a17e3` passed every required check in run
-  `43125105819`: 7,431 Python tests passed / 11 skipped, both Docker builds and
-  no-network metadata/import checks passed. It does not accept the current head.
+* Linux Reader-repair checkpoint `26f047e1` passed every required check in run
+  `43131077177`: 7,445 Python tests passed / 11 skipped, including the unchanged
+  500ms Reader assertion, both Docker builds and no-network metadata/import
+  checks. This does not accept the newer canonical/brand-adapter head.
 * The unchanged 500ms warm Reader test failed on two Linux heads: 522.8ms on
   `60d9f0a1` (7,412 other passes / 11 skips), and 543.5ms on `43e5a730`
   (7,436 other passes / 11 skips). Logs:
@@ -101,7 +116,8 @@ These runs overlap; do not add them as unique test coverage.
   Sixteen paired complete HTML comparisons were byte-identical. Local medians:
   Atlantic Blue 336.08 → 296.07ms; BluGenix 343.73 → 274.66ms. Receipt:
   `artifacts/experience-consolidation/reader-projection-paired-current.json`.
-  These bounded Windows/Python3.13 samples do not clear Linux CI or close TD-122.
+  These bounded Windows/Python3.13 samples do not replace the current-head Linux
+  gate or close TD-122.
 * Record validation passed. The 2,429-page public build and unpublished-draft
   leakage check passed; the private client remains excluded from public output.
 * Both Docker images and metadata/import smoke checks are added to the existing

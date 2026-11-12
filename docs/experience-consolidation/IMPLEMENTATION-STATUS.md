@@ -6,10 +6,11 @@ Updated November 11, 2026, Pacific. Presentation: November 12 morning.
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #558 (`0722e7da`), including #551
+canonical #550 (`3f159639`), now integrated onto #559 (`0d42c764`), including #558
+(`0722e7da`), #551
 Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
 material News recovery and the published-review-link repair. Current source
-checkpoint: `820fda87`; the next committed head still needs its own Linux CI.
+checkpoint: `727b73f5`; the new canonical/brand-adapter head still needs its own Linux CI.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
 
@@ -42,6 +43,9 @@ implementation; production promotion remains a separate concrete release step.
 * Dated cited PDF preview/export includes complete domain rows and a source
   appendix. Ordinary output excludes the synthetic fixture. An explicit annex
   resolves only selected fictitious specimens on the declared 1–9 scale.
+* The React brand-media adapter consumes the existing curated official-reference
+  API. Company/comparison imagery remains auxiliary; inspection expands in its
+  existing gallery allocation, with no image modal or selector/history change.
 
 ## G1 and V1 evidence
 
@@ -85,21 +89,21 @@ Runs overlap and must not be added as unique coverage:
 * Focused integrated Python suite: 114 passed. Windows default temporary-directory
   setup errors cleared with a fresh workspace-owned `--basetemp`.
 * Learning foundation: 27 tests; additional source-date/catalog regressions passed.
-* Current frontend: 88 tests passed, including crop-note grouping and retained-link
-  metadata tests.
+* Current frontend: 97 tests passed, including brand-media API boundary checks.
   Runtime: 12 tests. TypeScript and Vite passed. Current emitted client:
-  `index-XLX6kyu1.js`, SHA-256
-  `5F299D22E5266D90DF97F1AC4C07498882ABA06EF9A9A1381E043BC11B69B7C5`.
+  `index-CTvq3HUT.js`, SHA-256
+  `8D566190E628F14123D31AF9D83BC41EE7051123A02501AAFB586E610CA71CC6`.
   Entry HTML SHA-256:
-  `0E59D6092AF61F109F16DF49550440A2A40DA5A7BFAB0AE53574E6F98E5129AC`.
-  CSS remains `index-7qD0DpA5.css`.
+  `0F795B88F4E8758BF0A69852C5E1B0A7F7101BCC2171BA75F2DE2CB46BD7C610`.
+  CSS: `index-6haV-zm8.css`, SHA-256
+  `490A8E2153EDBC108240EC9BFC9AB6B5D069265617A8D322B0820D2BF7A833AB`.
 * Learn applicability review passed on `index-BCSIw7In.js`. Blueberry Cane
   quietly states that no Blueberry-specific crop note is recorded, while keeping
   the authored Raspberry and Blackberry notes under other berries. All berries
   retains the complete authored text and original order under By crop. The three
   mounted checks, including a 390px viewport, passed with no page errors or model
   turns. Receipt: `artifacts/experience-consolidation/v1/learn-crop-note-qa-1794441712227/acceptance.json`.
-  That Learn source is unchanged; no Learn replay on `index-XLX6kyu1.js` is claimed.
+  That Learn source is unchanged; no Learn replay on the current asset is claimed.
 * Retained-link metadata: two synthetic-only mounted groups passed on
   `index-XLX6kyu1.js`. The additional-link section starts collapsed; keyboard
   expansion preserves exact original URLs, labels and unresolved-link kinds,
@@ -107,6 +111,17 @@ Runs overlap and must not be added as unique coverage:
   links do not increase source or corroboration counts. No provider call or page
   error occurred. Receipt:
   `artifacts/experience-consolidation/v1/synthetic-retained-links-1794444670632/acceptance.json`.
+  That module is unchanged; this receipt retains its recorded asset and scope.
+* Native brand media: seven local mounted groups passed on `index-CTvq3HUT.js`.
+  The curated seed plan/apply used only the isolated QA store. API and image
+  requests returned 200 for two logos and three official packaging references,
+  loaded with `no-referrer`. Comparison/company imagery, in-flow expansion,
+  Escape/focus, one primary detail host, selectors/pins and Back/Forward passed.
+  The inspection measured 331px inside a 390px viewport. Five screenshots were
+  visually reviewed; no HTTP mutation, provider call, unapproved external request
+  or page error occurred. This is local proof, not production acceptance. Receipt:
+  `artifacts/experience-consolidation/v1/native-brand-media-1794446371333/acceptance.json`.
+  The post-brand focused backend run passed 69 tests.
 * Joined offline actual browser/gateway/SDK/runtime/parallel tools/comparison/action
   proof passed with dummy credentials and external provider access blocked.
 * Export: 16 tests. Authenticated 42-page PDF and explicit two-specimen annex
@@ -118,9 +133,10 @@ Runs overlap and must not be added as unique coverage:
   3.83 MB / 1.10 MB gzip, recorded as a performance limitation in the debt register.
 * Packaging: all four regressions pass, including older refs and private-file
   exclusion. The earlier missing frontend/runtime inputs are corrected.
-* Linux checkpoint `ff6a17e3` passed every required check in run `43125105819`:
-  7,431 Python tests passed, 11 skipped, both container builds and no-network
-  metadata/import checks passed. It is not the current integrated head.
+* Linux Reader-repair checkpoint `26f047e1` passed every required check in run
+  `43131077177`: 7,445 Python tests passed, 11 skipped, including the unchanged
+  500ms Reader assertion. Both container builds and no-network metadata/import
+  checks passed. The newer canonical/brand-adapter head requires fresh CI.
 * Two Linux runs failed the unchanged 500ms warm Reader assertion: `60d9f0a1`
   measured 522.8ms (7,412 other passes / 11 skips), and `43e5a730` measured
   543.5ms (7,436 other passes / 11 skips). Logs remain in
@@ -149,9 +165,9 @@ adds no authored facts and makes no provider request. Existing authored Workspac
 and Learn research/edit/version workflows remain explicit governed compatibility
 destinations with native return context.
 
-Complete required checks on the final integrated head. The local Reader repair
-and bounded HTML parity proof do not clear prior CI failures or close broader
-performance debt.
+Complete required checks on the final integrated head. The green Reader-repair
+checkpoint does not substitute for the newer canonical/brand-adapter head or
+close broader performance debt.
 Prepare the concrete server build/backup/rollback receipt before
 production promotion. The optional Node network-namespace deployment override is
 source-ready. Local Docker is unavailable; final-head container checks and the

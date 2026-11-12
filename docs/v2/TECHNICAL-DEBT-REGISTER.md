@@ -35,9 +35,12 @@ unchanged budget and four new regressions; sixteen paired complete HTML outputs
 are byte-identical. Local request medians improve from 336.08 to 296.07ms for
 Atlantic Blue and 343.73 to 274.66ms for BluGenix. The receipt is
 `artifacts/experience-consolidation/reader-projection-paired-current.json`.
-These bounded local samples do not establish Linux CI, device percentiles,
-generally fast cold catalog/full Reader loading or production acceptance.
-The integrated head still requires fresh CI and separately authorized release.
+Reader-repair checkpoint `26f047e1` passed all required checks in Linux run
+`43131077177` (7,445 Python passes / 11 skips, unchanged 500ms assertion and both
+container import checks). Broader device percentiles, generally fast cold
+catalog/full Reader loading and production performance remain unverified.
+The newer canonical #559/brand-adapter head still requires fresh CI and
+separately authorized release.
 
 # Global berry news coverage gaps — November 10, 2026
 
