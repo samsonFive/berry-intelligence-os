@@ -432,7 +432,8 @@ def hit_to_record(
     person_ids = [row["id"] for row in match_people(text, people or [])]
     snippet = (hit.snippet or "").strip()
     provenance = {"provider": hit.provider, "query_id": hit.query_id, "wrapper_url": hit.wrapper_url}
-    for key in ("publisher_route", "query_edition", "date_basis", "official_record_id", "official_record_url"):
+    for key in ("publisher_route", "query_edition", "date_basis", "official_record_id", "official_record_url",
+                "listing_url", "listing_page_limit", "first_public_visibility"):
         if provider_metadata.get(key):
             provenance[key] = provider_metadata[key]
     if hit.provider == REGIONAL_NEWS_PROVIDER:

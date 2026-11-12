@@ -1779,3 +1779,6 @@ the coordinated new experience integration and any later live activation remain
 separate gates. No source-recall or rights maturity upgrade is inferred. See
 [initial cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
 [integration checkpoint](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
+
+November 12 official-listing continuation: Chile SAG native crop-filtered notices and Peru SENASA news/legal listings add three bounded public metadata routes (54 priority routes total; unchanged 12 priority/6 regional checks per refresh). Original descriptions now expose blueberry plants beneath numbered legal titles. Native market-access and authorization wording survives both relevance screens. The legal controls predate the pilot, Chile berry listings are stale (latest September 8), and full-body/deeper archive coverage remains unproven. Zero paid spend and all Source/publication/Atomic Evidence gates are preserved. See NEWS-OFFICIAL-LISTINGS-2026-11-12.md.
