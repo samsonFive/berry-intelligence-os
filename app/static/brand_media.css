@@ -36,3 +36,12 @@
 @media (max-width:540px) { .brand-media-section { padding:14px; } .brand-media-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; } .brand-media-expand > img { height:160px; } .brand-media-hover { display:none; } }
 @media (prefers-reduced-motion:reduce) { .brand-media-hover { transition:none; } }
 @media print { .brand-media-hover,.brand-media-inspector { display:none!important; } }
+
+/* Original white wordmarks receive a neutral matte; image pixels stay unchanged. */
+.brand-identity-logo img[data-brand-background="dark"],
+.company-lockup img[data-brand-background="dark"],
+.brand-media-expand[data-brand-background="dark"],
+.brand-media-inspector-image[data-brand-background="dark"] { background:#243d34; }
+.brand-identity-logo img[data-brand-background="dark"], .company-lockup img[data-brand-background="dark"] { padding:6px; border-radius:6px; box-sizing:border-box; }
+
+.brand-media-logo-note { display:block; font-size:.65rem; color:#617056; }

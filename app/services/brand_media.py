@@ -100,6 +100,8 @@ class Asset(Strict):
     source_locator: str | None = Field(default=None, max_length=1500)
     width: int | None = Field(default=None, ge=1, le=100000)
     height: int | None = Field(default=None, ge=1, le=100000)
+    # Presentation matte only: original wordmark pixels and colors stay intact.
+    background: Literal['light', 'dark'] = 'light'
     published_at: datetime | None = None
     source_kind: Literal['official', 'retailer', 'consumer', 'unknown'] = 'unknown'
     kind: Literal['logo', 'profile_image', 'pack_image', 'pack_photo', 'pack_render', 'label_closeup', 'shelf_observation', 'campaign', 'unclassified'] = 'unclassified'
@@ -377,7 +379,8 @@ def official_image_reference(url, source_page_url):
         host = (urlsplit(url).hostname or '').lower()
         page_host = (urlsplit(source_page_url).hostname or '').lower().removeprefix('www.')
         same_site = host == page_host or host.endswith('.' + page_host)
-        image_cdn = host == 'edge.sitecorecloud.io'
+        from app.services.brand_media_reference_sources import verified_external_reference
+        image_cdn = host == 'edge.sitecorecloud.io' or verified_external_reference(url, source_page_url)
         return url if same_site or image_cdn else None
     except ValueError:
         return None
@@ -494,7 +497,7 @@ def register_discovery(inbox, entity_id, candidates, *, entities):
 def decide(inbox, key, changes, *, reviewer, entities=None):
     if not reviewer or len(reviewer) > 100:
         raise ValueError('Reviewer required')
-    allowed = {'kind', 'classification_basis', 'caption', 'attribution', 'primary', 'rejected', 'policy', 'match_status', 'match_basis', 'entity_id'}
+    allowed = {'kind', 'classification_basis', 'caption', 'attribution', 'primary', 'rejected', 'policy', 'match_status', 'match_basis', 'entity_id', 'background'}
     if not isinstance(changes, dict) or not changes or set(changes) - allowed:
         raise ValueError('Unsupported media decision')
     assets = load(inbox)

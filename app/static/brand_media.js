@@ -26,7 +26,7 @@
   function hideBrokenImage(image) {
     if (image.hasAttribute('data-brand-logo-fallback')) {
       var mark = document.createElement('span');
-      mark.className = image.dataset.brandLogoStyle === 'dossier' ? 'bos-monogram bos-entity-logo-fallback' : 'company-monogram company-large';
+      mark.className = image.dataset.brandLogoStyle === 'dossier' ? 'bos-monogram bos-entity-logo-fallback' : (image.dataset.brandLogoStyle === 'directory' ? 'company-monogram' : 'company-monogram company-large');
       mark.textContent = image.dataset.brandLogoFallback;
       mark.setAttribute('aria-hidden', 'true');
       image.replaceWith(mark);

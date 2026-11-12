@@ -1,7 +1,7 @@
 {% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
 {% block head_extra %}
-<link rel="stylesheet" href="/static/brand_media.css?v=1">
+<link rel="stylesheet" href="/static/brand_media.css?v=3">
 {% if entity.entity_type in ['company', 'brand', 'breeding_program'] %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,4 +62,4 @@
 {% include "_entity_body.html" %}
 {% endif %}
 {% endblock %}
-{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=1"></script>{% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=2"></script>{% endblock %}

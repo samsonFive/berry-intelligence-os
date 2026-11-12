@@ -1,0 +1,602 @@
+{
+  "version": 1,
+  "checked_at": "2026-11-12T03:03:05.969523+00:00",
+  "scope": "Bounded initial retail-coverage cohort from existing demo/current records; not a ranked Top 20. Source-backed images inspected across the berries each entity actually offers.",
+  "selection_limit": "Up to20 existing companies and consumer brands, with two four-berry retail coverage additions; no new canonical entities.",
+  "display_basis": "Operator-requested direct source references; formal license/cache/export grants remain unchanged.",
+  "counts": {
+    "entities_attempted": 20,
+    "entities_with_display_eligible_references": 19,
+    "reference_assets": 47,
+    "new_references_beyond_initial_five": 42,
+    "logo_entities_attempted": 20,
+    "logo_matches_and_display_eligible": 18,
+    "full_official_logo_assets": 17,
+    "official_icon_fallbacks": 1,
+    "logo_review_needed": 1,
+    "logo_unavailable": 1,
+    "retail_packaging_entities_attempted": 19,
+    "packaging_entities_matched_and_display_eligible": 13,
+    "packaging_review_needed": 5,
+    "packaging_unavailable": 1,
+    "packaging_not_applicable": 1,
+    "packaging_images": 28,
+    "official_packaging_renderings": 1,
+    "paid_provider_calls": 0,
+    "image_objects_cached": 0
+  },
+  "entities": [
+    {
+      "entity_id": "company-driscolls",
+      "name": "Driscoll's, Inc.",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "existing 151-row seed reconciliation"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-driscolls",
+      "logo_asset_ids": [
+        "asset-92ef6c9254298c3ea5a97fe3"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-7ad81b769eb6e41d707e8351",
+        "asset-7d61db0d0e6a6f1c2d831bdc",
+        "asset-aa51865f220fe0db38898d6e",
+        "asset-6b8b4ba35591348d0307cfd9",
+        "asset-b5a72000b5bb63f3b9ad7067",
+        "asset-042cb8071b55e251c99e5771"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.driscolls.com/Berries/blueberries",
+        "https://www.driscolls.com/",
+        "https://www.driscolls.com/Berries/strawberries",
+        "https://www.driscolls.com/Berries/raspberries",
+        "https://www.driscolls.com/Berries/blackberries"
+      ]
+    },
+    {
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "name": "Fall Creek Farm & Nursery, Inc.",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/company-fall-creek-farm-and-nursery",
+      "logo_asset_ids": [
+        "asset-3256377292a129ad773cc3cf"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "not_applicable",
+      "packaging_note": "Breeder/nursery without a verified consumer retail pack in this cohort.",
+      "source_pages": [
+        "https://www.fallcreeknursery.com/"
+      ]
+    },
+    {
+      "entity_id": "brand-fruitist",
+      "name": "Fruitist",
+      "entity_type": "brand",
+      "selection_basis": [
+        "existing canonical entity",
+        "explicit rel-agrovision-owns-fruitist; parent company-agrovision is registry Fruitist Top. Selection uses relationship only, never transfers parent imagery or treats AgroBerries as owner."
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/brand-fruitist",
+      "logo_asset_ids": [
+        "asset-db0259cf21881b679a8c13d0"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": "Genuine official app icon fallback; full wordmark remains inline-only.",
+      "packaging_asset_ids": [
+        "asset-332fc3b1084abbaa25038702",
+        "asset-596ff4acf700814d87129163",
+        "asset-614ef50377c9f40b201e679f"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.fruitist.com/",
+        "https://shop.fruitist.com/"
+      ]
+    },
+    {
+      "entity_id": "brand-ozblu",
+      "name": "OZblu",
+      "entity_type": "brand",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/brand-ozblu",
+      "logo_asset_ids": [
+        "asset-b0ba6f8ea1dd51b782c11989"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-e78eb22de0076836197d51c3"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.ozblu.com/"
+      ]
+    },
+    {
+      "entity_id": "company-berryworld",
+      "name": "BerryWorld Group",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/company-berryworld",
+      "logo_asset_ids": [
+        "asset-2b3d43b5e7b8f87d2e89af47"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-6db4f9f93aea516082a33223"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.berryworld.com/about/planet/pack"
+      ]
+    },
+    {
+      "entity_id": "company-naturipe-farms",
+      "name": "Naturipe Farms",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "existing 151-row seed reconciliation"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/company-naturipe-farms",
+      "logo_asset_ids": [
+        "asset-cf2aa47f3560bd04381b16c8"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-b3040c0e6d3db87b602213e4",
+        "asset-967f2a606837f7dcb535785f",
+        "asset-831f40cf6b2366e737b54aa3",
+        "asset-f7e4888326f87fd2d810ab93"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.naturipefarms.com/",
+        "https://www.naturipefarms.com/fresh/blueberries/",
+        "https://www.naturipefarms.com/fresh/strawberries/",
+        "https://www.naturipefarms.com/fresh/raspberries/",
+        "https://www.naturipefarms.com/fresh/blackberries/"
+      ]
+    },
+    {
+      "entity_id": "company-wish-farms",
+      "name": "Wish Farms",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-wish-farms",
+      "logo_asset_ids": [
+        "asset-958cce44ce6cb0798f367274"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-19f38c75e46c685e333ef363"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://wishfarms.com/",
+        "https://wishfarms.com/pinkaboo-pineberries/"
+      ]
+    },
+    {
+      "entity_id": "company-california-giant-berry-farms",
+      "name": "California Giant Berry Farms",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-california-giant-berry-farms",
+      "logo_asset_ids": [
+        "asset-09c6e9c2fbb388be7578fda7"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-89ec687ce585711e30a9a5ff"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.calgiant.com/"
+      ]
+    },
+    {
+      "entity_id": "company-camposol",
+      "name": "Camposol",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [],
+      "profile_path": "/entities/company/company-camposol",
+      "logo_asset_ids": [
+        "asset-e0ef885300a7c8638b1218ef"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "review_needed",
+      "packaging_note": "Inspected official sources showed loose fruit, illustrations or other non-pack content; no qualifying branded packaging selected.",
+      "source_pages": [
+        "https://www.camposol.com/"
+      ]
+    },
+    {
+      "entity_id": "company-hortifrut",
+      "name": "Hortifrut S.A.",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/company-hortifrut",
+      "logo_asset_ids": [
+        "asset-6ecf4053e420bf6ca895f50f"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-d37baa717f73a22626530728",
+        "asset-b9b859c4466b1ad176df2bb9",
+        "asset-48d1872bd0c3a2239d3c8153"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.hortifrut.com/",
+        "https://www.hortifrut.com/productos/berries"
+      ]
+    },
+    {
+      "entity_id": "company-costa-group-holdings",
+      "name": "Costa Group Holdings Pty Ltd",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry"
+      ],
+      "profile_path": "/entities/company/company-costa-group-holdings",
+      "logo_asset_ids": [
+        "asset-350a2c0c8bc8b46be2318cfd"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "review_needed",
+      "packaging_note": "Inspected official sources showed loose fruit, illustrations or other non-pack content; no qualifying branded packaging selected.",
+      "source_pages": [
+        "https://costagroup.com.au/produce/"
+      ]
+    },
+    {
+      "entity_id": "company-perfection-fresh",
+      "name": "Perfection Fresh",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-perfection-fresh",
+      "logo_asset_ids": [
+        "asset-9a3804a94b730d737c7b188c"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-155ca989f5d8fea1964f28d5"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.perfection.com.au/perfection-berries"
+      ]
+    },
+    {
+      "entity_id": "company-sunbelle",
+      "name": "SunBelle",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry"
+      ],
+      "profile_path": "/entities/company/company-sunbelle",
+      "logo_asset_ids": [
+        "asset-d75e84d1f2dbb38a33512632"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-2ea08952eced695af5a90724"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.sun-belle.com/"
+      ]
+    },
+    {
+      "entity_id": "company-well-pict",
+      "name": "Well-Pict",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [],
+      "profile_path": "/entities/company/company-well-pict",
+      "logo_asset_ids": [],
+      "logo_status": "unavailable",
+      "logo_note": "Official site unavailable; retained Google favicon proxy is not a verified official logo.",
+      "packaging_asset_ids": [],
+      "packaging_status": "unavailable",
+      "packaging_note": "Official website unavailable; no verified retained packaging source.",
+      "source_pages": []
+    },
+    {
+      "entity_id": "company-oishii",
+      "name": "Oishii",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry"
+      ],
+      "profile_path": "/entities/company/company-oishii",
+      "logo_asset_ids": [
+        "asset-f9cccde90404f53bd8292267"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-51029a26eef48281b04264a4",
+        "asset-98fc0220a5015b000a8f8d06"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://oishii.com/pages/the-koyo-berry",
+        "https://oishii.com/pages/connoisseur"
+      ]
+    },
+    {
+      "entity_id": "company-gem-pack-berries",
+      "name": "Gem-Pack Berries",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "33-row competitor priority registry membership",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-gem-pack-berries",
+      "logo_asset_ids": [
+        "asset-ce40ef47db88ca8f7a981224"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "review_needed",
+      "packaging_note": "Inspected official sources showed loose fruit, illustrations or other non-pack content; no qualifying branded packaging selected.",
+      "source_pages": [
+        "https://www.gem-packberries.com/en/gems"
+      ]
+    },
+    {
+      "entity_id": "company-sant-orsola",
+      "name": "Sant'Orsola",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-sant-orsola",
+      "logo_asset_ids": [
+        "asset-4c2d796b41cd3e54627cbd4a"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "review_needed",
+      "packaging_note": "Inspected official sources showed loose fruit, illustrations or other non-pack content; no qualifying branded packaging selected.",
+      "source_pages": [
+        "https://www.santorsola.com/"
+      ]
+    },
+    {
+      "entity_id": "company-angus-soft-fruits",
+      "name": "Angus Soft Fruits",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "existing 151-row seed reconciliation",
+        "77-row competitor coverage registry membership"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-angus-soft-fruits",
+      "logo_asset_ids": [],
+      "logo_status": "review_needed",
+      "logo_note": "Only the distinct Good Natured consumer-brand logo was found; it is not substituted as Angus company identity.",
+      "packaging_asset_ids": [
+        "asset-09bd0b74cd4e08f0a58b4131"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://goodnaturedberries.com/bringing-a-little-extra-love-to-valentines-day-with-heart-shaped-strawberry-punnets/"
+      ]
+    },
+    {
+      "entity_id": "company-fresh-kampo",
+      "name": "FreshKampo",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "77-row competitor coverage registry membership",
+        "coordinator-selected four-berry retail coverage addition; no Top/Watch rank in 33-row registry"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-fresh-kampo",
+      "logo_asset_ids": [
+        "asset-045991234bf2f16dfe9e50e7"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [],
+      "packaging_status": "review_needed",
+      "packaging_note": "Inspected official sources showed loose fruit, illustrations or other non-pack content; no qualifying branded packaging selected.",
+      "source_pages": [
+        "https://freshkampo.com/"
+      ]
+    },
+    {
+      "entity_id": "company-cuna-de-platero",
+      "name": "Cuna de Platero",
+      "entity_type": "company",
+      "selection_basis": [
+        "existing canonical entity",
+        "77-row competitor coverage registry membership",
+        "coordinator-selected four-berry retail coverage addition; no Top/Watch rank in 33-row registry"
+      ],
+      "catalog_berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "profile_path": "/entities/company/company-cuna-de-platero",
+      "logo_asset_ids": [
+        "asset-120833c6671e078685fde8ba"
+      ],
+      "logo_status": "display_eligible",
+      "logo_note": null,
+      "packaging_asset_ids": [
+        "asset-d8b84f5366d4f7ba5c9bd5f3",
+        "asset-8f1abfd8cb912d490bbcd48b",
+        "asset-391c0abd296fd4a7ae7fc85c",
+        "asset-140c7f0ec0d18eb208e8b043"
+      ],
+      "packaging_status": "display_eligible",
+      "packaging_note": null,
+      "source_pages": [
+        "https://www.cunadeplatero.com/",
+        "https://www.cunadeplatero.com/fresas/",
+        "https://www.cunadeplatero.com/frambuesas/",
+        "https://www.cunadeplatero.com/arandanos/",
+        "https://www.cunadeplatero.com/moras/"
+      ]
+    }
+  ]
+}

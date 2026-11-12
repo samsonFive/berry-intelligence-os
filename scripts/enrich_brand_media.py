@@ -14,11 +14,11 @@ from app.services.pipeline_lock import pipeline_lock
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--inbox', type=Path, required=True, help='Isolated runtime inbox, never defaults to production')
-    parser.add_argument('--data', type=Path, default=ROOT / 'data')
+    parser.add_argument('--data', type=Path, default=ROOT / 'seed/data' if (ROOT / 'seed/data').is_dir() else ROOT / 'data')
     parser.add_argument('--entity', action='append', default=[])
     parser.add_argument('--limit', type=int, default=500)
     parser.add_argument('--reuse-social', action='store_true')
-    parser.add_argument('--accounts', type=Path, default=ROOT / 'data/configuration/brand_media_accounts.json')
+    parser.add_argument('--accounts', type=Path, help='Official account mappings; defaults to configuration under --data')
     parser.add_argument('--upload', type=Path, help='Authorized local raster file')
     parser.add_argument('--metadata', type=Path, help='Upload provenance, identity, classification and explicit usage policy JSON')
     parser.add_argument('--decision', type=Path, help='JSON with asset_id, changes and reviewer')
@@ -30,7 +30,7 @@ def main():
     result = {}
     with pipeline_lock(args.inbox, 'brand_media_reuse'):
         if args.reuse_social:
-            accounts = json.loads(args.accounts.read_text(encoding='utf-8'))['accounts']
+            accounts = json.loads((args.accounts or args.data / 'configuration/brand_media_accounts.json').read_text(encoding='utf-8'))['accounts']
             result['reuse'] = media.reuse_social(args.inbox, entities, accounts=accounts, entity_ids=args.entity, limit=args.limit)
         if args.upload:
             if not args.metadata:
