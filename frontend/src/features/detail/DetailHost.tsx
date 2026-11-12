@@ -301,11 +301,18 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
   const pinned = pinKind ? splitIds(context[pinKind === 'company' ? 'cohort_companies' : 'cohort_varieties']).includes(selected.id) : false;
   const compactProfile = selected.type === 'company' || selected.type === 'relationship';
   const profileIdentity = `${selected.type}:${selected.id}`;
+  const profileSectionOpen = (section: string, defaultOpen = false) => {
+    const key = `${profileIdentity}:${section}`;
+    return !profileExpansions.current.has(`${key}:closed`) && (defaultOpen || profileExpansions.current.has(key));
+  };
+  const rememberProfileSection = (section: string, expanded: boolean) => {
+    const key = `${profileIdentity}:${section}`;
+    profileExpansions.current.delete(expanded ? `${key}:closed` : key);
+    profileExpansions.current.add(expanded ? key : `${key}:closed`);
+  };
   const cited = new Set(model?.sections.flatMap(section => section.items.flatMap(item => [...(item.evidence_ids ?? []), ...(item.sources ?? []).map(source => source.id)])) ?? []);
   const additionalSources = model?.sources.filter(item => !cited.has(item.id)) ?? [];
   const materialStatus = model?.status && /historical|disputed|planned|validation|inactive|inferred/i.test(model.status);
-  const description = selected.type === 'company' && model?.summary ? model.summary.split(/\n\s*\n/)[0] : '';
-  const lead = description.length > 220 ? description.slice(0, 220).replace(/\s+\S*$/, '') + '…' : description;
   const expanded = safeLink(model?.expand_href);
   const expandHref = expanded && expanded.startsWith('/') ? expanded + (expanded.includes('?') ? '&' : '?')
     + new URLSearchParams({ return_to: investigationHref('/app/landscape', context) }) : expanded;
@@ -352,15 +359,19 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     </EmptyState>}
     {model && <>
       {compactProfile ? <>
-        {lead && <p className="berry-profile-lead">{lead}</p>}
         {!!model.roles?.length && <p className="berry-profile-roles">{model.roles.map(role => role.replaceAll('_', ' ')).join(' · ')}</p>}
-        <details className="berry-profile-basis" key={`${profileIdentity}:basis`} open={profileExpansions.current.has(`${profileIdentity}:basis`)}
-          onToggle={event => { if (event.currentTarget.open) profileExpansions.current.add(`${profileIdentity}:basis`); else profileExpansions.current.delete(`${profileIdentity}:basis`); }}>
-          <summary>Profile info</summary>{model.summary && <p>{model.summary}</p>}{model.scope_note && <p>{model.scope_note}</p>}
-          {model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}
+        <details className={`berry-profile-basis${selected.type === 'company' ? ' berry-profile-overview' : ''}`} key={`${profileIdentity}:basis`}
+          open={profileSectionOpen('basis', selected.type === 'company')} onToggle={event => rememberProfileSection('basis', event.currentTarget.open)}>
+          <summary>Profile info</summary>{model.summary && <p>{model.summary}</p>}
+          {selected.type === 'company' ? <details className="berry-profile-basis berry-profile-context" key={`${profileIdentity}:context`}
+            open={profileSectionOpen('context')} onToggle={event => rememberProfileSection('context', event.currentTarget.open)}>
+            <summary>Context</summary>{model.scope_note && <p>{model.scope_note}</p>}{model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}
+          </details> : <>{model.scope_note && <p>{model.scope_note}</p>}{model.status && <p>Status: {model.status.replaceAll('_', ' ')}</p>}</>}
         </details>
       </> : model.summary && selected.type !== 'source' && <p className="berry-detail-summary">{model.summary}</p>}
-      {selected.type === 'company' && <details className="berry-profile-media"><summary>Images</summary><BrandMediaGallery key={selected.id} model={media?.[selected.id]} /></details>}
+      {selected.type === 'company' && <details className="berry-profile-media" key={`${profileIdentity}:images`}
+        open={profileSectionOpen('images', true)} onToggle={event => rememberProfileSection('images', event.currentTarget.open)}>
+        <summary>Images</summary><BrandMediaGallery key={selected.id} model={media?.[selected.id]} /></details>}
       {selected.type === 'source' && <section className="berry-reader" aria-label="Source Reader">
         {sourceCompanies.length > 0 && <div className="berry-reader-companies" aria-label="Companies and brands associated with this source">{sourceCompanies.map(company => <div key={company.id}>
           {company.kind === 'company' ? <VerifiedCompanyLogo id={company.id} name={company.name} companyIds={sourceCompanyIds} inspectable />
