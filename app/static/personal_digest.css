@@ -41,3 +41,6 @@
 .personal-reader-toolbar>*{flex-shrink:0;max-width:100%}
 .v2-reader-offcanvas .offcanvas-header{gap:8px;flex-wrap:wrap}
 .v2-reader-nav{margin-left:auto;min-width:0;flex-wrap:wrap;justify-content:flex-end}
+/* Native investigations retain the mature header when opening authored pages. */
+.glass-header .glass-investigation-save{font-size:12px;color:#20372d;text-decoration:none;padding:5px 7px;border-radius:4px;white-space:nowrap}
+.glass-header .glass-investigation-save:hover{background:#e6efdf}

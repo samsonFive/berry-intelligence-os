@@ -28,6 +28,24 @@
     window.history.replaceState(window.history.state, '', url);
     window.dispatchEvent(new PopStateEvent('popstate'));
   }
+  // Native tag inspection opens the existing metadata drawer, never the Reader.
+  // Wait until its later script has installed the same controller used by cards.
+  function openRequestedTags() {
+    var values = url.searchParams.getAll('tags_for');
+    if (!values.length) return;
+    var id = values[0];
+    if (values.length !== 1 || !/^[A-Za-z0-9_.-]{1,180}$/.test(id) || id === '.' || id === '..' ||
+        typeof window.openArticleTags !== 'function' || !window.openArticleTags(id)) {
+      var message = document.querySelector('[data-news-refresh-status]');
+      if (message) message.textContent = 'Article tags could not be opened. Use a valid stored article or its existing tag controls.';
+      return;
+    }
+    var current = new URL(window.location.href);
+    current.searchParams.delete('tags_for');
+    window.history.replaceState(window.history.state, '', current);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openRequestedTags, {once: true});
+  else openRequestedTags();
   document.querySelectorAll('[data-news-local-time]').forEach(function (time) {
     var date = new Date(time.dateTime);
     if (!isNaN(date)) time.textContent = date.toLocaleString();

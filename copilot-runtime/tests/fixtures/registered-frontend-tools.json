@@ -1,0 +1,185 @@
+[
+  {
+    "name": "search_catalog",
+    "description": "Find canonical company, variety or country IDs using authored catalog names and aliases. Results include exact_name, exact_alias or substring match basis. A unique exact match can resolve the requested name; multiple exact matches remain ambiguous and must not be guessed. Bounded results preserve exact matches first and disclose truncation. Matching does not approve an identity or claim.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "company",
+            "variety",
+            "geography"
+          ]
+        },
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      },
+      "required": [
+        "revision",
+        "kind",
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "show_portfolio_comparison",
+    "description": "Open PortfolioComparison in the existing main field. Use canonical IDs from search_catalog. Countries may change only when explicitly requested. This does not rank companies or varieties.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "company",
+            "variety"
+          ]
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]{1,180}$"
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]{1,180}$"
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "revision",
+        "kind",
+        "ids"
+      ]
+    }
+  },
+  {
+    "name": "show_company_summary",
+    "description": "Open CompanySummary through the shared focus/detail controls. Does not pin, follow or approve the company.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]{1,180}$"
+        }
+      },
+      "required": [
+        "revision",
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "show_evidence_detail",
+    "description": "Open EvidenceDetail in the existing Reader. Only an ID is passed; the backend resolves selected source content. Publication review does not approve claims.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]{1,180}$"
+        }
+      },
+      "required": [
+        "revision",
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "show_related_developments",
+    "description": "Focus a company or variety so the existing RelatedDevelopments rail uses the declared relevance precedence. Keeps applied scope and cohorts unchanged.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "company",
+            "variety"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]{1,180}$"
+        }
+      },
+      "required": [
+        "revision",
+        "type",
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "show_geography_connections",
+    "description": "Open GeographyConnections for the existing investigation, using recorded company connections only. Company presence never proves variety growing.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        }
+      },
+      "required": [
+        "revision"
+      ]
+    }
+  },
+  {
+    "name": "show_sensory_demo",
+    "description": "Open the isolated SensoryDemo in the main field. All fictitious specimens and overall-liking scores are synthetic, outside canonical intelligence and standard exports.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The current investigation revision from the read-only context. Never guess or increment it."
+        }
+      },
+      "required": [
+        "revision"
+      ]
+    }
+  }
+]

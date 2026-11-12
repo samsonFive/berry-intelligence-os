@@ -1,3 +1,12 @@
+FROM node:24.22.1-bookworm-slim AS frontend-build
+
+WORKDIR /build/frontend
+RUN npm install --global pnpm@11.25.0 --ignore-scripts
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
+COPY frontend/ ./
+RUN pnpm build
+
 FROM python:3.12-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -18,6 +27,7 @@ COPY requirements-web.txt /app/requirements-web.txt
 RUN pip install --no-cache-dir -r /app/requirements-web.txt
 
 COPY app /app/app
+COPY --from=frontend-build /build/app/static/investigation /app/app/static/investigation
 COPY schemas /app/schemas
 COPY scripts /app/scripts
 COPY benchmarks /app/benchmarks

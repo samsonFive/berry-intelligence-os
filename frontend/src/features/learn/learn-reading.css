@@ -1,0 +1,13 @@
+/* Domain components only; no route or shared design rollout. */
+.berry-app .berry-learn-reading { max-width: 76ch; overflow-wrap: anywhere; line-height: 1.75; }
+.berry-app .berry-learn-reading :is(h2,h3,h4) { margin-top: 1.7em; scroll-margin-top: 8rem; }
+.berry-app .berry-learn-reading li { margin-bottom: .55em; }
+.berry-app .berry-learn-reading sup { margin-inline: .15em; }
+.berry-app .berry-learn-source-gap { color: var(--berry-amber); font-size: .9em; }
+.berry-app .berry-learn-table-wrap { max-width: 100%; overflow-x: auto; margin-block: 1.25rem; }
+.berry-app .berry-learn-table-wrap table { border-collapse: collapse; min-width: 100%; }
+.berry-app .berry-learn-table-wrap :is(th,td) { border: 1px solid var(--berry-line-strong); padding: .65rem; text-align: left; vertical-align: top; }
+.berry-app .berry-learn-table-wrap th { background: var(--berry-surface-subtle); }
+.berry-app .berry-learn-citations { border-top: 1px solid var(--berry-line); margin-top: 2rem; padding-top: 1.5rem; scroll-margin-top: 8rem; }
+.berry-app .berry-learn-citations li { margin-bottom: .9rem; }
+.berry-app .berry-learn-citations small { display: block; color: var(--berry-muted); }

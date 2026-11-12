@@ -13,6 +13,7 @@ gene-*.log
 
 # Virtual environment
 .venv/
+app/static/investigation/
 
 # Runtime-created, untrusted, or disposable (see docs/04-technical-architecture/ARCHITECTURE.md)
 inbox/
@@ -45,3 +46,9 @@ keyz.txt
 Keyz.txt
 keysz.txt
 Keysz.txt
+
+# Local consolidation rehearsal and test evidence; credentials stay in memory.
+/.experience-*/
+/.integration-review-tests-*/
+/artifacts/experience-consolidation/
+/debug.log

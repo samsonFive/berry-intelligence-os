@@ -1,0 +1,30 @@
+/* Existing qualitative Learn visual aids, scoped to their unmounted domain components. */
+.berry-app .berry-learn-teaching { padding: 1.5rem; margin-block: 1.5rem; border: 1px solid var(--berry-line-strong); background: var(--berry-surface-subtle); border-radius: var(--berry-radius); }
+.berry-app .berry-learn-teaching button { color: var(--berry-ink); background: var(--berry-surface); border: 1px solid var(--berry-line-strong); border-radius: 5px; padding: .6rem .8rem; cursor: pointer; }
+.berry-app .berry-learn-teaching button[aria-pressed="true"] { color: var(--berry-forest); background: var(--berry-sage); border-color: var(--berry-forest); }
+.berry-app .berry-learn-steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 1rem; margin-block: 1.25rem; }
+.berry-app .berry-learn-steps article { min-width: 0; }
+.berry-app .berry-learn-steps article > span { color: var(--berry-muted); font-variant-numeric: tabular-nums; }
+.berry-app .berry-learn-icon { display: block; width: 48px; height: 48px; margin-block: .6rem; fill: none; stroke: var(--berry-forest); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.berry-app .berry-learn-step-detail { padding: 1rem; background: var(--berry-surface); border-left: 3px solid var(--berry-forest); }
+.berry-app .berry-learn-limit { margin-top: 1rem; color: var(--berry-muted); }
+.berry-app .berry-learn-teaching footer :is(small,a) { display: block; margin-top: .5rem; }
+.berry-app .berry-learn-mechanism { max-width: 440px; margin: 1.5rem auto; }
+.berry-app .berry-learn-mechanism svg { width: 100%; height: auto; }
+.berry-app .berry-learn-mechanism text { font: 12px var(--berry-font-ui); }
+.berry-app .berry-learn-mechanism figcaption { font-size: .9rem; color: var(--berry-muted); }
+.berry-app .berry-learn-skin { fill: #70455f; }.berry-app .berry-learn-wax { fill: #ccd9e3; }
+.berry-app .berry-learn-soil { fill: #dbcbb3; }.berry-app .berry-learn-water { fill: #7babbf; }
+.berry-app .berry-learn-fruit { fill: #b0b8d3; stroke: #70455f; stroke-width: 2; }
+.berry-app :is(.berry-learn-light,.berry-learn-cover,.berry-learn-stem,.berry-learn-roots,.berry-learn-callout,.berry-learn-post,.berry-learn-wire) { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.berry-app .berry-learn-light { stroke: #b78a30; stroke-width: 3; }.berry-app .berry-learn-cover { stroke: #344a3b; stroke-width: 5; }
+.berry-app .berry-learn-stem { stroke: #4c8b43; stroke-width: 3; }.berry-app .berry-learn-roots { stroke: #8c6e45; stroke-width: 2; }
+.berry-app .berry-learn-callout { stroke: #788479; stroke-width: 1; }.berry-app .berry-learn-post { stroke: #8c6e45; stroke-width: 7; }.berry-app .berry-learn-wire { stroke: #788479; stroke-width: 2; }
+.berry-app .berry-learn-photo { max-width: 500px; margin: 1.5rem 0; }.berry-app .berry-learn-photo img { display: block; width: 100%; height: auto; }
+.berry-app .berry-learn-photo figcaption { padding-top: .65rem; color: var(--berry-muted); }.berry-app .berry-learn-photo small { display: block; margin-block: .4rem; }
+.berry-app .berry-learn-resources article { border-top: 1px solid var(--berry-line); padding-block: .9rem; }.berry-app .berry-learn-resources small { display: block; color: var(--berry-muted); }
+.berry-app .berry-learn-cane [role="group"] { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+.berry-app .berry-learn-cane-stages { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: .75rem; }
+.berry-app .berry-learn-cane-stages article { min-width: 0; }.berry-app .berry-learn-cane-stages svg { max-width: 260px; width: 100%; }
+.berry-app .berry-learn-cane details { margin-bottom: 1rem; }.berry-app .berry-learn-cane summary { cursor: pointer; }
+@media(max-width:500px) { .berry-app .berry-learn-teaching { padding: 1rem; }.berry-app .berry-learn-cane-stages { gap: .3rem; }.berry-app .berry-learn-cane-stages h3 { font-size: 1rem; } }

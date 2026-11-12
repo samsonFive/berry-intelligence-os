@@ -1,0 +1,58 @@
+# Optional override; the ordinary docker-compose.yml remains unchanged.
+# Build/activation require the separately reviewed release plan. No provider turn
+# occurs on startup or on the metadata-only healthcheck.
+services:
+  app:
+    image: berry-intelligence-os:experience-local
+    environment:
+      BIOS_COPILOT_RUNTIME_URL: http://127.0.0.1:8200/copilot
+      BIOS_COPILOT_RUNTIME_TOKEN: ${BIOS_COPILOT_RUNTIME_TOKEN:?set the shared private runtime token}
+      BIOS_RESEARCH_CREDIT_FREE_ONLY: "1"
+      ENABLE_SOURCE_POLLING: "false"
+
+  copilot:
+    build:
+      context: ..
+      dockerfile: copilot-runtime/Dockerfile
+    image: berry-command-runtime:experience-local
+    # An automatic restart must not reset an explicitly granted one-shot permit.
+    restart: "no"
+    init: true
+    network_mode: service:app
+    depends_on:
+      app:
+        condition: service_healthy
+        restart: true
+    environment:
+      BIOS_COPILOT_PORT: "8200"
+      BIOS_COPILOT_RUNTIME_TOKEN: ${BIOS_COPILOT_RUNTIME_TOKEN:?set the shared private runtime token}
+      BIOS_COPILOT_MODEL: perplexity:openai/gpt-5.6-sol
+      PERPLEXITY_API_KEY: ${PERPLEXITY_API_KEY:?use the existing canonical Perplexity API key}
+      BIOS_RESEARCH_CREDIT_FREE_ONLY: "1"
+      # Distinct from an ephemeral rehearsal flag: inherited old permits do not
+      # activate this deployment. Leave 0 until a concrete paid turn is approved.
+      BIOS_COPILOT_ALLOW_PAID_COMPARISON: ${BIOS_COPILOT_DEPLOY_PAID_COMPARISON_PERMIT:-0}
+    # No ports/expose/networks/host aliases: Node uses the app's loopback stack.
+    # No application data, inbox, authoring or credential-file mounts are shared.
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - --input-type=module
+        - -e
+        - >-
+          try {
+            const response = await fetch('http://127.0.0.1:8200/copilot', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'X-Berry-Runtime-Token': process.env.BIOS_COPILOT_RUNTIME_TOKEN },
+              body: JSON.stringify({ method: 'info' }),
+              signal: AbortSignal.timeout(10000)
+            });
+            if (!response.ok) process.exit(1);
+            const body = await response.json();
+            if (!Object.hasOwn(body.agents || body.data?.agents || {}, 'default')) process.exit(1);
+          } catch { process.exit(1); }
+      interval: 20s
+      timeout: 15s
+      start_period: 60s
+      retries: 6

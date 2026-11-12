@@ -1,0 +1,14 @@
+storeDir: .pnpm-store
+verifyDepsBeforeRun: error
+ignoreScripts: true
+minimumReleaseAgeExclude:
+  - '@copilotkit/a2ui-renderer@1.86.0'
+  - '@copilotkit/core@1.86.0'
+  - '@copilotkit/learning@1.86.0'
+  - '@copilotkit/mcp-apps-renderer@1.86.0'
+  - '@copilotkit/react-core@1.86.0'
+  - '@copilotkit/runtime-client-gql@1.86.0'
+  - '@copilotkit/shared@1.86.0'
+  - '@copilotkit/web-components@1.86.0'
+  - '@copilotkit/web-inspector@1.86.0'
+  - vite@8.3.8

@@ -64,12 +64,158 @@ jobs:
             echo "data-migration=false" >> "$GITHUB_OUTPUT"
           fi
 
+  frontend-validation:
+    name: Frontend validation
+    needs: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Docs-only fast path
+        if: needs.change-scope.outputs.docs-only == 'true'
+        run: echo "Markdown-only change; frontend source and dependencies are unchanged."
+      - uses: actions/setup-node@v4
+        if: needs.change-scope.outputs.docs-only != 'true'
+        with:
+          node-version: "24.22.1"
+      - name: Install pinned package manager
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - name: Install locked frontend dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Test investigation state and API contracts
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm test
+      - name: Typecheck and build the persistent application
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: frontend
+        run: pnpm build
+      - name: Install locked command runtime dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: copilot-runtime
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Test runtime authorization without provider calls
+        if: needs.change-scope.outputs.docs-only != 'true'
+        working-directory: copilot-runtime
+        run: pnpm test
+      - name: Build the web container from committed source
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: docker build --tag berry-experience-web:ci .
+      - name: Build the command container from committed source
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: docker build --file copilot-runtime/Dockerfile --tag berry-experience-command:ci .
+      - name: Check container assets and SDK metadata without external networking
+        if: needs.change-scope.outputs.docs-only != 'true'
+        shell: bash
+        run: |
+          docker run --rm --interactive --network none --entrypoint python \
+            --env BIOS_DATA_DIR=/app/seed/data --env BIOS_INBOX_DIR=/tmp/experience-ci-inbox \
+            berry-experience-web:ci - <<'PY'
+          from pathlib import Path
+          from app import main
+          entry = Path('/app/app/static/investigation/index.html')
+          assert entry.is_file() and 'id="root"' in entry.read_text()
+          assert any(Path('/app/app/static/investigation/assets').glob('*.js'))
+          paths = {getattr(route, 'path', '') for route in main.app.routes}
+          assert {'/app/{surface}', '/app/learn/{kind}/{learning_id}', '/api/investigations/v1/saved'} <= paths
+          print('Web image assets and native routes passed.')
+          PY
+          docker run --rm --interactive --network none --entrypoint node \
+            berry-experience-command:ci --input-type=module - <<'JS'
+          import assert from 'node:assert/strict';
+          import { createGuardedHandler, readConfig } from './server.mjs';
+          const token = 'isolated-container-metadata-test-token-only';
+          const handler = createGuardedHandler(readConfig({
+            BIOS_COPILOT_MODEL: 'perplexity:openai/gpt-5.6-sol',
+            PERPLEXITY_API_KEY: 'offline-metadata-fixture-only',
+            BIOS_COPILOT_RUNTIME_TOKEN: token, BIOS_RESEARCH_CREDIT_FREE_ONLY: 'true',
+          }));
+          const response = await handler(new Request('http://127.0.0.1:8200/copilot', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Berry-Runtime-Token': token },
+            body: JSON.stringify({ method: 'info' }),
+          }));
+          assert.equal(response.status, 200);
+          const body = await response.json();
+          assert.ok(Object.hasOwn(body.agents || body.data?.agents || {}, 'default'));
+          console.log('Command image SDK metadata passed; zero model turns.');
+          JS
+      - name: Package the client and verify its exact image bytes
+        if: needs.change-scope.outputs.docs-only != 'true'
+        shell: bash
+        env:
+          CLIENT_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+          import { createHash } from 'node:crypto';
+          if (!/^[a-f0-9]{40}$/.test(process.env.CLIENT_SOURCE_SHA || '')) throw new Error('Expected the checked-out source SHA.');
+          const source = 'app/static/investigation', output = 'artifacts/experience-client';
+          const files = [];
+          async function collect(relative = '') {
+            for (const entry of await fs.readdir(path.join(source, relative), { withFileTypes: true })) {
+              if (entry.name.startsWith('.') || entry.isSymbolicLink()) throw new Error('Unexpected hidden or linked client entry.');
+              const name = path.posix.join(relative, entry.name);
+              if (entry.isDirectory()) await collect(name);
+              else if (entry.isFile()) {
+                const body = await fs.readFile(path.join(source, name));
+                files.push({ path: name, bytes: body.length, sha256: createHash('sha256').update(body).digest('hex') });
+              } else throw new Error('Expected regular client files.');
+            }
+          }
+          await collect(); files.sort((a, b) => a.path.localeCompare(b.path, 'en'));
+          if (!files.some(row => row.path === 'index.html') || files.length > 2000 || files.reduce((sum, row) => sum + row.bytes, 0) > 64 * 1024 * 1024)
+            throw new Error('Unexpected compiled client size or entry.');
+          await fs.mkdir(path.join(output, 'client'), { recursive: true });
+          for (const row of files) {
+            const target = path.join(output, 'client', row.path);
+            await fs.mkdir(path.dirname(target), { recursive: true });
+            await fs.copyFile(path.join(source, row.path), target);
+          }
+          await fs.writeFile(path.join(output, 'client-manifest.json'), JSON.stringify({ version: 1, source_sha: process.env.CLIENT_SOURCE_SHA, files }, null, 2) + '\n', { flag: 'wx' });
+          JS
+          docker run --rm --interactive --network none --entrypoint python \
+            --volume "$PWD/artifacts/experience-client/client-manifest.json:/tmp/client-manifest.json:ro" \
+            berry-experience-web:ci - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          manifest = json.loads(Path('/tmp/client-manifest.json').read_text())
+          root = Path('/app/app/static/investigation')
+          actual = {file.relative_to(root).as_posix(): file for file in root.rglob('*') if file.is_file()}
+          assert set(actual) == {row['path'] for row in manifest['files']}
+          for row in manifest['files']:
+              body = actual[row['path']].read_bytes()
+              assert len(body) == row['bytes'] and hashlib.sha256(body).hexdigest() == row['sha256']
+          print('Compiled client manifest matches every web-image asset byte.')
+          PY
+          docker image inspect --format '{"image_id":{{json .Id}},"bytes":{{.Size}}}' \
+            berry-experience-command:ci > artifacts/experience-client/runtime-image.json
+      - name: Retain the verified client for the reviewed release
+        if: needs.change-scope.outputs.docs-only != 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: experience-client-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: artifacts/experience-client/
+          if-no-files-found: error
+          retention-days: 3
+          compression-level: 6
+          include-hidden-files: false
+
   repository-integrity:
     name: Repository integrity
-    needs: change-scope
+    needs: [change-scope, frontend-validation]
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Require successful scope and frontend checks
+        if: needs.change-scope.result != 'success' || needs.frontend-validation.result != 'success'
+        run: exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0

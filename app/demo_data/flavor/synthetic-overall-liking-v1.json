@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "namespace": "synthetic-sensory-v1",
+  "metric": {
+    "id": "overall_liking",
+    "label": "Synthetic overall liking",
+    "minimum": 1,
+    "maximum": 9,
+    "unit": "illustrative score"
+  },
+  "specimens": [
+    {"id": "demo-specimen-amber", "label": "Specimen Amber", "value": 5.8},
+    {"id": "demo-specimen-birch", "label": "Specimen Birch", "value": 6.4},
+    {"id": "demo-specimen-clover", "label": "Specimen Clover", "value": 4.6},
+    {"id": "demo-specimen-dune", "label": "Specimen Dune", "value": 7.0},
+    {"id": "demo-specimen-elm", "label": "Specimen Elm", "value": 5.2},
+    {"id": "demo-specimen-fern", "label": "Specimen Fern", "value": 6.1}
+  ],
+  "metrics": [
+    {"id": "sweetness", "label": "Sweetness intensity", "scale_type": "intensity", "minimum": 1, "maximum": 9, "minimum_label": "Very low", "maximum_label": "Very high", "unit": "simulated rating"},
+    {"id": "acidity", "label": "Acidity intensity", "scale_type": "intensity", "minimum": 1, "maximum": 9, "minimum_label": "Very low", "maximum_label": "Very high", "unit": "simulated rating"},
+    {"id": "aroma", "label": "Aroma intensity", "scale_type": "intensity", "minimum": 1, "maximum": 9, "minimum_label": "Very low", "maximum_label": "Very high", "unit": "simulated rating"},
+    {"id": "firmness", "label": "Firmness intensity", "scale_type": "intensity", "minimum": 1, "maximum": 9, "minimum_label": "Very low", "maximum_label": "Very high", "unit": "simulated rating"},
+    {"id": "overall_liking", "label": "Overall liking", "scale_type": "hedonic", "minimum": 1, "maximum": 9, "minimum_label": "Dislike extremely", "maximum_label": "Like extremely", "unit": "simulated rating"}
+  ],
+  "brand_profiles": [
+    {
+      "id": "demo-brand-driscolls", "brand_label": "Driscoll's", "label": "SIMULATED · Driscoll's", "synthetic": true,
+      "canonical_entity": {"type": "company", "id": "company-driscolls"},
+      "identity_basis": {"note": "The canonical reference remains a company. These official identity and berry-product pages establish the public label only; they do not substantiate any simulated sensory value.", "urls": ["https://www.driscolls.com/about/heritage", "https://www.driscolls.com/berries"]},
+      "values": {"sweetness": 6.6, "acidity": 5.3, "aroma": 6.1, "firmness": 7.2, "overall_liking": 6.8}
+    },
+    {
+      "id": "demo-brand-fruitist", "brand_label": "Fruitist", "label": "SIMULATED · Fruitist", "synthetic": true,
+      "canonical_entity": {"type": "brand", "id": "brand-fruitist"},
+      "identity_basis": {"note": "Canonical consumer-brand identity. The identity source does not substantiate any simulated sensory value.", "urls": ["https://www.fruitist.com/our-brands"]},
+      "values": {"sweetness": 7.4, "acidity": 4.7, "aroma": 6.8, "firmness": 7.6, "overall_liking": 7.1}
+    },
+    {
+      "id": "demo-brand-ozblu", "brand_label": "OZblu", "label": "SIMULATED · OZblu", "synthetic": true,
+      "canonical_entity": {"type": "brand", "id": "brand-ozblu"},
+      "identity_basis": {"note": "Canonical consumer-and-trade brand identity; genetics ownership remains separate. The identity source does not substantiate any simulated sensory value.", "urls": ["https://united-exports.com/what-we-do/"]},
+      "values": {"sweetness": 6.9, "acidity": 5.1, "aroma": 7.2, "firmness": 7.4, "overall_liking": 7.0}
+    },
+    {
+      "id": "demo-brand-naturipe", "brand_label": "Naturipe", "label": "SIMULATED · Naturipe", "synthetic": true,
+      "canonical_entity": {"type": "company", "id": "company-naturipe-farms"},
+      "identity_basis": {"note": "The canonical reference remains a company. The official Naturipe label and berry-product page establishes identity only, not any simulated sensory value.", "urls": ["https://www.naturipefarms.com/"]},
+      "values": {"sweetness": 6.4, "acidity": 5.8, "aroma": 6.2, "firmness": 6.9, "overall_liking": 6.5}
+    },
+    {
+      "id": "demo-brand-wish-farms", "brand_label": "Wish Farms", "label": "SIMULATED · Wish Farms", "synthetic": true,
+      "canonical_entity": {"type": "company", "id": "company-wish-farms"},
+      "identity_basis": {"note": "The canonical reference remains a company. Official consumer-brand history and blueberry packaging establish the public label only; they do not substantiate any simulated sensory value.", "urls": ["https://wishfarms.com/our-story/", "https://wishfarms.com/wp-content/uploads/2024/10/Wish-Farms_Blueberry-One-Sheet-2024.pdf"]},
+      "values": {"sweetness": 6.8, "acidity": 5.5, "aroma": 6.7, "firmness": 7.0, "overall_liking": 6.9}
+    },
+    {
+      "id": "demo-brand-california-giant", "brand_label": "California Giant", "label": "SIMULATED · California Giant", "synthetic": true,
+      "canonical_entity": {"type": "company", "id": "company-california-giant-berry-farms"},
+      "identity_basis": {"note": "The canonical reference remains a company. The official berry-product and packaging identity establishes the public label only; it does not substantiate any simulated sensory value.", "urls": ["https://www.calgiant.com/"]},
+      "values": {"sweetness": 6.2, "acidity": 6.0, "aroma": 6.4, "firmness": 7.1, "overall_liking": 6.6}
+    }
+  ],
+  "scope_note": "Fictitious specimen values and simulated brand profiles only. Country, actor, portfolio, development-date and company-tier filters do not apply.",
+  "disclaimer": "Synthetic demonstration. These illustrative values are not measured consumer results and do not describe actual brand or cultivar performance. Public brand labels and typed canonical identities are separate from the invented values; identity sources do not validate those values. Each profile has one example value per metric; no distribution or statistical inference is supported. Intensity is not preference or quality."
+}

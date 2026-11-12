@@ -17,6 +17,11 @@ from app.services.variety_workspace import ROLE_BUCKETS
 SECTIONS = {"companies": "Companies", "varieties": "Varieties", "sources": "Latest sources", "signals": "Signals", "assessments": "Assessments"}
 FIELDS = ("berry", "company", "variety", "countries", "list", "tier", "favorites", "window", "start", "end", "section")
 EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit", "favorites", "tier", "list")
+INVESTIGATION_FIELDS = (
+    "ctx_v", "berry", "countries", "geo_basis", "actor_roles", "relationship_types",
+    "news_from", "news_to", "focus", "cohort_companies", "cohort_varieties", "lens",
+    "comparison_kind", "detail_path", "demo_specimens", "company_set", "q", "q_scope", "saved_view_id", "saved_revision",
+)
 VIEW_FILE = "landscape_views.json"
 WATCHLIST_FIELDS = ("berry", "q", "tier", "group", "region", "market", "entity", "followed", "source_type", "event_type", "priority", "type", "letter", "favorites", "company_tier", "list", "tag", "tag_mode")
 DEFAULT_WATCHLIST_BERRIES = ("blueberry", "blackberry", "strawberry", "raspberry")
@@ -253,6 +258,14 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
     kind = kind or before.get("kind", "overview")
     if kind not in {"overview", "explorer"} or view_id and kind != before.get("kind", "overview"):
         raise ValueError("Open this saved view in its original Landscape surface before updating it")
+    investigation = str(filters.get("ctx_v") or "") == "1"
+    previous_investigation = str((before.get("filters") or {}).get("ctx_v") or "") == "1"
+    if investigation and (kind != "explorer" or surface or view_id and not previous_investigation):
+        raise ValueError("Save this investigation as a new view; the original view keeps its original meaning")
+    if previous_investigation and not investigation:
+        raise ValueError("Open this saved investigation in the new Landscape before updating it")
+    if filters.get("ctx_v") and not investigation:
+        raise ValueError("This investigation version is not supported")
     if str(before["revision"]) != str(revision):
         raise ValueError("Saved view changed in another window; reload before saving")
     name = str(name).strip()
@@ -262,6 +275,19 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
         raise ValueError("This view name already exists; choose it to update its scope")
     key = view_id or "lview-" + uuid4().hex
     fields = WATCHLIST_FIELDS if surface == 'watchlist' else EXPLORER_FIELDS if kind == "explorer" else FIELDS
+    if investigation:
+        from app.services.investigation_api import normalize_context
+        context, _ = normalize_context(filters)
+        # Keep legacy Explorer selectors as fallback for older clients, alongside
+        # the complete versioned envelope. The new route restores this directly,
+        # never passing it through Explorer's narrowing selection() parser.
+        filters = {**filters, **context}
+        legacy_defaults = {"view": "portrait", "window": "all", "time": "published", "evidence": "reviewed",
+                           "status": "all", "theme": "light", "limit": "100"}
+        for field, default in legacy_defaults.items():
+            if not filters.get(field):
+                filters[field] = default
+        fields = tuple(dict.fromkeys((*EXPLORER_FIELDS, *INVESTIGATION_FIELDS)))
     if surface == 'watchlist':
         if kind != 'overview' or filters.get('berry', '') not in {'', *('berry-' + berry for berry in DEFAULT_WATCHLIST_BERRIES)}:
             raise ValueError('Choose a supported watchlist berry scope')
@@ -282,9 +308,26 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
     return row
 
 
+def investigation_filters(row):
+    """Read old ctx_v1 rows with the additive default, without rewriting storage.
+
+    An explicitly present invalid value stays visible; only absence is legacy.
+    """
+    filters = dict(row.get("filters") or {})
+    if filters.get("ctx_v") == "1" and "company_set" not in filters:
+        filters["company_set"] = "all"
+    return filters
+
+
 def view_href(row):
+    filters = investigation_filters(row)
     if row.get('surface') == 'watchlist':
         return '/global-watchlist?' + urlencode({'saved_view': row['id']})
     if row.get("kind") == "explorer":
+        if str(row.get("filters", {}).get("ctx_v") or "") == "1":
+            return "/app/landscape?" + urlencode({
+                **{field: filters.get(field, "") for field in INVESTIGATION_FIELDS},
+                "saved_view_id": row["id"], "saved_revision": str(row["revision"]),
+            })
         return "/landscapes/explorer?" + urlencode({"saved_view": row["id"]})
     return "/landscapes?" + urlencode({**row["filters"], "configured": "1", "saved_view": row["id"]})

@@ -9,9 +9,10 @@ from __future__ import annotations
 
 import threading
 import time
+import re
 from collections import defaultdict
 from typing import Any
-from urllib.parse import quote, unquote, urlparse
+from urllib.parse import parse_qsl, quote, unquote, urlencode, urlparse
 
 from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
@@ -101,11 +102,30 @@ def auth_template_context(request: Request) -> dict[str, Any]:
     }
 
 
+def is_investigation_path(path: str) -> bool:
+    if path in {"/app/landscape", "/app/briefing", "/app/workspaces", "/app/learn"}:
+        return True
+    match = re.fullmatch(r"/app/learn/(?:concept|lesson)/([A-Za-z0-9_.-]{1,180})", path)
+    return bool(match and match.group(1) not in {".", ".."})
+
+
 def safe_next_path(raw: str | None) -> str:
     """Allow only local absolute paths. Reject open redirects."""
 
     if not raw:
         return DEFAULT_NEXT_PATH
+    original_text = str(raw).strip()
+    try:
+        original_parts = urlparse(original_text)
+    except ValueError:
+        return DEFAULT_NEXT_PATH
+    if (not original_parts.scheme and not original_parts.netloc and is_investigation_path(original_parts.path)):
+        # Only these fixed local paths accept a larger explicit context. Query
+        # text can legitimately contain a URL; it cannot change the destination.
+        rebuilt = original_parts.path + ("?" + original_parts.query if original_parts.query else "")
+        if len(rebuilt) > 4096 or any(ord(char) < 32 for char in unquote(original_text)):
+            return DEFAULT_NEXT_PATH
+        return rebuilt
     candidate = unquote(str(raw)).strip()
     if not candidate.startswith("/") or candidate.startswith("//"):
         return DEFAULT_NEXT_PATH
@@ -124,7 +144,18 @@ def safe_next_path(raw: str | None) -> str:
     rebuilt = path
     if parsed.query:
         rebuilt = f"{path}?{parsed.query}"
-    if any(ord(char) < 32 for char in rebuilt) or len(rebuilt) > 512:
+    # The investigation URL explicitly carries its bounded cohort and nested
+    # detail path. Preserve those deep links through login without expanding
+    # the accepted length of unrelated legacy redirects.
+    investigation_path = is_investigation_path(path)
+    maximum = 4096 if investigation_path else 512
+    if investigation_path:
+        original = urlparse(str(raw).strip())
+        if original.path == path:
+            # Preserve escaped query delimiters in search text: decoding %26
+            # into '&' here would change the investigation after login.
+            rebuilt = path + ("?" + original.query if original.query else "")
+    if any(ord(char) < 32 for char in candidate) or len(rebuilt) > maximum:
         return DEFAULT_NEXT_PATH
     return rebuilt
 
@@ -133,6 +164,46 @@ def requested_local_path(request: Request) -> str:
     path = request.url.path or "/"
     query = request.url.query
     return f"{path}?{query}" if query else path
+
+
+def investigation_return_context(request: Request) -> dict[str, Any]:
+    """A bounded explicit return from retained full dossiers/readers to React."""
+    raw = request.query_params.get("return_to", "")
+    candidate = safe_next_path(raw) if raw else ""
+    result: dict[str, Any] = {"investigation_return_href": "", "investigation_header_links": {},
+                              "investigation_header_current": ""}
+    if not candidate or not is_investigation_path(urlparse(candidate).path):
+        return result
+    result["investigation_return_href"] = candidate
+    # Header context is stronger than a safe navigation destination: it must
+    # carry the supported typed selection and have no ambiguous selector values.
+    from app.services.investigation_api import CONTEXT_FIELDS, context_query, normalize_context
+    try:
+        target = urlparse(candidate)
+        pairs = parse_qsl(target.query, keep_blank_values=True, max_num_fields=80)
+        selectors = {}
+        for key, value in pairs:
+            if key in CONTEXT_FIELDS:
+                if key in selectors:
+                    return result
+                selectors[key] = value
+        if selectors.get("ctx_v") != "1":
+            return result
+        context, _issues = normalize_context(selectors)
+        query = context_query(context)
+        native_return = target.path + "?" + query
+        links = {name: "/app/" + name + "?" + query for name in ("landscape", "briefing", "learn")}
+        links["workspaces"] = "/workspaces?" + urlencode({"return_to": native_return})
+        links["save"] = "/app/workspaces?" + query
+        if any(len(href) > 4096 for href in links.values()):
+            return result
+    except (TypeError, ValueError):
+        return result
+    result["investigation_header_links"] = links
+    path = request.url.path.rstrip("/")
+    if path == "/workspaces" or path.startswith("/workspaces/"):
+        result["investigation_header_current"] = "workspaces"
+    return result
 
 
 def login_redirect(request: Request) -> Response:

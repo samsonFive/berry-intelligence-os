@@ -1,0 +1,95 @@
+/* Follow the mature Workspaces cascade, including its shared chrome and sheet.
+   Domain renderers, trust labels and the established News cards retain meaning. */
+body:has(> #root > .berry-app) { background: radial-gradient(ellipse at 5% 0, #dcedc9, transparent 55%), #eef3e9; }
+.berry-app {
+  --berry-canvas: transparent; --berry-surface: #fff; --berry-surface-subtle: #f0f4ef;
+  --berry-ink: #20372d; --berry-ink-strong: #20372d; --berry-muted: #52695c;
+  --berry-faint: #617568; --berry-forest: #204f39; --berry-forest-hover: #153d29;
+  --berry-sage: #e5efdf; --berry-sage-strong: #c5d3c7;
+  --berry-line: #d0ddcf; --berry-line-strong: #b9cbbd;
+  --berry-info: #355d89; --berry-amber: #815715; --berry-focus: #428353;
+  --berry-font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --berry-radius: 6px; font-size: 13px; line-height: 1.5;
+}
+.berry-app .berry-topbar { position: sticky; top: 0; z-index: 100; min-height: 63px; gap: 18px; padding: 12px 22px; background: #fafdf3e8; backdrop-filter: blur(18px); border-bottom: 1px solid #9caf93; }
+.berry-app .berry-brand { gap: 9px; font: 400 21px/1.15 var(--berry-font-ui); color: #20372d; letter-spacing: 0; }
+.berry-app .berry-brand img { flex-shrink: 0; width: 36px; height: 36px; }
+.berry-app .berry-brand > span:not([class]) { margin: 0; font: inherit; letter-spacing: 0; }
+.berry-app .berry-brand b { font-weight: 700; }
+.berry-app .berry-brand small { display: block; font-size: 8px; letter-spacing: 2px; margin-top: 5px; }
+.berry-app .berry-nav { margin-left: auto; gap: 1px; align-items: center; }
+.berry-app .berry-nav > a { min-height: 32px; padding: 7px 8px; font-size: 12px; color: #20372d; border-radius: 8px; }
+.berry-app .berry-nav > :is([aria-current='page'], .active) { color: #20372d; background: #dceccc; box-shadow: 0 2px #428353; }
+.berry-app .berry-topbar-actions { margin-left: 0; gap: 5px; font-size: 12px; }
+.berry-app .berry-topbar-actions .berry-button { font-size: 12px; padding: 5px 7px; }
+.berry-app .berry-workspace-nav { position: sticky; top: 63px; z-index: 80; display: flex; align-items: center; gap: 8px; max-width: 1876px; margin: 12px 22px 0; padding: 7px 12px; min-height: 41px; background: #204f39; color: white; border-bottom: 1px solid #153d29; box-shadow: 0 2px 5px #163c2920; }
+.berry-app .berry-workspace-nav > div { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+.berry-app .berry-workspace-nav :is(a, button) { flex-shrink: 0; padding: 4px 9px; background: transparent; border: 0; border-radius: 4px; color: #f1f6ef; font: 400 12px/1.5 var(--berry-font-ui); text-decoration: none; white-space: nowrap; cursor: pointer; }
+.berry-app .berry-workspace-nav .berry-workspace-nav-title { padding: 4px 9px; color: #f1f6ef; font: 700 12px/1.5 var(--berry-font-ui); white-space: nowrap; }
+.berry-app .berry-workspace-nav :is(a:hover, button:hover, button[aria-pressed='true']) { background: #e5efdf; color: #183e2a; }
+.berry-app .berry-context-layout { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: start; gap: 14px; max-width: 1920px; padding: 0 22px; margin: 14px auto 28px; }
+.berry-app .berry-context-layout > .berry-workspace { min-width: 0; padding: 0; gap: 14px; }
+.berry-app .berry-research-sidebar { min-width: 0; padding: 12px 10px; border: 1px solid #c5d3c7; border-radius: 6px; background: #e7efe3; }
+.berry-app .berry-research-sidebar h2 { margin: 4px 0 12px; font: 700 18px/1.3 var(--berry-font-ui); }
+.berry-app .berry-research-sidebar .berry-eyebrow { font-size: 10px; line-height: 1.5; letter-spacing: .12em; color: #52695c; margin: 0; }
+.berry-app .berry-research-sidebar nav { display: grid; gap: 4px; margin: 5px 0 18px; }
+.berry-app .berry-research-sidebar nav :is(a, button) { display: block; width: 100%; text-align: left; padding: 6px 7px; border: 0; border-radius: 4px; background: transparent; color: #294c3e; text-decoration: none; font: 400 12px/1.4 var(--berry-font-ui); cursor: pointer; }
+.berry-app .berry-research-sidebar nav :is(a:hover, button:hover) { background: #dce8d8; }
+.berry-app .berry-research-sidebar nav [aria-current] { border-left: 3px solid #759e6a; padding-left: 4px; background: #204f39; color: white; font-weight: 650; }
+.berry-app .berry-sidebar-help { border-top: 1px solid #c5d3c7; padding-top: 8px; font-size: 11px; color: #52695c; }
+.berry-app .berry-sidebar-help summary { cursor: pointer; }
+.berry-app .berry-sidebar-help p { margin-top: 6px; }
+.berry-app .berry-document { min-width: 0; min-height: 75vh; padding: 14px 16px; background: #fff; border: 1px solid #b9cbbd; border-radius: 6px; box-shadow: 0 2px 6px #213b2808; }
+.berry-app .berry-document > .berry-scopebar { margin-bottom: 12px; }
+.berry-app .berry-document :is(h1, h2, h3) { text-wrap: pretty; }
+.berry-app .berry-document h1 { font: 600 25px/1.2 var(--berry-font-ui); letter-spacing: -.02em; }
+.berry-app .berry-document .berry-landscape-titlebar { margin: 0 0 10px; min-height: 35px; }
+.berry-app .berry-document .berry-landscape-titlebar h1 { font: 600 25px/1.2 var(--berry-font-ui); }
+.berry-app .berry-document .berry-landscape-title { display: block; }
+.berry-app .berry-document .berry-landscape-title .berry-subtitle { margin-top: 5px; font-size: 12px; color: #52695c; }
+.berry-app .berry-landscape-page > .berry-scopebar { background: #f0f4ef; border: 1px solid #c5d3c7; border-radius: 5px; padding: 6px 8px; margin: 0 0 10px; }
+.berry-app .berry-document .berry-section-heading h2 { font: 650 16px/1.35 var(--berry-font-ui); }
+.berry-app .berry-button, .berry-app .berry-document :is(input, select) { border-radius: 4px; }
+.berry-app .berry-button { border-color: #b9cbbd; }
+.berry-app .berry-segmented :is([aria-pressed='true'], [aria-selected='true']) { background: #204f39; color: #fff; box-shadow: none; }
+.berry-app .berry-document :is(.berry-source-link, .berry-text-button) { color: #315f7a; }
+.berry-app .berry-document .berry-entity-button { color: #214735; }
+.berry-app .berry-landscape-page .berry-readout { border: 1px solid #c5d3c7; border-radius: 5px; background: #f0f4ef; padding: 7px 9px; margin-bottom: 10px; }
+.berry-app .berry-landscape-page .berry-readout-title { position: static !important; width: auto; height: auto; clip: auto; margin: 0 0 5px; color: #355d89; font-size: 10px; letter-spacing: .08em; }
+.berry-app .berry-landscape-page .berry-findings { gap: 8px; }
+.berry-app .berry-landscape-page .berry-finding, .berry-app .berry-landscape-page .berry-finding + .berry-finding { padding: 0 8px 0 0; background: transparent; }
+.berry-app .berry-landscape-page .berry-finding p { font: 500 12px/1.45 var(--berry-font-ui); }
+.berry-app .berry-landscape-page .berry-finding .berry-inline-citations { display: block; margin: 3px 0 0; }
+.berry-app .berry-landscape-page .berry-finding .berry-inline-citations > * { font-size: 11px; }
+.berry-app .berry-investigation-tools { padding: 5px 0 9px; margin-bottom: 4px; border-bottom: 1px solid #c5d3c7; }
+.berry-app .berry-investigation-tools .berry-comparison-tray { font-size: 12px; }
+.berry-app .berry-analysis-layout > .berry-analytical { padding-bottom: 0; }
+.berry-app .berry-grid-preferences, .berry-app .berry-grid-layout-status { background: #f0f4ef; padding: 6px 8px; border: 1px solid #c5d3c7; border-radius: 5px; }
+.berry-app .berry-grid-layout-status[data-phase='ready'], .berry-app .berry-grid-layout-status[data-phase='saved'] { padding: 0; border: 0; background: transparent; min-height: 22px; }
+.berry-app .berry-portfolio-grid .ag-header-cell-text { color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+.berry-app .berry-portfolio-grid .ag-cell { font-size: 12px; padding: 6px 7px; line-height: 1.4; }
+.berry-app .berry-portfolio-grid .ag-header-cell { border-right: 1px solid #789884; }
+.berry-app .berry-detail { top: 116px; max-height: calc(100dvh - 128px); background: #fff; border-color: #b9cbbd; border-radius: 6px; }
+.berry-app .berry-method-notes { margin-top: 12px; border-top: 1px solid #c5d3c7; padding-top: 7px; }
+@media (min-width: 1964px) { .berry-app .berry-workspace-nav { margin-inline: auto; } }
+@media (max-width: 1120px) {
+  .berry-app .berry-topbar { padding: 10px 14px; gap: 10px; flex-wrap: wrap; }
+  .berry-app .berry-nav { margin-left: auto; }
+  .berry-app .berry-topbar-actions { margin-left: auto; }
+  .berry-app .berry-workspace-nav { position: relative; top: auto; margin: 8px 14px 0; }
+  .berry-app .berry-context-layout { padding-inline: 14px; grid-template-columns: 150px minmax(0, 1fr); }
+}
+@media (max-width: 850px) {
+  .berry-app .berry-context-layout { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .berry-app .berry-research-sidebar { padding: 8px; }
+  .berry-app .berry-research-sidebar > h2, .berry-app .berry-research-sidebar > .berry-eyebrow, .berry-app .berry-sidebar-help { display: none; }
+  .berry-app .berry-research-sidebar nav { display: flex; flex-wrap: wrap; gap: 3px; margin: 0 0 5px; }
+  .berry-app .berry-research-sidebar nav :is(a, button) { width: auto; padding: 5px 7px; }
+  .berry-app .berry-research-sidebar nav:last-of-type { margin-bottom: 0; }
+  .berry-app .berry-document { padding: 10px; }
+  .berry-app .berry-workspace-nav { align-items: flex-start; flex-wrap: wrap; padding: 7px 8px; }
+  .berry-app .berry-workspace-nav > div { margin-left: 0; max-width: 100%; }
+  .berry-app .berry-topbar { position: relative; }
+  .berry-app .berry-detail { z-index: 120; top: 0; max-height: 100dvh; border-radius: 0; }
+}
+@media print { .berry-app .berry-context-layout { display: block; padding: 0; } .berry-app .berry-research-sidebar, .berry-app .berry-workspace-nav { display: none; } .berry-app .berry-document { border: 0; padding: 0; } }

@@ -1,0 +1,41 @@
+.berry-app .berry-flavor-heading { margin-bottom: 10px; }
+.berry-app .berry-flavor-heading h2 { display: inline; font-size: 18px; margin-left: 8px; }
+.berry-app .berry-flavor-heading p { margin: 5px 0 0; color: var(--berry-muted); font-size: 12px; }
+.berry-app .berry-simulated-badge { display: inline-block; border: 1px solid #c4ae7e; border-radius: 3px; padding: 2px 5px; background: #faf3e4; color: #79551e; font-size: 10px; font-weight: 700; letter-spacing: .06em; white-space: nowrap; }
+.berry-app .berry-brand-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 7px 0 10px; border: 0; }
+.berry-app .berry-brand-choices legend { margin: 0 0 5px; padding: 0; font-size: 11px; color: var(--berry-muted); }
+.berry-app .berry-brand-choices > label { display: flex; align-items: center; gap: 7px; min-width: 0; margin: 0; padding: 7px 8px; border: 1px solid #c5d3c7; border-top: 3px solid #acbda5; border-radius: 5px; background: #fff; cursor: pointer; }
+.berry-app .berry-brand-choices > label[data-selected='true'] { background: #f0f5ef; border-top-color: #204f39; }
+.berry-app .berry-brand-choices input { flex-shrink: 0; accent-color: #204f39; }
+.berry-app .berry-brand-choices > label > span { min-width: 0; }
+.berry-app .berry-brand-choices strong { display: block; font-size: 13px; }
+.berry-app .berry-brand-choices small { display: block; font-size: 10px; color: #815715; letter-spacing: .04em; }
+.berry-app .berry-brand-choices .berry-brand-logo { max-width: 36px; max-height: 30px; }
+.berry-app .berry-flavor-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 6px 8px; margin-bottom: 10px; border: 1px solid #c5d3c7; border-radius: 5px; background: #f0f4ef; }
+.berry-app .berry-flavor-toolbar label { display: flex; align-items: center; gap: 7px; font-size: 12px; }
+.berry-app .berry-flavor-toolbar select { min-height: 29px; border: 1px solid #b9cbbd; background: white; padding: 4px 7px; color: #20372d; }
+.berry-app .berry-flavor-toolbar > p { margin: 0; font-size: 11px; color: var(--berry-muted); }
+.berry-app .berry-flavor-toolbar > button { margin-left: auto; }
+.berry-app .berry-flavor-panels { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; gap: 10px; }
+.berry-app .berry-flavor-panel { min-width: 0; border: 1px solid #b9cbbd; border-top: 3px solid #355d89; border-radius: 5px; background: white; }
+.berry-app .berry-flavor-panel > header { display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 8px 10px; border-bottom: 1px solid #d0ddcf; }
+.berry-app .berry-flavor-panel h3 { font-size: 15px; line-height: 1.35; margin: 0; }
+.berry-app .berry-flavor-panel > svg { display: block; width: 100%; padding: 8px 5px; color: #20372d; }
+.berry-app .berry-flavor-panel svg text { fill: currentColor; font: 12px var(--berry-font-ui); }
+.berry-app .berry-flavor-guide { stroke: #dbe4d8; stroke-width: 1; }
+.berry-app .berry-flavor-stem { stroke: #adc7ac; stroke-width: 3; }
+.berry-app .berry-flavor-point { fill: #204f39; }
+.berry-app .berry-flavor-matrix table { min-width: 420px; width: 100%; font-size: 11px; border-collapse: collapse; }
+.berry-app .berry-flavor-matrix caption { padding: 5px 7px; color: #815715; text-align: left; font-size: 10px; }
+.berry-app .berry-flavor-matrix :is(th, td) { padding: 6px; border: 1px solid #d0ddcf; text-align: left; }
+.berry-app .berry-flavor-matrix thead th { background: #254b36; color: white; font-size: 10px; }
+.berry-app .berry-flavor-matrix tbody th { font-weight: 600; }
+.berry-app .berry-flavor-matrix tbody tr:nth-child(even) { background: #f0f5ef; }
+.berry-app .berry-flavor-matrix tbody [data-current='true'] { background: #e5efdf; color: #153d29; font-weight: 700; }
+.berry-app .berry-flavor-matrix > p { padding: 7px 9px; color: var(--berry-muted); font-size: 11px; margin: 0; }
+.berry-app .berry-flavor-intro { padding: 10px; background: #f0f4ef; border: 1px solid #c5d3c7; margin-bottom: 12px; }
+.berry-app .berry-flavor-intro h2 { margin: 7px 0 5px; }
+.berry-app .berry-flavor-intro p { font-size: 12px; }
+.berry-app .berry-flavor-legacy { margin-top: 10px; }
+@media (max-width: 1100px) { .berry-app .berry-flavor-panels { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { .berry-app .berry-brand-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); } .berry-app .berry-flavor-toolbar label { flex-wrap: wrap; } .berry-app .berry-flavor-heading h2 { display: block; margin: 6px 0 0; } }

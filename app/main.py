@@ -413,6 +413,7 @@ from app.services.story_threads import (
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
+    investigation_return_context,
     clear_login_failures,
     clear_session,
     establish_session,
@@ -612,6 +613,13 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="s
 async def private_briefings_middleware(request: Request, call_next):
     """Private reporting stores/actions must not open in published-only mode."""
     path = request.url.path.rstrip("/")
+    if path == "/static/investigation/index.html":
+        if not AUTHORING_MODE:
+            return HTMLResponse("Investigations require private authoring access.", status_code=403)
+        # Assets are code-only; the application HTML always enters through the
+        # session-protected /app route, including direct built-index requests.
+        target = "/app/landscape" + ("?" + request.url.query if request.url.query else "")
+        return RedirectResponse(target, status_code=307, headers={"Cache-Control": "private, no-store"})
     private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports", "/monitor", "/operations", "/watches", "/watchtower", "/queues/monitoring", "/review-ops", "/collection-ops", "/research-ops", "/coverage-assurance"}
     private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/", "/watches/", "/watchtower/", "/review-ops/", "/collection-ops/"))
     if not AUTHORING_MODE and (private_home or private_detail):
@@ -982,7 +990,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
 templates = Jinja2Templates(
     directory=BASE_DIR / "app" / "templates",
-    context_processors=[auth_template_context, nav_work_template_context],
+    context_processors=[auth_template_context, nav_work_template_context, investigation_return_context],
 )
 def pending_review_count_value() -> int:
     """Sidebar badge. Prefer warm nav cache; avoid a second full rescan."""
@@ -7317,7 +7325,10 @@ def _intelligence_page_context(
     if AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, INBOX_DIR)
-    entities = entity_index()
+    entities = (
+        get_repositories(DATA_DIR, SCHEMAS_DIR).entities.reader_index(include_workspace=AUTHORING_MODE)
+        if overlay else entity_index()
+    )
     source_index = _source_index()
     is_article = classify_kind(record) == "article"
     reading_record = record
@@ -11375,3 +11386,13 @@ from app.global_watchlist_routes import router as global_watchlist_router
 app.include_router(global_watchlist_router)
 from app.variety_research_routes import router as variety_research_router
 app.include_router(variety_research_router)
+from app.experience_routes import router as experience_router
+app.include_router(experience_router)
+from app.investigation_routes import router as investigation_router
+app.include_router(investigation_router)
+from app.copilot_gateway import router as copilot_gateway_router
+app.include_router(copilot_gateway_router)
+from app.investigation_export_routes import router as investigation_export_router
+app.include_router(investigation_export_router)
+from app.experience_learning_routes import router as experience_learning_router
+app.include_router(experience_learning_router)

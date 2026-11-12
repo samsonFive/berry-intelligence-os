@@ -1,0 +1,5 @@
+.berry-copilot { padding: var(--berry-space-5, 1.25rem); }
+.berry-copilot > header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.berry-copilot h2 { font-size: 1.5rem; margin-top: 0; }
+.berry-copilot textarea { display: block; box-sizing: border-box; width: 100%; margin: .65rem 0; min-height: 7rem; padding: .75rem; font: inherit; resize: vertical; color: inherit; background: var(--berry-surface, #fffdf8); border: 1px solid var(--berry-border, #d8ddd2); border-radius: .45rem; }
+.berry-command-actions { display: flex; gap: .6rem; align-items: center; }

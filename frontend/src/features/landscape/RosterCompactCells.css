@@ -1,0 +1,58 @@
+.berry-app .berry-roster-compact {
+  min-width: 0;
+  color: #273c30;
+  font: 12px/1.22 var(--berry-font-ui);
+}
+.berry-app .berry-roster-compact p { margin: 0; }
+.berry-app .berry-roster-compact-counts,
+.berry-app .berry-roster-compact-type,
+.berry-app .berry-roster-compact-berries,
+.berry-app .berry-roster-compact-unknown { color: #59685e; font-size: 11px; }
+.berry-app .berry-roster-compact-counts { margin-bottom: 2px; }
+.berry-app .berry-roster-compact-names,
+.berry-app .berry-roster-compact-role-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.berry-app .berry-roster-compact-names > li,
+.berry-app .berry-roster-compact-role-list > li { min-width: 0; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-type { margin-right: 4px; font-size: 10px; }
+.berry-app .berry-roster-compact-identity-note { margin-left: 4px; color: #765018; font-size: 11px; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-names .berry-program-label { display: none; }
+.berry-app .berry-roster-compact-names .berry-entity-name { font-size: inherit; font-weight: 550; line-height: inherit; }
+.berry-app .berry-roster-compact-role-list { font-size: 11px; font-weight: 600; }
+.berry-app .berry-roster-compact-berries { display: flex; flex-wrap: wrap; gap: 1px 6px; margin-top: 3px; }
+.berry-app .berry-roster-compact-berries > span:not(:last-child)::after { content: ' ·'; }
+.berry-app .berry-roster-compact-details { margin-top: 2px; }
+.berry-app .berry-roster-compact-details > summary {
+  color: #355340;
+  font-size: 11px;
+  line-height: 1.25;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.berry-app .berry-roster-compact-details[open] > summary { margin-bottom: 4px; }
+.berry-app .berry-roster-compact-details:focus-within { position: relative; z-index: 1; }
+.berry-app .berry-roster-compact-qualification > summary > span:first-child { font-weight: 400; }
+.berry-app .berry-roster-compact-qualification strong { font-weight: 650; }
+.berry-app .berry-roster-compact-flow { margin-left: 5px; color: #59685e; font-size: 10px; }
+.berry-app .berry-roster-compact-direct { margin: 0; padding: 0; list-style: none; }
+.berry-app .berry-roster-compact-direct > li { min-width: 0; overflow-wrap: anywhere; }
+.berry-app .berry-roster-compact-direction { margin-right: 4px; font-weight: 650; }
+.berry-app .berry-roster-compact-direct-role { color: #59685e; font-size: 11px; }
+.berry-app .berry-roster-compact-limit {
+  display: block;
+  color: #765018;
+  font-size: 11px;
+  line-height: 1.25;
+}
+.berry-app .berry-roster-compact-limit:empty { display: none; }
+.berry-app .berry-roster-compact-paths { display: grid; gap: 4px; }
+.berry-app .berry-roster-compact-paths .berry-relationship-edge { border-left: 0; }
+.berry-app .berry-roster-compact-paths .berry-material-caveat { margin-top: 2px; }
+.berry-app .berry-roster-compact-collection .berry-roster-compact-state { display: block; font-size: 11px; font-weight: 650; }
+.berry-app .berry-roster-compact-collection .berry-roster-compact-details p + p { margin-top: 3px; }

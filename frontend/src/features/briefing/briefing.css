@@ -1,0 +1,22 @@
+.berry-app .berry-briefing-page > .berry-page-heading { padding-bottom: 8px; margin-bottom: 0; border-bottom: 1px solid var(--berry-line-strong); }
+.berry-app .berry-briefing-page .berry-page-heading h1 { font-size: 23px; }
+.berry-app .berry-briefing-basis { display: flex; align-items: end; justify-content: space-between; gap: 12px; padding: 9px 0; }
+.berry-app .berry-briefing-basis > div { max-width: 80ch; }
+.berry-app .berry-briefing-basis h2 { margin: 3px 0; font-size: 17px; line-height: 1.3; }
+.berry-app .berry-briefing-basis p { margin-bottom: 7px; font-size: 12px; color: var(--berry-muted); }
+.berry-app .berry-briefing-basis > a { flex-shrink: 0; }
+.berry-app .berry-briefing-deeper-note { margin-top: 18px; font-size: 11px; }
+.berry-app .berry-briefing-boundaries { border-top: 1px solid var(--berry-line-strong); margin-top: 14px; padding-top: 10px; }
+.berry-app .berry-briefing-boundaries h2 { font-size: 17px; margin-bottom: 5px; }
+.berry-app .berry-briefing-boundaries > p { color: var(--berry-muted); font-size: 12px; }
+.berry-app .berry-briefing-boundaries nav { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 16px; }
+.berry-app .berry-briefing-boundaries nav a { max-width: 230px; padding-block: 7px; color: var(--berry-forest); text-decoration: none; font-size: 12px; }
+.berry-app .berry-briefing-boundaries nav a strong { display: block; font-weight: 600; }
+.berry-app .berry-briefing-boundaries nav a span { display: block; margin-top: 4px; color: var(--berry-muted); font-size: 11px; }
+.berry-app .berry-briefing-boundaries nav a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 1000px) {
+  .berry-app .berry-briefing-basis { flex-wrap: wrap; align-items: start; }
+}
+@media (max-width: 600px) {
+  .berry-app .berry-briefing-boundaries nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+}
