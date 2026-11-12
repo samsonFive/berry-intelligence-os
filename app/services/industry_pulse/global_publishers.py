@@ -65,4 +65,6 @@ def expanded_publisher_feeds():
                 rows[-1]['access_note']='Official food-category RSS, latest 20 notices. Shallow window; earlier notices require archive review. French mûre alone is ambiguous and does not assign blackberry.'
     from app.services.industry_pulse.public_record_feeds import FSA_FEED
     rows.append(dict(FSA_FEED))
+    from app.services.industry_pulse.official_listings import official_listing_feeds
+    rows.extend(official_listing_feeds())
     return rows

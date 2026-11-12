@@ -4063,3 +4063,6 @@ not these release gates. The real retained-post-to-packaging-image acceptance
 case remains unproven. Owners remain media acquisition/integration and release
 coordination. See [initial cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
 [integration checkpoint](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
+
+November 12 official-listing debt: direct bounded SAG/SENASA metadata discovery closes opaque resolution-title crop misses without relying on a news index. Fixed first-page native crop filters and two-page Peru budgets leave body-only crop mentions, deeper archives, synonyms, document attachments and independent first-public visibility open. Chile latest berry listing remains September 8; do not present checked transport as fresh berry yield. Unknown dates and failed pages remain explicit. Fair Work original transport and Morocco/Egypt positive controls remain unresolved. Owners: News source operations, language review and pilot assessment. See NEWS-OFFICIAL-LISTINGS-2026-11-12.md.
