@@ -5,11 +5,11 @@ import unicodedata
 
 from app.services import company_directory, map_regions, personal_digest
 
-ROLE_PREDICATES = {"owns", "develops", "licenses", "grows", "trials", "markets", "distributes"}
+ROLE_PREDICATES = {"owns", "develops", "licenses", "grows", "trials", "markets", "distributes", "sells"}
 ROLE_LABELS = {
     'develops': 'Breeder', 'owns': 'Rights holder', 'licenses': 'Licensee',
     'markets': 'Marketer', 'grows': 'Grower', 'distributes': 'Distributor',
-    'trials': 'Trial operator',
+    'sells': 'Seller', 'trials': 'Trial participant',
 }
 
 
@@ -83,9 +83,9 @@ def directory(cards, *, params, state, entities, relationships, regions):
         for rel in relationships:
             party = entities.get(rel.get("subject_id"), {})
             predicate = rel.get("predicate")
-            if rel.get("object_id") == card["id"] and rel.get("status") == "active" and party.get("id") in actors and predicate in {"licenses", "grows", "trials", "distributes"}:
+            if rel.get("object_id") == card["id"] and rel.get("status") == "active" and party.get("id") in actors and predicate in {"licenses", "grows", "trials", "distributes", "sells"}:
                 additional_roles[(predicate, party["id"])] = {"name": party["name"], "href": f"/entities/{party['entity_type']}/{party['id']}",
-                    "label": {"licenses": "Licensee", "grows": "Grower", "trials": "Trial operator", "distributes": "Distributor"}[predicate]}
+                    "label": ROLE_LABELS[predicate]}
         rows.append({**card, "growing_regions": locations, "company_actors": sorted(actors), "additional_roles": list(additional_roles.values())})
     letters = {company_directory.initial(row["name"]) for row in rows}
     if filters["letter"]:

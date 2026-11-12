@@ -9,6 +9,7 @@ rather than re-deriving any of that logic."""
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 from app.services.intelligence_feed import present_feed_item
@@ -44,7 +45,7 @@ def _company_portfolio_roles(
     role-bucket discipline, read from the Company's own outgoing edges."""
     roles: dict[str, list[dict[str, Any]]] = {bucket: [] for bucket, _pred, _label in ROLE_BUCKETS}
     predicate_to_bucket = {pred: bucket for bucket, pred, _label in ROLE_BUCKETS}
-    seen_per_bucket: dict[str, set[str]] = {bucket: set() for bucket, _pred, _label in ROLE_BUCKETS}
+    parties: dict[tuple[str, str], dict[str, Any]] = {}
     for rel in relationships:
         if rel.get("subject_id") != company_id:
             continue
@@ -54,13 +55,24 @@ def _company_portfolio_roles(
         variety = entities.get(str(rel.get("object_id") or ""))
         if not variety or variety.get("entity_type") != "variety":
             continue
-        if variety["id"] in seen_per_bucket[bucket]:
-            continue
-        party = _party(variety)
-        if party:
+        identity = (bucket, variety["id"])
+        party = parties.get(identity)
+        if party is None:
+            party = _party(variety)
+            if not party:
+                continue
             party["berry_ids"] = [str(value) for value in (variety.get("berry_ids") or []) if value]
-            seen_per_bucket[bucket].add(variety["id"])
+            party["role_relationships"] = []
+            parties[identity] = party
             roles[bucket].append(party)
+        # A deduplicated role does not discard another recorded basis, status,
+        # territory note or citation. No role is inferred from brands/partners.
+        basis = {field: deepcopy(rel[field]) for field in (
+            "id", "subject_id", "predicate", "object_id", "status", "notes",
+            "confidence", "evidence_ids", "effective_date", "territory",
+        ) if field in rel}
+        if basis not in party["role_relationships"]:
+            party["role_relationships"].append(basis)
     return roles
 
 
@@ -339,11 +351,15 @@ def present_company_portfolio(
     portfolio_variety_ids = _portfolio_variety_ids(roles)
 
     variety_role_buckets: dict[str, list[str]] = {vid: [] for vid in portfolio_variety_ids}
+    variety_role_relationships: dict[str, list[dict[str, Any]]] = {vid: [] for vid in portfolio_variety_ids}
     for bucket, parties in roles.items():
         for party in parties:
             vid = party.get("id")
             if vid in variety_role_buckets:
                 variety_role_buckets[vid].append(bucket)
+                for relationship in party["role_relationships"]:
+                    if relationship not in variety_role_relationships[vid]:
+                        variety_role_relationships[vid].append(relationship)
 
     variety_rows: list[dict[str, Any]] = []
     recent_candidates: list[dict[str, Any]] = []
@@ -414,6 +430,7 @@ def present_company_portfolio(
             "berry_ids": row_berries,
             "berries": [berry_labels.get(b, b) for b in row_berries],
             "roles": sorted({ROLE_LABEL.get(b, b) for b in variety_role_buckets.get(vid, [])}),
+            "role_relationships": variety_role_relationships[vid],
             "rights_count": len(rights_published),
             "commercial_observation_count": len(commercial_observations),
             "product_sensory_count": product_sensory_count,

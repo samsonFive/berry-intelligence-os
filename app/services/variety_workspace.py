@@ -26,6 +26,8 @@ ROLE_BUCKETS = (
     ("marketer", "markets", "Marketer"),
     ("grower", "grows", "Grower"),
     ("distributor", "distributes", "Distributor"),
+    ("seller", "sells", "Seller"),
+    ("trial_participant", "trials", "Trial participant"),
 )
 ROLE_PREDICATE = {bucket: predicate for bucket, predicate, _label in ROLE_BUCKETS}
 ROLE_LABEL = {bucket: label for bucket, _predicate, label in ROLE_BUCKETS}

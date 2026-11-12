@@ -1,11 +1,17 @@
 {% set identity = identity if identity is defined else {"canonical_name": entity.name, "aliases": entity.aliases or [], "commercial_names": [], "denomination": "", "breeder_code": "", "package_note": ""} %}
 {% set roles = roles if roles is defined else {} %}
 {% macro relationship_notes(note) %}
-  {% if note %}{% set parts = note.split(';', 1) %}
+  {% if note %}{% set parts = note.split(';', 1) %}{% set visible = namespace(text=note, metadata=false) %}
     {% if parts[0]|trim|lower in ['confidence=high', 'confidence=medium', 'confidence=low'] %}
-      {% if parts|length > 1 %}<p>{{ parts[1] }}</p>{% endif %}
+      {% set visible.text = parts[1] if parts|length > 1 else '' %}{% set visible.metadata = true %}
+    {% endif %}
+    {% for suffix in ["Substituted predicate: the schema has no 'commercialises' or 'markets' predicate, so 'sells' carries the route-to-market role.", "Substituted predicate: the schema has no way to attach a geography to a trials relationship, so the location is stated here and in the evidence summary."] %}
+      {% if visible.text.endswith(suffix) %}{% set visible.text = visible.text.removesuffix(suffix) %}{% set visible.metadata = true %}{% endif %}
+    {% endfor %}
+    {% if visible.text|trim %}<p>{{ visible.text }}</p>{% endif %}
+    {% if visible.metadata %}
       <details class="variety-row-info" onclick="event.stopPropagation()"><summary>Info</summary><p>{{ note }}</p></details>
-    {% else %}<p>{{ note }}</p>{% endif %}
+    {% endif %}
   {% endif %}
 {% endmacro %}
 
@@ -60,7 +66,7 @@
   {% if role_state.any %}
   <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Recorded company roles"><table class="variety-data-sheet">
     <thead><tr><th scope="col" data-width="160">Role</th><th scope="col" data-width="300">Company / party</th><th scope="col" data-width="930">Recorded basis</th></tr></thead><tbody>
-    {% set role_predicates = {'breeder':'develops', 'owner_rights_holder':'owns', 'licensee':'licenses', 'marketer':'markets', 'grower':'grows', 'distributor':'distributes'} %}
+    {% set role_predicates = {'breeder':'develops', 'owner_rights_holder':'owns', 'licensee':'licenses', 'marketer':'markets', 'grower':'grows', 'distributor':'distributes', 'seller':'sells', 'trial_participant':'trials'} %}
     {% for bucket, label in role_labels.items() %}{% for party in roles.get(bucket, []) %}
       <tr><th scope="row">{{ label }}</th><td><a href="{{ party.href }}">{{ party.name }}</a></td><td>
         {% set basis = namespace(found=false) %}{% for rel in grouped_relationships if rel.direction == 'incoming' and rel.other.id == party.id and rel.predicate == role_predicates.get(bucket) %}
