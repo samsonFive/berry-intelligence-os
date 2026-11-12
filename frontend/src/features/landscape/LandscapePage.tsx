@@ -25,7 +25,7 @@ const LENSES: Array<{ id: Lens; label: string }> = [
 
 /** Module keys describe domain inputs, not unrelated panel or router revisions. */
 function standingContext(context: InvestigationContext): InvestigationContext {
-  return { ...context, focus: '', cohort_companies: '', cohort_varieties: '', lens: 'connections', comparison_kind: 'company',
+  return { ...context, company_set: 'all', focus: '', cohort_companies: '', cohort_varieties: '', lens: 'connections', comparison_kind: 'company',
     detail_path: '', demo_specimens: '', news_from: '', news_to: '', q: '', q_scope: 'scope', saved_view_id: '', saved_revision: '' };
 }
 

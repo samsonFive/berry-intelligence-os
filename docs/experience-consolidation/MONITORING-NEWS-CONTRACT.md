@@ -27,6 +27,14 @@ JavaScript safe-integer maximum); missing values default to 36/0 for News and
 10/0 for monitoring. Duplicate, negative, fractional or excessive values fail.
 Pagination bounds transport work and do not cap the stored monitoring universe.
 
+Portfolio company columns use groups of ten without truncating the company
+universe or cultivar rows. Their page is transient display memory keyed by the
+opaque router history entry and exact canonical company membership. Back/Forward
+restores it; focus/pin actions retain it. The memory is limited to 64 entries,
+clears on private-session transition and never writes selectors, history,
+browser storage or server preferences. A fresh document starts on the first
+company group; account column layouts retain their separate saved behavior.
+
 `GET /api/investigations/v1/monitoring` returns `companies`, `total`,
 `universe_count`, `matching_count`, `offset`, `limit`, `has_more`, `next_offset`,
 `company_set`, `company_set_key`, `basis`, `watched_count`,

@@ -12,6 +12,7 @@ import { useAccountGridLayout } from './useAccountGridLayout';
 import { COMPANY_COLUMNS_PER_PAGE, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
 import type { CompanyPage } from './company-pages';
 import { portfolioData, type PortfolioRow } from './portfolio-data';
+import { useCompanyPageMemory } from './useCompanyPageMemory';
 import './grid.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -61,7 +62,8 @@ function PortfolioRelationship({ edge, model, open }: {
 /** A real Community grid. Canonical identity and comparison membership stay separate. */
 export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onReady?: (ready: boolean) => void }) {
   const { companies, rows } = useMemo(() => portfolioData(model), [model]);
-  const [pageIndex, setPageIndex] = useState(0);
+  const pagination = useCompanyPageMemory(companies);
+  const pageIndex = pagination.index;
   const plan = useMemo(() => {
     try { return { page: companyPage(companies, pageIndex), error: '' }; }
     catch (error) { return { page: null, error: error instanceof Error ? error.message : 'Company columns are unavailable.' }; }
@@ -71,21 +73,21 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
   const [resolvedLayout, setResolvedLayout] = useState<{ identity: string; key: string; error: string } | null>(null);
   useEffect(() => {
     let active = true;
-    if (page) void companyPageViewKey(page.companies.map(company => company.id), page.paged)
+    if (page && pagination.ready) void companyPageViewKey(page.companies.map(company => company.id), page.paged)
       .then(key => { if (active) setResolvedLayout({ identity: pageIdentity, key, error: '' }); })
       .catch(() => { if (active) setResolvedLayout({ identity: pageIdentity, key: '', error: 'The display layout for these company columns could not be identified. Reopen the portfolio to try again.' }); });
     return () => { active = false; };
-  }, [pageIdentity]);
-  useEffect(() => { if (page) setPageIndex(current => Math.min(current, page.count - 1)); }, [page?.count]);
-  const displayGrid = Boolean(page && rows.length && resolvedLayout?.identity === pageIdentity && !resolvedLayout.error);
-  const finalMessage = !page || !rows.length || resolvedLayout?.identity === pageIdentity && Boolean(resolvedLayout.error);
+  }, [pageIdentity, pagination.ready]);
+  const displayGrid = Boolean(pagination.ready && page && rows.length && resolvedLayout?.identity === pageIdentity && !resolvedLayout.error);
+  const finalMessage = pagination.ready && (!page || !rows.length || resolvedLayout?.identity === pageIdentity && Boolean(resolvedLayout.error));
   useLayoutEffect(() => { if (!displayGrid) onReady?.(finalMessage); }, [onReady, displayGrid, finalMessage]);
+  if (!pagination.ready) return <p role="status" className="berry-loading">Restoring company columns…</p>;
   if (!page) return <EmptyState title="Company columns could not be displayed">{plan.error}</EmptyState>;
   if (!rows.length) return <EmptyState title="No cultivar portfolio relationships in this scope">Recorded geographic connections can still be inspected in Connections. Missing portfolio records do not establish an absence of commercial access.</EmptyState>;
   if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
-    viewKey={resolvedLayout.key} page={page} changePage={setPageIndex} onReady={onReady} />;
+    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} onReady={onReady} />;
 }
 
 function ColumnVisibility({ columns, visible, busy, change }: {
