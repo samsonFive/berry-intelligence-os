@@ -9,10 +9,14 @@ EXTRA_CROP_TERMS = {
 }
 # Keep generic Arabic "توت" (also mulberry) out of crop identity.
 for _crop, _terms in {
-    'blueberry': ('Heidelbeere', 'Heidelbeeren', 'Blaubeere', 'Blaubeeren', 'bleuets sauvages', 'bleuets en corymbe', 'التوت الأزرق', 'توت أزرق'),
-    'strawberry': ('Erdbeere', 'Erdbeeren', 'frutilla', 'frutillas', 'الفراولة', 'فراولة', 'الفريز'),
-    'raspberry': ('Himbeere', 'Himbeeren'),
-    'blackberry': ('Brombeere', 'Brombeeren', 'mora de Castilla'),
+    'blueberry': ('Heidelbeere', 'Heidelbeeren', 'Blaubeere', 'Blaubeeren', 'bleuets sauvages', 'bleuets en corymbe', 'التوت الأزرق', 'توت أزرق',
+                  'borovnica', 'borovnice', 'borovnicu', 'боровница', 'боровнице', 'боровницу', 'việt quất'),
+    'strawberry': ('Erdbeere', 'Erdbeeren', 'frutilla', 'frutillas', 'الفراولة', 'فراولة', 'الفريز',
+                   'jagoda', 'jagode', 'jagodu', 'јагода', 'јагоде', 'јагоду', 'dâu tây'),
+    'raspberry': ('Himbeere', 'Himbeeren', 'maline', 'malinu', 'malinama', 'малина', 'малине', 'малину', 'малинама',
+                  'phúc bồn tử', 'mâm xôi đỏ'),
+    'blackberry': ('Brombeere', 'Brombeeren', 'mora de Castilla', 'kupina', 'kupine', 'kupinu', 'kupinama',
+                   'купина', 'купине', 'купину', 'купинама', 'mâm xôi đen', 'mûres surgelées', 'mûres fraîches', 'rappel de mûres'),
 }.items():
     EXTRA_CROP_TERMS[_crop] += _terms
 

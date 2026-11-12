@@ -65,6 +65,7 @@ _CANNABIS = re.compile(
 _RECIPE_FOOD = re.compile(
     r"\b("
     r"recipe|recipes|receta|recetas|rezept|rezepte|"
+    r"recept|recepti|рецепт|рецепти|công thức|"
     r"recettes?\s+(?:de\s+(?:fraises?|myrtilles?|framboises?|mûres?|gâteaux?|tartes?)|aux?\s+(?:fraises?|myrtilles?|framboises?|mûres?))|"
     r"smoothie|smoothies|dessert|desserts|muffin|muffins|"
     r"pancake|pancakes|yogurt bowl|calories|calorie|superfood|"

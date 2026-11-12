@@ -15,7 +15,7 @@ from app.services.industry_pulse.matrix import (
 )
 
 REGIONAL_NEWS_PROVIDER = "regional_google_news"
-EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "indexed"})
+EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "direct_json", "indexed"})
 
 ENGLISH_RISKS = (
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
@@ -25,6 +25,7 @@ ENGLISH_RISKS = (
     "underpaid workers", "minimum wage", "back-payments", "court penalties",
     "worker safety", "labor shortage", "labour shortage", "water rights",
     "irrigation restrictions", "recall warning", "recalled",
+    "food safety", "norovirus", "listeria", "salmonella", "hepatitis A", "pesticide residues",
 )
 NATIVE_TOPICS = {
     "es": ("variedad", "cultivo", "exportación", "cosecha", "vivero", "patente",
@@ -44,6 +45,12 @@ NATIVE_TOPICS = {
            "تصدير", "التصدير", "صادرات", "الصادرات", "استيراد", "جفاف", "الجفاف", "رسوم جمركية"),
     "de": ("Anbau", "Ernte", "Erzeuger", "Erzeugerpreise", "Exporte", "Importe", "Züchtung",
            "Sorten", "Dürre", "Frost", "Rückruf", "Plantagen", "Landwirtschaft"),
+    "sr": ("izvoz", "izvozni", "izvoza", "uvoz", "proizvodnja", "proizvodnje", "proizvođači",
+           "otkup", "otkupna cena", "cene", "berba", "suša", "navodnjavanje", "prinos",
+           "извоз", "извозни", "извоза", "увоз", "производња", "производње", "произвођачи",
+           "откуп", "откупна цена", "цене", "берба", "суша", "наводњавање", "принос"),
+    "vi": ("xuất khẩu", "nhập khẩu", "sản xuất", "sản lượng", "thu hoạch", "trồng",
+           "giống mới", "hạn hán", "thu hồi", "nông nghiệp", "thị trường"),
 }
 EAST_ASIAN_CROPS = {
     "blueberry": ("蓝莓", "ブルーベリー"),
@@ -83,6 +90,8 @@ def regional_news_queries() -> list[PulseQuery]:
         ("ar", "africa", "MA", ("الفراولة", "الفريز", "التوت الأزرق"), '(المغرب OR العرائش OR اللوكوس)'),
         ("ar", "africa", "EG", ("الفراولة", "الفريز", "التوت الأزرق"), 'مصر'),
         ("de", "europe", "DE", ("Heidelbeeren", "Erdbeeren", "Himbeeren", "Brombeeren"), 'Deutschland'),
+        ("sr", "europe", "RS", ("maline", "kupine", "borovnice", "jagode", "малине", "купине", "боровнице", "јагоде"), '(Srbija OR Србија)'),
+        ("vi", "apac", "VN", ("việt quất", "dâu tây", "phúc bồn tử", "mâm xôi đen"), '("Việt Nam" OR "Đà Lạt" OR "Sơn La")'),
     ):
         rows.append(PulseQuery(
             id=f"today:regional:{region}:{country}:{language}",
@@ -97,7 +106,7 @@ def _whole_words(terms: tuple[str, ...]) -> re.Pattern[str]:
     return re.compile(r"(?<!\w)(?:" + "|".join(map(re.escape, terms)) + r")(?!\w)", re.I)
 
 
-_LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl", "de", "ar") for term in NATIVE_TOPICS[language])
+_LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl", "de", "ar", "sr", "vi") for term in NATIVE_TOPICS[language])
 _REGIONAL_TOPIC_WORDS = _whole_words((*ENGLISH_RISKS, *_LATIN_SCRIPT_TOPICS))
 _EAST_ASIAN_TOPICS = (*NATIVE_TOPICS["zh"], *NATIVE_TOPICS["ja"])
 _ADDITIONAL_CROPS = {
