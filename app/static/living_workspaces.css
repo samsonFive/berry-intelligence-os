@@ -156,3 +156,62 @@
 .lw-reading-paragraph{font-size:14px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}.lw-reading-heading{font:650 20px/1.3 system-ui,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;margin:2px 0 6px;color:#214735}.lw-text-edit textarea{width:100%;margin-top:6px}
 
 .lw-capture-header{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;font-size:12px;color:#294c3e}.lw-capture .lw-capture-close{display:grid;place-items:center;flex:none;width:32px;height:32px;padding:0;border:0;border-radius:5px;background:transparent;color:inherit;font-size:24px;line-height:1}.lw-capture .lw-capture-close:hover{background:#eaf1ec}.lw-capture-header+div{width:100%}@media(pointer:coarse){.lw-capture .lw-capture-close{width:44px;height:44px}}
+
+/* Reading hierarchy for authored Workspace content, including expanded grid rows. */
+#living-workspace .lw-title-label textarea,
+#living-workspace .lw-reading-heading {
+  font:700 23px/1.25 system-ui,sans-serif;
+  color:#163c2a;
+  letter-spacing:-.02em;
+}
+#living-workspace .lw-block > .lw-card-title {
+  font:650 17px/1.3 system-ui,sans-serif;
+  color:#1c462c;
+  margin:2px 0 9px;
+}
+#living-workspace .lw-briefing-body {
+  font:400 14px/1.55 system-ui,sans-serif;
+  color:#30483a;
+}
+#living-workspace .lw-briefing-body > p:first-of-type {
+  font-size:15px;
+  font-weight:600;
+  line-height:1.5;
+  color:#243c2e;
+  margin:0 0 9px;
+}
+#living-workspace .lw-briefing-body ul,
+#living-workspace .lw-briefing-body ol {
+  margin:8px 0 10px;
+  padding-left:1.5em;
+}
+#living-workspace .lw-briefing-body li {
+  font-size:14px;
+  font-weight:400;
+  line-height:1.5;
+  padding-left:2px;
+  margin:5px 0;
+}
+#living-workspace .lw-briefing-body li::marker { color:#61776a; }
+#living-workspace .lw-briefing-body h4 {
+  font:600 12px/1.4 system-ui,sans-serif;
+  color:#506b58;
+  margin:12px 0 5px;
+}
+#living-workspace .lw-card-briefing > summary,
+#living-workspace .lw-briefing-citations {
+  font-size:12px;
+  font-weight:400;
+  line-height:1.45;
+  color:#506b58;
+}
+#living-workspace .lw-card-briefing .lw-muted {
+  font-size:11px;
+  font-weight:400;
+  line-height:1.45;
+}
+#living-workspace #lw-blocks > .lw-block[data-type=heading] + .lw-block[data-type=paragraph] .lw-reading-paragraph {
+  font-size:15px;
+  line-height:1.55;
+  color:#3e5749;
+}

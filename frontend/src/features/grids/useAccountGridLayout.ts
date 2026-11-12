@@ -10,10 +10,12 @@ interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: 
 const initial: LayoutStatus = { phase: 'loading', message: 'Loading your saved grid layout…', retainedUnknownColumns: 0 };
 
 /** Account preferences are independent of investigation state and never dispatch it. */
-export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1') {
+export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1', persistView = false) {
   const [status, setStatus] = useState<LayoutStatus>(initial);
   const [quickFilter, setQuickFilter] = useState('');
   const [visible, setVisible] = useState<Record<string, boolean>>({});
+  const [view, setView] = useState<'grid' | 'cards'>('grid');
+  const presentation = useRef<'grid' | 'cards' | undefined>(undefined);
   const api = useRef<GridApi<Row> | null>(null);
   const controller = useRef<AccountGridLayouts | null>(null);
   const catalog = useRef<ColumnCatalog | null>(null);
@@ -49,6 +51,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     grid.setFilterModel(loaded.snapshot.filterModel);
     query.current = loaded.snapshot.quickFilter;
     setQuickFilter(query.current);
+    if (persistView) { presentation.current = loaded.snapshot.view ?? 'grid'; setView(presentation.current); }
     grid.setGridOption('quickFilterText', query.current);
     syncVisibility();
     // API filter/column events can finish after applyColumnState returns.
@@ -59,7 +62,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
       message: loaded.status === 'legacy-unmapped'
         ? 'An earlier layout cannot be matched safely. It remains saved. Showing default columns; changes stay in this tab.'
         : loaded.status === 'restored' ? 'Saved grid layout restored.' : 'Default grid layout. Display changes save automatically.' });
-  }, [syncVisibility]);
+  }, [syncVisibility, persistView]);
 
   useEffect(() => {
     const generation = ++active.current;
@@ -68,6 +71,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     let owned: AccountGridLayouts | undefined;
     const ended = () => {
       active.current++; cancelSave(); writable.current = false; pending.current = null;
+      presentation.current = undefined; setView('grid');
       setStatus({ phase: 'error', message: 'Sign in to restore or save your grid layout.', retainedUnknownColumns: 0 });
     };
     window.addEventListener('berry:session-transition', ended);
@@ -126,6 +130,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
       void (async () => {
         try {
           const snapshot = captureGridLayout(grid.getColumnState(), grid.getFilterModel(), query.current, columns);
+          if (persistView) snapshot.view = presentation.current ?? 'grid';
           setStatus({ phase: 'saving', message: 'Saving display changes…', retainedUnknownColumns: retained.current });
           const loaded = await owner.save(snapshot);
           if (active.current !== generation || loadSerial.current !== attempt) return;
@@ -140,7 +145,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
         }
       })();
     }, 550);
-  }, [cancelSave, syncVisibility]);
+  }, [cancelSave, syncVisibility, persistView]);
 
   const onReady = useCallback((grid: GridApi<Row>) => { api.current = grid; syncVisibility(); void applyPending(); }, [applyPending, syncVisibility]);
   const changeQuickFilter = useCallback((value: string) => {
@@ -151,6 +156,10 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     if (catalog.current?.byId.get(colId)?.lockedVisible) return;
     api.current?.setColumnsVisible([colId], show); changed();
   }, [changed]);
+  const changeView = useCallback((value: 'grid' | 'cards') => {
+    if (!persistView || !['grid', 'cards'].includes(value)) return;
+    presentation.current = value; setView(value); changed();
+  }, [changed, persistView]);
   return { status, busy: status.phase === 'loading', quickFilter, visible, onReady, changed, syncVisibility,
-    changeQuickFilter, changeVisibility, reloadSavedLayout: () => void reload.current() };
+    changeQuickFilter, changeVisibility, view, changeView, reloadSavedLayout: () => void reload.current() };
 }

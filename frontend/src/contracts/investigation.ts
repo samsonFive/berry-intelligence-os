@@ -113,7 +113,7 @@ export function normalizeContext(input: Partial<Record<ContextField, unknown>>):
   }
   for (const field of ["countries", "actor_roles", "relationship_types", "cohort_companies", "cohort_varieties", "demo_specimens"] as const) {
     const values = text(field).split(",").map(value => value.trim()).filter(Boolean);
-    const invalid = values.filter(value => !CANONICAL_ID.test(value) || (field === "demo_specimens" && !/^demo-specimen-[A-Za-z0-9_.-]+$/.test(value)));
+    const invalid = values.filter(value => !CANONICAL_ID.test(value) || (field === "demo_specimens" && !/^demo-(?:specimen|brand)-[A-Za-z0-9_.-]+$/.test(value)));
     if (invalid.length) issue(field, "invalid_identifier", "Some selected identifiers are invalid.", invalid);
     const unique = [...new Set(values)];
     if (unique.length > 40) issue(field, "excessive_selection", "At most 40 identifiers can be retained in one selection.");

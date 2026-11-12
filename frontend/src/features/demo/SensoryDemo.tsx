@@ -1,36 +1,23 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Button, EmptyState } from '../../components/ui';
 import { splitIds } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
-
-interface SensoryFixture {
-  api_v: 1;
-  synthetic: true;
-  namespace: string;
-  metric: { id: string; label: string; minimum: 1; maximum: 9 };
-  specimens: Array<{ id: string; label: string; value: number }>;
-  scope_note: string;
-  disclaimer: string;
-}
+import { clearPrivateSession } from '../../app/PrivateQueryProvider';
+import { BrandLogo } from '../brand-media/BrandMedia';
+import { useBrandMedia } from '../brand-media/useBrandMedia';
+import { BRAND_DEMO_IDS, parseSensoryFixture, type SensoryFixture, type FlavorMetricId } from './sensory-model';
+import './sensory.css';
 
 async function loadSensory(signal: AbortSignal): Promise<SensoryFixture> {
   const response = await fetch('/api/investigations/v1/demo/sensory', { signal, credentials: 'same-origin', cache: 'no-store', headers: { Accept: 'application/json' } });
-  if (response.redirected || !response.ok || !(response.headers.get('content-type') ?? '').includes('application/json')) throw new Error('The isolated sensory demonstration could not be loaded.');
-  const fixture = await response.json() as SensoryFixture;
-  if (fixture.api_v !== 1 || fixture.synthetic !== true || !fixture.namespace || fixture.metric?.minimum !== 1 || fixture.metric.maximum !== 9
-    || !Array.isArray(fixture.specimens) || fixture.specimens.some(row => !row.id || !row.label || !Number.isFinite(row.value) || row.value < 1 || row.value > 9)
-    || new Set(fixture.specimens.map(row => row.id)).size !== fixture.specimens.length) throw new Error('The sensory fixture has an unsupported format.');
-  return fixture;
+  if ([401, 403].includes(response.status)) clearPrivateSession();
+  if (response.redirected || !response.ok || !(response.headers.get('content-type') ?? '').includes('application/json')) throw new Error('The isolated flavor comparison could not be loaded.');
+  return parseSensoryFixture(await response.json());
 }
 
-export function SensoryDemo({ onReady }: { onReady?: (ready: boolean) => void } = {}) {
+function LegacySpecimens({ fixture }: { fixture: SensoryFixture }) {
   const { context, dispatch } = useInvestigation();
-  const query = useQuery({ queryKey: ['investigation', 'synthetic-sensory-v1'], queryFn: ({ signal }) => loadSensory(signal) });
-  useLayoutEffect(() => onReady?.(!query.isPending), [onReady, query.isPending]);
-  if (query.isPending) return <p className="berry-loading" role="status">Loading the isolated sensory demonstration…</p>;
-  if (query.isError || !query.data) return <EmptyState title="Sensory demonstration unavailable">{query.error instanceof Error ? query.error.message : 'The fixture is unavailable. Your real investigation is unchanged.'}</EmptyState>;
-  const fixture = query.data;
   const requested = splitIds(context.demo_specimens);
   const allIds = fixture.specimens.map(row => row.id);
   const unavailable = requested.filter(id => !allIds.includes(id));
@@ -65,4 +52,38 @@ export function SensoryDemo({ onReady }: { onReady?: (ready: boolean) => void } 
   </section>;
 }
 
+
+export function SensoryDemo({ onReady }: { onReady?: (ready: boolean) => void } = {}) {
+  const { context, dispatch } = useInvestigation();
+  const [metricId, setMetricId] = useState<FlavorMetricId>('sweetness');
+  const query = useQuery({ queryKey: ['investigation', 'synthetic-brand-sensory-v1'], queryFn: ({ signal }) => loadSensory(signal) });
+  const fixture = query.data;
+  const media = useBrandMedia(fixture?.brand_profiles.map(row => row.canonical_entity.id) ?? []);
+  useLayoutEffect(() => onReady?.(!query.isPending), [onReady, query.isPending]);
+  if (query.isPending) return <p className="berry-loading" role="status">Loading simulated brand flavor profiles…</p>;
+  if (query.isError || !fixture) return <EmptyState title="Flavor comparison unavailable">{query.error instanceof Error ? query.error.message : 'The fixture is unavailable.'}</EmptyState>;
+  const requested = splitIds(context.demo_specimens);
+  const brandIds = fixture.brand_profiles.map(row => row.id);
+  const knownIds = [...brandIds, ...fixture.specimens.map(row => row.id)];
+  const unavailable = requested.filter(id => !knownIds.includes(id));
+  const rows = fixture.brand_profiles.filter(row => requested.includes(row.id));
+  const legacyIds = requested.filter(id => fixture.specimens.some(row => row.id === id));
+  const useBrands = () => dispatch({ type: 'setDemoCohort', ids: [...BRAND_DEMO_IDS], origin: 'direct' });
+  if (!rows.length && (!requested.length || legacyIds.length)) return <><section className="berry-flavor-intro" data-synthetic="true"><span className="berry-simulated-badge">SIMULATED</span><h2>Compare retail brand flavor profiles</h2><p>Sweetness, acidity, aroma, firmness and overall liking across six retail brand labels.</p><Button onClick={useBrands}>Compare six retail brands</Button></section><LegacySpecimens fixture={fixture} /></>;
+  const metric = fixture.metrics.find(item => item.id === metricId) ?? fixture.metrics[0];
+  const x = (value: number) => 160 + (value - 1) / 8 * 440;
+  const axisY = 24 + Math.max(rows.length, 1) * 35;
+  return <section className="berry-flavor-demo" aria-labelledby="flavor-heading" data-synthetic="true" data-demo-namespace={fixture.namespace}>
+    <header className="berry-flavor-heading"><div><span className="berry-simulated-badge">SIMULATED</span><h2 id="flavor-heading">Retail brand flavor comparison</h2><p>Illustrative blueberry profiles demonstrate the comparison. These are not measured brand results.</p></div></header>
+    {unavailable.length > 0 && <div className="berry-issue" role="status">{unavailable.length} saved demo selections are unavailable; their IDs remain in this investigation. <Button size="small" onClick={useBrands}>Use the six available brands</Button></div>}
+    <fieldset className="berry-brand-choices"><legend>Brands in this comparison</legend>{fixture.brand_profiles.map(profile => <label key={profile.id} data-selected={requested.includes(profile.id)}><input type="checkbox" checked={requested.includes(profile.id)} disabled={requested.includes(profile.id) && rows.length === 1 && !legacyIds.length} onChange={() => dispatch({ type: 'setDemoCohort', ids: requested.includes(profile.id) ? requested.filter(id => id !== profile.id) : [...requested, profile.id], origin: 'direct' })} /><BrandLogo asset={media?.[profile.canonical_entity.id]?.logo} name={profile.brand_label} /><span><strong>{profile.brand_label}</strong><small>SIMULATED profile</small></span></label>)}</fieldset>
+    <div className="berry-flavor-toolbar"><label>Compare attribute<select aria-label="Compare flavor attribute" value={metric.id} onChange={event => setMetricId(event.target.value as FlavorMetricId)}>{fixture.metrics.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label><p><strong>1</strong> {metric.minimum_label} · <strong>9</strong> {metric.maximum_label}</p><Button size="small" onClick={useBrands}>Select all six</Button></div>
+    {rows.length ? <div className="berry-flavor-panels">
+      <section className="berry-flavor-panel" aria-labelledby="flavor-chart-heading"><header><h3 id="flavor-chart-heading">{metric.label}</h3><span className="berry-simulated-badge">SIMULATED · 1–9</span></header><svg viewBox={`0 0 650 ${axisY + 58}`} role="img" aria-labelledby="flavor-chart-title flavor-chart-desc"><title id="flavor-chart-title">SIMULATED {metric.label}</title><desc id="flavor-chart-desc">{rows.map(row => `${row.brand_label}: ${row.values[metric.id]}`).join('; ')}. 1 means {metric.minimum_label}; 9 means {metric.maximum_label}. Illustrative values only.</desc>{Array.from({ length: 9 }, (_, index) => index + 1).map(tick => <g key={tick}><line className="berry-flavor-guide" x1={x(tick)} x2={x(tick)} y1="12" y2={axisY} /><text x={x(tick)} y={axisY + 20} textAnchor="middle">{tick}</text></g>)}{rows.map((row,index) => <g key={row.id}><text x="145" y={28 + index * 35} textAnchor="end">{row.brand_label}</text><line className="berry-flavor-stem" x1={x(1)} x2={x(row.values[metric.id])} y1={24+index*35} y2={24+index*35} /><circle className="berry-flavor-point" cx={x(row.values[metric.id])} cy={24+index*35} r="5" /><text x={x(row.values[metric.id])+11} y={28+index*35}>{row.values[metric.id].toFixed(1)}</text></g>)}<text x="380" y={axisY+46} textAnchor="middle">{metric.label} · {metric.scale_type === 'intensity' ? 'intensity' : 'preference'} · 1–9</text></svg></section>
+      <section className="berry-flavor-panel berry-flavor-matrix" aria-labelledby="flavor-matrix-heading"><header><h3 id="flavor-matrix-heading">Full flavor profiles</h3><span className="berry-simulated-badge">SIMULATED</span></header><div className="berry-table-wrap"><table className="berry-table"><caption>SIMULATED ratings · all values use a 1–9 scale</caption><thead><tr><th>Brand</th>{fixture.metrics.map(item => <th key={item.id} data-current={item.id === metric.id}><abbr title={`${item.minimum_label} (1) to ${item.maximum_label} (9)`}>{item.label}</abbr></th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><th scope="row">{row.brand_label}</th>{fixture.metrics.map(item => <td key={item.id} data-current={item.id === metric.id}>{row.values[item.id].toFixed(1)}</td>)}</tr>)}</tbody></table></div><p>Intensity describes attribute strength. Overall liking describes preference.</p></section>
+    </div> : <EmptyState compact title="Choose an available brand">Use a listed brand above. Unavailable selections have not been replaced.</EmptyState>}
+    {legacyIds.length > 0 && <details className="berry-flavor-legacy"><summary>Also selected: {legacyIds.length} earlier fictitious specimens</summary><LegacySpecimens fixture={fixture} /></details>}
+    <details className="berry-demo-method"><summary>About this simulation and brand identities</summary><p>All scores are deterministic illustrative values, independent of company tiers. They are not measured results, a quality ranking, or a brand performance claim.</p><p>Brand labels link to the existing typed company or brand identities; no company has been converted into a brand record. Selected profiles remain in the investigation link and saved selections. Normal cited exports omit simulated values unless the separate simulation annex is explicitly included.</p></details>
+  </section>;
+}
 export default SensoryDemo;

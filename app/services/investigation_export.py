@@ -16,6 +16,7 @@ import re
 from typing import Any
 
 from app.services import investigation_api as api
+from app.services import sensory_demo
 
 SECTION_TITLES = {
     "readout": "What the applied scope shows",
@@ -34,26 +35,13 @@ class ContentChangedError(ValueError):
 
 
 def _load_demo():
-    fixture = json.loads(DEMO_PATH.read_text(encoding="utf-8"))
-    metric, specimens = fixture.get("metric", {}), fixture.get("specimens", [])
-    if (fixture.get("synthetic") is not True or fixture.get("namespace") != "synthetic-sensory-v1"
-            or metric.get("id") != "overall_liking" or metric.get("minimum") != 1 or metric.get("maximum") != 9
-            or not isinstance(specimens, list) or not specimens
-            or any(not str(row.get("id", "")).startswith("demo-specimen-")
-                   or isinstance(row.get("value"), bool) or not isinstance(row.get("value"), (int, float))
-                   or not 1 <= row["value"] <= 9 for row in specimens)
-            or len({row["id"] for row in specimens}) != len(specimens)):
-        raise ValueError("The isolated synthetic fixture is unavailable or incompatible.")
-    return fixture
+    return sensory_demo.load_fixture(DEMO_PATH)
 
 
 def _selected_demo(context):
     fixture = _load_demo()
     requested = api.ids(context.get("demo_specimens", ""))
-    available = {row["id"] for row in fixture["specimens"]}
-    if requested and set(requested) - available:
-        raise ValueError("Some selected demo specimens are unavailable. Choose available specimens or explicitly select all before exporting the synthetic annex.")
-    return {**fixture, "specimens": [row for row in fixture["specimens"] if not requested or row["id"] in requested]}
+    return sensory_demo.selected_fixture(fixture, requested)
 
 
 def _source_ids(value):
@@ -213,12 +201,18 @@ def content_hash(payload):
 
 def preview(world, context_values, section_ids=None, include_demo=False):
     payload = build_payload(world, context_values, section_ids, include_demo)
+    annex = payload.get("demo_annex")
+    synthetic_rows = annex["specimens"] + annex.get("brand_profiles", []) if annex else []
     return {"api_v": 1, "content_hash": content_hash(payload), "section_ids": payload["section_ids"],
             "include_demo": include_demo, "scope": payload["scope"], "sections": payload["sections"],
             "sources": payload["sources"], "issues": payload["issues"],
             "synthetic_annex": {"namespace": payload["demo_annex"]["namespace"], "metric": payload["demo_annex"]["metric"],
-                                "specimen_count": len(payload["demo_annex"]["specimens"]),
-                                "specimen_labels": [row["label"] for row in payload["demo_annex"]["specimens"]],
+                                "specimen_count": len(synthetic_rows),
+                                "specimen_labels": [row["label"] for row in synthetic_rows],
+                                "legacy_specimen_count": len(annex["specimens"]),
+                                "brand_profile_count": len(annex.get("brand_profiles", [])),
+                                "brand_profile_labels": [row["label"] for row in annex.get("brand_profiles", [])],
+                                "metrics": annex.get("metrics", []),
                                 "selection_mode": "explicit selection" if payload["context"].get("demo_specimens") else "all available specimens"} if include_demo else None,
             "date_note": "The PDF will carry its generation time; source publication and capture dates retain their distinct meaning."}
 
@@ -388,8 +382,13 @@ def render_pdf(payload, *, generated_at=None):
         story.append(KeepTogether(entry))
     if payload["include_demo"]:
         fixture = payload["demo_annex"]
-        story += [PageBreak(), p("SYNTHETIC ANNEX / FICTITIOUS SPECIMENS", "meta"), p(fixture["metric"]["label"], "h2"),
-                  p(fixture["scope_note"]), p(fixture["disclaimer"], "meta")]
+        has_legacy = bool(fixture["specimens"])
+        story += [PageBreak(), p("SYNTHETIC ANNEX / FICTITIOUS SPECIMENS" if has_legacy else "SIMULATED FLAVOR COMPARISON ANNEX", "meta"),
+                  p(fixture["metric"]["label"] if has_legacy else "Simulated retail brand flavor profiles", "h2")]
+        if has_legacy:
+            story += [p(fixture["scope_note"]), p(fixture["disclaimer"], "meta")]
+        else:
+            story.append(p("Illustrative 1–9 ratings for the selected brand labels. No measured result or quality ranking is represented.", "meta"))
         drawing = Drawing(document.width, 75 + len(fixture["specimens"]) * 33)
         x1, x2, baseline = 120, document.width - 30, 35
         for tick in range(1, 10):
@@ -400,10 +399,26 @@ def render_pdf(payload, *, generated_at=None):
         for index, specimen in enumerate(fixture["specimens"]):
             y = drawing.height - 25 - index * 33
             x = x1 + (specimen["value"] - 1) / 8 * (x2 - x1)
-            drawing.add(String(x1 - 14, y - 3, specimen["label"], fontName="BINoto", fontSize=8, textAnchor="end", fillColor=ink))
+            drawing.add(String(x1 - 14, y - 3, "SIMULATED / " + specimen["label"], fontName="BINoto", fontSize=7, textAnchor="end", fillColor=ink))
             drawing.add(Circle(x, y, 4.5, fillColor=colors.HexColor("#70455f"), strokeColor=None))
             drawing.add(String(x + 10, y - 3, str(specimen["value"]), fontName="BINoto", fontSize=7.5, fillColor=muted))
         drawing.add(String((x1 + x2) / 2, 3, "Synthetic overall liking / 1-9", fontName="BINoto", fontSize=8, textAnchor="middle", fillColor=muted))
-        story += [drawing, p("Synthetic illustration only. One value per fictitious specimen; no distribution, statistical comparison or real-cultivar measurement is represented.", "meta")]
+        if fixture["specimens"]:
+            story += [drawing, p("Synthetic illustration only. One value per fictitious specimen; no distribution, statistical comparison or real-cultivar measurement is represented.", "meta")]
+        profiles = fixture.get("brand_profiles", [])
+        if profiles:
+            story += [p("SIMULATED BRAND PROFILES / INVENTED VALUES", "h2"),
+                      p("Public labels reference the exact canonical company or brand type. Every sensory value is invented for demonstration; identity sources do not substantiate the values. Intensity is not liking or quality.", "meta")]
+            for metric in fixture["metrics"]:
+                story.append(p(f"SIMULATED {metric['label']}: {metric['minimum']} = {metric['minimum_label']}; {metric['maximum']} = {metric['maximum_label']}.", "meta"))
+            for profile in profiles:
+                reference = profile["canonical_entity"]
+                entry = [p(profile["label"], "h3"),
+                         p(f"Canonical {reference['type']} reference: {reference['id']}. SIMULATED values only.", "meta")]
+                for metric in fixture["metrics"]:
+                    entry.append(p(f"SIMULATED {metric['label']}: {profile['values'][metric['id']]:g} / 9", "body"))
+                entry.append(p(profile["identity_basis"]["note"], "meta"))
+                entry.extend(p(url, "meta") for url in profile["identity_basis"]["urls"])
+                story.append(KeepTogether(entry))
     document.build(story, onFirstPage=footer, onLaterPages=footer)
     return output.getvalue()

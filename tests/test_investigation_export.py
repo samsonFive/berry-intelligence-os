@@ -155,6 +155,46 @@ def test_unavailable_demo_selection_never_silently_becomes_all(export_world):
     assert ordinary["synthetic_annex"] is None and ordinary["include_demo"] is False
 
 
+def test_selected_brand_annex_has_simulated_labels_intensity_anchors_and_typed_identity(export_world):
+    context = selectors(demo_specimens="demo-brand-driscolls,demo-brand-ozblu")
+    preview = export.preview(export_world, context, ["readout"], True)
+    annex = preview["synthetic_annex"]
+    assert annex["specimen_count"] == annex["brand_profile_count"] == 2 and annex["legacy_specimen_count"] == 0
+    assert annex["specimen_labels"] == ["SIMULATED · Driscoll's", "SIMULATED · OZblu"]
+    data, digest = export.pdf(export_world, context, ["readout"], True, preview["content_hash"])
+    text = "\n".join(page.extract_text() for page in PdfReader(BytesIO(data)).pages)
+    assert digest == preview["content_hash"] and "SIMULATED BRAND PROFILES / INVENTED VALUES" in text
+    assert "SIMULATED · Driscoll's" in text and "SIMULATED · OZblu" in text
+    assert "Canonical company reference: company-driscolls" in text and "Canonical brand reference: brand-ozblu" in text
+    assert "1 = Very low; 9 = Very high" in text and "1 = Dislike extremely; 9 = Like extremely" in text
+    assert "identity sources do not substantiate the values" in " ".join(text.split())
+    assert "Specimen Amber" not in text and "SIMULATED · Fruitist" not in text
+
+
+def test_brand_fixture_change_invalidates_reviewed_pdf_and_scope_does_not_filter_fixture(export_world, monkeypatch):
+    context = selectors(demo_specimens="demo-brand-fruitist")
+    preview = export.preview(export_world, context, ["readout"], True)
+    before = export._selected_demo(context)
+    assert export._selected_demo({**context, "berry": "all", "countries": "", "company_set": "watched", "company_tiers": "tier-3"}) == before
+    changed = export._load_demo()
+    changed["brand_profiles"][1]["values"]["overall_liking"] = 4.2
+    monkeypatch.setattr(export, "_load_demo", lambda: deepcopy(changed))
+    with pytest.raises(export.ContentChangedError, match="changed after preview"):
+        export.pdf(export_world, context, ["readout"], True, preview["content_hash"])
+
+
+def test_ordinary_pdf_never_loads_or_mentions_selected_brand_simulation(export_world, monkeypatch):
+    def forbidden():
+        raise AssertionError("Ordinary output must never load simulated brand data")
+    monkeypatch.setattr(export, "_load_demo", forbidden)
+    context = selectors(lens="sensory", demo_specimens="demo-brand-fruitist")
+    preview = export.preview(export_world, context, ["readout"], False)
+    assert preview["synthetic_annex"] is None
+    data, _ = export.pdf(export_world, context, ["readout"], False, preview["content_hash"])
+    text = "\n".join(page.extract_text() for page in PdfReader(BytesIO(data)).pages)
+    assert "SIMULATED" not in text and "demo-brand" not in text and "Fruitist" not in text
+
+
 @pytest.mark.parametrize("sections", [[], ["readout", "readout"], ["unknown"], ["sensory"]])
 def test_unsupported_or_duplicate_sections_fail_without_partial_output(export_world, sections):
     with pytest.raises(ValueError, match="supported export sections"):

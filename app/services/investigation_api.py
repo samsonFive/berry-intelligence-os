@@ -92,7 +92,7 @@ def normalize_context(params):
         if len(entries) > 40 or any(not ID_RE.fullmatch(v) for v in entries):
             raise ValueError(f"{key} contains an invalid or excessive selection.")
         context[key] = ",".join(entries)
-    if any(not key.startswith("demo-specimen-") for key in ids(context["demo_specimens"])):
+    if any(not re.fullmatch(r"demo-(?:specimen|brand)-[A-Za-z0-9_.-]+", key) for key in ids(context["demo_specimens"])):
         raise ValueError("Synthetic comparison accepts only the separate demo specimen namespace.")
     unknown_predicates = set(ids(context["relationship_types"])) - set(explorer.ROLE_LABELS)
     if unknown_predicates:
@@ -549,14 +549,19 @@ def pagination(params, *, default_limit=36):
     return result
 
 
+def monitoring_companies(world):
+    """Same real canonical company universe for roster reads and explicit tier edits."""
+    from app.services.global_watchlist import real_record
+    from app.services.entity_identity import merged_into_id
+    return {key: row for key, row in world.entities.items()
+                 if row.get("entity_type") == "company" and key not in SEED_FIXTURE_ENTITY_IDS
+                 and real_record(row) and not merged_into_id(row)}
+
+
 def company_selection(world, context):
     """Existing shared Watch references; no count cap, personal copy or writes."""
     from app.services.watchlist import load_watches
-    from app.services.global_watchlist import real_record
-    from app.services.entity_identity import merged_into_id
-    companies = {key: row for key, row in world.entities.items()
-                 if row.get("entity_type") == "company" and key not in SEED_FIXTURE_ENTITY_IDS
-                 and real_record(row) and not merged_into_id(row)}
+    companies = monitoring_companies(world)
     watches = list(dict.fromkeys(row["object_id"] for row in load_watches(world.main.INBOX_DIR)
                                 if row["watch_type"] == "company"))
     watched = [key for key in watches if key in companies]
@@ -569,14 +574,18 @@ def company_selection(world, context):
 
 def monitoring_data(world, context, bundle, *, limit=10, offset=0):
     from app.services.competitor_registry import monitoring_state_for_entity
+    from app.services.investigation_tiers import assigned_tier, tier_label, tier_group, TIER_GROUPS, GROUP_ORDER
     companies, chosen, watched, unavailable, membership_key = company_selection(world, context)
     universe_count = len(chosen)
+    assigned = {key: assigned_tier(world.state, key) for key in chosen}
+    counts = {tier: sum(tier_group(assigned[key]) == tier for key in chosen) for tier, _label in TIER_GROUPS}
     query = context["q"].strip().casefold()
     if query:
         chosen = [key for key in chosen if (context["q_scope"] == "catalog" or key in bundle["nodes"])
                   and any(query in str(value).casefold() for value in [companies[key].get("name", ""),
                       *(companies[key].get("aliases") or []), *(companies[key].get("also_known_as") or [])])]
-    chosen.sort(key=lambda key: (str(companies[key].get("name", key)).casefold(), key))
+    matching_counts = {tier: sum(tier_group(assigned[key]) == tier for key in chosen) for tier, _label in TIER_GROUPS}
+    chosen.sort(key=lambda key: (GROUP_ORDER[tier_group(assigned[key])], str(companies[key].get("name", key)).casefold(), key))
     geography_index = {}
     for edge in bundle["edges"]:
         if not edge.get("company_geography"):
@@ -596,6 +605,7 @@ def monitoring_data(world, context, bundle, *, limit=10, offset=0):
                     "activity": edge["location_label"], "status": edge["status_label"], "review": edge["review"],
                     "caveat": edge["caveat"], "evidence_ids": list(edge["evidence_ids"])})
         rows.append({"id": key, "label": entity.get("name", key), "type": "company",
+            "assigned_tier": assigned[key], "assigned_tier_label": tier_label(assigned[key]),
             "identity_status": entity.get("status") or "Not recorded",
             "identity_note": "Provisional identity · review needed" if entity.get("status") == "unverified" else "",
             "roles": list(entity.get("roles") or []), "berry_ids": list(entity.get("berry_ids") or []),
@@ -609,6 +619,9 @@ def monitoring_data(world, context, bundle, *, limit=10, offset=0):
             "search_basis": "No roster search" if not query else ("Catalog names and aliases" if context["q_scope"] == "catalog" else "In-scope company names and aliases"),
             "next_offset": offset + limit if offset + limit < total else None,
             "watched_count": len(watched), "unavailable_watch_count": unavailable,
+            "tier_groups": [{"tier": tier, "label": label, "count": counts[tier], "matching_count": matching_counts[tier]}
+                            for tier, label in TIER_GROUPS],
+            "tier_basis": "Assigned company tiers from existing shared marks; independent of per-berry imported tiers and shared Watch membership.",
             "scope_note": "Shared workspace watches express monitoring interest, not active collection or evidence approval. "
                           "The roster is not trimmed by geography, berry or news dates; in_scope annotates the standing landscape. "
                           "Displayed geography is scoped actor activity, never a cultivar growing footprint."}

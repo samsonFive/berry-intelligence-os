@@ -111,6 +111,8 @@ export interface MonitoringCompany {
   in_scope: boolean;
   watched: boolean;
   monitoring: { state: string; detail: string };
+  assigned_tier: string;
+  assigned_tier_label: string;
   geographies: Array<{ id: string; label: string; relationship_id: string; activity: string; status: string; review: string; caveat: string; evidence_ids: string[] }>;
 }
 export interface MonitoringModel extends CompanyPage {
@@ -121,6 +123,8 @@ export interface MonitoringModel extends CompanyPage {
   watched_count: number;
   unavailable_watch_count: number;
   scope_note: string;
+  tier_groups: Array<{ tier: string; label: string; count: number; matching_count: number }>;
+  tier_basis?: string;
 }
 export interface LandscapeNewsModel extends CompanyPage {
   cards: NewsCard[];

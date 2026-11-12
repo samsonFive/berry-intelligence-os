@@ -77,11 +77,13 @@ def learning_entry(kind: str, learning_id: str):
 
 @router.get("/api/investigations/v1/demo/sensory")
 def sensory_demonstration():
-    _private_main()
-    # This is a code-owned fixture, deliberately outside canonical data/ and all
-    # ordinary catalog, evidence, coverage and export loaders.
-    path = Path(__file__).parent / "demo_data" / "flavor" / "synthetic-overall-liking-v1.json"
-    data = json.loads(path.read_text(encoding="utf-8"))
+    main = _private_main()
+    # Code-owned simulation; canonical identity references remain explicitly typed.
+    from app.services.sensory_demo import load_fixture
+    try:
+        data = load_fixture(entities_dir=main.DATA_DIR / "entities")
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, "The isolated sensory fixture needs attention") from exc
     return JSONResponse({"api_v": 1, **data}, headers=PRIVATE_HEADERS)
 
 

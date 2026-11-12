@@ -6,22 +6,21 @@ import { hasBlockingIssues, investigationHref, serializeInvestigation, splitIds,
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { BerryDataGrid } from '../grids/BerryDataGrid';
 import { SensoryDemo } from '../demo/SensoryDemo';
-import { type CompanyPage, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNewsModel, type LandscapeNode, type MonitoringCompany, type MonitoringModel, type Portrait, type SourceMetadata } from './models';
+import { type CompanyPage, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNewsModel, type LandscapeNode, type MonitoringCompany, type Portrait, type SourceMetadata } from './models';
 import { Link } from 'react-router-dom';
 import { Citation } from './Citation';
 import { DevelopmentCard } from './DevelopmentCard';
 import { useReadModel } from './useReadModel';
 import { developmentsContext } from './developments-context';
-import { landscapeNewsContext, monitoringContext } from './company-set-context';
-import { CompactGenetics, CompactRoles, CompactCollection } from './RosterCompactCells';
+import { landscapeNewsContext } from './company-set-context';
+import { CompanyRoster } from './CompanyRoster';
 import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
 import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './landscape.css';
+import { InvestigationScopeBar } from '../../components/InvestigationScopeBar';
+import { LANDSCAPE_VIEWS as LENSES } from '../../components/WorkspaceChrome';
 
-const LENSES: Array<{ id: Lens; label: string }> = [
-  { id: 'connections', label: 'Connections' }, { id: 'portfolio', label: 'Portfolio' },
-  { id: 'geography', label: 'Geography' }, { id: 'comparison', label: 'Comparison' }, { id: 'news', label: 'News' }, { id: 'sensory', label: 'Sensory demo' },
-];
+
 
 /** Module keys describe domain inputs, not unrelated panel or router revisions. */
 function standingContext(context: InvestigationContext): InvestigationContext {
@@ -140,18 +139,6 @@ function PageControls({ page, count, label, onPage }: { page: CompanyPage; count
   </nav>;
 }
 
-function CompanySearch() {
-  const { context, dispatch } = useInvestigation();
-  const [draft, setDraft] = useState(context.q);
-  const [basis, setBasis] = useState(context.q_scope);
-  return <form className="berry-company-search" aria-label="Search company roster" onSubmit={event => {
-    event.preventDefault(); dispatch({ type: 'setSearch', q: draft, q_scope: basis, origin: 'direct' });
-  }}><label>Company<input type="search" maxLength={200} placeholder="Name or authored alias" value={draft} onChange={event => setDraft(event.target.value)} /></label>
-    <label>Search in<select value={basis} onChange={event => setBasis(event.target.value as typeof basis)}><option value="scope">Standing field</option><option value="catalog">Selected company set</option></select></label>
-    <Button size="small" type="submit">Find</Button>{context.q && <Button size="small" variant="ghost" onClick={() => dispatch({ type: 'setSearch', q: '', origin: 'direct' })}>Clear search</Button>}
-  </form>;
-}
-
 function RosterGeographies({ geographies, sources }: { geographies: MonitoringCompany['geographies']; sources: Map<string, SourceMetadata> }) {
   const { dispatch } = useInvestigation();
   if (!geographies.length) return <span className="berry-material-caveat">Not recorded in scope</span>;
@@ -162,38 +149,11 @@ function RosterGeographies({ geographies, sources }: { geographies: MonitoringCo
 }
 
 function MonitoringRoster({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
-  const { context, dispatch, issues } = useInvestigation();
-  const rosterContext = monitoringContext(context);
-  const key = serializeInvestigation(rosterContext);
-  const [page, setPage] = useState({ key: '', offset: 0 });
-  const offset = page.key === key ? page.offset : 0;
-  const query = useReadModel<MonitoringModel>(`/monitoring?offset=${offset}&limit=10`, rosterContext, !hasBlockingIssues(issues));
-  useLayoutEffect(() => onReady(!query.isPending), [onReady, query.isPending]);
-  const roster = query.data?.data;
-  const media = useBrandMedia(roster?.companies.map(company => company.id) ?? []);
-  const sources = new Map(model.sources.map(source => [source.id, source]));
-  const pins = splitIds(context.cohort_companies);
-  const onPage = (value: number) => setPage({ key, offset: value });
-  return <div className="berry-monitoring-overview">
-    <div className="berry-roster-toolbar"><h2>Company roster</h2><CompanySearch key={`${context.q}\u0000${context.q_scope}`} />{roster && <PageControls page={roster} count={roster.companies.length} label="Company roster" onPage={onPage} />}</div>
-    {query.isPending ? <p className="berry-loading" role="status">Loading company roster…</p>
-      : query.isError ? <EmptyState compact title="Company roster unavailable" action={<Button size="small" onClick={() => void query.refetch()}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The roster could not be loaded.'}</EmptyState>
-        : roster && <>
-          <details className="berry-roster-explanation"><summary>{roster.universe_count} companies in this set{context.q ? ` · ${roster.matching_count} matches · ${roster.search_basis}` : ''} · Roster basis</summary><p>{roster.scope_note} Comparison is limited to five pins; the roster is not.</p><p>Genetics follow recorded paths; roles do not transfer. Location-only records do not specify activity or cultivar growing. Unrecorded activity remains unknown.</p><a href={legacyHref('/queues/monitoring', '/app/landscape', context)}>Manage shared watches ↗</a></details>
-          {!!roster.unavailable_watch_count && <p className="berry-issue">{roster.unavailable_watch_count} shared watched identities are unavailable; no replacement identity has been selected.</p>}
-          {roster.companies.length ? <div className="berry-table-wrap berry-monitoring-wrap"><table className="berry-table berry-monitoring-table"><thead><tr><th>Company / comparison</th><th>Genetics / portfolio in scope</th><th>Authored roles / berries</th><th>Recorded geographic activity</th></tr></thead><tbody>
-            {roster.companies.map(company => <tr key={company.id} data-company-id={company.id} data-selected={context.focus === company.id || undefined}>
-              <th scope="row"><div className="berry-roster-identity"><BrandLogo asset={media?.[company.id]?.logo} name={company.label} /><EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'direct' })} />
-                <Button size="small" variant="ghost" aria-pressed={pins.includes(company.id)} disabled={!pins.includes(company.id) && pins.length >= 5} title={!pins.includes(company.id) && pins.length >= 5 ? 'Remove a comparison pin before adding another; the company roster is uncapped.' : undefined} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'direct' })}>{pins.includes(company.id) ? 'Unpin' : 'Compare +'}</Button></div>
-                <div className="berry-roster-marks">{company.identity_note && <span className="berry-material-caveat">{company.identity_note}</span>}{!company.in_scope && <span>No standing links in this scope</span>}{context.company_set === 'all' && company.watched && <span>Shared watch</span>}</div><details className="berry-roster-monitoring"><summary>Monitoring details</summary><CompactCollection monitoring={company.monitoring} /></details></th>
-              <td><CompactGenetics id={company.id} model={model} renderNode={node => <NodeControl node={node} />} renderEdge={edge => <Relationship edge={edge} model={model} sources={sources} />} /></td>
-              <td><CompactRoles roles={company.roles} berryIds={company.berry_ids} /></td>
-              <td><RosterGeographies geographies={company.geographies} sources={sources} /></td>
-            </tr>)}
-          </tbody></table></div> : <EmptyState compact title={context.q ? 'No company names or aliases match' : 'No shared watched companies are available'}>Change the roster search or company set explicitly. No companies have been substituted.</EmptyState>}
-        </>}
-    <details className="berry-deeper-connections"><summary>Explore applied-scope company and genetics connections · independent of the roster set</summary><Connections model={model} /></details>
-  </div>;
+  const sources = useMemo(() => new Map(model.sources.map(source => [source.id, source])), [model.sources]);
+  return <><CompanyRoster model={model} onReady={onReady} renderNode={node => <NodeControl node={node} />}
+    renderEdge={edge => <Relationship edge={edge} model={model} sources={sources} />}
+    renderGeographies={geographies => <RosterGeographies geographies={geographies} sources={sources} />} />
+    <details className="berry-deeper-connections"><summary>Explore applied-scope company and genetics connections · independent of the roster set</summary><Connections model={model} /></details></>;
 }
 
 function LandscapeNews({ onReady }: { onReady: (ready: boolean) => void }) {
@@ -331,14 +291,15 @@ export function LandscapePage() {
   const berry = context.berry === 'all' ? 'All berries' : context.berry.replace(/^berry-/, '').replace(/^./, character => character.toUpperCase());
   return <div className="berry-landscape-page">
     <div className="berry-page-heading berry-landscape-titlebar"><div className="berry-landscape-title"><h1>{context.berry === 'all' ? 'Berry landscape' : `${berry} landscape`}</h1><p className="berry-subtitle">{countries.length ? countries.join(' / ') : 'All geographies'} · recorded company and genetics connections</p></div>
-      {model && !blocked && <div className="berry-segmented" aria-label="Analytical view">{LENSES.map(lens => <button key={lens.id} type="button" aria-pressed={context.lens === lens.id} onClick={() => dispatch({ type: 'setLens', lens: lens.id, origin: 'direct' })}>{lens.label}</button>)}</div>}
+
     </div>
+    <InvestigationScopeBar />
     {blocked ? <EmptyState title="Resolve the investigation selectors">Some URL or scope values are unsupported. Correct the selectors before loading; the application has not broadened the scope.</EmptyState>
       : query.isPending ? <p className="berry-loading" role="status">Loading the applied landscape…</p>
         : query.isError ? <EmptyState title="This landscape could not be loaded" action={<Button onClick={() => { void query.refetch(); }}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The read service is unavailable.'}</EmptyState>
           : model && <>
             {!!query.data?.issues.length && <div className="berry-issue">{query.data.issues.map((issue, index) => <p key={index}>{issue.message}</p>)}</div>}
-            {context.lens !== 'news' && <section className="berry-readout" aria-labelledby="scope-readout-heading"><h2 className="berry-readout-title berry-sr-only" id="scope-readout-heading">What this scope shows</h2>
+            {context.lens !== 'news' && <section className="berry-readout" aria-labelledby="scope-readout-heading"><h2 className="berry-readout-title berry-sr-only" id="scope-readout-heading">Scope highlights</h2>
               {model.findings.length ? <div className="berry-findings">{model.findings.slice(0, 3).map(finding => <article className="berry-finding" key={finding.id}><p>{finding.text}</p><div className="berry-inline-citations">{finding.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</div></article>)}</div>
                 : <p className="berry-scope-note">No sourced scope finding is available for the applied selection. Inspect the recorded relationships or deliberately change scope.</p>}
             </section>}

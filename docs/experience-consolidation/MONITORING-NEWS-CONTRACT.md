@@ -49,6 +49,24 @@ Roster membership is not trimmed by berry, geography or publication dates;
 before pagination: `q_scope=scope` searches in-scope rows; `catalog` also finds
 outside-scope rows. Empty search retains the entire selected company universe.
 
+Rows expose `assigned_tier` and `assigned_tier_label` from the existing shared
+`entity_tiers` marks. The full matching roster is ordered by Tier 1, Tier 2,
+Tier 3, Untiered, Legacy watch, Muted, then other preserved legacy values before
+pagination, with alphabetical company ordering within each group. `tier_groups`
+contains each group's `count` across the selected company universe and
+`matching_count` after roster search, both before pagination. These are assigned
+company preferences, separate from per-berry imported tiers and Watch membership.
+
+An explicit JSON `POST /api/investigations/v1/companies/{id}/tier` accepts
+`{tier, expected_tier?}` and uses the existing company mark writer/history.
+Untiered and Tiers 1–3 are writable; existing legacy values can be retained or
+explicitly changed to a current tier. They are never silently reassigned.
+The expected-tier comparison and write share the existing per-runtime worker
+lock; a stale value returns 409 with the confirmed current tier. A successful
+response confirms ID, assigned tier/label and whether it changed, without
+changing the investigation selectors. Cross-process writer isolation remains
+the existing store's responsibility; this adapter adds no parallel store.
+
 `GET /api/investigations/v1/news` returns the existing News card/source metadata
 shape plus `company_set`, `company_set_key`, `basis`, `subject_count`,
 `matching_count`/`total` and the same page fields. It uses the existing News

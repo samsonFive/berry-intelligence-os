@@ -2,19 +2,20 @@
 export const LAYOUT_SCHEMA = "berry-grid-semantic-v1";
 const LEGAL_KEY = /^[a-z0-9-]{1,80}$/;
 const COLUMN_KEY = /^c-[a-f0-9]{32}$/;
-const META = new Set(["schema", "sort", "quick"]);
+const META = new Set(["schema", "sort", "quick", "view"]);
 export class GridLayoutError extends Error {
   readonly kind: "invalid" | "conflict" | "session" | "network" | "unloaded" | "disposed" | "migration";
   constructor(message: string, kind: GridLayoutError["kind"] = "invalid") { super(message); this.name = "GridLayoutError"; this.kind = kind; }
 }
-export interface LayoutColumn { colId: string; defaultWidth?: number; minWidth?: number; maxWidth?: number; lockedVisible?: boolean }
-export interface CatalogColumn { colId: string; key: string; defaultWidth: number; minWidth: number; maxWidth: number; lockedVisible: boolean }
+export interface LayoutColumn { colId: string; defaultWidth?: number; minWidth?: number; maxWidth?: number; lockedVisible?: boolean; defaultHidden?: boolean }
+export interface CatalogColumn { colId: string; key: string; defaultWidth: number; minWidth: number; maxWidth: number; lockedVisible: boolean; defaultHidden?: boolean }
 export interface ColumnCatalog { columns: readonly CatalogColumn[]; byId: ReadonlyMap<string, CatalogColumn>; byKey: ReadonlyMap<string, CatalogColumn> }
 export interface GridLayoutSnapshot {
   columns: Array<{ colId: string; width: number; hide: boolean }>;
   sort: Array<{ colId: string; sort: "asc" | "desc" }>;
   filterModel: Record<string, Record<string, unknown>>;
   quickFilter: string;
+  view?: "grid" | "cards";
 }
 export interface SheetLayout { revision: number; widths: Record<string, number>; order: string[]; hidden: string[]; filters: Record<string, string> }
 export interface LoadedGridLayout {
@@ -40,13 +41,15 @@ export async function createColumnCatalog(columns: readonly LayoutColumn[], dige
     if (!COLUMN_KEY.test(key) || byKey.has(key)) fail("Grid column identities could not be mapped safely. The saved layout was not changed.");
     const minWidth = Math.max(48, Math.ceil(column.minWidth ?? 48)), maxWidth = Math.min(1200, Math.floor(column.maxWidth ?? 1200));
     if (![minWidth, maxWidth, column.defaultWidth ?? 160].every(Number.isFinite) || minWidth > maxWidth) fail("The grid's column size limits are invalid.");
-    const entry = { colId: column.colId, key, minWidth, maxWidth, defaultWidth: Math.min(maxWidth, Math.max(minWidth, Math.round(column.defaultWidth ?? 160))), lockedVisible: Boolean(column.lockedVisible) };
+    if (column.defaultHidden !== undefined && typeof column.defaultHidden !== 'boolean') fail("The default column visibility is invalid.");
+    const entry = { colId: column.colId, key, minWidth, maxWidth, defaultWidth: Math.min(maxWidth, Math.max(minWidth, Math.round(column.defaultWidth ?? 160))), lockedVisible: Boolean(column.lockedVisible),
+      ...(column.defaultHidden ? { defaultHidden: true } : {}) };
     byId.set(column.colId, entry); byKey.set(key, entry);
   }
   return { columns: [...byId.values()], byId, byKey };
 }
 export function defaultGridLayout(catalog: ColumnCatalog): GridLayoutSnapshot {
-  return { columns: catalog.columns.map(column => ({ colId: column.colId, width: column.defaultWidth, hide: false })), sort: [], filterModel: {}, quickFilter: "" };
+  return { columns: catalog.columns.map(column => ({ colId: column.colId, width: column.defaultWidth, hide: !column.lockedVisible && Boolean(column.defaultHidden) })), sort: [], filterModel: {}, quickFilter: "" };
 }
 export function validateSheetLayout(value: unknown): SheetLayout {
   if (!object(value) || !Number.isSafeInteger(value.revision) || Number(value.revision) < 0) fail("The server returned an invalid layout revision.");
@@ -105,6 +108,7 @@ function assertSemanticWire(wire: SheetLayout): void {
     let parsed: unknown; try { parsed = JSON.parse(value); } catch { return fail("The saved column filter is invalid."); } filterValue(parsed);
   }
   cleanText(wire.filters.quick ?? ""); storedSort(wire);
+  if (wire.filters.view !== undefined && !["grid", "cards"].includes(wire.filters.view)) fail("The saved display view is unsupported.");
 }
 export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): LoadedGridLayout {
   const wire = validateSheetLayout(value), snapshot = defaultGridLayout(catalog);
@@ -115,12 +119,14 @@ export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): Loaded
   assertSemanticWire(wire);
   const pinned = catalog.columns.filter(column => column.lockedVisible).map(column => column.key);
   const ordered = [...new Set([...pinned, ...wire.order, ...catalog.columns.map(column => column.key)])];
-  snapshot.columns = ordered.flatMap(key => { const column = catalog.byKey.get(key); return column ? [{ colId: column.colId, width: width(wire.widths[key] ?? column.defaultWidth, column), hide: !column.lockedVisible && wire.hidden.includes(key) }] : []; });
+  snapshot.columns = ordered.flatMap(key => { const column = catalog.byKey.get(key); return column ? [{ colId: column.colId, width: width(wire.widths[key] ?? column.defaultWidth, column),
+    hide: !column.lockedVisible && (wire.hidden.includes(key) || !wire.order.includes(key) && wire.widths[key] === undefined && Boolean(column.defaultHidden)) }] : []; });
   snapshot.sort = storedSort(wire).flatMap(([key, sort]) => { const column = catalog.byKey.get(key); return column ? [{ colId: column.colId, sort }] : []; });
   for (const [key, value] of Object.entries(wire.filters)) {
     const column = catalog.byKey.get(key); if (column) snapshot.filterModel[column.colId] = filterValue(JSON.parse(value));
   }
   snapshot.quickFilter = wire.filters.quick ?? "";
+  if (wire.filters.view !== undefined) snapshot.view = wire.filters.view as "grid" | "cards";
   const refs = new Set([...wire.order, ...wire.hidden, ...Object.keys(wire.widths), ...storedSort(wire).map(([key]) => key), ...Object.keys(wire.filters).filter(key => !META.has(key))]);
   return { status: "restored", revision: wire.revision, snapshot, writable: true, retainedUnknownColumns: [...refs].filter(key => !catalog.byKey.has(key)).length };
 }
@@ -140,6 +146,11 @@ export function encodeGridLayout(snapshot: GridLayoutSnapshot, catalog: ColumnCa
   const order = [...new Set([...locked, ...currentOrder, ...base.order.filter(key => !catalog.byKey.has(key))])];
   const filters = Object.fromEntries(Object.entries(base.filters).filter(([key]) => !META.has(key) && !catalog.byKey.has(key)));
   filters.schema = LAYOUT_SCHEMA; filters.quick = cleanText(snapshot.quickFilter);
+  const view = snapshot.view === undefined ? base.filters.view : snapshot.view;
+  if (view !== undefined) {
+    if (!["grid", "cards"].includes(view)) fail("The current display view is unsupported.");
+    filters.view = view;
+  }
   if (!Array.isArray(snapshot.sort) || snapshot.sort.length > 5 || new Set(snapshot.sort.map(item => item.colId)).size !== snapshot.sort.length) fail("At most five columns can be sorted in a saved grid layout.");
   const sort = snapshot.sort.map(item => {
     const column = catalog.byId.get(item.colId); if (!column || !["asc", "desc"].includes(item.sort)) fail("The current grid sorting is invalid.");

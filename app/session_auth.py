@@ -12,7 +12,7 @@ import time
 import re
 from collections import defaultdict
 from typing import Any
-from urllib.parse import quote, unquote, urlparse
+from urllib.parse import parse_qsl, quote, unquote, urlencode, urlparse
 
 from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
@@ -166,11 +166,44 @@ def requested_local_path(request: Request) -> str:
     return f"{path}?{query}" if query else path
 
 
-def investigation_return_context(request: Request) -> dict[str, str]:
+def investigation_return_context(request: Request) -> dict[str, Any]:
     """A bounded explicit return from retained full dossiers/readers to React."""
     raw = request.query_params.get("return_to", "")
     candidate = safe_next_path(raw) if raw else ""
-    return {"investigation_return_href": candidate if candidate and is_investigation_path(urlparse(candidate).path) else ""}
+    result: dict[str, Any] = {"investigation_return_href": "", "investigation_header_links": {},
+                              "investigation_header_current": ""}
+    if not candidate or not is_investigation_path(urlparse(candidate).path):
+        return result
+    result["investigation_return_href"] = candidate
+    # Header context is stronger than a safe navigation destination: it must
+    # carry the supported typed selection and have no ambiguous selector values.
+    from app.services.investigation_api import CONTEXT_FIELDS, context_query, normalize_context
+    try:
+        target = urlparse(candidate)
+        pairs = parse_qsl(target.query, keep_blank_values=True, max_num_fields=80)
+        selectors = {}
+        for key, value in pairs:
+            if key in CONTEXT_FIELDS:
+                if key in selectors:
+                    return result
+                selectors[key] = value
+        if selectors.get("ctx_v") != "1":
+            return result
+        context, _issues = normalize_context(selectors)
+        query = context_query(context)
+        native_return = target.path + "?" + query
+        links = {name: "/app/" + name + "?" + query for name in ("landscape", "briefing", "learn")}
+        links["workspaces"] = "/workspaces?" + urlencode({"return_to": native_return})
+        links["save"] = "/app/workspaces?" + query
+        if any(len(href) > 4096 for href in links.values()):
+            return result
+    except (TypeError, ValueError):
+        return result
+    result["investigation_header_links"] = links
+    path = request.url.path.rstrip("/")
+    if path == "/workspaces" or path.startswith("/workspaces/"):
+        result["investigation_header_current"] = "workspaces"
+    return result
 
 
 def login_redirect(request: Request) -> Response:

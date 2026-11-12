@@ -24,7 +24,9 @@ export interface OutputPreview {
   sections: { id: OutputSection; title: string; row_count: number; basis: string; source_ids: string[] }[];
   sources: { id: string; title?: string; url?: string; published?: string; captured?: string }[];
   issues: { message: string }[]; date_note: string;
-  synthetic_annex: null | { specimen_count: number; specimen_labels: string[]; selection_mode: string };
+  synthetic_annex: null | { specimen_count: number; specimen_labels: string[]; selection_mode: string;
+    legacy_specimen_count?: number; brand_profile_count?: number; brand_profile_labels?: string[];
+    metrics?: Array<{ id: string; label: string; scale_type: string }> };
 }
 async function checked(response: Response): Promise<Response> {
   if (response.redirected || response.status === 401)

@@ -183,8 +183,19 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
     document.body.style.overflow = 'hidden';
     const workspace = panel.current?.parentElement;
     const shell = workspace?.closest('.berry-app');
-    const background = [...(shell?.children ?? []), ...(workspace?.children ?? [])]
-      .filter((element): element is HTMLElement => element instanceof HTMLElement && element !== workspace && element !== panel.current)
+    // Mark sibling branches, never an ancestor containing this modal. The shared
+    // Workspace frame can introduce sidebars between the panel and app shell.
+    const backgroundElements = new Set<HTMLElement>();
+    let branch: HTMLElement | null = panel.current;
+    while (branch && branch !== shell) {
+      const parentElement: HTMLElement | null = branch.parentElement;
+      if (!parentElement) break;
+      for (const element of parentElement.children) {
+        if (element instanceof HTMLElement && element !== branch) backgroundElements.add(element);
+      }
+      branch = parentElement;
+    }
+    const background = [...backgroundElements]
       .map(element => ({ element, inert: element.inert, hidden: element.getAttribute('aria-hidden') }));
     for (const { element } of background) { element.inert = true; element.setAttribute('aria-hidden', 'true'); }
     const onKey = (event: KeyboardEvent) => {

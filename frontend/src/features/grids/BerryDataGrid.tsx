@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { AllCommunityModule, ModuleRegistry, themeQuartz, type ColDef, type ICellRendererParams } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry, type ColDef, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
 import { useInvestigation } from '../../state/InvestigationProvider';
@@ -14,23 +14,11 @@ import type { CompanyPage } from './company-pages';
 import { portfolioData, type PortfolioRow } from './portfolio-data';
 import { useCompanyPageMemory } from './useCompanyPageMemory';
 import './grid.css';
+import { workspaceGridTheme } from './workspace-grid-theme';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-const berryGridTheme = themeQuartz.withParams({
-  fontFamily: 'var(--berry-font-ui)',
-  fontSize: 13,
-  backgroundColor: 'var(--berry-surface)',
-  foregroundColor: 'var(--berry-ink)',
-  headerBackgroundColor: 'var(--berry-surface-subtle)',
-  accentColor: 'var(--berry-forest)',
-  borderColor: 'var(--berry-line-strong)',
-  rowBorder: true,
-  columnBorder: true,
-  headerHeight: 34,
-  spacing: 3,
-  wrapperBorderRadius: 0,
-});
+const berryGridTheme = workspaceGridTheme;
 
 /** One actual directed edge, with material qualifiers outside the hover preview. */
 function PortfolioRelationship({ edge, model, open }: {
