@@ -11,8 +11,6 @@ import { Citation } from './Citation';
 import { DevelopmentCard } from './DevelopmentCard';
 import { useReadModel } from './useReadModel';
 import { developmentsContext } from './developments-context';
-import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
-import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './landscape.css';
 
 const LENSES: Array<{ id: Lens; label: string }> = [
@@ -151,8 +149,6 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
   const query = useReadModel<ComparisonModel>('/comparison', comparisonContext, selected.length > 0 && !hasBlockingIssues(issues));
   useLayoutEffect(() => onReady(selected.length === 0 || !query.isPending), [onReady, selected.length, query.isPending]);
   const result = query.data?.data;
-  const media = useBrandMedia(result?.comparison_kind === 'company' ? result.companies.map(company => company.id) : []);
-  const hasPackaging = result?.comparison_kind === 'company' && result.companies.some(company => media?.[company.id]?.packaging.length);
   const openEntity = (id: string, type: EntityType) => dispatch({ type: 'focusEntity', entity: { id, type }, origin: 'direct' });
   return <><div className="berry-section-heading"><div><h2>Compare the selected {context.comparison_kind === 'company' ? 'companies' : 'cultivars'}</h2><p>Full selected profiles · applied berry, countries and publication dates provide context and do not trim these portfolio records.</p></div>
     <div className="berry-segmented" aria-label="Comparison subject type">{(['company', 'variety'] as const).map(kind => <button key={kind} type="button" aria-pressed={context.comparison_kind === kind} onClick={() => dispatch({ type: 'setLens', lens: 'comparison', comparison_kind: kind, origin: 'direct' })}>{kind === 'company' ? 'Companies' : 'Cultivars'}</button>)}</div></div>
@@ -161,8 +157,7 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
         : query.isError ? <EmptyState title="Comparison unavailable">{query.error instanceof Error ? query.error.message : 'The selected profiles could not be loaded.'}</EmptyState>
           : result && <>
             {(result.invalid_ids.length > 0 || result.overflow_ids.length > 0) && <div className="berry-issue">Unavailable: {result.invalid_ids.join(', ') || 'None'}. Beyond the supported comparison: {result.overflow_ids.join(', ') || 'None'}. All pins remain visible for explicit removal.</div>}
-            {result.comparison_kind === 'company' ? result.companies.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded dimension</th>{result.companies.map(company => <th key={company.id}><BrandLogo asset={media?.[company.id]?.logo} name={company.name} /><EntityButton compact name={company.name} onClick={() => openEntity(company.id, 'company')} /></th>)}</tr></thead><tbody>
-              {hasPackaging && <tr><th scope="row">Retail packaging</th>{result.companies.map(company => <td key={company.id}><BrandMediaGallery compact model={media?.[company.id]} /></td>)}</tr>}
+            {result.comparison_kind === 'company' ? result.companies.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded dimension</th>{result.companies.map(company => <th key={company.id}><EntityButton compact name={company.name} onClick={() => openEntity(company.id, 'company')} /></th>)}</tr></thead><tbody>
               <tr><th scope="row">Declared berry portfolio</th>{result.companies.map(company => <td key={company.id}>{company.berries.join(' · ') || <Unknown />}</td>)}</tr>
               {result.role_matrix.map(role => <tr key={role.bucket}><th scope="row">{role.label}</th>{result.companies.map(company => <td key={company.id}>{company.roles[role.bucket]?.length ? <ul className="berry-comparison-list">{company.roles[role.bucket].map(party => <li key={party.id}><button type="button" className="berry-text-button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'variety', id: party.id }, origin: 'direct' })}>{party.name || model.nodes[party.id]?.label || party.id}</button></li>)}</ul> : <Unknown label="Unknown: no recorded cultivar relationship in this role" />}</td>)}</tr>)}
               <tr><th scope="row">Recorded geographic context</th>{result.companies.map(company => <td key={company.id}>{company.geographies.length ? company.geographies.map(geo => <div key={geo.id}><button className="berry-text-button" type="button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'geography', id: geo.id }, origin: 'direct' })}>{geo.name}</button></div>) : <Unknown />}<p className="berry-material-caveat">Profile geography includes distinct company/observation bases; inspect before inferring growing.</p></td>)}</tr>
