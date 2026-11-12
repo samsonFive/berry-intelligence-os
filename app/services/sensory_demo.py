@@ -5,10 +5,11 @@ from copy import deepcopy
 from decimal import Decimal
 import json
 import math
-import os
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
+
+from app.runtime_config import resolve_data_dir
 
 DEMO_PATH = Path(__file__).resolve().parents[1] / "demo_data/flavor/synthetic-overall-liking-v1.json"
 METRIC_IDS = ("sweetness", "acidity", "aroma", "firmness", "overall_liking")
@@ -58,8 +59,7 @@ def validate_fixture(fixture, *, entities_dir=None):
                     or row.get("minimum_label") != ("Dislike extremely" if hedonic else "Very low")
                     or row.get("maximum_label") != ("Like extremely" if hedonic else "Very high")):
                 raise error
-        directory = Path(entities_dir) if entities_dir is not None else Path(os.environ.get(
-            "BIOS_DATA_DIR", Path(__file__).resolve().parents[2] / "data")) / "entities"
+        directory = Path(entities_dir) if entities_dir is not None else resolve_data_dir() / "entities"
         identities = set()
         for profile in profiles:
             if not isinstance(profile, dict):

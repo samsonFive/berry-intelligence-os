@@ -1,11 +1,83 @@
 """Simulated ratings retain real typed identities without entering the canonical model."""
 from copy import deepcopy
 from decimal import Decimal
+import json
 from pathlib import Path
+import shutil
 
 import pytest
 
 from app.services import sensory_demo as demo
+from app.services import investigation_export as export
+
+
+def _copy_brand_identities(data_dir):
+    """Copy only the fixture's six typed identity records into a runtime tree."""
+    fixture = json.loads(demo.DEMO_PATH.read_text(encoding="utf-8"))
+    source = Path(__file__).resolve().parents[1] / "data" / "entities"
+    for profile in fixture["brand_profiles"]:
+        ref = profile["canonical_entity"]
+        folder = "companies" if ref["type"] == "company" else "brands"
+        destination = data_dir / "entities" / folder / (ref["id"] + ".json")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source / folder / destination.name, destination)
+    return fixture
+
+
+@pytest.mark.parametrize("explicit_data", [None, ""])
+def test_fixture_and_export_use_runtime_data_with_no_explicit_data_dir(tmp_path, monkeypatch, explicit_data):
+    runtime = tmp_path / "runtime"
+    fixture = _copy_brand_identities(runtime / "data")
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
+    if explicit_data is None:
+        monkeypatch.delenv("BIOS_DATA_DIR", raising=False)
+    else:
+        monkeypatch.setenv("BIOS_DATA_DIR", explicit_data)
+
+    assert demo.load_fixture() == fixture
+    assert export._load_demo() == fixture
+
+    # A missing runtime identity must not silently resolve against repo/data.
+    (runtime / "data/entities/brands/brand-fruitist.json").unlink()
+    for loader in (demo.load_fixture, export._load_demo):
+        with pytest.raises(ValueError, match="isolated synthetic fixture"):
+            loader()
+
+
+def test_explicit_data_dir_takes_precedence_over_runtime_for_fixture_and_export(tmp_path, monkeypatch):
+    selected_data = tmp_path / "selected-data"
+    fixture = _copy_brand_identities(selected_data)
+    monkeypatch.setenv("BIOS_DATA_DIR", str(selected_data))
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(tmp_path / "missing-runtime"))
+
+    assert demo.load_fixture() == fixture
+    assert export._load_demo() == fixture
+
+
+def test_invalid_explicit_data_dir_does_not_fall_back_to_runtime_or_repo(tmp_path, monkeypatch):
+    runtime = tmp_path / "runtime"
+    _copy_brand_identities(runtime / "data")
+    selected_data = tmp_path / "selected-data"
+    _copy_brand_identities(selected_data)
+    invalid = selected_data / "entities/brands/brand-fruitist.json"
+    record = json.loads(invalid.read_text(encoding="utf-8"))
+    record["entity_type"] = "company"
+    invalid.write_text(json.dumps(record), encoding="utf-8")
+    monkeypatch.setenv("BIOS_DATA_DIR", str(selected_data))
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
+
+    for loader in (demo.load_fixture, export._load_demo):
+        with pytest.raises(ValueError, match="isolated synthetic fixture"):
+            loader()
+
+
+def test_explicit_entities_dir_still_overrides_environment(tmp_path, monkeypatch):
+    selected_data = tmp_path / "selected-data"
+    fixture = _copy_brand_identities(selected_data)
+    monkeypatch.setenv("BIOS_DATA_DIR", str(tmp_path / "missing-data"))
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(tmp_path / "missing-runtime"))
+
+    assert demo.load_fixture(entities_dir=selected_data / "entities") == fixture
 
 
 def test_brand_fixture_keeps_typed_references_and_legacy_saved_ids():
