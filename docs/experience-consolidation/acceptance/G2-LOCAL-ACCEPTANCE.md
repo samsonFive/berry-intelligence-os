@@ -78,7 +78,11 @@ These runs overlap; do not add them as unique test coverage.
   `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log`; it is not a
   successful final-head CI result. The focused local retest passed with the 500ms
   threshold unchanged; that local result does not clear the recorded CI failure.
-  Required final-head checks remain open.
+  Subsequent checkpoint `ff6a17e3` passed every required check in run
+  `43125105819`, with 7,431 Python tests passed and 11 skipped, including the
+  unchanged Reader timing test. Both Docker builds and no-network metadata/import
+  checks passed. That checkpoint precedes the newer published-link integration;
+  its 21 focused tests passed locally, but its exact-head CI remains required.
 * Record validation passed. The 2,429-page public build and unpublished-draft
   leakage check passed; the private client remains excluded from public output.
 * Both Docker images and metadata/import smoke checks are added to the existing

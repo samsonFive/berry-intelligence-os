@@ -6,8 +6,9 @@ Updated November 11, 2026, Pacific. Presentation: November 12 morning.
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #555 (`7e7bce57`), including #551
-Strategy inputs, #552 News expansion and #554/#555 translation/noise fixes.
+canonical #550 (`3f159639`), now integrated onto #553 (`fdfe5911`), including #551
+Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
+material News recovery and the published-review-link repair.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
 
@@ -111,7 +112,12 @@ Runs overlap and must not be added as unique coverage:
   522.8ms against the existing 500ms budget. The recorded log is
   `artifacts/experience-consolidation/ci-python-60d9f0a1-failed.log`. That run did
   not pass. The focused local retest passed with the 500ms threshold unchanged;
-  it does not clear the recorded CI failure. Required final-head CI remains open.
+  it does not clear the recorded CI failure. Subsequent News-integrated checkpoint
+  `ff6a17e3` passed every required check in run `43125105819`: 7,431 Python tests
+  passed, 11 skipped, including the unchanged 500ms Reader assertion. Both
+  container builds and no-network metadata/import checks passed. The newer
+  published-link integration needs its own final-head CI; its 21 focused native
+  auth/deep-link and published-review-link tests passed locally.
 
 ## Release work after local G2
 
@@ -123,8 +129,9 @@ adds no authored facts and makes no provider request. Existing authored Workspac
 and Learn research/edit/version workflows remain explicit governed compatibility
 destinations with native return context.
 
-Resolve the recorded CI performance failure and complete required final-head
-checks. Prepare the concrete server build/backup/rollback receipt before
+Complete required checks on the final integrated head. The later Reader pass
+does not establish a performance fix or close existing performance debt.
+Prepare the concrete server build/backup/rollback receipt before
 production promotion. The optional Node network-namespace deployment override is
 source-ready. Local Docker is unavailable; final-head container checks and the
 separately authorized live smoke remain release gates. No production service,
