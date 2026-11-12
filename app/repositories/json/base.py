@@ -24,7 +24,9 @@ identical st_mtime_ns across same-tick rewrites.
 
 from __future__ import annotations
 
+import fnmatch
 import json
+import os
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -54,9 +56,9 @@ def safe_record_id(record_id: str) -> str:
 class JsonRecordRepository:
     """One-file-per-record JSON persistence for a single object type.
 
-    Read operations (`get`/`list`) scan `folder` recursively
-    (`Path.rglob("*.json")`, matching `load_json_files()`'s own traversal
-    exactly), so a repository whose records live in per-type subfolders
+    Read operations (`get`/`list`) inventory `folder` recursively with the same
+    matching and ordering as `Path.rglob("*.json")`, so a repository whose
+    records live in per-type subfolders
     (Entities -- see `entities.py`) needs no special read-side handling:
     pointing `folder` at the parent directory is sufficient. Write
     operations (`create`/`update`/`delete`) locate a record's *existing*
@@ -92,16 +94,42 @@ class JsonRecordRepository:
 
     # -- deterministic, cached loading --------------------------------------
 
+    def _record_inventory(self) -> tuple[list[Path], _CacheSignature]:
+        """Fresh full inventory using directory-enumeration metadata.
+
+        DirEntry.stat preserves the same mtime/size signature while avoiding a
+        second filesystem lookup per entry on Windows. As with Path.rglob, file
+        symlinks are followed, directory symlinks are not traversed, and matching
+        directories still reach the existing read/error handling.
+        """
+        inventory: list[tuple[Path, int, int]] = []
+        pending = [self._folder]
+        while pending:
+            directory = pending.pop()
+            try:
+                with os.scandir(directory) as iterator:
+                    entries = list(iterator)
+            except OSError:
+                # Path.rglob suppresses directory-enumeration errors as well.
+                continue
+            for entry in entries:
+                if fnmatch.fnmatch(entry.name, "*.json"):
+                    metadata = entry.stat(follow_symlinks=True)
+                    inventory.append((Path(entry.path), metadata.st_mtime_ns, metadata.st_size))
+                try:
+                    is_directory = entry.is_dir(follow_symlinks=False)
+                except OSError:
+                    is_directory = False
+                if is_directory:
+                    pending.append(Path(entry.path))
+        inventory.sort(key=lambda entry: entry[0])
+        return ([entry[0] for entry in inventory],
+                tuple((str(path), mtime, size) for path, mtime, size in inventory))
+
     def _load_all_with_paths(self) -> list[tuple[Path, dict[str, Any]]]:
         if not self._folder.exists():
             return []
-        paths = sorted(self._folder.rglob("*.json"))
-
-        def _signature_entry(path: Path) -> tuple[str, int, int]:
-            stat_result = path.stat()
-            return (str(path), stat_result.st_mtime_ns, stat_result.st_size)
-
-        signature: _CacheSignature = tuple(_signature_entry(p) for p in paths)
+        paths, signature = self._record_inventory()
         if self._cache is not None and self._cache[0] == signature:
             return self._cache[1]
         pairs: list[tuple[Path, dict[str, Any]]] = []
