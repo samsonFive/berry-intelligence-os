@@ -91,9 +91,14 @@ the explicit icon fallback, historical Good Natured attribution and readable
 white wordmarks. The OZblu cup reference was corrected after browser inspection
 caught an erroneous emblem URL; the retained cup photograph was verified
 directly before selection. These are local focused
-checks, not final-head CI or a full-suite claim. Current-head repository gates,
-the complete expanded browser image-load/interaction ledger and continuous
-recording, isolated restore/preservation rehearsal, and any later live seed
+checks, not final-head CI or a full-suite claim. The final browser ledger
+verifies all18 logo references, all29 packaging references and all29 source
+links across19 profiles against corrected seed SHA256
+`36738a06b913fd721c1aaf9390bc5a3424ef9877f1c3ecd1e75a80e3f238e0b4`.
+The exact-original-five/add42/repeat-zero proof is retained under
+`inbox/coverage-expansion/corrected-final-batch-proof/`; earlier receipts remain
+historical. Current-head repository gates, a new continuous recording,
+isolated restore/preservation rehearsal, and any later live seed
 activation must be recorded separately. The five-image live/pilot proof below
 does not certify all 47 browser loads. The experience-consolidation React
 adapter remains a separately coordinated handoff; this seed does not certify
