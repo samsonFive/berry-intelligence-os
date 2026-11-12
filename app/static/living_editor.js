@@ -193,8 +193,12 @@
         const details=el('details',undefined,'lw-card-briefing');details.append(el('summary','Sources, method & editing'));
         const citations=el('div',undefined,'lw-briefing-citations');(block.citations||[]).forEach(ref=>citations.append(citationLink(ref,'['+ref.number+'] '+(ref.title||'Source'))));if(citations.childElementCount)details.append(citations);
         const metadata=[block.method,block.generated_at?'Saved '+formatDate(block.generated_at):''].filter(Boolean).join(' · ');if(metadata)details.append(el('p',metadata,'lw-muted'));if(block.generation_notice)details.append(el('p',block.generation_notice,'lw-muted'));
-        const stale=(block.source_versions||[]).some(ref=>items[ref.id]&&items[ref.id].version!==ref.version);if(stale)details.append(el('p','Referenced evidence changed. Generate a new block to compare; this draft is preserved.','lw-relation-label'));
-        const label=el('label','Edit briefing text');const input=inputText(block,label);input.addEventListener('input',()=>{prose.replaceChildren();briefingBody(prose,block);box.querySelector('.lw-card-title').textContent=briefingTitle(block);});details.append(label);box.append(details);
+        const versions=(block.source_versions||[]).filter(ref=>/^ev-workspace-[A-Za-z0-9_-]+$/.test(ref.id||''));
+        if(versions.some(ref=>items[ref.id]&&items[ref.id].version!==ref.version))details.append(el('p','Referenced evidence changed. Generate a new block to compare; this draft is preserved.','lw-relation-label'));
+        if(versions.some(ref=>!items[ref.id]))details.append(el('p','Some referenced evidence revisions are unavailable on this page. Open the cited readers to compare; this draft is preserved.','lw-relation-label'));
+        const updateReading=()=>{prose.replaceChildren();briefingBody(prose,block);box.querySelector('.lw-card-title').textContent=briefingTitle(block);};
+        const headlineLabel=el('label','Edit headline'),headline=el('input'),headlineField=Object.hasOwn(block,'title')?'title':Object.hasOwn(block,'headline')?'headline':'title';headline.type='text';headline.value=block.title||block.headline||'';headline.placeholder='Use the first meaningful line';headline.setAttribute('aria-label','Briefing headline');headline.addEventListener('input',()=>{block[headlineField]=headline.value;changed();updateReading();});headlineLabel.append(headline);details.append(headlineLabel);
+        const label=el('label','Edit briefing text');const input=inputText(block,label);input.addEventListener('input',updateReading);details.append(label);box.append(details);
       } else if (block.type === 'map') { drawMap(box); }
       else if (block.type === 'feed') { box.append(el('p', 'Living feed · incoming coverage is shown alongside this document. Feature an item to add it to the curated page.')); button('Configure feed', configureFeed, box); }
       else {
