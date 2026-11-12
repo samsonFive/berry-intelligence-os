@@ -51,6 +51,7 @@ export interface CatalogOption {
   status: string;
   in_scope: boolean;
 }
+export interface RetainedSourceLink { url: string; label: string; kind: string }
 export interface NewsCard {
   id: string;
   headline: string;
@@ -73,6 +74,7 @@ export interface NewsCard {
   scope_match?: { kind: 'primary' | 'related_context'; primary_label: string; subject_labels: string[]; basis: 'recorded_link' | 'unreviewed_mention' };
   coverage_sources?: Array<{ id: string; source_name?: string; published_date?: string; captured_at?: string; captured_date?: string }>;
   independence?: string;
+  retained_source_links?: RetainedSourceLink[];
   crop_labels?: string[];
 }
 export interface DevelopmentsModel {
