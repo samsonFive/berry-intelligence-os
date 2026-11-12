@@ -512,7 +512,11 @@ def test_variety_page_shows_trait_profile_and_claim_badges() -> None:
     response = client.get("/entities/variety/variety-blue-manila")
     assert response.status_code == 200
     assert "Reported traits" in response.text
-    assert "OWNER/MARKETER CLAIM" in response.text
+    from lxml import html
+    profile = html.fromstring(response.text)
+    claims = profile.xpath('//*[@id="traits"]//span[contains(concat(" ", normalize-space(@class), " "), " badge-claim ")]')
+    assert any(badge.text_content() == "Owner/marketer claim" for badge in claims)
+    assert all(not badge.getparent().xpath('.//span[contains(concat(" ", normalize-space(@class), " "), " badge-fact ")]') for badge in claims)
     assert "Owner-published fruit-quality figures sit consistently above" in response.text  # the linked Signal
 
 
@@ -520,7 +524,14 @@ def test_variety_page_handles_missing_trait_and_patent_data_honestly() -> None:
     response = client.get("/entities/variety/variety-arana")
     assert response.status_code == 200
     assert "No structured trait data recorded" in response.text
-    assert "No patent reference linked." in response.text
+    from lxml import html
+    profile = html.fromstring(response.text)
+    rights = profile.get_element_by_id("rights")
+    assert rights.xpath('./details/summary[text()="Rights / IP"]')
+    reference = rights.xpath('.//tr[th[text()="Patent / IP right"]]/td')[0]
+    assert reference.text_content().strip() == "—"
+    assert not reference.xpath('.//a')  # Missing metadata must not fabricate a patent.
+    assert profile.xpath('//a[@href="/entities/variety/compare?ids=variety-arana"]')
     assert "Original filing references" not in response.text
 
 
