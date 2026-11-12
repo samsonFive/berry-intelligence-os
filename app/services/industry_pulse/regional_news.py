@@ -35,7 +35,7 @@ NATIVE_TOPICS = {
     "fr": ("variété", "récolte", "exportation", "pépinière", "cultivar", "licenciements",
            "fermeture de ferme", "sécheresse", "rappel sanitaire", "rappel de", "rappelés", "rappelées",
            "droits de douane", "prix", "rendement", "rendements", "production", "exportations",
-           "main-d’œuvre", "main-d'œuvre", "main-d'oeuvre", "canicule", "irrigation", "gel"),
+           "main-d’œuvre", "main-d'œuvre", "main-d'oeuvre", "canicule", "irrigation", "gel printanier", "gelées tardives"),
     "pt": ("variedade", "melhoramento", "produção", "exportação", "colheita", "cultivo",
            "demissões", "fechamento de fazenda", "seca", "tarifas"),
     "pl": ("odmiana", "odmiany", "hodowla", "uprawa", "eksport", "zbiory", "susza",

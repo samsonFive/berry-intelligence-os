@@ -54,6 +54,7 @@ def test_native_primary_metadata_survives_discovery_projection_and_crop_filters(
     'Công thức dâu tây cho gia đình', 'Trồng dâu nuôi tằm',
     'Fruits mûres et marché automobile', 'Roboti pakuju krompir u Guči',
     'Xuất khẩu cà chua tăng trưởng', 'BlackBerry launches automotive software in China',
+    'Strawberry gel nails', 'Gel à la fraise', 'Cách trồng dâu tây tại nhà',
 ])
 def test_language_expansion_does_not_assign_ambiguous_fruit_or_admit_observed_noise(title):
     assert not qualify_hit(candidate(title)).qualifying

@@ -108,7 +108,7 @@ _EVENT_NOISE = re.compile(
 _GARDENING_HOBBY = re.compile(
     r"\b("
     r"care & growing guide|growing guide|houseplant|backyard garden|"
-    r"how to grow .{0,20}in pots"
+    r"how to grow .{0,20}in pots|cách trồng.{0,40}(?:tại nhà|trong chậu)"
     r")\b",
     re.IGNORECASE,
 )
