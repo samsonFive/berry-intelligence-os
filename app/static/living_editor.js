@@ -85,6 +85,35 @@
   }
   function inputText(block, parent, field = 'text') {
     const input = el('textarea'); input.value = block[field] || ''; input.setAttribute('aria-label', block.type + ' ' + field); input.rows = Math.min(15, Math.max(2, input.value.split('\n').length)); input.addEventListener('input', () => { block[field] = input.value; changed(); }); parent.append(input);
+    return input;
+  }
+  function briefingTitle(block) {
+    const explicit=String(block.title||block.headline||'').trim();if(explicit)return explicit;
+    const lines=String(block.text||'').split('\n').map(line=>line.replace(/^\s*(?:#{1,6}\s+|>\s*|[-*]\s+|\d+[.)]\s+)/,'').trim());
+    const title=lines.find(line=>line&&!/^(?:saved briefing|cited briefing|summary|sources?|source references(?: for this research record)?)[.:]?$/i.test(line));
+    return title?(title.length>160?title.slice(0,157)+'…':title):(block.citations?.find(ref=>ref.title)?.title||'Research briefing');
+  }
+  function citationLink(ref, label) {
+    let href='';
+    if(/^ev-workspace-[A-Za-z0-9_-]+$/.test(ref.item_id||''))href='/workspaces/evidence/'+encodeURIComponent(ref.item_id);
+    else {try{const url=new URL(ref.url);if(['http:','https:'].includes(url.protocol)&&!url.username&&!url.password)href=url.href;}catch(_){}}
+    const link=el(href?'a':'span',label||ref.title||'Source');
+    if(href){link.href=href;if(!href.startsWith('/')){link.target='_blank';link.rel='noopener noreferrer';}}
+    return link;
+  }
+  function briefingBody(host, block) {
+    const refs=Object.fromEntries((block.citations||[]).map(ref=>[ref.number,ref]));
+    function text(node,value){let offset=0;for(const match of value.matchAll(/\[(\d+)\]/g)){node.append(document.createTextNode(value.slice(offset,match.index)));node.append(refs[match[1]]?citationLink(refs[match[1]],match[0]):document.createTextNode(match[0]));offset=match.index+match[0].length;}node.append(document.createTextNode(value.slice(offset)));}
+    const lines=String(block.text||'').split('\n');let paragraph=[],list;
+    function flush(){if(paragraph.length){const node=el('p');text(node,paragraph.join(' '));host.append(node);paragraph=[];}list=null;}
+    lines.forEach((line,index)=>{
+      const value=line.trim();if(!value){flush();return;}
+      const heading=/^#{1,6}\s+/.exec(value),bullet=/^(?:[-*]\s+|\d+[.)]\s+)/.exec(value);
+      if(heading){flush();const title=value.slice(heading[0].length);if(index===0&&title===briefingTitle(block)&&lines.slice(1).some(line=>line.trim()))return;const node=el('h4');text(node,title);host.append(node);}
+      else if(/^(?:finding|why it matters|next action|next step|next move):?$/i.test(value)){flush();host.append(el('h4',value.replace(/:$/,'')));}
+      else if(bullet){if(paragraph.length)flush();const kind=/^\d/.test(bullet[0])?'ol':'ul';if(!list||list.tagName.toLowerCase()!==kind){list=el(kind);host.append(list);}const node=el('li');text(node,value.slice(bullet[0].length));list.append(node);}
+      else {if(list)flush();paragraph.push(value);}
+    });flush();
   }
   const trackingFields=['entity_ids','berry_ids','technology_ids','topic_ids','geography_ids'];
   function trackedEntityIds(){return [...new Set([...trackingFields.flatMap(field=>page.feed[field]||[]),...page.blocks.filter(b=>b.type==='entity').map(b=>b.entity_id).filter(Boolean)])];}
@@ -120,8 +149,8 @@
       button('↑', () => move(-1), bar).setAttribute('aria-label', 'Move block up'); button('↓', () => move(1), bar).setAttribute('aria-label', 'Move block down');
       const remove=button('×', () => { page.blocks.splice(index, 1); changed(); render(); }, bar);remove.className='lw-remove';remove.setAttribute('aria-label','Remove placement');remove.title='Remove placement';box.append(bar);
       const item = items[block.item_id], source = item && sources[item.source_id];
-      const cardTitle=source?((item.entity_ids?.length?item.entity_ids:source.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||source.title):({table:'Compare approaches',map:'Connections',feed:'Incoming coverage',briefing:'Saved briefing',callout:'Research scope',note:'Analyst note',hypothesis:'Open question',entity:'Tracked entities',page:inventory.pages.find(p=>p.id===block.page_id)?.title||'Related research'})[block.type];
-      if(cardTitle)box.append(el('h3',cardTitle,'lw-card-title'));
+      const cardTitle=block.type==='briefing'?briefingTitle(block):source?((item.entity_ids?.length?item.entity_ids:source.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||source.title):({table:'Compare approaches',map:'Connections',feed:'Incoming coverage',callout:'Research scope',note:'Analyst note',hypothesis:'Open question',entity:'Tracked entities',page:inventory.pages.find(p=>p.id===block.page_id)?.title||'Related research'})[block.type];
+      if(cardTitle){const title=el('h3',undefined,'lw-card-title');if(block.type==='page'&&block.page_id){const link=el('a',cardTitle);link.href='/workspaces/'+encodeURIComponent(block.page_id);title.append(link);}else title.textContent=cardTitle;box.append(title);}
       if(block.authored){inputText(block,box);const a=el('a','Analyst-authored · unverified · open knowledge item');a.href='/workspaces/evidence/'+block.item_id;box.append(a);}
       else if (item && source) {
         box.append(el('p', item.nature.replaceAll('_', ' ') + ' · ' + item.verification_state + (item.withdrawn ? ' · WITHDRAWN' : ''), 'lw-eyebrow'));
@@ -155,22 +184,30 @@
       } else if (block.type === 'entity') {
         trackedEntities(box);const notes=el('details');notes.open=!!block.text;notes.append(el('summary',block.text?'Entity notes':'Add entity note'));inputText(block,notes);box.append(notes);
       } else if (block.type === 'page') {
-        const select = el('select'); select.append(el('option', 'Choose page')); inventory.pages.forEach(p => { const option = el('option', p.title); option.value = p.id; select.append(option); }); select.value = block.page_id || ''; select.addEventListener('change', () => { block.page_id = select.value; changed(); render(); }); box.append(select); if (block.page_id) { const a = el('a', 'Open linked page'); a.href = '/workspaces/' + block.page_id; box.append(a); }
+        if(block.text)box.append(el('p',block.text,'lw-card-finding'));
+        const details=el('details',undefined,'lw-card-link-edit');details.append(el('summary',block.page_id?'Edit link':'Choose a page'));
+        const select=el('select'),placeholder=el('option','Choose page');placeholder.value='';select.append(placeholder);select.setAttribute('aria-label','Linked page');inventory.pages.forEach(p=>{const option=el('option',p.title);option.value=p.id;select.append(option);});select.value=block.page_id||'';select.addEventListener('change',()=>{block.page_id=select.value;changed();render();});details.append(select);box.append(details);
+      } else if (block.type === 'briefing') {
+        const prose=el('div',undefined,'lw-briefing-body');briefingBody(prose,block);box.append(prose);
+        const related=el('nav',undefined,'lw-briefing-links');related.setAttribute('aria-label','Related research');(block.related_links||[]).forEach(ref=>{try{if(typeof ref.href!=='string'||!ref.href.startsWith('/')||ref.href.startsWith('//'))return;const url=new URL(ref.href,location.origin);if(url.origin!==location.origin)return;const link=el('a',ref.label||'Related research');link.href=url.pathname+url.search+url.hash;related.append(link);}catch(_){}});if(related.childElementCount)box.append(related);
+        const details=el('details',undefined,'lw-card-briefing');details.append(el('summary','Sources, method & editing'));
+        const citations=el('div',undefined,'lw-briefing-citations');(block.citations||[]).forEach(ref=>citations.append(citationLink(ref,'['+ref.number+'] '+(ref.title||'Source'))));if(citations.childElementCount)details.append(citations);
+        const metadata=[block.method,block.generated_at?'Saved '+formatDate(block.generated_at):''].filter(Boolean).join(' · ');if(metadata)details.append(el('p',metadata,'lw-muted'));if(block.generation_notice)details.append(el('p',block.generation_notice,'lw-muted'));
+        const versions=(block.source_versions||[]).filter(ref=>/^ev-workspace-[A-Za-z0-9_-]+$/.test(ref.id||''));
+        if(versions.some(ref=>items[ref.id]&&items[ref.id].version!==ref.version))details.append(el('p','Referenced evidence changed. Generate a new block to compare; this draft is preserved.','lw-relation-label'));
+        if(versions.some(ref=>!items[ref.id]))details.append(el('p','Some referenced evidence revisions are unavailable on this page. Open the cited readers to compare; this draft is preserved.','lw-relation-label'));
+        const updateReading=()=>{prose.replaceChildren();briefingBody(prose,block);box.querySelector('.lw-card-title').textContent=briefingTitle(block);};
+        const headlineLabel=el('label','Edit headline'),headline=el('input'),headlineField=Object.hasOwn(block,'title')?'title':Object.hasOwn(block,'headline')?'headline':'title';headline.type='text';headline.value=block.title||block.headline||'';headline.placeholder='Use the first meaningful line';headline.setAttribute('aria-label','Briefing headline');headline.addEventListener('input',()=>{block[headlineField]=headline.value;changed();updateReading();});headlineLabel.append(headline);details.append(headlineLabel);
+        const label=el('label','Edit briefing text');const input=inputText(block,label);input.addEventListener('input',updateReading);details.append(label);box.append(details);
       } else if (block.type === 'map') { drawMap(box); }
       else if (block.type === 'feed') { box.append(el('p', 'Living feed · incoming coverage is shown alongside this document. Feature an item to add it to the curated page.')); button('Configure feed', configureFeed, box); }
+      else if (['paragraph','heading'].includes(block.type)) {
+        const prose=el(block.type==='heading'?'h2':'p',block.text||'',block.type==='heading'?'lw-reading-heading':'lw-reading-paragraph');
+        const details=el('details',undefined,'lw-text-edit');details.open=!String(block.text||'').trim();details.append(el('summary','Edit '+block.type));const input=inputText(block,details);input.addEventListener('input',()=>{prose.textContent=block.text;});box.append(prose,details);
+      }
       else {
         if (block.type === 'checklist') { const check = el('input'); check.type = 'checkbox'; check.checked = !!block.checked; check.setAttribute('aria-label', 'Completed'); check.addEventListener('change', () => { block.checked = check.checked; changed(); }); box.append(check); }
         inputText(block, box);
-        if (block.type === 'briefing') {
-          box.append(el('p', block.method + ' · generated ' + block.generated_at, 'lw-muted'));if(block.generation_notice)box.append(el('p',block.generation_notice,'lw-muted'));
-          (block.citations || []).forEach(ref => { const a = el('a', '[' + ref.number + '] ' + ref.title); a.href = '/workspaces/evidence/' + ref.item_id; box.append(a, el('br')); });
-          const stale = (block.source_versions || []).some(ref => items[ref.id]?.version !== ref.version);
-          if (stale) box.append(el('p', 'Referenced evidence changed. Generate a new block to compare; this draft is preserved.', 'lw-relation-label'));
-        }
-      }
-      if(block.type==='briefing'){
-        const contents=Array.from(box.children).filter(child=>child!==bar&&!child.classList.contains('lw-card-title'));
-        const details=el('details',undefined,'lw-card-briefing');details.append(el('summary','Read / edit saved briefing'));contents.forEach(child=>details.append(child));box.append(el('p',(block.text||'').replace(/^#+\s*/gm,'').replace(/\s+/g,' ').slice(0,190)+'…','lw-muted'),details);
       }
       host.append(box);
     });
@@ -231,16 +268,18 @@
       if(block.type==='social')text=socialItems[block.social_id]?.translation?.text||socialItems[block.social_id]?.text||'Social observation · source unavailable';
       const recordTitle=source?.title||chooseEntity(block.entity_id)?.name||inventory.pages.find(p=>p.id===block.page_id)?.title||'—';
       const content=el('td'),excerpt=el('button',text||recordTitle,'lw-grid-excerpt');excerpt.type='button';excerpt.setAttribute('aria-expanded','false');excerpt.setAttribute('aria-describedby',findingPreview.id);excerpt.setAttribute('aria-label','Read full finding: '+(text||recordTitle).slice(0,100));
+      if(block.type==='briefing')content.append(el('strong',briefingTitle(block),'lw-grid-heading'));
       excerpt.onclick=()=>{const expanded=excerpt.getAttribute('aria-expanded')!=='true';excerpt.setAttribute('aria-expanded',String(expanded));excerpt.classList.toggle('lw-finding-expanded',expanded);hideFindingPreview();};
-      excerpt.onpointerenter=()=>showFindingPreview(excerpt,text||recordTitle);excerpt.onpointerleave=()=>{previewTimer=setTimeout(hideFindingPreview,150);};excerpt.onfocus=()=>showFindingPreview(excerpt,text||recordTitle);excerpt.onblur=hideFindingPreview;content.append(excerpt);
-      const sourceCell=el('td');if(item){const link=el('a',recordTitle);link.href='/workspaces/evidence/'+item.id;sourceCell.append(link);}else sourceCell.textContent=recordTitle;
+      excerpt.onpointerenter=()=>showFindingPreview(excerpt,text||recordTitle);excerpt.onpointerleave=()=>{previewTimer=setTimeout(hideFindingPreview,150);};excerpt.onfocus=()=>showFindingPreview(excerpt,text||recordTitle);excerpt.onblur=hideFindingPreview;
+      if(block.type==='page'&&block.page_id){const link=el('a',recordTitle,'lw-grid-page-link');link.href='/workspaces/'+encodeURIComponent(block.page_id);content.append(link);if(text)content.append(el('p',text));}else content.append(excerpt);
+      const sourceCell=el('td');if(item){const link=el('a',recordTitle);link.href='/workspaces/evidence/'+item.id;sourceCell.append(link);}else if(block.type==='briefing'&&block.citations?.length)sourceCell.append(citationLink(block.citations[0]));else sourceCell.textContent=block.type==='page'?'Workspace':recordTitle;
       const state=el('td',block.type==='social'?'Unreviewed social':item?(item.withdrawn?'Withdrawn':(item.nature==='analyst_hypothesis'?'Open question':item.nature==='analyst_note'?'Analyst view':'Reported')):'Research context');state.className='lw-grid-state';
       const action=el('td'),toggle=button(detail.hidden?'Expand':'Collapse',()=>{detail.hidden=!detail.hidden;detail.hidden?expandedRows.delete(block.id):expandedRows.add(block.id);toggle.textContent=detail.hidden?'Expand':'Collapse';toggle.setAttribute('aria-expanded',String(!detail.hidden));},action);toggle.setAttribute('aria-expanded',String(!detail.hidden));toggle.setAttribute('aria-controls','detail-'+block.id);detail.id='detail-'+block.id;
       const focus=(item?.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||({article:'Article',evidence:'Finding',hypothesis:'Question',table:'Comparison',entity:'Entities',social:'Social',page:'Research',briefing:'Brief',callout:'Scope',map:'Connections',feed:'Coverage'})[block.type]||block.type;
       row.dataset.sourceDate=dateFor(block);
       const dateCell=el('td',dateFor(block)||'Undated');dateCell.title='Last updated: '+formatDate(updatedFor(block));
       row.append(el('td',String(displayIndex+1)),selection,el('td',focus),content,state,sourceCell,dateCell,action);
-      row.dataset.search=[block.type,text,recordTitle,state.textContent].join(' ').toLowerCase();body.append(row,detail);
+      row.dataset.search=[block.type,block.title||block.headline||'',text,recordTitle,state.textContent].join(' ').toLowerCase();body.append(row,detail);
     });table.append(body);
     for(const row of [colgroup,header,...Array.from(body.children).filter(row=>!row.classList.contains('lw-grid-detail'))]){const cells=Array.from(row.children);row.replaceChildren(...visibleColumnOrder().map(index=>cells[index]));}
     host.replaceChildren(table);filterGrid();
@@ -260,12 +299,13 @@
   function overviewSignature() {return JSON.stringify({title:page.title,blocks:page.blocks.filter(b=>!['briefing','feed','map'].includes(b.type)),items:Object.values(items).map(i=>[i.id,i.version]),landscapes:page.landscape_links});}
   function renderLandscapeLinks(){const host=$('lw-linked-landscapes');host.replaceChildren();(page.landscape_links||[]).forEach(id=>{const row=linkedLandscapes.find(row=>row.id===id),chip=el('span',undefined,'lw-entity-chip'),a=el('a',row?.title||id);if(row)a.href=row.href;chip.append(a);const remove=button('×',async()=>{page.landscape_links=page.landscape_links.filter(key=>key!==id);changed();await save();if(!dirty)await load(page.id);},chip);remove.setAttribute('aria-label','Unlink Landscape '+(row?.title||id));host.append(chip);});if(landscapeError)host.append(el('p',landscapeError,'lw-muted'));}
   $('lw-link-landscape').onclick=async()=>{const options=(await api('/api/workspaces/landscapes')).landscapes,content=modal('Link a Landscape'),select=el('select');select.setAttribute('aria-label','Landscape to link');options.filter(row=>!(page.landscape_links||[]).includes(row.id)).forEach(row=>{const option=el('option',row.title);option.value=row.id;select.append(option);});content.append(el('p','A two-way research link: this page uses Landscape context in its AI brief, and the Landscape shows this page’s notes, captures and combined brief. Saved views retain their applied scope. Canonical claims and review states stay separate.'),select);button('Link Landscape',async()=>{if(!select.value)throw Error('No unlinked Landscapes available. Save a Landscape view first.');page.landscape_links=[...(page.landscape_links||[]),select.value];changed();await save();if(dirty)return;$('lw-dialog').close();await load(page.id);},content);};
-  let overviewLoadedSignature='';
+  let overviewLoadedSignature='',overviewPageId='';
   function renderOverview() {
     if(!page)return;
-    const overview=page.overview,signature=overviewSignature();if(!overviewLoadedSignature)overviewLoadedSignature=signature;
+    const overview=page.overview?.text?.trim()?page.overview:null,signature=overviewSignature();if(!overviewLoadedSignature)overviewLoadedSignature=signature;
+    if(overviewPageId!==page.id){overviewPageId=page.id;selectOverview(overview?0:1);collapseOverview(!overview);}
     const latestMaterial=[materialUpdatedAt||page.content_updated_at||page.updated_at,...Object.values(items).map(i=>i.updated_at||'')].sort().at(-1);$('lw-page-updated').textContent='Page updated · '+formatDate(latestMaterial)+(dirty?' · unsaved edits':'');
-    $('lw-summary-date').textContent='Last generated · '+formatDate(overview?.generated_at);
+    $('lw-summary-date').textContent=overview?'Last generated · '+formatDate(overview.generated_at):'';
     $('lw-summary-regenerate').textContent=overview?'Regenerate AI summary':'Generate AI summary';
     $('lw-summary-freshness').textContent=overview?(overviewStale||signature!==overviewLoadedSignature?'Page material has changed since this summary. Regenerate when you are ready.':''):'Compile a source-linked overview of this page. Your full research document stays below.';
     const body=$('lw-summary-body');body.replaceChildren();
@@ -279,7 +319,7 @@
       });
     }else{$('lw-summary-method').textContent='';body.append(el('p','No summary has been generated yet. Switch to Contents & excerpts to explore the page immediately.','lw-muted'));}
     const contents=$('lw-contents');contents.replaceChildren();const table=el('table',undefined,'lw-contents-table'),head=el('tr');['Section','Key excerpt'].forEach(text=>head.append(el('th',text)));table.append(head);
-    let section='';page.blocks.forEach((block,index)=>{const item=items[block.item_id],source=item&&sources[item.source_id];let title=block.type==='heading'?block.text:(source?.title||chooseEntity(block.entity_id)?.name||inventory?.pages.find(p=>p.id===block.page_id)?.title||({social:'Social observation',map:'Relationship map',feed:'Incoming coverage',table:'Comparison table',briefing:'Cited briefing',note:'Analyst note',hypothesis:'Analyst hypothesis',callout:'Context & scope'})[block.type]||block.type);
+    let section='';page.blocks.forEach((block,index)=>{const item=items[block.item_id],source=item&&sources[item.source_id];let title=block.type==='briefing'?briefingTitle(block):block.type==='heading'?block.text:(source?.title||chooseEntity(block.entity_id)?.name||inventory?.pages.find(p=>p.id===block.page_id)?.title||({social:'Social observation',map:'Relationship map',feed:'Incoming coverage',table:'Comparison table',note:'Analyst note',hypothesis:'Analyst hypothesis',callout:'Context & scope'})[block.type]||block.type);
       if(block.type==='heading')section=block.text;let excerpt=(block.type==='social'?(socialItems[block.social_id]?.translation?.text||socialItems[block.social_id]?.text||'Source unavailable'):'')||item?.text||item?.quote||block.text||(block.type==='article'?source?.text:'')||'';if(block.type==='table')excerpt=(block.rows||[]).slice(0,3).map(row=>row.join(' · ')).join(' / ');if(block.type==='map')excerpt='Source-stated relationships and labeled analyst hypotheses, with evidence and history.';if(block.type==='feed')excerpt=page.feed.paused?'Feed paused. Configure the page interests to receive coverage.':'Matching incoming coverage; featuring an article adds it to the curated page.';
       if(!excerpt&&!item&&!['table','map','feed','entity','page'].includes(block.type))return;
       const row=el('tr'),cell=el('td');cell.append(jumpLink((title||'Untitled section').slice(0,140),block.id),el('small',block.type+(item?' · '+item.nature.replaceAll('_',' ')+' · '+item.verification_state:'')));if(section&&block.type!=='heading')cell.append(el('small','In '+section));row.append(cell,el('td',String(excerpt).replace(/\s+/g,' ').slice(0,260)+(excerpt.length>260?'…':'')));table.append(row);
@@ -288,11 +328,11 @@
   const overviewTabs=[$('lw-summary-tab'),$('lw-contents-tab')];
   function collapseOverview(collapsed){document.querySelector('.lw-overview').classList.toggle('lw-overview-collapsed',collapsed);$('lw-overview-toggle').textContent=collapsed?'Expand overview':'Collapse overview';$('lw-overview-toggle').setAttribute('aria-expanded',String(!collapsed));}
   $('lw-overview-toggle').onclick=()=>collapseOverview($('lw-overview-toggle').getAttribute('aria-expanded')==='true');
-  collapseOverview(false);
+  collapseOverview(true);
   function selectOverview(index,focus=false){overviewTabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;$(tab.getAttribute('aria-controls')).hidden=i!==index;});if(focus)overviewTabs[index].focus();}
   overviewTabs.forEach((tab,index)=>{tab.onclick=()=>{collapseOverview(false);selectOverview(index);};tab.onkeydown=event=>{if(['ArrowRight','ArrowLeft','Home','End'].includes(event.key)){event.preventDefault();collapseOverview(false);selectOverview(event.key==='Home'?0:event.key==='End'?1:1-index,true);}};});
   let overviewToken=token();
-  $('lw-summary-regenerate').onclick=()=>{if(!page)return;const content=modal('Regenerate page overview'),label=el('label','Use Perplexity AI (sends saved article text, source links, captured passages, analyst notes and linked Landscape context to api.perplexity.ai)'),model=el('input');model.type='checkbox';model.checked=true;label.append(model);content.append(label,el('p','Generates from curated page material and linked Landscapes. Incoming feed cards are excluded. Existing page sections remain unchanged. Without a connected model, a clearly labeled evidence digest is available.'));button('Compile page summary',async()=>{await save();if(dirty)throw Error('Save current edits before generating a summary.');status('Compiling page overview…');const result=await api('/api/workspaces/generate/'+page.id,'POST',{version:page.version,selected:[],token:overviewToken,use_model:model.checked,style:'briefing',target:'overview'});overviewToken=token();page=result;overviewStale=false;overviewLoadedSignature=overviewSignature();$('lw-dialog').close();renderOverview();status('Summary saved · revision '+page.version);selectOverview(0);},content);};
+  $('lw-summary-regenerate').onclick=()=>{if(!page)return;const content=modal('Regenerate page overview'),label=el('label','Use Perplexity AI (sends saved article text, source links, captured passages, analyst notes and linked Landscape context to api.perplexity.ai)'),model=el('input');model.type='checkbox';model.checked=true;label.append(model);content.append(label,el('p','Generates from curated page material and linked Landscapes. Incoming feed cards are excluded. Existing page sections remain unchanged. Without a connected model, a clearly labeled evidence digest is available.'));button('Compile page summary',async()=>{await save();if(dirty)throw Error('Save current edits before generating a summary.');status('Compiling page overview…');const result=await api('/api/workspaces/generate/'+page.id,'POST',{version:page.version,selected:[],token:overviewToken,use_model:model.checked,style:'briefing',target:'overview'});overviewToken=token();page=result;overviewStale=false;overviewLoadedSignature=overviewSignature();$('lw-dialog').close();renderOverview();status('Summary saved · revision '+page.version);collapseOverview(false);selectOverview(0);},content);};
   function modal(title) { $('lw-dialog-content').replaceChildren(el('h2', title)); $('lw-dialog').showModal(); return $('lw-dialog-content'); }
   function formInput(parent, title, value = '', multiline = false) { const label = el('label', title), input = el(multiline ? 'textarea' : 'input'); input.value = value; label.append(input); parent.append(label); return input; }
   async function editItem(item) {

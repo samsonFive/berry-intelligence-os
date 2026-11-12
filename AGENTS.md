@@ -4,6 +4,8 @@ Local-first, evidence-based competitive intelligence for berry crops.
 
 ### Shared site design language
 
+Lead with information and commercial significance, using descriptive subject headlines. Methodology, source counts and system/process metadata belong in secondary details; gap accounting must not substitute for findings. Keep source and trust status truthful and compact.
+
 News feeds reuse `_news_cards.html`, `news_workspace.css`, the existing article visuals, personal actions and shared Reader. Preserve source review labels, publication versus capture dates, and grouped-source independence disclosures. Do not introduce plain headline lists as a replacement feed design.
 
 Data tables follow the compact Workspaces/Smartsheet language: full cell gridlines, sticky headers, frozen identity columns, resize/reorder/hide controls, readable full text, sorting/search and account-persisted layouts. `site_sheet.js` and the existing variety column engine provide the shared read-only implementation through `glasshouse_base.html`. Managed Workspaces and competitive grids retain their existing richer controllers; preserve them when extending shared behavior. Canonical intelligence is only editable through its governed controls. Use `_alphabet_nav.html` for alphabetical organization/variety directories and other name-based lists where it helps navigation; chronological news remains chronological.
