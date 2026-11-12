@@ -45,6 +45,6 @@
 <dialog data-tag-dialog><form method="dialog"><h2>Add tag</h2><label>Name<input name="name" maxlength="80" required autocomplete="off" data-tag-name></label><p data-tag-matches></p><label>Description (optional)<textarea name="description" maxlength="2000"></textarea></label><p role="status" data-tag-create-status></p><button type="submit" class="green-button" data-create-tag>Create tag</button> <button type="submit" formnovalidate>Cancel</button></form></dialog>
 <p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
-{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=4"></script><script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
+{% block scripts %}<script src="/static/news_workspace.js?v=9"></script><script src="/static/news_tags.js?v=4"></script><script src="/static/news_article_tags.js?v=2"></script>{% endblock %}
 
 {% block shared_overlays %}{% include "_news_article_tag_drawer.html" %}{% endblock %}

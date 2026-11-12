@@ -55,16 +55,6 @@
 .berry-subject-results > div { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--berry-line); }
 .berry-subject-results .berry-button { margin-left: auto; }
 .berry-subject-results .berry-entity-name { font-size: 12px; }
-.berry-news-figure { margin: 0; }
-.berry-news-figure figcaption { display: grid; gap: 2px; padding: 5px 10px; color: var(--berry-muted); font-size: 8px; line-height: 1.35; border-bottom: 1px solid var(--berry-line); }
-.berry-news-figure figcaption > span:first-child { font-weight: 600; }
-.berry-news-figure figcaption details > span { display: block; margin-top: 4px; }
-.berry-news-figure figcaption summary { cursor: pointer; }
-.berry-news-figure figcaption .berry-source-link { font-size: inherit; }
-.berry-news-labels { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-bottom: 10px; color: var(--berry-muted); font-size: 9px; }
-.berry-news-coverage { font-size: 10px; color: var(--berry-muted); margin-bottom: 12px; }
-.berry-news-coverage summary { cursor: pointer; }
-.berry-news-coverage p { margin: 7px 0; }
 .berry-developments-note { margin-top: 12px; }
 .berry-comparison-table { min-width: 580px; }
 .berry-comparison-table td { min-width: 190px; }
@@ -107,40 +97,15 @@
 .berry-news-rail .berry-section-heading h2 { font: 600 15px/1.3 var(--berry-font-ui); text-wrap: initial; }
 .berry-news-rail .berry-section-heading p { margin-top: 5px; }
 .berry-news-rail .berry-section-heading > a { justify-content: flex-start; padding: 4px 0; margin-top: 5px; font-size: 10px; min-height: 24px; }
-.berry-news-rail .berry-news-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.berry-news-rail .berry-news-card { display: grid; grid-template-columns: 74px minmax(0, 1fr); align-items: start; border: 0; border-radius: 0; background: transparent; padding-bottom: 12px; border-bottom: 1px solid var(--berry-line); }
-.berry-news-rail .berry-news-card:not(:has(.berry-news-figure)) { grid-template-columns: 1fr; }
-.berry-news-rail .berry-news-image { height: 76px; aspect-ratio: auto; border-radius: 3px; }
-.berry-news-rail .berry-news-figure figcaption { border: 0; padding: 5px 0 0; font-size: 8px; }
-.berry-news-rail .berry-news-body { padding: 0 0 0 10px; }
-.berry-news-rail .berry-news-card:not(:has(.berry-news-figure)) .berry-news-body { padding-left: 0; }
-.berry-news-rail .berry-news-meta { font-size: 9px; line-height: 1.35; gap: 3px; margin-bottom: 5px; }
-.berry-news-rail .berry-news-meta > * { display: block; width: 100%; }
-.berry-news-rail .berry-news-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; font-size: 15px; line-height: 1.25; margin-bottom: 7px; }
-.berry-news-rail .berry-news-labels { margin-bottom: 6px; }
-.berry-news-rail .berry-news-labels .berry-badge { font-size: 8px; }
-.berry-news-rail .berry-news-excerpt { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 10px; line-height: 1.4; margin-bottom: 7px; }
-.berry-news-summary { margin-bottom: 6px; font-size: 10px; color: var(--berry-muted); }
-.berry-news-summary > summary { cursor: pointer; }
-.berry-news-summary[open] > .berry-news-excerpt { display: block; -webkit-line-clamp: unset; margin-top: 7px; overflow: visible; }
-.berry-news-scope-match { font-size: 10px; line-height: 1.4; color: var(--berry-ink); margin-bottom: 7px; }
-.berry-news-rail .berry-news-match { font-size: 9px; margin-bottom: 6px; }
-.berry-news-rail .berry-news-actions { gap: 4px; }
-.berry-news-rail .berry-news-actions .berry-button { padding: 3px 0; min-height: 25px; font-size: 10px; }
-.berry-news-rail .berry-news-actions .berry-source-link { font-size: 9px; }
-.berry-news-rail .berry-news-coverage { font-size: 9px; }
 .berry-workspace:has(> .berry-detail) .berry-analysis-layout { grid-template-columns: minmax(0, 1fr); }
 .berry-workspace:has(> .berry-detail) .berry-news-rail { padding: 18px 0; border-left: 0; border-top: 1px solid var(--berry-line); }
-.berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 1150px) {
   .berry-analysis-layout { grid-template-columns: minmax(0, 1fr); }
   .berry-analysis-layout > .berry-news-rail { padding: 18px 0; border-left: 0; border-top: 1px solid var(--berry-line); }
-  .berry-news-rail .berry-news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 850px) {
   .berry-landscape-page .berry-findings { gap: 12px; grid-template-columns: 1fr !important; }
   .berry-landscape-page .berry-finding, .berry-landscape-page .berry-finding + .berry-finding { padding: 0; border: 0; }
-  .berry-news-rail .berry-news-grid, .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
   .berry-subject-results .berry-entity-kind { display: none; }
@@ -149,7 +114,6 @@
   .berry-portfolio-grid { height: 430px; }
   .berry-analysis-layout .berry-relationship-row { grid-template-columns: 1fr; gap: 12px; }
   .berry-analysis-layout .berry-relationship-header { display: none; }
-  .berry-news-rail .berry-news-grid, .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: 1fr; }
 }
 
 /* Dense light workspace prototype: source text and material caveats remain fully visible. */
@@ -243,20 +207,6 @@
 .berry-app .berry-news-rail .berry-section-heading h2 { display: block; padding-right: 118px; font-size: 13px; }
 .berry-app .berry-news-rail .berry-section-heading p { display: block; margin: 3px 0 0; font-size: 10.5px; }
 .berry-app .berry-news-rail .berry-section-heading > a { position: absolute; top: 4px; right: 7px; margin: 0; padding: 1px 0; min-height: 22px; font-size: 10px; }
-.berry-app .berry-news-rail .berry-news-grid { grid-template-columns: 1fr; gap: 0; }
-.berry-app .berry-news-rail .berry-news-card { grid-template-columns: 48px minmax(0,1fr); gap: 6px; padding: 7px; margin: 0; background: #fff; }
-.berry-app .berry-news-rail .berry-news-card:last-child { border-bottom: 0; }
-.berry-app .berry-news-rail .berry-news-image { width: 48px; height: 48px; border-radius: 2px; }
-.berry-app .berry-news-rail .berry-news-body { padding: 0; }
-.berry-app .berry-news-rail .berry-news-meta { display: flex; flex-wrap: wrap; gap: 2px 6px; font-size: 10.5px; line-height: 1.25; margin-bottom: 3px; }
-.berry-app .berry-news-rail .berry-news-meta > * { width: auto; }
-.berry-app .berry-news-rail .berry-news-title { font: 650 13px/1.3 var(--berry-font-ui); margin-bottom: 4px; }
-.berry-app .berry-news-rail .berry-news-labels { gap: 3px 5px; margin-bottom: 3px; font-size: 10px; }
-.berry-app .berry-news-rail .berry-news-labels .berry-badge { font-size: 10px; }
-.berry-app .berry-news-rail .berry-news-match, .berry-app .berry-news-rail .berry-news-scope-match, .berry-app .berry-news-rail .berry-news-coverage { font-size: 10.5px; margin-bottom: 4px; line-height: 1.3; }
-.berry-app .berry-news-rail .berry-news-summary { font-size: 11px; margin-bottom: 3px; }
-.berry-app .berry-news-rail .berry-news-actions .berry-button { min-height: 23px; padding: 2px 0; font-size: 11px; }
-.berry-app .berry-news-rail .berry-news-actions .berry-source-link { font-size: 10.5px; }
 .berry-app .berry-method-notes { margin-top: 6px; padding-top: 5px; }
 .berry-app .berry-company-set, .berry-app .berry-company-search label { display: flex; align-items: center; gap: 5px; color: #355340; font-size: 11px; font-weight: 650; }
 .berry-app .berry-company-set select, .berry-app .berry-company-search :where(input,select) { min-width: 0; min-height: 27px; padding: 2px 5px; border: 1px solid var(--berry-line-strong); border-radius: 2px; background: #fff; color: var(--berry-ink); font: 400 12px/1.3 var(--berry-font-ui); }
@@ -271,10 +221,10 @@
 .berry-app .berry-roster-toolbar h2 { margin: 0; font: 750 13px/1.3 var(--berry-font-ui); color: #244633; }
 .berry-app .berry-monitoring-table { width: 100%; min-width: 950px; table-layout: fixed; }
 .berry-app .berry-monitoring-table thead th:first-child { width: 19%; z-index: 4; left: 0; background: #e5ede7; }
-.berry-app .berry-monitoring-table thead th:nth-child(2) { width: 31%; }
-.berry-app .berry-monitoring-table thead th:nth-child(3) { width: 12%; }
-.berry-app .berry-monitoring-table thead th:nth-child(4) { width: 24%; }
-.berry-app .berry-monitoring-table thead th:nth-child(5) { width: 14%; }
+.berry-app .berry-monitoring-table thead th:nth-child(2) { width: 32%; }
+.berry-app .berry-monitoring-table thead th:nth-child(3) { width: 14%; }
+.berry-app .berry-monitoring-table thead th:nth-child(4) { width: 25%; }
+.berry-app .berry-monitoring-table thead th:nth-child(5) { width: 10%; }
 .berry-app .berry-monitoring-table tbody th { position: sticky; left: 0; z-index: 2; background: #fff; font-weight: 400; }
 .berry-app .berry-monitoring-table tr[data-selected] > * { background: #eaf3ec; }
 .berry-app .berry-monitoring-table :where(th,td) { overflow-wrap: anywhere; }
@@ -295,13 +245,17 @@
 .berry-app .berry-roster-genetics .berry-program-label { display: none; }
 .berry-app .berry-roster-genetics summary, .berry-app .berry-roster-records > summary { margin-top: 2px; font-size: 10px; color: #355340; cursor: pointer; }
 .berry-app .berry-roster-genetics .berry-material-caveat { font-size: 10px; line-height: 1.3; }
+.berry-app .berry-roster-qualification { border-top: 1px dotted #dce5df; margin-top: 3px; padding-top: 2px; }
+.berry-app .berry-roster-qualification > p { margin: 0; }
+.berry-app .berry-roster-qualification > p > strong { font-weight: 550; }
+.berry-app .berry-roster-qualification ul { display: block; }
 .berry-app .berry-roster-records > div { margin-top: 5px; }
 .berry-app .berry-roster-records .berry-relationship-edge { border-left: 0; }
 .berry-app .berry-roster-roles, .berry-app .berry-roster-berries { display: flex; flex-wrap: wrap; gap: 2px 7px; font-size: 11px; line-height: 1.35; }
 .berry-app .berry-roster-roles { font-weight: 650; }
 .berry-app .berry-roster-berries { margin-top: 3px; color: #526358; }
 .berry-app .berry-roster-roles > span:not(:last-child)::after, .berry-app .berry-roster-berries > span:not(:last-child)::after { content: ' ·'; color: #7b8c80; }
-.berry-app .berry-roster-geographies { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,150px),1fr)); gap: 4px 9px; font-size: 11px; line-height: 1.3; }
+.berry-app .berry-roster-geographies { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,95px),1fr)); gap: 2px 7px; font-size: 11px; line-height: 1.3; }
 .berry-app .berry-roster-geographies > div { min-width: 0; }
 .berry-app .berry-roster-geographies .berry-material-caveat, .berry-app .berry-monitoring-table td > .berry-material-caveat { margin-top: 2px; font-size: 10px; line-height: 1.3; }
 .berry-app .berry-roster-geographies .berry-inline-citations { gap: 2px 6px; margin-top: 2px; }
@@ -312,22 +266,10 @@
 .berry-app .berry-deeper-connections { margin-top: 4px; border-top: 1px solid var(--berry-line-strong); }
 .berry-app .berry-roster-explanation > summary, .berry-app .berry-deeper-connections > summary { cursor: pointer; font-weight: 650; }
 .berry-app .berry-deeper-connections[open] > summary { margin-bottom: 6px; }
-.berry-app .berry-analysis-layout--news { grid-template-columns: minmax(0,1fr); }
-.berry-app .berry-landscape-news .berry-news-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
-.berry-app .berry-landscape-news .berry-news-card { display: grid; grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 7px; padding: 7px; border-radius: 1px; }
-.berry-app .berry-landscape-news .berry-news-card:not(:has(.berry-news-figure)) { grid-template-columns: minmax(0,1fr); }
-.berry-app .berry-landscape-news .berry-news-body { min-width: 0; padding: 0; }
-.berry-app .berry-landscape-news .berry-news-image { width: 76px; height: 66px; aspect-ratio: auto; border-radius: 2px; }
-.berry-app .berry-landscape-news .berry-news-figure figcaption { padding: 3px 0; border: 0; font-size: 9px; }
-.berry-app .berry-landscape-news .berry-news-title { font: 650 13px/1.35 var(--berry-font-ui); margin-bottom: 4px; }
-.berry-app .berry-landscape-news .berry-news-meta, .berry-app .berry-landscape-news .berry-news-labels, .berry-app .berry-landscape-news .berry-news-scope-match, .berry-app .berry-landscape-news .berry-news-match, .berry-app .berry-landscape-news .berry-news-summary, .berry-app .berry-landscape-news .berry-news-coverage { font-size: 10.5px; line-height: 1.35; margin-bottom: 4px; }
-.berry-app .berry-landscape-news .berry-news-excerpt { font-size: 12px; }
-.berry-app .berry-landscape-news .berry-news-actions .berry-button { min-height: 24px; padding: 2px 0; font-size: 11px; }
-.berry-app .berry-landscape-news .berry-news-actions .berry-source-link { font-size: 10.5px; }
+.berry-app .berry-analysis-layout--full { grid-template-columns: minmax(0,1fr); }
 .berry-app .berry-news-footer { justify-content: space-between; margin-top: 7px; }
 .berry-app .berry-news-footer > p { flex: 1 1 400px; font-size: 11px; }
 @media (max-width: 1150px) {
-  .berry-app .berry-landscape-news .berry-news-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 850px) {
   .berry-app .berry-roster-toolbar { align-items: stretch; }
@@ -336,7 +278,6 @@
   .berry-app .berry-company-search input { width: 100%; }
 }
 @media (max-width: 600px) {
-  .berry-app .berry-landscape-news .berry-news-grid { grid-template-columns: minmax(0,1fr); }
   .berry-app .berry-company-set { flex-wrap: wrap; }
   .berry-app .berry-company-search label { flex-wrap: wrap; }
   .berry-app .berry-company-search input { min-width: 100px; }
@@ -344,7 +285,6 @@
 }
 @media (max-width: 1150px) {
   .berry-app .berry-analysis-layout { grid-template-columns: minmax(0,1fr); }
-  .berry-app .berry-news-rail .berry-news-grid, .berry-app .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
 @media (max-width: 850px) {
   .berry-app .berry-landscape-page .berry-findings { grid-template-columns: 1fr !important; }
@@ -358,5 +298,4 @@
   .berry-app .berry-relationship-row > div { border-right: 0; border-bottom: 1px solid var(--berry-line); }
   .berry-app .berry-landscape-page .berry-relationship-path { margin: 0; border-left: 0; }
   .berry-app .berry-landscape-titlebar .berry-segmented button { min-height: 36px; }
-  .berry-app .berry-news-rail .berry-news-grid, .berry-app .berry-workspace:has(> .berry-detail) .berry-news-rail .berry-news-grid { grid-template-columns: minmax(0,1fr); }
 }

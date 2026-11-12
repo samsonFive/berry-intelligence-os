@@ -164,7 +164,7 @@ export function WorkspacesPage() {
   };
   if (sessionEnded) return <EmptyState title="Sign in to continue"><a href={`/login?next=${encodeURIComponent(investigationHref('/app/workspaces', context))}`}>Open sign in</a></EmptyState>;
   return <div className="berry-workspaces-page">
-    <header className="berry-page-heading"><p className="berry-eyebrow">Workspaces</p><h1>Keep an investigation. Share its evidence.</h1><p className="berry-subtitle">Save a live selection, reopen its current records, or review a dated PDF.</p></header>
+    <header className="berry-page-heading"><p className="berry-eyebrow">Investigation tools</p><h1>Save an investigation. Export its evidence.</h1><p className="berry-subtitle">Save a live selection, reopen its current records, or review a dated PDF. <a href={legacyHref('/workspaces', pathname, context)}>Open Workspaces and its editor →</a></p></header>
     <section className="berry-workspace-current" aria-labelledby="current-selection-heading"><div><p className="berry-eyebrow">Current investigation</p><h2 id="current-selection-heading">{BERRY_LABELS[context.berry] ?? 'Selected berry'} · {geographyLabels(splitIds(context.countries), countries)}</h2>
       <p>{LENS_LABELS[context.lens]} · {splitIds(context.cohort_companies).length} company pins · {splitIds(context.cohort_varieties).length} cultivar pins</p></div><Link className="berry-button berry-button--secondary" to={investigationHref('/app/landscape', context)}>Return to Landscape</Link></section>
     <div className="berry-workspaces-columns">

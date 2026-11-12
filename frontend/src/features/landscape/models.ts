@@ -52,6 +52,8 @@ export interface CatalogOption {
   in_scope: boolean;
 }
 export interface RetainedSourceLink { url: string; label: string; kind: string }
+export interface NewsDecision { reaction: 'up' | 'down' | null; saved: boolean }
+export interface NewsTag { id: string; name: string; description?: string; version?: string | number }
 export interface NewsCard {
   id: string;
   headline: string;
@@ -63,7 +65,7 @@ export interface NewsCard {
   full_reader_href?: string;
   published_at?: string | null;
   image_url?: string;
-  reference_image?: { url: string; title?: string; label?: string; note?: string; credit?: string; creator?: string; license?: string; source_url?: string } | null;
+  reference_image?: { url: string; alt?: string; title?: string; label?: string; note?: string; credit?: string; creator?: string; license?: string; source_url?: string } | null;
   source_reviewed: boolean;
   trusted: boolean;
   translated?: boolean;
@@ -76,6 +78,10 @@ export interface NewsCard {
   independence?: string;
   retained_source_links?: RetainedSourceLink[];
   crop_labels?: string[];
+  decision?: NewsDecision;
+  entities?: Array<{ id: string; name: string; entity_type?: string; profile_url?: string; verification_status?: string; candidate?: boolean; tier?: string; favorite?: boolean; is_registry?: boolean; monogram?: string }>;
+  geography_chips?: Array<{ id: string; name: string; href?: string }>;
+  assigned_tags?: NewsTag[];
 }
 export interface DevelopmentsModel {
   cards: NewsCard[];

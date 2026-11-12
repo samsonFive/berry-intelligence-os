@@ -1,11 +1,14 @@
 """Private, bidirectional research links; never writes into the Landscape registry."""
 from app.services import landscape_workspace, living_workspaces as living
 
+LIVE_INVESTIGATION_NOTICE = "Open this live investigation in Landscape; authored generation supports existing saved Landscape views."
+
 
 def choices(main):
     rows = [{"id": "gene-editing", "title": "Gene Editing & Advanced Breeding · all 11 companies", "href": "/landscapes/explorer?topic=gene-editing&adjacent=1"}]
     rows.extend({"id": row["id"], "title": row["name"], "href": landscape_workspace.view_href(row)}
-                for row in landscape_workspace.load_views(main.INBOX_DIR)["views"].values() if not row["archived"])
+                for row in landscape_workspace.load_views(main.INBOX_DIR)["views"].values()
+                if not row["archived"] and str((row.get("filters") or {}).get("ctx_v") or "") != "1")
     if main.AUTHORING_MODE:
         rows.extend({'id': row['id'], 'title': 'Saved competitive comparison · '+row['title'],
                      'href': '/competitive-evaluation?saved='+row['id']}
@@ -61,6 +64,9 @@ def resolve(main, request, keys):
     result = []
     for key in keys:
         if key not in options:
+            saved = landscape_workspace.load_views(main.INBOX_DIR)["views"].get(key)
+            if saved and not saved["archived"] and str((saved.get("filters") or {}).get("ctx_v") or "") == "1":
+                raise ValueError(LIVE_INVESTIGATION_NOTICE)
             raise ValueError("Linked Landscape is unavailable or archived. Relink it before generating.")
         option = options[key]
         if key.startswith('comparison-'):

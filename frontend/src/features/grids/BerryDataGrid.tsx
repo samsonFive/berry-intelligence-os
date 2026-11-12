@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AllCommunityModule, ModuleRegistry, themeQuartz, type ColDef, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
@@ -11,6 +11,7 @@ import { isUserLayoutEvent } from './grid-state';
 import { useAccountGridLayout } from './useAccountGridLayout';
 import { COMPANY_COLUMNS_PER_PAGE, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
 import type { CompanyPage } from './company-pages';
+import { portfolioData, type PortfolioRow } from './portfolio-data';
 import './grid.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -29,12 +30,6 @@ const berryGridTheme = themeQuartz.withParams({
   spacing: 3,
   wrapperBorderRadius: 0,
 });
-
-interface PortfolioRow {
-  id: string;
-  variety: LandscapeNode;
-  byCompany: Record<string, LandscapeEdge[]>;
-}
 
 /** One actual directed edge, with material qualifiers outside the hover preview. */
 function PortfolioRelationship({ edge, model, open }: {
@@ -64,8 +59,8 @@ function PortfolioRelationship({ edge, model, open }: {
 }
 
 /** A real Community grid. Canonical identity and comparison membership stay separate. */
-export function BerryDataGrid({ model }: { model: LandscapeModel }) {
-  const companies = useMemo(() => model.portfolios.map(row => row.actor), [model.portfolios]);
+export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onReady?: (ready: boolean) => void }) {
+  const { companies, rows } = useMemo(() => portfolioData(model), [model]);
   const [pageIndex, setPageIndex] = useState(0);
   const plan = useMemo(() => {
     try { return { page: companyPage(companies, pageIndex), error: '' }; }
@@ -82,27 +77,15 @@ export function BerryDataGrid({ model }: { model: LandscapeModel }) {
     return () => { active = false; };
   }, [pageIdentity]);
   useEffect(() => { if (page) setPageIndex(current => Math.min(current, page.count - 1)); }, [page?.count]);
-  const rows = useMemo(() => {
-    const result = new Map<string, PortfolioRow>();
-    for (const portrait of model.portfolios) {
-      for (const edge of portrait.portfolio_edges) {
-        const variety = [model.nodes[edge.subject_id], model.nodes[edge.object_id]].find(node => node?.type === 'variety');
-        if (!variety) continue;
-        const row = result.get(variety.id) ?? { id: variety.id, variety, byCompany: {} };
-        const edges = row.byCompany[portrait.actor.id] ?? [];
-        if (!edges.some(item => item.id === edge.id)) edges.push(edge);
-        row.byCompany[portrait.actor.id] = edges;
-        result.set(variety.id, row);
-      }
-    }
-    return [...result.values()].sort((a, b) => a.variety.label.localeCompare(b.variety.label));
-  }, [model]);
+  const displayGrid = Boolean(page && rows.length && resolvedLayout?.identity === pageIdentity && !resolvedLayout.error);
+  const finalMessage = !page || !rows.length || resolvedLayout?.identity === pageIdentity && Boolean(resolvedLayout.error);
+  useLayoutEffect(() => { if (!displayGrid) onReady?.(finalMessage); }, [onReady, displayGrid, finalMessage]);
   if (!page) return <EmptyState title="Company columns could not be displayed">{plan.error}</EmptyState>;
   if (!rows.length) return <EmptyState title="No cultivar portfolio relationships in this scope">Recorded geographic connections can still be inspected in Connections. Missing portfolio records do not establish an absence of commercial access.</EmptyState>;
   if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
-    viewKey={resolvedLayout.key} page={page} changePage={setPageIndex} />;
+    viewKey={resolvedLayout.key} page={page} changePage={setPageIndex} onReady={onReady} />;
 }
 
 function ColumnVisibility({ columns, visible, busy, change }: {
@@ -131,9 +114,9 @@ function ColumnVisibility({ columns, visible, busy, change }: {
   </details>;
 }
 
-function PortfolioGrid({ model, companies, rows, viewKey, page, changePage }: {
+function PortfolioGrid({ model, companies, rows, viewKey, page, changePage, onReady }: {
   model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
-  viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
+  viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void; onReady?: (ready: boolean) => void;
 }) {
   const { context, dispatch } = useInvestigation();
   const selectedCompanies = splitIds(context.cohort_companies);
@@ -144,6 +127,8 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage }: {
     ...companies.map(company => ({ colId: `company.${company.id}.recorded-role`, defaultWidth: 260, minWidth: 220, maxWidth: 1200 })),
   ], [companies]);
   const layout = useAccountGridLayout<PortfolioRow>(specs, viewKey);
+  const [gridMounted, setGridMounted] = useState(false);
+  useLayoutEffect(() => onReady?.(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
   const columnChoices = [{ id: 'cultivar.identity', label: 'Cultivar', locked: true }, { id: 'cultivar.comparison-pin', label: 'Comparison pin', locked: true },
     ...companies.map(company => ({ id: `company.${company.id}.recorded-role`, label: company.label }))];
@@ -206,7 +191,7 @@ function PortfolioGrid({ model, companies, rows, viewKey, page, changePage }: {
         getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder
         processUnpinnedColumns={params => params.columns.filter(column => !['cultivar.identity', 'cultivar.comparison-pin'].includes(column.getColId()))}
         defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2 }, cellDataType: false, resizable: true, wrapHeaderText: true, autoHeaderHeight: true }}
-        onGridReady={event => layout.onReady(event.api)}
+        onGridReady={event => { layout.onReady(event.api); setGridMounted(true); }}
         onColumnResized={event => { if (isUserLayoutEvent('resize', event.source, event.finished)) layout.changed(); }}
         onColumnMoved={event => { if (isUserLayoutEvent('move', event.source, event.finished)) layout.changed(); }}
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}

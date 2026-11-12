@@ -10,7 +10,7 @@
   var search = drawer.querySelector('[data-article-tag-search]');
   var filter = drawer.querySelector('[data-filter-article-tag]');
   var sheet = bootstrap.Offcanvas.getOrCreateInstance(drawer);
-  var article, selectedTag, sourceCard, trigger, assignments = [], changed = false, busy = false, requestVersion = 0;
+  var article, selectedTag, sourceCard, trigger, assignments = [], changed = false, busy = false, requestVersion = 0, assignmentsReady = false;
   function rowFor(id) {return rows.find(function (row) {return row.dataset.drawerTagRow === id;});}
   function updateRows() {
     rows.forEach(function (row) {
@@ -23,6 +23,7 @@
         toggle.setAttribute('aria-label', (assigned ? 'Remove ' : 'Assign ') + row.dataset.tagName);
         toggle.textContent = assigned ? '✓ Assigned' : '+ Add';
       }
+      row.querySelectorAll('.news-tag-toggle,.news-tag-restore').forEach(function (button) {button.disabled = busy || !assignmentsReady;});
     });
   }
   function explain(id) {
@@ -37,7 +38,7 @@
       var panel = document.querySelector('[data-tags-panel]');
       var ids = panel ? Array.from(panel.querySelectorAll('[name=tag_choice]:checked')).map(function (input) {return input.value;}) : [];
       url.searchParams.set('tag', Array.from(new Set(ids.concat([id]))).join(','));
-      ['tag_choice','topic','topic_choice','page','story','item'].forEach(function (key) {url.searchParams.delete(key);});
+      ['tag_choice','topic','topic_choice','page','story','item','tags_for'].forEach(function (key) {url.searchParams.delete(key);});
       filter.href = url.toString(); filter.dataset.selectTag = id;
     }
     updateRows();
@@ -45,15 +46,20 @@
   function loadExplanations() {
     var version = ++requestVersion;
     return fetch('/api/news/tags/explanations/' + encodeURIComponent(article), {credentials:'same-origin', cache:'no-store'}).then(function (res) {
+      if (res.redirected || res.status === 401 || res.status === 403) throw new Error('Sign in to inspect article tags.');
       if (!res.ok) throw new Error('Supporting text is unavailable. Try opening this panel again.');
       return res.json();
     }).then(function (data) {
       if (version !== requestVersion) return;
-      assignments = data.assignments; explain(selectedTag);
+      assignments = data.assignments;
+      if (!sourceCard) state[article] = assignments.map(function (item) {return item.id;});
+      assignmentsReady = true; explain(selectedTag);
     }).catch(function (error) {if (version === requestVersion) reason.textContent = error.message;});
   }
   function updateCard() {
+    if (!sourceCard) return;
     var container = sourceCard.querySelector('.news-article-tags');
+    if (!container) return;
     container.replaceChildren();
     var ids = state[article] || [];
     ids.slice(0,3).forEach(function (id) {
@@ -71,7 +77,7 @@
     }
   }
   function save(id, action) {
-    if (busy) return;
+    if (busy || !assignmentsReady) return;
     selectedTag = id;
     busy = true; status.textContent = 'Saving…';
     drawer.querySelectorAll('.news-tag-toggle,.news-tag-restore').forEach(function (button) {button.disabled = true;});
@@ -84,18 +90,30 @@
       status.textContent = action === 'automatic' ? 'Automatic assignment restored.' : 'Article tags saved.';
       return loadExplanations();
     }).catch(function (error) {status.textContent = error.message;}).finally(function () {
-      busy = false; drawer.querySelectorAll('.news-tag-toggle,.news-tag-restore').forEach(function (button) {button.disabled = false;});
+      busy = false; updateRows();
     });
   }
+  function openArticleTags(id, button) {
+    if (busy || typeof id !== 'string' || !/^[A-Za-z0-9_.-]{1,180}$/.test(id) || id === '.' || id === '..') return false;
+    trigger = button || document.activeElement;
+    sourceCard = button ? button.closest('[data-item-id]') : document.querySelector('[data-item-id="' + id + '"]');
+    article = id;
+    selectedTag = button && button.dataset.tagId || ''; assignments = []; changed = false; status.textContent = ''; search.value = '';
+    assignmentsReady = !!sourceCard && Object.prototype.hasOwnProperty.call(state, id);
+    rows.forEach(function (row) {row.hidden = false;});
+    var heading = sourceCard && sourceCard.querySelector('h2');
+    drawer.querySelector('[data-article-tag-source]').textContent = heading ? heading.textContent : 'Selected stored article';
+    explain(selectedTag); reason.textContent = 'Loading supporting text…';
+    sheet.show(); loadExplanations();
+    return true;
+  }
+  // Reuse this controller for an article outside the current paginated feed.
+  // Only stored tag metadata is read; opening never selects/acquires a source.
+  window.openArticleTags = function (id) {return openArticleTags(id, null);};
   document.addEventListener('click', function (event) {
     var button = event.target.closest('[data-open-article-tags]');
     if (!button) return;
-    trigger = button; sourceCard = button.closest('[data-item-id]'); article = button.dataset.openArticleTags;
-    selectedTag = button.dataset.tagId || ''; assignments = []; changed = false; status.textContent = ''; search.value = '';
-    rows.forEach(function (row) {row.hidden = false;});
-    drawer.querySelector('[data-article-tag-source]').textContent = sourceCard.querySelector('h2').textContent;
-    explain(selectedTag); reason.textContent = selectedTag ? 'Loading supporting text…' : reason.textContent;
-    sheet.show(); loadExplanations();
+    openArticleTags(button.dataset.openArticleTags, button);
   });
   drawer.addEventListener('click', function (event) {
     var info = event.target.closest('[data-drawer-tag-info]');
@@ -122,7 +140,7 @@
       var restore = document.createElement('button'); restore.type = 'button'; restore.className = 'news-tag-restore';
       restore.dataset.drawerTagRestore = tag.id; restore.textContent = 'Restore automatic'; row.appendChild(restore);
     }
-    drawer.querySelector('[data-article-tag-list]').appendChild(row); rows.push(row);
+    drawer.querySelector('[data-article-tag-list]').appendChild(row); rows.push(row); updateRows();
   });
   drawer.addEventListener('shown.bs.offcanvas', function () {if (!selectedTag) search.focus();});
   drawer.addEventListener('hide.bs.offcanvas', function (event) {if (busy) event.preventDefault();});

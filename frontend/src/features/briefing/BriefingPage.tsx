@@ -46,7 +46,7 @@ export function BriefingPage() {
               <p className="berry-scope-note">{context.news_from || context.news_to ? `Publication interval: ${context.news_from || 'No lower bound'} to ${context.news_to || 'No upper bound'}.` : 'No publication-date bounds.'} Source review does not approve every claim.</p>
               {(context.relationship_types || context.q) && <p className="berry-scope-note">Relationship-type filters and the analytical text search do not trim this developments view.</p>}
             </div>{deeper && <a className="berry-button berry-button--secondary" href={deeper}>Open full scoped News ↗</a>}</section>
-            {cards.length ? <section className="berry-briefing-cards" aria-label="Retained source developments">{cards.map(card => <DevelopmentCard key={card.id} card={card} summaryOpen />)}</section>
+            {cards.length ? <section className="berry-briefing-cards news-grid berry-legacy-news-grid" aria-label="Retained source developments">{cards.map(card => <DevelopmentCard key={card.id} card={card} newsHref={data.briefing_href} />)}</section>
               : <EmptyState title="No retained developments match this subject and scope">Missing captured news does not establish an absence of developments. Change the applied selectors deliberately to inspect another scope.</EmptyState>}
             {data.briefing_scope_note && <p className="berry-scope-note berry-briefing-deeper-note">{data.briefing_scope_note}</p>}
           </>}

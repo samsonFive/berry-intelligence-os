@@ -47,7 +47,7 @@ function ImageInspector({ assets, selected, select, close, returnTo, broken }: {
       }
     }}>
     <header><h3>{selected.caption || selected.kind_label}</h3><Button ref={closeButton} size="small" onClick={close} aria-label="Close image inspection">×</Button></header>
-    <img className="berry-brand-expanded" src={selected.image_url} alt={selected.caption || selected.kind_label}
+    <img className="berry-brand-expanded" data-background={selected.background ?? 'light'} src={selected.image_url} alt={selected.caption || selected.kind_label}
       referrerPolicy="no-referrer" onError={() => broken(selected)} />
     <p>{selected.kind_label}{selected.source_kind && sourceLabel[selected.source_kind] ? ` · ${sourceLabel[selected.source_kind]}` : ''}
       {selected.historical_status === 'historical' ? ' · Historical reference' : ''}</p>
@@ -68,7 +68,7 @@ export function BrandLogo({ asset, name }: { asset?: BrandMediaAsset | null; nam
   if (!asset || failed === failureKey(asset)) return null;
   return <div className={`berry-brand-logo-area${open ? ' berry-brand-logo-area--expanded' : ''}`}><figure ref={figure} className="berry-brand-logo" title={[asset.caption || `${name} logo`, asset.attribution].filter(Boolean).join(' · ')}>
     <Preview label="Image source" detailLabel="Inspect image" content={<Context asset={asset} />}
-      onOpenDetail={() => setOpen(true)}><img src={asset.image_url} alt={`${name} logo`} width="100" height="64"
+      onOpenDetail={() => setOpen(true)}><img data-background={asset.background ?? 'light'} src={asset.image_url} alt={`${name} logo`} width="100" height="64"
         decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(failureKey(asset))} /></Preview>
     <Credit asset={asset} />
   </figure>
@@ -104,7 +104,7 @@ export function BrandMediaGallery({ model, compact = false }: { model?: EntityBr
               opener.current = root.current?.querySelector<HTMLElement>(`[data-media-asset-id="${asset.id}"] button`) ?? null;
               setActive(asset.id);
             }}>
-            <img src={asset.image_url} alt={asset.caption || asset.kind_label} width="300" height="210" loading="lazy"
+            <img data-background={asset.background ?? 'light'} src={asset.image_url} alt={asset.caption || asset.kind_label} width="300" height="210" loading="lazy"
               decoding="async" referrerPolicy="no-referrer" onError={() => broken(asset)} />
           </Preview>
           <figcaption><span>{asset.kind_label}{asset.source_kind && sourceLabel[asset.source_kind] ? ` · ${sourceLabel[asset.source_kind]}` : ''}</span>

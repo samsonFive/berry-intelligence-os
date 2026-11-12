@@ -126,8 +126,11 @@ function Shell({ features }: { features: FeatureSlots }) {
   return <div className="berry-app berry-shell">
     <a className="berry-skip-link" href="#investigation-main">Skip to investigation</a>
     <header className="berry-topbar" data-region="app-chrome"><Link className="berry-brand" to={investigationHref("/app/landscape", context)}>Berry <span>OS</span></Link>
-      <nav className="berry-nav" aria-label="Primary">{destinations.map(([path, label]) => <NavLink key={path} to={{ pathname: `/app/${path}`, search }}>{label}</NavLink>)}</nav>
+      <nav className="berry-nav" aria-label="Primary">{destinations.map(([path, label]) => path === 'workspaces'
+        ? <a key={path} href={legacyHref('/workspaces', pathname, context)}>{label}</a>
+        : <NavLink key={path} to={{ pathname: `/app/${path}`, search }}>{label}</NavLink>)}</nav>
       <div className="berry-topbar-actions">
+      <Link className="berry-button berry-button--quiet" to={investigationHref('/app/workspaces', context)}>Save / export</Link>
       {Command && <button type="button" className="berry-button berry-button--ghost" aria-expanded={commandOpen} onClick={() => setCommandOpen(open => !open)}>Ask Berry</button>}
       <details className="berry-utilities"><summary>More</summary><div className="berry-utilities-menu">{[
         ['/entities/company', 'Browse companies'], ['/entities/variety', 'Browse varieties'],

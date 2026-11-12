@@ -103,3 +103,36 @@ test('retained-source inspection accepts only the existing metadata-only reader 
   for (const value of ['https://other.example/reader', '/api/social/private/reader', href+'&mode=live', '/api/social/ev-social-'+'b'.repeat(24)+'/reader'])
     assert.equal(mediaInspectionUrl(value), undefined);
 });
+
+test('image matte defaults to light without changing image identity, kind or provenance', () => {
+  const parsed = parseBrandMedia(payload(), ['company-fixture']).entities['company-fixture'].packaging[0];
+  assert.equal(parsed.background, 'light');
+  for (const field of ['id', 'entity_id', 'kind', 'kind_label', 'image_url', 'caption', 'attribution', 'source_page_url', 'source_kind'])
+    assert.equal(parsed[field], image[field]);
+});
+
+test('explicit dark matte is accepted for typed brand logos and all image groups', () => {
+  const brand = row('brand-fixture', 'brand');
+  const logo = { ...image, entity_id: 'brand-fixture', kind: 'logo', kind_label: 'Actual logo', background: 'dark' };
+  const dark = { ...image, entity_id: 'brand-fixture', background: 'dark' };
+  Object.assign(brand, { logo, packaging: [dark], observations: [dark], social_images: [dark], official_images: [dark] });
+  const parsed = parseBrandMedia({ version: 1, entities: { 'brand-fixture': brand } }, ['brand-fixture']).entities['brand-fixture'];
+  assert.equal(parsed.entity_type, 'brand');
+  assert.equal(parsed.logo.kind, 'logo'); assert.equal(parsed.logo.background, 'dark');
+  for (const field of ['packaging', 'observations', 'social_images', 'official_images']) {
+    assert.equal(parsed[field][0].background, 'dark');
+    assert.equal(parsed[field][0].image_url, image.image_url);
+    assert.equal(parsed[field][0].kind, image.kind);
+    assert.equal(parsed[field][0].attribution, image.attribution);
+  }
+});
+
+test('unknown matte values never become arbitrary CSS or a different enum', () => {
+  for (const background of ['light', '', 'DARK', 'dark extra-class', '#000', 'url(https://example.org/image)',
+    'dark; background:red', null, false, 1, { dark: true }, ['dark']]) {
+    const value = payload(); value.entities['company-fixture'].packaging[0].background = background;
+    const parsed = parseBrandMedia(value, ['company-fixture']).entities['company-fixture'].packaging[0];
+    assert.equal(parsed.background, 'light');
+    assert.equal(parsed.image_url, image.image_url);
+  }
+});

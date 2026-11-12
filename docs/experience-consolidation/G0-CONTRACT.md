@@ -1,10 +1,15 @@
 # Experience consolidation — G0 contract, 11 November 2026
 
 Implementation branch: `feature/experience-consolidation-20261111`.
+The user's evening correction preserves the existing Workspaces editor and grid
+as the primary Workspaces destination. The new investigation save/PDF tools are
+additive utilities at `/app/workspaces`, reached through “Save / export.” They
+do not replace the authored workspace, its controller or its saved grid layouts.
 Canonical baseline: `3f159639a85db0dea7e93b2d5c0387efa4eb468f` (#550).
-Integrated canonical: `7e7bce57` (#555), preserving #551 Strategy inputs, #552
-global News expansion, and #554/#555 translation/noise fixes. No canonical data,
-coverage-matrix or expansion-guide changes.
+Integrated canonical: `bd297e39` (#562), preserving Strategy inputs, global News
+expansion, translation/noise fixes, #560/#561 document/language recovery and the
+reviewed initial Brand media cohort. Canonical acquisition/data/coverage changes
+are inherited unchanged; this candidate's own changes remain the experience.
 The user's current mission starts implementation. Earlier planning-only text in
 the supplied archive describes that document's prior scope. Deployment and live
 provider acceptance remain separate, concrete release steps.
@@ -184,7 +189,11 @@ motion respects reduced motion. Domain owners compose their own feature content.
 New saved investigations retain outer version 1 and `kind=explorer`, adding
 `ctx_v` plus the allowlisted fields above, normal revision conflicts and history.
 Legacy rows retain their original open/save semantics. Converted legacy contexts
-save as a new row. Workspaces link live selectors; authored content is unchanged.
+save as a new row. These saved investigations reopen live selectors in Landscape.
+Authored Workspaces keep their existing saved-Landscape generation links. Native
+`ctx_v=1` investigations are excluded from that legacy generator until an explicit
+adapter supports all their selectors; direct links fail clearly instead of
+silently broadening company cohorts or monitored News. Authored content is unchanged.
 
 Composite export uses validated domain data, explicit scope/content preview,
 generated-at time and cited source appendix, including data beyond viewport.

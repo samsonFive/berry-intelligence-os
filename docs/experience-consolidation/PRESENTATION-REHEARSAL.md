@@ -36,9 +36,11 @@ empty. Older saved investigations and URLs default to All companies.
    remain separate.
 5. Switch to Sensory demo. The specimens and overall-liking values are fictitious.
    Show the full 1–9 axis; the real company/cultivar pins remain intact.
-6. Open Workspaces. Save a new investigation, reopen it, then preview a dated PDF.
+6. Use Save / export to save a new investigation, reopen it, then preview a dated PDF.
    The preview lists complete row/source counts, including rows beyond the screen.
    The synthetic annex is an explicit separate choice and is off by default.
+   Workspaces in primary navigation opens the existing authored editor and grid,
+   preserving its own layout, editing, history and persistence workflows.
 7. Open Learn and select Firmness. Show why a measurement needs its method, then
    return to the library. Its educational diagrams and sources retain their own
    meaning; they are not competitive Evidence or company performance scores.

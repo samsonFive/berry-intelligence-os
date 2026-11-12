@@ -35,7 +35,10 @@ interface DetailModel {
   article_text?: string[]; article_blocks?: ArticleBlock[]; document_blocks?: DocumentBlock[];
   card?: { headline?: string; source_name?: string; source_url?: string; image_url?: string; published_at?: string;
     reference_image?: { url?: string; caption?: string; credit?: string; attribution?: string; source_url?: string; license?: string } };
-  body_availability?: { available?: boolean; auto_acquisition?: boolean };
+  body_availability?: {
+    available?: boolean; auto_acquisition?: boolean; state?: string;
+    content_kind?: 'html' | 'pdf'; availability?: 'full_article' | 'excerpt_only' | 'metadata_only'; notice?: string;
+  };
   media?: { spoken?: boolean; transcript?: Transcript; format?: string; url?: string; source_url?: string;
     transcript_read_error?: boolean; transcript_provenance?: { method?: string; created_by?: string; created_at?: string; language?: string } };
 }
@@ -307,9 +310,12 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
           && <audio controls preload="none" src={safeLink(model.media.url)}>Audio playback is unavailable. <a href={safeLink(model.media.url)}>Open audio</a></audio>}
         {safeLink(model.media?.url) && model.media?.format === 'video'
           && <video controls playsInline preload="none" src={safeLink(model.media.url)}>Video playback is unavailable. <a href={safeLink(model.media.url)}>Open video</a></video>}
-        {readerView === 'article' && (model.article_text?.length || model.article_blocks?.length || model.document_blocks?.length
+        {readerView === 'article' && <>
+          {model.body_availability?.notice && <p className="berry-reader-limit" data-reader-body-notice>{model.body_availability.notice}</p>}
+          {model.article_text?.length || model.article_blocks?.length || model.document_blocks?.length
           ? <div className="berry-reader-article"><ArticleBody model={model} /></div>
-          : <EmptyState compact title="Article text is not available here">Use the publisher link below to inspect the source. Opening this Reader does not acquire new material.</EmptyState>)}
+          : <EmptyState compact title="Article text is not available here">Use the publisher link below to inspect the source. Opening this Reader does not acquire new material.</EmptyState>}
+        </>}
         {readerView === 'brief' && <div><p>{model.summary || 'No source summary is recorded.'}</p>
           <p className="berry-reader-limit">A source summary is distinct from a verified claim. Supporting statements retain their own status.</p></div>}
         {model.media?.transcript?.status === 'available' && <details className="berry-reader-transcript"><summary>Transcript{model.media.transcript.language ? ` · ${model.media.transcript.language}` : ''}</summary>

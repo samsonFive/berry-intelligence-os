@@ -6,6 +6,7 @@ export interface BrandMediaAsset {
   caption?: string; attribution?: string; source_page_url?: string; inspection_href?: string;
   published_at?: string; historical_status?: string; source_kind?: 'official' | 'retailer' | 'consumer' | 'unknown';
   source_account?: string; match_basis?: string; width?: number; height?: number;
+  background: 'light' | 'dark';
 }
 export interface EntityBrandMedia {
   entity_id: string; entity_type: 'company' | 'brand' | 'retailer'; logo: BrandMediaAsset | null;
@@ -45,7 +46,8 @@ function asset(value: unknown, entity: string): BrandMediaAsset | null {
       || !KINDS.includes(String(value.kind)) || typeof value.kind_label !== 'string') return null;
   const image = mediaImageUrl(value.image_url);
   if (!image) return null;
-  const row: BrandMediaAsset = { id: value.id, entity_id: entity, kind: value.kind as MediaKind, kind_label: value.kind_label, image_url: image };
+  const row: BrandMediaAsset = { id: value.id, entity_id: entity, kind: value.kind as MediaKind, kind_label: value.kind_label,
+    image_url: image, background: value.background === 'dark' ? 'dark' : 'light' };
   for (const key of ['caption', 'attribution', 'published_at', 'historical_status', 'source_account', 'match_basis'] as const)
     if (typeof value[key] === 'string') row[key] = value[key];
   if (['official', 'retailer', 'consumer', 'unknown'].includes(String(value.source_kind))) row.source_kind = value.source_kind as BrandMediaAsset['source_kind'];

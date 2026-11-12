@@ -33,3 +33,7 @@
 @media print { .berry-brand-logo-area, .berry-brand-galleries, .berry-brand-inspector { display: none !important; } }
 .berry-app .berry-brand-logo-area { flex: 0 0 auto; max-width: 100%; }
 .berry-app .berry-brand-logo-area--expanded { flex-basis: 100%; width: 100%; }
+/* Curated presentation matte only: source pixels and image classification stay unchanged. */
+.berry-app .berry-brand-logo img[data-background="dark"],
+.berry-app .berry-brand-card img[data-background="dark"],
+.berry-app .berry-brand-expanded[data-background="dark"] { background: #242a28; }

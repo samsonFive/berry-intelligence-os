@@ -30,7 +30,8 @@ DETAIL_TYPES = {"company", "variety", "geography", "relationship", "source", "ob
 NATIVE_NEWS_FIELDS = ("id", "headline", "deck", "source_name", "source_url", "source_link_url", "source_link_label",
     "full_reader_href", "published_at", "image_url", "reference_image", "source_reviewed", "trusted", "translated",
     "translation_pending", "media_kind", "media_label", "media_note", "company_mentions", "scope_match",
-    "coverage_sources", "independence", "retained_source_links", "crop_labels")
+    "coverage_sources", "independence", "retained_source_links", "crop_labels", "decision", "entities",
+    "geography_chips", "assigned_tags")
 ID_RE = re.compile(r"^[A-Za-z0-9_.-]{1,180}$")
 
 
@@ -633,8 +634,29 @@ def news_data(world, context, bundle, *, limit=36, offset=0, all_cards=False):
     return result
 
 
+def _tag_metadata(tags):
+    return [{key: row[key] for key in ("id", "name", "description", "version") if key in row}
+            for row in tags if isinstance(row, dict)]
+
+
+def _native_news_card(card):
+    """The legacy card's display/actions contract without its source workspace."""
+    result = {key: card[key] for key in NATIVE_NEWS_FIELDS if key in card}
+    decision = card.get("decision") or {}
+    result["decision"] = {"reaction": decision.get("reaction") if decision.get("reaction") in {"up", "down"} else None,
+                          "saved": bool(decision.get("saved"))}
+    for name, fields in (
+        ("entities", ("id", "name", "entity_type", "profile_url", "verification_status", "candidate", "tier", "favorite", "is_registry", "monogram")),
+        ("geography_chips", ("id", "name", "href")),
+    ):
+        result[name] = [{key: row[key] for key in fields if key in row}
+                        for row in card.get(name, []) if isinstance(row, dict)]
+    result["assigned_tags"] = _tag_metadata(card.get("assigned_tags") or [])
+    return result
+
+
 def developments_data(world, context, bundle, *, all_cards=False, _subjects=None, _basis=None, limit=None, offset=0):
-    from app.services import news_workspace, company_source_scope
+    from app.services import news_workspace, company_source_scope, news_tags
     kind = context["comparison_kind"]
     raw_cohort = ids(context["cohort_companies" if kind == "company" else "cohort_varieties"])
     cohort = [key for key in raw_cohort[:5 if kind == "company" else 4]
@@ -690,12 +712,17 @@ def developments_data(world, context, bundle, *, all_cards=False, _subjects=None
             subject_links[record["id"]] = linked & selected
             return bool(selected.intersection(linked))
         records = {key: row for key, row in records.items() if matches(row)}
+    inbox = getattr(world.main, "INBOX_DIR", None)
+    tags = (news_tags.catalog(inbox) if inbox is not None else
+            [dict(id=key, name=value[0], description=value[1], version=1) for key, value in news_tags.SEEDS.items()])
+    tag_assignments = news_tags.snapshot(inbox) if inbox is not None else ({}, {})
+    tag_options = {"tags": tags, "tag_assignments": tag_assignments}
     model = news_workspace.model(records=records, entities=world.entities, relationships=world.relationships,
-                                 facts=world.facts, state=world.state, params=params)
+                                 facts=world.facts, state=world.state, params=params, **tag_options)
     if all_cards:
         for page in range(2, model.get("pages", 1) + 1):
             following = news_workspace.model(records=records, entities=world.entities, relationships=world.relationships,
-                facts=world.facts, state=world.state, params={**params, "page": str(page)})
+                facts=world.facts, state=world.state, params={**params, "page": str(page)}, **tag_options)
             model["cards"].extend(following["cards"])
     if limit is not None:
         # Reuse exact existing eligibility/order and card presentation, fetching
@@ -710,7 +737,7 @@ def developments_data(world, context, bundle, *, all_cards=False, _subjects=None
                 if page not in pages:
                     pages[page] = news_workspace.model(records=records, entities=world.entities,
                         relationships=world.relationships, facts=world.facts, state=world.state,
-                        params={**params, "page": str(page)})
+                        params={**params, "page": str(page)}, **tag_options)
             window = [card for page in range(first, last + 1) for card in pages[page]["cards"]]
             start = offset % news_workspace.PAGE_SIZE
             cards = window[start:start + limit]
@@ -758,8 +785,9 @@ def developments_data(world, context, bundle, *, all_cards=False, _subjects=None
         legacy_params["company"] = subject_ids[0]
     # Native consumers receive their exact metadata contract, never the legacy
     # raw record or classification excerpts. Legacy News presentation is unchanged.
-    cards = [{key: card[key] for key in NATIVE_NEWS_FIELDS if key in card} for card in cards]
+    cards = [_native_news_card(card) for card in cards]
     return {"cards": cards, "basis": basis, "subject_ids": subject_ids,
+            "tags": _tag_metadata(tags),
             "heading": heading, "briefing_href": "/news?" + urlencode(legacy_params),
             "sources": [source_metadata(records[card["id"]]) for card in cards if card["id"] in records],
             "matching_count": model["matching"], "scope_applicability": module_scope(context, "developments"),
@@ -786,6 +814,26 @@ def _cited_sources(world, source_ids):
     return [source_metadata(world.evidence_index[key]) for key in dict.fromkeys(source_ids) if key in world.evidence_index]
 
 
+def _selected_body_availability(record, available):
+    from app.services.source_body import reader_content
+    content = reader_content(record)
+    article = record.get("article") if isinstance(record.get("article"), dict) else {}
+    result = {"available": bool(available), "auto_acquisition": False,
+              "state": content["state"], "notice": content["notice"]}
+    for field, choices in (("content_kind", {"html", "pdf"}),
+                           ("availability", {"full_article", "excerpt_only", "metadata_only"})):
+        if isinstance(article.get(field), str) and article[field] in choices:
+            result[field] = article[field]
+    if available:
+        if result.get("content_kind") == "pdf":
+            result["notice"] = "PDF selectable-text excerpt · may omit scanned text, figures and charts. Review the original PDF."
+        elif result.get("availability") == "excerpt_only":
+            result["notice"] = "Source-text excerpt · full source content was not captured. Review the original source."
+        elif content["state"] == "body_partial":
+            result["notice"] = "Available publisher text is partial. Review the original source."
+    return result
+
+
 def detail_data(world, context, bundle, kind, key, request=None):
     if kind not in DETAIL_TYPES or not ID_RE.fullmatch(key):
         raise ValueError("Choose a supported detail type and canonical identifier.")
@@ -805,7 +853,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
                 "expand_href": f"/intelligence/{key}?personal=1", "outside_scope": key not in {s["id"] for s in bundle["sources"]},
                 "article_text": content["article_text"], "article_blocks": content["article_blocks"],
                 "document_blocks": content["document_blocks"], "card": card,
-                "body_availability": {"available": content["article_available"], "auto_acquisition": False},
+                "body_availability": _selected_body_availability(reading_record, content["article_available"]),
                 "media": {"spoken": content["spoken_media"], "transcript": content["media_transcript"],
                           "format": reading_record.get("media_format") or "",
                           "url": media_url if is_public_http_url(media_url) else "",

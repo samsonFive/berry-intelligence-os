@@ -407,6 +407,82 @@ def test_source_detail_hydrates_selected_only_and_disables_automatic_capture(wor
     assert detail["body_availability"]["auto_acquisition"] is False
 
 
+@pytest.mark.parametrize("article,expected_state,notice", [
+    ({"content_kind": "pdf", "availability": "excerpt_only", "paragraphs": [{"text": "Source publisher text " * 40}]},
+     "body_partial", "PDF selectable-text excerpt"),
+    ({"content_kind": "pdf", "paragraphs": [{"text": "Source publisher text " * 40}]},
+     "body_available", "PDF selectable-text excerpt"),
+    ({"availability": "excerpt_only", "paragraphs": [{"text": "Source publisher text " * 40}]},
+     "body_partial", "Source-text excerpt"),
+    ({"content_kind": "html", "paragraphs": [{"text": "A short publisher passage with enough words to read."}]},
+     "body_partial", "Available publisher text is partial"),
+    ({"content_kind": "html", "availability": "full_article", "paragraphs": [{"text": "Source publisher text " * 40}]},
+     "body_available", ""),
+])
+def test_selected_source_discloses_pdf_and_partial_text_without_changing_classification(world, monkeypatch, article, expected_state, notice):
+    from app import personal_digest_routes
+    record = {**world.evidence[0], "article": article}
+    monkeypatch.setattr(personal_digest_routes, "personal_source_record", lambda key: record)
+    monkeypatch.setattr(personal_digest_routes, "reader_context", lambda request, selected: {
+        "record": selected, "card": {"headline": selected["title"]}, "summary": "Source summary",
+        "article_text": [row["text"] for row in article["paragraphs"]], "article_blocks": [], "document_blocks": [],
+        "article_available": True, "spoken_media": False, "media_transcript": {},
+    })
+    before = deepcopy(record)
+    result = api.detail_data(world, context(), api.base_bundle(world, context()), "source", record["id"])
+    body = result["body_availability"]
+    assert body["available"] is True and body["auto_acquisition"] is False
+    assert body["state"] == expected_state
+    assert body["notice"].startswith(notice) if notice else body["notice"] == ""
+    assert "content_kind" in body if "content_kind" in article else "content_kind" not in body
+    assert record == before
+
+
+def test_selected_source_uses_effective_reader_record_and_omits_unknown_metadata(world, monkeypatch):
+    from app import personal_digest_routes
+    raw = world.evidence[0]
+    effective = {**raw, "article": {"content_kind": "pdf", "availability": "excerpt_only",
+                                    "paragraphs": [{"text": "Stored selected PDF text " * 40}]}}
+    monkeypatch.setattr(personal_digest_routes, "personal_source_record", lambda key: raw)
+    monkeypatch.setattr(personal_digest_routes, "reader_context", lambda request, selected: {
+        "record": effective, "card": {"headline": selected["title"]}, "summary": "Source summary",
+        "article_text": ["Stored selected PDF text"], "article_blocks": [], "document_blocks": [],
+        "article_available": True, "spoken_media": False, "media_transcript": {},
+    })
+    body = api.detail_data(world, context(), api.base_bundle(world, context()), "source", raw["id"])["body_availability"]
+    assert body["state"] == "body_partial" and body["content_kind"] == "pdf"
+    assert "scanned text, figures and charts" in body["notice"]
+    unknown = api._selected_body_availability({"article": {"content_kind": [], "availability": {}}}, False)
+    assert "content_kind" not in unknown and "availability" not in unknown
+    assert unknown["available"] is False and unknown["auto_acquisition"] is False
+    assert "body" not in unknown and "article" not in unknown
+
+
+def test_native_news_preserves_saved_actions_chips_and_existing_tag_overrides_readonly(world, monkeypatch, tmp_path):
+    from app.services import news_workspace, news_tags
+    world.main.INBOX_DIR = tmp_path
+    record = world.evidence[0]
+    record["geography_ids"] = ["geography-peru"]
+    world.state = {"decisions": {record["id"]: {"reaction": "up", "saved": True, "read": True}}}
+    tag = news_tags.create(tmp_path, "Analyst subject", "A private subject definition.")
+    news_tags.override(tmp_path, record["id"], tag["id"], "add", "Fixture analyst")
+    stored = {path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()}
+    monkeypatch.setattr(news_workspace, "_berry_identity", lambda *args: True)
+    monkeypatch.setattr(news_workspace, "_qualifying_news", lambda *args: True)
+    ctx = context()
+    result = api.news_data(world, ctx, api.base_bundle(world, ctx))
+    card = result["cards"][0]
+    assert card["decision"] == {"reaction": "up", "saved": True}
+    assert [(row["id"], row["name"]) for row in card["entities"]] == [("company-a", "Alpha Blueberries")]
+    assert card["geography_chips"] == [{"id": "geography-peru", "name": "Peru", "href": "/geographies/geography-peru"}]
+    assigned = next(row for row in card["assigned_tags"] if row["id"] == tag["id"])
+    assert set(assigned) == {"id", "name", "description", "version"}
+    assert assigned in result["tags"]
+    assert not any("matcher_name" in row or "normalized" in row for row in result["tags"])
+    assert "record" not in card and "topic_match" not in card and "statements" not in card
+    assert {path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()} == stored
+
+
 def test_selected_source_missing_publication_keeps_capture_as_a_separate_clock(world, monkeypatch):
     from app import personal_digest_routes
     from app.services import feed_first

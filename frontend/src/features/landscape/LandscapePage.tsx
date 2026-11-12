@@ -13,7 +13,7 @@ import { DevelopmentCard } from './DevelopmentCard';
 import { useReadModel } from './useReadModel';
 import { developmentsContext } from './developments-context';
 import { landscapeNewsContext, monitoringContext } from './company-set-context';
-import { rosterGenetics } from './roster-genetics';
+import { CompactGenetics, CompactRoles, CompactCollection } from './RosterCompactCells';
 import { BrandLogo, BrandMediaGallery } from '../brand-media/BrandMedia';
 import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './landscape.css';
@@ -152,21 +152,11 @@ function CompanySearch() {
   </form>;
 }
 
-function RosterGenetics({ id, model, sources }: { id: string; model: LandscapeModel; sources: Map<string, SourceMetadata> }) {
-  const { programs, varieties, edges } = rosterGenetics(model, id);
-  if (!programs.length && !varieties.length && !edges.length) return <span className="berry-material-caveat">No genetic path is recorded in this scope; coverage is unknown.</span>;
-  return <div className="berry-roster-genetics">
-    {!!programs.length && <div><strong>Programs connected by recorded paths</strong><ul>{programs.slice(0, 2).map(node => <li key={node.id}><NodeControl node={node} /></li>)}</ul>{programs.length > 2 && <details><summary>All {programs.length} program connections · 2 shown</summary><ul>{programs.slice(2).map(node => <li key={node.id}><NodeControl node={node} /></li>)}</ul></details>}</div>}
-    {!!varieties.length && <div><strong>Cultivars connected by recorded paths</strong><ul>{varieties.slice(0, 4).map(node => <li key={node.id}><NodeControl node={node} /></li>)}</ul>{varieties.length > 4 && <details><summary>All {varieties.length} cultivar connections · 4 shown</summary><ul>{varieties.slice(4).map(node => <li key={node.id}><NodeControl node={node} /></li>)}</ul></details>}</div>}
-    {edges.filter(edge => edge.caveat || edge.status !== 'active').map(edge => <p className="berry-material-caveat" key={edge.id}><strong>{model.nodes[edge.subject_id]?.label ?? 'Unresolved recorded subject'} → {model.nodes[edge.object_id]?.label ?? 'Unresolved recorded target'}</strong><br />{edge.role} · {edge.status_label}{edge.caveat ? ` · ${edge.caveat}` : ''}</p>)}
-    {!!edges.length && <details className="berry-roster-records"><summary>Exact paths, roles and sources · {edges.length} records</summary>{edges.map(edge => <Relationship key={edge.id} edge={edge} model={model} sources={sources} />)}</details>}
-  </div>;
-}
-
 function RosterGeographies({ geographies, sources }: { geographies: MonitoringCompany['geographies']; sources: Map<string, SourceMetadata> }) {
   const { dispatch } = useInvestigation();
-  if (!geographies.length) return <span className="berry-material-caveat">No company-geography record in this scope. Absence of activity is not established.</span>;
-  return <><div className="berry-roster-geographies">{geographies.map((geo, index) => <div key={`${geo.relationship_id}-${index}`}><button className="berry-text-button" type="button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: geo.relationship_id }, origin: 'direct' })}><strong>{geo.label}</strong> · {geo.activity}</button>{geo.status !== 'Documented relationship' && <p className="berry-material-caveat">{geo.status}</p>}{geo.caveat && <p className="berry-material-caveat">{geo.caveat}</p>}</div>)}</div>
+  if (!geographies.length) return <span className="berry-material-caveat">Not recorded in scope</span>;
+  return <><div className="berry-roster-geographies">{geographies.map((geo, index) => <div key={`${geo.relationship_id}-${index}`}><button className="berry-text-button" type="button" title={`${geo.label} · ${geo.activity}`} onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: geo.relationship_id }, origin: 'direct' })}><strong>{geo.label}</strong>{geo.activity !== 'Location reported · check source' && <> · {geo.activity}</>}</button>{geo.status !== 'Documented relationship' && <p className="berry-material-caveat">{geo.status}</p>}{geo.caveat && <p className="berry-material-caveat">{geo.caveat}</p>}</div>)}</div>
+    {geographies.some(geo => geo.activity === 'Location reported · check source') && <span className="berry-material-caveat">Includes location-only records</span>}
     <details className="berry-roster-records"><summary>Activity review and sources · {geographies.length} records</summary>{geographies.map((geo, index) => <div key={`${geo.relationship_id}-${index}`}><strong>{geo.label} · {geo.activity}</strong><p className="berry-material-caveat">{geo.status} · {geo.review}</p><div className="berry-inline-citations">{geo.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: geo.relationship_id }} />)}</div></div>)}</details>
   </>;
 }
@@ -190,16 +180,17 @@ function MonitoringRoster({ model, onReady }: { model: LandscapeModel; onReady: 
       : query.isError ? <EmptyState compact title="Company roster unavailable" action={<Button size="small" onClick={() => void query.refetch()}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The roster could not be loaded.'}</EmptyState>
         : roster && <>
           <details className="berry-roster-explanation"><summary>{roster.universe_count} companies in this set{context.q ? ` · ${roster.matching_count} matches · ${roster.search_basis}` : ''} · scope and monitoring basis</summary><p>{roster.scope_note} Comparison is limited to five pins; the roster is not.</p><a href={legacyHref('/queues/monitoring', '/app/landscape', context)}>Manage shared watches ↗</a></details>
+          <p className="berry-roster-basis">Genetics follow recorded paths; roles do not transfer. Location-only records do not specify activity or cultivar growing. Unrecorded activity remains unknown.</p>
           {!!roster.unavailable_watch_count && <p className="berry-issue">{roster.unavailable_watch_count} shared watched identities are unavailable; no replacement identity has been selected.</p>}
           {roster.companies.length ? <div className="berry-table-wrap berry-monitoring-wrap"><table className="berry-table berry-monitoring-table"><thead><tr><th>Company / comparison</th><th>Genetics / portfolio in scope</th><th>Authored roles / berries</th><th>Recorded geographic activity</th><th>Collection context</th></tr></thead><tbody>
             {roster.companies.map(company => <tr key={company.id} data-company-id={company.id} data-selected={context.focus === company.id || undefined}>
               <th scope="row"><div className="berry-roster-identity"><BrandLogo asset={media?.[company.id]?.logo} name={company.label} /><EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'direct' })} />
                 <Button size="small" variant="ghost" aria-pressed={pins.includes(company.id)} disabled={!pins.includes(company.id) && pins.length >= 5} title={!pins.includes(company.id) && pins.length >= 5 ? 'Remove a comparison pin before adding another; the company roster is uncapped.' : undefined} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'direct' })}>{pins.includes(company.id) ? 'Unpin' : 'Compare +'}</Button></div>
                 <div className="berry-roster-marks">{company.identity_note && <span className="berry-material-caveat">{company.identity_note}</span>}{!company.in_scope && <span>No standing links in this scope</span>}{context.company_set === 'all' && company.watched && <span>Shared watch</span>}</div></th>
-              <td><RosterGenetics id={company.id} model={model} sources={sources} /></td>
-              <td><div className="berry-roster-roles">{company.roles.length ? company.roles.map(role => <span key={role}>{role.replaceAll('_', ' ')}</span>) : <Unknown label="No authored company role" />}</div><div className="berry-roster-berries">{company.berry_ids.length ? company.berry_ids.map(id => <span key={id}>{id.replace(/^berry-/, '').replaceAll('-', ' ')}</span>) : <span className="berry-material-caveat">Berry portfolio undeclared</span>}</div></td>
+              <td><CompactGenetics id={company.id} model={model} renderNode={node => <NodeControl node={node} />} renderEdge={edge => <Relationship edge={edge} model={model} sources={sources} />} /></td>
+              <td><CompactRoles roles={company.roles} berryIds={company.berry_ids} /></td>
               <td><RosterGeographies geographies={company.geographies} sources={sources} /></td>
-              <td><strong className="berry-roster-state">{company.monitoring.state.replaceAll('_', ' ')}</strong><details className="berry-roster-records"><summary>Collection details</summary><p className="berry-material-caveat">{company.monitoring.detail}</p></details></td>
+              <td><CompactCollection monitoring={company.monitoring} /></td>
             </tr>)}
           </tbody></table></div> : <EmptyState compact title={context.q ? 'No company names or aliases match' : 'No shared watched companies are available'}>Change the roster search or company set explicitly. No companies have been substituted.</EmptyState>}
         </>}
@@ -223,7 +214,7 @@ function LandscapeNews({ onReady }: { onReady: (ready: boolean) => void }) {
     {query.isPending ? <p className="berry-loading" role="status">Loading retained News…</p>
       : query.isError ? <EmptyState title="News unavailable" action={<Button onClick={() => void query.refetch()}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The feed could not be loaded.'}</EmptyState>
         : news && <><div className="berry-news-toolbar"><p className="berry-roster-basis">{news.basis === 'workspace_watches' ? `${news.subject_count} shared watched companies · monitoring interest, not evidence approval or active collection.` : 'All companies · includes eligible industry News without a company link.'}</p><PageControls page={news} count={news.cards.length} label="Landscape News" onPage={onPage} /></div>
-          {news.cards.length ? <div className="berry-news-grid">{news.cards.map(card => <DevelopmentCard key={card.id} card={card} />)}</div>
+          {news.cards.length ? <div className="news-grid berry-legacy-news-grid">{news.cards.map(card => <DevelopmentCard key={card.id} card={card} newsHref={news.briefing_href} />)}</div>
             : <EmptyState title="No retained News matches this company set and scope">No source geography, publication date or company selector has been widened. Missing retained News does not establish an absence of developments.</EmptyState>}
           <div className="berry-news-footer"><p className="berry-scope-note">{news.briefing_scope_note}</p><PageControls page={news} count={news.cards.length} label="Landscape News bottom" onPage={onPage} /></div>
         </>}
@@ -288,12 +279,12 @@ function Developments({ model, onReady }: { model: LandscapeModel; onReady: (rea
   const query = useReadModel<DevelopmentsModel>('/developments', subjectContext, !hasBlockingIssues(issues));
   useLayoutEffect(() => onReady(!query.isPending), [onReady, query.isPending]);
   const developments = query.data?.data;
-  return <section className="berry-developments berry-news-rail" aria-labelledby="developments-heading">
+  return <section id="landscape-developments" className="berry-developments berry-news-rail" aria-labelledby="developments-heading">
     <div className="berry-section-heading"><div><h2 id="developments-heading">Retained developments</h2><p className="berry-developments-subject">{developments?.heading ?? 'Relevant developments'}</p><p>Source geography · publication dates</p></div>
       {developments && <Link className="berry-button berry-button--ghost berry-button--small" to={investigationHref('/app/briefing', context)}>Open scoped Briefing →</Link>}</div>
     {query.isPending ? <p role="status" className="berry-loading">Loading developments for the current subject…</p>
       : query.isError ? <EmptyState compact title="Developments could not be loaded">{query.error instanceof Error ? query.error.message : 'Try reopening this view.'}</EmptyState>
-        : developments && developments.cards.length ? <div className="berry-news-grid">{developments.cards.slice(0, 3).map(card => <DevelopmentCard key={card.id} card={card} />)}</div>
+        : developments && developments.cards.length ? <div className="news-grid berry-legacy-news-grid">{developments.cards.slice(0, 3).map(card => <DevelopmentCard key={card.id} card={card} newsHref={developments.briefing_href} />)}</div>
           : developments && <EmptyState compact title="No retained news matches this subject and scope" action={<Link className="berry-button berry-button--secondary" to={investigationHref('/app/briefing', context)}>Open scoped Briefing</Link>}>Missing captured news does not establish an absence of developments. The applied scope has not been broadened.</EmptyState>}
     {developments?.briefing_scope_note && <p className="berry-scope-note berry-developments-note">{developments.briefing_scope_note}</p>}
   </section>;
@@ -329,13 +320,15 @@ export function LandscapePage() {
   const model = query.data?.data;
   const readinessKey = serializeInvestigation({ ...context, detail_path: '', saved_view_id: '', saved_revision: '' });
   const [readyParts, setReadyParts] = useState({ key: '', field: false, rail: false });
+  const [railPreferences, setRailPreferences] = useState<Partial<Record<Lens, boolean>>>({});
   const fieldReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.field === ready ? previous
     : { key: readinessKey, field: ready, rail: previous.key === readinessKey ? previous.rail : false }), [readinessKey]);
   const railReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.rail === ready ? previous
     : { key: readinessKey, field: previous.key === readinessKey ? previous.field : false, rail: ready }), [readinessKey]);
-  const asynchronousField = ['connections', 'comparison', 'news', 'sensory'].includes(context.lens);
-  const needsRail = context.lens !== 'news';
-  useSurfaceReady(blocked || query.isError || Boolean(model && readyParts.key === readinessKey && (!needsRail || readyParts.rail) && (!asynchronousField || readyParts.field)));
+  const asynchronousField = ['connections', 'portfolio', 'comparison', 'news', 'sensory'].includes(context.lens);
+  const needsRail = context.lens !== 'news' && (railPreferences[context.lens] ?? context.lens === 'comparison');
+  const currentParts = readyParts.key === readinessKey;
+  useSurfaceReady(blocked || query.isError || Boolean(model && (!needsRail || currentParts && readyParts.rail) && (!asynchronousField || currentParts && readyParts.field)));
   const countries = splitIds(context.countries).map(id => model?.options.countries.find(option => option.id === id)?.label ?? id.replace(/^geography-/, '').replaceAll('-', ' '));
   const berry = context.berry === 'all' ? 'All berries' : context.berry.replace(/^berry-/, '').replace(/^./, character => character.toUpperCase());
   return <div className="berry-landscape-page">
@@ -351,10 +344,10 @@ export function LandscapePage() {
               {model.findings.length ? <div className="berry-findings">{model.findings.slice(0, 3).map(finding => <article className="berry-finding" key={finding.id}><p>{finding.text}</p><div className="berry-inline-citations">{finding.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</div></article>)}</div>
                 : <p className="berry-scope-note">No sourced scope finding is available for the applied selection. Inspect the recorded relationships or deliberately change scope.</p>}
             </section>
-            <div className="berry-investigation-tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} /><SubjectSelector model={model} /></div>
-            <div className={`berry-analysis-layout${context.lens === 'news' ? ' berry-analysis-layout--news' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
+            <div className="berry-investigation-tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} />{context.lens !== 'news' && <Button size="small" variant="ghost" aria-expanded={needsRail} aria-controls="landscape-developments" onClick={() => setRailPreferences(previous => ({ ...previous, [context.lens]: !needsRail }))}>Developments</Button>}<SubjectSelector model={model} /></div>
+            <div className={`berry-analysis-layout${!needsRail ? ' berry-analysis-layout--full' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
               {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} />}
-              {context.lens === 'portfolio' && <><div className="berry-section-heading"><div><h2>The recorded cultivar portfolio</h2><p>Sourced roles and actual program links. Cultivar names stay fixed while you explore.</p></div></div><BerryDataGrid model={model} /></>}
+              {context.lens === 'portfolio' && <><div className="berry-section-heading"><div><h2>The recorded cultivar portfolio</h2><p>Sourced roles and actual program links. Cultivar names stay fixed while you explore.</p></div></div><BerryDataGrid model={model} onReady={fieldReady} /></>}
               {context.lens === 'geography' && <Geography model={model} />}
               {context.lens === 'comparison' && <Comparison model={model} onReady={fieldReady} />}
               {context.lens === 'news' && <LandscapeNews onReady={fieldReady} />}

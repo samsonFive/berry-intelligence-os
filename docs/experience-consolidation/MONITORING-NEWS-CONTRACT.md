@@ -12,6 +12,13 @@ standing scope and monitoring membership remain separate. Existing saved
 investigations lacking `company_set` read as `all` without rewriting storage;
 explicit invalid values remain invalid. Save/reopen resolves current membership.
 
+Live investigations reopen their exact native selectors from Save / export.
+They are excluded from authored Workspace Landscape-generation choices: that
+legacy resolver does not interpret the new comparison or monitored-News contract.
+An already linked live investigation blocks generation with an explicit message
+instead of silently falling back to broader legacy scope. Existing saved
+Landscape, watchlist and immutable competitive-comparison links are unchanged.
+
 ## Read APIs
 
 Both endpoints use the existing private investigation envelope and revision.

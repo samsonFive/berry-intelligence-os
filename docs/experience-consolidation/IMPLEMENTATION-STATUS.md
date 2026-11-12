@@ -12,22 +12,34 @@ the further requirements above; it has not been accepted as the final design.
 These direct user requirements supersede the archive's older visual suggestions.
 All changes are local review work; no design revision has been deployed.
 
-The monitored-company revision passes 112 frontend tests and TypeScript, plus
-126 targeted backend tests covering investigation reads, export, saved routes
-and workspace compatibility. The native News adapter now allowlists its card
+The user then clarified that the established News presentation was already
+fine-tuned and must carry into every news-related view. The analytical density
+revision therefore preserves that existing News card, imagery, summary and
+personal-control design rather than applying the new compact thumbnail layout
+to feeds. This restoration is still being integrated and visually checked.
+
+The user also explicitly requested preservation of the mature Workspaces/grid
+experience. Primary Workspaces navigation now opens that existing editor; its
+layout, grid controller and storage remain intact. Investigation saving and PDF
+export remain additions under “Save / export,” not a replacement workspace.
+
+The restoration revision passes 132 frontend tests, TypeScript and Vite, plus
+232 post-integration backend tests and a 59-test Workspaces preservation/boundary
+run (these runs overlap). The native News adapter now allowlists its card
 metadata so unselected article excerpts remain in Reader only. Browser visual
-review, current-canonical integration and final-head GitHub CI remain open.
+review and final-head GitHub CI remain open.
 
 ## Source and scope
 
 Isolated branch `feature/experience-consolidation-20261111`, originally based on
-canonical #550 (`3f159639`), now integrated onto #559 (`0d42c764`), including #558
+canonical #550 (`3f159639`), now integrated onto #562 (`bd297e39`), including #560/#561
+News language/document recovery and the reviewed initial Brand media cohort, plus #558
 (`0722e7da`), #551
 Strategy inputs, #552 News expansion, #554/#555 translation/noise fixes, #556
 material News recovery and the published-review-link repair. Current source
 checkpoint before the design revision: `1db5370d`. Its five required GitHub checks
 passed, including frontend/runtime validation and both Docker smoke checks.
-The current dense monitored-company revision is uncommitted review work and
+The current dense monitored-company/restoration revision is review work and
 requires a fresh final-head check set after integration with current canonical.
 Canonical data, the expansion guide and coverage matrix are unchanged by this
 candidate. The original checkout's unrelated changes remain untouched.
@@ -39,7 +51,7 @@ implementation; production promotion remains a separate concrete release step.
 
 ## Accepted populated slice
 
-* Persistent React/TypeScript shell, router, private QueryClient and one shared
+* Persistent React/TypeScript investigation shell, router, private QueryClient and one shared
   investigation action/history owner; focus and comparison pins stay separate.
 * Curated Landscape, comparison, developments, options and selected-only Reader
   APIs reuse existing governed presenters. Company presence is not cultivar
