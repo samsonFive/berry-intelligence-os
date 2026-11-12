@@ -1,6 +1,6 @@
 {% extends 'glasshouse_base.html' %}
 {% block title %}Workspaces · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=2"><link rel="stylesheet" href="/static/living_workspaces.css?v=13">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=2"><link rel="stylesheet" href="/static/living_workspaces.css?v=14">{% endblock %}
 {% block content %}
 <nav id="lw-quick-nav" class="lw-quick-nav" aria-label="Workspace quick navigation" hidden></nav>
 <div class="lw-layout" id="living-workspace" data-page-id="{{ page_id }}">
@@ -15,8 +15,8 @@
     <div id="lw-editor" hidden>
       <label class="lw-title-label">Page title<textarea id="lw-title" rows="1" placeholder="Untitled page"></textarea></label>
       <section class="lw-landscape-links" aria-label="Linked Landscapes"><strong>Landscapes</strong><div id="lw-linked-landscapes"></div><button id="lw-link-landscape">Link Landscape</button><span class="lw-muted">Shared research · included in the page brief</span></section>
-      <section class="lw-overview" id="lw-overview" aria-label="Page overview">
-        <div class="lw-overview-head"><p class="lw-eyebrow">PAGE OVERVIEW</p><p id="lw-page-updated" class="lw-muted"></p><button id="lw-overview-toggle" aria-expanded="true">Collapse overview</button></div>
+      <section class="lw-overview lw-overview-collapsed" id="lw-overview" aria-label="Page overview">
+        <div class="lw-overview-head"><p class="lw-eyebrow">PAGE OVERVIEW</p><p id="lw-page-updated" class="lw-muted"></p><button id="lw-overview-toggle" aria-expanded="false">Expand overview</button></div>
         <div class="lw-overview-tabs" role="tablist" aria-label="Page overview views">
           <button id="lw-summary-tab" role="tab" aria-selected="true" aria-controls="lw-summary-panel" tabindex="0">AI summary</button>
           <button id="lw-contents-tab" role="tab" aria-selected="false" aria-controls="lw-contents-panel" tabindex="-1">Contents & excerpts</button>
@@ -35,4 +35,4 @@
 </div>
 <dialog id="lw-dialog"><form method="dialog"><button class="lw-dialog-close" aria-label="Close">×</button></form><div id="lw-dialog-content"></div></dialog>
 {% endblock %}
-{% block scripts %}<script src="/static/living_editor.js?v=14"></script>{% endblock %}
+{% block scripts %}<script src="/static/living_editor.js?v=15"></script>{% endblock %}
