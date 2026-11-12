@@ -110,7 +110,7 @@
       const value=line.trim();if(!value){flush();return;}
       const heading=/^#{1,6}\s+/.exec(value),bullet=/^(?:[-*]\s+|\d+[.)]\s+)/.exec(value);
       if(heading){flush();const title=value.slice(heading[0].length);if(index===0&&title===briefingTitle(block)&&lines.slice(1).some(line=>line.trim()))return;const node=el('h4');text(node,title);host.append(node);}
-      else if(/^(?:finding|why it matters|next action|next step):?$/i.test(value)){flush();host.append(el('h4',value.replace(/:$/,'')));}
+      else if(/^(?:finding|why it matters|next action|next step|next move):?$/i.test(value)){flush();host.append(el('h4',value.replace(/:$/,'')));}
       else if(bullet){if(paragraph.length)flush();const kind=/^\d/.test(bullet[0])?'ol':'ul';if(!list||list.tagName.toLowerCase()!==kind){list=el(kind);host.append(list);}const node=el('li');text(node,value.slice(bullet[0].length));list.append(node);}
       else {if(list)flush();paragraph.push(value);}
     });flush();
@@ -201,6 +201,10 @@
         const label=el('label','Edit briefing text');const input=inputText(block,label);input.addEventListener('input',updateReading);details.append(label);box.append(details);
       } else if (block.type === 'map') { drawMap(box); }
       else if (block.type === 'feed') { box.append(el('p', 'Living feed · incoming coverage is shown alongside this document. Feature an item to add it to the curated page.')); button('Configure feed', configureFeed, box); }
+      else if (['paragraph','heading'].includes(block.type)) {
+        const prose=el(block.type==='heading'?'h2':'p',block.text||'',block.type==='heading'?'lw-reading-heading':'lw-reading-paragraph');
+        const details=el('details',undefined,'lw-text-edit');details.open=!String(block.text||'').trim();details.append(el('summary','Edit '+block.type));const input=inputText(block,details);input.addEventListener('input',()=>{prose.textContent=block.text;});box.append(prose,details);
+      }
       else {
         if (block.type === 'checklist') { const check = el('input'); check.type = 'checkbox'; check.checked = !!block.checked; check.setAttribute('aria-label', 'Completed'); check.addEventListener('change', () => { block.checked = check.checked; changed(); }); box.append(check); }
         inputText(block, box);
