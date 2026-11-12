@@ -8,4 +8,5 @@
 .berry-app .berry-workspace-data-grid .berry-comparison-list { padding: 0; margin: 0; list-style: none; }
 .berry-app .berry-workspace-data-grid .berry-comparison-identity { display: flex; align-items: center; gap: 6px; }
 .berry-app .berry-workspace-data-grid .berry-comparison-identity .berry-entity-button { color: inherit; }
+.berry-app .berry-workspace-data-grid .ag-header .berry-entity-button { color: inherit; }
 @media (max-width: 700px) { .berry-app .berry-workspace-data-grid { height: 65vh; min-height: 280px; } }
