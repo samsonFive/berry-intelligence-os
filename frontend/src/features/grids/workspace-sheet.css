@@ -1,0 +1,11 @@
+.berry-app .berry-workspace-data-grid { height: min(68vh, 760px); min-height: 320px; width: 100%; }
+.berry-app .berry-workspace-data-grid .ag-cell { padding: 6px 8px; font-size: 12px; line-height: 1.4; }
+.berry-app .berry-workspace-data-grid .ag-cell-wrapper { align-items: flex-start; }
+.berry-app .berry-workspace-sheet-cell { min-width: 0; width: 100%; overflow-wrap: anywhere; }
+.berry-app .berry-workspace-sheet-cell p { margin: 0 0 4px; }
+.berry-app .berry-workspace-sheet-cell > :last-child { margin-bottom: 0; }
+.berry-app .berry-workspace-data-grid .ag-pinned-left-cols-container .ag-cell { font-weight: 650; }
+.berry-app .berry-workspace-data-grid .berry-comparison-list { padding: 0; margin: 0; list-style: none; }
+.berry-app .berry-workspace-data-grid .berry-comparison-identity { display: flex; align-items: center; gap: 6px; }
+.berry-app .berry-workspace-data-grid .berry-comparison-identity .berry-entity-button { color: inherit; }
+@media (max-width: 700px) { .berry-app .berry-workspace-data-grid { height: 65vh; min-height: 280px; } }

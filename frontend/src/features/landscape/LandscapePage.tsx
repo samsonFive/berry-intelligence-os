@@ -5,6 +5,8 @@ import { Badge, Button, EmptyState, EntityButton, Preview } from '../../componen
 import { hasBlockingIssues, investigationHref, serializeInvestigation, splitIds, type EntityType, type InvestigationContext, type Lens } from '../../contracts/investigation';
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { BerryDataGrid } from '../grids/BerryDataGrid';
+import { WorkspaceSheet, type WorkspaceSheetColumn, type WorkspaceSheetRow } from '../grids/WorkspaceSheet';
+import { ComparisonSheets } from './ComparisonSheets';
 import { SensoryDemo } from '../demo/SensoryDemo';
 import { type CompanyPage, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNewsModel, type LandscapeNode, type MonitoringCompany, type Portrait, type SourceMetadata } from './models';
 import { Link } from 'react-router-dom';
@@ -15,9 +17,7 @@ import { developmentsContext } from './developments-context';
 import { landscapeNewsContext } from './company-set-context';
 import { CompanyRoster } from './CompanyRoster';
 import { mergeConnectionPortraits } from './connection-portraits';
-import { BrandMediaGallery } from '../brand-media/BrandMedia';
 import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
-import { useBrandMedia } from '../brand-media/useBrandMedia';
 import './landscape.css';
 import './connections.css';
 import './landscape-workspace.css';
@@ -192,19 +192,31 @@ function LandscapeNews({ onReady }: { onReady: (ready: boolean) => void }) {
   </section>;
 }
 
-function Geography({ model }: { model: LandscapeModel }) {
+function Geography({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
   const { dispatch } = useInvestigation();
-  const sources = new Map(model.sources.map(source => [source.id, source]));
-  const edges = model.edges.filter(edge => edge.company_geography || edge.genetic_geography);
-  return <><div className="berry-section-heading"><h2>Geographic activity</h2></div>
-    {edges.length ? <div className="berry-table-wrap"><table className="berry-table"><thead><tr><th>Recorded subject</th><th>Place</th><th>Activity and basis</th><th>Supporting source</th></tr></thead><tbody>{edges.map(edge => {
-      const subject = model.nodes[edge.subject_id]; const object = model.nodes[edge.object_id];
-      const geography = subject?.type === 'geography' ? subject : object; const actor = subject?.type === 'geography' ? object : subject;
-      return <tr key={edge.id}><th scope="row"><NodeControl node={actor} /></th><td><NodeControl node={geography} /></td><td>
-        <button type="button" className="berry-text-button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'direct' })}>{edge.location_label}</button>
+  const columns = useMemo<WorkspaceSheetColumn[]>(() => [
+    { id: 'subject', label: 'Recorded subject', width: 230, frozen: true },
+    { id: 'place', label: 'Place', width: 190 }, { id: 'activity', label: 'Activity and basis', width: 370 },
+    { id: 'sources', label: 'Supporting source', width: 330 },
+  ], []);
+  const rows = useMemo<WorkspaceSheetRow[]>(() => model.edges.filter(edge => edge.company_geography || edge.genetic_geography).map(edge => {
+    const subject = model.nodes[edge.subject_id], object = model.nodes[edge.object_id];
+    const geography = subject?.type === 'geography' ? subject : object, actor = subject?.type === 'geography' ? object : subject;
+    return { id: edge.id, cells: {
+      subject: { text: actor?.label ?? '', content: <NodeControl node={actor} /> },
+      place: { text: geography?.label ?? '', content: <NodeControl node={geography} /> },
+      activity: { text: [edge.location_label, edge.scope_kind, edge.caveat, edge.status_label].filter(Boolean).join(' '), content: <>
+        <button type="button" className="berry-text-button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: edge.id }, origin: 'grid' })}>{edge.location_label}</button>
         <p className="berry-material-caveat">{edge.scope_kind}</p>{edge.caveat && <p className="berry-material-caveat">{edge.caveat}</p>}
-        {edge.status !== 'active' && <Badge tone="warning">{edge.status_label}</Badge>}</td><td>{edge.evidence_ids.map(id => <div key={id}><Citation id={id} source={sources.get(id)} /></div>)}</td></tr>;
-    })}</tbody></table></div> : <EmptyState title="No geographic relationship is recorded in this scope">This does not establish an absence of activity or cultivar presence.</EmptyState>}
+        {edge.status !== 'active' && <Badge tone="warning">{edge.status_label}</Badge>}</> },
+      sources: { text: edge.evidence_ids.map(id => model.sources.find(source => source.id === id)?.title ?? id).join(' '),
+        content: edge.evidence_ids.map(id => <div key={id}><Citation id={id} source={model.sources.find(source => source.id === id)} /></div>) },
+    } };
+  }), [model, dispatch]);
+  useLayoutEffect(() => { if (!rows.length) onReady(true); }, [rows.length, onReady]);
+  return <><div className="berry-section-heading"><h2>Geographic activity</h2></div>
+    {rows.length ? <WorkspaceSheet label="Geographic activity" viewKey="berry-geography-v1" columns={columns} rows={rows} onReady={onReady} />
+      : <EmptyState title="No geographic relationship is recorded in this scope">This does not establish an absence of activity or cultivar presence.</EmptyState>}
   </>;
 }
 
@@ -214,11 +226,9 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
     cohort_companies: context.cohort_companies, cohort_varieties: context.cohort_varieties };
   const selected = splitIds(context.comparison_kind === 'company' ? context.cohort_companies : context.cohort_varieties);
   const query = useReadModel<ComparisonModel>('/comparison', comparisonContext, selected.length > 0 && !hasBlockingIssues(issues));
-  useLayoutEffect(() => onReady(selected.length === 0 || !query.isPending), [onReady, selected.length, query.isPending]);
   const result = query.data?.data;
-  const media = useBrandMedia(result?.comparison_kind === 'company' ? result.companies.map(company => company.id) : []);
-  const hasPackaging = result?.comparison_kind === 'company' && result.companies.some(company => media?.[company.id]?.packaging.length);
-  const openEntity = (id: string, type: EntityType) => dispatch({ type: 'focusEntity', entity: { id, type }, origin: 'direct' });
+  const count = result?.comparison_kind === 'company' ? result.companies.length : result?.varieties.length ?? 0;
+  useLayoutEffect(() => { if (!selected.length || query.isError || result && !count) onReady(true); }, [onReady, selected.length, query.isError, result, count]);
   return <><div className="berry-section-heading"><h2>Compare {context.comparison_kind === 'company' ? 'companies' : 'cultivars'}</h2>
     <div className="berry-segmented" aria-label="Comparison subject type">{(['company', 'variety'] as const).map(kind => <button key={kind} type="button" aria-pressed={context.comparison_kind === kind} onClick={() => dispatch({ type: 'setLens', lens: 'comparison', comparison_kind: kind, origin: 'direct' })}>{kind === 'company' ? 'Companies' : 'Cultivars'}</button>)}</div></div>
     {selected.length === 0 ? <EmptyState title="Pin subjects to compare">Use the separate company and cultivar pins in Connections or Portfolio. Each cohort remains available when you switch the comparison type.</EmptyState>
@@ -226,20 +236,7 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
         : query.isError ? <EmptyState title="Comparison unavailable">{query.error instanceof Error ? query.error.message : 'The selected profiles could not be loaded.'}</EmptyState>
           : result && <>
             {(result.invalid_ids.length > 0 || result.overflow_ids.length > 0) && <div className="berry-issue">Unavailable: {result.invalid_ids.join(', ') || 'None'}. Beyond the supported comparison: {result.overflow_ids.join(', ') || 'None'}. All pins remain visible for explicit removal.</div>}
-            {result.comparison_kind === 'company' ? result.companies.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded dimension</th>{result.companies.map(company => <th key={company.id}><div className="berry-comparison-identity"><VerifiedCompanyLogo id={company.id} name={company.name} companyIds={result.companies.map(row => row.id)} inspectable /><EntityButton compact name={company.name} onClick={() => openEntity(company.id, 'company')} /></div></th>)}</tr></thead><tbody>
-              {hasPackaging && <tr><th scope="row">Retail packaging</th>{result.companies.map(company => <td key={company.id}><BrandMediaGallery compact model={media?.[company.id]} /></td>)}</tr>}
-              <tr><th scope="row">Declared berry portfolio</th>{result.companies.map(company => <td key={company.id}>{company.berries.join(' · ') || <Unknown />}</td>)}</tr>
-              {result.role_matrix.map((role, index) => <tr key={role.bucket} className={index === 0 ? 'berry-comparison-section-start' : undefined}><th scope="row">{role.label}</th>{result.companies.map(company => <td key={company.id}>{company.roles[role.bucket]?.length ? <ul className="berry-comparison-list berry-cell-grid">{company.roles[role.bucket].map(party => <li key={party.id}><button type="button" className="berry-text-button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'variety', id: party.id }, origin: 'direct' })}>{party.name || model.nodes[party.id]?.label || party.id}</button></li>)}</ul> : <Unknown label="Unknown: no recorded cultivar relationship in this role" />}</td>)}</tr>)}
-              <tr className="berry-comparison-section-start"><th scope="row">Recorded geographic context</th>{result.companies.map(company => <td key={company.id}>{company.geographies.length ? <ul className="berry-comparison-list berry-cell-grid berry-cell-grid--places">{company.geographies.map(geo => <li key={geo.id}><button className="berry-text-button" type="button" onClick={() => dispatch({ type: 'openDetail', detail: { type: 'geography', id: geo.id }, origin: 'direct' })}>{geo.name}</button></li>)}</ul> : <Unknown />}<p className="berry-material-caveat">Profile geography includes distinct company/observation bases; inspect before inferring growing.</p></td>)}</tr>
-              <tr className="berry-comparison-section-start"><th scope="row">Published rights records</th>{result.companies.map(company => <td key={company.id}>{company.rights_published.length ? <ul className="berry-comparison-list berry-cell-grid berry-cell-grid--sources">{company.rights_published.map(row => <li key={row.id}><Citation id={row.id} />{row.kind && <span className="berry-material-caveat"> {row.kind}</span>}</li>)}</ul> : <Unknown />}</td>)}</tr>
-            </tbody></table></div>
-              : result.comparison_kind === 'variety' && result.varieties.length > 0 && <div className="berry-table-wrap"><table className="berry-table berry-comparison-table"><thead><tr><th>Recorded observation</th>{result.varieties.map(variety => <th key={variety.id}><EntityButton compact name={model.nodes[variety.id]?.label ?? variety.identity?.display_name ?? variety.identity?.name ?? variety.id} onClick={() => openEntity(variety.id, 'variety')} /></th>)}</tr></thead><tbody>
-                {result.dimensions.map(dimension => <tr key={dimension.name}><th scope="row">{dimension.name}</th>{result.varieties.map(variety => {
-                  const cell = dimension.cells.find(item => item.variety_id === variety.id);
-                  return <td key={variety.id}>{cell?.has_data ? cell.rows.map((row, index) => <div key={`${row.id}-${index}`} className="berry-observation"><p>{row.statement}</p>{row.fact_status && <Badge>{row.fact_status}</Badge>}{row.evidence_id && <Citation id={row.evidence_id} />}{row.does_not_prove?.length ? <p className="berry-material-caveat">{row.does_not_prove.join(' · ')}</p> : null}</div>) : <Unknown />}</td>;
-                })}</tr>)}
-                <tr><th scope="row">Observed commercial markets</th>{result.varieties.map(variety => <td key={variety.id}>{variety.countries_observed.map(geo => geo.name).join(' · ') || <Unknown />}<p className="berry-material-caveat">Observed market does not establish growing origin.</p></td>)}</tr>
-              </tbody></table>{result.dimensions.length === 0 && <p className="berry-scope-note berry-comparison-footnote">No comparable sourced trait dimensions are recorded for these selected cultivars. Missing observations are unknown.</p>}</div>}
+            {count > 0 && <ComparisonSheets result={result} model={model} onReady={onReady} />}
           </>}
   </>;
 }
@@ -297,7 +294,7 @@ export function LandscapePage() {
     : { key: readinessKey, field: ready, rail: previous.key === readinessKey ? previous.rail : false }), [readinessKey]);
   const railReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.rail === ready ? previous
     : { key: readinessKey, field: previous.key === readinessKey ? previous.field : false, rail: ready }), [readinessKey]);
-  const asynchronousField = ['connections', 'portfolio', 'comparison', 'news', 'sensory'].includes(context.lens);
+  const asynchronousField = ['connections', 'portfolio', 'geography', 'comparison', 'news', 'sensory'].includes(context.lens);
   const needsRail = context.lens !== 'news' && (railPreferences[context.lens] ?? context.lens === 'comparison');
   const currentParts = readyParts.key === readinessKey;
   useSurfaceReady(blocked || query.isError || Boolean(model && (!needsRail || currentParts && readyParts.rail) && (!asynchronousField || currentParts && readyParts.field)));
@@ -319,7 +316,7 @@ export function LandscapePage() {
             <div className={`berry-analysis-layout${!needsRail ? ' berry-analysis-layout--full' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
               {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} />}
               {context.lens === 'portfolio' && <><div className="berry-section-heading"><h2>Cultivar portfolio</h2></div><BerryDataGrid model={model} onReady={fieldReady} /></>}
-              {context.lens === 'geography' && <Geography model={model} />}
+              {context.lens === 'geography' && <Geography model={model} onReady={fieldReady} />}
               {context.lens === 'comparison' && <Comparison model={model} onReady={fieldReady} />}
               {context.lens === 'news' && <LandscapeNews onReady={fieldReady} />}
               {context.lens === 'sensory' && <SensoryDemo onReady={fieldReady} />}
