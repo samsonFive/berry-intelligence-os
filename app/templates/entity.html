@@ -1,6 +1,7 @@
 {% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
 {% block head_extra %}
+<link rel="stylesheet" href="/static/brand_media.css?v=1">
 {% if entity.entity_type in ['company', 'brand', 'breeding_program'] %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +30,7 @@
   <a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#main{% endif %}">Skip to profile concerns</a>
   <section class="page-heading sh-header" data-pagefind-filter="type:entity">
     <div class="pvs-profile-hero">
-      <span class="pvs-lettermark" data-tone="{{ entity.entity_type }}" aria-hidden="true">{{ lettermark(entity.name) }}</span>
+      {% if entity_media is defined and entity_media.logo %}{{ media_logo(entity_media.logo, entity.name) }}{% else %}<span class="pvs-lettermark" data-tone="{{ entity.entity_type }}" aria-hidden="true">{{ lettermark(entity.name) }}</span>{% endif %}
       <div>
         <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
         <h1>{{ entity.name }}</h1>
@@ -44,6 +45,8 @@
     </div>
   </section>
   {% include "_competitor_profile_concerns.html" %}
+  {% from '_brand_media.html' import entity_galleries, logo as media_logo %}
+  {{ entity_galleries(entity_media|default({}), entity.id) }}
   {% include "_entity_body.html" %}
 </div>
 {% else %}
@@ -59,3 +62,4 @@
 {% include "_entity_body.html" %}
 {% endif %}
 {% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=1"></script>{% endblock %}

@@ -1,0 +1,52 @@
+{# Only the shared media read model supplies assets here; candidates never render. #}
+{% macro logo(asset, name) -%}
+{% if asset and asset.image_url %}<figure class="brand-identity-logo"><img src="{{ asset.image_url }}" alt="{{ name }} logo" width="100" height="64" decoding="async" referrerpolicy="no-referrer" data-brand-image>{% if asset.attribution %}<figcaption>{{ asset.attribution }}</figcaption>{% endif %}</figure>{% endif %}
+{%- endmacro %}
+
+{% macro existing_logo(image_url, name, monogram, style='company') -%}
+<img class="bos-logo bos-entity-logo" src="{{ image_url }}" alt="{{ name }} logo" width="{{ 80 if style == 'dossier' else 48 }}" height="{{ 80 if style == 'dossier' else 48 }}" referrerpolicy="no-referrer" data-brand-logo-fallback="{{ monogram }}" data-brand-logo-style="{{ style }}">
+{%- endmacro %}
+
+{% macro context(asset) -%}
+<dl class="brand-media-context">
+{% if asset.source_account %}<div><dt>Account</dt><dd>{{ asset.source_account }}</dd></div>{% endif %}
+{% if asset.published_at %}<div><dt>Published</dt><dd>{{ asset.published_at[:10] }}</dd></div>{% endif %}
+{% if asset.market %}<div><dt>Market</dt><dd>{{ asset.market }}</dd></div>{% endif %}
+{% if asset.pack_size %}<div><dt>Pack size</dt><dd>{{ asset.pack_size }}</dd></div>{% endif %}
+{% if asset.match_basis %}<div><dt>Identity basis</dt><dd>{{ asset.match_basis }}</dd></div>{% endif %}
+</dl>
+{%- endmacro %}
+
+{% macro source(asset) -%}
+{% if asset.inspection_href %}<a href="{{ asset.source_page_url }}" data-open-reader data-item-id="{{ asset.inspection_href.split('/')[3] }}" data-reader-url="{{ asset.inspection_href }}" data-brand-source>Inspect source</a>{% elif asset.source_page_url %}<a href="{{ asset.source_page_url }}" target="_blank" rel="noopener noreferrer">Open source ↗</a>{% endif %}
+{%- endmacro %}
+
+{% macro gallery(assets, title='Retail Packaging', gallery_id='entity-packaging', show_date=false) -%}
+{% set visible = assets|selectattr('image_url')|list %}
+{% if visible %}
+<section class="brand-media-section" id="{{ gallery_id }}" data-brand-gallery aria-labelledby="{{ gallery_id }}-title">
+  <h2 id="{{ gallery_id }}-title">{{ title }}</h2>
+  <div class="brand-media-grid">
+  {% for asset in visible %}
+    {% set image_id = gallery_id ~ '-' ~ loop.index %}
+    <figure class="brand-media-card" data-brand-card>
+      <a class="brand-media-expand" href="{{ asset.image_url }}" data-brand-expand="{{ image_id }}" aria-label="Inspect {{ asset.caption or asset.kind_label }}" aria-describedby="{{ image_id }}-context" aria-haspopup="dialog">
+        <img src="{{ asset.image_url }}" alt="{{ asset.caption or asset.kind_label }}" width="300" height="210" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-brand-image>
+        <div class="brand-media-hover" id="{{ image_id }}-context">{{ context(asset) }}</div>
+      </a>
+      <figcaption><span class="brand-media-kind">{{ asset.kind_label }}{% if asset.source_kind %} · {{ {'official':'Official imagery','retailer':'Retailer observation','consumer':'Consumer sighting'}.get(asset.source_kind, asset.source_kind) }}{% endif %}</span>{% if asset.caption %}<span class="brand-media-caption">{{ asset.caption }}</span>{% endif %}{% if show_date and asset.published_at %}<span class="brand-media-date">Published {{ asset.published_at[:10] }}</span>{% endif %}{% if asset.historical_status and asset.historical_status != 'unknown' %}<span class="brand-media-date">{{ asset.historical_status|replace('_',' ') }}</span>{% endif %}{% if asset.attribution %}<small class="brand-media-credit">{{ asset.attribution }}</small>{% endif %}</figcaption>
+      <dialog id="{{ image_id }}" class="brand-media-inspector" aria-labelledby="{{ image_id }}-title" data-brand-dialog>
+        <header><h3 id="{{ image_id }}-title">{{ asset.caption or asset.kind_label }}</h3><button type="button" data-brand-close aria-label="Close image inspection">×</button></header>
+        <div class="brand-media-inspector-image"><img src="{{ asset.image_url }}" alt="{{ asset.caption or asset.kind_label }}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-brand-image></div>
+        <div class="brand-media-inspector-detail"><p class="brand-media-kind">{{ asset.kind_label }}{% if asset.source_kind %} · {{ {'official':'Official imagery','retailer':'Retailer observation','consumer':'Consumer sighting'}.get(asset.source_kind, asset.source_kind) }}{% endif %}{% if asset.historical_status and asset.historical_status != 'unknown' %} · {{ asset.historical_status|replace('_',' ') }}{% endif %}</p>{{ context(asset) }}{% if asset.attribution %}<p class="brand-media-credit">{{ asset.attribution }}</p>{% endif %}<div class="brand-media-actions"><button type="button" data-brand-step="-1" aria-label="Previous image">←</button><span data-brand-position>{{ loop.index }} / {{ visible|length }}</span><button type="button" data-brand-step="1" aria-label="Next image">→</button>{{ source(asset) }}</div></div>
+      </dialog>
+    </figure>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
+{%- endmacro %}
+
+{% macro entity_galleries(media, entity_id) -%}
+{% if media %}{{ gallery(media.packaging or [], 'Retail Packaging', entity_id ~ '-packaging') }}{{ gallery(media.observations or [], 'Retail observations', entity_id ~ '-retail-observations') }}{{ gallery(media.social_images or [], 'Social imagery', entity_id ~ '-social-imagery', true) }}{{ gallery(media.official_images or [], 'Official imagery', entity_id ~ '-official-imagery', true) }}{% endif %}
+{%- endmacro %}

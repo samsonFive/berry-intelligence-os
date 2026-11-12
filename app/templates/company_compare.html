@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% from '_brand_media.html' import entity_galleries, logo %}
 {% block title %}Company Compare{% endblock %}
+{% block head_extra %}{{ super() }}<link rel="stylesheet" href="/static/brand_media.css?v=1">{% endblock %}
 {% block content %}
 {% set compare = compare if compare is defined else {} %}
 {% set companies = compare.companies or [] %}
@@ -53,6 +55,7 @@
   <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
     {% for card in companies %}
       <article class="v2-card v2-compare-column">
+        {{ logo(card.media.logo if card.media is defined else none, card.name) }}
         <p class="v2-card-kicker">
           {% for b in card.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
         </p>
@@ -63,6 +66,28 @@
     {% endfor %}
   </div>
 </section>
+
+{% set media_cards = namespace(rows=[], has_packaging=false, has_social=false, has_official=false) %}
+{% for card in companies %}
+  {% if card.media is defined and (card.media.packaging or card.media.observations or card.media.social_images or card.media.official_images) %}
+    {% set media_cards.rows = media_cards.rows + [card] %}
+    {% if card.media.packaging or card.media.observations %}{% set media_cards.has_packaging = true %}{% endif %}
+    {% if card.media.social_images %}{% set media_cards.has_social = true %}{% endif %}
+    {% if card.media.official_images %}{% set media_cards.has_official = true %}{% endif %}
+  {% endif %}
+{% endfor %}
+{% if media_cards.rows %}
+<section class="v2-company-section" id="compare-packaging">
+  <h2>{{ 'Image comparison' if media_cards.has_official or (media_cards.has_packaging and media_cards.has_social) else 'Social imagery comparison' if media_cards.has_social else 'Packaging comparison' }}</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ media_cards.rows|length }};">
+  {% for card in media_cards.rows %}
+    <div class="v2-compare-column">
+      <h3>{{ card.name }}</h3>{{ entity_galleries(card.media, card.id) }}
+    </div>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
 
 <section class="v2-company-section" id="compare-coverage">
   <h2>Evidence coverage</h2>
@@ -325,3 +350,4 @@
 </script>
 {% endif %}
 {% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/brand_media.js?v=1"></script>{% endblock %}

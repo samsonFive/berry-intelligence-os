@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "note": "Historical account verification reused from the social evaluation; no imagery permissions are implied. Refresh verification before new acquisition.",
+  "accounts": [
+    {
+      "entity_id": "company-driscolls",
+      "platform": "facebook",
+      "account_url": "https://www.facebook.com/DriscollsBerries/",
+      "source_kind": "official",
+      "supporting_url": "https://www.driscolls.com/",
+      "verification_basis": "Official-site link recorded in docs/v2/SOCIAL-VISUAL-READER-LINKEDIN.md, Facebook follow-up; reused by existing manual_collection.FACEBOOK allowlist. Historical October 2026 verification."
+    },
+    {
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "platform": "facebook",
+      "account_url": "https://www.facebook.com/FallCreekNursery",
+      "source_kind": "official",
+      "supporting_url": "https://www.fallcreeknursery.com/",
+      "verification_basis": "Official-site link recorded in docs/v2/SOCIAL-VISUAL-READER-LINKEDIN.md, Facebook follow-up; reused by existing manual_collection.FACEBOOK allowlist. Historical October 2026 verification."
+    }
+  ]
+}

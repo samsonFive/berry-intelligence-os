@@ -82,11 +82,19 @@ def reader(request:Request,key:str):
     row=next((r for r in store.records() if r['id']==key),None)
     if not row: raise HTTPException(410,'Observation unavailable or removed')
     if row.get('output_excluded'): raise HTTPException(410,'Source confirmed deleted; excluded from new outputs')
+    metadata_only=request.query_params.get('media')=='metadata-only'
+    if metadata_only:
+        from datetime import datetime, timezone, timedelta
+        expiry=datetime.fromisoformat(row['collected_at'].replace('Z','+00:00'))+timedelta(days=row['retention_days'])
+        if expiry<=datetime.now(timezone.utc):raise HTTPException(410,'Source retention expired')
+        # Gallery source inspection is provenance only. It must not turn a held
+        # reference into an image hotlink or an unapproved native embed.
+        row={**row,'media':[],'analysis':{**row['analysis'],'media_observations':[]}}
     if not readable_in_english(row): raise HTTPException(409,'An English version is pending')
     thread=[r for r in store.records(mode=row['mode']) if readable_in_english(r) and r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
     try: profiles=matching_profiles(main.INBOX_DIR,row)
     except ValueError:profiles=[]
-    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread,'player':player(row),'matching_social_profiles':profiles},headers={'Cache-Control':'private, no-store'})
+    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':[] if metadata_only else thread,'player':None if metadata_only else player(row),'matching_social_profiles':profiles},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social/{key}/media/{media_id}')
 def media(key:str,media_id:str):
@@ -95,7 +103,7 @@ def media(key:str,media_id:str):
     except ValueError as exc: raise HTTPException(410,str(exc)) from exc
     return FileResponse(path,media_type=mime,headers={'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'})
 
-async def mutation(request):
+async def mutation(request, *, max_bytes=1_000_000):
     context()
     # An explicit operator origin avoids trusting arbitrary forwarded headers
     # and supports the existing TLS proxy's HTTP upstream connection.
@@ -105,7 +113,7 @@ async def mutation(request):
     body=bytearray()
     async for chunk in request.stream():
         body.extend(chunk)
-        if len(body)>1_000_000: raise HTTPException(413,'Intake limit is 1 MB')
+        if len(body)>max_bytes: raise HTTPException(413,'Intake exceeds the allowed body size')
     try: return json.loads(body)
     except ValueError as exc: raise HTTPException(422,'Expected JSON intake') from exc
 

@@ -3813,6 +3813,11 @@ def company_compare_page(request: Request, ids: str = "") -> HTMLResponse:
         assessments=all_assessments(),
         berry_labels=BERRIES,
     )
+    if AUTHORING_MODE:
+        from app.services.brand_media import entity_media
+        media_by_entity = entity_media(INBOX_DIR, [card['id'] for card in result['companies']])
+        for card in result['companies']:
+            card['media'] = media_by_entity.get(card['id'])
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -3885,6 +3890,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
     from app.services.operator_variety_seed import company_seed_count
+    from app.services.brand_media import entity_media
 
     world = _feed_first_world()
     logo_overrides = load_logo_overrides(INBOX_DIR) if AUTHORING_MODE else {}
@@ -3977,6 +3983,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "logo_status": str(request.query_params.get("logo_status") or ""),
             "logo_error": str(request.query_params.get("logo_error") or ""),
             "entity_id": entity_id,
+            "entity_media": entity_media(INBOX_DIR, [entity_id]).get(entity_id) if AUTHORING_MODE else None,
             "registry_seed_count": company_seed_count(DATA_DIR, entity_id),
             "nav": world["nav"],
             "active_href": "/entities",
@@ -4262,6 +4269,9 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 synthesis["variety_research"] = variety_research.profile(INBOX_DIR, entity_id) if entity_type == "variety" else None
                 synthesis["company_variety_research"] = variety_research.company_research(INBOX_DIR, entity_id) if entity_type in {"company", "brand", "breeding_program"} else None
             template_name = "entity.html"
+            if AUTHORING_MODE and entity_type in {'company', 'brand', 'retailer'}:
+                from app.services.brand_media import entity_media
+                synthesis['entity_media'] = entity_media(INBOX_DIR, [entity_id]).get(entity_id)
             if entity_type == "variety" and AUTHORING_MODE:
                 from app.services import variety_photos, company_directory
                 from app.services.variety_portfolio_coverage import load_portfolio_observations
@@ -11350,6 +11360,8 @@ from app.berry_strategy_routes import router as berry_strategy_router
 app.include_router(berry_strategy_router)
 from app.social_routes import router as social_router
 app.include_router(social_router)
+from app.brand_media_routes import router as brand_media_router
+app.include_router(brand_media_router)
 from app.learn_routes import router as learn_router
 app.include_router(learn_router)
 from app.monitor_routes import router as monitor_router

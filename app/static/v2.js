@@ -169,8 +169,17 @@
     overlayBody.setAttribute("aria-busy", "true");
     var instance = ensureOverlay();
     if (instance) instance.show();
-    var socialReader = window.location.pathname === "/social" && /^ev-social-[a-f0-9]{24}$/.test(id);
-    fetch((socialReader ? "/api/social/" : "/api/intelligence/") + encodeURIComponent(id) + "/reader" + (!socialReader && document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
+    // Company packaging opens the same Reader without changing investigation scope.
+    // Only the existing local social-reader path can be supplied by a media card.
+    var sourceTrigger = trigger;
+    if (!sourceTrigger || !sourceTrigger.getAttribute("data-reader-url")) {
+      sourceTrigger = Array.prototype.find.call(document.querySelectorAll("[data-reader-url][data-item-id]"), function (link) { return link.getAttribute("data-item-id") === id; });
+    }
+    var suppliedReader = sourceTrigger && sourceTrigger.getAttribute("data-reader-url");
+    var socialPath = /^\/api\/social\/(ev-social-[a-f0-9]{24})\/reader(?:\?media=metadata-only)?$/.exec(suppliedReader || "");
+    var approvedReader = socialPath && socialPath[1] === id ? suppliedReader : null;
+    var socialReader = Boolean(approvedReader) || window.location.pathname === "/social" && /^ev-social-[a-f0-9]{24}$/.test(id);
+    fetch(approvedReader || (socialReader ? "/api/social/" : "/api/intelligence/") + encodeURIComponent(id) + "/reader" + (!socialReader && document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("Reader unavailable");
         return res.text();
@@ -191,7 +200,8 @@
       .catch(function () {
         if (gen !== loadGen) return;
         overlayBody.removeAttribute("aria-busy");
-        overlayBody.innerHTML = "<p class=\"empty-state\">Could not load this item. <a href=\"/intelligence/" + encodeURIComponent(id) + "\">Open full reader</a></p>";
+        var fallback = approvedReader || (socialReader ? "/social?story=" + encodeURIComponent(id) : "/intelligence/" + encodeURIComponent(id));
+        overlayBody.innerHTML = "<p class=\"empty-state\">Could not load this item. <a href=\"" + fallback + "\">Open full reader</a></p>";
       });
   }
   function loadReader(index) {

@@ -1,0 +1,37 @@
+{% extends 'glasshouse_base.html' %}
+{% from '_brand_media.html' import source %}
+{% block title %}Media review{% endblock %}
+{% block content %}
+<section class="page-heading"><p class="eyebrow">OPERATIONAL REVIEW</p><h1>Media review{% if selected_entity %} · {{ selected_entity.name }}{% endif %}</h1>
+{% if selected_entity %}<a href="/entities/{{ selected_entity.entity_type }}/{{ selected_entity.id }}?tab=details">Back to profile</a>{% endif %}
+<p>Refresh reuses retained records. Image use and identity decisions are independent; nothing here publishes Evidence.</p>
+<button type="button" data-media-refresh="{{ selected_entity.id if selected_entity else '' }}">Refresh media from retained records</button></section>
+<p role="status" data-media-status></p>
+<table class="company-table"><thead><tr><th>Track</th><th>Attempted</th><th>Matched</th><th>Display eligible</th><th>Review needed</th><th>Unavailable</th></tr></thead><tbody>{% for track, counts in media_counts.items() %}<tr><th>{{ track|capitalize }}</th>{% for field in ['attempted','matched','display_eligible','review_needed','unavailable'] %}<td>{{ counts[field] }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+{% for asset in assets %}<section class="company-panel" data-media-review="{{ asset.id }}"><h2>{{ entities.get(asset.entity_id, {}).get('name', asset.entity_id) }} · {{ asset.kind_label }}</h2>
+<p>{{ asset.match_basis }}</p>{{ source(asset) }}
+<p>{{ asset.id }} · {{ asset.source_kind }}{% if asset.published_at %} · published {{ asset.published_at[:10] }}{% endif %}</p>
+<p>{{ asset.policy.basis }}{% if asset.policy.expires_at %} · retention ends {{ asset.policy.expires_at }}{% endif %}</p>
+{% if asset.blockers %}<ul>{% for blocker in asset.blockers %}<li>{{ blocker }}</li>{% endfor %}</ul>{% endif %}
+<label>Classification <select data-media-kind>{% for key,label in kinds.items() %}<option value="{{ key }}" {{ 'selected' if key == asset.kind else '' }}>{{ label }}</option>{% endfor %}</select></label>
+<label>Inspection basis <input data-media-basis value="{{ asset.classification_basis or '' }}" maxlength="1500"></label>
+<label>Reviewer <input data-media-reviewer maxlength="100" required></label>
+<button data-media-save type="button">Save classification</button><button data-media-reject type="button">Reject mismatch</button><button data-media-primary type="button">Select primary</button>
+</section>{% else %}<p>No retained media mappings in this scope.</p>{% endfor %}
+<details class="company-panel"><summary>Add an authorized image or replace a reference</summary>
+<p>Add the replacement, select it as primary, then reject the mismatch. Record the source and permitted uses. Unresolved usage stays out of galleries.</p>
+<form data-media-upload class="company-editor">
+<label>Company, brand or retailer<select name="entity_id" required>{% for id, entity in entities.items() %}{% if entity.entity_type in ['company','brand','retailer'] %}<option value="{{ id }}" {{ 'selected' if selected_entity and selected_entity.id == id else '' }}>{{ entity.name }}</option>{% endif %}{% endfor %}</select></label>
+<label>Authorized image<input type="file" name="image" accept="image/png,image/jpeg,image/gif,image/webp" required></label>
+<label>Image class<select name="kind">{% for key,label in kinds.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+<label>Source class<select name="source_kind"><option value="unknown">Unknown</option><option value="official">Official</option><option value="retailer">Retailer observation</option><option value="consumer">Consumer sighting</option></select></label>
+<label>Original page URL<input type="url" name="source_page_url"></label><label>Publisher<input name="publisher" maxlength="500"></label>
+<label>Caption<input name="caption" maxlength="500"></label><label>Required credit<input name="attribution" maxlength="500"></label>
+<label>Identity and upload authorization basis<textarea name="authorization" maxlength="1500" required></textarea></label>
+<label>Image classification basis<textarea name="classification_basis" maxlength="1500" required></textarea></label>
+<label>Policy evidence URL<input type="url" name="policy_source_url" required></label><label>Usage basis<textarea name="policy_basis" maxlength="1000" required></textarea></label>
+<label><input type="checkbox" name="display"> In-app display permitted</label><label><input type="checkbox" name="cache"> Local storage permitted</label><label><input type="checkbox" name="export"> Export permitted</label>
+<label>Permission expiry, if applicable<input type="datetime-local" name="expires_at"></label><button type="submit">Add authorized image</button>
+</form></details>
+{% endblock %}
+{% block scripts %}<script src="/static/brand_media_review.js"></script>{% endblock %}

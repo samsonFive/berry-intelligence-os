@@ -1,3 +1,25 @@
+# Brand/packaging social-media candidate — November 11, 2026
+
+The user subsequently requested immediate image display. The isolated preview
+now visibly renders two official company logos and three visually inspected
+Driscoll's blueberry packaging images from the official website. All five
+loaded at their actual browser dimensions; shared expansion and Compare pass.
+These are direct source references, with no provider API calls or new image
+objects. Retained Facebook URLs return HTTP 403 and are not reported as a
+successful social-packaging route. No source date, cultivar, market or current
+stock is inferred. The following counts retain the earlier social-only pass.
+
+After explicit user approval, an isolated private snapshot of 631 retained
+social records was copied without provider requests or production writes. The
+two-company media pass skips 249 expired records and creates 18 image/thumbnail
+references, 15 matched to historically verified exact Driscoll's/Fall Creek
+account paths. A repeat creates zero records; the source snapshot is unchanged.
+There were zero classified/display-eligible packaging images and zero acquired
+logos in that social-only run. Rights, permitted local bytes, image-content inspection,
+source retention and stable new-app integration remain open. This is not a
+social coverage/recall or packaging-delivery upgrade. See
+[the integration candidate](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
 # Berry Strategy and priority research — November 11, 2026
 
 The private Strategy input candidate adds governed internal evidence to named
