@@ -60,6 +60,9 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
         for party in group.get('commercial_contacts', []) + group.get('commercial_leads', []):
             links.extend(party.get('source_urls', []))
         links.extend(link for photo in group['variety_image_links'] for link in [photo['url'],photo['source']])
+        links.extend(url for finding in group.get('findings', []) for url in finding.get('source_urls', []))
+        if group.get('report_url'):
+            links.append(group['report_url'])
         for link in links:
             parsed=urlsplit(link)
             if parsed.scheme not in {'http','https'} or not parsed.hostname or parsed.username or parsed.password:
@@ -91,7 +94,7 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
     # but do not approve a different commercial-name alias.
     for g in groups:
         if not g['resolved_name']:
-            unresolved.append({key:g[key] for key in ['key','berry','rows','applications','summary','sources','closeout','commercial_leads','issue','commercial_status','row_holds'] if key in g});continue
+            unresolved.append({key:g[key] for key in ['key','name','berry','rows','applications','summary','sources','closeout','commercial_leads','issue','commercial_status','row_holds','findings','gaps','report_url'] if key in g});continue
         crop=g['berry'];name=g['resolved_name'];known=[entities[x['id']] for x in g['existing_entities'] if x['id'] in entities]
         current_matches=[entity for entity in entities.values() if entity.get('entity_type')=='variety'
             and 'berry-'+crop.lower() in entity.get('berry_ids',[])
@@ -142,7 +145,7 @@ def install(packet_path, *, data_dir, inbox_dir, source_sheet=None):
         keep=['key','name','resolved_name','berry','rows','applications','aliases','summary','availability','commercial_status','role',
               'patent_assignee_lead','baseline_status','new_information_assessment','issue','sources','variety_image_links']
         dossier={key:g[key] for key in keep};dossier['checked_on']=payload['metadata']['checked_on'];dossier['commercial_contacts']=contacts
-        for key in ['closeout','commercial_leads','partnerships','row_holds']:
+        for key in ['closeout','commercial_leads','partnerships','row_holds','findings','gaps','report_url']:
             if key in g:dossier[key]=g[key]
         dossier['review_state']='unreviewed';dossier['batch_id']=batch_id;dossier['captures']=[]
         dossier['baseline_references']=sorted({*[x['file'] for x in g['existing_entities']],*[x['baseline_file'] for x in g['prior_mentions']],*[x['file'] for x in g['prior_evidence']]})

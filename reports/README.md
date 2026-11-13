@@ -49,3 +49,9 @@ The library inherits the existing private Reports access controls and is exclude
 Private runtime packages contain `library.json`, finished HTML, and a `downloads/` directory containing PDF and optional XLSX files. A supporting `research-notes/` directory may retain the authored input without exposing it through a file route. Install the files through the release owner's normal additive runtime procedure, validating the catalog and artifact hashes before publishing the manifest. Preserve existing IDs and files; do not replace the current private catalog with an older package.
 
 Registration makes a completed report available; it does not add automatic report generation. The capability audit and the proposed reuse of saved company lists, Competitor News Packets, Research Desk, and Report Builder are documented in `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
+
+## Connecting finished reports to variety profiles
+
+Use the existing private `variety_research` import for source-attributed profile additions. Optional `report_url`, `findings` (`topic`, `value`, `source_urls`) and `gaps` (`topic`, `missing_information`, `capture_path`, `review_needed`) fields retain the finished report link, individual findings and the information needed to close each gap. They appear in the existing private research section; capture details stay collapsed. Every source URL uses the importer's public HTTP(S) validation.
+
+A crop-scoped existing catalog identity receives a research dossier without changes to its canonical record. An unresolved name stays an explicit research lead. Source-reported aliases, roles and traits remain unreviewed research until normal human publication and atomic-evidence review. Preserve earlier imports, source snapshots and edits; register a new immutable batch rather than replacing them. Keep authored research artifacts and import packets in private runtime storage, outside the public Git repository.

@@ -100,6 +100,41 @@ def test_resolved_identity_supersedes_old_application_lead(imported):
     assert not research.index(inbox)['unresolved']
 
 
+def test_source_findings_and_gap_capture_remain_private_unreviewed_research(imported):
+    data,inbox,packet,_,before=imported
+    value=json.loads(packet.read_text())
+    value['varieties'][0].update(
+        report_url='https://example.test/reports/library/known',
+        findings=[{'topic':'Fruit size','value':'Trial reported 8 g < 10 g comparator.',
+                   'source_urls':['https://example.test/trial']}],
+        gaps=[{'topic':'Shelf life','missing_information':'Storage protocol missing.',
+               'capture_path':'Attach protocol to the existing source record.',
+               'review_needed':'Review before publishing a trait Fact.'}])
+    packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    profile=research.profile(inbox,'variety-known')
+    dossier=profile['dossiers'][0]
+    assert dossier['findings'][0]['topic']=='Fruit size' and dossier['gaps'][0]['topic']=='Shelf life'
+    assert dossier['review_state']=='unreviewed' and digest_tree(data)==before
+    template=main.templates.env.get_template('_variety_research.html')
+    html=template.render(variety_research=profile,authoring_mode=True,static_build=False)
+    assert '8 g &lt; 10 g' in html and 'https://example.test/trial' in html
+    assert 'Storage protocol missing.' in html and 'download its PDF' in html
+    assert not template.render(variety_research=profile,authoring_mode=True,static_build=True).strip()
+    assert not template.render(variety_research=profile,authoring_mode=False,static_build=False).strip()
+
+
+@pytest.mark.parametrize('field', ['findings','report_url'])
+def test_research_findings_reject_unsafe_links_before_registration(imported,field):
+    _,inbox,packet,_,_=imported
+    value=json.loads(packet.read_text())
+    value['varieties'][0][field]=([{'topic':'Trait','value':'Claim', 'source_urls':['javascript:alert(1)']}]
+                                 if field=='findings' else 'javascript:alert(1)')
+    packet.write_text(json.dumps(value))
+    with pytest.raises(ValueError,match='HTTP'):
+        install(packet,data_dir=imported[0],inbox_dir=inbox)
+    assert len(research.imports(inbox))==1
+
+
 def test_closeout_party_sources_reject_unsafe_urls(imported):
     data,inbox,packet,_,_=imported
     value=json.loads(packet.read_text());value['varieties'][1]['commercial_contacts']=[{'name':'Bad','source_urls':['javascript:alert(1)']}]
