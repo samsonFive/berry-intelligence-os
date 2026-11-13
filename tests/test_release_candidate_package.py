@@ -1,4 +1,5 @@
 import hashlib
+from fnmatch import fnmatchcase
 from pathlib import Path
 import shlex
 import subprocess
@@ -73,7 +74,9 @@ def test_every_current_docker_copy_input_is_in_release_package(tmp_path):
     for name, dockerfile in dockerfiles.items():
         (repo / name).write_text(dockerfile)
         for name in context_copy_sources(dockerfile):
-            path = repo / name
+            # Materialize a concrete input for COPY globs, including on Windows
+            # where a literal '*' is not a valid fixture filename.
+            path = repo / name.replace("*", "fixture")
             if not path.exists():
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("committed build input\n")
@@ -85,7 +88,7 @@ def test_every_current_docker_copy_input_is_in_release_package(tmp_path):
         names = tar.getnames()
         for dockerfile in dockerfiles.values():
             for source in context_copy_sources(dockerfile):
-                assert source in names or any(name.startswith(source + "/") for name in names), source
+                assert any(fnmatchcase(name, source) or name.startswith(source + "/") for name in names), source
         assert ".dockerignore" in names
         assert "deploy/fixture.txt" in names
         assert tar.extractfile("docs/v2/social-source-access.json").read() == b"committed fixture\n"
@@ -99,7 +102,28 @@ def test_releases_before_frontend_and_runtime_remain_packageable(tmp_path):
     with tarfile.open(output) as tar:
         assert "Dockerfile" in tar.getnames()
         assert "app/fixture.txt" in tar.getnames()
-        assert not any(name.startswith(("frontend/", "copilot-runtime/", "inbox/")) for name in tar.getnames())
+        assert not any(name.startswith(("frontend/", "copilot-runtime/", "reports/", "inbox/")) for name in tar.getnames())
+
+
+def test_finished_report_artifacts_use_committed_bytes(tmp_path):
+    repo = fixture_repo(tmp_path)
+    files = {
+        "reports/library.json": b'{"reports": []}\n',
+        "reports/profile.html": b"<!doctype html><title>Finished report</title>\n",
+        "reports/downloads/profile.pdf": b"%PDF-1.4\ncommitted report\n%%EOF\n",
+    }
+    for name, body in files.items():
+        path = repo / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(body)
+    git(repo, "add", "reports")
+    git(repo, "commit", "-m", "Finished report artifacts")
+    (repo / "reports/downloads/profile.pdf").write_bytes(b"uncommitted report edit")
+    output = tmp_path / "finished-reports.tar.gz"
+    package(repo, "HEAD", output)
+    with tarfile.open(output) as tar:
+        for name, body in files.items():
+            assert tar.extractfile(name).read() == body
 
 
 def test_existing_release_package_is_preserved(tmp_path):

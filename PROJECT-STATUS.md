@@ -1,5 +1,11 @@
 # Berry Intelligence — current mission status
 
+## Curated variety reports — November 13
+
+Local feature workspace, not deployed: the approved descriptive Regina profile is the reference for a reusable Markdown/CSS template and local HTML/PDF authoring command. The existing private Reports area now lists finished research reports with an in-app reader and direct PDF download alongside working drafts. An explicit file catalog serves only the intended HTML/PDF artifacts; research notes, trusted intelligence, generated Report Builder behavior, and the public static site are unchanged. See `reports/README.md`.
+
+Validation: 173 focused report/briefing checks passed; one symlink check skipped on Windows. Record validation and the 2,429-page static build passed. Authenticated desktop/mobile browser checks confirmed the in-app reader and byte-identical PDF download; the four-page PDF retains all 16 source URLs and the video link. No merge or deployment was performed.
+
 ## Global Watchlist reconciliation — November 4
 
 Global Watchlist #505 is now merged at `ae22ea07` and its healthy runtime uses image `20c8a5a0`. At the last observation the release owner was still reconciling its version receipt; this integration does not modify that record. The draft preserves the dashboard, shared table controls, scoped Reader links and source corrections. Both response imports are retained where the catalog redirect safeguards meet the new preference endpoints.

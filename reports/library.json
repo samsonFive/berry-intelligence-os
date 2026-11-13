@@ -1,0 +1,17 @@
+{
+  "reports": [
+    {
+      "id": "regina-blackberry",
+      "title": "Regina blackberry",
+      "subtitle": "Variety and commercial profile",
+      "summary": "Regina’s identity, reported fruit and production attributes, corporate context, rights, commercial footprint, and comparisons, with source links and questions for further investigation.",
+      "published_date": "2026-11-13",
+      "berry_id": "berry-blackberry",
+      "page_count": 4,
+      "files": {
+        "html": "regina-blackberry-intelligence.html",
+        "pdf": "downloads/regina-blackberry-variety-profile.pdf"
+      }
+    }
+  ]
+}

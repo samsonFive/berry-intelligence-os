@@ -11,7 +11,7 @@ import tempfile
 
 LEGACY_DOCKER_PATHS = ("Dockerfile", "app", "schemas", "scripts", "benchmarks", "data",
                        "requirements-web.txt", "docker-entrypoint.sh", "docs/v2/social-source-access.json")
-OPTIONAL_BUILD_PATHS = (".dockerignore", "frontend", "copilot-runtime", "deploy")
+OPTIONAL_BUILD_PATHS = (".dockerignore", "frontend", "copilot-runtime", "deploy", "reports")
 DOCKER_PATHS = (*LEGACY_DOCKER_PATHS, *OPTIONAL_BUILD_PATHS)
 
 
