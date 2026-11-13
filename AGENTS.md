@@ -2,6 +2,10 @@
 
 Local-first, evidence-based competitive intelligence for berry crops.
 
+## Research report standard
+
+Use the neutral, descriptive variety-profile format in `reports/README.md` and `reports/templates/variety-commercial-profile.md`. Lead with the findings, group details with headings, bullets, and comparisons, and keep methodology and repository workflow in supporting notes. Do not assume a particular client or company viewpoint. Add recommendations, decision gates, or review deadlines only when requested. Preserve individual clickable citations and clearly attributed supporting images. Finished reports are registered in `reports/library.json` and read/downloaded through the existing private Reports area; they do not create trusted intelligence records.
+
 ### Shared site design language
 
 Lead with information and commercial significance, using descriptive subject headlines. Methodology, source counts and system/process metadata belong in secondary details; gap accounting must not substitute for findings. Keep source and trust status truthful and compact.

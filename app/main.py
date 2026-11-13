@@ -347,6 +347,7 @@ from app.services.ai_gateway.credentials import resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.report_builder.coverage import report_coverage
+from app.services.report_library import get_finished_report, list_finished_reports
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
@@ -425,6 +426,7 @@ from app.session_auth import (
 )
 
 BASE_DIR = Path(__file__).resolve().parents[1]
+REPORT_LIBRARY_DIR = BASE_DIR / "reports"
 DATA_DIR = resolve_data_dir(BASE_DIR)
 INBOX_DIR = resolve_inbox_dir(BASE_DIR)
 SCHEMAS_DIR = BASE_DIR / "schemas"
@@ -8483,6 +8485,8 @@ def reports_index_page(request: Request, status: str = "working") -> HTMLRespons
         name="reports_index.html",
         context={
             "reports": rows,
+            "finished_reports": list_finished_reports(REPORT_LIBRARY_DIR),
+            "berry_labels": BERRIES,
             "status": status,
             "report_type_labels": REPORT_TYPE_LABELS,
             "authoring_mode": AUTHORING_MODE,
@@ -8491,6 +8495,58 @@ def reports_index_page(request: Request, status: str = "working") -> HTMLRespons
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+def _finished_report_or_404(report_id: str) -> dict[str, Any]:
+    record = get_finished_report(REPORT_LIBRARY_DIR, report_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return record
+
+
+@app.get("/reports/library/{report_id}", response_class=HTMLResponse)
+def finished_report_page(request: Request, report_id: str) -> HTMLResponse:
+    record = _finished_report_or_404(report_id)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="report_library_detail.html",
+        context={
+            "report": record,
+            "berry_labels": BERRIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+
+
+@app.get("/reports/library/{report_id}/document")
+def finished_report_document(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    return FileResponse(
+        record["files"]["html"],
+        media_type="text/html",
+        headers={
+            "Cache-Control": "private, no-cache",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Security-Policy": (
+                "default-src 'none'; img-src data:; style-src 'unsafe-inline'; "
+                "base-uri 'none'; frame-ancestors 'self'; form-action 'none'"
+            ),
+        },
+    )
+
+
+@app.get("/reports/library/{report_id}/download.pdf")
+def finished_report_download(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"]["pdf"]
+    return FileResponse(
+        path,
+        media_type="application/pdf",
+        filename=path.name,
+        headers={"Cache-Control": "private, no-cache", "X-Content-Type-Options": "nosniff"},
+    )
 
 
 @app.get("/briefings", response_class=HTMLResponse)

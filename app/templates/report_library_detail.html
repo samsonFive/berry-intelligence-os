@@ -1,0 +1,19 @@
+{% extends "briefings_base.html" %}
+{% block title %}{{ report.title }} · Reports · Berry Intelligence{% endblock %}
+{% block briefing_head %}<link rel="stylesheet" href="/static/report_library.css?v=1">{% endblock %}
+{% block briefing_content %}
+<div class="sh-page v2-page finished-report-detail">
+  <header class="sh-header page-heading">
+    <div>
+      <p class="sh-kicker"><a href="/reports#finished-reports">Research reports</a></p>
+      <h1>{{ report.title }}</h1>
+      <p class="v2-meta">{{ report.subtitle }} · {{ report.published_date|us_date }} · {{ report.page_count }} pages</p>
+    </div>
+    <div class="sh-actions">
+      <a class="sh-btn" href="{{ report.html_href }}" target="_blank" rel="noopener">Open full page</a>
+      <a class="sh-btn sh-btn-primary" href="{{ report.download_href }}" download>Download PDF</a>
+    </div>
+  </header>
+  <iframe class="finished-report-preview" src="{{ report.html_href }}" title="{{ report.title }} report" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
+</div>
+{% endblock %}

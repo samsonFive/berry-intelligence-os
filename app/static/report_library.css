@@ -1,0 +1,13 @@
+.briefings-workspace .finished-reports { margin-bottom: 32px; }
+.briefings-workspace .finished-report-card { max-width: 900px; }
+.briefings-workspace .finished-report-card h3 { font-size: 25px; margin-bottom: 8px; }
+.briefings-workspace .finished-report-card .finished-report-summary { max-width: 65em; margin: 14px 0 20px; font-size: 15px; line-height: 1.55; }
+.briefings-workspace .finished-report-card .sh-actions { justify-content: flex-start; }
+.briefings-workspace .working-reports { padding-top: 24px; border-top: 1px solid var(--line); }
+.finished-report-preview { display: block; width: 100%; height: 78vh; min-height: 650px; border: 1px solid #ccd5ca; border-radius: 8px; background: #f0eeeb; }
+.finished-report-detail .page-heading { align-items: center; }
+@media (max-width: 700px) {
+  .finished-report-preview { height: 76vh; min-height: 480px; }
+  .finished-report-detail .page-heading { align-items: flex-start; }
+}
+@media print { .finished-report-preview { height: auto; border: 0; } }

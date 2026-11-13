@@ -31,6 +31,8 @@ COPY app /app/app
 COPY --from=frontend-build /build/app/static/investigation /app/app/static/investigation
 COPY schemas /app/schemas
 COPY scripts /app/scripts
+COPY reports/library.json reports/*.html /app/reports/
+COPY reports/downloads /app/reports/downloads
 COPY benchmarks /app/benchmarks
 COPY docs/v2/social-source-access.json /app/docs/v2/social-source-access.json
 COPY data /app/seed/data

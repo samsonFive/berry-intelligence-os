@@ -1,18 +1,43 @@
 {% extends "briefings_base.html" %}
 {% block title %}Reports — Berry Intelligence{% endblock %}
+{% block briefing_head %}<link rel="stylesheet" href="/static/report_library.css?v=1">{% endblock %}
 {% block briefing_content %}
 <div class="sh-page v2-page">
 <section class="sh-header page-heading v2-page-header">
   <div>
     <p class="sh-kicker eyebrow">Reports</p>
     <h1>Reports</h1>
-    <p class="sh-lede also-known-as">Ask a question, confirm the scope, then review a draft you can export. A report never creates or edits trusted intelligence.</p>
+    <p class="sh-lede also-known-as">Read and download finished research reports, or continue an editable draft.</p>
   </div>
   <div class="sh-actions">
     <a class="sh-btn sh-btn-primary v2-btn v2-btn-primary" href="/reports/new">Build a report</a>
   </div>
 </section>
 
+<section class="finished-reports" id="finished-reports" aria-labelledby="finished-reports-heading">
+  <h2 id="finished-reports-heading">Research reports</h2>
+  {% if finished_reports %}
+  <div class="balanced-card-grid">
+    {% for r in finished_reports %}
+    <article class="card entity-card finished-report-card">
+      <p class="card-kicker">{{ berry_labels.get(r.berry_id, 'Research') }} · {{ r.page_count }} pages</p>
+      <h3><a href="{{ r.href }}">{{ r.title }}</a></h3>
+      <p class="v2-meta">{{ r.subtitle }} · {{ r.published_date|us_date }}</p>
+      <p class="finished-report-summary">{{ r.summary }}</p>
+      <div class="sh-actions">
+        <a class="sh-btn" href="{{ r.href }}">Open report</a>
+        <a class="sh-btn sh-btn-primary" href="{{ r.download_href }}" download>Download PDF</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="sh-empty empty-state">Finished research reports will appear here.</p>
+  {% endif %}
+</section>
+
+<section class="working-reports" aria-labelledby="working-reports-heading">
+<h2 id="working-reports-heading">Working reports</h2>
 <nav class="briefings-tabs" aria-label="Report status">{% for key,label in [('working','Working'),('draft','Drafts'),('active','Edited'),('archived','Archived'),('all','All')] %}<a href="/reports?status={{ key }}" {% if status == key %}aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}</nav>
 
 {% if reports %}
@@ -35,7 +60,7 @@
     {% endfor %}
   </div>
 {% else %}
-  <p class="sh-empty empty-state">No saved reports yet.</p>
+  <p class="sh-empty empty-state">No saved {{ 'working ' if status == 'working' else '' }}reports in this view.</p>
   <p><a class="sh-btn sh-btn-primary" href="/reports/new">Build a report</a></p>
   <p class="sh-note">Start from an example:</p>
   <p class="sh-examples">
@@ -44,5 +69,6 @@
     <a class="sh-btn" href="/reports/new?example=sekoya">SEKOYA Grande</a>
   </p>
 {% endif %}
+</section>
 </div>
 {% endblock %}
