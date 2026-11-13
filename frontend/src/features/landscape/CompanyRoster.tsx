@@ -16,6 +16,8 @@ import { companyPageSwitchBlocked } from '../grids/company-pages';
 import { isUserLayoutEvent } from '../grids/grid-state';
 import { useAccountGridLayout } from '../grids/useAccountGridLayout';
 import { workspaceGridTheme } from '../grids/workspace-grid-theme';
+import { SheetToolbar } from '../grids/SheetToolbar';
+import { defaultSheetColumnState } from '../grids/sheet-layout';
 import { CompactCollection, CompactGenetics, CompactGeographies, CompactRoles } from './RosterCompactCells';
 import { CompanyTierControl } from './CompanyTierControl';
 import { CompanyRosterDetails } from './CompanyRosterDetails';
@@ -108,7 +110,7 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
   const sizeRef = useRef(pageSize); sizeRef.current = pageSize;
   const [pageState, setPageState] = useState({ index: 0, count: 1, start: 0, end: Math.min(50, roster.companies.length), total: roster.companies.length });
   const layout = useAccountGridLayout<CompanyRosterRow>(COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, true, true);
-  const grid = useRef<GridApi<CompanyRosterRow> | null>(null), columns = useRef<HTMLDetailsElement>(null);
+  const grid = useRef<GridApi<CompanyRosterRow> | null>(null);
   const focus = useRef(context.focus); focus.current = context.focus;
   const rowClass = useCallback<NonNullable<GridOptions<CompanyRosterRow>['getRowClass']>>(params => params.data?.id === focus.current ? 'berry-grid-row-focused' : '', []);
   const identityRefreshPending = useRef(false);
@@ -140,10 +142,6 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
     setCardOrder(previous => previous.join('\u0000') === order.join('\u0000') ? previous : order);
   }, []);
   useLayoutEffect(() => onReady(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
-  useEffect(() => {
-    const outside = (event: PointerEvent) => { if (columns.current?.open && event.target instanceof Node && !columns.current.contains(event.target)) columns.current.open = false; };
-    document.addEventListener('pointerdown', outside); return () => document.removeEventListener('pointerdown', outside);
-  }, []);
   const identity = (company: MonitoringCompany, tier?: { label: string; count: number }) => <CompanyIdentity company={company} ids={companyIds} details={companyDetails} tier={tier} />;
   const comparison = (company: MonitoringCompany) => <CompanyCompare company={company} />;
   const cells = (company: MonitoringCompany): Record<string, ReactNode> => ({
@@ -188,8 +186,7 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
     grid.current.refreshCells({ columns: ['company.identity', 'company.compare', 'company.genetics', 'company.roles', 'company.geography', 'company.collection'] });
   }, [text, model, context.focus, context.cohort_companies]);
   const resetLayout = () => {
-    grid.current?.applyColumnState({ state: COMPANY_ROSTER_COLUMNS.map(column => ({ colId: column.colId, width: column.defaultWidth,
-      hide: Boolean(column.defaultHidden) && !column.lockedVisible, sort: null, pinned: column.lockedVisible ? 'left' : null })), applyOrder: true });
+    grid.current?.applyColumnState({ state: defaultSheetColumnState(COMPANY_ROSTER_COLUMNS), applyOrder: true });
     grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
   };
   const pages = <nav className="berry-roster-pages" aria-label="Company roster pages"><span aria-live="polite">{pageState.total ? `${pageState.start + 1}–${pageState.end} of ${pageState.total} companies` : 'No companies match'}</span>
@@ -208,19 +205,15 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
     <div className="berry-roster-title"><h2>Company roster</h2>{pages}</div>
     <CompanySearch key={`${context.q}\u0000${context.q_scope}`} disabled={blocked} />
     <div className="berry-roster-tier-summary" aria-label="Tiers across the selected company set">{roster.tier_groups?.map(group => <span key={group.tier}><strong>{group.label}</strong> {group.count}{context.q && <small> · {group.matching_count} search matches</small>}</span>)}</div>
-    <div className="lw-view-tools berry-roster-view-tools">
-      <div role="group" aria-label="Company roster display"><Button size="small" aria-pressed={layout.view === 'grid'} disabled={blocked} onClick={() => layout.changeView('grid')}>Grid</Button><Button size="small" aria-pressed={layout.view === 'cards'} disabled={blocked} onClick={() => layout.changeView('cards')}>Cards</Button></div>
-      <label>Filter companies<input type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="All companies in this result" /></label>
-      <span className="berry-roster-row-count">{cards.length} / {pageState.total} companies shown</span>
-      <details className="berry-grid-columns" ref={columns} onKeyDown={event => { if (event.key === 'Escape') { columns.current!.open = false; columns.current?.querySelector('summary')?.focus(); } }}><summary>Columns</summary>
-        <div className="berry-grid-column-options">{COMPANY_ROSTER_COLUMNS.map(column => <label key={column.colId}><input type="checkbox" checked={layout.visible[column.colId] ?? true} disabled={layout.busy || column.lockedVisible}
-          onChange={event => layout.changeVisibility(column.colId, event.target.checked)} />{column.label}{column.lockedVisible && <small>Frozen identity</small>}</label>)}
-          <Button size="small" variant="ghost" aria-label="Fit columns" disabled={blocked || !gridMounted} onClick={() => {
-            grid.current?.sizeColumnsToFit(); layout.changed(); if (columns.current) columns.current.open = false;
-          }}>Fit columns</Button>
-          <Button size="small" variant="ghost" aria-label="Reload saved layout" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button></div>
-      </details><Button size="small" variant="ghost" disabled={blocked} onClick={resetLayout}>Reset layout</Button>
-    </div>
+    <SheetToolbar label="Company roster tools" className="berry-roster-view-tools"
+      display={{ value: layout.view, onChange: layout.changeView, label: 'Company roster display', disabled: blocked }}
+      filter={{ label: 'Filter companies', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+        placeholder: 'All companies in this result', disabled: layout.busy }}
+      count={<span className="berry-roster-row-count">{cards.length} / {pageState.total} companies shown</span>}
+      columns={{ columns: COMPANY_ROSTER_COLUMNS.map(column => ({ id: column.colId, label: column.label, locked: column.lockedVisible })),
+        visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility, onReload: layout.reloadSavedLayout,
+        actionDisabled: blocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
+      reset={{ onClick: resetLayout, disabled: blocked || !gridMounted }} />
     <div className="berry-grid-layout-status berry-roster-layout-status" data-phase={layout.status.phase} hidden={!showLayoutStatus}><p role="status">{showLayoutStatus ? layout.status.message : ''}</p></div>
     {!!roster.unavailable_watch_count && <p className="berry-issue">{roster.unavailable_watch_count} shared watched identities are unavailable; no replacement identity has been selected.</p>}
     {tierReceipt && <p className="berry-roster-tier-receipt" role="status">{tierReceipt}</p>}

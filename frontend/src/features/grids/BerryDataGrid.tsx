@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { AllCommunityModule, ModuleRegistry, type ColDef, type ICellRendererParams } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry, type ColDef, type GridApi, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
 import { useInvestigation } from '../../state/InvestigationProvider';
@@ -18,6 +18,8 @@ import { usePortfolioSessionLayout } from './usePortfolioSessionLayout';
 import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
 import './grid.css';
 import { workspaceGridTheme } from './workspace-grid-theme';
+import { SheetToolbar } from './SheetToolbar';
+import { defaultSheetColumnState } from './sheet-layout';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -76,33 +78,6 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
     viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady} />;
 }
 
-function ColumnVisibility({ columns, visible, busy, change, reload, sessionOnly = false }: {
-  columns: Array<{ id: string; label: string; locked?: boolean }>; visible: Record<string, boolean>; busy: boolean;
-  change: (id: string, show: boolean) => void; reload: () => void; sessionOnly?: boolean;
-}) {
-  const popup = useRef<HTMLDetailsElement>(null);
-  useEffect(() => {
-    const outside = (event: PointerEvent) => {
-      if (popup.current?.open && event.target instanceof Node && !popup.current.contains(event.target)) popup.current.open = false;
-    };
-    const escape = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape' || !popup.current?.open) return;
-      event.preventDefault(); popup.current.open = false; popup.current.querySelector('summary')?.focus();
-    };
-    document.addEventListener('pointerdown', outside); document.addEventListener('keydown', escape);
-    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); };
-  }, []);
-  return <details className="berry-grid-columns" ref={popup}>
-    <summary className="berry-button berry-button--quiet">Columns</summary>
-    <div className="berry-grid-column-options">
-      {columns.map(column => <label key={column.id}><input type="checkbox" checked={visible[column.id] ?? true} disabled={busy || column.locked}
-        aria-label={`Show ${column.label} column`} onChange={event => change(column.id, event.target.checked)} />
-        <span>{column.label}{column.locked && <small>Fixed</small>}</span></label>)}
-      <Button size="small" variant="ghost" disabled={busy} onClick={reload}>{sessionOnly ? 'Reload session layout' : 'Reload saved layout'}</Button>
-    </div>
-  </details>;
-}
-
 interface PortfolioGridProps {
   model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
   viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
@@ -125,17 +100,22 @@ function SessionPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[
   const layout = usePortfolioSessionLayout<PortfolioRow>(props.specs, props.viewKey);
   return <PortfolioDisplay {...props} layout={layout} sessionOnly />;
 }
-function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly }: PortfolioGridProps & {
-  layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean;
+function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs }: PortfolioGridProps & {
+  layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean; specs: readonly LayoutColumn[];
 }) {
   const { context, dispatch } = useInvestigation();
   const selectedCompanies = splitIds(context.cohort_companies);
   const selectedVarieties = splitIds(context.cohort_varieties);
   const [gridMounted, setGridMounted] = useState(false);
+  const grid = useRef<GridApi<PortfolioRow> | null>(null);
   useLayoutEffect(() => onReady?.(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
   const columnChoices = [{ id: 'cultivar.identity', label: 'Cultivar', locked: true }, { id: 'cultivar.comparison-pin', label: 'Comparison pin', locked: true },
     ...companies.map(company => ({ id: `company.${company.id}.recorded-role`, label: company.label }))];
+  const resetLayout = () => {
+    grid.current?.applyColumnState({ state: defaultSheetColumnState(specs), applyOrder: true });
+    grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
+  };
   const columnDefs = useMemo<ColDef<PortfolioRow>[]>(() => [
     {
       colId: 'cultivar.identity', headerName: 'Cultivar', pinned: 'left', initialWidth: 220, minWidth: 150, maxWidth: 1200,
@@ -184,9 +164,14 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
       <EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
     </div>)}</div>
-    <div className="berry-grid-preferences"><label className="berry-field-label">Filter this company group<input className="berry-input" type="search" maxLength={200} disabled={layout.busy} value={layout.quickFilter} onChange={event => layout.changeQuickFilter(event.target.value)} placeholder="Cultivar, role or company in this group" /></label>
-      <ColumnVisibility columns={columnChoices} visible={layout.visible} busy={layout.busy} change={layout.changeVisibility} reload={layout.reloadSavedLayout} sessionOnly={sessionOnly} />
-    </div>
+    <SheetToolbar label="Cultivar portfolio tools" className="berry-grid-preferences"
+      filter={{ label: 'Filter this company group', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+        placeholder: 'Cultivar, role or company in this group', disabled: layout.busy }}
+      count={`${rows.length} loaded cultivars`}
+      columns={{ columns: columnChoices, visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility,
+        onReload: layout.reloadSavedLayout, reloadLabel: sessionOnly ? 'Reload session layout' : 'Reload saved layout',
+        actionDisabled: pageBlocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
+      reset={{ onClick: resetLayout, disabled: pageBlocked || !gridMounted }} />
     {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than forty columns keep resize, order, visibility and filter preferences in this session. Account layouts remain unchanged. Return to 10 or 25 company columns to restore their saved account layout.</p>}>Session layout</Preview>
       {layout.status.phase === 'error' && <span role="status">{layout.status.message}</span>}</div> : <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
       <p role="status" aria-live="polite">{layout.status.message}</p>
@@ -197,7 +182,7 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
         getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder
         processUnpinnedColumns={params => params.columns.filter(column => !['cultivar.identity', 'cultivar.comparison-pin'].includes(column.getColId()))}
         defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2 }, cellDataType: false, resizable: true, wrapHeaderText: true, autoHeaderHeight: true }}
-        onGridReady={event => { layout.onReady(event.api); setGridMounted(true); }}
+        onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setGridMounted(true); }}
         onColumnResized={event => { if (isUserLayoutEvent('resize', event.source, event.finished)) layout.changed(); }}
         onColumnMoved={event => { if (isUserLayoutEvent('move', event.source, event.finished)) layout.changed(); }}
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}
