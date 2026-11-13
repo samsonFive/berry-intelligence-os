@@ -1,8 +1,8 @@
 """Read the allowlisted library of finished, downloadable reports.
 
 ``root`` is the repository's ``reports/`` directory. Its ``library.json``
-contains ``{"reports": [...]}``; each entry names one HTML preview and PDF
-under that directory. This is an artifact catalog, separate from generated
+contains ``{"reports": [...]}``; each entry names one HTML preview and PDF,
+and may name an optional Excel workbook under that directory. This is an artifact catalog, separate from generated
 report drafts and the trusted intelligence stores. Reading it never writes
 files, refreshes research, or regenerates a report.
 """
@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from collections.abc import Iterable
 from datetime import date
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
@@ -78,6 +79,12 @@ def _present(root: Path, entry: Any) -> dict[str, Any] | None:
     pdf = _asset(root, files.get("pdf"), ".pdf")
     if html is None or pdf is None:
         return None
+    # Optional formats must not make a valid HTML/PDF report disappear when
+    # their files are unavailable. They use the same confined-path allowlist.
+    xlsx = _asset(root, files.get("xlsx"), ".xlsx")
+    assets = {"html": html, "pdf": pdf}
+    if xlsx is not None:
+        assets["xlsx"] = xlsx
     slug = entry["id"]
     href = f"/reports/library/{slug}"
     return {
@@ -88,10 +95,11 @@ def _present(root: Path, entry: Any) -> dict[str, Any] | None:
         "published_date": published_date,
         "berry_id": berry_id,
         "page_count": page_count,
-        "files": {"html": html, "pdf": pdf},
+        "files": assets,
         "href": href,
         "html_href": f"{href}/document",
         "download_href": f"{href}/download.pdf",
+        "xlsx_download_href": f"{href}/download.xlsx" if xlsx is not None else None,
     }
 
 
@@ -133,3 +141,36 @@ def get_finished_report(root: Path, report_id: str) -> dict[str, Any] | None:
     if not _valid_slug(report_id):
         return None
     return next((row for row in list_finished_reports(root) if row["id"] == report_id), None)
+
+
+def list_combined_finished_reports(roots: Iterable[Path]) -> list[dict[str, Any]]:
+    """Combine packaged and private catalogs without allowing either to shadow.
+
+    Each catalog retains its own asset boundary. Duplicate valid IDs across
+    distinct roots are omitted, while unavailable catalogs and entries leave
+    unrelated reports visible. Repeating the same physical root is harmless.
+    """
+    rows = []
+    seen_roots = set()
+    for candidate in roots:
+        try:
+            root = Path(candidate).resolve()
+        except (OSError, RuntimeError, ValueError):
+            continue
+        if root in seen_roots:
+            continue
+        seen_roots.add(root)
+        rows.extend(list_finished_reports(root))
+    counts = Counter(row["id"] for row in rows)
+    return sorted(
+        (row for row in rows if counts[row["id"]] == 1),
+        key=lambda row: (row["published_date"], row["id"]),
+        reverse=True,
+    )
+
+
+def get_combined_finished_report(roots: Iterable[Path], report_id: str) -> dict[str, Any] | None:
+    """Resolve one unambiguous report across independently confined catalogs."""
+    if not _valid_slug(report_id):
+        return None
+    return next((row for row in list_combined_finished_reports(roots) if row["id"] == report_id), None)

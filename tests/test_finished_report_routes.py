@@ -85,7 +85,7 @@ def test_report_preview_and_exact_pdf_download(library):
     assert download.headers["x-content-type-options"] == "nosniff"
 
 
-@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf"])
+@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf", "/download.xlsx"])
 def test_missing_or_unavailable_report_is_not_served(library, suffix):
     root, _, _, client = library
     assert client.get(f"/reports/library/not-listed{suffix}").status_code == 404
@@ -93,14 +93,14 @@ def test_missing_or_unavailable_report_is_not_served(library, suffix):
     assert client.get(f"/reports/library/test-variety{suffix}").status_code == 404
 
 
-@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf"])
+@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf", "/download.xlsx"])
 def test_finished_reports_obey_existing_readonly_boundary(library, monkeypatch, suffix):
     _, _, _, client = library
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert client.get(f"/reports/library/test-variety{suffix}").status_code == 403
 
 
-@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf"])
+@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf", "/download.xlsx"])
 def test_anonymous_remote_requests_cannot_read_finished_artifacts(library, monkeypatch, suffix):
     _, _, _, client = library
     monkeypatch.setenv("BIOS_REMOTE_INTERACTIVE", "true")
@@ -117,3 +117,111 @@ def test_reports_stay_out_of_public_static_build():
     source = Path("scripts/build_static.py").read_text(encoding="utf-8")
     assert '"/reports"' not in source
     assert "/reports/" not in source
+
+
+def test_optional_workbook_button_and_exact_download(library):
+    root, _, _, client = library
+    workbook = b"PK\x03\x04finished spreadsheet artifact"
+    (root / "profile.xlsx").write_bytes(workbook)
+    catalog = json.loads((root / "library.json").read_text(encoding="utf-8"))
+    catalog["reports"][0]["files"]["xlsx"] = "profile.xlsx"
+    (root / "library.json").write_text(json.dumps(catalog), encoding="utf-8")
+    before = {path: path.read_bytes() for path in root.iterdir()}
+    for route in ("/reports", "/reports/library/test-variety"):
+        response = client.get(route)
+        assert response.status_code == 200
+        assert 'href="/reports/library/test-variety/download.xlsx" download' in response.text
+        assert "Download Excel" in response.text
+    download = client.get("/reports/library/test-variety/download.xlsx")
+    assert download.status_code == 200
+    assert download.content == workbook
+    assert download.headers["content-type"] == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    assert download.headers["content-disposition"] == 'attachment; filename="profile.xlsx"'
+    assert download.headers["cache-control"] == "private, no-cache"
+    assert download.headers["x-content-type-options"] == "nosniff"
+    assert {path: path.read_bytes() for path in root.iterdir()} == before
+
+
+def test_missing_optional_workbook_hides_only_excel_action(library):
+    root, _, pdf, client = library
+    catalog = json.loads((root / "library.json").read_text(encoding="utf-8"))
+    catalog["reports"][0]["files"]["xlsx"] = "missing.xlsx"
+    (root / "library.json").write_text(json.dumps(catalog), encoding="utf-8")
+    for route in ("/reports", "/reports/library/test-variety"):
+        response = client.get(route)
+        assert response.status_code == 200
+        assert "Download Excel" not in response.text
+        assert "Download PDF" in response.text
+    assert client.get("/reports/library/test-variety/download.xlsx").status_code == 404
+    assert client.get("/reports/library/test-variety/download.pdf").content == pdf
+
+
+def _private_report(report_id="private-report"):
+    root = main.INBOX_DIR / "finished_reports"
+    root.mkdir(parents=True)
+    assets = {
+        "html": b"<!doctype html><title>Private report</title><p>Retained research</p>",
+        "pdf": b"%PDF-1.4\nprivate finished artifact\n%%EOF\n",
+        "xlsx": b"PK\x03\x04private finished spreadsheet",
+    }
+    for extension, payload in assets.items():
+        (root / f"private.{extension}").write_bytes(payload)
+    (root / "library.json").write_text(json.dumps({"reports": [{
+        "id": report_id, "title": "Private finished research", "subtitle": "Dated report",
+        "summary": "A privately installed report.", "published_date": "2026-11-13",
+        "berry_id": "berry-strawberry", "page_count": 23,
+        "files": {extension: f"private.{extension}" for extension in assets},
+    }]}), encoding="utf-8")
+    return root, assets
+
+
+def test_packaged_and_private_reports_share_index_reader_and_downloads(library):
+    packaged, _, _, client = library
+    private, assets = _private_report()
+    before = {path: path.read_bytes() for root in (packaged, private) for path in root.iterdir()}
+    index = client.get("/reports")
+    assert index.status_code == 200
+    assert "Finished variety report" in index.text
+    assert "Private finished research" in index.text
+    assert 'href="/reports/library/private-report/download.xlsx"' in index.text
+    page = client.get("/reports/library/private-report")
+    assert page.status_code == 200
+    assert 'src="/reports/library/private-report/document"' in page.text
+    for endpoint, extension in (("document", "html"), ("download.pdf", "pdf"), ("download.xlsx", "xlsx")):
+        response = client.get(f"/reports/library/private-report/{endpoint}")
+        assert response.status_code == 200
+        assert response.content == assets[extension]
+        assert response.headers["cache-control"] == "private, no-cache"
+        assert response.headers["x-content-type-options"] == "nosniff"
+    assert {path: path.read_bytes() for root in (packaged, private) for path in root.iterdir()} == before
+
+
+@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf", "/download.xlsx"])
+def test_duplicate_packaged_and_private_report_id_is_not_served(library, suffix):
+    _, _, _, client = library
+    _private_report("test-variety")
+    response = client.get("/reports")
+    assert response.status_code == 200
+    assert "Finished variety report" not in response.text
+    assert "Private finished research" not in response.text
+    assert client.get(f"/reports/library/test-variety{suffix}").status_code == 404
+
+
+@pytest.mark.parametrize("suffix", ["", "/document", "/download.pdf", "/download.xlsx"])
+@pytest.mark.parametrize("access", ["readonly", "anonymous"])
+def test_private_catalog_obeys_existing_reports_access_controls(library, monkeypatch, suffix, access):
+    _, _, _, client = library
+    _private_report()
+    if access == "readonly":
+        monkeypatch.setattr(main, "AUTHORING_MODE", False)
+        expected = 403
+    else:
+        monkeypatch.setenv("BIOS_REMOTE_INTERACTIVE", "true")
+        monkeypatch.setenv("BIOS_REVIEW_USERNAME", "report-library-test")
+        monkeypatch.setenv("BIOS_REVIEW_PASSWORD", "temporary-test-password")
+        monkeypatch.setenv("BIOS_SESSION_SECRET", "report-library-test-session-secret-at-least-32-chars")
+        expected = 302
+    response = client.get(f"/reports/library/private-report{suffix}", follow_redirects=False)
+    assert response.status_code == expected
+    assert b"private finished artifact" not in response.content
+    assert b"private finished spreadsheet" not in response.content

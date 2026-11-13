@@ -347,7 +347,7 @@ from app.services.ai_gateway.credentials import resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.report_builder.coverage import report_coverage
-from app.services.report_library import get_finished_report, list_finished_reports
+from app.services.report_library import get_combined_finished_report, list_combined_finished_reports
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
@@ -8473,6 +8473,10 @@ def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, comp
     return generate_report_sections(packet, report_type=scope.report_type, completer=completer)
 
 
+def _report_library_roots() -> tuple[Path, Path]:
+    return REPORT_LIBRARY_DIR, INBOX_DIR / "finished_reports"
+
+
 @app.get("/reports", response_class=HTMLResponse)
 def reports_index_page(request: Request, status: str = "working") -> HTMLResponse:
     if status not in {"working", "draft", "active", "archived", "all"}:
@@ -8485,7 +8489,7 @@ def reports_index_page(request: Request, status: str = "working") -> HTMLRespons
         name="reports_index.html",
         context={
             "reports": rows,
-            "finished_reports": list_finished_reports(REPORT_LIBRARY_DIR),
+            "finished_reports": list_combined_finished_reports(_report_library_roots()),
             "berry_labels": BERRIES,
             "status": status,
             "report_type_labels": REPORT_TYPE_LABELS,
@@ -8498,7 +8502,7 @@ def reports_index_page(request: Request, status: str = "working") -> HTMLRespons
 
 
 def _finished_report_or_404(report_id: str) -> dict[str, Any]:
-    record = get_finished_report(REPORT_LIBRARY_DIR, report_id)
+    record = get_combined_finished_report(_report_library_roots(), report_id)
     if record is None:
         raise HTTPException(status_code=404, detail="Report not found")
     return record
@@ -8544,6 +8548,20 @@ def finished_report_download(report_id: str) -> FileResponse:
     return FileResponse(
         path,
         media_type="application/pdf",
+        filename=path.name,
+        headers={"Cache-Control": "private, no-cache", "X-Content-Type-Options": "nosniff"},
+    )
+
+
+@app.get("/reports/library/{report_id}/download.xlsx")
+def finished_report_workbook_download(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"].get("xlsx")
+    if path is None:
+        raise HTTPException(status_code=404, detail="Workbook not available")
+    return FileResponse(
+        path,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         filename=path.name,
         headers={"Cache-Control": "private, no-cache", "X-Content-Type-Options": "nosniff"},
     )

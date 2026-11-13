@@ -4107,3 +4107,21 @@ account persistence requires a separate compatible server/storage migration.
 The company-row roster keeps its existing account persistence at every row
 count. Curated logos remain available only for identities with eligible assets;
 brand imagery must not substitute for a parent company's absent logo.
+
+### TD-REPORT-NEWS-001 — company news report orchestration, November 13
+
+Open. The platform has saved company lists, inclusive date-window news packets,
+archive/public topic research, section-based report drafts, citation validation
+and PDF export. It does not yet reproduce a complete multi-company editorial
+news ledger and XLSX from one retained dataset. Research Desk's five-company
+scope limit and topic retrieval/discovery top-N limits do not guarantee coverage
+of a 27-company cohort. Exact report date controls, unresolved-name retention,
+per-company completion/gap accounting, a structured company/development/source
+report model, review-preserving refresh and native XLSX generation remain open.
+
+Serving the completed strawberry PDF and workbook through the finished report
+catalog closes artifact availability only after a verified release; it does not
+close this generator debt. Reuse existing Research Desk, News Packets,
+Workspaces and Report Builder rather than a second report catalog or trust
+store. Owner: report workflow engineering. See
+`docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
