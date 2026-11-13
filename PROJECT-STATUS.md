@@ -2,9 +2,9 @@
 
 ## Curated variety reports — November 13
 
-Local feature workspace, not deployed: the approved descriptive Regina profile is the reference for a reusable Markdown/CSS template and local HTML/PDF authoring command. The existing private Reports area now lists finished research reports with an in-app reader and direct PDF download alongside working drafts. An explicit file catalog serves only the intended HTML/PDF artifacts; research notes, trusted intelligence, generated Report Builder behavior, and the public static site are unchanged. See `reports/README.md`.
+Published through [PR #574](https://github.com/samsonFive/berry-intelligence-os/pull/574), canonical merge `6f74665b`: the descriptive Regina profile is the reference for a reusable variety-report standard. **Reports & Briefings → Reports → Research reports** now provides an in-app reader and direct PDF download alongside working drafts. The four-page report retains its image, 16 source links, and clickable video. See [the report](https://intel.johnnyaceii.com/reports/library/regina-blackberry), [PDF download](https://intel.johnnyaceii.com/reports/library/regina-blackberry/download.pdf), and `reports/README.md`.
 
-Validation: 173 focused report/briefing checks passed; one symlink check skipped on Windows. Record validation and the 2,429-page static build passed. Authenticated desktop/mobile browser checks confirmed the in-app reader and byte-identical PDF download; the four-page PDF retains all 16 source URLs and the video link. No merge or deployment was performed.
+All five release checks passed. Local desktop/mobile layout checks and live HTTPS sign-in, reader, and byte-identical PDF-download checks passed; anonymous access remains protected. The healthy release retains 30,261 runtime files, 906 existing static assets, all 32 environment values, mounts, settings, and copilot image, with the collection timer restored and a fresh verified backup. The live image and release pointer match. Supporting preservation details and exact receipts are recorded in [the release note](docs/v2/REGINA-REPORT-LIBRARY-2026-11-13.md).
 
 ## Global Watchlist reconciliation — November 4
 
