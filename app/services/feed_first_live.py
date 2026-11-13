@@ -433,7 +433,7 @@ def hit_to_record(
     snippet = (hit.snippet or "").strip()
     provenance = {"provider": hit.provider, "query_id": hit.query_id, "wrapper_url": hit.wrapper_url}
     for key in ("publisher_route", "query_edition", "date_basis", "official_record_id", "official_record_url",
-                "listing_url", "listing_page_limit", "first_public_visibility"):
+                "listing_url", "listing_page_limit", "article_metadata_limit", "publisher_publication_time", "first_public_visibility"):
         if provider_metadata.get(key):
             provenance[key] = provider_metadata[key]
     if hit.provider == REGIONAL_NEWS_PROVIDER:

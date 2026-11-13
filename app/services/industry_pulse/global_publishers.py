@@ -67,4 +67,6 @@ def expanded_publisher_feeds():
     rows.append(dict(FSA_FEED))
     from app.services.industry_pulse.official_listings import official_listing_feeds
     rows.extend(official_listing_feeds())
+    from app.services.industry_pulse.german_publisher import FEED as german_feed
+    rows.append(dict(german_feed))
     return rows

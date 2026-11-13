@@ -640,30 +640,52 @@ def load_capture(inbox_dir: Path, item_id: str) -> dict[str, Any] | None:
     return payload if isinstance(payload, dict) else None
 
 
+def crop_preview_excerpt(capture: dict[str, Any]) -> str:
+    """Select an original crop paragraph during capture, never during browsing."""
+    if (capture.get('availability') not in {'full', 'partial', 'excerpt_only'}
+            or capture.get('content_kind') not in {None, 'article'}):
+        return ''
+    from app.services.industry_pulse.regional_news import regional_crop_ids
+    headline = clean_reader_text(str(capture.get('headline') or ''))
+    crops = set(regional_crop_ids(headline))
+    if not crops:
+        return ''
+    for passage in _capture_passages(capture)[:64]:
+        text = clean_reader_text(passage)
+        if (45 <= len(text) <= 8000 and text != headline
+                and not looks_like_interstitial(text)
+                and crops.intersection(regional_crop_ids(text))):
+            return text[:500]
+    return ''
+
+
 def save_capture(inbox_dir: Path, item_id: str, capture: dict[str, Any]) -> Path:
     from app.services.analyst_state_io import atomic_json
     path = capture_path(inbox_dir, item_id)
     atomic_json(path, capture)
-    # Feed browsing reads only this bounded image projection, never article text.
+    # Feed browsing reads this bounded metadata projection, never article text.
     from app.services.feed_first import safe_image_url
     image = safe_image_url(merge_capture({}, capture))
     if not is_public_http_url(image):
         image = ""
     source_url = str(capture.get("requested_url") or capture.get("url") or "")
-    atomic_json(path.parent / "previews" / path.name, {
+    preview = {
         "item_id": item_id, "source_url": source_url if len(source_url) <= 4096 else "",
         "image_url": image if len(image) <= 2048 else "",
-    })
+    }
+    excerpt = crop_preview_excerpt(capture)
+    if excerpt:
+        preview['crop_excerpt'] = excerpt
+        preview['source_headline'] = str(capture.get('headline') or '')[:2000]
+    atomic_json(path.parent / "previews" / path.name, preview)
     return path
 
 
 def attach_capture_previews(records: dict[str, dict[str, Any]], inbox_dir: Path) -> dict[str, dict[str, Any]]:
-    """Exact-source private image metadata only; no fetch or original-text reads."""
+    """Exact-source bounded preview metadata; no fetch or article-body reads."""
     from app.services.feed_first import safe_image_url
     output = dict(records)
     for key, record in records.items():
-        if safe_image_url(record):
-            continue
         path = capture_path(inbox_dir, key)
         preview = path.parent / "previews" / path.name
         try:
@@ -675,8 +697,19 @@ def attach_capture_previews(records: dict[str, dict[str, Any]], inbox_dir: Path)
         if not isinstance(value, dict) or value.get("item_id") != key or value.get("source_url") != record.get("source_url"):
             continue
         image = safe_image_url({"image_url": value.get("image_url")})
-        if image and is_public_http_url(image):
+        if image and is_public_http_url(image) and not safe_image_url(record):
             output[key] = {**record, "image_url": image}
+        excerpt = value.get('crop_excerpt')
+        # Never replace English translation with an untranslated source quote,
+        # nor a human-reviewed publication's prose with a cache projection.
+        if (isinstance(excerpt, str) and len(excerpt) <= 500
+                and not record.get('translated') and record.get('status') != 'published'
+                and value.get('source_headline') == (record.get('original_title') or record.get('title'))):
+            from app.services.industry_pulse.regional_news import regional_crop_ids
+            intended = set(regional_crop_ids(record.get('title') or ''))
+            if (intended and not intended.intersection(regional_crop_ids(record.get('summary') or ''))
+                    and intended.intersection(regional_crop_ids(excerpt))):
+                output[key] = {**output[key], 'news_preview_excerpt': excerpt}
     return output
 
 

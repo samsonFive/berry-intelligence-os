@@ -53,9 +53,19 @@ def collect(inbox_dir, records, *, fetch=None, retry_missing=False, limit=LIMIT,
         except Exception:
             image = ''
         # Metadata only; the original source URL and record are never replaced.
-        atomic_json(preview_path(inbox_dir, row['id']), {
+        metadata = {
             'item_id': row['id'], 'source_url': source, 'image_url': image,
-        })
+        }
+        path = preview_path(inbox_dir, row['id'])
+        try:
+            prior = json.loads(path.read_text(encoding='utf-8')) if path.stat().st_size <= 8192 else {}
+            if (prior.get('item_id') == row['id'] and prior.get('source_url') == source
+                    and isinstance(prior.get('crop_excerpt'), str) and len(prior['crop_excerpt']) <= 500
+                    and isinstance(prior.get('source_headline'), str) and len(prior['source_headline']) <= 2000):
+                metadata.update(crop_excerpt=prior['crop_excerpt'], source_headline=prior['source_headline'])
+        except (OSError, ValueError, AttributeError):
+            pass
+        atomic_json(path, metadata)
         return bool(image)
 
     with ThreadPoolExecutor(max_workers=4) as pool:

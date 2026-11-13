@@ -18,6 +18,7 @@ REGIONAL_NEWS_PROVIDER = "regional_google_news"
 EXACT_PUBLISHER_ROUTES = frozenset({"direct_rss", "direct_json", "direct_listing", "indexed"})
 
 ENGLISH_RISKS = (
+    "berry shipments", "berry logistics", "berry transport",
     "farm closure", "farm closures", "layoff", "layoffs", "water allocation",
     "water restrictions", "labor dispute", "labour dispute", "labor strike",
     "recall", "recalls", "recalling", "allergy alert", "undeclared allergens", "tariff", "drought", "soil fumigation", "fewer chemicals",
@@ -48,7 +49,7 @@ NATIVE_TOPICS = {
     "ja": ("品種", "栽培", "輸出", "育種", "解雇", "農場閉鎖", "干ばつ", "関税"),
     "ar": ("زراعة", "الزراعة", "مزارع", "المزارع", "حصاد", "الحصاد", "إنتاج", "الإنتاج",
            "تصدير", "التصدير", "صادرات", "الصادرات", "استيراد", "جفاف", "الجفاف", "رسوم جمركية"),
-    "de": ("Anbau", "Ernte", "Erzeuger", "Erzeugerpreise", "Exporte", "Importe", "Züchtung",
+    "de": ("Anbau", "Ernte", "Erzeuger", "Erzeugerpreise", "Exporte", "Exportposition", "Importe", "Züchtung",
            "Sorten", "Dürre", "Frost", "Rückruf", "Plantagen", "Landwirtschaft"),
     "sr": ("izvoz", "izvozni", "izvoza", "uvoz", "proizvodnja", "proizvodnje", "proizvođači",
            "otkup", "otkupna cena", "cene", "berba", "suša", "navodnjavanje", "prinos",
