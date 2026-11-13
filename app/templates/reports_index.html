@@ -27,6 +27,7 @@
       <div class="sh-actions">
         <a class="sh-btn" href="{{ r.href }}">Open report</a>
         <a class="sh-btn sh-btn-primary" href="{{ r.download_href }}" download>Download PDF</a>
+        {% if r.xlsx_download_href %}<a class="sh-btn" href="{{ r.xlsx_download_href }}" download>Download Excel</a>{% endif %}
       </div>
     </article>
     {% endfor %}

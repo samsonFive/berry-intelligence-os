@@ -1,6 +1,6 @@
 # Research reports
 
-Finished research reports are shareable documents for reviewing a variety's identity, characteristics, commercial context, and unanswered questions. The Regina profile is the reference example. The standard is descriptive; recommendations, decision gates, and review deadlines belong only in reports explicitly commissioned for that purpose.
+Finished research reports are shareable documents for reviewing variety profiles, company developments, commercial context, and unanswered questions. The Regina profile is the reference for variety reports. The standard is descriptive; recommendations, decision gates, and review deadlines belong only in reports explicitly commissioned for that purpose.
 
 ## Standard variety profile
 
@@ -32,14 +32,20 @@ Before adding a finished report to the Reports library:
 - Check material statements against their sources and keep the full research notes.
 - Render and visually inspect every PDF page for readability, clipped content, and table breaks.
 - Confirm the page count and that source, image, and video links survive PDF export.
-- Keep the finished PDF under `reports/downloads/` and add only the intended HTML/PDF pair to the library catalog. Research notes and other working files are not automatically served.
+- Keep the finished PDF and any accompanying Excel workbook under `reports/downloads/` and register only the intended artifacts in the library catalog. Research notes and other working files are not automatically served.
 
 The finished-report library is separate from generated Report Builder drafts. Adding a report does not create trusted Evidence, variety records, assessments, or recommendations, and does not deploy the application.
 
 ## Library and direct downloads
 
-In Berry OS, use **Reports & Briefings → Reports → Research reports**. Each report has an in-app reader and a **Download PDF** button. The download serves the finished artifact; it does not regenerate the report or contact a research provider.
+In Berry OS, use **Reports & Briefings → Reports → Research reports**. Each report has an in-app reader and a **Download PDF** button. Reports with an available workbook also show **Download Excel**. Downloads serve the finished artifacts; they do not regenerate the report or contact a research provider.
 
-The allowlist in `reports/library.json` contains `reports` entries with `id`, `title`, `subtitle`, `summary`, `published_date` (`YYYY-MM-DD`), `berry_id`, `page_count`, and `files` (`html` and `pdf` paths relative to `reports/`). IDs use lowercase letters, numbers, and single separating hyphens. Both files must exist within this directory tree for the report to appear. Missing or invalid entries are not exposed.
+The allowlist in `reports/library.json` contains `reports` entries with `id`, `title`, `subtitle`, `summary`, `published_date` (`YYYY-MM-DD`), `berry_id`, `page_count`, and `files` (`html` and `pdf` paths relative to that catalog's directory, plus optional `xlsx`). IDs use lowercase letters, numbers, and single separating hyphens. HTML and PDF must exist within this directory tree for the report to appear. Missing or invalid optional XLSX files remove only the Excel download. Every format uses the same path confinement and suffix validation.
 
-The library inherits the existing private Reports access controls and is excluded from the public static build. The application package includes the catalog, finished HTML, and `downloads/` PDFs; supporting notes and authoring assets are not served by these routes.
+The library inherits the existing private Reports access controls and is excluded from the public static build. The application package includes explicitly committed examples. Private authored reports use the same catalog format under `INBOX_DIR/finished_reports/`, in persistent runtime storage, and are never copied into a public source repository or public static build. Supporting notes and authoring assets are not served by these routes. Ambiguous duplicate report IDs across catalogs fail closed.
+
+## Private report registration
+
+Private runtime packages contain `library.json`, finished HTML, and a `downloads/` directory containing PDF and optional XLSX files. A supporting `research-notes/` directory may retain the authored input without exposing it through a file route. Install the files through the release owner's normal additive runtime procedure, validating the catalog and artifact hashes before publishing the manifest. Preserve existing IDs and files; do not replace the current private catalog with an older package.
+
+Registration makes a completed report available; it does not add automatic report generation. The capability audit and the proposed reuse of saved company lists, Competitor News Packets, Research Desk, and Report Builder are documented in `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.

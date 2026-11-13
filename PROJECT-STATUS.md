@@ -1,5 +1,27 @@
 # Berry Intelligence — current mission status
 
+## Strawberry company report availability and capability audit — November 13
+
+Prepared on a canonical-based feature branch: the existing Reports library
+accepts private authored report catalogs in persistent runtime storage and an
+optional confined XLSX file. It exposes Download Excel only when the workbook
+is available. The report HTML, PDF, XLSX and source notes remain outside this
+public repository. This is finished-artifact availability, not automatic
+generation or source/claim approval.
+
+Local validation: 102 focused tests passed with two Windows symlink skips.
+Desktop and phone browser checks confirmed all 27 company headings, 83 source
+links, no page errors or phone overflow, and byte-identical private PDF/XLSX
+downloads. Canonical record validation and current-head CI/release evidence
+must be recorded separately. The live PR 574 library release completed during
+the audit; its healthy app/sidecar pair and promoted release ledger matched at
+20:47 UTC. This new private-catalog change is not yet deployed.
+
+The audit identifies reusable saved cohorts, exact-date news packets, Research
+Desk, report drafts/source snapshots and PDF export. It records the remaining
+company-news generator work as TD-REPORT-NEWS-001. See
+`docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
+
 ## Curated variety reports — November 13
 
 Published through [PR #574](https://github.com/samsonFive/berry-intelligence-os/pull/574), canonical merge `6f74665b`: the descriptive Regina profile is the reference for a reusable variety-report standard. **Reports & Briefings → Reports → Research reports** now provides an in-app reader and direct PDF download alongside working drafts. The four-page report retains its image, 16 source links, and clickable video. See [the report](https://intel.johnnyaceii.com/reports/library/regina-blackberry), [PDF download](https://intel.johnnyaceii.com/reports/library/regina-blackberry/download.pdf), and `reports/README.md`.
