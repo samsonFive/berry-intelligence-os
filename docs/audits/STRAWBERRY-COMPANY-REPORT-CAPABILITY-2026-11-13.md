@@ -12,7 +12,7 @@ The accompanying integration reads private authored artifacts through the same c
 
 | Capability | Current implementation | Material limit for this report |
 |---|---|---|
-| Finished reports | `report_library.py`, `/reports/library/{id}`, HTML reader and finished PDF downloads | Canonical PR 574 initially supports HTML/PDF only. This integration adds optional XLSX and a private runtime catalog. Registration is an operator-managed catalog change; there is no in-app upload. |
+| Finished reports | `report_library.py`, `/reports/library/{id}`, private runtime catalogs, HTML reader and finished PDF/XLSX downloads | PR 576 is installed. Registration is an operator-managed catalog change; there is no in-app upload or automatic company-news generator. |
 | Saved company cohorts | `personal_digest.py` company lists and Competitor News Packets | Reuse existing membership rather than another list model. Preserve requested unresolved names outside the canonical selection. |
 | Exact news window | Competitor News Packets accepts inclusive from/through dates and up to 100 known subjects | Its capture is Google RSS and queries across berries. It is not the full archive-first, strawberry-specific editorial research process. |
 | Report scope | `/reports/new`, company/variety/geography multi-select, berry and archive or archive-plus-web mode | Manual UI exposes rolling days. Exact ISO dates can be interpreted from query text but lack a dedicated start/end control. Unmatched names can be left out. |
@@ -51,8 +51,8 @@ Verify that quieter companies still have a recorded search outcome, duplicate pr
 
 ## Deployment distinction
 
-The public host responded successfully at `/healthz`, and `/reports` redirected anonymous requests to login during this audit. PR 574 was initially absent, then its release owner completed promotion at 20:47 UTC: the healthy app/sidecar pair and release ledger agreed, the library stylesheet returned 200, and report routes remained behind login. The finished HTML/PDF library is installed. This subsequent private-catalog and optional-XLSX change has not yet been deployed. Canonical merge, passing local tests and a deployment are separate facts.
+The finished report is now available in the private Reports library through [PR 576](https://github.com/samsonFive/berry-intelligence-os/pull/576). Normal-login HTTPS checks passed for the reader, document, PDF and Excel. The original artifact bytes, 27 company headings and 83 source links matched. Anonymous routes remained behind login, and Regina's existing reader and PDF passed regression checks.
 
-Availability in production requires the normal current-head CI and release workflow, preserving the persistent `data/` and `inbox/` runtime. Record the installed commit and verify the authenticated report reader plus byte-identical PDF/XLSX downloads before calling the availability change live.
+All five code CI checks passed, and deployment plus private registration were verified. Operational release and preservation records remain private. This establishes finished-report availability; the generator gaps above remain open.
 
 The GitHub repository is public. A private application route does not make files committed to that repository private. Finished customer research therefore belongs in `INBOX_DIR/finished_reports/`, using the existing allowlist and persistent runtime mount. Only the loader, optional export support, tests and engineering audit belong in the code change.
