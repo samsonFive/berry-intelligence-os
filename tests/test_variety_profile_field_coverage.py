@@ -62,7 +62,7 @@ def test_active_company_brand_and_program_roles_match_directory_actors_without_p
     before=deepcopy(relationships)
     row=inventory(v,extra_entities=actors,relationships=relationships)['rows'][0]
     assert {(r['name'],r['role']) for r in row['company_links']}=={
-        ('Field Company','Breeder'),('Field Brand','Marketer'),('Field Program','Trial operator')}
+        ('Field Company','Breeder'),('Field Brand','Marketer'),('Field Program','Trial participant')}
     assert 'companies' not in row['missing']
     index={a['id']:a for a in actors}
     assert company_actors(v['id'],relationships,index)=={'company-field','brand-field','program-field'}

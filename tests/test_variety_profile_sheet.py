@@ -1,5 +1,7 @@
 """Retained cultivar sheets preserve record meaning and their existing controls."""
 from copy import deepcopy
+import json
+from pathlib import Path
 from types import SimpleNamespace
 
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader
@@ -101,6 +103,64 @@ def test_roles_show_only_recorded_parties_and_exact_incoming_basis():
     empty, _ = render()
     assert 'No company roles recorded.' in empty.get_element_by_id('roles').text_content()
     assert not empty.get_element_by_id('roles').xpath('.//table')
+
+
+@pytest.mark.parametrize('static_build', [False, True])
+@pytest.mark.parametrize('bucket,predicate,label,status', [
+    ('seller', 'sells', 'Seller', 'historical'),
+    ('trial_participant', 'trials', 'Trial participant', 'disputed'),
+])
+def test_seller_and_trial_sheets_keep_only_the_exact_incoming_role_basis(static_build, bucket, predicate, label, status):
+    party = dict(id='company-a', entity_type='company', name='Recorded party', href='/entities/company/company-a')
+    edge = dict(other=party, predicate=predicate, direction='incoming', status=status,
+                effective_date='2021-02-03', evidence_ids=['ev-matching-role'],
+                notes='confidence=medium; Territory limited to one trial block; not worldwide activity.')
+    negatives = [dict(edge, direction='outgoing', notes='REVERSE_ROLE', evidence_ids=['ev-reverse']),
+                 dict(edge, predicate='owns', notes='WRONG_PREDICATE', evidence_ids=['ev-wrong-predicate']),
+                 dict(edge, other=dict(party, id='company-other'), notes='OTHER_PARTY', evidence_ids=['ev-other-party'])]
+    tree, _ = render(roles={bucket: [party]}, grouped_relationships=[edge, *negatives], static_build=static_build)
+    rows = tree.get_element_by_id('roles').xpath('.//tbody/tr')
+    assert len(rows) == 1 and len(rows[0].xpath('./th|./td')) == 3
+    row = rows[0]
+    assert row.xpath('./th/text()') == [label]
+    for value in [status, '2021-02-03', 'Territory limited to one trial block; not worldwide activity.']:
+        assert value in at_rest(row)
+    assert 'confidence=medium' not in at_rest(row) and edge['notes'] in row.text_content()
+    for value in ['REVERSE_ROLE', 'WRONG_PREDICATE', 'OTHER_PARTY']:
+        assert value not in row.text_content()
+    assert row.xpath('.//a/@href') == [party['href'], ('/evidence/' if static_build else '/intelligence/') + 'ev-matching-role']
+    assert bool(row.xpath('.//a[@data-open-reader]')) is not static_build
+
+
+@pytest.mark.parametrize('relationship_id,bucket', [
+    ('rel-united-exports-sells-bella', 'seller'),
+    ('rel-fall-creek-trials-fc11-164-chile', 'trial_participant'),
+])
+def test_legacy_role_implementation_notes_stay_secondary_without_losing_the_recorded_scope(relationship_id, bucket):
+    root = Path(__file__).resolve().parents[1] / 'data'
+    record = json.loads((root / 'relationships' / (relationship_id + '.json')).read_text(encoding='utf8'))
+    party = dict(id=record['subject_id'], entity_type='company', name='Recorded party',
+                 href='/entities/company/' + record['subject_id'])
+    edge = dict(record, other=party, direction='incoming')
+    tree, _ = render(roles={bucket: [party]}, grouped_relationships=[edge])
+    row = tree.get_element_by_id('roles').xpath('.//tbody/tr')[0]
+    material = record['notes'].split(';', 1)[1].split('Substituted predicate:', 1)[0].strip()
+    assert material in at_rest(row)
+    assert 'confidence=' not in at_rest(row) and 'Substituted predicate:' not in at_rest(row)
+    assert record['notes'] in row.xpath('.//details[not(@open)]')[0].text_content()
+    assert [url for url in row.xpath('.//a/@href') if url.startswith('/intelligence/')] == [
+        '/intelligence/' + key for key in record['evidence_ids']]
+
+
+def test_schema_note_with_a_later_material_qualifier_is_not_truncated():
+    note = "confidence=low; Trial in Chile. Substituted predicate: the schema has no 'commercialises' or 'markets' predicate, so 'sells' carries the route-to-market role. Territory excludes Peru."
+    party = dict(id='company-a', name='Recorded party', href='/entities/company/company-a')
+    edge = dict(other=party, predicate='sells', direction='incoming', status='active', notes=note, evidence_ids=[])
+    tree, _ = render(roles={'seller': [party]}, grouped_relationships=[edge])
+    row = tree.get_element_by_id('roles').xpath('.//tbody/tr')[0]
+    assert 'Territory excludes Peru.' in at_rest(row)
+    assert 'Substituted predicate:' in at_rest(row)
+    assert note in row.text_content()
 
 
 def test_performance_groups_share_one_rectangular_sheet_without_hidden_rows():

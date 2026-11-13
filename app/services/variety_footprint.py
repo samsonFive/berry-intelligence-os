@@ -133,6 +133,8 @@ def variety_footprint(
             "marketer": roles.get("markets", []),
             "grower": roles.get("grows", []),
             "distributor": roles.get("distributes", []),
+            "seller": roles.get("sells", []),
+            "trial_participant": roles.get("trials", []),
         },
         "rights_filings": {
             "published": [

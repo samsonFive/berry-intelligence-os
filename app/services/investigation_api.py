@@ -827,6 +827,38 @@ def _cited_sources(world, source_ids):
     return [source_metadata(world.evidence_index[key]) for key in dict.fromkeys(source_ids) if key in world.evidence_index]
 
 
+def _portfolio_role_basis(relationships):
+    """Keep the actual directed role basis available in existing profile Info."""
+    notes, qualifications = [], []
+    status_labels = {"active": "Documented relationship", "historical": "Historical relationship",
+                     "disputed": "Disputed / review required"}
+    for relationship in relationships:
+        role = explorer.ROLE_LABELS[relationship["predicate"]]
+        status = relationship.get("status", "unknown")
+        status_label = status_labels.get(status, status)
+        heading = f"{role} · {status_label}"
+        if relationship.get("id"):
+            heading += f" · {relationship['id']}"
+        detail = [heading]
+        if relationship.get("effective_date"):
+            detail.append(f"Effective date: {relationship['effective_date']}")
+        if relationship.get("territory"):
+            detail.append(f"Recorded territory: {relationship['territory']}")
+        if relationship.get("confidence"):
+            detail.append(f"Confidence: {relationship['confidence']}")
+        if relationship.get("notes"):
+            detail.append(relationship["notes"])
+        if status != "active":
+            qualifications.append(status_label)
+        caveat = explorer._caveat(relationship)
+        if caveat:
+            detail.append(caveat)
+            if caveat != "Legacy role mapping · verify the source":
+                qualifications.append(caveat)
+        notes.append("\n".join(detail))
+    return "\n\n".join(notes), " · ".join(dict.fromkeys(qualifications))
+
+
 def _selected_body_availability(record, available):
     from app.services.source_body import reader_content
     content = reader_content(record)
@@ -910,13 +942,14 @@ def detail_data(world, context, bundle, kind, key, request=None):
         portfolio = present_company_portfolio(key, **kwargs)
         items = []
         for row in (portfolio or {}).get("variety_rows", []):
-            relationship_sources = [sid for edge in world.relationships
-                                    if {key, row["id"]} == {edge.get("subject_id"), edge.get("object_id")}
-                                    for sid in edge.get("evidence_ids") or []]
+            relationships = row["role_relationships"]
+            relationship_sources = [sid for edge in relationships for sid in edge.get("evidence_ids") or []]
+            notes, caveat = _portfolio_role_basis(relationships)
             items.append({"id": row["id"], "type": "variety", "label": row["name"],
                           "value": " · ".join(row["roles"]),
                           "status": world.entities.get(row["id"], {}).get("status", "unknown"),
-                          "summary": "Recorded portfolio roles; source review does not approve each claim.",
+                          "notes": notes, "caveat": caveat,
+                          "evidence_ids": list(dict.fromkeys(relationship_sources)),
                           "sources": _cited_sources(world, relationship_sources)})
         sections.append({"title": "Recorded portfolio roles", "data": portfolio, "items": items})
     elif kind == "variety":
