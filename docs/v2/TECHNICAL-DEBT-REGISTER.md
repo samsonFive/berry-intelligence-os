@@ -4119,9 +4119,9 @@ of a 27-company cohort. Exact report date controls, unresolved-name retention,
 per-company completion/gap accounting, a structured company/development/source
 report model, review-preserving refresh and native XLSX generation remain open.
 
-Serving the completed strawberry PDF and workbook through the finished report
-catalog closes artifact availability only after a verified release; it does not
-close this generator debt. Reuse existing Research Desk, News Packets,
+The verified private-catalog release now serves the completed strawberry PDF
+and workbook. It closes artifact availability and leaves this generator debt
+open. Reuse existing Research Desk, News Packets,
 Workspaces and Report Builder rather than a second report catalog or trust
 store. Owner: report workflow engineering. See
 `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.

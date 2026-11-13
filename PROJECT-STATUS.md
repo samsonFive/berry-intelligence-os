@@ -2,20 +2,21 @@
 
 ## Strawberry company report availability and capability audit — November 13
 
-Prepared on a canonical-based feature branch: the existing Reports library
-accepts private authored report catalogs in persistent runtime storage and an
-optional confined XLSX file. It exposes Download Excel only when the workbook
-is available. The report HTML, PDF, XLSX and source notes remain outside this
-public repository. This is finished-artifact availability, not automatic
-generation or source/claim approval.
+The strawberry company review is live in **Reports & Briefings → Reports →
+Research reports**, with an in-app reader and PDF/Excel downloads.
+[Open the report](https://intel.johnnyaceii.com/reports/library/strawberry-company-news-20261113).
+The private catalog and optional XLSX support are delivered through
+[PR #576](https://github.com/samsonFive/berry-intelligence-os/pull/576).
+The report files and source notes remain outside this public repository.
+Automatic company-news generation and source/claim approval remain separate work.
 
 Local validation: 102 focused tests passed with two Windows symlink skips.
 Desktop and phone browser checks confirmed all 27 company headings, 83 source
 links, no page errors or phone overflow, and byte-identical private PDF/XLSX
-downloads. Canonical record validation and current-head CI/release evidence
-must be recorded separately. The live PR 574 library release completed during
-the audit; its healthy app/sidecar pair and promoted release ledger matched at
-20:47 UTC. This new private-catalog change is not yet deployed.
+downloads. All five code CI checks passed. Live HTTPS checks using normal
+sign-in confirmed the report reader, original PDF/Excel bytes, login protection
+and continued availability of the existing Regina report. Operational release
+and preservation records remain private.
 
 The audit identifies reusable saved cohorts, exact-date news packets, Research
 Desk, report drafts/source snapshots and PDF export. It records the remaining
