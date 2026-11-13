@@ -454,6 +454,10 @@ def safe_image_url(record: dict[str, Any]) -> str:
     host = parsed.hostname.lower()
     if any(token in host for token in ("logo", "favicon", "linkedin", "facebook", "instagram")):
         return ""
+    # The government portal's shared crest is site chrome, not a story photo.
+    # Keep its original metadata; the existing credited crop reference displays.
+    if host in {"gob.pe", "www.gob.pe"} and parsed.path.startswith('/assets/escudo-rojo-'):
+        return ""
     return raw
 
 
@@ -656,7 +660,7 @@ def present_item(
     return {
         "id": item_id,
         "headline": decode_html_text(record.get("title") or item_id),
-        "deck": decode_html_text(record.get("summary") or "")[:280],
+        "deck": decode_html_text(record.get("news_preview_excerpt") or record.get("summary") or "")[:280],
         "source_name": record.get("source_name") or "Unknown source",
         "source_type": record.get("source_type") or "",
         "source_kind": kind,

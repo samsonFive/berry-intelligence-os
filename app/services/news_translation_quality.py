@@ -79,6 +79,11 @@ def quantities(text,language,*,numeric_months=False):
 
 
 def _repair_terms(source,english):
+    # Source-reviewed Polish idiom in a plant-breeding headline. This narrow
+    # repair changes presentation only; originals and cached output are kept.
+    if (source == 'Jak powstają nowe odmiany borówki? Beata i Paweł Korfanty pokazują hodowlę od zaplecza'
+            and re.search(r'\brearing from the back\b', english, re.I)):
+        english = re.sub(r'\brearing from the back\b', 'the breeding process behind the scenes', english, flags=re.I)
     # Generic Spanish arándano follows the existing berry vocabulary, except
     # explicit cranberry/red-fruit wording, which must never be rewritten.
     red=re.search(r'ar[aá]ndanos?\s+rojos?|cranberr|macrocarpon|ocean\s*spray',source,re.I)

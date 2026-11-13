@@ -97,7 +97,7 @@ _OTHER_CROP = re.compile(
     r"\b("
     r"potato(?:es)?|grape(?:s)?|apple(?:s)?|avocado(?:s)?|onion(?:s)?|"
     r"maize|\bcorn\b|wheat|soybean(?:s)?|kiwi(?:fruit)?|durian|banana(?:s)?|"
-    r"pear(?:s)?|fig(?:s)?|tree-?nut|carrots?|pineapples?|tomato(?:es)?|citrus"
+    r"pear(?:s)?|fig(?:s)?|tree-?nut|carrots?|pineapples?|tomato(?:es)?|citrus|cranberr(?:y|ies)"
     r")\b",
     re.IGNORECASE,
 )

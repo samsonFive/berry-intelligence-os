@@ -91,12 +91,12 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
     if include_private:
         from app.services.feed_first_translate import cached_translations
         records = cached_translations(records, inbox_dir)
-        from app.services.feed_first_reader import attach_capture_previews
-        records = attach_capture_previews(records, inbox_dir)
     if metadata_only:
         from app.services.publication_sources import source_preview
         records = {key: source_preview(row) for key, row in records.items()}
     if include_private:
+        from app.services.feed_first_reader import attach_capture_previews
+        records = attach_capture_previews(records, inbox_dir)
         from app.services.media_reader import attach_transcript_metadata
         records = attach_transcript_metadata(records, inbox_dir)
     return records
