@@ -4126,22 +4126,26 @@ Workspaces and Report Builder rather than a second report catalog or trust
 store. Owner: report workflow engineering. See
 `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
 
-### TD-BRAND-MEDIA-001 — live delivery and reader compatibility, November 12 UTC
+### TD-BRAND-MEDIA-001 — last verified live delivery and reader compatibility, November 12 UTC
 
-The native-app initial-cohort release gates are complete for #562 and its #563
-successor: all four required CI checks passed on `c39f2153`; 47 references are
-live after a verified 29,528-file isolated restore, add42/preserve5 seed,
+The native-app initial-cohort #562 release gates passed on tested code head
+`c39f2153`, including all four required CI checks. The 47-reference cohort was
+verified live on November 12, including preservation on successor #563, after a
+verified 29,528-file isolated restore, add42/preserve5 seed,
 29,571 protected-file check and fresh backup. Proxy/timer restoration passed.
-Public HTTPS verifies 20 typed profiles, 18 logos, 29 packaging sources and
-41 company-only Compare references. Browser loads and a 4.8-second continuous
+Public HTTPS verified 20 typed profiles, 18 logos, 29 packaging source links
+across 23 distinct source-page URLs and 41 company-only Compare references.
+Browser loads and a 4.8-second continuous
 recording supplement the source/focus/historical/matte checks. The historical
 preparation entry above no longer describes the deployment state.
 
 Keep this item open for source gaps and compatibility: Angus lacks a selected
 company logo, Well-Pict's official source is unavailable, five packaging targets
 remain review-needed, and retained-social-post-to-pack delivery plus verified
-free/prepaid collection allowance remain unproven. Later React integration is
-separate. No new provider, spend, image-object cache or use-license grant is
+free/prepaid collection allowance remain unproven. The current canonical React
+company DetailHost/Compare/roster adapter and `background` support are
+implemented. React Brand-detail acceptance remains separate from the dated
+native HTML Brand profile checks. No new provider, spend, image-object cache or use-license grant is
 implied by these native-app results.
 
 Reader rollback debt: optional `Asset.background` requires the #562-era reader.
@@ -4161,3 +4165,16 @@ Explicitly approved 49-entry build-cache cleanup preserved all 297 images,
 runtime and models. Neither operation authorizes broader source/data cleanup.
 See [cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
 [integration](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
+November 13 closeout boundary: keep this debt item open while the delivered
+image-display/cohort and company adapter handoff may close after the queued
+docs PR's fresh required checks and merge. Historical code CI does not certify
+that docs head. November 12 is the last media production check recorded here;
+newer [library release evidence](REGINA-REPORT-LIBRARY-2026-11-13.md) and the
+[report/library audit](../audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md)
+do not supply a fresh media acceptance test. Acquisition owns social E2E,
+verified allowance and source gaps; integration/release owns strict older-reader
+compatibility; experience owns React Brand-detail acceptance. The tested
+Facebook references returned 403, expired sources remain held and remaining
+exact-account references were unclassified. No new metered retrieval or runtime
+work is authorized by this documentation closeout.

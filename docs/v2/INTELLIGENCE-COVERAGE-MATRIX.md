@@ -1784,18 +1784,19 @@ November 12 official-listing continuation: Chile SAG native crop-filtered notice
 
 November 12 independent-gap remedies: Moroccan collective berry-shipment terminology and German Exportposition now qualify without admitting cranberry-only shipping reports. A bounded Fruchthandel homepage/article-publication metadata route brings the configured priority total to 55 on release (unchanged refresh budgets). Source-shaped offline controls do not prove production attempts or prospective recovery. Source-exact crop excerpts, a narrowly reviewed Polish idiom and government-crest reference fallback improve presentation without rewriting originals. Current-runtime activation, scheduled receipt and visibility checks remain with the release owner. Frozen pilot misses and dates remain unchanged. See NEWS-GAP-REMEDIES-2026-11-12.md.
 
-### November 12 UTC — live bounded brand/packaging cohort, #562 and #563
+### Last verified November 12 UTC — live bounded brand/packaging cohort, #562 and #563
 
 Release #562 deployed the 47-reference cohort at 04:38:02 UTC (canonical
 `bd297e39`, image prefix `8b63`); successor #563 (`5e25be42`, image prefix `a53`)
-retains it. Public HTTPS checks cover all 20 typed profiles, 47 references,
-29 packaging source links and 41 company-only Compare references. Browser
+retained it. Public HTTPS checks covered all 20 typed profiles, 47 references,
+29 packaging source links across 23 distinct source-page URLs and 41
+company-only Compare references. Browser
 inspection loaded all 18 logos (17 full logos plus one labelled official icon)
 and all 29 packs across 19 entities; 13 entities have packaging. Keyboard/focus,
 source inspection, historical credit and dark mattes were checked, with a
 4.8-second continuous interaction recording retained privately.
 
-All four required CI checks passed on tested `c39f2153`. The isolated restore
+All four required #562 code CI checks passed on tested `c39f2153`. The isolated restore
 verified 29,528 files; deployment added 42 rows, preserved the five originals
 and verified 29,571 protected files against a fresh backup. Proxy/timer
 restoration passed. The Git-LF seed is `94dacdd9...`; the earlier Windows-CRLF
@@ -1807,8 +1808,20 @@ no CSP on all 20 profiles, matching baseline, with no security setting change.
 No provider/API request, spend or image-object cache was introduced. Source
 usage grants remain unchanged; direct display follows the explicit operator
 request. Angus/Well-Pict logo gaps, five searched packaging gaps, unsupported
-retained-social-post-to-pack delivery, fresh allowance verification and later
-React integration remain open. Four-berry source examples do not establish
+retained-social-post-to-pack delivery and fresh allowance verification remain
+open. The current canonical React company DetailHost/Compare/roster adapter and
+background parsing are implemented; React Brand-detail acceptance remains
+separate from the November 12 native typed Brand HTML proof. Four-berry source examples do not establish
 worldwide coverage, current stock, cultivar, supplier or origin. The older
 preview entries remain historical. See [cohort](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md)
 and [integration](BRAND-MEDIA-INTEGRATION-2026-11-11.md).
+
+November 13 media documentation closeout: the image-display/bounded-cohort
+delivery and company adapter handoff can close after the final rebased docs
+head's required checks and merge. Those checks remain pending here; `c39f2153`
+is the historical code-check head. The media evidence above is last verified
+November 12, not today's production pin; later [library release evidence](REGINA-REPORT-LIBRARY-2026-11-13.md)
+and [report/library audit](../audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md)
+have separate scopes. Acquisition owns social E2E, allowance and source gaps;
+integration/release owns older-reader compatibility; experience owns React
+Brand-detail acceptance. These remain tracked follow-ups, not completed tests.

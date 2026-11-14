@@ -1,12 +1,16 @@
 # Brand and packaging media: integration and bounded initial cohort
 
-## Live bounded-cohort checkpoint — November 12, 2026 UTC
+## Last verified live bounded-cohort checkpoint — November 12, 2026 UTC
 
-The **47-reference cohort is live**. Release #562 deployed at
+The **47-reference cohort was verified live on November 12**. Release #562 deployed at
 `2026-11-12T04:38:02Z` (canonical `bd297e39`, immutable image prefix `8b63`);
-successor #563 (`5e25be42`, image prefix `a53`) retains the same cohort and
+successor #563 (`5e25be42`, image prefix `a53`) retained the same cohort and
 passed public HTTPS verification. The original five-reference pilot is
 preserved below as historical evidence.
+These are dated media checks, not a pin of today's production revision. Later
+[Regina library release evidence](REGINA-REPORT-LIBRARY-2026-11-13.md) and the
+[strawberry report/library audit](../audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md)
+record their own newer delivery scope; they do not constitute a new media check.
 The [initial-cohort report](BRAND-MEDIA-INITIAL-COHORT-2026-11-11.md) and
 `data/configuration/brand_media_cohort.json` record all 20 attempted existing
 companies/consumer brands, their source pages and specific gaps. This is a
@@ -83,7 +87,7 @@ receipts are under `inbox/coverage-expansion/batch-proof/` and
 directory and Company Compare, with visible credit, hover/focus context,
 click/tap inspection, safe source links, and broken-image text fallback.
 
-All four required repository checks passed on tested head
+All four required repository checks for the #562 code release passed on tested head
 `c39f215348fcf8669ec84ff7586945656d06097c`; its tree matches #562's merge tree.
 Earlier focused passes (228, then 59/87/33 affected checks) remain separate
 historical validation. Browser verification loaded all 18 logos and 29 packs,
@@ -109,8 +113,9 @@ added 42 references, preserved all five original raw records and verified
 Proxy and collection timer restoration passed. Explicitly approved cleanup
 removed exactly 49 build-cache entries while preserving all 297 images,
 runtime and model files. No provider request, spend or image-object cache was
-introduced. The later public HTTPS checks cover all 20 typed profiles, 47
-references, 29 packaging sources and 41 company-only Compare references.
+introduced. The November 12 public HTTPS checks covered all 20 typed profiles,
+47 references, 29 packaging source links across 23 distinct source-page URLs,
+and 41 company-only Compare references.
 The live importer dry run also passed: 47 records requested/preserved, zero
 missing or created, unchanged index hash and zero runtime writes.
 
@@ -118,9 +123,16 @@ The strict private CSP-presence test failed and its result is retained. The
 reviewed response-header/meta image-policy check found no CSP on all 20
 profiles, matching the prior baseline; it passed that compatibility check and
 does not establish a new security policy. No application security setting was
-changed. The experience-consolidation React
-adapter remains a separately coordinated handoff; this seed does not certify
-that later DetailHost/Compare release or introduce a new Brand detail kind.
+changed.
+
+The current canonical React company adapter is implemented: shared
+`BrandMediaGallery`/`BrandLogo`, company `DetailHost`, `ComparisonSheets`, roster
+details and verified roster logos consume the bounded media seam. The parser
+preserves `background`, and requests use same-origin credentials and no-store.
+This is implementation evidence, not a fresh production/browser acceptance
+claim. React `DetailHost` media selection remains company-scoped. The November
+12 typed Brand profile proof used the native HTML routes; React Brand-detail
+acceptance remains with the experience owner and is not established by it.
 The retained-social-post-to-packaging-image case remains unproven; the working
 official-page packaging route is reported separately.
 
@@ -128,6 +140,23 @@ Reader compatibility remains open: `Asset` readers older than #562 reject the
 new optional `background` field. A code-only rollback to such a reader may omit
 galleries while retaining every media record. Do not strip stored fields or
 rewind runtime data to make an older image display them.
+
+## November 13 documentation closeout boundary
+
+The delivered image-display capability, bounded initial cohort and company
+adapter handoff can close once this documentation follow-up passes its required
+checks on the final rebased head and merges. The historical `c39f2153` code CI
+does not certify this documentation PR; its checks and merge are still pending
+at this checkpoint. No new provider or runtime work is part of this closeout.
+
+Keep separately owned follow-ups open under TD-BRAND-MEDIA-001: acquisition
+owners retain the social-post-to-packaging acceptance case and free/prepaid
+allowance verification (tested Facebook references returned 403, expired
+sources are held, and remaining exact-account references were unclassified);
+media acquisition retains the listed logo/pack source gaps; integration/release
+owners retain older-reader compatibility; the experience owner retains React
+Brand-detail acceptance. These are recorded follow-ups, not completed tests or
+worldwide coverage claims.
 
 ## Historical initial integration audit
 
@@ -363,7 +392,9 @@ that metadata path only; `real_packaging_e2e_success` is explicitly false.
 Remaining work at that checkpoint included fresh usable social-image URLs, an unexpired source or
 permitted refresh, verified allowance before metered retrieval, the wider initial
 logo/packaging cohort, full exact-head CI and stable new-app integration. The
-current bounded expansion above supersedes the cohort-preparation gap only. Storage
+November 12 checkpoint above records the completed cohort, code CI, browser,
+rehearsal and native release gates; the November 13 note records the current
+company adapter implementation and remaining scope. Storage
 and export policy qualification remains separate from explicitly requested
 reference viewing. The official-site image-display proof passes; the retained
 social-post packaging case remains unavailable and is not reported as passed.
