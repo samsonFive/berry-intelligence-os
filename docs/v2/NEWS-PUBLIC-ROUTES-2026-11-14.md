@@ -27,7 +27,7 @@ The saved Japanese input yielded eleven crop leads: two dated September 18
 and October 16, and nine with unknown publication days. The normal 30-day
 collection retained the October 16 control on November 14; undated leads
 remain discovery observations and do not enter dated News automatically.
-The archive is therefore stale for prospective pilot purposes. PDF issue
+No dated prospective pilot event was established by this replay. PDF issue
 dates reviewed separately are not verified first-public visibility. Acquisition
 of linked PDFs remains the existing bounded, excerpt-only partial-body path.
 No new translation model or English presentation is installed by this change.
