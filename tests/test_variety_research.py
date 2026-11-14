@@ -245,3 +245,23 @@ def test_named_crop_conflict_and_missing_identity_do_not_create_roles(imported):
     assert row['relationship_ids']==[] and row['fact_ids']==[] and row['evidence_ids']==[]
     unresolved=research.index(inbox)['unresolved'][0]
     assert unresolved['applications']==['TEST-2026'] and unresolved['key']=='unknown'
+
+
+def test_unresolved_named_lead_displays_report_and_gap_capture_without_creating_entity(monkeypatch,imported):
+    data,inbox,packet,_,before=imported
+    value=json.loads(packet.read_text())
+    value['varieties'][-1].update(name='Requested name',rows=[],applications=[],
+        report_url='https://example.test/reports/library/requested',
+        gaps=[{'topic':'Crop identity','missing_information':'Original label needed.',
+               'capture_path':'Attach the breeder label to this research lead.',
+               'review_needed':'Review crop and denomination before linking a variety.'}])
+    packet.write_text(json.dumps(value));install(packet,data_dir=data,inbox_dir=inbox)
+    monkeypatch.setattr(main,'INBOX_DIR',inbox);monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    response=TestClient(main.app).get('/varieties/research?q=Requested+name')
+    assert response.status_code==200
+    assert '<strong>Requested name</strong>' in response.text
+    assert 'https://example.test/reports/library/requested' in response.text
+    assert 'Original label needed.' in response.text and 'Attach the breeder label' in response.text
+    assert 'sheet rows </' not in response.text
+    assert digest_tree(data)==before
+    assert len(research.index(inbox)['rows'])==3
