@@ -16,6 +16,12 @@ Existing discovery providers, source capture, quote holds and output exclusions
 remain authoritative. Workspace annotations and synthetic artifacts are not
 primary news sources.
 
+When a fresh public capture supplies text for a URL already retained as platform
+metadata, the saved source keeps the observed platform record pointer and its
+earlier review state separately. The new text remains unreviewed. Those pointers
+are observed exact-URL matches, not exhaustive duplicate or same-event inventory,
+and capture/intake dates do not become original first-seen dates.
+
 One retained dataset contains the requested cohort, fixed date window,
 per-company outcomes, source versions and editable developments. Publication
 dates are distinct from event and retrieval dates. Metadata-only, undated,
