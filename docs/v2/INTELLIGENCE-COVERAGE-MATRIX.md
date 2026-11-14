@@ -1849,3 +1849,5 @@ claims and all 3,393 canonical JSON files unchanged. Actual production import
 counts are recorded separately in the coordinated release receipt. No automatic
 source onboarding, source schedule or trust promotion is implied. See
 [Cultivar integration](CULTIVAR-PLANTING-EVIDENCE-INTEGRATION-2026-11-15.md).
+
+Candidate News route expansion (2026-11-14): current WSJ public business metadata feed and bounded Tochigi native crop-pest PDF listing add two priority routes (55 to57). WSJ replay yielded no eligible berry events; Japanese latest explicitly dated listing is October16, with undated leads held by normal collection. No independent recall or complete-publisher coverage claim. See NEWS-PUBLIC-ROUTES-2026-11-14.md.
