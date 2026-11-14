@@ -50,6 +50,11 @@ Private runtime packages contain `library.json`, finished HTML, and a `downloads
 
 Registration makes a completed report available; it does not add automatic report generation. The capability audit and the proposed reuse of saved company lists, Competitor News Packets, Research Desk, and Report Builder are documented in `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
 
+Company-list research is implemented separately as a preset in the existing
+Report Builder. It retains a fixed publication window, per-company outcomes,
+editable source-backed rows and matching PDF/Excel exports. See
+`docs/v2/COMPANY-NEWS-REVIEW-PRESET.md` for behavior and coverage limits.
+
 ## Connecting finished reports to variety profiles
 
 Use the existing private `variety_research` import for source-attributed profile additions. Optional `report_url`, `findings` (`topic`, `value`, `source_urls`) and `gaps` (`topic`, `missing_information`, `capture_path`, `review_needed`) fields retain the finished report link, individual findings and the information needed to close each gap. They appear in the existing private research section; capture details stay collapsed. Every source URL uses the importer's public HTTP(S) validation.

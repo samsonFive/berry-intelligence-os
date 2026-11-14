@@ -2,7 +2,7 @@
 {% block title %}Review — {{ draft.title }}{% endblock %}
 {% block workspace_styles %}
 {{ super() }}
-<link rel="stylesheet" href="/static/publication_review.css?v=1">
+<link rel="stylesheet" href="/static/publication_review.css?v=2">
 {% endblock %}
 {% block content %}
 {% set is_publication = draft.evidence_role != 'atomic_evidence' %}
@@ -185,6 +185,19 @@
         <div class="form-field{% if is_publication %} publication-review-field{% endif %}">
           <label for="varieties">Varieties</label>
           <input id="varieties" name="varieties" type="text" placeholder="Comma-separated" value="{{ values.varieties }}">
+          {% if is_publication and publication_dossier and publication_dossier.variety_candidate_details %}
+          <details class="publication-review-disclosure publication-review-variety-candidates">
+            <summary>Unverified name candidates · {{ publication_dossier.variety_candidate_details|length }}</summary>
+            <p class="publication-review-field-note">Check the wording before entering a name above. A candidate is not a confirmed identity.</p>
+            <ul class="bullet-list">
+            {% for candidate in publication_dossier.variety_candidate_details %}
+              <li><strong>{{ candidate.name }}</strong> <small>{{ candidate.basis }}</small>{% if candidate.source_span %}<br><q>{{ candidate.source_span }}</q>{% endif %}
+                <button type="button" data-variety-candidate="{{ candidate.name }}" hidden>Use name</button>
+              </li>
+            {% endfor %}
+            </ul>
+          </details>
+          {% endif %}
         </div>
         <div class="form-field{% if is_publication %} publication-review-field{% endif %}">
           <label for="retailers">Retailers</label>
@@ -206,8 +219,8 @@
       <div class="publication-review-decisions">
         <div class="publication-review-actions">
           <button class="publication-review-publish" type="submit" name="advance" value="next" data-approve-next-action>Publish + Next</button>
-          <button type="submit" name="advance" value="" form="publication-review-save">Save draft</button>
-          <button type="submit" name="advance" value="next" form="publication-review-save" data-save-next-action>Save + Next</button>
+          <button type="submit" name="advance" value="" formaction="/review/{{ draft.id }}/save" formnovalidate>Save draft</button>
+          <button type="submit" name="advance" value="next" formaction="/review/{{ draft.id }}/save" formnovalidate data-save-next-action>Save + Next</button>
         </div>
         <p class="context-limit">Save draft does not publish. Publication approval requires a human reviewer.</p>
       </div>
@@ -323,13 +336,6 @@
 
     </form>
     {% if is_publication %}
-    <form id="publication-review-save" action="/review/{{ draft.id }}/save" method="post" data-save-form>
-      <input type="hidden" name="return_to" value="{{ return_to }}">
-      <input type="hidden" name="title" value="{{ values.title }}">
-      <input type="hidden" name="summary" id="save_summary">
-      <input type="hidden" name="why_it_matters" id="save_why">
-      <input type="hidden" name="tags" id="save_tags">
-    </form>
     <details class="publication-review-disclosure" data-reject-details>
       <summary>Reject this publication</summary>
       <div class="publication-review-detail-body">
@@ -365,20 +371,18 @@
 </div>
 <script>
 (function () {
-  var saveForm = document.querySelector('[data-save-form]');
-  function copyFields() {
-    if (!saveForm) return;
-    var summary = document.getElementById('summary');
-    var why = document.getElementById('why_it_matters');
-    var tags = document.getElementById('tags');
-    var saveSummary = document.getElementById('save_summary');
-    var saveWhy = document.getElementById('save_why');
-    var saveTags = document.getElementById('save_tags');
-    if (saveSummary && summary) saveSummary.value = summary.value;
-    if (saveWhy && why) saveWhy.value = why.value;
-    if (saveTags && tags) saveTags.value = tags.value;
-  }
-  if (saveForm) saveForm.addEventListener('submit', copyFields);
+  document.querySelectorAll('[data-variety-candidate]').forEach(function (button) {
+    button.hidden = false;
+    button.addEventListener('click', function () {
+      var field = document.getElementById('varieties');
+      if (!field) return;
+      var names = field.value.split(',').map(function (name) { return name.trim(); }).filter(Boolean);
+      var candidate = button.dataset.varietyCandidate;
+      if (!names.some(function (name) { return name.toLocaleLowerCase() === candidate.toLocaleLowerCase(); })) names.push(candidate);
+      field.value = names.join(', ');
+      field.focus();
+    });
+  });
   document.addEventListener('keydown', function (event) {
     if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
     if (event.key === 'n' && {{ 'true' if next_draft_id else 'false' }}) {
@@ -389,7 +393,6 @@
       var button = document.querySelector('[data-approve-next-action]') || document.querySelector('[data-approve-action]');
       if (button) button.click();
     } else if (event.key === 's') {
-      copyFields();
       var saveNext = document.querySelector('[data-save-next-action]');
       if (saveNext) saveNext.click();
     } else if (event.key === 'r') {

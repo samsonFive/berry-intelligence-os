@@ -20,6 +20,18 @@
   {% include "_workspace_help.html" %}
 {% endwith %}
 
+{% if company_report_reviews %}
+<section class="v2-company-section" id="company-report-reviews">
+  <h2>Company report coverage reviews</h2>
+  <p class="context-limit">Trace researched developments through capture, attribution, review and visibility. Each dated review retains unresolved cases and its original scope.</p>
+  <ul class="today-list">
+  {% for item in company_report_reviews %}
+    <li><a href="{{ item.coverage_href }}"><strong>{{ item.title }}</strong></a> <span class="v2-meta">{{ item.published_date|us_date }}</span>{% if item.coverage_xlsx_href %} · <a href="{{ item.coverage_xlsx_href }}" download>Repair workbook</a>{% endif %} · <a href="{{ item.href }}">Read report</a></li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="v2-company-section" id="coverage-totals">
   <h2>Totals</h2>
   <dl class="v2-role-list">

@@ -1,0 +1,37 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Company news review · Report Builder{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/briefings_workspace.css?v=14"><link rel="stylesheet" href="/static/company_news_builder.css?v=1">{% endblock %}
+{% block content %}
+<div class="briefings-workspace news-review-builder">
+  <nav class="news-review-crumb" aria-label="Report location"><a href="/reports">Reports</a><span aria-hidden="true">/</span><a href="/reports/new">Build a report</a><span aria-hidden="true">/</span><span aria-current="page">Company news review</span></nav>
+  <header class="news-review-heading"><p class="news-review-eyebrow">Company news review</p><h1>Research your company list</h1><p>Find what changed, review the supporting sources, and export one saved version to PDF and Excel.</p></header>
+  <ol class="news-review-process" aria-label="Research workflow"><li><b>Platform first</b><span>Search each company’s captured material</span></li><li><b>Fill public gaps</b><span>Keep findings, leads and missing coverage distinct</span></li><li><b>Review & export</b><span>Use the same saved findings in both files</span></li></ol>
+  {% if error %}<p class="news-review-error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="/reports/new/company-news" class="news-review-form">
+    <section class="news-review-roster" aria-labelledby="news-roster-heading">
+      <header class="news-review-step"><span aria-hidden="true">01</span><div><h2 id="news-roster-heading">Choose the companies</h2><p>Use a saved list or paste company names.</p></div></header>
+      {% if company_lists %}
+      <label for="news-company-list">Saved company list <span>(optional)</span></label>
+      <select id="news-company-list" name="company_list_id"><option value="">Use the names below</option>{% for group in company_lists %}<option value="{{ group.id }}" {% if values.company_list_id == group.id %}selected{% endif %}>{{ group.name }} · {{ group.company_ids|length }} companies</option>{% endfor %}</select>
+      {% else %}<input type="hidden" name="company_list_id" value="">
+      {% endif %}
+      <label for="news-roster">Company names <span>one per line</span></label>
+      <textarea id="news-roster" name="roster" rows="13" maxlength="20000" placeholder="Company name&#10;Another company" aria-describedby="news-roster-help"{% if not company_lists %} required{% endif %}>{{ values.roster }}</textarea>
+      <p class="news-review-help" id="news-roster-help">Up to 100 companies. Unresolved names stay visible as identity gaps.{% if company_lists %} Pasted names are added to the selected saved list.{% endif %}</p>
+    </section>
+    <section class="news-review-scope" aria-labelledby="news-scope-heading">
+      <header class="news-review-step"><span aria-hidden="true">02</span><div><h2 id="news-scope-heading">Set the research scope</h2><p>Define the period and what matters.</p></div></header>
+      <div class="news-review-dates"><div><label for="news-from">From</label><input id="news-from" type="date" name="from_date" value="{{ values.from_date }}" aria-describedby="news-window-help" required></div><div><label for="news-through">Through</label><input id="news-through" type="date" name="through_date" value="{{ values.through_date }}" aria-describedby="news-window-help" required></div></div>
+      <p class="news-review-help" id="news-window-help">Both dates are included. The window uses publication dates; undated material stays separate.</p>
+      <div class="news-review-pair">
+        <div><label for="news-berry">Berry</label><select id="news-berry" name="berry"><option value="">All berries</option>{% for key,label in berries.items() %}<option value="{{ key }}" {% if values.berry == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+        <div><label for="news-sources">Research sources</label><select id="news-sources" name="source_scope" aria-describedby="news-public-scope"><option value="combined" {% if values.source_scope == 'combined' %}selected{% endif %}>Platform first + public web</option><option value="archive" {% if values.source_scope == 'archive' %}selected{% endif %}>Platform sources only</option></select></div>
+      </div>
+      <label for="news-topic">Public research focus <span>(optional)</span></label><input id="news-topic" name="topic" maxlength="500" value="{{ values.topic }}" placeholder="Breeding, market access and retail developments" aria-describedby="news-public-scope">
+      <p class="news-review-help news-review-privacy" id="news-public-scope">Public searches share company names, berry, dates and this focus. Report edits and private source passages stay in the platform.</p>
+      <label for="news-title">Report title</label><input id="news-title" name="title" maxlength="200" value="{{ values.title }}" required>
+      <div class="news-review-submit"><button type="submit" class="sh-btn sh-btn-primary">Research company list <span aria-hidden="true">→</span></button><p>Progress is saved for each company. Leave and return whenever you need; review findings before sharing.</p></div>
+    </section>
+  </form>
+</div>
+{% endblock %}

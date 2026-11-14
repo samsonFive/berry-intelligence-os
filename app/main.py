@@ -5570,6 +5570,7 @@ def coverage_assurance_page(request: Request) -> HTMLResponse:
         name="coverage_assurance.html",
         context={
             "report": report,
+            "company_report_reviews": [row for row in list_combined_finished_reports(_report_library_roots()) if row.get("coverage_href")],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -8511,16 +8512,22 @@ def _finished_report_or_404(report_id: str) -> dict[str, Any]:
 @app.get("/reports/library/{report_id}", response_class=HTMLResponse)
 def finished_report_page(request: Request, report_id: str) -> HTMLResponse:
     record = _finished_report_or_404(report_id)
+    from app.services.report_builder.company_report_reader import load_company_report_reader, select_company_reader
+    reader = load_company_report_reader(record["files"].get("reader"))
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     return templates.TemplateResponse(
         request=request,
-        name="report_library_detail.html",
+        name="report_company_reader.html" if reader else "report_library_detail.html",
         context={
             "report": record,
+            "reader": reader,
+            "company_view": select_company_reader(reader, request.query_params.get("company")) if reader else None,
+            "working_review": False,
             "berry_labels": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
         },
+        headers={"Cache-Control": "private, no-store"},
     )
 
 
@@ -8539,6 +8546,29 @@ def finished_report_document(report_id: str) -> FileResponse:
             ),
         },
     )
+
+
+@app.get("/reports/library/{report_id}/coverage")
+def finished_report_coverage(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"].get("coverage")
+    if path is None:
+        raise HTTPException(404, "Coverage review not available")
+    script_source = "'sha256-" + record["coverage_script_sha256"] + "'" if record.get("coverage_script_sha256") else "'none'"
+    return FileResponse(path, media_type="text/html", headers={
+        "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; script-src " + script_source + "; img-src data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+    })
+
+
+@app.get("/reports/library/{report_id}/coverage.xlsx")
+def finished_report_coverage_workbook(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"].get("coverage_xlsx")
+    if path is None:
+        raise HTTPException(404, "Coverage workbook not available")
+    return FileResponse(path, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=path.name,
+        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
 
 
 @app.get("/reports/library/{report_id}/download.pdf")
@@ -8680,6 +8710,9 @@ def _report_scope_choices() -> dict[str, list[dict[str, str]]]:
 
 @app.get("/reports/new", response_class=HTMLResponse)
 def report_new_page(request: Request) -> HTMLResponse:
+    if request.query_params.get("report_type") == "company_news_review":
+        from app.company_news_routes import start_page
+        return start_page(request)
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     example_key = str(request.query_params.get("example") or "").strip().lower()
     example_request = ""
@@ -8904,6 +8937,9 @@ def _scope_from_record(record: dict[str, Any]) -> ResolvedScope:
 @app.get("/reports/{report_id}", response_class=HTMLResponse)
 def report_workspace_page(request: Request, report_id: str) -> HTMLResponse:
     record = _load_report_or_404(report_id)
+    if record.get("report_type") == "company_news_review":
+        from app.company_news_routes import workspace_page
+        return workspace_page(request, record)
     scope = _scope_from_record(record)
     packet, coverage = _build_packet_and_coverage(scope)
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
@@ -8935,6 +8971,8 @@ def report_save_route(
     section_texts: list[str] = Form(default=[]),
 ) -> RedirectResponse:
     record = _load_report_or_404(report_id)
+    if record.get("report_type") == "company_news_review":
+        raise HTTPException(422, "Review and edit the individual findings in this company review")
     edited_by_id = dict(zip(section_ids, section_texts))
     packet, _coverage = _build_packet_and_coverage(_scope_from_record(record))
     sections = record.get("sections") or []
@@ -8951,6 +8989,8 @@ def report_save_route(
 @app.post("/reports/{report_id}/section/{section_id}/regenerate")
 def report_regenerate_section_route(report_id: str, section_id: str) -> RedirectResponse:
     record = _load_report_or_404(report_id)
+    if record.get("report_type") == "company_news_review":
+        raise HTTPException(422, "Refresh the company review as a new version")
     scope = _scope_from_record(record)
     packet, _coverage = _build_packet_and_coverage(scope)
     completer = maybe_untrusted_completer()
@@ -9006,6 +9046,8 @@ def report_research_gaps_route(
     'Research again') never overwrites or silently refreshes a prior
     batch."""
     record = _load_report_or_404(report_id)
+    if record.get("report_type") == "company_news_review":
+        raise HTTPException(422, "Use the company review research controls; refresh creates a new version.")
     scope = _scope_from_record(record)
     entities = entity_index()
     _packet, coverage = _build_packet_and_coverage(scope)
@@ -9121,7 +9163,17 @@ def report_research_send_to_review_route(report_id: str, finding_id: str) -> Red
 
 
 @app.post("/reports/{report_id}/archive")
-def report_archive_route(report_id: str) -> RedirectResponse:
+def report_archive_route(report_id: str, request: Request) -> RedirectResponse:
+    from app.services.report_builder import company_news_jobs
+    existing = _load_report_or_404(report_id)
+    if existing.get("report_type") == "company_news_review":
+        from app.personal_digest_routes import require_edit
+        require_edit(request)
+        def archive_review(record, snapshot):
+            record["status"] = "archived"
+            record.setdefault("company_news_job", {})["cancel_requested"] = True
+        company_news_jobs.mutate_review(INBOX_DIR, report_id, archive_review)
+        return RedirectResponse(url="/reports", status_code=303)
     record = archive_report_record(INBOX_DIR, report_id)
     if record is None:
         raise HTTPException(status_code=404, detail="Report not found")
@@ -9133,6 +9185,17 @@ def report_export_pdf_route(report_id: str) -> Response:
     record = _load_report_or_404(report_id)
     if not _social_eligible_outputs([record]):
         raise HTTPException(status_code=409, detail="This report cites a deleted source. Regenerate it before exporting.")
+    if record.get("report_type") == "company_news_review":
+        from app.company_news_routes import ensure_output_allowed
+        ensure_output_allowed(record)
+        from app.services.report_builder.company_news_export import render_company_news_pdf
+        try:
+            pdf_bytes = render_company_news_pdf(record["scope"]["company_news_review"], title=record["title"])
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        return Response(pdf_bytes, media_type="application/pdf", headers={
+            "Content-Disposition": f'attachment; filename="{record["id"]}.pdf"',
+            "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
     scope = _scope_from_record(record)
     packet, coverage = _build_packet_and_coverage(scope)
     pdf_bytes = render_report_pdf(record, packet, coverage)
@@ -10536,6 +10599,8 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
     for berry_id in ([] if draft.get("catalog_handoff") else enrichment.get("suggested_berry_ids") or []):
         if berry_id and berry_id not in berries:
             berries.append(berry_id)
+    saved_values = draft.get("publication_review_values") or {}
+    saved_varieties = saved_values.get("varieties") if isinstance(saved_values, dict) else None
     return {
         "title": decode_html_text(draft.get("title", "")),
         "source_type": draft.get("source_type", ""),
@@ -10547,7 +10612,8 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         "why_it_matters": decode_html_text(why),
         "tags": ", ".join(tags),
         "companies": ", ".join(draft.get("suggested_competitors", [])),
-        "varieties": ", ".join(draft.get("suggested_varieties", [])),
+        "varieties": saved_varieties if isinstance(saved_varieties, str) else ", ".join(draft.get("suggested_varieties", [])),
+        "varieties_reviewed": isinstance(saved_varieties, str),
         "retailers": ", ".join(draft.get("suggested_retailers", [])),
         "geographies": ", ".join(draft.get("suggested_geographies", [])),
         "berries": berries,
@@ -10608,7 +10674,7 @@ def _review_context(
             values["geographies"] = ", ".join(
                 _names(list(draft.get("geography_ids") or []) + list(draft.get("entity_ids") or []), "geography")
             )
-        if not values.get("varieties"):
+        if not values.get("varieties") and not values.get("varieties_reviewed"):
             values["varieties"] = ", ".join(_names(list(draft.get("entity_ids") or []), "variety"))
         if not values.get("retailers"):
             values["retailers"] = ", ".join(_names(list(draft.get("entity_ids") or []), "retailer"))
@@ -10798,6 +10864,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         "tags": field("tags"),
         "companies": field("companies"),
         "varieties": field("varieties"),
+        "varieties_reviewed": True,
         "retailers": field("retailers"),
         "geographies": field("geographies"),
         "berries": selected_berries,
@@ -11141,6 +11208,11 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
     draft["summary"] = field("summary").strip() or draft.get("summary")
     draft["why_it_matters"] = field("why_it_matters").strip()
     draft["tags"] = split_list(field("tags"))
+    if draft.get("evidence_role") != "atomic_evidence" and "varieties" in form:
+        saved_values = draft.get("publication_review_values")
+        saved_values = dict(saved_values) if isinstance(saved_values, dict) else {}
+        saved_values["varieties"] = field("varieties").strip()
+        draft["publication_review_values"] = saved_values
     berries = [value for value in form.getlist("berries") if isinstance(value, str)]
     if berries:
         draft["berry_ids"] = berries
@@ -11416,6 +11488,8 @@ def api_global_search(
 # Consolidated private reading workspace; legacy queue routes remain compatible.
 from app.personal_digest_routes import router as personal_digest_router
 app.include_router(personal_digest_router)
+from app.company_news_routes import router as company_news_router
+app.include_router(company_news_router)
 from app.news_packet_routes import router as news_packet_router
 app.include_router(news_packet_router)
 from app.variety_seed_routes import router as variety_seed_router

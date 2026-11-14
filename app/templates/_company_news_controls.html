@@ -1,0 +1,14 @@
+<section class="news-review-controls" aria-label="Research progress" data-company-news-progress="/reports/{{ report.id }}/company-news/progress" data-initial-finished="{{ research_progress.finished }}">
+  <div class="news-review-progress-line"><div><strong data-news-progress-label>{{ research_progress.finished }} of {{ research_progress.total }} companies researched</strong><span data-news-progress-state>{{ research_progress.state|default('draft')|replace('_',' ') }}</span></div><a href="{{ request.url.path }}{% if request.url.query %}?{{ request.url.query }}{% endif %}{{ '#company-reading' if request.query_params.get('company') else '#report-reading' }}" data-news-new-findings hidden>Show updated findings →</a>
+    {% set active = research_progress.state in ['running','queued'] or research_progress.worker_active|default(false) %}
+    <form method="post" action="/reports/{{ report.id }}/company-news/pause" data-news-active-only{% if not active %} hidden{% endif %}><button type="submit">Pause after current company</button></form>
+    <form method="post" action="/reports/{{ report.id }}/company-news/resume" data-news-pending-only{% if active or research_progress.finished >= research_progress.total %} hidden{% endif %}><button type="submit">Resume remaining companies</button></form>
+  </div>
+  <p data-news-progress-message role="status" aria-live="polite">{{ research_progress.message }}</p>
+  <details class="news-review-options"><summary>Version {{ report.scope.version|default(1) }} · report options</summary><div class="news-review-actions">
+    <form method="post" action="/reports/{{ report.id }}/company-news/refresh"><button type="submit">Refresh as a new version</button></form>
+    <a href="/reports">Saved reports</a>
+    <span>Report edits do not approve source claims.</span>
+  </div></details>
+</section>
+<link rel="stylesheet" href="/static/company_news_builder.css?v=1"><script src="/static/company_news_progress.js?v=1" defer></script>

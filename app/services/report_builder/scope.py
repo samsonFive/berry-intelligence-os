@@ -42,6 +42,7 @@ REPORT_TYPES = (
     "decision_memo",
 )
 REPORT_TYPE_LABELS = {
+    "company_news_review": "Company news review",
     "market_landscape": "Market Landscape",
     "competitive_landscape": "Competitive Landscape",
     "competitor_comparison": "Competitor Comparison",

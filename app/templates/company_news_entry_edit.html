@@ -1,0 +1,49 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Review finding · {{ report.title }}{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/briefings_workspace.css?v=14"><link rel="stylesheet" href="/static/company_news_builder.css?v=1">{% endblock %}
+{% block content %}
+<div class="briefings-workspace news-review-builder news-entry-editor">
+  {% set company_name = namespace(value='Company finding') %}{% for company in report.scope.company_news_review.companies %}{% if company.key == raw_entry.company_key %}{% set company_name.value = company.requested_name or company.canonical_name %}{% endif %}{% endfor %}
+  <nav class="news-review-crumb" aria-label="Report location"><a href="/reports/{{ report.id }}?company={{ raw_entry.company_key }}#{{ raw_entry.id }}">← Back to {{ company_name.value }}</a></nav>
+  <header class="news-review-heading"><p class="news-review-eyebrow">{{ company_name.value }} · {{ report.title }}</p><h1>Review the finding</h1><p>Compare the wording with its retained support. Your edits update this report version while preserving the source record.</p></header>
+  {% if error %}<div class="news-review-error" role="alert"><p>{{ error }}</p><p>Your unsaved values remain below. Reloading replaces them with the latest saved version.</p><a href="/reports/{{ report.id }}/company-news/entry/{{ raw_entry.id }}">Reload the latest saved finding</a></div>{% endif %}
+  <div class="news-entry-layout">
+  <form method="post" action="/reports/{{ report.id }}/company-news/entry/{{ raw_entry.id }}" class="news-entry-form">
+    <input type="hidden" name="edit_revision" value="{{ raw_entry.edit_revision|default(0) }}">
+    <label for="entry-headline">Headline</label><textarea class="news-entry-headline" id="entry-headline" name="headline" rows="2" maxlength="6000" required>{{ entry.headline }}</textarea>
+    <label for="entry-summary">What happened</label><textarea id="entry-summary" name="summary" rows="5" maxlength="6000">{{ entry.summary }}</textarea>
+    <label for="entry-angle">Why it matters</label><textarea id="entry-angle" name="news_angle" rows="3" maxlength="6000">{{ entry.news_angle }}</textarea>
+    <div class="news-entry-qualification"><label for="entry-qualification">Qualification</label><p id="entry-qualification-help">Keep claims, plans and uncertainties explicit.</p><textarea id="entry-qualification" name="qualification" rows="4" maxlength="6000" aria-describedby="entry-qualification-help">{{ entry.qualification }}</textarea></div>
+    <div class="news-review-dates"><div><label for="entry-date">Publication date</label><input id="entry-date" type="date" name="published_date" value="{{ entry.published_date }}"></div><div><label for="entry-event">Event timing</label><textarea id="entry-event" name="event_date" rows="2" maxlength="6000">{{ entry.event_date }}</textarea></div></div>
+    <p class="news-review-help">The publication date defines the research window. Keep planned or historical event timing separate.</p>
+    <section class="news-entry-decision" aria-labelledby="entry-decision-heading">
+    <h2 id="entry-decision-heading">Include and review</h2>
+    {% if entry.entry_type == 'development' or can_include_lead|default(false) %}<label class="news-review-check"><input type="checkbox" name="included" value="true" {% if entry.included %}checked{% endif %}> {{ 'Include in the report and PDF' if entry.entry_type == 'development' else 'Include as a reporting lead after review' }}</label>{% if entry.entry_type == 'lead' %}<p class="news-review-help">Check the publication date, edit the summary and mark the finding reviewed before including it. It remains labelled as a reporting lead.</p>{% endif %}{% else %}<p class="news-review-help">This reporting lead needs an inspected supporting source and resolved identity before it can be included.</p>{% endif %}
+    <label for="entry-review">Report review state</label><select id="entry-review" name="review_status"><option value="unreviewed" {% if entry.review_status != 'reviewed' %}selected{% endif %}>Needs review</option><option value="reviewed" {% if entry.review_status == 'reviewed' %}selected{% endif %}>Reviewed for this report</option></select>
+    <p class="news-review-help">This review applies to report wording. It does not approve source claims as trusted evidence.</p>
+    </section>
+    <div class="news-entry-save"><button type="submit" class="sh-btn sh-btn-primary">Save finding</button><a href="/reports/{{ report.id }}?company={{ raw_entry.company_key }}#{{ raw_entry.id }}">Cancel</a></div>
+  </form>
+  <aside class="news-entry-support" aria-labelledby="entry-support-heading">
+    <details class="news-entry-support-panel" open><summary id="entry-support-heading">Retained sources <small>{{ raw_entry.source_ids|length }} supporting reference{{ 's' if raw_entry.source_ids|length != 1 else '' }}</small></summary>
+    <p class="news-entry-source-help">Check the wording against these saved excerpts. Editing the finding leaves the source record intact.</p>
+    {% set source_count = namespace(value=0) %}
+    {% for source in report.scope.company_news_review.sources if source.id in raw_entry.source_ids %}
+      {% set source_count.value = source_count.value + 1 %}
+      {% set source_url = public_source_url(source.url or source.source_url) %}
+      <details class="news-entry-source"{% if source_count.value == 1 %} open{% endif %}>
+        <summary>{{ source.title or 'Supporting source' }}</summary>
+        <p class="news-entry-source-meta">{% if source.origin %}{{ 'Platform archive' if source.origin == 'archive' else 'Public web' if source.origin == 'web' else source.origin }}{% endif %}{% if source.published_date %} · {{ source.published_date|us_date }}{% endif %}</p>
+        {% if source.trust_class or source.capture_status %}<p class="news-entry-source-state">{{ source.trust_class|replace('_',' ') }}{% if source.capture_status %} · {{ source.capture_status|replace('_',' ') }}{% endif %}</p>{% endif %}
+        {% if source.excerpt or source.passage %}<blockquote>{{ source.excerpt or source.passage }}</blockquote>{% else %}<p class="news-review-help">No inspected source passage is retained. Discovery metadata alone does not substantiate a development.</p>{% endif %}
+        {% if source.qualification %}<p class="news-entry-source-qualification">{{ source.qualification }}</p>{% endif %}
+        {% if source_url %}<a href="{{ source_url }}" target="_blank" rel="noopener noreferrer">Open original source ↗</a>{% endif %}
+      </details>
+    {% endfor %}
+    {% if not source_count.value %}<p class="news-review-help">No supporting source reference is recorded for this finding.</p>{% endif %}
+    </details>
+  </aside>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script>if(window.matchMedia('(max-width:850px)').matches){document.querySelector('.news-entry-support-panel')?.removeAttribute('open');}</script>{% endblock %}

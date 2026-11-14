@@ -118,20 +118,47 @@ def _language_label(record: dict[str, Any], source_text: str) -> str:
     return "English"
 
 
-def _named_variety_candidates(text: str, known_names: set[str]) -> list[str]:
-    found: list[str] = []
+_VARIETY_CONTEXT = r"(?:raspberry|blackberry|strawberry|blueberry|cultivar|variety|selection|denomination|variété|variedad|varietà|品種|品种)"
+_QUOTED_NAME = r"[\"'‘“「『](?P<name>[^\"'’”」』\n]{1,80})[\"'’”」』]"
+
+
+def _variety_name_mentions(text: str, known_names: set[str]) -> list[dict[str, str]]:
+    """Find bounded naming cues, never confirmed identities or form values.
+
+    Words merely preceding a berry word are not naming evidence. Selection
+    codes and explicitly named/quoted Unicode names remain review candidates.
+    """
     haystack = decode_html_text(text)
-    for match in re.finditer(
-        r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})\s+(raspberry|blackberry|strawberry|blueberry)\b",
-        haystack,
-        re.IGNORECASE,
-    ):
-        name = match.group(1).strip()
-        if name.casefold() in {"the", "new", "our"}:
-            continue
-        if name.casefold() not in known_names and name not in found:
-            found.append(name)
-    return found[:8]
+    patterns = (
+        rf"(?i:{_VARIETY_CONTEXT})\s*(?:(?i:named|called|known as|branded)\s+)?{_QUOTED_NAME}",
+        rf"{_QUOTED_NAME}\s+(?i:{_VARIETY_CONTEXT})\b",
+        rf"(?i:{_VARIETY_CONTEXT})\s+(?i:named|called|known as|branded)\s+(?P<name>[A-Z][^\W_]*(?:[- ][A-Z][^\W_]*){{0,2}})\b",
+        r"(?<!\w)(?P<name>[A-Z]{1,8}(?:[- ]\d{1,6}|\d{2,6})(?:[.-]\d{1,6}){0,3})(?!\w)",
+    )
+    found: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for pattern in patterns:
+        for match in re.finditer(pattern, haystack):
+            name = match.group("name").strip()
+            folded = name.casefold()
+            if folded in known_names or folded in seen:
+                continue
+            # A code needs nearby crop/naming context; identifiers elsewhere
+            # in an article are not presumed cultivar denominations.
+            context = haystack[max(0, match.start() - 90):match.end() + 90]
+            if not re.search(_VARIETY_CONTEXT, context, re.IGNORECASE):
+                continue
+            if not name or not any(char.isalpha() for char in name):
+                continue
+            seen.add(folded)
+            found.append({"name": name, "source_span": context.strip()})
+            if len(found) >= 8:
+                return found
+    return found
+
+
+def _named_variety_candidates(text: str, known_names: set[str]) -> list[str]:
+    return [row["name"] for row in _variety_name_mentions(text, known_names)]
 
 
 def detect_variety_observations(source_text: str) -> list[dict[str, Any]]:
@@ -222,13 +249,24 @@ def build_publication_review_dossier(
         if row.get("entity_type") == "variety"
     }
     detected = detect_variety_observations(source_text)
-    proposed_varieties = _named_variety_candidates(
-        f"{draft.get('title') or ''} {source_text}",
-        known_variety_names,
+    source_basis = (
+        "Captured source body" if body["body"] else
+        "Captured transcript" if body["transcript_text"] else
+        "Source excerpt" if body["excerpt"] else "Summary only — source text unverified"
     )
+    candidate_details: list[dict[str, str]] = []
+    for basis, text in (("Title only — source text unverified", draft.get("title") or ""), (source_basis, source_text)):
+        for candidate in _variety_name_mentions(text, known_variety_names):
+            if candidate["name"].casefold() not in {row["name"].casefold() for row in candidate_details}:
+                candidate_details.append({**candidate, "basis": basis})
+    proposed_varieties = [row["name"] for row in candidate_details]
     for row in detected:
         if row["name"] not in proposed_varieties and row["name"].casefold() not in known_variety_names:
             proposed_varieties.append(row["name"])
+            mention = re.search(re.escape(row["name"]), source_text, re.IGNORECASE)
+            if mention:
+                candidate_details.append({"name": row["name"], "basis": source_basis,
+                    "source_span": source_text[max(0, mention.start() - 90):mention.end() + 90].strip()})
     retailers = [name for name in RETAILER_NAMES if name.casefold() in source_text.casefold()]
     berry_ids = list(draft.get("berry_ids") or [])
     for berry_id in infer_berry_ids_from_text(f"{draft.get('title') or ''} {source_text}"):
@@ -240,6 +278,22 @@ def build_publication_review_dossier(
     varieties = [
         hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "variety"
     ]
+    prefill_varieties = []
+    for hit in varieties:
+        entity = entity_index.get(hit["id"]) or {}
+        if hit["id"] in (draft.get("entity_ids") or []) or hit.get("location") == "stored" or (
+            entity.get("status") != "unverified" and not (entity.get("attributes") or {}).get("identity_review_required")
+        ):
+            prefill_varieties.append(hit)
+        elif hit["name"] not in proposed_varieties:
+            proposed_varieties.append(hit["name"])
+            search_text = decode_html_text(f"{draft.get('title') or ''} {source_text}")
+            mention = next((match for label in [entity.get("name"), *(entity.get("aliases") or [])]
+                if label and (match := re.search(r"(?<!\w)" + re.escape(label) + r"(?!\w)", search_text, re.IGNORECASE))), None)
+            candidate_details.append({"name": hit["name"], "basis": "Unverified directory match — identity review required",
+                "source_span": search_text[max(0, mention.start() - 90):mention.end() + 90].strip() if mention else ""})
+    candidate_details = candidate_details[:8]
+    proposed_varieties = [row["name"] for row in candidate_details]
     geographies = [
         hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "geography"
     ]
@@ -250,10 +304,10 @@ def build_publication_review_dossier(
         )
     for hit in companies[:4]:
         source_derived.append(f"Company named: {hit.get('name')} (resolved to existing entity).")
-    for hit in varieties[:4]:
+    for hit in prefill_varieties[:4]:
         source_derived.append(f"Variety named: {hit.get('name')} (resolved to existing entity).")
     for name in proposed_varieties:
-        source_derived.append(f"Variety named in source, not yet a tracked entity: {name}.")
+        source_derived.append(f"Unverified variety-name candidate: {name}; check the wording before linking it.")
     if draft.get("source_name"):
         source_derived.append(f"Publisher: {draft.get('source_name')}.")
     if draft.get("source_url"):
@@ -324,7 +378,7 @@ def build_publication_review_dossier(
         "berries": berry_ids,
         "companies": ", ".join(hit.get("name") or "" for hit in companies if hit.get("name")),
         "varieties": ", ".join(
-            list(dict.fromkeys([*(hit.get("name") or "" for hit in varieties if hit.get("name")), *proposed_varieties]))
+            list(dict.fromkeys(hit.get("name") or "" for hit in prefill_varieties if hit.get("name")))
         ),
         "retailers": ", ".join(retailers),
         "geographies": ", ".join(hit.get("name") or "" for hit in geographies if hit.get("name")),
@@ -337,7 +391,7 @@ def build_publication_review_dossier(
             "published_date": "A" if draft.get("published_date") else "D",
             "berries": "A" if berry_ids else "D",
             "companies": "A" if companies else "D",
-            "varieties": "A" if (varieties or proposed_varieties) else "D",
+            "varieties": "A" if prefill_varieties else "B" if proposed_varieties else "D",
             "geographies": "A" if geographies else "D",
             "summary": "B",
             "why_it_matters": "B",
@@ -370,6 +424,7 @@ def build_publication_review_dossier(
         "unlocks": unlocks,
         "limitations": limitations,
         "proposed_variety_candidates": proposed_varieties,
+        "variety_candidate_details": candidate_details,
         "matched_entities": companies + varieties + geographies,
         "prefill": prefill,
         "extraction_text": source_text,
@@ -400,7 +455,7 @@ def apply_dossier_prefill(values: dict[str, Any], dossier: dict[str, Any]) -> di
     updated = dict(values)
     if not (updated.get("companies") or "").strip() and prefill.get("companies"):
         updated["companies"] = prefill["companies"]
-    if not (updated.get("varieties") or "").strip() and prefill.get("varieties"):
+    if not updated.get("varieties_reviewed") and not (updated.get("varieties") or "").strip() and prefill.get("varieties"):
         updated["varieties"] = prefill["varieties"]
     if not (updated.get("geographies") or "").strip() and prefill.get("geographies"):
         updated["geographies"] = prefill["geographies"]

@@ -4110,18 +4110,26 @@ brand imagery must not substitute for a parent company's absent logo.
 
 ### TD-REPORT-NEWS-001 — company news report orchestration, November 13
 
-Open. The platform has saved company lists, inclusive date-window news packets,
+Implementation prepared; release and real-source acceptance remain pending.
+The Company news review preset now reuses saved company lists and bounded
+archive/public research inside Report Builder. It retains exact dates,
+unresolved requests, per-company outcomes, source snapshots, analyst edits and
+versioned refresh, with a native reader and PDF/XLSX exports from the same saved
+rows. Deterministic tests and isolated browser checks are implementation evidence,
+not proof of live discovery recall. See `COMPANY-NEWS-REVIEW-PRESET.md`.
+
+The earlier capability audit remains a dated baseline: the platform had saved
+company lists, inclusive date-window news packets,
 archive/public topic research, section-based report drafts, citation validation
-and PDF export. It does not yet reproduce a complete multi-company editorial
-news ledger and XLSX from one retained dataset. Research Desk's five-company
+and PDF export. Research Desk's five-company
 scope limit and topic retrieval/discovery top-N limits do not guarantee coverage
-of a 27-company cohort. Exact report date controls, unresolved-name retention,
-per-company completion/gap accounting, a structured company/development/source
-report model, review-preserving refresh and native XLSX generation remain open.
+of a large company cohort. Independent event-level coverage diagnosis, reviewed
+source/collection repairs, historical backfill and held-out recall testing remain
+open. The preset exposes gaps; it does not close collection debt by generating a
+report or automatically approving newly discovered sources.
 
 The verified private-catalog release now serves the completed strawberry PDF
-and workbook. It closes artifact availability and leaves this generator debt
-open. Reuse existing Research Desk, News Packets,
+and workbook. It closes artifact availability. Reuse existing Research Desk, News Packets,
 Workspaces and Report Builder rather than a second report catalog or trust
 store. Owner: report workflow engineering. See
 `docs/audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md`.
@@ -4180,3 +4188,14 @@ exact-account references were unclassified. No new metered retrieval or runtime
 work is authorized by this documentation closeout.
 
 November 13 News metadata debt: two newly frozen reports exposed commercial-market and crop-technology vocabulary gaps across collection and News projection. Shared recognition and picking-consumer parity now have source-shaped collection/display regressions, but production recovery still requires coordinated deployment and exact-link checks. Metadata-only screening still cannot discover every body-only crop milestone, resolve unknown original publication dates or establish source independence. The four held historical cases, deeper/public-record archives, blocked publishers and prospective human/event/time denominators remain open; no definitive/global coverage or new pilot recall credit is implied. Owner: News source operations and coordinated release owner. See NEWS-MARKET-TECHNOLOGY-2026-11-13.md.
+
+### TD-PUBLICATION-VARIETY-PREFILL-001 — preserve deliberate name review
+
+Implementation prepared, pending release. Publication Review's heuristic could
+prefill descriptive words as a variety and omit real selection codes. Clearing
+the field and saving did not preserve the correction. Unknown names now remain
+qualified candidates with source spans and text basis, requiring explicit use or
+manual entry. Saved edits and explicit clearing survive reopen. Existing stored
+names and human publication/Atomic review gates remain intact. Focused and
+integration regressions pass; source capture and event-level recall remain open.
+See `PUBLICATION-VARIETY-REVIEW-REPAIR-2026-11-14.md`.

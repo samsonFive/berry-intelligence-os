@@ -1,5 +1,27 @@
 # Berry Intelligence — current mission status
 
+## Company news review and coverage follow-through — implementation pending release
+
+Report Builder now has a company-list review implementation with fixed
+publication dates, platform-first research, bounded web gap filling,
+per-company outcomes, resumable checkpoints and matching saved-row PDF/Excel
+exports. The native company report reader replaces the long embedded-document
+experience when structured report data is available. Existing report artifacts
+and human trust decisions remain separate.
+
+The follow-up preserves observed platform source pointers when fresh web text
+replaces metadata, and adds private report-linked coverage HTML/workbook
+attachments reachable from Coverage Assurance. Publication Review now keeps
+unknown variety-name suggestions qualified and preserves deliberately edited or
+cleared names across Save/reopen. These are code changes and dated private audit
+artifacts, not a claim that collection recall is repaired.
+
+This is implementation status, not a claim that the new workflow is live or
+that collection coverage is repaired. Actual-source local replay, report-only
+review and desktop/mobile checks pass; normal-provider and production acceptance,
+the exact-head release checks and remaining event-level verification stay open. See
+`docs/v2/COMPANY-NEWS-REVIEW-PRESET.md` and TD-REPORT-NEWS-001.
+
 ## Strawberry company report availability and capability audit — November 13
 
 The strawberry company review is live in **Reports & Briefings → Reports →
