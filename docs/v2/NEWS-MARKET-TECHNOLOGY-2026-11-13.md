@@ -25,6 +25,7 @@ Precision controls remain active. Currant-only collective-berry market copy
 is excluded alongside cranberry-only and unrelated produce. Mixed reports
 with an explicit target crop remain eligible. The shared picking rule keeps
 consumer visitor outings out while allowing actual greenhouse picking robots;
+generic commercial picking and a robot's weekend launch date do not imply an outing.
 collection and News use the same distinction. Stock/device, decorative
 product, recipe and home-gardening exclusions remain in place.
 

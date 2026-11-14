@@ -95,3 +95,16 @@ def test_belorta_mixed_crop_report_retains_target_berries_despite_redcurrants():
     qualified = qualify_hit(hit(*BELORTA))
     assert qualified.qualifying
     assert projected(hit_to_record(qualified, entities=[], today=date(2026, 11, 13)))['cards']
+
+
+@pytest.mark.parametrize('title,summary', [
+    ('Strawberry picking robot launches this weekend for commercial greenhouse growers',
+     'The autonomous unit handles strawberry crops in greenhouses and helps commercial growers.'),
+    ('Blueberry picking starts amid higher wholesale prices and declining supplies',
+     'Commercial growers have begun harvesting blueberries for wholesale markets.'),
+])
+def test_commercial_picking_and_robot_launch_dates_survive_both_screens(title, summary):
+    original = hit(title, summary)
+    kept, _ = _keep_window_hits([original], entities=[], sources=[], today=date(2026, 11, 13))
+    assert len(kept) == 1
+    assert projected(hit_to_record(kept[0], entities=[], today=date(2026, 11, 13)))['cards']

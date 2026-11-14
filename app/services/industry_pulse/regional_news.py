@@ -131,8 +131,9 @@ _PRODUCTION_SETTING = _whole_words((
 _PICKING_WORDING = _whole_words((
     "pick your own", "pick-your-own", "u-pick", "blueberry picking", "strawberry picking",
 ))
+_SELF_SERVICE_PICKING = _whole_words(("pick your own", "pick-your-own", "u-pick"))
 _PICKING_VISITS = _whole_words((
-    "visitors", "tourists", "tickets", "ticket", "this weekend", "day out",
+    "visitors", "tourists", "tickets", "ticket", "day out",
     "family outing", "opening hours", "book now",
 ))
 _EAST_ASIAN_TOPICS = (*NATIVE_TOPICS["zh"], *NATIVE_TOPICS["ja"])
@@ -161,7 +162,8 @@ def has_crop_production_technology_context(text: str) -> bool:
 def is_consumer_picking_content(text: str) -> bool:
     """Keep visitor picking out without mistaking a picking robot for an outing."""
     return bool(_PICKING_WORDING.search(text) and (
-        _PICKING_VISITS.search(text) or not has_crop_production_technology_context(text)))
+        _PICKING_VISITS.search(text) or (
+            _SELF_SERVICE_PICKING.search(text) and not has_crop_production_technology_context(text))))
 
 
 def has_regional_news_topic(text: str) -> bool:
