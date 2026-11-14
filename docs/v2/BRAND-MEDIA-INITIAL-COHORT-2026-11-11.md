@@ -1,5 +1,14 @@
 # Initial brand and packaging image cohort
 
+**Last verified live November 12, 2026 UTC:** #562 deployed the 47-reference cohort at
+04:38:02 UTC; successor #563 retained it and passed public HTTPS verification.
+The bounded set covers 19 of 20 investigated existing entities, with the source
+gaps below preserved. This is not a claim of worldwide brand/retail coverage.
+These are dated media results, not today's production revision. Later
+[Regina report/library evidence](REGINA-REPORT-LIBRARY-2026-11-13.md) and the
+[strawberry report/library audit](../audits/STRAWBERRY-COMPANY-REPORT-CAPABILITY-2026-11-13.md)
+retain their separate release scope.
+
 The first release proved display with five references for Driscoll's and Fall Creek. It did not complete the requested initial cohort. This pass investigates 20 existing companies/consumer brands and registers 47 visually checked official references across 19 of them: 17 full official logos, one clearly labelled official icon fallback and 29 packaging images (including one official rendering). All four berry categories occur in the verified packaging set. Forty-two references extend the initial five.
 
 The set is retail focused, selected from existing demo/current records and the retained priority roster, with FreshKampo and Cuna de Platero added for four-berry retail coverage. It is not a ranked Top 20. Fall Creek remains a valid logo-only breeder/nursery case. Company, consumer-brand and source-publisher identities remain distinct.
@@ -37,6 +46,44 @@ The existing seed command accepts up to100 references across at most20 explicit 
 
 White wordmarks use a neutral dark matte without changing original pixels; other logos retain the light default. Four external image references are bound to exact publisher-page/image URL pairs observed in retained official HTML, rather than a host-wide CDN exception. Scope, source/classification/rights checks and per-asset cache/export holds remain in place. The shared detail galleries, source inspection, directory and Company Compare use the same read model; no primary navigation destination was added.
 
-Validation and deployment status: the corrected final seed passed an isolated exact-original-five to47 additive proof:42 new records, all five raw original rows preserved and zero duplicates or writes on repeat. The final seed SHA256 is `36738a06b913fd721c1aaf9390bc5a3424ef9877f1c3ecd1e75a80e3f238e0b4`. The shared focused checks passed228 tests, with subsequent encoding, container-path and matte corrections verified in their affected checks. Actual authenticated browser verification loaded all18 logos and all29 packaging references across19 profiles, inspected all29 source links and exercised company comparison, keyboard navigation/focus return, typed brand profiles and historical credit. Private receipts and screenshots are retained under `inbox/coverage-expansion/`; no private runtime record enters this source seed. This document does not claim the47-reference cohort is live merely because source and preview passed; exact-head CI, release rehearsal and live activation remain separate gates.
+Validation and deployment status: all four required #562 code CI checks passed on tested
+head `c39f2153`; canonical #562 is `bd297e39` (image prefix `8b63`), followed by
+#563 `5e25be42` (image prefix `a53`). The isolated restore verified 29,528 files;
+production added 42 references, preserved the original five raw rows and
+verified 29,571 protected files using a fresh backup. Proxy/timer restoration
+passed. Reruns create zero records. No private runtime record was placed in the
+source seed.
 
-The curated media API adds the optional `background` field with enum `light` or `dark`; missing values retain the light default. It is a presentation matte only, not a media kind or permission grant. Consumers must preserve the field on logos, thumbnails and expanded images without modifying source pixels. The reviewed native app consumes it; any later React adapter must allowlist the field before adopting white-wordmark references. The cohort manifest and seed identify each exact affected asset, avoiding an implicit background guess by company name.
+The shipped canonical Git-LF seed SHA256 is
+`94dacdd99a539de112207651dcde53ce742968ac636bc54a51b01be1ba9f6b79`;
+the earlier preview SHA `36738a06...` is Windows-CRLF encoding of identical JSON.
+The raw-blob archive (`3addec0593...`) verified all 4,523 committed blob IDs,
+hashes and modes. The original Windows-EOL archive's requirements-byte failure
+remains historical; exact-byte guards were preserved and nothing was installed.
+
+Actual authenticated browser verification loaded all 18 logos and 29 packs,
+checked all 29 source links and exercised comparison, keyboard/focus return,
+typed brand profiles, historical credit and dark mattes. A 4.8-second continuous
+recording is retained privately. Subsequent public HTTPS verification covered
+all 20 typed profiles, 47 references, 29 packaging source links across 23
+distinct source-page URLs and 41 company-only Compare references. The failed strict CSP-presence test is retained; reviewed
+header/meta inspection found no CSP on all 20 profiles, matching baseline,
+without an application security change. This is an image-policy compatibility
+result, not evidence of a newly enforced CSP.
+
+The curated media API adds the optional `background` field with enum `light` or `dark`; missing values retain the light default. It is a presentation matte only, not a media kind or permission grant. Consumers must preserve the field on logos, thumbnails and expanded images without modifying source pixels. The native app and current canonical React parser consume it. React company DetailHost, Compare and roster adapters use the bounded same-origin/no-store media seam. React Brand-detail acceptance is separate from the November 12 native HTML typed Brand proof. The cohort manifest and seed identify each exact affected asset, avoiding an implicit background guess by company name.
+
+Older-than-#562 strict `Asset` readers may omit galleries after a code-only
+rollback because they reject `background`; the records remain intact. Reader
+compatibility is tracked as debt. Fresh eligible social-post-to-packaging
+delivery, verified free/prepaid allowance, the listed source gaps and React
+Brand-detail acceptance remain open. No paid provider collection or image-object
+cache was added by either deployment.
+
+**November 13 docs closeout:** image-display/cohort delivery and the implemented
+company adapter handoff can close after this rebased documentation PR's required
+checks and merge. The earlier code CI is historical evidence, not a pass for
+this docs head. Acquisition owners retain social E2E/allowance and source gaps;
+integration/release owners retain older-reader compatibility; the experience
+owner retains React Brand-detail acceptance. No fresh provider/runtime work or
+claim that these follow-ups are complete is included.
