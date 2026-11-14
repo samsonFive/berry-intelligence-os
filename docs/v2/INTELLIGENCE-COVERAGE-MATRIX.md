@@ -1827,4 +1827,3 @@ integration/release owns older-reader compatibility; experience owns React
 Brand-detail acceptance. These remain tracked follow-ups, not completed tests.
 
 November 13 market/technology release candidate: shared metadata screening recognizes commercial market wording and production-setting robotics/automation/UV-C. This addresses the source-reviewed BelOrta market and Bogaerts strawberry platform misses without publisher/URL exemptions, new queries or body acquisition on browse. All four crops and unknown publishers use the same context; currant/cranberry-only and consumer visitor controls remain excluded, while production picking robots are distinct from outings. The 55-route catalog and 12/6 refresh budgets are unchanged. Actual production recovery remains a coordinated-release verification, never a rescore of frozen pilot misses. See NEWS-MARKET-TECHNOLOGY-2026-11-13.md.
-
