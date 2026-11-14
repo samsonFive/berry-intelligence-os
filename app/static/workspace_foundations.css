@@ -1,0 +1,55 @@
+/* Shared chrome for Landscape and authored Workspaces. Their existing grid,
+   editing, account-layout and Reader controllers retain their behavior. */
+.berry-app, .lw-layout, .lw-quick-nav {
+  --workspace-green: #204f39; --workspace-line: #b9cbbd;
+  --workspace-tint: #f0f4ef; --workspace-header: #254b36;
+  --workspace-muted: #52695c;
+  --workspace-font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+body:has(#living-workspace) #digest-main { max-width: none; padding: 0; }
+.berry-app .berry-workspace-nav, .lw-quick-nav {
+  box-sizing: border-box; min-height: 34px; max-width: 1888px;
+  margin: 8px 16px 0; padding: 4px 10px;
+  background: var(--workspace-green); font: 12px/1.5 var(--workspace-font);
+}
+.lw-layout { grid-template-columns: 160px minmax(500px, 1fr) 230px; gap: 10px; margin-top: 8px; padding-inline: 16px; }
+.berry-app .berry-sheet-toolbar, .lw-layout .lw-view-tools {
+  gap: 6px 8px; padding: 6px 8px; border: 1px solid var(--workspace-line);
+  border-radius: 4px; background: var(--workspace-tint);
+  font: 12px/1.4 var(--workspace-font);
+}
+.berry-app .berry-sheet-toolbar :is(button, input, select, summary),
+.lw-layout .lw-view-tools :is(button, input, select) {
+  box-sizing: border-box; min-height: 28px; border-color: var(--workspace-line);
+  border-radius: 4px; font: 12px/1.4 var(--workspace-font);
+}
+.berry-app .berry-sheet-toolbar button[aria-pressed='true'],
+.lw-layout .lw-view-tools button[aria-pressed='true'] { background: var(--workspace-green); color: #fff; }
+.berry-app .berry-sheet-feedback, .lw-layout #lw-layout-status { color: var(--workspace-muted); font-size: 11px; }
+.berry-app .berry-sheet-feedback { margin-left: auto; }
+.berry-app .berry-roster-grid .ag-header, .lw-layout .lw-research-grid th {
+  background: var(--workspace-header); color: #fff;
+  font: 700 11px/1.25 var(--workspace-font); letter-spacing: .025em; text-transform: uppercase;
+}
+.berry-app .berry-roster-grid .ag-cell, .lw-layout .lw-research-grid td {
+  padding: 5px 7px; font: 12px/1.35 var(--workspace-font);
+}
+.berry-app .berry-roster-grid .ag-cell { border-right-color: var(--workspace-line); }
+.lw-layout .lw-research-grid td { border-color: var(--workspace-line); }
+.lw-quick-return { border-right: 1px solid #ffffff50; margin-right: 5px; }
+/* The original breadcrumb remains the no-script fallback. */
+body:has(.lw-quick-return) .workspace-breadcrumbs[aria-label='Investigation return'] { display: none; }
+.berry-app .berry-overview-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.berry-app .berry-overview-heading .berry-readout-title { margin: 0; }
+.berry-app .berry-overview-lead { margin: 3px 0 0; font-size: 12px; line-height: 1.4; }
+.berry-app .berry-overview-lead .berry-inline-citations { display: inline-flex; margin-left: 6px; }
+.berry-app .berry-overview-content { margin-top: 6px; }
+.berry-app .berry-overview-content[hidden] { display: none; }
+@media (min-width: 1952px) { .berry-app .berry-workspace-nav, .lw-quick-nav { margin-inline: auto; } }
+@media (max-width: 1300px) { .lw-layout { grid-template-columns: 150px minmax(0, 1fr); } }
+@media (max-width: 850px) {
+  .berry-app .berry-workspace-nav, .lw-quick-nav { margin-inline: 8px; }
+  .lw-layout { display: block; padding-inline: 8px; }
+  .lw-quick-nav .lw-quick-title { display: none; }
+  .berry-app .berry-sheet-feedback { margin-left: 0; }
+}

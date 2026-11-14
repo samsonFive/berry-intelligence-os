@@ -240,7 +240,10 @@
   }
   let quickNavObserver;
   const quickNavSizer=new ResizeObserver(()=>{const header=document.querySelector('.glass-header'),nav=$('lw-quick-nav');document.documentElement.style.setProperty('--lw-nav-top',(header?.getBoundingClientRect().height||0)+'px');document.documentElement.style.setProperty('--lw-jump-offset',((header?.getBoundingClientRect().height||0)+nav.getBoundingClientRect().height+14)+'px');});quickNavSizer.observe(document.querySelector('.glass-header'));quickNavSizer.observe($('lw-quick-nav'));
-  function renderQuickNav(){const nav=$('lw-quick-nav');nav.hidden=false;nav.replaceChildren();quickNavObserver?.disconnect();const title=el('span',page.title,'lw-quick-title');nav.append(title);const targets=[['Overview','lw-overview'],['Research','lw-blocks']];
+  function renderQuickNav(){const nav=$('lw-quick-nav');nav.hidden=false;nav.replaceChildren();quickNavObserver?.disconnect();
+    const returnHref=new URL(workspaceHref('/workspaces'),location.origin).searchParams.get('return_to');
+    if(returnHref){const back=el('a',new URL(returnHref,location.origin).pathname==='/app/landscape'?'← Landscape':'← Investigation','lw-quick-return');back.href=returnHref;back.setAttribute('aria-label','Return to investigation');nav.append(back);}
+    const title=el('span',page.title,'lw-quick-title');nav.append(title);const targets=[['Overview','lw-overview'],['Research','lw-blocks']];
     if(page.landscape_links?.length){document.querySelector('.lw-landscape-links').id='lw-landscape-section';targets.push(['Landscapes','lw-landscape-section']);}
     [['Entities','entity'],['Connections','map']].forEach(([label,type])=>{const block=page.blocks.find(b=>b.type===type);if(block)targets.push([label,block.id]);});targets.push(['Coverage','lw-coverage']);
     const links=[];targets.forEach(([label,id])=>{const link=el('a',label);link.href='#'+id;link.onclick=event=>{event.preventDefault();if(id==='lw-overview'&&$('lw-overview-toggle').getAttribute('aria-expanded')==='false')$('lw-overview-toggle').click();revealBlock(id);const target=$(id);target?.scrollIntoView({block:'start'});if(target){target.tabIndex=-1;target.focus({preventScroll:true});}history.replaceState(null,'','#'+id);links.forEach(a=>a.removeAttribute('aria-current'));link.setAttribute('aria-current','location');};nav.append(link);links.push(link);});

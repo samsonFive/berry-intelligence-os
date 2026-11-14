@@ -16,12 +16,12 @@ export function WorkspaceNavigation() {
   const { pathname } = useLocation();
   const landscape = pathname === '/app/landscape';
   const title = landscape ? 'Berry landscape' : pathname.startsWith('/app/learn') ? 'Learn'
-    : pathname === '/app/briefing' ? 'Briefing' : 'Investigation tools';
+    : pathname === '/app/briefing' ? 'Briefing' : 'Save / export';
   return <nav className="berry-workspace-nav" aria-label="Workspace quick navigation">
     <span className="berry-workspace-nav-title">{title}</span>
     <div>{landscape ? LANDSCAPE_VIEWS.map(view => <button type="button" key={view.id}
       aria-pressed={context.lens === view.id} onClick={() => dispatch(view.id === 'sensory' ? { type: 'replaceContext', context: brandFlavorContext(context), origin: 'direct' } : { type: 'setLens', lens: view.id, origin: 'direct' })}>{view.label}</button>)
-      : <><Link to={investigationHref('/app/landscape', context)}>Landscape</Link><a href={legacyHref('/workspaces', pathname, context)}>Research pages</a></>}
+      : <><Link to={investigationHref('/app/landscape', context)}>Landscape</Link><a href={legacyHref('/workspaces', pathname, context)}>Workspaces</a></>}
     </div>
   </nav>;
 }

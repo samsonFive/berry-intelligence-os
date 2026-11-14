@@ -24,6 +24,14 @@ import './landscape-workspace.css';
 import { InvestigationScopeBar } from '../../components/InvestigationScopeBar';
 import { LANDSCAPE_VIEWS as LENSES } from '../../components/WorkspaceChrome';
 
+const RAIL_PREFERENCES = 'berry:landscape:developments';
+function restoredRails(): Partial<Record<Lens, boolean>> {
+  try {
+    const stored: unknown = JSON.parse(sessionStorage.getItem(RAIL_PREFERENCES) ?? '{}');
+    if (!stored || typeof stored !== 'object' || Array.isArray(stored)) return {};
+    return Object.fromEntries(Object.entries(stored).filter(([key, value]) => LENSES.some(lens => lens.id === key) && typeof value === 'boolean'));
+  } catch { return {}; }
+}
 
 
 /** Module keys describe domain inputs, not unrelated panel or router revisions. */
@@ -289,7 +297,8 @@ export function LandscapePage() {
   const model = query.data?.data;
   const readinessKey = serializeInvestigation({ ...context, detail_path: '', saved_view_id: '', saved_revision: '' });
   const [readyParts, setReadyParts] = useState({ key: '', field: false, rail: false });
-  const [railPreferences, setRailPreferences] = useState<Partial<Record<Lens, boolean>>>({});
+  const [railPreferences, setRailPreferences] = useState(restoredRails);
+  const [overviewExpanded, setOverviewExpanded] = useState(false);
   const fieldReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.field === ready ? previous
     : { key: readinessKey, field: ready, rail: previous.key === readinessKey ? previous.rail : false }), [readinessKey]);
   const railReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.rail === ready ? previous
@@ -309,10 +318,15 @@ export function LandscapePage() {
         : query.isError ? <EmptyState title="This landscape could not be loaded" action={<Button onClick={() => { void query.refetch(); }}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The read service is unavailable.'}</EmptyState>
           : model && <>
             {!!query.data?.issues.length && <div className="berry-issue">{query.data.issues.map((issue, index) => <p key={index}>{issue.message}</p>)}</div>}
-            {context.lens !== 'news' && model.findings.length > 0 && <section className="berry-readout" aria-labelledby="scope-readout-heading"><h2 className="berry-readout-title berry-sr-only" id="scope-readout-heading">Scope highlights</h2>
-              <div className="berry-findings">{model.findings.slice(0, 3).map(finding => <article className="berry-finding" key={finding.id}><p>{finding.text}</p><div className="berry-inline-citations">{finding.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</div></article>)}</div>
+            {context.lens !== 'news' && model.findings.length > 0 && <section className="berry-readout" aria-labelledby="scope-readout-heading">
+              <div className="berry-overview-heading"><h2 className="berry-readout-title" id="scope-readout-heading">Scope highlights</h2><Button size="small" variant="ghost" aria-expanded={overviewExpanded} aria-controls="landscape-overview-content" onClick={() => setOverviewExpanded(value => !value)}>{overviewExpanded ? 'Collapse overview' : 'Expand overview'}</Button></div>
+              {!overviewExpanded && <p className="berry-overview-lead">{model.findings[0].text}<span className="berry-inline-citations">{model.findings[0].evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</span></p>}
+              <div id="landscape-overview-content" className="berry-findings berry-overview-content" hidden={!overviewExpanded}>{model.findings.slice(0, 3).map(finding => <article className="berry-finding" key={finding.id}><p>{finding.text}</p><div className="berry-inline-citations">{finding.evidence_ids.map(id => <Citation key={id} id={id} source={model.sources.find(source => source.id === id)} />)}</div></article>)}</div>
             </section>}
-            <div className="berry-investigation-tools lw-view-tools berry-landscape-tools" role="group" aria-label="Landscape research tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} />{context.lens !== 'news' && <Button size="small" variant="ghost" aria-expanded={needsRail} aria-controls="landscape-developments" onClick={() => setRailPreferences(previous => ({ ...previous, [context.lens]: !needsRail }))}>Developments</Button>}<SubjectSelector model={model} /></div>
+            <div className="berry-investigation-tools lw-view-tools berry-landscape-tools" role="group" aria-label="Landscape research tools"><label className="berry-company-set">Roster &amp; News<select value={context.company_set} onChange={event => dispatch({ type: 'setCompanySet', company_set: event.target.value as InvestigationContext['company_set'], origin: 'direct' })}><option value="all">All companies</option><option value="watched">Shared watched companies</option></select></label><CohortTray model={model} />{context.lens !== 'news' && <Button size="small" variant="ghost" aria-expanded={needsRail} aria-controls="landscape-developments" onClick={() => {
+              const next = { ...railPreferences, [context.lens]: !needsRail }; setRailPreferences(next);
+              try { sessionStorage.setItem(RAIL_PREFERENCES, JSON.stringify(next)); } catch { /* Display still works when browser storage is unavailable. */ }
+            }}>Developments</Button>}<SubjectSelector model={model} /></div>
             <div className={`berry-analysis-layout${!needsRail ? ' berry-analysis-layout--full' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
               {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} />}
               {context.lens === 'portfolio' && <><div className="berry-section-heading"><h2>Cultivar portfolio</h2></div><BerryDataGrid model={model} onReady={fieldReady} /></>}

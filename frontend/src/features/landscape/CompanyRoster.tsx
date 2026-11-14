@@ -213,7 +213,8 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
       columns={{ columns: COMPANY_ROSTER_COLUMNS.map(column => ({ id: column.colId, label: column.label, locked: column.lockedVisible })),
         visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility, onReload: layout.reloadSavedLayout,
         actionDisabled: blocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
-      reset={{ onClick: resetLayout, disabled: blocked || !gridMounted }} />
+      reset={{ onClick: resetLayout, disabled: blocked || !gridMounted }}
+      feedback={layout.status.phase === 'saved' ? 'Layout saved to account' : layout.status.phase === 'ready' && layout.status.restored ? 'Saved layout restored' : undefined} />
     <div className="berry-grid-layout-status berry-roster-layout-status" data-phase={layout.status.phase} hidden={!showLayoutStatus}><p role="status">{showLayoutStatus ? layout.status.message : ''}</p></div>
     {!!roster.unavailable_watch_count && <p className="berry-issue">{roster.unavailable_watch_count} shared watched identities are unavailable; no replacement identity has been selected.</p>}
     {tierReceipt && <p className="berry-roster-tier-receipt" role="status">{tierReceipt}</p>}

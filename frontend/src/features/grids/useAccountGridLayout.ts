@@ -6,7 +6,7 @@ import type { ColumnCatalog, LayoutColumn, LoadedGridLayout } from './layout-cod
 import { captureGridLayout, restoredColumnState } from './grid-state';
 
 type Phase = 'loading' | 'ready' | 'pending' | 'saving' | 'saved' | 'local' | 'conflict' | 'error';
-interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: number }
+interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: number; restored?: boolean }
 const initial: LayoutStatus = { phase: 'loading', message: 'Loading your saved grid layout…', retainedUnknownColumns: 0 };
 
 /** Account preferences are independent of investigation state and never dispatch it. */
@@ -65,7 +65,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     // This is still restoration, so fitting never writes a layout preference.
     if (fitDefaultColumns && loaded.status === 'default') grid.sizeColumnsToFit();
     restoring.current = false; writable.current = loaded.writable; retained.current = loaded.retainedUnknownColumns;
-    setStatus({ phase: loaded.writable ? 'ready' : 'local', retainedUnknownColumns: loaded.retainedUnknownColumns,
+    setStatus({ phase: loaded.writable ? 'ready' : 'local', retainedUnknownColumns: loaded.retainedUnknownColumns, restored: loaded.status === 'restored',
       message: loaded.status === 'legacy-unmapped'
         ? 'An earlier layout cannot be matched safely. It remains saved. Showing default columns; changes stay in this tab.'
         : loaded.status === 'restored' ? 'Saved grid layout restored.' : 'Default grid layout. Display changes save automatically.' });
