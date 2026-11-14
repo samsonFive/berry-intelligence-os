@@ -8,6 +8,15 @@
     <p><span class="badge v2-mark-pending">{{ dossier.commercial_status }}</span> · Checked {{ dossier.checked_on }}</p>
     {% if dossier.issue %}<p role="note"><strong>Needs verification:</strong> {{ dossier.issue }}</p>{% endif %}
     <p>{{ dossier.summary }}</p>
+    {% if dossier.report_url %}<p><a href="{{ dossier.report_url }}">Read the complete variety report and download its PDF →</a></p>{% endif %}
+    {% if dossier.findings %}
+    <h4>Source findings</h4>
+    <div class="company-table-scroll variety-profile-table-scroll" tabindex="0" aria-label="Source-attributed research findings"><table class="variety-data-sheet">
+      <thead><tr><th scope="col" data-width="180">Topic</th><th scope="col" data-width="930">Available detail</th><th scope="col" data-width="280">Sources</th></tr></thead>
+      <tbody>{% for finding in dossier.findings %}<tr><th scope="row">{{ finding.topic }}</th><td>{{ finding.value }}</td><td>{% for url in finding.source_urls %}<a href="{{ url }}" target="_blank" rel="noopener noreferrer">Source {{ loop.index }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>{% endfor %}</tbody>
+    </table></div>
+    {% endif %}
+    {% if dossier.gaps %}<details><summary>Open questions and research capture</summary><ul>{% for gap in dossier.gaps %}<li><strong>{{ gap.topic }}:</strong> {{ gap.missing_information }}{% if gap.capture_path %}<br>Capture: {{ gap.capture_path }}{% endif %}{% if gap.review_needed %}<br>Review: {{ gap.review_needed }}{% endif %}</li>{% endfor %}</ul></details>{% endif %}
     {% if dossier.aliases %}<p><strong>Source-reported names / proposed aliases:</strong> {{ dossier.aliases|join(' · ') }}. These do not alter the catalog’s reviewed identity.</p>{% endif %}
     <h4>Commercial entities and contacts</h4>
     {% if dossier.commercial_contacts %}
