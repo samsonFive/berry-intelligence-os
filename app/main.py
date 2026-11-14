@@ -10599,6 +10599,8 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
     for berry_id in ([] if draft.get("catalog_handoff") else enrichment.get("suggested_berry_ids") or []):
         if berry_id and berry_id not in berries:
             berries.append(berry_id)
+    saved_values = draft.get("publication_review_values") or {}
+    saved_varieties = saved_values.get("varieties") if isinstance(saved_values, dict) else None
     return {
         "title": decode_html_text(draft.get("title", "")),
         "source_type": draft.get("source_type", ""),
@@ -10610,7 +10612,8 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         "why_it_matters": decode_html_text(why),
         "tags": ", ".join(tags),
         "companies": ", ".join(draft.get("suggested_competitors", [])),
-        "varieties": ", ".join(draft.get("suggested_varieties", [])),
+        "varieties": saved_varieties if isinstance(saved_varieties, str) else ", ".join(draft.get("suggested_varieties", [])),
+        "varieties_reviewed": isinstance(saved_varieties, str),
         "retailers": ", ".join(draft.get("suggested_retailers", [])),
         "geographies": ", ".join(draft.get("suggested_geographies", [])),
         "berries": berries,
@@ -10671,7 +10674,7 @@ def _review_context(
             values["geographies"] = ", ".join(
                 _names(list(draft.get("geography_ids") or []) + list(draft.get("entity_ids") or []), "geography")
             )
-        if not values.get("varieties"):
+        if not values.get("varieties") and not values.get("varieties_reviewed"):
             values["varieties"] = ", ".join(_names(list(draft.get("entity_ids") or []), "variety"))
         if not values.get("retailers"):
             values["retailers"] = ", ".join(_names(list(draft.get("entity_ids") or []), "retailer"))
@@ -10861,6 +10864,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         "tags": field("tags"),
         "companies": field("companies"),
         "varieties": field("varieties"),
+        "varieties_reviewed": True,
         "retailers": field("retailers"),
         "geographies": field("geographies"),
         "berries": selected_berries,
@@ -11204,6 +11208,11 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
     draft["summary"] = field("summary").strip() or draft.get("summary")
     draft["why_it_matters"] = field("why_it_matters").strip()
     draft["tags"] = split_list(field("tags"))
+    if draft.get("evidence_role") != "atomic_evidence" and "varieties" in form:
+        saved_values = draft.get("publication_review_values")
+        saved_values = dict(saved_values) if isinstance(saved_values, dict) else {}
+        saved_values["varieties"] = field("varieties").strip()
+        draft["publication_review_values"] = saved_values
     berries = [value for value in form.getlist("berries") if isinstance(value, str)]
     if berries:
         draft["berry_ids"] = berries

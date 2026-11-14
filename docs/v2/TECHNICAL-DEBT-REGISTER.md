@@ -4188,3 +4188,14 @@ exact-account references were unclassified. No new metered retrieval or runtime
 work is authorized by this documentation closeout.
 
 November 13 News metadata debt: two newly frozen reports exposed commercial-market and crop-technology vocabulary gaps across collection and News projection. Shared recognition and picking-consumer parity now have source-shaped collection/display regressions, but production recovery still requires coordinated deployment and exact-link checks. Metadata-only screening still cannot discover every body-only crop milestone, resolve unknown original publication dates or establish source independence. The four held historical cases, deeper/public-record archives, blocked publishers and prospective human/event/time denominators remain open; no definitive/global coverage or new pilot recall credit is implied. Owner: News source operations and coordinated release owner. See NEWS-MARKET-TECHNOLOGY-2026-11-13.md.
+
+### TD-PUBLICATION-VARIETY-PREFILL-001 — preserve deliberate name review
+
+Implementation prepared, pending release. Publication Review's heuristic could
+prefill descriptive words as a variety and omit real selection codes. Clearing
+the field and saving did not preserve the correction. Unknown names now remain
+qualified candidates with source spans and text basis, requiring explicit use or
+manual entry. Saved edits and explicit clearing survive reopen. Existing stored
+names and human publication/Atomic review gates remain intact. Focused and
+integration regressions pass; source capture and event-level recall remain open.
+See `PUBLICATION-VARIETY-REVIEW-REPAIR-2026-11-14.md`.
