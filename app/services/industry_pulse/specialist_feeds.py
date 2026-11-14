@@ -379,6 +379,9 @@ class SpecialistRssProvider:
         if feed.get('adapter') == 'german_listing':
             from app.services.industry_pulse.german_publisher import listing_hits
             return listing_hits(query, fetch=self.fetch)
+        if feed.get('adapter') == 'japanese_notices':
+            from app.services.industry_pulse.japanese_notices import listing_hits
+            return listing_hits(query, fetch=self.fetch)
         from app.services.publisher_coverage import cached_articles
         direct = cached_articles(self.coverage_dir, query.id)
         try:

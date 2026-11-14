@@ -7,9 +7,10 @@ FRENCH = 'myrtille OR myrtilles OR bleuet OR bleuets OR fraise OR fraises OR fra
 ARABIC = 'الفراولة OR الفريز OR "التوت الأزرق" OR "توت العليق" OR "التوت الأسود"'
 GERMAN = 'Heidelbeere OR Heidelbeeren OR Erdbeere OR Erdbeeren OR Himbeere OR Himbeeren OR Brombeere OR Brombeeren'
 
-# Public-feed transport and publication dates checked November 11, 2026.
+# Initial public feeds checked November 11; WSJ replacement checked November 14, 2026.
 # General feeds complement seven-day crop searches: no-hit checks are not recall.
 DIRECT = (
+ ('wsj-business','The Wall Street Journal','wsj.com','global','en-US','US','en','https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness'),
  ('nyt','The New York Times','nytimes.com','global','en-US','US','en','https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'),
  ('diario-huelva','Diario de Huelva','diariodehuelva.es','europe','es-ES','ES','es','https://www.diariodehuelva.es/rss/'),
  ('huelva-hoy','Huelva Hoy','huelvahoy.com','europe','es-ES','ES','es','https://www.huelvahoy.com/rss/'),
@@ -63,10 +64,14 @@ def expanded_publisher_feeds():
                 rows[-1]['access_note']='Latest ten Agroinfo entries include attributed reporting; ministry hosting does not establish that every claim is a primary administrative record. Serbian original retained when no local translation model is available.'
             if key == 'france-food':
                 rows[-1]['access_note']='Official food-category RSS, latest 20 notices. Shallow window; earlier notices require archive review. French mûre alone is ambiguous and does not assign blackberry.'
+            if key == 'wsj-business':
+                rows[-1]['access_note']='Public publisher business RSS metadata only, bounded to 150 entries. No licensed article-body access, full publisher coverage or eligible berry-event claim.'
     from app.services.industry_pulse.public_record_feeds import FSA_FEED
     rows.append(dict(FSA_FEED))
     from app.services.industry_pulse.official_listings import official_listing_feeds
     rows.extend(official_listing_feeds())
     from app.services.industry_pulse.german_publisher import FEED as german_feed
     rows.append(dict(german_feed))
+    from app.services.industry_pulse.japanese_notices import FEED as japanese_feed
+    rows.append(dict(japanese_feed))
     return rows
