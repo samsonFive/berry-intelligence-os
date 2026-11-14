@@ -66,6 +66,7 @@ def test_report_preview_and_exact_pdf_download(library):
     _, html, pdf, client = library
     page = client.get("/reports/library/test-variety")
     assert page.status_code == 200
+    assert page.headers["cache-control"] == "private, no-store"
     assert '<iframe' in page.text
     assert 'src="/reports/library/test-variety/document"' in page.text
     assert 'title="Finished variety report report"' in page.text

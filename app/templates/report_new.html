@@ -1,5 +1,6 @@
 {% extends "briefings_base.html" %}
 {% block title %}New report — Berry Intelligence{% endblock %}
+{% block briefing_head %}<link rel="stylesheet" href="/static/company_news_builder.css?v=1">{% endblock %}
 {% block briefing_content %}
 <div class="sh-page v2-page">
 <section class="sh-header page-heading v2-page-header">
@@ -11,6 +12,11 @@
 </section>
 
 {% if step == 'start' %}
+<section class="report-news-preset" aria-labelledby="company-news-preset">
+  <p class="sh-kicker">Company research</p>
+  <h2 id="company-news-preset"><a href="/reports/new?report_type=company_news_review">Company news review →</a></h2>
+  <p>Research a company list across fixed dates, starting with platform sources and filling gaps from the web. Review the findings, then download the report and Excel file.</p>
+</section>
 {% if not handoff_company_names and handoff_origin != 'landscape' %}
 <form class="sh-search-form filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="interpret">

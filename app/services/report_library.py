@@ -85,6 +85,9 @@ def _present(root: Path, entry: Any) -> dict[str, Any] | None:
     assets = {"html": html, "pdf": pdf}
     if xlsx is not None:
         assets["xlsx"] = xlsx
+    reader = _asset(root, files.get("reader"), ".json")
+    if reader is not None:
+        assets["reader"] = reader
     slug = entry["id"]
     href = f"/reports/library/{slug}"
     return {

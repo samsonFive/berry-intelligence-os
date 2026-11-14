@@ -1,0 +1,175 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}{{ company_view.current_company.name ~ ' · ' if company_view.current_company else '' }}{{ report.title }} · Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/briefings_workspace.css?v=14"><link rel="stylesheet" href="/static/company_report_reader.css?v=1">{% endblock %}
+{% block content %}
+{% set current = company_view.current_company %}
+<div class="briefings-workspace company-report-reader" data-company-report-reader>
+  <div class="reader-context">
+    <nav aria-label="Report location"><a href="/briefings">Reports & Briefings</a><span aria-hidden="true">/</span><a href="/reports#finished-reports">Research reports</a></nav>
+    {% if reader.is_working %}<span class="reader-draft-mark">Working draft · review before sharing</span>{% endif %}
+  </div>
+  <header class="reader-masthead">
+    <div>
+      <h1>{{ report.title }}</h1>
+      <p><span class="reader-report-subtitle">{{ reader.subtitle }}</span>{% if reader.as_of %}<span class="reader-meta-divider">·</span><span class="reader-as-of">As of {{ reader.as_of|us_date }}</span>{% endif %}</p>
+    </div>
+    <div class="reader-export-actions" aria-label="Report downloads">
+      {% if report.download_href %}<a href="{{ report.download_href }}" download aria-label="Download PDF">↓ PDF</a>{% endif %}
+      {% if report.xlsx_download_href %}<a href="{{ report.xlsx_download_href }}" download aria-label="Download Excel">↓ Excel</a>{% endif %}
+      {% if report.edit_href %}<a href="{{ report.edit_href }}">Edit report</a>{% endif %}
+    </div>
+  </header>
+  {% if working_review %}{% include '_company_news_controls.html' %}{% endif %}
+  <a class="reader-skip-contents" href="#report-reading">Skip company contents and read the report</a>
+
+  <div class="reader-mobile-navigation">
+    <form method="get" action="{{ report.href }}#report-reading"{% if current %} class="reader-mobile-current"{% endif %} data-reader-jump>
+      <label for="reader-mobile-company">Reading</label>
+      {% if current %}{% if company_view.previous_company %}<a class="reader-mobile-step" href="{{ report.href }}?company={{ company_view.previous_company.key }}#company-reading" rel="prev" aria-label="Previous company: {{ company_view.previous_company.name }}">←</a>{% else %}<span class="reader-mobile-step" aria-disabled="true">←</span>{% endif %}{% endif %}
+      <select id="reader-mobile-company" name="company" aria-label="Choose a company">
+        <option value="">Report overview</option>
+        {% for company in reader.companies %}<option value="{{ company.key }}"{% if current and current.key == company.key %} selected{% endif %}>{{ company.position }}/{{ reader.company_count }} · {{ company.name }}</option>{% endfor %}
+      </select>
+      <button type="submit" data-reader-jump-submit>Go</button>
+      {% if current %}{% if company_view.next_company %}<a class="reader-mobile-step" href="{{ report.href }}?company={{ company_view.next_company.key }}#company-reading" rel="next" aria-label="Next company: {{ company_view.next_company.name }}">→</a>{% else %}<span class="reader-mobile-step" aria-disabled="true">→</span>{% endif %}{% endif %}
+    </form>
+  </div>
+
+  <div class="reader-layout">
+    <aside class="reader-company-rail" aria-label="Report contents">
+      <a class="reader-overview-link" href="{{ report.href }}"{% if not current and not company_view.unknown_company %} aria-current="page"{% endif %}>Report overview</a>
+      <div class="reader-rail-search">
+        <label for="reader-company-search">Find a company</label>
+        <input id="reader-company-search" type="search" placeholder="Company name" autocomplete="off" data-reader-company-search>
+      </div>
+      <p class="reader-rail-count" data-reader-company-count aria-live="polite">{{ reader.company_count }} companies</p>
+      <nav class="reader-company-links" aria-label="Companies in this report">
+        {% for company in reader.companies %}
+        <a class="reader-company-link" href="{{ report.href }}?company={{ company.key }}#company-reading" data-reader-company="{{ company.name|lower }}"{% if current and company.key == current.key %} aria-current="page"{% endif %}>
+          <span>{{ company.name }}</span><small aria-label="{{ company.story_count }} findings and leads">{{ company.story_count }}</small>
+        </a>
+        {% endfor %}
+      </nav>
+      <p class="reader-no-company" data-reader-no-company hidden>No matching company.</p>
+    </aside>
+
+    <div class="reader-main" id="report-reading" role="region" aria-label="Report reading">
+      {% if company_view.unknown_company %}
+      <div class="reader-notice" role="status">That company is not part of this saved report. Choose a company from the contents.</div>
+      {% endif %}
+      {% if current %}
+      <nav class="reader-position" aria-label="Company navigation">
+        <span>Company <strong>{{ current.position }}</strong> of {{ reader.company_count }}</span>
+        <div>
+          {% if company_view.previous_company %}<a href="{{ report.href }}?company={{ company_view.previous_company.key }}#company-reading" rel="prev" aria-label="Previous company: {{ company_view.previous_company.name }}">← Previous</a>{% else %}<span aria-disabled="true">← Previous</span>{% endif %}
+          {% if company_view.next_company %}<a href="{{ report.href }}?company={{ company_view.next_company.key }}#company-reading" rel="next" aria-label="Next company: {{ company_view.next_company.name }}">Next →</a>{% else %}<span aria-disabled="true">Next →</span>{% endif %}
+        </div>
+      </nav>
+      <article class="reader-company-article" id="company-reading">
+        <header class="reader-company-heading">
+          <p class="reader-eyebrow">Company review</p>
+          <h2>{{ current.name }}</h2>
+          {% if current.canonical_name and current.canonical_name != current.name %}<p class="reader-company-canonical">Directory name: {{ current.canonical_name }}</p>{% endif %}
+          {% if current.overview and current.overview != current.status and (not current.stories or current.overview != current.stories[0].headline) %}<p class="reader-company-takeaway">{{ current.overview }}</p>{% endif %}
+          {% if current.status %}<p class="reader-editorial-position"><span>{{ 'Identity' if current.identity_label else 'Editorial position' }}</span>{{ current.status }}</p>{% endif %}
+        </header>
+        {% if current.stories %}
+        <div class="reader-stories" aria-label="Findings and reporting leads">
+          {% for story in current.stories %}
+          <section class="reader-story{% if loop.first %} reader-story-leading{% endif %}{% if story.included is sameas false %} reader-story-lead{% endif %}" id="{{ story.key }}">
+            <div class="reader-story-heading">
+              <span class="reader-story-number" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+              <div>
+                {% if story.entry_type or story.review_status or story.analyst_edited %}<p class="reader-story-state">{% if story.entry_type == 'lead' %}Reporting lead{% elif story.entry_type %}Development{% endif %}{% if story.included is sameas false %} · Not included in report{% endif %}{% if story.review_status %} · {{ story.review_status|replace('_', ' ') }}{% endif %}{% if story.analyst_edited %} · Analyst edited{% endif %}</p>{% endif %}
+                <h3>{{ story.headline }}</h3>
+                {% if story.edit_href %}<a class="reader-entry-review" href="{{ story.edit_href }}">Review / edit finding</a>{% endif %}
+              </div>
+            </div>
+            {% if story.publication_date or story.event_date %}
+            <dl class="reader-story-dates">
+              {% if story.publication_date %}<div><dt>Published</dt><dd>{{ story.publication_date|us_date }}</dd></div>{% endif %}
+              {% if story.event_date %}<div><dt>Event timing</dt><dd>{{ story.event_date }}</dd></div>{% endif %}
+            </dl>
+            {% endif %}
+            {% if story.summary %}<div class="reader-story-summary reader-prose">{{ story.summary }}</div>{% endif %}
+            {% if story.why_it_matters %}<p class="reader-story-angle"><strong>Why it matters</strong>{{ story.why_it_matters }}</p>{% endif %}
+            {% if story.caveat %}<aside class="reader-story-qualification" aria-label="Qualification"><strong>Qualification</strong><p>{{ story.caveat }}</p></aside>{% endif %}
+            {% if story.sources %}
+            <details class="reader-story-sources">
+              <summary>Supporting sources <span>{{ story.sources|length }}</span></summary>
+              <ol>
+                {% for source in story.sources %}
+                <li>
+                  {% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.label }} <span aria-hidden="true">↗</span></a>{% else %}<span>{{ source.label }}</span>{% endif %}
+                  {% if source.link_unavailable %}<small>Source link unavailable</small>{% endif %}
+                  {% if source.publication_date %}<small>Published {{ source.publication_date|us_date }}{% if source.publication_date_basis %} · {{ source.publication_date_basis|replace('_', ' ') }}{% endif %}</small>{% endif %}
+                  {% if source.origin or source.trust_class or source.capture_status %}<small>{% if source.origin %}{{ 'Platform archive' if source.origin == 'archive' else 'Public web' if source.origin == 'web' else source.origin }}{% endif %}{% if source.trust_class %} · {{ source.trust_class|replace('_', ' ') }}{% endif %}{% if source.capture_status %} · {{ source.capture_status|replace('_', ' ') }}{% endif %}</small>{% endif %}
+                  {% if source.excerpt %}<blockquote>{{ source.excerpt }}</blockquote>{% endif %}
+                </li>
+                {% endfor %}
+              </ol>
+            </details>
+            {% endif %}
+          </section>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="reader-empty-company">No qualifying development has been established for this company in the saved report. Read the research notes below for its recorded outcome.</p>
+        {% endif %}
+        {% if current.follow_up or current.notes or current.platform or current.excluded or current.archive_status or current.web_status %}
+        <section class="reader-company-notes">
+          <h3>Reporting notes</h3>
+          {% if current.follow_up %}<p class="reader-prose">{{ current.follow_up }}</p>{% endif %}
+          {% if current.archive_status or current.web_status %}<details class="reader-research-trace"><summary>Research coverage and notes</summary><dl>{% if current.archive_status %}<div><dt>Platform archive</dt><dd>{{ current.archive_status_label }}</dd></div>{% endif %}{% if current.web_status %}<div><dt>Public web</dt><dd>{{ current.web_status_label }}</dd></div>{% endif %}</dl><p>These outcomes describe this bounded search, not complete coverage of the company’s news.</p>{% if current.notes %}<ul>{% for note in current.notes %}<li>{{ note }}</li>{% endfor %}</ul>{% endif %}</details>{% elif current.notes %}<ul>{% for note in current.notes %}<li>{{ note }}</li>{% endfor %}</ul>{% endif %}
+          {% if current.platform %}<details><summary>What the platform contained</summary><p class="reader-prose">{{ current.platform }}</p></details>{% endif %}
+          {% if current.excluded %}<details><summary>Outside scope or excluded</summary><p class="reader-prose">{{ current.excluded }}</p></details>{% endif %}
+        </section>
+        {% endif %}
+      </article>
+      <nav class="reader-bottom-navigation" aria-label="Continue reading">
+        <a href="{{ report.href }}">← Report overview</a>
+        {% if company_view.next_company %}<a href="{{ report.href }}?company={{ company_view.next_company.key }}#company-reading" rel="next">{{ company_view.next_company.name }} →</a>{% endif %}
+      </nav>
+      {% else %}
+      <section class="reader-overview" aria-labelledby="reader-overview-heading">
+        <p class="reader-eyebrow" id="reader-overview-heading">{{ reader.overview_label }}</p>
+        {% if reader.executive %}
+        <article class="reader-lead-finding">
+          <h2>{{ reader.executive[0].title }}</h2>
+          <p class="reader-prose">{{ reader.executive[0].body }}</p>
+        </article>
+        {% if reader.executive|length > 1 %}
+        <div class="reader-secondary-findings">
+          {% for finding in reader.executive[1:3] %}
+          <article><span aria-hidden="true">{{ '%02d'|format(loop.index + 1) }}</span><div><h3>{{ finding.title }}</h3><p class="reader-prose">{{ finding.body }}</p></div></article>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="reader-no-findings"><h2>Research is ready to review company by company</h2><p>Choose a company below to see its findings, leads or recorded research outcome.</p></div>
+        {% endif %}
+      </section>
+      <section class="reader-company-guide" aria-labelledby="reader-guide-heading">
+        <header><h2 id="reader-guide-heading">Company by company</h2><p>Read the finding, its qualification and the supporting sources.</p></header>
+        <ol>
+          {% for company in reader.companies %}
+          <li data-reader-guide-company="{{ company.name|lower }}"><a href="{{ report.href }}?company={{ company.key }}#company-reading"><span class="reader-guide-number" aria-hidden="true">{{ '%02d'|format(company.position) }}</span><strong>{{ company.name }}</strong><span class="reader-guide-takeaway">{{ company.overview or 'Read company review' }}</span><small>{{ company.status }}</small><span class="reader-guide-arrow" aria-hidden="true">→</span></a></li>
+          {% endfor %}
+        </ol>
+        <p data-reader-no-guide hidden>No matching company. Clear the company search to see the full report.</p>
+      </section>
+      <details class="reader-scope-notes" id="scope-and-notes">
+        <summary>Scope, method and coverage qualifications</summary>
+        {% if reader.scope %}<p class="reader-prose">{{ reader.scope }}</p>{% endif %}
+        {% for finding in reader.executive[3:] %}<h3>{{ finding.title }}</h3><p class="reader-prose">{{ finding.body }}</p>{% endfor %}
+        {% if reader.priorities %}<ul>{% for item in reader.priorities %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+        {% if reader.methodology %}<h3>Research method</h3><ul>{% for item in reader.methodology %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+        {% if reader.coverage_notes %}<h3>Coverage qualifications</h3><ul>{% for item in reader.coverage_notes %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+        <p class="reader-saved-counts">{{ reader.company_count }} companies · {{ reader.story_count }} saved findings and leads · {{ reader.source_count }} source references</p>
+      </details>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/company_report_reader.js?v=1" defer></script>{% endblock %}
