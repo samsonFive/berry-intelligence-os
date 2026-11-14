@@ -243,3 +243,23 @@ def test_unavailable_duplicate_in_private_catalog_does_not_shadow_valid_packaged
     private = _library(tmp_path / "private")
     (private / "assets/regina.pdf").unlink()
     assert list_combined_finished_reports([packaged, private]) == list_finished_reports(packaged)
+
+
+def test_coverage_attachments_use_confined_assets_and_computed_links(tmp_path):
+    root = _library(tmp_path)
+    (root / "assets/review.html").write_text("<h1>Coverage review</h1>", encoding="utf-8")
+    (root / "assets/review.xlsx").write_bytes(b"PKcoverage workbook")
+    _catalog(root, [_entry(files={"html": "assets/regina.html", "pdf": "assets/regina.pdf",
+        "coverage": "assets/review.html", "coverage_xlsx": "assets/review.xlsx"}, coverage_href="https://untrusted.test")])
+    row = get_finished_report(root, "regina-blackberry")
+    assert row["coverage_href"] == "/reports/library/regina-blackberry/coverage"
+    assert row["coverage_xlsx_href"] == "/reports/library/regina-blackberry/coverage.xlsx"
+    assert row["files"]["coverage"] == (root / "assets/review.html").resolve()
+
+
+@pytest.mark.parametrize("asset", ["../outside.html", "assets/regina.pdf", "C:outside.html", None])
+def test_invalid_coverage_attachment_preserves_finished_report(tmp_path, asset):
+    root = _library(tmp_path, [_entry(files={"html": "assets/regina.html", "pdf": "assets/regina.pdf", "coverage": asset})])
+    (tmp_path / "outside.html").write_text("Private unrelated content", encoding="utf-8")
+    row = get_finished_report(root, "regina-blackberry")
+    assert row is not None and row["coverage_href"] is None and "coverage" not in row["files"]

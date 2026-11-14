@@ -16,6 +16,7 @@
     <div class="reader-export-actions" aria-label="Report downloads">
       {% if report.download_href %}<a href="{{ report.download_href }}" download aria-label="Download PDF">↓ PDF</a>{% endif %}
       {% if report.xlsx_download_href %}<a href="{{ report.xlsx_download_href }}" download aria-label="Download Excel">↓ Excel</a>{% endif %}
+      {% if report.coverage_href %}<a href="{{ report.coverage_href }}">Coverage review</a>{% endif %}
       {% if report.edit_href %}<a href="{{ report.edit_href }}">Edit report</a>{% endif %}
     </div>
   </header>

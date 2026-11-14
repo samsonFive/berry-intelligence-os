@@ -13,6 +13,7 @@
       <a class="sh-btn" href="{{ report.html_href }}" target="_blank" rel="noopener">Open full page</a>
       <a class="sh-btn sh-btn-primary" href="{{ report.download_href }}" download>Download PDF</a>
       {% if report.xlsx_download_href %}<a class="sh-btn" href="{{ report.xlsx_download_href }}" download>Download Excel</a>{% endif %}
+      {% if report.coverage_href %}<a class="sh-btn" href="{{ report.coverage_href }}">Coverage review</a>{% endif %}
     </div>
   </header>
   <iframe class="finished-report-preview" src="{{ report.html_href }}" title="{{ report.title }} report" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>

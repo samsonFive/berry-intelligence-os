@@ -147,6 +147,54 @@ def test_same_url_archive_web_duplicate_preserves_archive_trust(tmp_path):
     assert len(result["entries"]) == 1
 
 
+def test_fresh_web_capture_keeps_existing_platform_metadata_pointer_without_promoting_trust(tmp_path):
+    archived = record("ev-existing-metadata", body=False)
+    archived.update(status="draft", captured_date="2026-11-09")
+    original = deepcopy(archived)
+    captured = record("web-new-body", url=archived["source_url"])
+    captured.update(support_status="body_supported", passage=captured["article"]["paragraphs"][0]["text"],
+        passage_locator="article:0", source_version="web-source-version", capture_status="full")
+    result = step(review(source_scope="combined"), [archived], tmp_path,
+        discoverer=lambda *a, **k: {"items": [captured], "status": "complete", "candidate_count": 1})
+    assert archived == original
+    assert len(result["sources"]) == len(result["entries"]) == 1
+    source = result["sources"][0]
+    assert source["origin"] == "web" and source["trust_class"] == "LIVE / UNREVIEWED"
+    assert source["evidence_id"] == "" and source["source_version"] == "web-source-version"
+    assert source["platform_matches"] == [{"record_id": "ev-existing-metadata", "trust_class": "PENDING / UNREVIEWED",
+        "archive_source_type": "stored_platform_source", "capture_channel": "stored_platform_record",
+        "source_version": "", "published_date": "2025-07-01", "publication_date_basis": "stored_publication_date",
+        "captured_date": "2026-11-09"}]
+    assert "already retained in the platform" in source["qualification"]
+    assert result["entries"][0]["included"]
+    assert not any(key in source["platform_matches"][0] for key in ("excerpt", "passage", "first_seen_at"))
+
+
+def test_two_full_same_url_sources_keep_platform_body_and_its_real_pointer(tmp_path):
+    archived = record("ev-full-existing")
+    captured = {**archived, "id": "web-copy", "support_status": "body_supported",
+        "passage": archived["article"]["paragraphs"][0]["text"], "passage_locator": "article:0",
+        "source_version": "fresh-version", "capture_status": "full"}
+    result = step(review(source_scope="combined"), [archived], tmp_path,
+        discoverer=lambda *a, **k: {"items": [captured], "status": "complete", "candidate_count": 1})
+    source = result["sources"][0]
+    assert len(result["sources"]) == 1 and source["origin"] == "archive"
+    assert source["evidence_id"] == "ev-full-existing" and source["source_version"] != "fresh-version"
+    assert [row["record_id"] for row in source["platform_matches"]] == ["ev-full-existing"]
+    assert source["platform_matches"][0]["trust_class"] == source["trust_class"]
+    assert "fresh capture is report-only" not in source["qualification"]
+
+
+def test_public_research_cache_is_not_a_canonical_platform_record_match(tmp_path):
+    cached = _cache_public(tmp_path, record("cached-research"))
+    result = step(review(), [], tmp_path)
+    source = result["sources"][0]
+    assert source["origin"] == "archive" and source["archive_source_type"] == "public_research_cache"
+    assert source["source_version"] == cached["source_version"]
+    assert source["evidence_id"] == "" and source["platform_matches"] == []
+    assert source["trust_class"] == "LIVE / UNREVIEWED"
+
+
 def test_completed_steps_do_not_refresh_or_clobber_analyst_edits(tmp_path):
     result = step(review(), [record()], tmp_path)
     result["entries"][0]["edits"] = {"headline": "Analyst headline", "summary": "Checked source statement", "source_ids": ["invented"]}

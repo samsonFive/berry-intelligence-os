@@ -54,6 +54,15 @@ asset. Valid company-report data uses the native reader; an absent or invalid
 optional reader leaves the existing HTML/PDF presentation available. The
 registered report artifacts remain unchanged on read.
 
+A private library entry may also register optional `files.coverage` HTML and
+`files.coverage_xlsx` attachments. The report and Coverage Assurance link to
+these dated reconciliation artifacts. They retain their own qualification and
+open checks; registration does not score a benchmark, refresh research or change
+source trust. Coverage HTML opens as a full page with external resource requests
+and form submission blocked. Inline filtering requires an explicitly registered
+`coverage_script_sha256` base64 hash; scripts are blocked by default. Original
+report downloads remain separate.
+
 ## Coverage repair remains separate
 
 Web additions identify candidates for a coverage audit; they are not automatically

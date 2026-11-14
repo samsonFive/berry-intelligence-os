@@ -5570,6 +5570,7 @@ def coverage_assurance_page(request: Request) -> HTMLResponse:
         name="coverage_assurance.html",
         context={
             "report": report,
+            "company_report_reviews": [row for row in list_combined_finished_reports(_report_library_roots()) if row.get("coverage_href")],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -8545,6 +8546,29 @@ def finished_report_document(report_id: str) -> FileResponse:
             ),
         },
     )
+
+
+@app.get("/reports/library/{report_id}/coverage")
+def finished_report_coverage(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"].get("coverage")
+    if path is None:
+        raise HTTPException(404, "Coverage review not available")
+    script_source = "'sha256-" + record["coverage_script_sha256"] + "'" if record.get("coverage_script_sha256") else "'none'"
+    return FileResponse(path, media_type="text/html", headers={
+        "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; script-src " + script_source + "; img-src data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+    })
+
+
+@app.get("/reports/library/{report_id}/coverage.xlsx")
+def finished_report_coverage_workbook(report_id: str) -> FileResponse:
+    record = _finished_report_or_404(report_id)
+    path = record["files"].get("coverage_xlsx")
+    if path is None:
+        raise HTTPException(404, "Coverage workbook not available")
+    return FileResponse(path, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=path.name,
+        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
 
 
 @app.get("/reports/library/{report_id}/download.pdf")

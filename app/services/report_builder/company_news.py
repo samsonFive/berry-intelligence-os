@@ -439,13 +439,21 @@ def _source(row: dict, *, origin: str, company: dict, snapshot: dict) -> dict:
     trust = trust_tier_label(row) if origin == "archive" and not cached_public and row.get("status") == "published" else "PENDING / UNREVIEWED" if origin == "archive" and not cached_public else "LIVE / UNREVIEWED"
     identity = normalize_canonical_url(url) or str(row.get("id") or title)
     source_id = _key("cns-", identity + "|" + version)
+    archive_type = "public_research_cache" if cached_public else "published_evidence" if origin == "archive" and row.get("status") == "published" else "stored_platform_source" if origin == "archive" else ""
+    capture_channel = "public_research_cache" if cached_public or row.get("research_cache_reused") else "public_web_capture" if origin == "web" else "stored_reader_capture" if row.get("reader_capture") else "stored_transcript" if row.get("transcript") else "stored_platform_record"
+    platform_matches = []
+    if origin == "archive" and not cached_public and row.get("id"):
+        platform_matches.append({"record_id": str(row["id"]), "trust_class": trust,
+            "archive_source_type": archive_type, "capture_channel": capture_channel,
+            "source_version": version, "published_date": publication, "publication_date_basis": date_basis,
+            **{field: str(row[field]) for field in ("retrieved_at", "captured_at", "captured_date") if row.get(field)}})
     return {
         "id": source_id, "title": title, "url": url, "source_url": url, "source_name": str(row.get("source_name") or "Source"),
         "published_date": publication, "publication_date_basis": date_basis,
         "publication_date_text": str(row.get("published_date") or ""),
         "event_date": event_text, "origin": origin, "trust_class": trust,
-        "archive_source_type": "public_research_cache" if cached_public else "published_evidence" if origin == "archive" and row.get("status") == "published" else "stored_platform_source" if origin == "archive" else "",
-        "capture_channel": "public_research_cache" if cached_public or row.get("research_cache_reused") else "public_web_capture" if origin == "web" else "stored_reader_capture" if row.get("reader_capture") else "stored_transcript" if row.get("transcript") else "stored_platform_record",
+        "archive_source_type": archive_type, "capture_channel": capture_channel,
+        "platform_matches": platform_matches,
         "excerpt": passage if body_supported and not hold else "", "passage": passage if body_supported and not hold else "",
         "passage_locator": locator if body_supported and not hold else "", "source_version": version,
         "source_version_basis": "stored_source_passages" if origin == "archive" and not cached_public else "public_capture",
@@ -455,6 +463,32 @@ def _source(row: dict, *, origin: str, company: dict, snapshot: dict) -> dict:
         "eligibility": eligibility, "qualification": " ".join(notes), "company_keys": [company["key"]],
         "company_context": {company["key"]: {"eligibility": eligibility, "qualification": " ".join(notes), "origin": origin, "public_cache_reused": cached_public}},
     }
+
+
+def _merge_source_trace(preferred: dict, *observations: dict) -> dict:
+    """Keep exact-URL platform pointers when a fresh body replaces metadata.
+
+    The pointers describe retained records, not independent confirmation,
+    original first-seen time, or the trust of the preferred source text.
+    They are observed matches, not an inventory of every stored duplicate.
+    Public research-cache captures are never canonical/platform record matches.
+    """
+    matches = {}
+    for source in observations:
+        for match in source.get("platform_matches", []):
+            key = tuple(str(match.get(field) or "") for field in
+                ("record_id", "trust_class", "capture_channel", "source_version"))
+            matches.setdefault(key, deepcopy(match))
+    preferred["platform_matches"] = list(matches.values())
+    preferred["research_cache_reused"] = any(source.get("research_cache_reused") for source in observations)
+    if matches and preferred.get("origin") == "web":
+        note = "This URL was already retained in the platform; the fresh capture is report-only and remains unreviewed."
+        if note not in preferred["qualification"]:
+            preferred["qualification"] += " " + note
+        for context in preferred.get("company_context", {}).values():
+            if note not in context.get("qualification", ""):
+                context["qualification"] = (context.get("qualification", "") + " " + note).strip()
+    return preferred
 
 
 def _short_excerpt(text: str, limit: int = 200) -> str:
@@ -705,8 +739,11 @@ def research_one_company(snapshot: dict[str, Any], company_key: str, *, entities
     for source in retained:
         identity = normalize_canonical_url(source.get("url")) or source["id"]
         old = deduped.get(identity)
-        if old is None or (old["eligibility"] != "dated_finding" and source["eligibility"] == "dated_finding"):
+        if old is None:
             deduped[identity] = source
+        else:
+            preferred = source if old["eligibility"] != "dated_finding" and source["eligibility"] == "dated_finding" else old
+            deduped[identity] = _merge_source_trace(preferred, old, source)
     selected = list(deduped.values())
     source_map = {s["id"]: s for s in result.get("sources", [])}
     available = max(0, MAX_SNAPSHOT_SOURCES - len(source_map))
@@ -738,7 +775,7 @@ def research_one_company(snapshot: dict[str, Any], company_key: str, *, entities
             if old.get("eligibility") != "dated_finding" and source.get("eligibility") == "dated_finding":
                 source_map[source["id"]] = source
             source_map[source["id"]].update(company_keys=keys, company_context=contexts)
-            source_map[source["id"]]["research_cache_reused"] = bool(old.get("research_cache_reused") or source.get("research_cache_reused"))
+            _merge_source_trace(source_map[source["id"]], old, source)
         else:
             source_map[source["id"]] = source
     result["sources"] = list(source_map.values())

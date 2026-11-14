@@ -226,3 +226,72 @@ def test_private_catalog_obeys_existing_reports_access_controls(library, monkeyp
     assert response.status_code == expected
     assert b"private finished artifact" not in response.content
     assert b"private finished spreadsheet" not in response.content
+
+
+def _register_coverage_assets(root):
+    html = "<!doctype html><h1>Coverage repair queue</h1><p>Unresolved checks remain visible.</p>"
+    workbook = b"PK\x03\x04private coverage workbook"
+    (root / "coverage.html").write_text(html, encoding="utf-8")
+    (root / "coverage.xlsx").write_bytes(workbook)
+    manifest = json.loads((root / "library.json").read_text(encoding="utf-8"))
+    manifest["reports"][0]["files"].update(coverage="coverage.html", coverage_xlsx="coverage.xlsx")
+    (root / "library.json").write_text(json.dumps(manifest), encoding="utf-8")
+    return html, workbook
+
+
+def test_coverage_review_and_workbook_are_read_only_and_separate_from_report(library):
+    root, _, pdf, client = library
+    html, workbook = _register_coverage_assets(root)
+    before = {path: path.read_bytes() for path in root.iterdir()}
+    page = client.get("/reports/library/test-variety")
+    assert 'href="/reports/library/test-variety/coverage"' in page.text
+    review = client.get("/reports/library/test-variety/coverage")
+    assert review.status_code == 200 and review.text == html
+    assert "frame-ancestors 'none'" in review.headers["content-security-policy"]
+    assert "form-action 'none'" in review.headers["content-security-policy"]
+    assert "script-src 'none'" in review.headers["content-security-policy"]
+    assert review.headers["cache-control"] == "private, no-store"
+    download = client.get("/reports/library/test-variety/coverage.xlsx")
+    assert download.status_code == 200 and download.content == workbook
+    assert download.headers["cache-control"] == "private, no-store"
+    assert client.get("/reports/library/test-variety/download.pdf").content == pdf
+    assert before == {path: path.read_bytes() for path in root.iterdir()}
+
+
+@pytest.mark.parametrize("suffix", ["/coverage", "/coverage.xlsx"])
+@pytest.mark.parametrize("access", ["readonly", "anonymous"])
+def test_coverage_attachments_remain_private(library, monkeypatch, suffix, access):
+    root, _, _, client = library
+    _register_coverage_assets(root)
+    if access == "readonly":
+        monkeypatch.setattr(main, "AUTHORING_MODE", False)
+        expected = 403
+    else:
+        monkeypatch.setenv("BIOS_REMOTE_INTERACTIVE", "true")
+        monkeypatch.setenv("BIOS_REVIEW_USERNAME", "report-library-test")
+        monkeypatch.setenv("BIOS_REVIEW_PASSWORD", "temporary-test-password")
+        monkeypatch.setenv("BIOS_SESSION_SECRET", "report-library-test-session-secret-at-least-32-chars")
+        expected = 302
+    response = client.get(f"/reports/library/test-variety{suffix}", follow_redirects=False)
+    assert response.status_code == expected and b"Coverage repair queue" not in response.content
+
+
+def test_missing_coverage_attachment_does_not_generate_or_expose_unregistered_files(library):
+    root, _, _, client = library
+    _register_coverage_assets(root)
+    (root / "coverage.html").unlink()
+    assert client.get("/reports/library/test-variety/coverage").status_code == 404
+    assert client.get("/reports/library/test-variety/coverage.json").status_code == 404
+    assert client.get("/reports/library/test-variety").status_code == 200
+
+
+@pytest.mark.parametrize("hash_value,permitted", [("iPssNQPXhUvVdpNzbhio1oiEKPfzteRf7v8XphYzAEE=", True), ("bad'; script-src *", False), ("\nmalformed", False)])
+def test_only_explicitly_registered_script_hash_can_enable_coverage_filter(library, hash_value, permitted):
+    root, _, _, client = library
+    _register_coverage_assets(root)
+    catalog = json.loads((root / "library.json").read_text(encoding="utf-8"))
+    catalog["reports"][0]["coverage_script_sha256"] = hash_value
+    (root / "library.json").write_text(json.dumps(catalog), encoding="utf-8")
+    policy = client.get("/reports/library/test-variety/coverage").headers["content-security-policy"]
+    assert ("script-src 'sha256-" + hash_value + "'") in policy if permitted else "script-src 'none'" in policy
+    assert "script-src 'unsafe-inline'" not in policy and "script-src *" not in policy

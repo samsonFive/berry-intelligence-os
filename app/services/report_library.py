@@ -88,6 +88,15 @@ def _present(root: Path, entry: Any) -> dict[str, Any] | None:
     reader = _asset(root, files.get("reader"), ".json")
     if reader is not None:
         assets["reader"] = reader
+    coverage = _asset(root, files.get("coverage"), ".html")
+    coverage_xlsx = _asset(root, files.get("coverage_xlsx"), ".xlsx")
+    if coverage is not None:
+        assets["coverage"] = coverage
+    if coverage_xlsx is not None:
+        assets["coverage_xlsx"] = coverage_xlsx
+    script_hash = entry.get("coverage_script_sha256")
+    if not isinstance(script_hash, str) or not re.fullmatch(r"[A-Za-z0-9+/]{43}=", script_hash):
+        script_hash = None
     slug = entry["id"]
     href = f"/reports/library/{slug}"
     return {
@@ -103,6 +112,9 @@ def _present(root: Path, entry: Any) -> dict[str, Any] | None:
         "html_href": f"{href}/document",
         "download_href": f"{href}/download.pdf",
         "xlsx_download_href": f"{href}/download.xlsx" if xlsx is not None else None,
+        "coverage_href": f"{href}/coverage" if coverage is not None else None,
+        "coverage_xlsx_href": f"{href}/coverage.xlsx" if coverage_xlsx is not None else None,
+        "coverage_script_sha256": script_hash if coverage is not None else None,
     }
 
 
