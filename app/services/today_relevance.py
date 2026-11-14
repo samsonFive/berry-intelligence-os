@@ -19,6 +19,7 @@ from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.qualify import has_cultivar_context
 from app.services.industry_pulse.regional_news import (
     has_regional_news_topic,
+    is_consumer_picking_content,
     regional_crop_ids,
     uses_regional_metadata,
 )
@@ -66,10 +67,6 @@ _CONSUMER = re.compile(
     r"weight loss|antioxidant snack|grocery haul|from bog to bottle|"
     r"in spanish translation"
     r")\b",
-    re.IGNORECASE,
-)
-_PYO = re.compile(
-    r"\b(pick your own|pick-your-own|u-pick|blueberry picking|strawberry picking)\b",
     re.IGNORECASE,
 )
 _BERRY_TERM = re.compile(
@@ -144,7 +141,7 @@ def noise_reason(
         return "directory / member profile"
     if _STALE_EVENT.search(text):
         return "stale event listing"
-    if _PYO.search(text):
+    if is_consumer_picking_content(text):
         return "pick-your-own consumer"
     if _TOMATO.search(text):
         return "cherry-tomato / non-berry produce"

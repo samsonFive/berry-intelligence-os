@@ -21,7 +21,7 @@ from app.services.coverage_assurance.classes import (
     source_class_of,
 )
 from app.services.industry_pulse.models import DiscoveryHit
-from app.services.industry_pulse.regional_news import has_regional_news_topic, regional_crop_ids, uses_regional_metadata
+from app.services.industry_pulse.regional_news import has_regional_news_topic, is_consumer_picking_content, regional_crop_ids, uses_regional_metadata
 from app.services.crop_name_context import blackberry_company_noise, has_agriculture_context
 from app.services.recall_audit.classify import hostname, publisher_hosts
 
@@ -97,7 +97,8 @@ _OTHER_CROP = re.compile(
     r"\b("
     r"potato(?:es)?|grape(?:s)?|apple(?:s)?|avocado(?:s)?|onion(?:s)?|"
     r"maize|\bcorn\b|wheat|soybean(?:s)?|kiwi(?:fruit)?|durian|banana(?:s)?|"
-    r"pear(?:s)?|fig(?:s)?|tree-?nut|carrots?|pineapples?|tomato(?:es)?|citrus|cranberr(?:y|ies)"
+    r"pear(?:s)?|fig(?:s)?|tree-?nut|carrots?|pineapples?|tomato(?:es)?|citrus|cranberr(?:y|ies)|"
+    r"(?:black|red|white)?currants?"
     r")\b",
     re.IGNORECASE,
 )
@@ -315,6 +316,8 @@ def _hard_exclusion(text: str, hit: DiscoveryHit) -> str | None:
         return "unrelated scientific usage"
     if _GARDENING_HOBBY.search(text):
         return "gardening/hobby"
+    if is_consumer_picking_content(text):
+        return "pick-your-own consumer"
     if _DECOR_PRODUCT.search(hit.title or ""):
         return "decorative household product, not berry production"
     if _PROMO.search(text) and not _INDUSTRY.search(text):

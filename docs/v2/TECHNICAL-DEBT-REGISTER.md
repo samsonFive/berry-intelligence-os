@@ -4178,3 +4178,5 @@ compatibility; experience owns React Brand-detail acceptance. The tested
 Facebook references returned 403, expired sources remain held and remaining
 exact-account references were unclassified. No new metered retrieval or runtime
 work is authorized by this documentation closeout.
+
+November 13 News metadata debt: two newly frozen reports exposed commercial-market and crop-technology vocabulary gaps across collection and News projection. Shared recognition and picking-consumer parity now have source-shaped collection/display regressions, but production recovery still requires coordinated deployment and exact-link checks. Metadata-only screening still cannot discover every body-only crop milestone, resolve unknown original publication dates or establish source independence. The four held historical cases, deeper/public-record archives, blocked publishers and prospective human/event/time denominators remain open; no definitive/global coverage or new pilot recall credit is implied. Owner: News source operations and coordinated release owner. See NEWS-MARKET-TECHNOLOGY-2026-11-13.md.

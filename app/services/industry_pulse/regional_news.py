@@ -114,6 +114,28 @@ def _whole_words(terms: tuple[str, ...]) -> re.Pattern[str]:
 
 _LATIN_SCRIPT_TOPICS = tuple(term for language in ("es", "fr", "pt", "pl", "de", "ar", "sr", "vi") for term in NATIVE_TOPICS[language])
 _REGIONAL_TOPIC_WORDS = _whole_words((*ENGLISH_RISKS, *_LATIN_SCRIPT_TOPICS))
+# Shared collection and News projection context. These do not expand query
+# budgets, infer a crop, or bypass either screen's hard noise exclusions.
+_COMMERCIAL_MARKET_WORDING = _whole_words((
+    "market position", "market conditions", "market outlook", "wholesale prices",
+    "producer prices", "farmgate prices", "farm-gate prices", "declining supplies",
+))
+_PRODUCTION_TECHNOLOGY = _whole_words((
+    "uv-c", "uvc", "ultraviolet", "robot", "robots", "robotic", "robotics",
+    "autonomous", "automation",
+))
+_PRODUCTION_SETTING = _whole_words((
+    "greenhouse", "greenhouses", "tunnel", "tunnels", "crop", "crops",
+    "cultivation", "grower", "growers", "harvest", "harvesting",
+))
+_PICKING_WORDING = _whole_words((
+    "pick your own", "pick-your-own", "u-pick", "blueberry picking", "strawberry picking",
+))
+_SELF_SERVICE_PICKING = _whole_words(("pick your own", "pick-your-own", "u-pick"))
+_PICKING_VISITS = _whole_words((
+    "visitors", "tourists", "tickets", "ticket", "day out",
+    "family outing", "opening hours", "book now",
+))
 _EAST_ASIAN_TOPICS = (*NATIVE_TOPICS["zh"], *NATIVE_TOPICS["ja"])
 _ADDITIONAL_CROPS = {
     "blueberry": ("arándano", "arándanos", "arandano", "arandanos",
@@ -133,8 +155,22 @@ def uses_regional_metadata(provider: str | None, publisher_route: str | None) ->
     )
 
 
+def has_crop_production_technology_context(text: str) -> bool:
+    return bool(_PRODUCTION_TECHNOLOGY.search(text) and _PRODUCTION_SETTING.search(text))
+
+
+def is_consumer_picking_content(text: str) -> bool:
+    """Keep visitor picking out without mistaking a picking robot for an outing."""
+    return bool(_PICKING_WORDING.search(text) and (
+        _PICKING_VISITS.search(text) or (
+            _SELF_SERVICE_PICKING.search(text) and not has_crop_production_technology_context(text))))
+
+
 def has_regional_news_topic(text: str) -> bool:
-    return bool(_REGIONAL_TOPIC_WORDS.search(text) or any(term in text for term in _EAST_ASIAN_TOPICS))
+    return bool(_REGIONAL_TOPIC_WORDS.search(text)
+                or _COMMERCIAL_MARKET_WORDING.search(text)
+                or has_crop_production_technology_context(text)
+                or any(term in text for term in _EAST_ASIAN_TOPICS))
 
 
 def regional_crop_ids(text: str) -> list[str]:
