@@ -7,7 +7,7 @@ FRENCH = 'myrtille OR myrtilles OR bleuet OR bleuets OR fraise OR fraises OR fra
 ARABIC = 'الفراولة OR الفريز OR "التوت الأزرق" OR "توت العليق" OR "التوت الأسود"'
 GERMAN = 'Heidelbeere OR Heidelbeeren OR Erdbeere OR Erdbeeren OR Himbeere OR Himbeeren OR Brombeere OR Brombeeren'
 
-# Public-feed transport and publication dates checked November 11, 2026.
+# Initial public feeds checked November 11; WSJ replacement checked November 14, 2026.
 # General feeds complement seven-day crop searches: no-hit checks are not recall.
 DIRECT = (
  ('wsj-business','The Wall Street Journal','wsj.com','global','en-US','US','en','https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness'),
