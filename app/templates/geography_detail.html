@@ -20,6 +20,7 @@
   </div>
   <div class="sh-actions v2-company-actions">
     <a class="sh-btn v2-btn v2-btn-quiet" href="/geographies">All markets</a>
+    {% if authoring_mode and not static_build %}<a class="sh-btn" href="/variety-plantings?q={{ ('UK' if geo.id == 'geography-united-kingdom' else geo.name)|urlencode }}">Inspect planting research</a>{% endif %}
     {% if not static_build %}
       <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="geography">

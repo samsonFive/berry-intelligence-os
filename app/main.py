@@ -348,6 +348,20 @@ from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.report_builder.coverage import report_coverage
 from app.services.report_library import get_combined_finished_report, list_combined_finished_reports
+from app.services.cultivar_measurements import (
+    CultivarMeasurementError,
+    load_evidence_dependencies as cultivar_evidence_dependencies,
+    list_measurements as list_cultivar_measurements,
+    review_measurement as review_cultivar_measurement,
+)
+from app.services.cultivar_measurement_workspace import (
+    acquisition_backlog as cultivar_acquisition_backlog,
+    import_packets as cultivar_import_packets,
+    present_measurement as present_cultivar_measurement,
+    source_artifact as cultivar_source_artifact,
+    source_dependency_ids as cultivar_source_dependency_ids,
+    workspace as cultivar_workspace,
+)
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
@@ -971,7 +985,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
     # Statement detail uses the same lightweight Library shell. Its selected
     # references must not hydrate every article merely to calculate old badges.
-    if request.url.path.startswith("/facts/"):
+    if request.url.path.startswith(("/facts/", "/variety-plantings")):
         return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
     if variety_workspace or landscape_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
@@ -8478,6 +8492,133 @@ def _report_library_roots() -> tuple[Path, Path]:
     return REPORT_LIBRARY_DIR, INBOX_DIR / "finished_reports"
 
 
+def _cultivar_research_context() -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
+    entities = entity_index()
+    facts = all_facts()
+    packets = cultivar_import_packets(INBOX_DIR)
+    evidence = cultivar_evidence_dependencies(
+        DATA_DIR, facts=facts, evidence_ids=cultivar_source_dependency_ids(INBOX_DIR, packets),
+    )
+    rows = list_cultivar_measurements(
+        INBOX_DIR, facts=facts, evidence_by_id=evidence,
+        entities_by_id=entities, include_private=True,
+    )
+    return rows, entities, evidence, packets
+
+
+def _private_cultivar_research() -> None:
+    # No pending research surface exists in read-only/public deployments.
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Planting research is available in the private authoring workspace")
+
+
+@app.get("/variety-plantings", response_class=HTMLResponse)
+def variety_plantings_page(request: Request, q: str = "", region: str = "", state: str = "",
+                          cultivar_id: str = "", page: int = 1) -> HTMLResponse:
+    _private_cultivar_research()
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    try:
+        rows, entities, evidence, packets = _cultivar_research_context()
+        model = cultivar_workspace(rows, q=q[:200], region=region, state=state,
+                                   cultivar_id=cultivar_id, berry=ui["berry"], page=page)
+        model["rows"] = [present_cultivar_measurement(row, entities=entities, evidence=evidence, packets=packets)
+                         for row in model["rows"]]
+        backlog = cultivar_acquisition_backlog(
+            INBOX_DIR, [packet for packet in packets if ui["berry"] == "global" or packet.get("berry_id") == ui["berry"]]
+        )
+    except CultivarMeasurementError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    return templates.TemplateResponse(
+        request=request, name="cultivar_plantings.html",
+        context={"plantings": model, "backlog": backlog, "authoring_mode": True,
+                 "static_build": False, "ui_context": ui},
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"},
+    )
+
+
+@app.get("/variety-plantings/imports/{batch_id}/artifacts/{digest}")
+def variety_planting_source_capture(batch_id: str, digest: str) -> FileResponse:
+    _private_cultivar_research()
+    try:
+        path, filename = cultivar_source_artifact(INBOX_DIR, batch_id, digest)
+    except CultivarMeasurementError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    # Original HTML is a download, never an executable in-app source reader.
+    return FileResponse(path, filename=filename, media_type="application/octet-stream",
+                        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex",
+                                 "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "sandbox"})
+
+
+@app.get("/variety-plantings/{measurement_id}", response_class=HTMLResponse)
+def variety_planting_detail(request: Request, measurement_id: str) -> HTMLResponse:
+    _private_cultivar_research()
+    rows, entities, evidence, packets = _cultivar_research_context()
+    stored = next((row for row in rows if row["id"] == measurement_id), None)
+    if stored is None:
+        raise HTTPException(404, "Planting research record not found")
+    stored["superseding_ids"] = [row["id"] for row in rows if row.get("supersedes") == measurement_id]
+    return templates.TemplateResponse(
+        request=request, name="cultivar_planting_detail.html",
+        context={"measurement": present_cultivar_measurement(stored, entities=entities, evidence=evidence, packets=packets),
+                 "authoring_mode": True, "static_build": False,
+                 "reviewer": session_username(request) or review_username() or "",
+                 "decision": request.query_params.get("decision", ""),
+                 "ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)},
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"},
+    )
+
+
+@app.post("/variety-plantings/{measurement_id}/review")
+def variety_planting_review(request: Request, measurement_id: str, action: str = Form(...),
+                           content_sha256: str = Form(...), reviewer: str = Form(""),
+                           classification: str = Form("claim"), confidence: str = Form("medium"),
+                           source_id: str = Form(""), source_version_confirmed: bool = Form(False),
+                           source_confirmation_note: str = Form(""), notes: str = Form(""),
+                           confirm_individual_review: bool = Form(False)) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Claim review is only available in authoring mode")
+    actor = session_username(request) or reviewer.strip()
+    if not actor or not confirm_individual_review:
+        raise HTTPException(400, "A reviewer and an explicit individual review confirmation are required")
+    try:
+        result = review_cultivar_measurement(
+            INBOX_DIR, measurement_id, action=action, reviewer=actor,
+            review_publish_service=_review_publish_service(), repos=get_repositories(DATA_DIR, SCHEMAS_DIR),
+            expected_content_sha256=content_sha256, classification=classification, confidence=confidence,
+            source_id=source_id or None, source_version_confirmed=source_version_confirmed,
+            source_confirmation_note=source_confirmation_note, notes=notes,
+        )
+    except CultivarMeasurementError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    if not result["ok"]:
+        raise HTTPException(409, "; ".join(result.get("errors") or ["Review could not be saved"]))
+    return RedirectResponse(f"/variety-plantings/{measurement_id}?decision={result['review_state']}", status_code=303)
+
+
+@app.post("/variety-plantings/{measurement_id}/identity")
+def variety_planting_identity_review(request: Request, measurement_id: str,
+                                    selected_entity_id: str = Form(...), content_sha256: str = Form(...),
+                                    reviewer: str = Form(""), notes: str = Form(""),
+                                    confirm_individual_review: bool = Form(False)) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Identity review is only available in authoring mode")
+    actor = session_username(request) or reviewer.strip()
+    if not actor or not confirm_individual_review or not notes.strip():
+        raise HTTPException(400, "A reviewer, source-backed mapping note and individual confirmation are required")
+    from app.services.cultivar_measurements import resolve_measurement_identity
+    try:
+        result = resolve_measurement_identity(
+            INBOX_DIR, measurement_id, selected_entity_id=selected_entity_id, reviewer=actor,
+            expected_content_sha256=content_sha256, notes=notes,
+            repos=get_repositories(DATA_DIR, SCHEMAS_DIR),
+        )
+    except CultivarMeasurementError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    if not result["ok"]:
+        raise HTTPException(409, "; ".join(result.get("errors") or ["Identity mapping could not be saved"]))
+    return RedirectResponse(f"/variety-plantings/{result['id']}?decision=identity", status_code=303)
+
+
 @app.get("/reports", response_class=HTMLResponse)
 def reports_index_page(request: Request, status: str = "working") -> HTMLResponse:
     if status not in {"working", "draft", "active", "archived", "all"}:
@@ -10474,6 +10615,10 @@ def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
         allowed = len(parts) == 2
     elif path == "/review-ops" or path.startswith("/review-ops/"):
         allowed = len(parts) <= 3
+    elif path == "/variety-plantings":
+        allowed = True
+    elif re.fullmatch(r"/variety-plantings/cm-[a-z0-9-]+-[a-f0-9]{16}", path):
+        allowed = True
     if not allowed:
         return fallback
     return path + (f"?{parsed.query}" if parsed.query else "")
@@ -11038,6 +11183,11 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     # analyst already supplied Facts via the advanced form (facts_input
     # non-empty) already satisfy the claim requirement -- no extra stop.
     if draft.get("evidence_role") == "publication_artifact" and not facts_input:
+        # Source approval is the first gate. Return this source-bound research
+        # handoff to its explicit structured claim review, without creating a
+        # summary-derived Fact or weakening the separate proposition decision.
+        if return_to and urlsplit(return_to).path.startswith("/variety-plantings/"):
+            return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
         claim_return = f"/review/{next_id}" if next_id else (return_to or "/pending")
         return RedirectResponse(
             url=f"/review/{result.evidence_id}/claim?return_to={quote(claim_return, safe='')}",

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cultivar-measurement.schema.json",
+  "title": "Private source-bound cultivar measurement proposal",
+  "$comment": "An immutable research proposal, never Evidence or a trusted statistic by storage alone. Review is projected from an active Fact/Claim created through the existing human claim gate with the exact content origin and chosen source. Qualitative, aggregate and unidentified records are retained without inventing cultivar identities or numeric prevalence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "record_type", "schema_version", "source_row_id", "import_batch_id", "berry_id", "record_kind", "cultivar_label", "cultivar_entity_id", "candidate_entity_ids", "identity_status", "region", "subregion", "evidence_type", "claim", "metric", "value", "unit", "denominator", "data_period", "cohort", "production_system", "source_bindings", "source_native", "captured_at", "content_sha256", "series_key"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^cm-[a-z0-9-]+-[a-f0-9]{16}$"},
+    "record_type": {"const": "cultivar_measurement"},
+    "schema_version": {"const": 1},
+    "source_row_id": {"type": "string", "minLength": 1},
+    "import_batch_id": {"type": "string", "minLength": 1},
+    "berry_id": {"type": "string", "pattern": "^berry-[a-z0-9-]+$"},
+    "record_kind": {"enum": ["cultivar", "aggregate", "unidentified", "accession", "unresolved_identity"]},
+    "cultivar_label": {"type": "string", "minLength": 1},
+    "cultivar_entity_id": {"type": ["string", "null"]},
+    "candidate_entity_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "identity_status": {"enum": ["resolved", "ambiguous", "unresolved", "not_applicable"]},
+    "region": {"type": "string", "minLength": 1},
+    "subregion": {"type": "string"},
+    "evidence_type": {"type": "string", "minLength": 1},
+    "claim": {"type": "string", "minLength": 1},
+    "metric": {"type": "string", "minLength": 1},
+    "value": {"type": ["number", "null"]},
+    "unit": {"type": ["string", "null"]},
+    "denominator": {"type": "string"},
+    "data_period": {"type": "string"},
+    "cohort": {"type": ["string", "null"]},
+    "production_system": {"type": ["string", "null"]},
+    "source_bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_url", "source_title", "locator"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "source_url": {"type": "string"},
+          "source_title": {"type": "string", "minLength": 1},
+          "locator": {"type": "string"},
+          "evidence_id": {"type": ["string", "null"]},
+          "captured_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+          "capture_hash_kind": {"enum": ["artifact", "normalized_body", "unknown"]},
+          "source_dataset": {"type": "string"},
+          "access_status": {"type": "string"}
+        }
+      }
+    },
+    "source_native": {"type": "object"},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "series_key": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "supersedes": {"type": ["string", "null"]},
+    "identity_resolution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["selected_entity_id", "reviewer", "reviewed_at", "notes"],
+      "properties": {
+        "selected_entity_id": {"type": "string", "minLength": 1},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

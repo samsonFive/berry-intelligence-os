@@ -1,5 +1,18 @@
 # Berry Intelligence — current mission status
 
+**Cultivar planting evidence integration (15 November 2026):** The final regional
+report, platform audit and Excel workbook are now in the private Reports library;
+all prior readers/files were preserved. A generic source-bound cultivar research
+contract and private Planting evidence workspace implement the audit's data/review
+plan: immutable observations, retained captures, exact population/season/unit/
+denominator, source-version checks, individual Claim review and audited identity
+revisions. Local full-packet import/replay preserves 613 observations without
+canonical changes or automatic trust. Restricted/current census gaps remain in
+the regional acquisition backlog. Code activation and live intake counts require
+the separate coordinated release receipt; see
+`docs/v2/CULTIVAR-PLANTING-EVIDENCE-INTEGRATION-2026-11-15.md`.
+
+
 ## Company news review and coverage follow-through — implementation pending release
 
 Report Builder now has a company-list review implementation with fixed

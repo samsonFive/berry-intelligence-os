@@ -1,0 +1,37 @@
+{% extends "glasshouse_base.html" %}
+{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'}, {'label':'Planting evidence'}] %}
+{% block title %}Planting evidence · Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/cultivar_plantings.css?v=1">{% endblock %}
+{% block content %}
+<div class="planting-workspace">
+  <header class="planting-heading">
+    <div><p class="eyebrow">VARIETIES &amp; REGIONS</p><h1>Planting evidence</h1><p>Inspect source-reported planting shares, commercial use and the limits of each observation.</p></div>
+    <div class="planting-actions"><a href="/reports">Reports &amp; workbook</a><a href="#remaining-data">Remaining data requests</a></div>
+  </header>
+  <p class="planting-note">Research records require individual claim review. Plant sales, production shares, trials and historical observations keep their original populations and dates.</p>
+  <form method="get" class="planting-filters" aria-label="Filter planting evidence">
+    <input type="hidden" name="berry" value="{{ plantings.filters.berry }}">
+    {% if plantings.filters.cultivar_id %}<input type="hidden" name="cultivar_id" value="{{ plantings.filters.cultivar_id }}">{% endif %}
+    <label>Find cultivar or passage<input type="search" name="q" value="{{ plantings.filters.q }}" maxlength="200"></label>
+    <label>Region<select name="region"><option value="">All recorded regions</option>{% for region in plantings.regions %}<option value="{{ region }}" {% if region == plantings.filters.region %}selected{% endif %}>{{ region }}</option>{% endfor %}</select></label>
+    <label>Review state<select name="state"><option value="">All states</option>{% for key,label in [('pending','Pending'),('blocked','Needs source or identity review'),('reviewed','Reviewed claim'),('deferred','Deferred'),('rejected','Rejected'),('superseded','Earlier proposal')] %}<option value="{{ key }}" {% if key == plantings.filters.state %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+    <button type="submit">Apply filters</button><a href="/variety-plantings?berry={{ plantings.filters.berry|urlencode }}">Clear filters</a>
+  </form>
+  <div class="planting-result-line"><p>{{ plantings.matching }} matching research records · {{ plantings.total }} in {{ ui_context.berry_label }}</p>{% if plantings.pages > 1 %}<nav aria-label="Planting evidence pages">{% if plantings.previous_href %}<a href="{{ plantings.previous_href }}">← Previous</a>{% endif %}<span>Page {{ plantings.page }} of {{ plantings.pages }}</span>{% if plantings.next_href %}<a href="{{ plantings.next_href }}">Next →</a>{% endif %}</nav>{% endif %}</div>
+  {% if plantings.rows %}
+  <div class="planting-table-scroll" role="region" aria-label="Source-bound planting observations" tabindex="0">
+    <table class="planting-table" data-sheet-native><thead><tr><th scope="col">Cultivar &amp; population</th><th scope="col">Observation</th><th scope="col">Source &amp; scope</th><th scope="col">Review</th></tr></thead><tbody>
+    {% for row in plantings.rows %}<tr>
+      <th scope="row"><a href="{{ row.href }}">{{ row.cultivar_label }}</a>{% if row.record_kind != 'cultivar' %}<small>{{ row.record_kind|replace('_',' ')|capitalize }}</small>{% endif %}<small>{{ row.region }}{% if row.subregion %} · {{ row.subregion }}{% endif %}</small><small>{{ row.data_period or 'Observation period not specified' }}</small></th>
+      <td><span class="planting-type">{{ row.evidence_type }}</span>{% if row.value is not none %}<strong class="planting-value">{{ row.value }}</strong><small>{{ row.unit_and_basis or 'Measurement basis not specified' }}</small>{% else %}<p>{{ row.claim }}</p>{% endif %}</td>
+      <td>{% for source in row.source_cards[:2] %}<a href="{{ source.url or row.href }}" {% if source.url %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ source.title }}</a>{% if not loop.last %}<br>{% endif %}{% endfor %}{% if row.source_cards|length > 2 %}<small>{{ row.source_cards|length - 2 }} additional source references</small>{% endif %}{% if row.limitations %}<p>{{ row.limitations|truncate(220) }}</p>{% endif %}</td>
+      <td><span class="planting-status planting-status-{{ row.review_state }}">{{ row.review_label }}</span><a class="planting-open" href="{{ row.href }}">Inspect observation →</a>{% if row.fact_id %}<small><a href="/facts/{{ row.fact_id }}">Approved {{ row.classification or 'claim' }}</a></small>{% endif %}</td>
+    </tr>{% endfor %}
+    </tbody></table>
+  </div>
+  {% else %}<div class="planting-empty"><h2>No matching research observations</h2><p>Clear a filter or choose another berry context. No record does not establish that a cultivar is absent.</p></div>{% endif %}
+  <section class="planting-backlog" id="remaining-data"><h2>Remaining data requests</h2><p>These source-owner requests identify missing measurements. No request is marked acquired merely because it has been recorded.</p>
+    {% for item in backlog %}<details><summary>{{ item.region }} · {{ item.owner_route }}</summary><p>{{ item.data_request }}</p><p class="planting-note">{{ item.remaining_limit }}</p><p><strong>Status:</strong> {{ item.status }}</p></details>{% else %}<p>No acquisition backlog has been imported.</p>{% endfor %}
+  </section>
+</div>
+{% endblock %}

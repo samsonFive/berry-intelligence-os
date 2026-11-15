@@ -527,6 +527,16 @@ class ReviewPublishService:
         if evidence.get("status") != "published":
             return ApproveClaimResult(schema_errors=["Source Evidence record is not an approved, published source."])
 
+        # A source can mention many cultivars. A separately reviewed atomic
+        # proposition may use an explicit, existing subset/context rather than
+        # inheriting every source-level entity onto that one Fact.
+        entity_ids = list(evidence.get("entity_ids") or [])
+        if request.entity_ids is not None:
+            entity_ids = list(dict.fromkeys(request.entity_ids))
+            missing = [entity_id for entity_id in entity_ids if self._repos.entities.get(entity_id) is None]
+            if missing:
+                return ApproveClaimResult(schema_errors=["Claim entity ids do not resolve: " + ", ".join(missing)])
+
         existing_fact_ids = list(evidence.get("fact_ids") or [])
         for existing_fact_id in existing_fact_ids:
             existing_fact = self._repos.facts.get(existing_fact_id)
@@ -535,6 +545,8 @@ class ReviewPublishService:
                 and _norm(existing_fact.get("statement")) == _norm(request.statement)
                 and existing_fact.get("origin") == request.origin
             ):
+                if request.entity_ids is not None and set(existing_fact.get("entity_ids") or []) != set(entity_ids):
+                    return ApproveClaimResult(schema_errors=["Existing claim has different entity scope; review its identity before retrying."])
                 return ApproveClaimResult(fact_id=existing_fact_id)
         fact_id = f"fact-{request.evidence_id[3:]}-{len(existing_fact_ids) + 1}"
         edited = _norm(request.statement) != _norm(request.proposed_statement)
@@ -548,7 +560,7 @@ class ReviewPublishService:
             "reviewer": request.reviewer,
             "created_at": date.today().isoformat(),
             "evidence_ids": [request.evidence_id],
-            "entity_ids": list(evidence.get("entity_ids") or []),
+            "entity_ids": entity_ids,
             # Additive, schema-permissive provenance fields -- the same
             # kind of disclosure atomic_evidence's review_outcome already
             # makes for transcript-derived content, now available for
@@ -572,7 +584,7 @@ class ReviewPublishService:
             with uow:
                 uow.facts.create(fact_record)
                 uow.evidence.update(request.evidence_id, updated_evidence)
-                for entity_id in updated_evidence.get("entity_ids") or []:
+                for entity_id in entity_ids:
                     entity = self._repos.entities.get(entity_id)
                     if entity is None:
                         continue
@@ -633,6 +645,7 @@ class ApproveClaimRequest:
     confidence: str
     reviewer: str
     origin: str
+    entity_ids: list[str] | None = None
 
 
 @dataclass

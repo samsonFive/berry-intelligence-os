@@ -228,6 +228,25 @@ schema changes.
 
 # Technical Debt Register
 
+### TD-CULTIVAR-MEASUREMENTS-001 — current cultivar census and identity coverage
+
+The private cultivar-measurement proposal contract, source/version bindings,
+individual Fact/Claim review and regional acquisition backlog are implemented.
+They do not close missing source data. Complete current CSC district and several
+national/state cultivar distributions remain unavailable; Portugal's current
+national leader and Pemberton's current local leader are unresolved. Ambiguous
+catalog candidates require source-backed individual identity decisions, never
+automatic alias merges. Source-owner acquisition and catalog review own those
+remaining items. A future source-binding conflict needs an explicit versioned
+reconciliation packet, not automatic reassignment of a reviewed proposition.
+
+The new list source reader is metadata-only apart from active measurement Fact
+dependencies. The existing `all_facts()` social-deletion eligibility path still
+loads full repository records when real deleted-source receipts exist. Preserve
+that exclusion behavior; a bounded metadata equivalent is performance follow-up,
+not grounds to bypass deletion/trust rules. See
+`CULTIVAR-PLANTING-EVIDENCE-INTEGRATION-2026-11-15.md`.
+
 November 2 — [News metadata decision experiment](NEWS-METADATA-DECISION-PERFORMANCE-2026-11-02.md)
 shares the existing full qualifier while omitting unused explanation work only
 when its Boolean result is already determined. All 137 affected checks and
