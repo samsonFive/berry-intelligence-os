@@ -11,7 +11,9 @@ accepted from the browser.
 1. Build a catalog with `await createColumnCatalog(columnSpecs)`. Pass the
    actual semantic AG Grid `colId`, default/min/max widths and `lockedVisible`
    for the leading identity/pin columns. Locked columns remain visible and lead
-   the saved order. A catalog supports 1–40 unique columns.
+   the saved order. Pass the fixed view key as the third argument. General
+   catalogs support 1–40 unique columns; exact Portfolio namespaces support
+   1–512, including the two frozen identity/pin columns.
 2. Create `new AccountGridLayouts({viewKey:'berry-portfolio-v1',catalog})` using a
    fixed new namespace. Do not reuse a legacy title/index-hash view key.
 3. `await controller.load()` returns `{status,revision,snapshot,writable,
@@ -48,14 +50,19 @@ identity. Account layout namespaces remain stable when scope adds/removes
 company columns.
 
 The wire shape is unchanged: `{revision,widths,order,hidden,filters}`. Widths are
-integer 48–1200 within the column's own bounds; each column collection is capped
-at 40. `filters` has at most 25 string entries, keys at most 40 characters and
+integer 48–1200 within the column's own bounds. Each column collection is capped
+at 40 for general sheets, or 512 for `berry-portfolio-v1` and
+`berry-pg-v2-` followed by exactly 64 lowercase hex characters. `filters` has at
+most 25 string entries, keys at most 40 characters and
 values at most 400. Reserved entries are `schema`, `sort` and `quick`, leaving
 at most 22 active column filters. Only bounded Community text/number/date
 filters with up to two combined conditions are supported; no row/body payload,
 Set Filter model or arbitrary extra filter fields are serialized. Quick filter
-is at most 200 characters, sort at most five columns, request UTF-8 at most
-20,000 bytes. Limits fail explicitly and preserve the prior saved row.
+is at most 200 characters and sort at most five columns. Requests and responses
+are bounded to 20,000 UTF-8 bytes for general sheets and 128 KiB for Portfolio.
+The backend chooses limits from the existing view key; no client-supplied limit,
+account identifier or new schema is accepted. Limits fail explicitly and preserve
+the prior saved row.
 
 Saved hash keys for temporarily absent columns are retained in the server
 baseline and merged into subsequent saves, within those caps. Their widths,
@@ -73,3 +80,10 @@ the fallback until a separate migration can prove every legacy correspondence.
 trips, unknown-column retention, legacy preservation, backend caps/UTF-8 size,
 serialized optimistic writes, 409 freeze/reload, and session races without any
 account API write or provider request.
+
+`frontend/tests/portfolio-wide-account-layout.test.mjs` covers 50-company and
+186-company save/reload with a new controller, retained absent-column preferences,
+full 512-column payloads above the old byte limit, and 409 freeze/explicit reload.
+`tests/test_portfolio_wide_layout.py` checks the real existing endpoint against a
+temporary private store, actor isolation, unchanged general-sheet limits, CSRF,
+request bounds and failure preservation.

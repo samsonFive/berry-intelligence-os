@@ -84,7 +84,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     window.addEventListener('berry:session-transition', ended);
     void (async () => {
       try {
-        const columns = await createColumnCatalog(specs);
+        const columns = await createColumnCatalog(specs, undefined, viewKey);
         if (active.current !== generation) return;
         catalog.current = columns;
         owned = new AccountGridLayouts({ viewKey, catalog: columns });

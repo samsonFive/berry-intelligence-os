@@ -7,6 +7,7 @@ import { splitIds } from '../../contracts/investigation';
 import type { LandscapeEdge, LandscapeModel, LandscapeNode } from '../landscape/models';
 import { Citation } from '../landscape/Citation';
 import type { LayoutColumn } from './layout-codec';
+import { MAX_PORTFOLIO_LAYOUT_COLUMNS } from './layout-codec';
 import { isUserLayoutEvent } from './grid-state';
 import { useAccountGridLayout } from './useAccountGridLayout';
 import { COMPANY_COLUMN_SIZES, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
@@ -90,7 +91,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
     { colId: 'cultivar.comparison-pin', defaultWidth: 75, minWidth: 65, maxWidth: 90, lockedVisible: true },
     ...companies.map(company => ({ colId: `company.${company.id}.recorded-role`, defaultWidth: 260, minWidth: 220, maxWidth: 1200 })),
   ], [companies]);
-  return specs.length > 40 ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
+  return specs.length > MAX_PORTFOLIO_LAYOUT_COLUMNS ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
 }
 function AccountPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
   const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey);
@@ -172,7 +173,7 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
         onReload: layout.reloadSavedLayout, reloadLabel: sessionOnly ? 'Reload session layout' : 'Reload saved layout',
         actionDisabled: pageBlocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
       reset={{ onClick: resetLayout, disabled: pageBlocked || !gridMounted }} />
-    {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than forty columns keep resize, order, visibility and filter preferences in this session. Account layouts remain unchanged. Return to 10 or 25 company columns to restore their saved account layout.</p>}>Session layout</Preview>
+    {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than {MAX_PORTFOLIO_LAYOUT_COLUMNS} columns keep display preferences in this session. Choose a smaller company group to save its layout to your account.</p>}>Session layout</Preview>
       {layout.status.phase === 'error' && <span role="status">{layout.status.message}</span>}</div> : <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
       <p role="status" aria-live="polite">{layout.status.message}</p>
       {['error', 'conflict', 'local'].includes(layout.status.phase) && <Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button>}
