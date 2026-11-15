@@ -8,6 +8,7 @@
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=16"><link rel="stylesheet" href="/static/variety_profile_sheet.css?v=1">{% endblock %}
 {% block content %}
 {% if authoring_mode and not static_build %}<p class="company-workspace"><a href="/social?entity={{ entity.id }}">Inspect unreviewed social observations for this entity →</a></p>{% endif %}
+{% if authoring_mode and not static_build %}<p class="company-workspace"><a href="/variety-plantings?cultivar_id={{ entity.id|urlencode }}">Planting evidence and source-qualified regional observations →</a></p>{% endif %}
 <div class="company-workspace variety-workspace variety-profile-sheet-page">
 
 {% if authoring_mode and not static_build and 'berry-blueberry' in entity.berry_ids %}<p><a href="/landscapes/explorer?countries=&amp;focus={{ entity.id }}">Explore documented genetics connections →</a></p>{% endif %}

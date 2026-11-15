@@ -1827,3 +1827,25 @@ integration/release owns older-reader compatibility; experience owns React
 Brand-detail acceptance. These remain tracked follow-ups, not completed tests.
 
 November 13 market/technology release candidate: shared metadata screening recognizes commercial market wording and production-setting robotics/automation/UV-C. This addresses the source-reviewed BelOrta market and Bogaerts strawberry platform misses without publisher/URL exemptions, new queries or body acquisition on browse. All four crops and unknown publishers use the same context; currant/cranberry-only and consumer visitor controls remain excluded, while production picking robots are distinct from outings. The 55-route catalog and 12/6 refresh budgets are unchanged. Actual production recovery remains a coordinated-release verification, never a rescore of frozen pilot misses. See NEWS-MARKET-TECHNOLOGY-2026-11-13.md.
+
+
+## November 15 cultivar planting evidence integration
+
+The final strawberry study supplies 613 source-native observations across the 15
+requested locations, including 184 numeric rows, historical observations, trials,
+context and explicit unknowns. There are 190 evidence/access entries across 178
+exact document URLs. These counts are not independent surveys or measured market
+coverage. The live catalog audit found 498 raw strawberry IDs (not genetically
+deduplicated), and no complete current cultivar census was established for
+several populations. Portugal's current national leader and Pemberton's current
+local leader remain unresolved.
+
+The two final reports and workbook were registered privately on November 15,
+with all prior reports preserved. The new generic private measurement contract,
+source-capture bindings, per-proposition Fact/Claim review, existing-candidate
+identity resolution and acquisition backlog have local real-packet import/replay
+proof: 613 observations, 117 schema-valid pending source drafts, zero approved
+claims and all 3,393 canonical JSON files unchanged. Actual production import
+counts are recorded separately in the coordinated release receipt. No automatic
+source onboarding, source schedule or trust promotion is implied. See
+[Cultivar integration](CULTIVAR-PLANTING-EVIDENCE-INTEGRATION-2026-11-15.md).
