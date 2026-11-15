@@ -9,6 +9,7 @@ import { DetailHost } from "./features/detail/DetailHost";
 import { CopilotCommand, CopilotProvider, CopilotTools } from "./features/copilot";
 import "./design/berry.css";
 import "./design/workspace-language.css";
+import "../../app/static/workspace_foundations.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("The investigation application mount is missing.");

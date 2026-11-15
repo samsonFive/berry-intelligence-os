@@ -5,7 +5,7 @@ RUN npm install --global pnpm@11.25.0 --ignore-scripts
 COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY frontend/ ./
-COPY app/static/workspace-shell.css /build/app/static/workspace-shell.css
+COPY app/static/workspace-shell.css app/static/workspace_foundations.css /build/app/static/
 RUN pnpm build
 
 FROM python:3.12-slim-bookworm

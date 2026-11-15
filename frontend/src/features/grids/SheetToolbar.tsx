@@ -84,12 +84,13 @@ export interface SheetToolbarProps {
   count?: ReactNode;
   columns?: ColumnControlsProps;
   reset?: { onClick: () => void; disabled?: boolean };
+  feedback?: ReactNode;
   children?: ReactNode;
   className?: string;
 }
 
 /** The established Workspaces display/filter/layout strip, without another grid controller. */
-export function SheetToolbar({ label, filter, display, count, columns, reset, children, className = '' }: SheetToolbarProps) {
+export function SheetToolbar({ label, filter, display, count, columns, reset, feedback, children, className = '' }: SheetToolbarProps) {
   return <div className={`lw-view-tools berry-sheet-toolbar ${className}`} role="group" aria-label={label}>
     {display && <div className="berry-sheet-display" role="group" aria-label={display.label ?? 'Page display'}>
       {(['grid', 'cards'] as const).map(view => <Button key={view} size="small" disabled={display.disabled}
@@ -104,5 +105,6 @@ export function SheetToolbar({ label, filter, display, count, columns, reset, ch
       {columns && <ColumnControls {...columns} />}
       {reset && <Button size="small" variant="ghost" disabled={reset.disabled} onClick={reset.onClick}>Reset layout</Button>}
     </div>
+    {feedback && <span className="berry-sheet-feedback" role="status">{feedback}</span>}
   </div>;
 }
