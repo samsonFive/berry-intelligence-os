@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AllCommunityModule, ModuleRegistry, type ColDef, type GridApi, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
@@ -21,6 +21,7 @@ import './grid.css';
 import { workspaceGridTheme } from './workspace-grid-theme';
 import { SheetToolbar } from './SheetToolbar';
 import { defaultSheetColumnState } from './sheet-layout';
+import { clearSheetFilters, sheetFilterSummary } from './filter-summary';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -72,7 +73,12 @@ export function BerryDataGrid({ model, onReady, resetFilterToken, onFiltersReset
   }, [pageIdentity, pagination.ready]);
   const displayGrid = Boolean(pagination.ready && page && rows.length && resolvedLayout?.identity === pageIdentity && !resolvedLayout.error);
   const finalMessage = pagination.ready && (!page || !rows.length || resolvedLayout?.identity === pageIdentity && Boolean(resolvedLayout.error));
-  useLayoutEffect(() => { if (!displayGrid) onReady?.(finalMessage); }, [onReady, displayGrid, finalMessage]);
+  useLayoutEffect(() => {
+    if (!displayGrid) {
+      onReady?.(finalMessage);
+      if (finalMessage && resetFilterToken) onFiltersReset?.(resetFilterToken);
+    }
+  }, [onReady, displayGrid, finalMessage, resetFilterToken, onFiltersReset]);
   if (!pagination.ready) return <p role="status" className="berry-loading">Restoring company columns…</p>;
   if (!page) return <EmptyState title="Company columns could not be displayed">{plan.error}</EmptyState>;
   if (!rows.length) return <EmptyState title="No cultivar portfolio relationships in this scope">Recorded geographic connections can still be inspected in Connections. Missing portfolio records do not establish an absence of commercial access.</EmptyState>;
@@ -114,7 +120,16 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
   const selectedCompanies = splitIds(context.cohort_companies);
   const selectedVarieties = splitIds(context.cohort_varieties);
   const [gridMounted, setGridMounted] = useState(false);
+  const [matchedRows, setMatchedRows] = useState(rows.length);
+  const [columnFilters, setColumnFilters] = useState<Record<string, unknown>>({});
   const grid = useRef<GridApi<PortfolioRow> | null>(null);
+  const syncFilters = useCallback(() => {
+    const api = grid.current;
+    if (!api || api.isDestroyed()) return;
+    setMatchedRows(api.getDisplayedRowCount());
+    const filters = api.getFilterModel();
+    setColumnFilters(previous => JSON.stringify(previous) === JSON.stringify(filters) ? previous : filters);
+  }, []);
   const appliedSessionFilterReset = useRef(0);
   useEffect(() => {
     const token = resetFilterToken ?? 0, api = grid.current;
@@ -131,7 +146,16 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
     ...companies.map(company => ({ id: `company.${company.id}.recorded-role`, label: company.label }))];
   const resetLayout = () => {
     grid.current?.applyColumnState({ state: defaultSheetColumnState(specs), applyOrder: true });
-    grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
+    layout.changed();
+  };
+  const activeFilters = sheetFilterSummary(layout.quickFilter, columnFilters, columnChoices, layout.visible);
+  const clearFilters = () => { if (grid.current) clearSheetFilters(grid.current, layout.changeQuickFilter); };
+  const removeFilter = (id: string) => {
+    if (id === '$quick') layout.changeQuickFilter('');
+    else if (grid.current) {
+      const next = { ...grid.current.getFilterModel() }; delete next[id]; grid.current.setFilterModel(next); layout.changed();
+    }
+    grid.current?.paginationGoToFirstPage();
   };
   const columnDefs = useMemo<ColDef<PortfolioRow>[]>(() => [
     {
@@ -182,9 +206,10 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
     </div>)}</div>
     <SheetToolbar label="Cultivar portfolio tools" className="berry-grid-preferences"
-      filter={{ label: 'Filter this company group', value: layout.quickFilter, onChange: layout.changeQuickFilter,
-        placeholder: 'Cultivar, role or company in this group', disabled: layout.busy }}
-      count={`${rows.length} loaded cultivars`}
+      filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+        placeholder: 'All fields, including hidden', disabled: layout.busy }}
+      count={matchedRows === rows.length ? `${rows.length} cultivars` : `${matchedRows} matches of ${rows.length} cultivars`}
+      activeFilters={{ items: activeFilters, onClear: clearFilters, onRemove: removeFilter, disabled: pageBlocked || layout.busy }}
       columns={{ columns: columnChoices, visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility,
         onReload: layout.reloadSavedLayout, reloadLabel: sessionOnly ? 'Reload session layout' : 'Reload saved layout',
         actionDisabled: pageBlocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
@@ -196,15 +221,16 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
     </div>}
     <div className="berry-grid berry-portfolio-grid" data-grid-edition="community" aria-busy={layout.busy} inert={layout.busy}>
       <AgGridReact<PortfolioRow> theme={berryGridTheme} rowData={rows} columnDefs={columnDefs}
-        getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder
+        getRowId={params => params.data.id} quickFilterText={layout.quickFilter} includeHiddenColumnsInQuickFilter maintainColumnOrder
         processUnpinnedColumns={params => params.columns.filter(column => !['cultivar.identity', 'cultivar.comparison-pin'].includes(column.getColId()))}
         defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2 }, cellDataType: false, resizable: true, wrapHeaderText: true, autoHeaderHeight: true }}
-        onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setGridMounted(true); }}
+        onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setGridMounted(true); syncFilters(); }}
+        onModelUpdated={syncFilters}
         onColumnResized={event => { if (isUserLayoutEvent('resize', event.source, event.finished)) layout.changed(); }}
         onColumnMoved={event => { if (isUserLayoutEvent('move', event.source, event.finished)) layout.changed(); }}
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}
         onSortChanged={event => { if (isUserLayoutEvent('sort', event.source)) layout.changed(); }}
-        onFilterChanged={event => { if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
+        onFilterChanged={event => { syncFilters(); if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
         rowHeight={42} headerHeight={34} animateRows={false} suppressCellFocus={false}
         getRowClass={params => params.data?.id === context.focus ? 'berry-grid-row-focused' : ''}
         overlayNoRowsTemplate="No loaded cultivar rows match this filter." />
