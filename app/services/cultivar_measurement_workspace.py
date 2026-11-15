@@ -85,6 +85,8 @@ def present_measurement(record: dict[str, Any], *,
         source["title"] = binding.get("source_title") or binding["source_id"]
         source["published"] = stored.get("status") == "published"
         source["source_href"] = ("/evidence/" if source["published"] else "/review/") + binding["evidence_id"] if binding.get("evidence_id") else None
+        if source["source_href"] and not source["published"]:
+            source["source_href"] += "?" + urlencode({"return_to": row["href"]})
         source["artifacts"] = []
         for packet in packets:
             if packet["_batch_id"] != record.get("import_batch_id"):

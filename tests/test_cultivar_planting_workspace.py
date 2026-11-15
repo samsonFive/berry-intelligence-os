@@ -86,6 +86,19 @@ def test_review_requires_individual_confirmation_and_explicit_source(research_wo
     assert w["repos"].facts.list() == []
 
 
+def test_source_approval_returns_to_individual_measurement_without_approving_claim(research_world):
+    from tests.test_review_publish_portability import _publish, _restore
+    w = research_world
+    draft_id = _restore(w["inbox"])
+    target = "/variety-plantings/" + w["record"]["id"]
+    response = _publish(w["client"], draft_id, return_to=target)
+    assert response.status_code == 303 and response.headers["location"] == target
+    assert w["repos"].evidence.get(draft_id)["status"] == "published"
+    assert w["repos"].facts.list() == []
+    assert main._safe_review_return("https://outside.example" + target) == "/review"
+    assert main._safe_review_return(target + "/review") == "/review"
+
+
 def test_explicit_claim_decision_uses_session_actor_and_exact_cultivar_scope(research_world, monkeypatch):
     w = research_world
     monkeypatch.setattr(main, "session_username", lambda request: "signed-in-analyst")

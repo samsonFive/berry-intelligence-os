@@ -10615,6 +10615,10 @@ def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
         allowed = len(parts) == 2
     elif path == "/review-ops" or path.startswith("/review-ops/"):
         allowed = len(parts) <= 3
+    elif path == "/variety-plantings":
+        allowed = True
+    elif re.fullmatch(r"/variety-plantings/cm-[a-z0-9-]+-[a-f0-9]{16}", path):
+        allowed = True
     if not allowed:
         return fallback
     return path + (f"?{parsed.query}" if parsed.query else "")
@@ -11179,6 +11183,11 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     # analyst already supplied Facts via the advanced form (facts_input
     # non-empty) already satisfy the claim requirement -- no extra stop.
     if draft.get("evidence_role") == "publication_artifact" and not facts_input:
+        # Source approval is the first gate. Return this source-bound research
+        # handoff to its explicit structured claim review, without creating a
+        # summary-derived Fact or weakening the separate proposition decision.
+        if return_to and urlsplit(return_to).path.startswith("/variety-plantings/"):
+            return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
         claim_return = f"/review/{next_id}" if next_id else (return_to or "/pending")
         return RedirectResponse(
             url=f"/review/{result.evidence_id}/claim?return_to={quote(claim_return, safe='')}",
