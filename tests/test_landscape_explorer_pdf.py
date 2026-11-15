@@ -91,12 +91,12 @@ def test_download_uses_same_policy_bundle_and_filename(client_world,world):
     world['evidence'].append({'id':'ev-pending','title':'Unreviewed test source','status':'in_review','berry_ids':['berry-blueberry']})
     world['relationships'].append({'id':'r-pending','subject_id':'company-a','object_id':'variety-a','predicate':'licenses','status':'disputed','evidence_ids':['ev-pending']})
     query='berry=berry-blueberry&compare=berry-strawberry&view=compare&countries='
-    reviewed=client_world.get('/landscapes/explorer/export/pdf?'+query)
+    reviewed=client_world.get('/landscapes/explorer/export/pdf?'+query+'&evidence=reviewed')
     assert reviewed.status_code==200 and reviewed.headers['content-type']=='application/pdf'
     assert 'blueberry-vs-strawberry-landscape-' in reviewed.headers['content-disposition']
     assert reviewed.headers['cache-control']=='private, no-store'
     assert 'Unreviewed test source' not in text_and_reader(reviewed.content)[0]
-    all_news=client_world.get('/landscapes/explorer/export/pdf?'+query+'&evidence=all')
+    all_news=client_world.get('/landscapes/explorer/export/pdf?'+query)
     text,_=text_and_reader(all_news.content)
     assert 'Unreviewed test source' in text and 'Disputed / review required' in text
     api=client_world.get('/api/landscapes/explorer?'+query+'&evidence=all').json()

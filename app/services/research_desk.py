@@ -2,7 +2,7 @@
 
 This module composes existing canonical intelligence and the provider-neutral
 live research plane.  It creates no new intelligence repository and performs
-no writes.  Trust classes remain separate all the way to presentation.
+no writes. Confidence and review details remain attributes of each item.
 
 The model boundary is intentionally narrow: synthesis receives public source
 titles/publishers/dates and already displayed live snippets only.  Fact text,
@@ -28,6 +28,7 @@ from app.services.industry_pulse.dedup import dedupe_hits, unique_hits
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import DiscoveryProvider, discover
 from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
+from app.services.information_catalog import information_flags, merge_information
 from app.services.report_builder.scope import ResolvedScope, interpret_scope_text, resolve_scope
 
 DEFAULT_WINDOW_DAYS = 30
@@ -476,6 +477,7 @@ def _topic_rank(record: Mapping[str, Any], topics: tuple[str, ...]) -> int:
 
 
 def _evidence_row(record: dict[str, Any]) -> dict[str, Any]:
+    flags = information_flags(record)
     intake = str(record.get("intake_type") or "")
     structured_kind = ""
     source_type = str(record.get("source_type") or "")
@@ -496,9 +498,11 @@ def _evidence_row(record: dict[str, Any]) -> dict[str, Any]:
         "title": record.get("title") or record.get("id"),
         "source_name": record.get("source_name") or "",
         "date": _record_date(record),
-        "href": f"/evidence/{record.get('id')}",
+        "href": f"/intelligence/{record.get('id')}",
         "reader_href": f"/intelligence/{record.get('id')}",
-        "trust_class": trust_tier_label(record),
+        "url": record.get("source_url") or "",
+        "information": flags,
+        "trust_class": "UNREVIEWED SOURCE" if flags["review_status"] == "unreviewed" else "REJECTED SOURCE" if flags["review_status"] == "rejected" else trust_tier_label(record),
         "structured_kind": structured_kind,
         "entity_ids": list(record.get("entity_ids") or []),
         "geography_ids": list(record.get("geography_ids") or []),
@@ -520,9 +524,11 @@ def assemble_research_packet(
     radar_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
     competitive_moves_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
     today: date | None = None,
+    load_record: Callable[[str], dict[str, Any] | None] | None = None,
 ) -> dict[str, Any]:
     """Assemble only relevant canonical layers; never query everything blindly."""
     today = today or date.today()
+    published_evidence = merge_information(published_evidence, [])
     selected = [
         row for row in published_evidence
         if _matches_scope(row, scope, entities) and _within_window(row, scope.window_days, today=today, all_time=scope.all_time, publication_start=scope.publication_start, publication_end=scope.publication_end)
@@ -531,6 +537,8 @@ def assemble_research_packet(
     from app.services.topic_retrieval import plan_query, retrieve
     topic_plan = plan_query(scope.question)
     if topic_plan.cane_type:
+        from app.services.topic_source_catalog import hydrate_topic_sources
+        selected = hydrate_topic_sources(selected, load_record)
         selected = retrieve(selected, topic_plan, entities=entities, limit=MAX_PACKET_EVIDENCE)
     selected = selected[:MAX_PACKET_EVIDENCE]
     evidence_rows = [_evidence_row(row) for row in selected]
@@ -658,7 +666,7 @@ def assemble_research_packet(
         today=today,
     )
 
-    layers = ["TRUSTED_EVIDENCE", "COMPANIES", "RELATIONSHIPS"]
+    layers = ["INFORMATION", "COMPANIES", "RELATIONSHIPS"]
     if variety_rows or any(topic in scope.topics for topic in ("genetics", "rights_ip")):
         layers.extend(["VARIETIES", "PBR_RIGHTS", "PATENTS"])
     if market_rows or any(topic in scope.topics for topic in ("supply", "expansion", "commercial")):
@@ -677,7 +685,7 @@ def assemble_research_packet(
 
     gaps: list[str] = []
     if not evidence_rows:
-        gaps.append("No trusted or approved-source Evidence matched this scope and time window.")
+        gaps.append("No captured source matched this scope and time window.")
     if any(topic in scope.topics for topic in ("genetics", "rights_ip")) and not rights_rows:
         gaps.append("No structured PBR/PVP or patent record matched this scope and time window.")
     elif "rights_ip" in scope.topics and rights_rows and not any(row.get("date") for row in rights_rows):
@@ -973,7 +981,7 @@ def run_live_research(
             "id": _live_id(url), "title": hit.title, "url": url,
             "source_name": hit.origin_publisher_name or hit.source_domain or "Unknown publisher",
             "date": hit.published_date or "", "snippet": hit.snippet,
-            "provider": hit.provider, "trust_class": "LIVE / UNREVIEWED",
+            "provider": hit.provider, "trust_class": "LIVE / UNREVIEWED", "information": information_flags({}),
             "related_emerging": url in related_urls,
         })
     rows.sort(key=lambda row: (row["date"], row["title"]), reverse=True)
@@ -1026,7 +1034,10 @@ _ANSWER_INSTRUCTIONS = (
     "Draft concise berry-industry strategy findings using ONLY the numbered public source lines. "
     "Every statement must cite one or more listed source IDs. Do not invent figures, motives, market share, "
     "commercial success, or intent. Implications must use cautious language such as may/could and are AI synthesis, "
-    "not reviewed analyst Assessments. Return empty arrays when the sources do not support substance."
+    "not reviewed analyst Assessments. "
+    "Source statements must remain attributed; unreviewed sources are usable but must not be described as verified. "
+    "Keep stated confidence separate from whether a source has been reviewed. "
+    "Return empty arrays when the sources do not support substance."
 )
 
 
@@ -1034,12 +1045,13 @@ def _public_digest(packet: dict[str, Any], live: dict[str, Any]) -> list[str]:
     from app.services.research_source_holds import source_quote_hold
     lines = []
     for row in packet.get("evidence") or []:
-        lines.append(f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}")
+        flags = row.get("information") or {}
+        lines.append(f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'} | review: {flags.get('review_status', 'unreviewed')} | confidence: {flags.get('confidence_label') or 'Not assessed'}")
     for row in live.get("items") or []:
         if source_quote_hold(row) or row.get('support_status') in {'scope_unverified','source_review_hold'}:
             continue
         if row.get('support_status') and row.get('relevance')!='direct':continue
-        line = f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}"
+        line = f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'} | review: unreviewed | confidence: Not assessed"
         if row.get("snippet") and not any(row.get(key) for key in ('article','source_version','passage_locator','capture_status')):
             line += f" | {str(row['snippet'])[:220]}"
         lines.append(line)
@@ -1125,7 +1137,13 @@ def compose_research_answer(
         as_of = date.fromisoformat(str(live.get('coverage_as_of') or ''))
     except ValueError:
         as_of = datetime.now(timezone.utc).date()
-    for row in live.get('items') or []:
+    # Saved and newly discovered sources share a chronological source list.
+    # Review status never determines which section an item appears in.
+    development_sources = {str(row["id"]): row for row in packet.get("evidence") or [] if row.get("id")}
+    for row in live.get("items") or []:
+        if row.get("id"):
+            development_sources.setdefault(str(row["id"]), row)
+    for row in development_sources.values():
         if row in verification_leads:continue
         if row.get('support_status') and row.get('relevance')=='adjacent':continue
         if row.get('support_status') and row.get('relevance')=='background':
@@ -1142,6 +1160,8 @@ def compose_research_answer(
                 undated.append(row)
             else:
                 (current if published >= as_of-timedelta(days=90) else historical).append(row)
+    current.sort(key=lambda row: (str(row.get("date") or ""), str(row.get("id") or "")), reverse=True)
+    historical.sort(key=lambda row: (str(row.get("date") or ""), str(row.get("id") or "")), reverse=True)
     weak = [row for row in live.get("items") or [] if row.get("related_emerging") and row not in verification_leads]
     weak.extend(row for row in packet.get("signals") or [] if row.get("status") != "confirmed")
     return {

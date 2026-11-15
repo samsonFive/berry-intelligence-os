@@ -20,7 +20,7 @@ from typing import Any
 from app.services.report_builder.coverage_dimensions import report_coverage_dimensions
 
 GAP_MESSAGES = (
-    ("evidence_count", "No trusted Evidence captured for this scope yet."),
+    ("evidence_count", "No captured sources match this scope yet."),
     ("company_count", "No Companies resolved for this scope."),
     ("trusted_variety_count", "No trusted Varieties captured for this scope yet."),
     ("signal_count", "No Signals captured for this scope yet."),

@@ -58,10 +58,14 @@ def retained_news(inbox_dir: Path, *, selected_id: str | None = None, issues=Non
 
 
 def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True,
-                   pending=None, metadata_only: bool = False, index_issues=None) -> dict[str, dict[str, Any]]:
-    records = {str(row["id"]): row for row in retained_news(inbox_dir, issues=index_issues)} if include_private else {}
+                   pending=None, metadata_only: bool = False, index_issues=None,
+                   catalog: bool = False) -> dict[str, dict[str, Any]]:
+    records = ({str(row["id"]): row for row in retained_news(inbox_dir, issues=index_issues)}
+               if include_private and not catalog else {})
     for row in published:
-        if not row.get("id") or row.get("status") != "published":
+        if not row.get("id") or (not include_private and row.get("status") != "published"):
+            continue
+        if row.get("status") in {"rejected", "archived", "withdrawn", "deleted"}:
             continue
         item_id = str(row["id"])
         cached = records.get(item_id) or {}
@@ -71,9 +75,9 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
         if image and not feed_first.safe_image_url(row):
             row = {**row, "article": {**(row.get("article") or {}), "image_url": image}}
         records[item_id] = row
-    if include_private and pending is not None:
+    if include_private and pending is not None and not catalog:
         from app.services.publication_sources import active_publication_record, inactive_publication_record
-        canonical_ids = {str(row['id']) for row in published if row.get('id') and row.get('status') == 'published'}
+        canonical_ids = {str(row['id']) for row in published if row.get('id')}
         for original in pending:
             key = str(original.get('id') or '')
             if key in canonical_ids:

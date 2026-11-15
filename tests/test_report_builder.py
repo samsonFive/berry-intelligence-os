@@ -415,8 +415,9 @@ def test_packet_preserves_provenance_per_item():
     row = next(r for r in packet["recent_developments"] if r["id"] == "ev-prov")
     assert row["date"] == "2026-05-01"
     assert row["date_basis"] == "published"
-    assert row["href"] == "/evidence/ev-prov"
-    assert row["trust"] == "trusted"
+    assert row["href"] == "/intelligence/ev-prov"
+    assert row["trust"] == "reviewed"
+    assert row["information"]["confidence_label"] == "Not assessed"
 
 
 # --- 8/9. Grounded synthesis + citation validation --------------------------
@@ -731,7 +732,7 @@ def test_sparse_report_with_limited_evidence_shows_gaps():
     )
     coverage = report_coverage(packet)
     assert coverage["counts"]["evidence_count"] == 0
-    assert "No trusted Evidence captured for this scope yet." in coverage["gaps"]
+    assert "No captured sources match this scope yet." in coverage["gaps"]
 
 
 # --- 21. Canonical vs candidate Variety trust distinction --------------------

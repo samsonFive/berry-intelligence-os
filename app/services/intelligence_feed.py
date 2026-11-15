@@ -12,6 +12,8 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
+from app.services.information_catalog import information_flags
+
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -200,10 +202,9 @@ def _feed_sort_key(item: dict[str, Any]) -> tuple:
     tier_rank = 0 if item.get("relevance_tier") == "adjacent" else 1
     band = {"High": 4, "Relevant": 3, "Moderate": 2, "Low": 1}.get(item.get("relevance_band") or "", 0)
     berry = 1 if item.get("berry_direct") else 0
-    pending = 1 if item.get("trust") in {"pending", "attention", "disputed"} else 0
     ready = 1 if item.get("transcript_state") == "ready" else 0
     date = str(item.get("date") or "")
-    return (tier_rank, band, berry, pending, ready, date)
+    return (tier_rank, band, berry, ready, date)
 
 
 def _published_for_feed(published: list[dict[str, Any]], *, limit: int = 48) -> list[dict[str, Any]]:
@@ -269,7 +270,8 @@ def present_feed_item(
     ]
     return {
         "id": record.get("id"),
-        "title": record.get("title") or "Untitled",
+        "title": record.get("title") or record.get("statement") or "Untitled",
+        "information": information_flags(record),
         "kind": kind,
         "kind_label": KIND_LABELS.get(kind, "Intelligence"),
         "trust": trust,
@@ -281,7 +283,7 @@ def present_feed_item(
         "why": card.get("why") or "",
         "summary": card.get("summary") or "",
         "relevance_band": card.get("relevance_band") or "",
-        "ai_untrusted": bool(card.get("ai_untrusted") or record.get("ai_enrichment")),
+        "ai_untrusted": bool(card.get("ai_untrusted") or record.get("ai_enrichment") or record.get("ai_assisted")),
         "entities": chips,
         "tags": card.get("tags") or record.get("tags") or [],
         "source_url": source_url,
@@ -368,33 +370,20 @@ def build_intelligence_feed(
     transcript_readiness: dict[str, dict[str, Any]] | None = None,
     filter_key: str = "all",
     limit: int = 48,
+    records: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     entity_index = _entity_map(entities)
     readiness = transcript_readiness or {}
     items: list[dict[str, Any]] = []
-    pending = [
-        draft
-        for draft in drafts
-        if draft.get("evidence_role") != "atomic_evidence" and draft.get("status", "draft") != "rejected"
-    ]
-    for draft in pending:
-        items.append(
-            present_feed_item(
-                draft,
-                entities=entity_index,
-                berry_labels=berry_labels,
-                readiness=readiness.get(draft.get("id")),
-            )
-        )
-    trusted_seen = {item["id"] for item in items}
-    for record in _published_for_feed(published):
-        if record.get("id") in trusted_seen:
-            continue
+    from app.services.information_catalog import merge_information
+    inventory = records if records is not None else merge_information(published, drafts)
+    for record in inventory:
         items.append(
             present_feed_item(
                 record,
                 entities=entity_index,
                 berry_labels=berry_labels,
+                readiness=readiness.get(record.get("id")),
             )
         )
     available = []

@@ -4218,3 +4218,16 @@ manual entry. Saved edits and explicit clearing survive reopen. Existing stored
 names and human publication/Atomic review gates remain intact. Focused and
 integration regressions pass; source capture and event-level recall remain open.
 See `PUBLICATION-VARIETY-REVIEW-REPAIR-2026-11-14.md`.
+
+### TD-INFORMATION-001 — legacy information persistence adapters, November 13
+
+The live catalog now unifies stored Evidence, intake and retained web results;
+review and confidence no longer gate News, search, research or report membership.
+The physical files remain in their existing directories behind that catalog.
+Consolidating storage requires migrating all acquisition/review writers,
+attachments, source-body references and exact-ID tombstones together, with a
+production backup and preservation rehearsal. Do not create a second persisted
+master index or silently move production data to achieve a UI cleanup. Existing
+specialist review workflows and domain object types remain available. Local
+implementation and validation do not constitute a production migration or deploy.
+See `UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.

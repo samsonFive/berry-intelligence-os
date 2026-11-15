@@ -20,6 +20,7 @@ def workspace(monkeypatch, tmp_path):
     state["statements"] = {record["id"]: [row]}
     feed_first.save_state(main.INBOX_DIR, state)
     monkeypatch.setattr(main, "published_evidence", lambda: [record])
+    monkeypatch.setattr(main, "unified_information", lambda: [record])
     monkeypatch.setattr(main, "_feed_first_world", lambda: {"state": feed_first.load_state(main.INBOX_DIR), "entities": [{"id": "company-sample", "name": "Example Company", "entity_type": "company"}, {"id": "geography-sample", "name": "Example Region", "entity_type": "geography"}, {"id": "variety-sample", "name": "Example Variety", "entity_type": "variety"}], "nav": [], "counts": {}})
     return TestClient(main.app), row, record
 

@@ -324,7 +324,7 @@ def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_pat
     assert saved.status_code == 303
     assert saved.headers["location"] == "/work-queue?saved=1"
     saved_page = client.get("/work-queue?saved=1")
-    assert "Pending item saved" in saved_page.text
+    assert "Item saved" in saved_page.text
     assert main.get_draft(save["id"])["status"] == "draft"
 
     promoted = client.post(
@@ -414,8 +414,8 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert feed.status_code == 200
     assert "Live Intelligence" in feed.text
     assert "Synthetic blueberry article promote" in feed.text
-    assert "Pending" in feed.text
-    assert "AI-assisted · pending analyst review" in feed.text
+    assert "<dd>Unreviewed</dd>" in feed.text
+    assert "AI assisted. Source statements retain their individual qualifications." in feed.text
     assert f'href="/intelligence/{draft["id"]}"' in feed.text
     assert "/entities/company/company-hortifrut" in feed.text
 
@@ -424,8 +424,8 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert "INTELLIGENCE READER" in reader.text
     assert "Exact acquired paragraph one." in reader.text
     assert "p1" in reader.text
-    assert "Promote publication" in reader.text
-    assert "Save pending" in reader.text
+    assert "Record source review" in reader.text
+    assert "Save item" in reader.text
     assert "Ignore / reject" in reader.text
     assert "HUMAN PUBLICATION REVIEW" not in reader.text
     assert "Read original" in reader.text
@@ -486,9 +486,9 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert claim.headers["location"] == f"/intelligence/{draft['id']}?promoted=1"
     trusted = client.get(claim.headers["location"])
     assert trusted.status_code == 200
-    assert "Promoted to trusted intelligence" in trusted.text
-    assert ">Trusted<" in trusted.text
-    assert "Promote publication" not in trusted.text
+    assert "Source review saved" in trusted.text
+    assert "<dd>Reviewed</dd>" in trusted.text
+    assert "Record source review" not in trusted.text
     assert repos.evidence.get(draft["id"])["status"] == "published"
     assert len(repos.evidence.get(draft["id"])["fact_ids"]) == 1
 
@@ -581,7 +581,7 @@ def test_spoken_and_patent_reader_shell(monkeypatch, tmp_path: Path) -> None:
     assert "Open filing" in patent_page.text
     trusted_page = client.get("/intelligence/ev-trusted-article")
     assert trusted_page.status_code == 200
-    assert ">Trusted<" in trusted_page.text
+    assert "<dd>Reviewed</dd>" in trusted_page.text
     assert "Trusted blueberry consumption brief" in trusted_page.text
 
 
@@ -694,11 +694,11 @@ def test_runtime_feed_uses_real_records_when_present() -> None:
     )
     if has_spoken_draft:
         assert "Spoken media" in spoken.text
-        assert "Pending" in spoken.text
+        assert "<dd>Unreviewed</dd>" in spoken.text
     if any("lucentlands" in path.name for path in data.glob("*.json")):
         trusted = client.get("/intelligence/ev-lucentlands-scaling-blueberry-industry-2025")
         assert trusted.status_code == 200
-        assert "Trusted" in trusted.text
+        assert "<dd>Reviewed</dd>" in trusted.text
         assert "Open source" in trusted.text
     sample_article = next(
         (

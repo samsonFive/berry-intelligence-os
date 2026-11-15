@@ -368,6 +368,9 @@ class ReviewPublishService:
             "social_observation",
             "workspace_capture",
             "verification_state",
+            "information_confidence",
+            "confidence",
+            "source_authority",
         ):
             if field_name not in request.draft:
                 continue

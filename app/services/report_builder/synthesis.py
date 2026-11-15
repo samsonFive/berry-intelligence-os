@@ -137,8 +137,10 @@ _SYNTH_INSTRUCTIONS = (
     "You are drafting one section of an internal competitive-intelligence report. "
     "You may state ONLY what is directly supported by the numbered facts below -- "
     "never add outside knowledge, never speculate beyond the given facts, and never "
-    "invent a company, variety, date, or figure not present in them. Every citation_ids "
-    "entry must be one of the ids listed with the facts. If the given facts do not "
+    "invent a company, variety, date, or figure not present in them. "
+    "Source statements remain attributed claims; review status and confidence are item attributes. "
+    "Do not describe an unreviewed source as verified or infer confidence when it is not assessed. "
+    "Every citation_ids entry must be one of the ids listed with the facts. If the given facts do not "
     "support a substantive section, return an empty prose string and an empty "
     "citation_ids array rather than padding with generic language."
 )
@@ -157,6 +159,10 @@ def _public_evidence_line(item: dict[str, Any]) -> str | None:
         value = item.get(key)
         if value:
             parts.append(str(value)[:160])
+    flags = item.get("information") or {}
+    if flags:
+        parts.append(f"review: {flags.get('review_status', 'unreviewed')}")
+        parts.append(f"confidence: {flags.get('confidence_label') or 'Not assessed'}")
     return " | ".join(parts)
 
 

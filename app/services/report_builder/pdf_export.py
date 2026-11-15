@@ -312,7 +312,7 @@ def render_report_pdf(
     if packet.get("source_window"):
         window = packet["source_window"]
         story.append(Paragraph("Captured company reporting", styles["h2"]))
-        story.append(Paragraph(f"Published {window['start']} through {window['end']}. Pending sources are excluded from trusted synthesis.", styles["meta"]))
+        story.append(Paragraph(f"Published {window['start']} through {window['end']}. Captured sources retain their individual confidence and review details.", styles["meta"]))
         for row in packet.get("source_inventory") or []:
             story.append(Paragraph(escape(row["title"]), styles["h2"]))
             story.append(Paragraph(escape(f"{row['published_date']} | {row['source_name']} | {row['trust_label']}"), styles["meta"]))

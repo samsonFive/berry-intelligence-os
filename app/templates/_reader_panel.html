@@ -5,9 +5,6 @@
       {% if item.date %}<time class="v2-meta">{{ item.date|us_date }}</time>{% endif %}
     </p>
     <div class="v2-reader-states">
-      {% if item.trust == 'trusted' %}<span class="v2-mark v2-mark-trusted">Trusted</span>
-      {% elif item.trust == 'pending' %}<span class="v2-mark v2-mark-pending">Pending</span>
-      {% else %}<span class="v2-mark">{{ item.trust_label }}</span>{% endif %}
       <span class="v2-meta">{{ item.kind_label }}</span>
     </div>
     <h2 class="v2-reader-title">{{ item.title }}</h2>
@@ -30,6 +27,7 @@
       {% endfor %}
     </div>
   </header>
+  {% with information_record=record or item.record or {}, information_source_reviewed=item.trust == 'trusted', information_ai_assisted=item.ai_untrusted %}{% include '_information_details.html' %}{% endwith %}
 
   {% include '_source_reading_notice.html' %}
   {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
@@ -73,7 +71,7 @@
     <details class="reader-secondary">
       <summary>Why it matters</summary>
       <p>{{ item.why }}</p>
-      {% if item.ai_untrusted %}<p class="v2-meta">AI-assisted · pending analyst review</p>{% endif %}
+      {% if item.ai_untrusted %}<p class="v2-meta">AI-assisted interpretation</p>{% endif %}
     </details>
   {% endif %}
   {% with hits=learn_glossary_hits(item.title, item.why or '', summary or ''), compact=false, disclosure=true %}
@@ -164,7 +162,7 @@
           <input type="hidden" name="berries" value="{{ berry }}">
         {% endfor %}
         <input type="hidden" name="reviewer" value="{{ reviewer }}">
-        <button class="v2-btn v2-btn-primary" type="submit" data-promote>Promote</button>
+        <button class="v2-btn v2-btn-quiet" type="submit" data-promote>Review source</button>
       </form>
     {% endif %}
     <a class="v2-btn v2-btn-quiet" href="/intelligence/{{ item.id }}">Open full reader</a>

@@ -78,7 +78,7 @@ def _comparison_projection(world, context):
             companies.append({"id": company["id"], "name": company["name"], "berries": company.get("berries", []),
                               "roles": roles, "role_edges": role_edges,
                               "geographies": [{"id": row["id"], "name": row.get("name") or row["id"]} for row in company.get("geographies", [])],
-                              "rights_published": [{key: row.get(key) for key in ("id", "title", "kind", "published_date")}
+                              "rights_published": [{key: row.get(key) for key in ("id", "title", "kind", "published_date", "information")}
                                                    for row in company.get("rights_published", [])]})
         return {"comparison_kind": kind, "companies": companies, "role_labels": raw.get("role_labels", {}),
                 "invalid_ids": raw.get("invalid_ids", []), "overflow_ids": raw.get("overflow_ids", []),
@@ -88,7 +88,7 @@ def _comparison_projection(world, context):
         varieties.append({"id": variety["id"], "name": world.entities[variety["id"]].get("name", variety["id"]),
                           "berries": variety.get("berries", []),
                           "countries_observed": [{"id": row["id"], "name": row.get("name") or row["id"]} for row in variety.get("countries_observed", [])],
-                          "rights_published": [{key: row.get(key) for key in ("id", "title", "kind", "published_date")}
+                          "rights_published": [{key: row.get(key) for key in ("id", "title", "kind", "published_date", "information")}
                                                for row in variety.get("rights_published", [])]})
     dimensions = []
     for dimension in raw.get("dimensions", []):
@@ -142,11 +142,14 @@ def build_payload(world, context_values, section_ids=None, include_demo=False):
         else:
             developments = (api.news_data(world, context, bundle, all_cards=True) if context["lens"] == "news"
                             else api.developments_data(world, context, bundle, all_cards=True))
-            allowed = ("id", "headline", "deck", "source_name", "source_url", "published_at", "source_reviewed", "trusted",
+            allowed = ("id", "headline", "deck", "source_name", "source_url", "published_at", "source_reviewed", "trusted", "information",
                        "media_label", "media_note", "company_mentions", "scope_match", "coverage_sources", "independence", "translated", "translation_pending")
             content = {"heading": developments["heading"], "basis": developments["basis"],
                        "scope_applicability": developments.get("scope_applicability", {}),
                        "cards": [{key: card.get(key) for key in allowed if key in card} for card in developments["cards"]]}
+            for card in content["cards"]:
+                if not card.get("information"):
+                    card["information"] = api.information_flags(world.evidence_index.get(card["id"], {}))
             if developments.get("company_set_key"):
                 content["company_set_key"] = developments["company_set_key"]
             count = len(content["cards"])
@@ -173,7 +176,7 @@ def build_payload(world, context_values, section_ids=None, include_demo=False):
         if metadata is None:
             metadata = {"id": key, "availability": "Source metadata unavailable in the current authorized read model"}
         sources.append({key: value for key, value in metadata.items() if key in
-                        {"id", "title", "url", "source_name", "status", "review", "published", "captured", "availability"}})
+                        {"id", "title", "url", "source_name", "status", "review", "published", "captured", "availability", "information"}})
     label = lambda key: world.entities.get(key, {}).get("name", key)
     payload = {"export_v": 1, "context": context, "section_ids": sections, "include_demo": include_demo,
                "scope": {"berry": "All berries" if context["berry"] == "all" else label(context["berry"]),
@@ -352,8 +355,7 @@ def render_pdf(payload, *, generated_at=None):
             if not content["cards"]:
                 story.append(p("No retained developments match the applied subject and scope. No unfiltered fallback was substituted."))
             for card in content["cards"]:
-                trust = "Escalated" if card.get("trusted") else "Source reviewed" if card.get("source_reviewed") else "Unreviewed source"
-                entry = [p(card["headline"], "h3"), p((card.get("source_name") or "Publisher not recorded") + " / Published " + str(card.get("published_at") or "Unknown") + " / " + trust + " / " + refs([card["id"]]), "meta")]
+                entry = [p(card["headline"], "h3"), p((card.get("source_name") or "Publisher not recorded") + " / Published " + str(card.get("published_at") or "Unknown") + " / " + refs([card["id"]]), "meta")]
                 if card.get("deck"):
                     entry.append(p(card["deck"]))
                 scope_match = card.get("scope_match") or {}
@@ -369,14 +371,17 @@ def render_pdf(payload, *, generated_at=None):
                 story.append(KeepTogether(entry))
     if payload["scope_notes"]:
         story.append(KeepTogether([p("Scope and source limits", "h2"), *(p(note, "meta") for note in payload["scope_notes"])]))
-    story += [PageBreak(), p("Source appendix", "h2"), p("Publication and capture dates remain distinct. These references identify the retained source basis; source approval does not approve every claim.", "meta")]
+    story += [PageBreak(), p("Source appendix", "h2"), p("Publication and capture dates remain distinct. Confidence and review details describe each retained source.", "meta")]
     if not sources:
         story.append(p("No source references are attached to the selected sections."))
     for key, source in sources.items():
+        flags = source.get("information") or {}
+        details = ("Confidence: " + (flags.get("confidence_label") or "Not assessed") + " / "
+                   + str(flags.get("review_status") or "unreviewed").capitalize())
         entry = [p(f"[{numbers[key]}] " + (source.get("title") or source.get("availability") or key), "h3"),
                   p("ID: " + key + " / " + (source.get("source_name") or "Publisher not recorded"), "meta"),
                   p("Published: " + str(source.get("published") or "Unknown") + " / Captured: " + str(source.get("captured") or "Unknown"), "meta"),
-                  p(source.get("review") or source.get("status") or source.get("availability") or "Review state unavailable", "meta")]
+                  p(details, "meta")]
         if source.get("url"):
             entry.append(p(source["url"], "meta"))
         story.append(KeepTogether(entry))

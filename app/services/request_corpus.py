@@ -102,6 +102,8 @@ class RequestCorpus:
     _repos: Any = field(default=None, repr=False)
     _evidence: list[dict[str, Any]] | None = field(default=None, repr=False)
     _published: list[dict[str, Any]] | None = field(default=None, repr=False)
+    _information: list[dict[str, Any]] | None = field(default=None, repr=False)
+    _information_by_id: dict[str, dict[str, Any]] | None = field(default=None, repr=False)
     _entities: list[dict[str, Any]] | None = field(default=None, repr=False)
     _facts: list[dict[str, Any]] | None = field(default=None, repr=False)
     _relationships: list[dict[str, Any]] | None = field(default=None, repr=False)
@@ -154,6 +156,21 @@ class RequestCorpus:
                 records = apply(records, load_corrections(self.inbox_dir))
             return records
         return self._list("_evidence", load)
+
+    @property
+    def information(self) -> list[dict[str, Any]]:
+        """Live inventory independent of review/publication state."""
+        from app.services.information_catalog import load_information
+        return self._list("_information", lambda: self._eligible_for_new_outputs(
+            load_information(self.evidence, self.inbox_dir)))
+
+    def cached_information_record(self, record_id: str) -> dict[str, Any] | None:
+        """Reuse a loaded catalog without triggering a scan on Reader paths."""
+        if self._information is None:
+            return None
+        if self._information_by_id is None:
+            self._information_by_id = {row["id"]: row for row in self._information}
+        return self._information_by_id.get(record_id)
 
     @property
     def published_evidence(self) -> list[dict[str, Any]]:

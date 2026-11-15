@@ -125,13 +125,14 @@ def profile_context(request, entity_id, existing):
     # and full location data on Overview/Regions without preparing either model
     # to render contacts, profile editing, intelligence or source-name tables.
     if tab in {"overview", "news", "regions"}:
-        published = main.published_evidence()
-        records = personal_digest.source_records(published, main.INBOX_DIR) if main.AUTHORING_MODE else {r["id"]: r for r in published}
+        inventory = main.unified_information(include_private=main.AUTHORING_MODE)
+        records = personal_digest.source_records(inventory, main.INBOX_DIR,
+            include_private=main.AUTHORING_MODE, catalog=True)
         if tab in {"overview", "news"}:
             # Seed identities remain addressable without inferred canonical roles.
             selector_entities = {**entities, entity_id: {**company, "entity_type": "company"}}
             news = news_workspace.model(records=records, entities=selector_entities, relationships=relations, facts=main.all_facts(), state=state,
-                                        params={"company": entity_id, "window": "", "view": "unreviewed", "tz": str(request.query_params.get("tz") or "UTC")})
+                                        params={"company": entity_id, "window": "", "view": "all", "tz": str(request.query_params.get("tz") or "UTC")})
         if tab in {"overview", "regions"}:
             regions = [r for r in map_regions.catalog(entities, relations, list(records.values()), map_regions.load(main.INBOX_DIR) if main.AUTHORING_MODE else None) if r["entity_id"] == entity_id]
     people = directory.people_for(entity_id, entities, relations, discover_people(existing), override)

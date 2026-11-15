@@ -22,23 +22,26 @@ def stored_body_lookup(main, params):
         return None
     from app.services import personal_digest
     from app.services.feed_first_reader import load_capture, merge_capture
-    from app.services.publication_sources import active_publication_record
     from app.services.source_body import article_full_text
 
-    stored = personal_digest.source_records(main.published_evidence(), main.INBOX_DIR,
-        include_private=main.AUTHORING_MODE)
+    stored = personal_digest.source_records(
+        main.unified_information(include_private=main.AUTHORING_MODE), main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE, catalog=True)
+    hydrated = {}
 
     def body_for(preview):
         key = preview['id']
         source = stored.get(key)
-        if main.AUTHORING_MODE and (not source or source.get('status') != 'published'):
-            try:
-                draft = main.get_draft(key)
-            except (OSError, ValueError):
-                draft = None
-            source = (active_publication_record(draft) if draft else None) or source
+        if (source is not None and main.AUTHORING_MODE and source.get('_catalog_origin') == 'inbox'
+                and source.get('status') != 'unreviewed'):
+            if key not in hydrated:
+                try:
+                    hydrated[key] = main._load_intelligence_record(key)
+                except (OSError, ValueError):
+                    hydrated[key] = None
+            source = hydrated[key]
         if not source or source.get('source_url') != preview.get('source_url'):
-            source = preview
+            return ''
         if main.AUTHORING_MODE:
             source = merge_capture(source, load_capture(main.INBOX_DIR, key))
         return article_full_text(source)
@@ -94,10 +97,10 @@ def news_page(request: Request):
         card['full_reader_href'] = '/intelligence/' + card['id'] + '?' + urlencode({'personal': '1', 'return_to': '/today?' + urlencode(query)})
         for tag in card['assigned_tags']:
             tag['filter_href'] = '/today?' + urlencode({**query, 'tag': ','.join(dict.fromkeys([*filter(None, query['tag'].split(',')), tag['id']]))})
-    # Switching review lanes or pages always carries the same scope.
+    # Page links carry one inventory and the same topical scope.
     model["pagination"] = {number: "/today?" + urlencode({**query, "page": number})
                            for number in (model["page"] - 1, model["page"] + 1)}
-    model["review_urls"] = {view: "/today?" + urlencode({**query, "view": view}) for view in ("trusted", "unreviewed")}
+    model["review_urls"] = {"all": "/today?" + urlencode({**query, "view": "all"})}
     model["map_href"] = model["query"].url() + "&" + urlencode({"news_return": "/today?" + urlencode(query)})
     model["initial_story"] = str(params.get("story") or "")
     refresh = refresh_state(main.INBOX_DIR)
@@ -147,17 +150,26 @@ def _classify_stored_tags():
     main, context, records, entities = world()
     # Hydrate stored content only in background work, never on the feed path.
     from app.services import personal_digest
-    full = personal_digest.source_records(main.published_evidence(), main.INBOX_DIR,
-        include_private=main.AUTHORING_MODE, metadata_only=False)
+    inventory = main.unified_information(include_private=main.AUTHORING_MODE)
+    full = personal_digest.source_records(inventory, main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE, metadata_only=False, catalog=True)
     if main.AUTHORING_MODE:
-        from app.services.publication_sources import active_publication_record
-        for key in records.keys() - full.keys():
-            original = main.get_draft(key)
-            source = active_publication_record(original) if original else None
-            if source:
+        for preview in inventory:
+            # Retained-web rows already contain their stored metadata; their
+            # selected capture is merged below without rescanning every cache.
+            if preview.get('_catalog_origin') != 'inbox' or preview.get('status') == 'unreviewed':
+                continue
+            key = preview['id']
+            try:
+                source = main._load_intelligence_record(key)
+            except (OSError, ValueError):
+                source = None
+            if source is None:
+                full.pop(key, None)
+            else:
                 full[key] = source
     from app.services.feed_first_reader import load_capture, merge_capture
-    corpus = {**records, **full}
+    corpus = full
     if main.AUTHORING_MODE:
         corpus = {key: merge_capture(row, load_capture(main.INBOX_DIR, key)) for key, row in corpus.items()}
     from app.services import news_tag_semantics

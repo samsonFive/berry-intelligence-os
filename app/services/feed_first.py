@@ -657,8 +657,10 @@ def present_item(
         crops=crops,
     )
     from app.services.news_visuals import reference_for
+    from app.services.information_catalog import information_flags
     return {
         "id": item_id,
+        "information": information_flags(record),
         "headline": decode_html_text(record.get("title") or item_id),
         "deck": decode_html_text(record.get("news_preview_excerpt") or record.get("summary") or "")[:280],
         "source_name": record.get("source_name") or "Unknown source",

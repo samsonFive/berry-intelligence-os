@@ -110,6 +110,10 @@ def client(monkeypatch, tmp_path):
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
     monkeypatch.setattr(main, "published_evidence", lambda: RECORDS)
+    from app.services.information_catalog import load_information
+    monkeypatch.setattr(main, "unified_information", lambda **kwargs: load_information(
+        main.published_evidence(), main.INBOX_DIR,
+        include_private=kwargs.get("include_private", main.AUTHORING_MODE)))
     monkeypatch.setattr(main, "all_relationships", lambda: REL)
     monkeypatch.setattr(main, "all_facts", lambda: FACTS)
     return TestClient(main.app)
@@ -136,7 +140,8 @@ def test_editor_and_map_get_are_pure_and_invalid_post_protected(client, tmp_path
 def test_news_map_scope_parity_with_return_filters(client):
     params = '?view=unreviewed&countries=geography-peru&berry=berry-blueberry&company=company-grower&window=custom&start=2026-07-01&end=2026-08-02&tz=America%2FLos_Angeles'
     page = client.get('/explorer' + params)
-    assert '1 unreviewed records' in page.text
+    assert '1 records' in page.text
+    assert 'confidence and source details stay with each story' in page.text
     assert '/intelligence/ev-berry-news?personal=1' in page.text
     assert 'window=custom' in page.text and 'start=2026-07-01' in page.text
     stats = client.get('/explorer?countries=geography-united-states&layer=companies&window=custom&start=2026-01-01&end=2026-01-02')
@@ -155,9 +160,12 @@ def test_statement_support_and_observed_by_do_not_promote_region(tmp_path):
         map_regions.edit(tmp_path, payload=payload(fact_id="fact-news"), entities=ENTITIES, relationships=REL, records=RECORDS, facts=[{**fact, "status": "draft"}])
 
 
-def test_live_published_metadata_cannot_enter_trusted_snapshot():
-    snapshot = snapshot_model(IntelligenceQuery(), [{**RECORDS[0], "live": True}], ENTITIES, REL, BERRIES, ["developments"], facts=FACTS)
-    assert snapshot["packet"]["source_trace"] == []
+def test_live_source_enters_snapshot_with_unreviewed_confidence_flags():
+    from app.services.information_catalog import merge_information
+    records = merge_information([], [{**RECORDS[0], "live": True}])
+    snapshot = snapshot_model(IntelligenceQuery(), records, ENTITIES, REL, BERRIES, ["developments"], facts=FACTS)
+    assert [row["id"] for row in snapshot["packet"]["source_trace"]] == ["ev-berry-news"]
+    assert snapshot["packet"]["source_trace"][0]["information"]["review_status"] == "unreviewed"
 
 
 def test_source_preparation_retains_literal_text_and_never_infers_a_region(tmp_path):

@@ -1388,6 +1388,18 @@ def all_evidence() -> list[dict[str, Any]]:
     return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
+def unified_information(*, include_private: bool | None = None) -> list[dict[str, Any]]:
+    """One live catalog. Public/static callers retain explicit export scope."""
+    from app.services.information_catalog import load_information
+    if include_private is None:
+        include_private = AUTHORING_MODE
+    corpus = get_request_corpus()
+    if corpus is not None and include_private:
+        return corpus.information
+    evidence = all_evidence() if include_private else published_evidence()
+    return _social_eligible_outputs(load_information(evidence, INBOX_DIR, include_private=include_private))
+
+
 def _social_eligible_outputs(records):
     from app.services.social_intelligence.output_eligibility import for_new_outputs
     return for_new_outputs(records, DATA_DIR, INBOX_DIR)
@@ -4749,20 +4761,19 @@ def saved_page(request: Request) -> HTMLResponse:
 
 
 @app.get("/statements", response_class=HTMLResponse)
-def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+def statements_page(request: Request, review: str = "all") -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(403, "Statement review is available in the analyst workspace")
     if review not in {"unreviewed", "reviewed", "all"}:
         raise HTTPException(422, "Choose Unreviewed, Reviewed or All statements")
     from app.services.feed_first import statements_review_index
-    from app.services.feed_first_live import cached_live_records, merge_decision_records
     from app.services.statement_workspace import present_statements
 
     world = _feed_first_world()
     rows = statements_review_index(world["state"])
     records = {
         str(row.get("id")): row
-        for row in merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR))
+        for row in unified_information()
         if row.get("id")
     }
     rows = present_statements(rows, records, world["entities"], return_to="/statements?" + urlencode({"review": review}))
@@ -5864,7 +5875,7 @@ def _present_research_company_compare(company_ids: list[str]) -> dict[str, Any] 
 
 def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
     entities = entity_index()
-    evidence = published_evidence()
+    evidence = unified_information()
     if scope.tag_ids:
         from app.services import news_tags
         catalog = news_tags.catalog(INBOX_DIR)
@@ -5888,6 +5899,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE and not scope.tag_ids else None
     packet = assemble_research_packet(
         scope,
+        load_record=_load_intelligence_record,
         entities=entities,
         relationships=relationships,
         published_evidence=evidence,
@@ -7136,6 +7148,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     ]
     readiness = load_publication_transcript_readiness(INBOX_DIR)
     feed = build_intelligence_feed(
+        records=unified_information(),
         drafts=drafts,
         published=evidence,
         entities=entities,
@@ -7204,12 +7217,42 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
-    draft = get_draft(item_id) if AUTHORING_MODE else None
-    if draft is not None and draft.get("status") != "rejected":
-        return draft
+    from app.services.feed_first import SAFE_ID_RE
+    from app.services.information_catalog import INACTIVE_STATES, normalize_information
+    if not SAFE_ID_RE.fullmatch(item_id):
+        return None
     record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
-    if record is not None and record.get("status") == "published":
-        return record
+    if record is not None:
+        if record.get("status") in INACTIVE_STATES or record.get("review_state") in INACTIVE_STATES:
+            return None
+        if not AUTHORING_MODE and record.get("status") != "published":
+            return None
+        if not _social_eligible_outputs([record]):
+            return None
+        return normalize_information(record)
+    if AUTHORING_MODE:
+        try:
+            draft = get_draft(item_id)
+        except (OSError, ValueError):
+            return None
+        if draft is not None:
+            if draft.get("id") != item_id:
+                return None
+            if draft.get("status") in INACTIVE_STATES or draft.get("review_state") in INACTIVE_STATES:
+                return None
+            if not _social_eligible_outputs([draft]):
+                return None
+            return normalize_information(draft, origin="inbox")
+        from app.services.personal_digest import retained_news
+        corpus = get_request_corpus()
+        existing = corpus.cached_information_record(item_id) if corpus is not None else None
+        if existing is not None and existing.get("status") == "unreviewed":
+            return existing
+        cached = retained_news(INBOX_DIR, selected_id=item_id)
+        if cached:
+            if not _social_eligible_outputs([cached[0]]):
+                return None
+            return normalize_information(cached[0], origin="inbox")
     return None
 
 
@@ -8424,7 +8467,7 @@ def _decision_memo_coverage(packet: dict[str, Any]) -> dict[str, Any]:
 
 def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
     names = {row["id"]: row.get("name") or row["id"] for row in living_catalog()}
-    records = {row["id"]: row for row in published_evidence()}
+    records = {row["id"]: row for row in unified_information()}
     return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
         {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or "",
          **({"published_date": records[row["id"]].get("published_date") or "",
@@ -8440,7 +8483,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             inbox_dir=INBOX_DIR,
             entities=entity_index(),
             relationships=all_relationships(),
-            published_evidence=published_evidence(),
+            published_evidence=unified_information(),
             facts=all_facts(),
             signals=all_signals(),
             assessments=all_assessments(),
@@ -8455,10 +8498,11 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
         scope,
-        pending_publications=pending_publication_drafts(),
+        load_record=_load_intelligence_record,
+        pending_publications=[],
         entities=entities,
         relationships=all_relationships(),
-        published_evidence=[*published_evidence(), *(pending_publication_drafts() if scope.research_query else [])],
+        published_evidence=unified_information(),
         facts=all_facts(),
         signals=all_signals(),
         assessments=all_assessments(),
@@ -8754,15 +8798,12 @@ def _explorer_context(request, countries, berry, sections=None):
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     from dataclasses import replace
     from app.services.feed_first import load_state, empty_state
-    from app.services.personal_digest import source_records
-    view = request.query_params.get("view", "trusted")
-    if view not in {"trusted", "unreviewed"}:
+    view = request.query_params.get("view", "all")
+    if view not in {"all", "trusted", "unreviewed"}:
         raise HTTPException(status_code=422, detail="Unknown intelligence view")
-    query = replace(query, view=view)
-    records = published_evidence()
-    if view == "unreviewed" and sections is None and AUTHORING_MODE:
-        records = list(source_records(records, INBOX_DIR).values())
-    elif sections is None and AUTHORING_MODE:
+    query = replace(query, view="all")
+    records = unified_information(include_private=AUTHORING_MODE)
+    if sections is None and AUTHORING_MODE:
         from app.services.feed_first_reader import attach_capture_previews
         records = list(attach_capture_previews({row['id']: row for row in records}, INBOX_DIR).values())
     args = (query, records, entities, all_relationships(), BERRIES)
@@ -8804,7 +8845,7 @@ def _explorer_context(request, countries, berry, sections=None):
         origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "favorites", "window", "start", "end", "tz") if model["filters"][key]}
         values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
         model["snapshot_href"] = "/explorer/snapshot?" + urlencode(values)
-        model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
+        model["review_urls"] = {"all": "/explorer?" + urlencode({**values, "view": "all"})}
         model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
     model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
     model["news_return"] = "/today?" + urlencode(origin) if origin else ""
@@ -11457,7 +11498,7 @@ def api_feed(
     media_format: str | None = None,
 ) -> list[dict[str, Any]]:
     return filter_evidence(
-        published_evidence(),
+        unified_information(),
         q=q, berry=berry, source=source, priority=priority,
         competitor=competitor, geography=geography, region=region,
         media_format=media_format,
@@ -11475,7 +11516,7 @@ def api_entity_detail(entity_type: str, entity_id: str) -> dict[str, Any]:
 @app.get("/api/search")
 def api_search(q: str = "") -> dict[str, Any]:
     needle = q.strip().lower()
-    evidence_matches = filter_evidence(published_evidence(), q=needle) if needle else []
+    evidence_matches = filter_evidence(unified_information(), q=needle) if needle else []
     entity_matches = [
         e
         for e in all_entities()
@@ -11505,21 +11546,24 @@ def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
             [
                 _json_folder_sig(INBOX_DIR / "evidence"),
                 _json_folder_sig(INBOX_DIR / "signal_candidates"),
+                _json_folder_sig(INBOX_DIR / "feed_first_live"),
+                _json_folder_sig(INBOX_DIR / "news_packets" / "captures"),
             ]
         )
     return tuple(parts)
 
 
 def _search_pools(*, include_private: bool) -> SearchPools:
+    inventory = unified_information(include_private=include_private)
     return SearchPools(
+        evidence=inventory,
         entities=all_entities(),
         relationships=all_relationships(),
-        published_evidence=published_evidence(),
         sources=load_sources(),
         signals=all_signals(),
         assessments=all_assessments(),
         strategic_questions=load_strategic_questions(),
-        pending_drafts=list_pending_drafts() if include_private else [],
+        pending_drafts=[row for row in inventory if row.get("_catalog_origin") == "inbox"] if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
         identity_redirects=identity_redirects(),
         learn_concepts=learn_all_concepts(),
@@ -11549,6 +11593,7 @@ def run_global_search(
     sort: str = "newest",
 ) -> dict[str, Any]:
     started = time.perf_counter()
+    include_private = include_private and AUTHORING_MODE
     payload = search_documents(
         _cached_search_documents(include_private=include_private),
         query,

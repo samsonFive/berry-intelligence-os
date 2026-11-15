@@ -117,12 +117,12 @@ def test_packet_preserves_trust_classes_structured_records_and_input_immutabilit
     entities = {row["id"]: row for row in _entities()}
     evidence = [
         {
-            "id": "ev-approved", "title": "Planasa source", "source_name": "Publisher",
+            "id": "ev-approved", "title": "Planasa source", "source_name": "Publisher", "status": "published",
             "published_date": "2026-08-25", "entity_ids": ["company-planasa"],
             "evidence_role": "publication_artifact", "fact_ids": [],
         },
         {
-            "id": "ev-patent", "title": "Planasa plant patent", "source_name": "USPTO",
+            "id": "ev-patent", "title": "Planasa plant patent", "source_name": "USPTO", "status": "published",
             "published_date": "2026-08-28", "entity_ids": ["company-planasa"],
             "evidence_role": "publication_artifact", "fact_ids": ["fact-1"],
             "intake_type": "patent_filing", "patent_filing": {"application": "US1"},
@@ -233,8 +233,9 @@ def test_research_desk_stakeholder_surface_and_brief_handoff() -> None:
     assert "Current positioning snapshot" in page.text
     assert "Observed activity vs coverage depth" in page.text
     assert "What should a strategy team watch next?" in page.text
-    assert "LIVE / UNREVIEWED" in page.text
-    assert "TRUSTED" in page.text or "APPROVED SOURCE" in page.text
+    assert "Recent source coverage" in page.text
+    assert "Trusted / approved" not in page.text
+    assert "Confidence and review" in page.text or "TRACEABLE RECORDS" in page.text
     assert 'action="/reports/new"' in page.text
     assert "Create leadership brief" in page.text
     preview = client.post(

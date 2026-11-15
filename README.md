@@ -9,9 +9,11 @@ implementation of the broader Intelligence OS direction (see `docs/v2/`).
 The application is the working V2 reference implementation: an evidence-first
 FastAPI app plus a recurring collection pipeline (source discovery, media
 acquisition, transcription, and human-reviewed transcript→Atomic Evidence
-extraction). Trust gates are always human: external sources → discovery →
-publication review → trusted publication → AI *proposals* → Atomic Evidence
-review → trusted Atomic Evidence.
+extraction). The live application uses one information catalog across stored
+Evidence, intake and retained web results. Search, News and reports can use an
+item immediately; review, confidence and verification remain attributes of that
+item. Human review remains available to refine or verify individual claims.
+See `docs/v2/UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.
 
 ## Requirements
 

@@ -12,6 +12,8 @@ import { companyLogoBatch } from '../brand-media/company-logo-batches';
 import { ProfileSheet } from './ProfileSheet';
 import type { ProfileItem } from './ProfileSheet';
 import { readerOrganizations } from './reader-companies';
+import { InformationDetails } from '../landscape/InformationDetails';
+import type { InformationFlags } from '../landscape/models';
 import './detail.css';
 
 interface SourceRef {
@@ -31,6 +33,7 @@ interface Transcript {
 interface DetailModel {
   type: DetailType; id: string; title: string; kind_label: string; status?: string;
   summary?: string; outside_scope?: boolean; scope_note?: string; trust_note?: string;
+  information?: InformationFlags;
   expand_href?: string; roles?: string[];
   sections: { title: string; items: DetailItem[] }[];
   sources: SourceRef[];
@@ -342,7 +345,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
       <p className="berry-eyebrow">{model?.kind_label ?? selected.type}</p>
       <div className="berry-detail-identity"><BrandLogo asset={selected.type === 'company' ? media?.[selected.id]?.logo : null} name={model?.title ?? selected.id} />
       <h2 id="berry-detail-heading" ref={heading} tabIndex={-1}>{model?.title ?? 'Loading selected detail…'}</h2></div>
-      {model?.status && (!compactProfile || selected.type === 'variety' || materialStatus) && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
+      {model?.status && selected.type !== 'source' && (!compactProfile || selected.type === 'variety' || materialStatus) && <Badge>{model.status.replaceAll('_', ' ')}</Badge>}
       {model?.outside_scope && <div className="berry-outside-scope berry-scope-context"><Preview label="Outside the applied scope"
         className="berry-scope-info" content={<p>Outside the applied scope. Inspection keeps the landscape and developments unchanged.</p>}>
           <span aria-hidden="true">ⓘ</span><span className="berry-sr-only">Outside-scope information</span></Preview>
@@ -387,7 +390,7 @@ export function DetailHost({ suspended = false }: { suspended?: boolean }) {
           <Button size="small" aria-pressed={readerView === 'article'} onClick={() => chooseReaderView('article')}>Article</Button>
           <Button size="small" aria-pressed={readerView === 'brief'} onClick={() => chooseReaderView('brief')}>Brief</Button>
         </div>
-        {model.trust_note && <p className="berry-reader-limit">{model.trust_note}</p>}
+        <InformationDetails information={model.information} note={model.trust_note} />
         {readerImage && <figure><img src={readerImage} alt={usingReferenceImage ? model.card?.reference_image?.caption ?? 'Contextual reference image' : ''} loading="lazy" />
           {usingReferenceImage && model.card?.reference_image && <figcaption><span>Reference photo · contextual illustration. </span>{model.card.reference_image.caption}
             {(model.card.reference_image.credit || model.card.reference_image.attribution) && <span> {model.card.reference_image.credit || model.card.reference_image.attribution}</span>}

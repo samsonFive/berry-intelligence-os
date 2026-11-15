@@ -164,6 +164,10 @@ def test_restored_publication_draft_publishes_through_ordinary_path(restored_run
     client = TestClient(app)
     draft_id = restored_runtime["draft_id"]
     inbox = restored_runtime["inbox"]
+    draft_path = inbox / "evidence" / f"{draft_id}.json"
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    draft.update(information_confidence="low", source_authority="high")
+    draft_path.write_text(json.dumps(draft), encoding="utf-8")
 
     response = _publish(client, draft_id)
     assert response.status_code == 303  # published, not "Draft not found"
@@ -174,6 +178,8 @@ def test_restored_publication_draft_publishes_through_ordinary_path(restored_run
     assert published["status"] == "published" and published["review_state"] == "published"
     assert published["evidence_role"] == "publication_artifact"
     assert published["discovered_item_id"] == ITEM_ID
+    assert published["information_confidence"] == "low"
+    assert published["source_authority"] == "high"
     events = load_review_events(inbox)
     assert len(events) == 1
     assert events[0]["workflow"] == "publication_review" and events[0]["action"] == "publish"

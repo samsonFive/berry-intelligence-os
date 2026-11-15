@@ -52,6 +52,38 @@ def context(**values):
     return api.normalize_context({"berry": "berry-blueberry", "countries": "geography-peru", **values})[0]
 
 
+def test_catalog_review_flags_do_not_exclude_landscape_sources(world):
+    source = world.evidence[0]
+    source.update(status="draft", information={"review_status": "unreviewed", "confidence": "medium"})
+    bundle = api.base_bundle(world, context())
+    assert bundle["filters"]["evidence"] == "all"
+    assert "r-peru" in {edge["id"] for edge in bundle["edges"]}
+    assert source["id"] in world.evidence_index
+    flags = api.source_metadata(bundle["sources"][0])["information"]
+    assert flags["review_status"] == "unreviewed"
+    assert flags["confidence"] == "medium"
+    filtered = api.explorer.build_bundle(world.entities, world.relationships, world.evidence,
+                                        {"berry": "berry-blueberry", "countries": "geography-peru", "evidence": "reviewed"})
+    assert filtered["edges"] == []
+
+
+def test_native_news_keeps_backend_information_flags():
+    flags = {"review_status": "unreviewed", "confidence": "low", "confidence_label": "Low"}
+    result = api._native_news_card({"id": "ev-unreviewed", "headline": "Captured development", "information": flags})
+    assert result["information"] == flags
+
+
+def test_presented_unpublished_sources_keep_actual_flags_and_reader_links(world):
+    world.evidence[0].update(status="draft", confidence="low")
+    value = api._annotate_information({"rows": [{"id": "ev-a", "trust": "published", "is_draft": False,
+                                               "href": "/evidence/ev-a"}]}, world.evidence_index)
+    row = value["rows"][0]
+    assert row["information"]["review_status"] == "unreviewed"
+    assert row["information"]["confidence"] == "low"
+    assert row["trust"] == "unreviewed" and row["is_draft"] is True
+    assert row["href"] == "/intelligence/ev-a"
+
+
 def test_normalization_round_trip_is_allowlisted_and_legacy_compatible():
     ctx, problems = api.normalize_context({"berry": "blueberry", "focus": "company:company-a",
         "countries": "", "cohort_companies": "company-a,company-a,company-b", "secret": "excluded"})

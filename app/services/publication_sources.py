@@ -19,6 +19,9 @@ _preview_cache_lock = RLock()
 _preview_cache_bytes = 0
 MAX_PREVIEW_CACHE_BYTES = 16_000_000
 PREVIEW_FIELDS = {
+    "information", "confidence", "information_confidence", "does_not_prove", "human_reviewed", "fact_ids", "pending_claim", "statement",
+    "source_completeness", "relevance_tier", "evidence_ids", "parent_evidence_id", "review_outcome", "ai_assisted",
+    "suggested_competitors", "suggested_varieties", "suggested_geographies", "suggested_berries",
     "supporting_excerpt", "attribution", "classification", "original_text_excerpt",
     "id", "record_type", "status", "review_state", "evidence_role", "title", "summary", "why_it_matters",
     "source_type", "source_name", "source_id", "source_url", "published_date", "captured_date",
@@ -56,6 +59,8 @@ def active_publication_record(record: dict | None) -> dict | None:
 def source_preview(record: dict) -> dict:
     """A feed card needs preview metadata and one image, never original bodies."""
     preview = {key: value for key, value in record.items() if key in PREVIEW_FIELDS}
+    if record.get("ai_enrichment"):
+        preview["ai_assisted"] = True
     if record.get('workspace_capture'):
         preview['workspace_capture'] = True  # Exclusion marker only; never hydrate saved quote/locator bodies.
     transcript = record.get('transcript')
@@ -83,6 +88,8 @@ def _read_preview(path: Path) -> dict:
     transcript_reference = {}
     with path.open("rb") as handle:
         for prefix, event, value in ijson.parse(handle, use_float=True):
+            if prefix == "ai_enrichment" and event == "start_map":
+                preview["ai_assisted"] = True
             if prefix == "" and event == "start_map":
                 continue
             if prefix == "" and event == "map_key":
@@ -145,7 +152,7 @@ def _current_preview(path: Path) -> dict:
     return row
 
 
-def pending_source_previews(inbox_dir: Path) -> tuple[list[dict], list[dict]]:
+def pending_source_previews(inbox_dir: Path, *, publications_only: bool = True) -> tuple[list[dict], list[dict]]:
     """Check every current file; cache only unchanged metadata in private memory.
 
     Includes terminal publication metadata so rejection can suppress an older
@@ -160,7 +167,7 @@ def pending_source_previews(inbox_dir: Path) -> tuple[list[dict], list[dict]]:
             row = _current_preview(path)
             if row.get("id") != path.stem or not SAFE_ID_RE.fullmatch(path.stem):
                 raise ValueError("source-identity-mismatch")
-            if row.get("evidence_role") == "publication_artifact":
+            if not publications_only or row.get("evidence_role") == "publication_artifact":
                 rows.append(row)
         except (OSError, ValueError, ijson.JSONError, OverflowError):
             issues.append({"id": path.stem, "reason": "source-unavailable"})
