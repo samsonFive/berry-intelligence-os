@@ -1,5 +1,7 @@
 """New cultivar intake stays in the active source store and private graph."""
 from copy import deepcopy
+from contextlib import contextmanager
+from hashlib import sha256
 import json
 
 from fastapi.testclient import TestClient
@@ -11,7 +13,7 @@ from app.services.cultivar_measurements import load_evidence_dependencies, stage
 from app.services.cultivar_measurement_workspace import CultivarMeasurementError, present_measurement, source_artifact, source_dependency_ids
 from app.services.publication_scope import public_repositories
 from app.services.request_corpus import RequestCorpus
-from app.services.strawberry_research_import import import_packet
+from app.services.strawberry_research_import import digest, import_packet
 from tests.test_cultivar_measurements import world, _normalize, _project, _review
 from tests.test_strawberry_research_import import sample, build, write
 from tests.test_review_publish_portability import _publish
@@ -146,6 +148,195 @@ def test_shared_original_reference_cannot_escape_its_registered_asset(sample, tm
     write(index_path, index)
     with pytest.raises(CultivarMeasurementError, match="shared source capture binding"):
         source_artifact(inbox, "test-batch", packet["artifacts"][0]["sha256"])
+
+
+def test_dry_run_resolves_exact_shared_asset_and_prepared_source_payload(sample, tmp_path):
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    preview = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox)
+    key = preview["source_bindings"][0]["evidence_id"]
+    capture = packet["artifacts"][0]
+    assert preview["information_assets"] == {capture["sha256"]: {
+        "evidence_id": key, "filename": capture["path"].split("/")[-1],
+        "sha256": capture["sha256"], "bytes": capture["bytes"]}}
+    prepared = preview["new_sources"][key]
+    assert prepared["publication_scope"] == "private" and prepared["review_status"] == "unreviewed"
+    assert prepared["attachments"][0]["sha256"] == capture["sha256"]
+    assert not (inbox / "cultivar_measurement_imports").exists()
+    assert not list(storage.information_directory(data_dir=data).glob("*.json"))
+    first = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    source_bytes = storage.record_path(key, data_dir=data).read_bytes()
+    assert first["information_assets"] == preview["information_assets"]
+    assert first["new_sources"] == preview["new_sources"]
+    assert sha256(source_bytes).hexdigest() == prepared["record_sha256"]
+    assert len(source_bytes) == prepared["record_bytes"]
+    replay = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert replay["new_sources"] == {} and replay["information_assets"] == preview["information_assets"]
+
+
+def test_existing_private_source_keeps_scope_in_lookup_and_owns_one_original(sample, tmp_path):
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    storage.upsert_record({"id": "Existing.Private", "status": "draft", "source_url": "https://example.org/document",
+                          "summary": "Existing human prose"}, data_dir=data, inbox_dir=inbox)
+    before = storage.record_path("Existing.Private", data_dir=data).read_bytes()
+    result = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    reference = result["information_assets"][packet["artifacts"][0]["sha256"]]
+    assert reference["evidence_id"] == "Existing.Private"
+    assert result["new_sources"] == {}
+    assert storage.record_path("Existing.Private", data_dir=data).read_bytes() == before
+    asset, _ = source_artifact(inbox, "test-batch", packet["artifacts"][0]["sha256"])
+    assert asset.is_relative_to(storage.assets_dir(data_dir=data))
+    assert not (inbox / "cultivar_measurement_imports/test-batch" / packet["artifacts"][0]["path"]).exists()
+
+
+@pytest.mark.parametrize("mutation", ["public_scope", "different_identity", "missing_binding"])
+def test_fresh_owner_and_marker_changes_hold_before_any_private_binary(sample, tmp_path, monkeypatch, mutation):
+    build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    storage.upsert_record({"id": "Existing.Private", "status": "draft", "source_url": "https://example.org/document",
+                          "summary": "Human source retained"}, data_dir=data, inbox_dir=inbox)
+    source_path = storage.record_path("Existing.Private", data_dir=data)
+    source = storage.get_record("Existing.Private", data_dir=data)
+    original_lock = storage.storage_lock
+    written = []
+
+    @contextmanager
+    def prior_writer_before_lease(**kwargs):
+        with original_lock(**kwargs):
+            if mutation == "missing_binding":
+                (inbox / ".information-store.json").unlink()
+            else:
+                revised = {**source, "publication_scope": "public"} if mutation == "public_scope" else {
+                    **source, "source_url": "https://different.example/document"}
+                storage.atomic_json(source_path, revised)
+            written.append(source_path.read_bytes())
+            yield
+
+    monkeypatch.setattr(storage, "storage_lock", prior_writer_before_lease)
+    with pytest.raises((ValueError, storage.InformationStorageError)):
+        import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert source_path.read_bytes() == written[0]
+    assert not list(storage.assets_dir(data_dir=data).rglob("*.*"))
+    assert not (inbox / "cultivar_measurement_imports").exists()
+    assert not (inbox / "cultivar_measurements").exists()
+
+
+def test_one_source_lease_covers_every_asset_and_new_source_install(sample, tmp_path, monkeypatch):
+    from app.services import strawberry_research_import as importer
+
+    build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    held, acquisitions, observed = False, [], []
+    original_lock, original_install = storage.storage_lock, importer._install
+
+    @contextmanager
+    def observed_lock(**kwargs):
+        nonlocal held
+        assert not held, "Source lease must not be reacquired recursively"
+        with original_lock(**kwargs):
+            held = True
+            acquisitions.append(True)
+            try:
+                yield
+            finally:
+                held = False
+
+    def observed_install(path, raw):
+        assert held, "Private artifact/source installation happened outside source lease"
+        observed.append(str(path))
+        return original_install(path, raw)
+
+    monkeypatch.setattr(storage, "storage_lock", observed_lock)
+    monkeypatch.setattr(importer, "_install", observed_install)
+    import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert len(acquisitions) == 1 and not held
+    assert any("assets" in path for path in observed) and any("records" in path for path in observed)
+
+
+def test_asset_collision_is_detected_before_new_source_or_batch_writes(sample, tmp_path):
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    key = "ev-strawberry-source-" + packet["documents"][0]["id"][4:]
+    asset = storage.assets_dir(data_dir=data) / key / packet["artifacts"][0]["path"].split("/")[-1]
+    asset.parent.mkdir(parents=True)
+    asset.write_bytes(b"Pre-existing conflicting content")
+    before = asset.read_bytes()
+    with pytest.raises(ValueError, match="Conflicting existing research asset"):
+        import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert asset.read_bytes() == before
+    assert storage.get_record(key, data_dir=data) is None
+    assert not (inbox / "cultivar_measurement_imports").exists()
+
+
+def test_public_registered_original_cannot_be_recreated_after_removal(sample, tmp_path):
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    first = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    key = first["source_bindings"][0]["evidence_id"]
+    source = storage.get_record(key, data_dir=data)
+    asset, _ = source_artifact(inbox, "test-batch", packet["artifacts"][0]["sha256"])
+    storage.write_record({**source, "publication_scope": "public"}, data_dir=data)
+    before = storage.record_path(key, data_dir=data).read_bytes()
+    index = inbox / "cultivar_measurement_imports/test-batch/import-index.json"
+    index_bytes = index.read_bytes()
+    asset.unlink()
+    with pytest.raises(ValueError, match="public source asset is missing"):
+        import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert not asset.exists()
+    assert storage.record_path(key, data_dir=data).read_bytes() == before
+    assert index.read_bytes() == index_bytes
+    assert not (inbox / "cultivar_measurement_imports/test-batch" / packet["artifacts"][0]["path"]).exists()
+
+
+@pytest.mark.parametrize("kind", ["visual_verification", "unbound"])
+def test_visual_and_unbound_artifacts_keep_one_batch_original(sample, tmp_path, kind):
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    if kind == "visual_verification":
+        packet["artifacts"][0]["role"] = kind
+    else:
+        packet["artifacts"][0]["source_ids"] = []
+    packet.pop("packet_sha256")
+    packet["packet_sha256"] = digest(packet)
+    write(packet_dir / "packet.json", packet)
+    result = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert result["information_assets"] == {}
+    assert all(not row["attachments"] for row in result["new_sources"].values())
+    asset, _ = source_artifact(inbox, "test-batch", packet["artifacts"][0]["sha256"])
+    assert asset.is_relative_to(inbox / "cultivar_measurement_imports/test-batch")
+    assert not list(storage.assets_dir(data_dir=data).rglob("*.*"))
+    replay = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert replay["information_assets"] == {} and replay["new_sources"] == {}
+
+
+def test_source_lease_releases_after_asset_install_failure(sample, tmp_path, monkeypatch):
+    from app.services import strawberry_research_import as importer
+
+    build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    original_install = importer._install
+
+    def fail_asset_install(path, raw):
+        if path.is_relative_to(storage.assets_dir(data_dir=data)):
+            raise OSError("Simulated private asset disk failure")
+        return original_install(path, raw)
+
+    monkeypatch.setattr(importer, "_install", fail_asset_install)
+    with pytest.raises(OSError, match="Simulated private asset disk failure"):
+        import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    # Reacquisition uses the actual OS-owned information store lease.
+    with storage.storage_lock(data_dir=data, inbox_dir=inbox, timeout=0.1):
+        assert not list(storage.information_directory(data_dir=data).glob("*.json"))
+    assert not (inbox / "cultivar_measurements").exists()
 
 
 def test_reviewed_private_measurement_citing_public_source_requires_explicit_public_authorization(world, tmp_path):
