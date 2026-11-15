@@ -193,6 +193,75 @@ def test_source_and_atomic_statement_cannot_share_one_identity(runtime):
     assert {row["kind"] for row in migration.dry_run(data, inbox)["conflicts"]} == {"record_identity"}
 
 
+def test_inbox_only_attachment_cannot_become_public_under_same_id_canonical_source(runtime):
+    data, inbox, backups = runtime
+    private_asset = inbox / "attachments/ev-reviewed/private-only.txt"
+    private_asset.write_bytes(b"PRIVATE ATTACHMENT CONTENT")
+    before = snapshots(data, inbox)
+    report = migration.dry_run(data, inbox)
+    assert report["conflicts"] == [{
+        "kind": "asset_publication_scope", "id": "ev-reviewed", "path": "ev-reviewed/private-only.txt",
+        "sources": ["inbox/attachments/ev-reviewed/private-only.txt"],
+    }]
+    assert "PRIVATE ATTACHMENT CONTENT" not in json.dumps(report)
+    with pytest.raises(migration.InformationMigrationError, match="incompatible"):
+        migration.apply_migration(data, inbox, backups, quiesced=True)
+    assert snapshots(data, inbox) == before
+    assert not backups.exists() and not (data / "information").exists()
+
+
+def test_identical_public_attachment_in_both_origins_keeps_existing_authorization(runtime):
+    data, inbox, backups = runtime
+    report = migration.dry_run(data, inbox)
+    assert not report["conflicts"]
+    assert report["counts"]["assets"] == 2
+    migration.apply_migration(data, inbox, backups, quiesced=True)
+    assert store.get_record("ev-reviewed", inbox_dir=inbox)["publication_scope"] == "public"
+    assert (store.assets_dir(inbox_dir=inbox) / "ev-reviewed/proof.txt").read_bytes() == b"same attachment bytes"
+
+
+def test_retained_flags_keep_confidence_verification_and_caveats_without_granting_review(runtime):
+    data, inbox, backups = runtime
+    flags = {"review_status": "reviewed", "confidence": {"level": "medium"},
+             "verification_status": "source_check_pending", "caveats": ["Thin retained excerpt."]}
+    cache_path = inbox / "feed_first_live/2026-11-13.json"
+    cache = store.read_json(cache_path)
+    cache["records"].append(record("flagged-migration", status="published", information=flags))
+    write(cache_path, cache)
+    migration.apply_migration(data, inbox, backups, quiesced=True)
+    from app.services.feed_first_live import load_cached_bundle, save_bundle
+    migrated = next(row for row in load_cached_bundle(inbox, today=date(2026, 11, 13))["records"]
+                    if row["id"] == "flagged-migration")
+    save_bundle(inbox, {"today": "2026-11-14", "records": [record("flagged-retention", status="published", information=flags)]})
+    retained = load_cached_bundle(inbox, today=date(2026, 11, 14))["records"][0]
+    for row in (migrated, retained):
+        assert row["status"] == "unreviewed" and row["publication_scope"] == "private"
+        assert row["information"]["review_status"] == "unreviewed"
+        assert row["information"]["confidence"] == flags["confidence"]
+        assert row["information"]["verification_status"] == flags["verification_status"]
+        assert row["information"]["caveats"] == flags["caveats"]
+
+
+def test_retained_only_terminal_decisions_survive_migration_and_new_cache_retention(runtime):
+    data, inbox, backups = runtime
+    from app.services.information_catalog import INACTIVE_STATES, load_information
+    terminal_rows = [record(f"terminal-{field}-{state}", **{field: state})
+                     for field in ("status", "review_state") for state in sorted(INACTIVE_STATES)]
+    write(inbox / "news_packets/captures/packet-terminals.json", {"records": terminal_rows})
+    migration.apply_migration(data, inbox, backups, quiesced=True)
+    new_rows = [{**row, "id": "new-" + row["id"], "source_url": row["source_url"] + "-new"} for row in terminal_rows]
+    store.retain_records(inbox, new_rows)
+    rows = store.list_records(inbox_dir=inbox)
+    visible = {row["id"] for row in load_information(rows, inbox)}
+    for original in terminal_rows + new_rows:
+        current = store.get_record(original["id"], inbox_dir=inbox)
+        assert current["id"] not in visible
+        assert current["information"]["review_status"] == "rejected"
+        for field in ("status", "review_state"):
+            if original.get(field) in INACTIVE_STATES:
+                assert current[field] == original[field]
+
+
 def test_resume_refuses_changed_source_and_corrupted_backup(runtime):
     data, inbox, backups = runtime
     plan = migration.plan_migration(data, inbox)

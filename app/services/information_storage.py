@@ -110,7 +110,10 @@ def enabled(*, data_dir=None, inbox_dir=None) -> bool:
 
 
 def is_public_record(record: dict[str, Any]) -> bool:
-    return record.get("status") == "published" and record.get("publication_scope", "public") == "public"
+    from app.services.information_catalog import INACTIVE_STATES
+    review = record.get("review_state")
+    return (record.get("status") == "published" and record.get("publication_scope", "public") == "public"
+            and (review is None or isinstance(review, str) and review not in INACTIVE_STATES))
 
 
 def information_directory(*, data_dir=None, inbox_dir=None) -> Path:
@@ -295,7 +298,7 @@ def retain_records(inbox_dir: Path, rows: Iterable[dict[str, Any]]) -> list[str]
     A repeat discovery may fill an absent preview/body field, but never replace
     analyst decisions, confidence, publication scope or already retained prose.
     """
-    from app.services.information_catalog import information_flags
+    from app.services.information_catalog import INACTIVE_STATES, information_flags
     if not enabled(inbox_dir=inbox_dir):
         raise InformationStorageError("Cache references require an active information store")
     ids = []
@@ -306,8 +309,11 @@ def retain_records(inbox_dir: Path, rows: Iterable[dict[str, Any]]) -> list[str]
             previous = get_record(key, inbox_dir=inbox_dir)
             if previous is None:
                 row = deepcopy(incoming)
-                row.update(status="unreviewed", publication_scope="private")
-                row.pop("information", None)
+                row["publication_scope"] = "private"
+                if row.get("status") not in INACTIVE_STATES:
+                    row["status"] = "unreviewed"
+                flags = row.get("information") if isinstance(row.get("information"), dict) else {}
+                row["information"] = {**flags, "review_status": "unreviewed"}
                 row["information"] = information_flags(row)
                 row.pop("_catalog_origin", None)
             else:

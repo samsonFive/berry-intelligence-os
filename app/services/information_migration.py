@@ -19,6 +19,7 @@ import shutil
 from typing import Any, Callable
 
 from app.services import information_storage as storage
+from app.services.information_catalog import INACTIVE_STATES
 from app.services.pipeline_lock import pipeline_lock
 
 
@@ -181,8 +182,10 @@ def plan_migration(data_dir: Path, inbox_dir: Path) -> dict[str, Any]:
         row = deepcopy(chosen["record"])
         origin = chosen["origin"]
         if origin == "retained":
-            row["status"] = "unreviewed"
-            row.pop("information", None)
+            if row.get("status") not in INACTIVE_STATES:
+                row["status"] = "unreviewed"
+            flags = row.get("information") if isinstance(row.get("information"), dict) else {}
+            row["information"] = {**flags, "review_status": "unreviewed"}
         elif origin == "intake":
             event = (reviewed_events.get(key) or (None, {}))[1]
             terminal = any(str(row.get(field) or "") in {"rejected", "archived", "withdrawn", "deleted"}
@@ -199,6 +202,21 @@ def plan_migration(data_dir: Path, inbox_dir: Path) -> dict[str, Any]:
                                     and row.get("publication_scope") != "private" else "private")
         selected[key] = storage.prepare_record(row, origin=origin)
         history[key] = variants
+
+    # Attachment routes authorize the owning record. An inbox-only attachment
+    # must not gain public access just because a same-ID canonical source is
+    # public. Identical path/bytes already present in data retain their existing
+    # public authorization; differing same-path bytes are asset_identity conflicts.
+    canonical_assets = {spec["relative"].removeprefix("attachments/"): spec["sha256"]
+                        for spec in sources if spec["kind"] == "asset" and spec["root"] == "data"}
+    for spec in sources:
+        if spec["kind"] != "asset" or spec["root"] != "inbox":
+            continue
+        relative = spec["relative"].removeprefix("attachments/")
+        key = Path(relative).parts[0]
+        if selected.get(key, {}).get("publication_scope") == "public" and relative not in canonical_assets:
+            conflicts.append({"kind": "asset_publication_scope", "id": key, "path": relative,
+                              "sources": [f"inbox/{spec['relative']}"]})
 
     fingerprint = hashlib.sha256(json.dumps({"data": str(data), "inbox": str(inbox), "sources": sources},
                                            sort_keys=True, separators=(",", ":")).encode()).hexdigest()

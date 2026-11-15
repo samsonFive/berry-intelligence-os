@@ -99,4 +99,6 @@ def test_review_events_survive_verified_runtime_backup_restore(tmp_path: Path) -
 def test_static_builder_has_no_review_event_dependency() -> None:
     source = (Path(__file__).resolve().parents[1] / "scripts" / "build_static.py").read_text(encoding="utf-8")
     assert "review_events" not in source
-    assert "INBOX_DIR" not in source
+    # The public corpus binds the active runtime and source-deletion receipts;
+    # that binding must not bring private review history into generated pages.
+    # test_build_static exercises the real build with review-event reads blocked.

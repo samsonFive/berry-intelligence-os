@@ -27,6 +27,16 @@ def repositories(**families):
     return SimpleNamespace(**{name: RawRepository(families.get(name, [])) for name in names})
 
 
+@pytest.mark.parametrize("review_state", ["rejected", "archived", "withdrawn", "deleted", {"invalid": True}])
+def test_terminal_or_malformed_review_state_cannot_enter_public_projection(review_state):
+    raw = repositories(evidence=[{"id": "ev-terminal", "status": "published", "publication_scope": "public",
+                                  "review_state": review_state}],
+                       facts=[{"id": "fact-terminal", "evidence_ids": ["ev-terminal"]}])
+    view = public_repositories(raw)
+    assert not view.evidence.list() and not view.facts.list()
+    assert raw.evidence.rows[0]["review_state"] == review_state
+
+
 def test_private_reviewed_source_and_transitive_mixed_support_stay_private():
     raw = repositories(
         evidence=[{"id": "ev-public", "status": "published"},

@@ -30,6 +30,9 @@ Each source has independent review/confidence metadata and `publication_scope`.
 Previously published canonical sources remain public unless already explicitly
 private. Internal canonical records, intake and retained cache records remain
 private. A cache's published/reviewed labels cannot qualify it as reviewed.
+Stored confidence, verification metadata and caveats survive cache migration and
+retention; explicit rejected, archived, withdrawn and deleted states remain
+excluded rather than becoming fresh discoveries.
 Optional review preserves a private source's scope. Static/public projections
 exclude private sources and private-dependent knowledge; review is not permission
 to export.
@@ -42,15 +45,26 @@ to export.
 2. Inventory every web process, acquisition CLI, scheduled collector and other
    writer sharing the runtime. Stop them for the final snapshot and cutover.
    `--quiesced` is an operator assertion, not a command that stops these writers.
-3. Take a verified full snapshot of both runtime roots and the independent
-   backup mount using the existing runtime backup procedure. Migration's own raw
-   backup supplements this full snapshot; it is not a replacement.
+3. Take a verified full snapshot of both runtime roots into the independent
+   backup mount using the existing runtime backup procedure. Inventory and
+   preserve existing backups. Migration's own raw backup supplements this full
+   snapshot; it is not a replacement.
 4. Rehearse the exact candidate image against a copied runtime. Follow the
    [bounded VPS rehearsal rules](BOUNDED-VPS-REHEARSALS.md) when using that host.
    Mount the copy at the same **container** paths used by production, not at a
    different path inside the container. Activation markers intentionally bind
    absolute paths, so copying an active store to another runtime path does not
    automatically rebind it. Never use symlinks to alias legacy folders.
+
+To rehearse a usable rollback through candidate startup, first run the
+candidate's ordinary additive seed sync against the stopped **legacy** copy.
+Record a pre-migration baseline that includes those seed additions, then generate
+the final migration plan. After migration and candidate startup, require zero
+further source/asset additions before rehearsing rollback. The restored legacy
+baseline must retain the candidate's earlier seed additions. On a separate copy,
+test a genuinely new post-cutover seed record/asset and confirm rollback refuses
+without changing that newer work or either activation binding. Do not delete
+newer data merely to force rollback to pass.
 
 Use a private backup directory outside both runtime roots, for example
 `/app/backups/information-migration-backups`. It contains full private source
@@ -97,8 +111,13 @@ The read-only plan is:
 
 Review record/variant/asset coverage, public/private counts and every conflict.
 Same-ID incompatible source identities, mismatched IDs/filenames and attachment
-collisions with different bytes stop migration. Do not resolve these by dropping
-a record or fuzzy-merging sources. Record any deliberate correction and rerun the
+collisions with different bytes stop migration. An `asset_publication_scope`
+conflict also blocks an inbox-only attachment under a source whose selected
+canonical record is public. Sharing a record ID does not authorize publishing
+that private attachment. An identical attachment path and bytes already present
+in canonical data preserve their existing authorization. Do not resolve conflicts
+by dropping a record, deleting private attachments or fuzzy-merging sources.
+Record any deliberate correction and rerun the
 read-only plan. A plan against changing runtime files is provisional; generate
 and verify the final plan after all writers are stopped.
 
