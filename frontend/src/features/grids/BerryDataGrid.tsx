@@ -49,7 +49,10 @@ function PortfolioRelationship({ edge, model, open }: {
 }
 
 /** A real Community grid. Canonical identity and comparison membership stay separate. */
-export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onReady?: (ready: boolean) => void }) {
+export function BerryDataGrid({ model, onReady, resetFilterToken, onFiltersReset }: {
+  model: LandscapeModel; onReady?: (ready: boolean) => void;
+  resetFilterToken?: number; onFiltersReset?: (token: number) => void;
+}) {
   const { companies, rows } = useMemo(() => portfolioData(model), [model]);
   const pagination = useCompanyPageMemory(companies);
   const pageIndex = pagination.index;
@@ -76,13 +79,15 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
   if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
-    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady} />;
+    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady}
+    resetFilterToken={resetFilterToken} onFiltersReset={onFiltersReset} />;
 }
 
 interface PortfolioGridProps {
   model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
   viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
   changeSize: (size: CompanyColumnSize) => void; onReady?: (ready: boolean) => void;
+  resetFilterToken?: number; onFiltersReset?: (token: number) => void;
 }
 function PortfolioGrid(props: PortfolioGridProps) {
   const { companies } = props;
@@ -94,14 +99,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
   return specs.length > MAX_PORTFOLIO_LAYOUT_COLUMNS ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
 }
 function AccountPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
-  const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey);
+  const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey, false, false,
+    { token: props.resetFilterToken ?? 0, onApplied: props.onFiltersReset });
   return <PortfolioDisplay {...props} layout={layout} sessionOnly={false} />;
 }
 function SessionPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
   const layout = usePortfolioSessionLayout<PortfolioRow>(props.specs, props.viewKey);
   return <PortfolioDisplay {...props} layout={layout} sessionOnly />;
 }
-function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs }: PortfolioGridProps & {
+function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs, resetFilterToken, onFiltersReset }: PortfolioGridProps & {
   layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean; specs: readonly LayoutColumn[];
 }) {
   const { context, dispatch } = useInvestigation();
@@ -109,6 +115,16 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
   const selectedVarieties = splitIds(context.cohort_varieties);
   const [gridMounted, setGridMounted] = useState(false);
   const grid = useRef<GridApi<PortfolioRow> | null>(null);
+  const appliedSessionFilterReset = useRef(0);
+  useEffect(() => {
+    const token = resetFilterToken ?? 0, api = grid.current;
+    if (!sessionOnly || !token || token === appliedSessionFilterReset.current || layout.busy || !gridMounted || !api || api.isDestroyed()) return;
+    appliedSessionFilterReset.current = token;
+    if (layout.quickFilter || Object.keys(api.getFilterModel()).length) {
+      api.setFilterModel(null); layout.changeQuickFilter('');
+    }
+    api.paginationGoToFirstPage(); onFiltersReset?.(token);
+  }, [sessionOnly, resetFilterToken, onFiltersReset, gridMounted, layout.busy, layout.quickFilter, layout.changeQuickFilter]);
   useLayoutEffect(() => onReady?.(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
   const columnChoices = [{ id: 'cultivar.identity', label: 'Cultivar', locked: true }, { id: 'cultivar.comparison-pin', label: 'Comparison pin', locked: true },
