@@ -46,7 +46,9 @@ from __future__ import annotations
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import date
+from hashlib import sha256
 from pathlib import Path
+import re
 from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
@@ -582,7 +584,13 @@ class ReviewPublishService:
                 if request.entity_ids is not None and set(existing_fact.get("entity_ids") or []) != set(entity_ids):
                     return ApproveClaimResult(schema_errors=["Existing claim has different entity scope; review its identity before retrying."])
                 return ApproveClaimResult(fact_id=existing_fact_id)
-        fact_id = f"fact-{request.evidence_id[3:]}-{len(existing_fact_ids) + 1}"
+        # Unified sources can retain IDs containing dots, underscores or other
+        # safe characters that the Fact schema does not allow. Keep established
+        # ev-* Fact IDs and use an exact source-identity digest for other IDs.
+        source_key = (request.evidence_id[3:]
+                      if re.fullmatch(r"ev-[a-z0-9-]+", request.evidence_id)
+                      else "source-" + sha256(request.evidence_id.encode("utf-8")).hexdigest()[:32])
+        fact_id = f"fact-{source_key}-{len(existing_fact_ids) + 1}"
         edited = _norm(request.statement) != _norm(request.proposed_statement)
         fact_record = {
             "id": fact_id,

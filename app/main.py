@@ -8577,7 +8577,8 @@ def _cultivar_research_context() -> tuple[list[dict[str, Any]], dict[str, Any], 
     facts = all_facts()
     packets = cultivar_import_packets(INBOX_DIR)
     evidence = cultivar_evidence_dependencies(
-        DATA_DIR, facts=facts, evidence_ids=cultivar_source_dependency_ids(INBOX_DIR, packets),
+        DATA_DIR, inbox_dir=INBOX_DIR, facts=facts,
+        evidence_ids=cultivar_source_dependency_ids(INBOX_DIR, packets),
     )
     rows = list_cultivar_measurements(
         INBOX_DIR, facts=facts, evidence_by_id=evidence,

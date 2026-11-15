@@ -4,6 +4,13 @@ The November 2026 strawberry study can now enter the existing private platform
 without converting catalogs, trials or commercial estimates into approved facts.
 The source-native research is a review projection, distinct from Market Reality.
 
+The compatibility update follows the unified information-store migration in
+PR585. Captured sources enter its existing information inventory immediately as
+private, unreviewed items; optional source review is not a retrieval gate. The
+planting workspace is a typed view of source-native observations and their
+qualifications. Creating an approved Fact remains an explicit individual action,
+and review does not grant public publication scope.
+
 ## Delivered research and initial live registration
 
 On 15 November 2026 the regional report (11 pages), audit (10 pages) and workbook
@@ -44,6 +51,13 @@ New source-publication drafts require an explicit substantive-source allowlist.
 Owner pages, access inventories, a blank levy form and an indexed-only supplier
 lead are retained as acquisition/context references rather than silently becoming
 supporting publications.
+
+Source reads and additive writes use the layout-aware information-storage APIs.
+With the verified migration active, sources live in
+`data/information/records/`; retired `data/evidence/` and `inbox/evidence/` buckets
+are not recreated. The importer retains existing source IDs, review metadata,
+publication scope and content on replay. Incomplete or mismatched activation
+markers fail closed. Entities and Facts retain their existing typed stores.
 
 The frozen research packet contains:
 

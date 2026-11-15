@@ -10,7 +10,7 @@ from typing import Any
 from urllib.parse import urlencode, urlsplit
 
 from app.services.cultivar_measurements import CultivarMeasurementError
-from app.services.information_storage import SAFE_ID
+from app.services.information_storage import SAFE_ID, InformationStorageError, safe_id
 
 IMPORTS_FOLDER = "cultivar_measurement_imports"
 STATES = {"pending", "blocked", "deferred", "rejected", "reviewed", "superseded"}
@@ -57,8 +57,10 @@ def source_dependency_ids(inbox_dir: Path, packets: list[dict[str, Any]]) -> set
             found = True
             for item in values:
                 evidence_id = item.get("evidence_id") if isinstance(item, dict) else None
-                if isinstance(evidence_id, str) and SAFE_ID.fullmatch(evidence_id):
-                    ids.add(evidence_id)
+                try:
+                    ids.add(safe_id(evidence_id))
+                except InformationStorageError:
+                    continue
     return ids if found else None
 
 
