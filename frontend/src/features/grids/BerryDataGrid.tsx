@@ -62,6 +62,7 @@ export function BerryDataGrid({ model, onReady, resetFilterToken, onFiltersReset
     catch (error) { return { page: null, error: error instanceof Error ? error.message : 'Company columns are unavailable.' }; }
   }, [companies, pageIndex, pagination.size]);
   const page = plan.page;
+  const [companyActionsOpen, setCompanyActionsOpen] = useState(false);
   const pageIdentity = JSON.stringify([page?.membershipBound, page?.companies.map(company => company.id)]);
   const [resolvedLayout, setResolvedLayout] = useState<{ identity: string; key: string; error: string } | null>(null);
   useEffect(() => {
@@ -86,7 +87,8 @@ export function BerryDataGrid({ model, onReady, resetFilterToken, onFiltersReset
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
     viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady}
-    resetFilterToken={resetFilterToken} onFiltersReset={onFiltersReset} />;
+    resetFilterToken={resetFilterToken} onFiltersReset={onFiltersReset}
+    companyActionsOpen={companyActionsOpen} onCompanyActionsToggle={setCompanyActionsOpen} />;
 }
 
 interface PortfolioGridProps {
@@ -94,6 +96,7 @@ interface PortfolioGridProps {
   viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
   changeSize: (size: CompanyColumnSize) => void; onReady?: (ready: boolean) => void;
   resetFilterToken?: number; onFiltersReset?: (token: number) => void;
+  companyActionsOpen: boolean; onCompanyActionsToggle: (open: boolean) => void;
 }
 function PortfolioGrid(props: PortfolioGridProps) {
   const { companies } = props;
@@ -113,7 +116,7 @@ function SessionPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[
   const layout = usePortfolioSessionLayout<PortfolioRow>(props.specs, props.viewKey);
   return <PortfolioDisplay {...props} layout={layout} sessionOnly />;
 }
-function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs, resetFilterToken, onFiltersReset }: PortfolioGridProps & {
+function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs, resetFilterToken, onFiltersReset, companyActionsOpen, onCompanyActionsToggle }: PortfolioGridProps & {
   layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean; specs: readonly LayoutColumn[];
 }) {
   const { context, dispatch } = useInvestigation();
@@ -201,14 +204,16 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
         <Button size="small" variant="secondary" disabled={pageBlocked || page.index === page.count - 1} onClick={() => changePage(page.index + 1)}>Next companies</Button></div>}
     </nav>
     {page.paged && pageBlocked && <p className="berry-scope-note" role="status">{layout.status.phase === 'conflict' ? 'Reload the saved layout before changing company page.' : 'Wait for the current layout to finish loading or saving before changing company page.'}</p>}
+    <details className="berry-portfolio-company-actions" open={companyActionsOpen}
+      onToggle={event => onCompanyActionsToggle(event.currentTarget.open)}><summary>Company actions · {companies.length}</summary>
     <div className="berry-grid-company-controls" aria-label="Company focus and comparison pins">{companies.map(company => <div key={company.id}>
       <EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
-    </div>)}</div>
+    </div>)}</div></details>
     <SheetToolbar label="Cultivar portfolio tools" className="berry-grid-preferences"
       filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
         placeholder: 'All fields, including hidden', disabled: layout.busy }}
-      count={matchedRows === rows.length ? `${rows.length} cultivars` : `${matchedRows} matches of ${rows.length} cultivars`}
+      count={matchedRows === rows.length ? `${rows.length} cultivars` : `${matchedRows} ${matchedRows === 1 ? 'match' : 'matches'} of ${rows.length} cultivars`}
       activeFilters={{ items: activeFilters, onClear: clearFilters, onRemove: removeFilter, disabled: pageBlocked || layout.busy }}
       columns={{ columns: columnChoices, visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility,
         onReload: layout.reloadSavedLayout, reloadLabel: sessionOnly ? 'Reload session layout' : 'Reload saved layout',
