@@ -4231,3 +4231,5 @@ master index or silently move production data to achieve a UI cleanup. Existing
 specialist review workflows and domain object types remain available. Local
 implementation and validation do not constitute a production migration or deploy.
 See `UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.
+
+Open News source limitations (2026-11-14): WSJ public business RSS is a current metadata route, not complete publisher coverage or body access. Tochigi listing has nine undated crop leads in the reviewed input; preserve unknowns rather than guessing from filenames/page updates. Full Japanese PDF bodies, verified first-public times and scheduled route receipts remain unproven until separately evidenced. See NEWS-PUBLIC-ROUTES-2026-11-14.md.
