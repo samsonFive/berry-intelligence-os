@@ -94,6 +94,11 @@ source locator, original-source link and registered retained captures. Capture
 downloads verify size/hash and stay session-protected, path-confined, no-store
 and attachment-only; imported HTML is not executed as an in-app reader.
 
+Numeric list rows also display the original attributed claim beside the scalar
+and basis, preserving qualifications such as "more than", "approximately" and
+commercial estimates without inferring a new numeric operator or editing the
+source-native ledger.
+
 Approval is one proposition at a time. The reviewer must select its primary
 substantive source, confirm the individual proposition and source passage, and
 supply exact version confirmation where a retained hash cannot establish it.
