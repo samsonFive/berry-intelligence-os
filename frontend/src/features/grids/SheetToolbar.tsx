@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { autoUpdate, flip, FloatingFocusManager, FloatingPortal, offset, shift, size, useFloating } from '@floating-ui/react';
 import { Button } from '../../components/ui';
 import './sheet-toolbar.css';
+import type { ActiveSheetFilter } from './filter-summary';
 
 export interface SheetColumn { id: string; label: string; locked?: boolean }
 export interface ColumnControlsProps {
@@ -82,6 +83,7 @@ export interface SheetToolbarProps {
   filter?: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; disabled?: boolean };
   display?: { value: 'grid' | 'cards'; onChange: (value: 'grid' | 'cards') => void; label?: string; disabled?: boolean };
   count?: ReactNode;
+  activeFilters?: { items: readonly ActiveSheetFilter[]; onClear: () => void; onRemove?: (id: string) => void; disabled?: boolean };
   columns?: ColumnControlsProps;
   reset?: { onClick: () => void; disabled?: boolean };
   feedback?: ReactNode;
@@ -90,7 +92,7 @@ export interface SheetToolbarProps {
 }
 
 /** The established Workspaces display/filter/layout strip, without another grid controller. */
-export function SheetToolbar({ label, filter, display, count, columns, reset, feedback, children, className = '' }: SheetToolbarProps) {
+export function SheetToolbar({ label, filter, display, count, activeFilters, columns, reset, feedback, children, className = '' }: SheetToolbarProps) {
   return <div className={`lw-view-tools berry-sheet-toolbar ${className}`} role="group" aria-label={label}>
     {display && <div className="berry-sheet-display" role="group" aria-label={display.label ?? 'Page display'}>
       {(['grid', 'cards'] as const).map(view => <Button key={view} size="small" disabled={display.disabled}
@@ -106,5 +108,13 @@ export function SheetToolbar({ label, filter, display, count, columns, reset, fe
       {reset && <Button size="small" variant="ghost" disabled={reset.disabled} onClick={reset.onClick}>Reset layout</Button>}
     </div>
     {feedback && <span className="berry-sheet-feedback" role="status">{feedback}</span>}
+    {!!activeFilters?.items.length && <div className="berry-sheet-active-filters" role="group" aria-label="Active table filters">
+      <strong>Table filters</strong>{activeFilters.items.map(item => <span className="berry-sheet-filter-chip" key={item.id}
+        title={`${item.label}: ${item.detail}${item.hidden ? ' (hidden column)' : ''}`}>
+        <span>{item.label}: {item.detail}{item.hidden && <em> · hidden column</em>}</span>
+        {activeFilters.onRemove && <button type="button" disabled={activeFilters.disabled} aria-label={`Clear ${item.label} filter`}
+          onClick={() => activeFilters.onRemove?.(item.id)}>×</button>}
+      </span>)}<Button size="small" variant="ghost" disabled={activeFilters.disabled} onClick={activeFilters.onClear}>Clear table filters</Button>
+    </div>}
   </div>;
 }

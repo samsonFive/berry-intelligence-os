@@ -3,8 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { EMPTY_CONTEXT, splitIds, type Berry, type InvestigationContext } from "../contracts/investigation";
 import { getInvestigation } from "../api/client";
 import { useInvestigation } from "../state/InvestigationProvider";
+import { appliedScopeLabels, resetInvestigationContext, scopeHasChanges } from './scope-state';
+import './investigation-scope.css';
 
-export function InvestigationScopeBar() {
+export function InvestigationScopeBar({ onReset }: { onReset?: () => void } = {}) {
   const { context, dispatch } = useInvestigation();
   const [draft, setDraft] = useState(context);
   const [geographyQuery, setGeographyQuery] = useState("");
@@ -17,6 +19,8 @@ export function InvestigationScopeBar() {
     staleTime: 5 * 60_000,
   });
   const countries = options.data?.data.countries ?? [];
+  const pending = scopeHasChanges(context, draft);
+  const appliedLabels = appliedScopeLabels(context, countries);
   const selectedCountries = splitIds(draft.countries);
   const unlistedCountries = selectedCountries.filter(id => !countries.some(country => country.id === id));
   const selectedLabels = selectedCountries.map(id => {
@@ -49,6 +53,16 @@ export function InvestigationScopeBar() {
     return { ...previous, countries: (selected.includes(id) ? selected.filter(item => item !== id) : [...selected, id]).join(",") };
   });
   return <form className="berry-scopebar" data-region="investigation-scope" onSubmit={apply} aria-label="Investigation scope">
+    <div className="berry-applied-scope" aria-label="Applied investigation scope"><strong>Applied</strong>
+      {appliedLabels.map((label, index) => <span key={index}>{label}</span>)}
+      <button type="button" className="berry-button berry-button--ghost berry-button--small"
+        title="Reset applied scope and searches; keep comparison selections and saved table display" onClick={() => {
+        const reset = resetInvestigationContext(context);
+        setDraft(reset); setGeographyQuery('');
+        if (geographySelector.current) geographySelector.current.open = false;
+        onReset?.(); dispatch({ type: 'replaceContext', context: reset, origin: 'direct' });
+      }}>Reset scope</button>
+    </div>
     <label className="berry-scope-field">Berry<select value={draft.berry} onChange={event => set("berry", event.target.value as Berry)}>{["all", "berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"].map(berry => <option key={berry} value={berry}>{berry === "all" ? "All berries" : berry.slice(6, 7).toUpperCase() + berry.slice(7)}</option>)}</select></label>
     <div className="berry-country-field"><span id={geographyLabelId} className="berry-field-label">Geography</span>
       <details className="berry-country-selector" ref={geographySelector} onKeyDown={event => {
@@ -71,7 +85,9 @@ export function InvestigationScopeBar() {
         </div>
       </details>
     </div>
-    <button type="submit" className="berry-button berry-button--primary">Apply scope</button>
+    <button type="submit" className="berry-button berry-button--primary" disabled={!pending}>Apply scope</button>
+    {pending && <div className="berry-scope-pending"><span role="status">Unapplied changes</span><button type="button"
+      className="berry-button berry-button--ghost berry-button--small" onClick={() => { setDraft(context); setGeographyQuery(''); }}>Discard</button></div>}
     <details className="berry-scope-advanced"><summary>Scope options</summary>
       <p>Country and region selections retain their recorded geographic meaning.</p>
       <label>Geographic basis<select value={draft.geo_basis} onChange={event => set("geo_basis", event.target.value)}><option value="company_connections">Recorded company connections</option><option value="source_geography">Source geography</option></select></label>

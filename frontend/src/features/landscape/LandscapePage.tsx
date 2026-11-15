@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useSurfaceReady } from '../../app/SurfaceScroll';
 import { legacyHref } from '../../app/legacy';
 import { Badge, Button, EmptyState, EntityButton, Preview } from '../../components/ui';
@@ -8,7 +8,7 @@ import { BerryDataGrid } from '../grids/BerryDataGrid';
 import { WorkspaceSheet, type WorkspaceSheetColumn, type WorkspaceSheetRow } from '../grids/WorkspaceSheet';
 import { ComparisonSheets } from './ComparisonSheets';
 import { SensoryDemo } from '../demo/SensoryDemo';
-import { type CompanyPage, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNewsModel, type LandscapeNode, type MonitoringCompany, type Portrait, type SourceMetadata } from './models';
+import { type CompanyPage, type ComparisonModel, type DevelopmentsModel, type LandscapeEdge, type LandscapeModel, type LandscapeNewsModel, type LandscapeNode, type Portrait, type SourceMetadata } from './models';
 import { Link } from 'react-router-dom';
 import { Citation } from './Citation';
 import { DevelopmentCard } from './DevelopmentCard';
@@ -25,6 +25,7 @@ import { InvestigationScopeBar } from '../../components/InvestigationScopeBar';
 import { LANDSCAPE_VIEWS as LENSES } from '../../components/WorkspaceChrome';
 
 const RAIL_PREFERENCES = 'berry:landscape:developments';
+interface FilterResetProps { resetFilterToken?: number; onFiltersReset?: (token: number) => void }
 function restoredRails(): Partial<Record<Lens, boolean>> {
   try {
     const stored: unknown = JSON.parse(sessionStorage.getItem(RAIL_PREFERENCES) ?? '{}');
@@ -144,7 +145,7 @@ function Connections({ model }: { model: LandscapeModel }) {
       || Number(genetics(b)) - Number(genetics(a)) || Number(typedActivity(b)) - Number(typedActivity(a)) || a.actor.label.localeCompare(b.actor.label));
   }, [model]);
   const visible = allActors ? portraits : portraits.slice(0, 4);
-  if (!portraits.length) return <EmptyState title="No role-bearing connections match this scope">Change the applied scope to inspect other recorded relationships. Missing captured relationships do not establish an absence of activity.</EmptyState>;
+  if (!portraits.length) return <p className="berry-empty-result">No matching connections.</p>;
   return <section className="berry-connections-table" aria-label="Companies, genetics and activity"><div className="berry-section-heading"><h2>Companies, genetics and activity</h2></div>
     <div className="berry-relationship-header" aria-hidden="true"><span>Actor</span><span>Recorded genetics connections</span><span>Geographic activity</span></div>
     <div className="berry-relationship-bands">{visible.map(portrait => <CompanyBand key={portrait.actor.id} portrait={portrait} model={model} sources={sources} companyIds={portraits.map(row => row.actor.id)} />)}</div>
@@ -160,20 +161,10 @@ function PageControls({ page, count, label, onPage }: { page: CompanyPage; count
   </nav>;
 }
 
-function RosterGeographies({ geographies, sources }: { geographies: MonitoringCompany['geographies']; sources: Map<string, SourceMetadata> }) {
-  const { dispatch } = useInvestigation();
-  if (!geographies.length) return <span className="berry-material-caveat">Not recorded in scope</span>;
-  return <><div className="berry-roster-geographies">{geographies.map((geo, index) => <div key={`${geo.relationship_id}-${index}`}><button className="berry-text-button" type="button" title={`${geo.label} · ${geo.activity}`} onClick={() => dispatch({ type: 'openDetail', detail: { type: 'relationship', id: geo.relationship_id }, origin: 'direct' })}><strong>{geo.label}</strong>{geo.activity !== 'Location reported · check source' && <> · {geo.activity}</>}</button>{geo.status !== 'Documented relationship' && <p className="berry-material-caveat">{geo.status}</p>}{geo.caveat && <p className="berry-material-caveat">{geo.caveat}</p>}</div>)}</div>
-    {geographies.some(geo => geo.activity === 'Location reported · check source') && <span className="berry-material-caveat">Includes location-only records</span>}
-    <details className="berry-roster-records"><summary>Activity review and sources · {geographies.length} records</summary>{geographies.map((geo, index) => <div key={`${geo.relationship_id}-${index}`}><strong>{geo.label} · {geo.activity}</strong><p className="berry-material-caveat">{geo.status} · {geo.review}</p><div className="berry-inline-citations">{geo.evidence_ids.map(id => <Citation key={id} id={id} source={sources.get(id)} parent={{ type: 'relationship', id: geo.relationship_id }} />)}</div></div>)}</details>
-  </>;
-}
-
-function MonitoringRoster({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
+function MonitoringRoster({ model, onReady, ...filterReset }: { model: LandscapeModel; onReady: (ready: boolean) => void } & FilterResetProps) {
   const sources = useMemo(() => new Map(model.sources.map(source => [source.id, source])), [model.sources]);
-  return <><CompanyRoster model={model} onReady={onReady} renderNode={node => <NodeControl node={node} />}
-    renderEdge={edge => <Relationship edge={edge} model={model} sources={sources} />}
-    renderGeographies={geographies => <RosterGeographies geographies={geographies} sources={sources} />} />
+  return <><CompanyRoster model={model} onReady={onReady} {...filterReset} renderNode={node => <NodeControl node={node} />}
+    renderEdge={edge => <Relationship edge={edge} model={model} sources={sources} />} />
     <details className="berry-deeper-connections"><summary>Explore applied-scope company and genetics connections · independent of the roster set</summary><Connections model={model} /></details></>;
 }
 
@@ -194,13 +185,13 @@ function LandscapeNews({ onReady }: { onReady: (ready: boolean) => void }) {
       : query.isError ? <EmptyState title="News unavailable" action={<Button onClick={() => void query.refetch()}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The feed could not be loaded.'}</EmptyState>
         : news && <><div className="berry-news-toolbar"><PageControls page={news} count={news.cards.length} label="Landscape News" onPage={onPage} /></div>
           {news.cards.length ? <div className="news-grid berry-legacy-news-grid">{news.cards.map(card => <DevelopmentCard key={card.id} card={card} newsHref={news.briefing_href} />)}</div>
-            : <EmptyState title="No retained News matches this company set and scope">No source geography, publication date or company selector has been widened. Missing retained News does not establish an absence of developments.</EmptyState>}
+            : <p className="berry-empty-result">No matching news.</p>}
           <div className="berry-news-footer"><details className="berry-news-feed-basis"><summary>Feed basis</summary><p>{news.basis === 'workspace_watches' ? `${news.subject_count} shared watched companies · monitoring interest, not evidence approval or active collection.` : 'All companies · includes eligible industry News without a company link.'}</p><p>Source geography and source publication dates apply; focus and comparison pins do not narrow this feed.</p><p>{news.briefing_scope_note}</p></details><PageControls page={news} count={news.cards.length} label="Landscape News bottom" onPage={onPage} /></div>
         </>}
   </section>;
 }
 
-function Geography({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
+function Geography({ model, onReady, ...filterReset }: { model: LandscapeModel; onReady: (ready: boolean) => void } & FilterResetProps) {
   const { dispatch } = useInvestigation();
   const columns = useMemo<WorkspaceSheetColumn[]>(() => [
     { id: 'subject', label: 'Recorded subject', width: 230, frozen: true },
@@ -221,14 +212,14 @@ function Geography({ model, onReady }: { model: LandscapeModel; onReady: (ready:
         content: edge.evidence_ids.map(id => <div key={id}><Citation id={id} source={model.sources.find(source => source.id === id)} /></div>) },
     } };
   }), [model, dispatch]);
-  useLayoutEffect(() => { if (!rows.length) onReady(true); }, [rows.length, onReady]);
+  useLayoutEffect(() => { if (!rows.length) { onReady(true); if (filterReset.resetFilterToken) filterReset.onFiltersReset?.(filterReset.resetFilterToken); } }, [rows.length, onReady, filterReset.resetFilterToken, filterReset.onFiltersReset]);
   return <><div className="berry-section-heading"><h2>Geographic activity</h2></div>
-    {rows.length ? <WorkspaceSheet label="Geographic activity" viewKey="berry-geography-v1" columns={columns} rows={rows} onReady={onReady} />
-      : <EmptyState title="No geographic relationship is recorded in this scope">This does not establish an absence of activity or cultivar presence.</EmptyState>}
+    {rows.length ? <WorkspaceSheet label="Geographic activity" viewKey="berry-geography-v1" columns={columns} rows={rows} onReady={onReady} {...filterReset} />
+      : <p className="berry-empty-result">No matching activity.</p>}
   </>;
 }
 
-function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready: boolean) => void }) {
+function Comparison({ model, onReady, ...filterReset }: { model: LandscapeModel; onReady: (ready: boolean) => void } & FilterResetProps) {
   const { context, dispatch, issues } = useInvestigation();
   const comparisonContext: InvestigationContext = { ...standingContext(context), lens: 'comparison', comparison_kind: context.comparison_kind,
     cohort_companies: context.cohort_companies, cohort_varieties: context.cohort_varieties };
@@ -236,7 +227,7 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
   const query = useReadModel<ComparisonModel>('/comparison', comparisonContext, selected.length > 0 && !hasBlockingIssues(issues));
   const result = query.data?.data;
   const count = result?.comparison_kind === 'company' ? result.companies.length : result?.varieties.length ?? 0;
-  useLayoutEffect(() => { if (!selected.length || query.isError || result && !count) onReady(true); }, [onReady, selected.length, query.isError, result, count]);
+  useLayoutEffect(() => { if (!selected.length || query.isError || result && !count) { onReady(true); if (filterReset.resetFilterToken) filterReset.onFiltersReset?.(filterReset.resetFilterToken); } }, [onReady, selected.length, query.isError, result, count, filterReset.resetFilterToken, filterReset.onFiltersReset]);
   return <><div className="berry-section-heading"><h2>Compare {context.comparison_kind === 'company' ? 'companies' : 'cultivars'}</h2>
     <div className="berry-segmented" aria-label="Comparison subject type">{(['company', 'variety'] as const).map(kind => <button key={kind} type="button" aria-pressed={context.comparison_kind === kind} onClick={() => dispatch({ type: 'setLens', lens: 'comparison', comparison_kind: kind, origin: 'direct' })}>{kind === 'company' ? 'Companies' : 'Cultivars'}</button>)}</div></div>
     {selected.length === 0 ? <EmptyState title="Pin subjects to compare">Use the separate company and cultivar pins in Connections or Portfolio. Each cohort remains available when you switch the comparison type.</EmptyState>
@@ -244,7 +235,7 @@ function Comparison({ model, onReady }: { model: LandscapeModel; onReady: (ready
         : query.isError ? <EmptyState title="Comparison unavailable">{query.error instanceof Error ? query.error.message : 'The selected profiles could not be loaded.'}</EmptyState>
           : result && <>
             {(result.invalid_ids.length > 0 || result.overflow_ids.length > 0) && <div className="berry-issue">Unavailable: {result.invalid_ids.join(', ') || 'None'}. Beyond the supported comparison: {result.overflow_ids.join(', ') || 'None'}. All pins remain visible for explicit removal.</div>}
-            {count > 0 && <ComparisonSheets result={result} model={model} onReady={onReady} />}
+            {count > 0 && <ComparisonSheets result={result} model={model} onReady={onReady} {...filterReset} />}
           </>}
   </>;
 }
@@ -256,13 +247,14 @@ function Developments({ model, onReady }: { model: LandscapeModel; onReady: (rea
   useLayoutEffect(() => onReady(!query.isPending), [onReady, query.isPending]);
   const developments = query.data?.data;
   return <section id="landscape-developments" className="berry-developments berry-news-rail" aria-labelledby="developments-heading">
-    <div className="berry-section-heading"><div><h2 id="developments-heading">Retained developments</h2><p className="berry-developments-subject">{developments?.heading ?? 'Relevant developments'}</p><p>Source geography · publication dates</p></div>
+    <div className="berry-section-heading"><div><h2 id="developments-heading">Retained developments</h2><p className="berry-developments-subject">{developments?.heading ?? 'Relevant developments'}</p></div>
+      <Preview label="Development scope" className="berry-scope-info" content={<p>{developments?.briefing_scope_note || 'News uses the selected source geography and publication dates.'}</p>}>
+        <span aria-hidden="true">ⓘ</span><span className="berry-sr-only">Development scope information</span></Preview>
       {developments && <Link className="berry-button berry-button--ghost berry-button--small" to={investigationHref('/app/briefing', context)}>Open scoped Briefing →</Link>}</div>
     {query.isPending ? <p role="status" className="berry-loading">Loading developments for the current subject…</p>
       : query.isError ? <EmptyState compact title="Developments could not be loaded">{query.error instanceof Error ? query.error.message : 'Try reopening this view.'}</EmptyState>
         : developments && developments.cards.length ? <div className="news-grid berry-legacy-news-grid">{developments.cards.slice(0, 3).map(card => <DevelopmentCard key={card.id} card={card} newsHref={developments.briefing_href} />)}</div>
-          : developments && <EmptyState compact title="No retained news matches this subject and scope" action={<Link className="berry-button berry-button--secondary" to={investigationHref('/app/briefing', context)}>Open scoped Briefing</Link>}>Missing captured news does not establish an absence of developments. The applied scope has not been broadened.</EmptyState>}
-    {developments?.briefing_scope_note && <p className="berry-scope-note berry-developments-note">{developments.briefing_scope_note}</p>}
+          : developments && <p className="berry-empty-result">No matching news. <Link to={investigationHref('/app/briefing', context)}>Open Briefing</Link></p>}
   </section>;
 }
 
@@ -298,6 +290,11 @@ export function LandscapePage() {
   const readinessKey = serializeInvestigation({ ...context, detail_path: '', saved_view_id: '', saved_revision: '' });
   const [readyParts, setReadyParts] = useState({ key: '', field: false, rail: false });
   const [railPreferences, setRailPreferences] = useState(restoredRails);
+  const filterResetSerial = useRef(0);
+  const [filterResetRequest, setFilterResetRequest] = useState<{ token: number; lens: Lens } | null>(null);
+  const filtersReset = useCallback((token: number) => setFilterResetRequest(previous => previous?.token === token ? null : previous), []);
+  const filterReset = filterResetRequest?.lens === context.lens
+    ? { resetFilterToken: filterResetRequest.token, onFiltersReset: filtersReset } : {};
   const [overviewExpanded, setOverviewExpanded] = useState(false);
   const fieldReady = useCallback((ready: boolean) => setReadyParts(previous => previous.key === readinessKey && previous.field === ready ? previous
     : { key: readinessKey, field: ready, rail: previous.key === readinessKey ? previous.rail : false }), [readinessKey]);
@@ -312,7 +309,10 @@ export function LandscapePage() {
     <div className="berry-page-heading berry-landscape-titlebar"><div className="berry-landscape-title"><h1>{context.berry === 'all' ? 'Berry landscape' : `${berry} landscape`}</h1></div>
 
     </div>
-    <InvestigationScopeBar />
+    <InvestigationScopeBar onReset={() => {
+      if (['connections', 'portfolio', 'geography', 'comparison'].includes(context.lens))
+        setFilterResetRequest({ token: ++filterResetSerial.current, lens: context.lens });
+    }} />
     {blocked ? <EmptyState title="Resolve the investigation selectors">Some URL or scope values are unsupported. Correct the selectors before loading; the application has not broadened the scope.</EmptyState>
       : query.isPending ? <p className="berry-loading" role="status">Loading the applied landscape…</p>
         : query.isError ? <EmptyState title="This landscape could not be loaded" action={<Button onClick={() => { void query.refetch(); }}>Try again</Button>}>{query.error instanceof Error ? query.error.message : 'The read service is unavailable.'}</EmptyState>
@@ -328,10 +328,10 @@ export function LandscapePage() {
               try { sessionStorage.setItem(RAIL_PREFERENCES, JSON.stringify(next)); } catch { /* Display still works when browser storage is unavailable. */ }
             }}>Developments</Button>}<SubjectSelector model={model} /></div>
             <div className={`berry-analysis-layout${!needsRail ? ' berry-analysis-layout--full' : ''}`}><section className="berry-analytical berry-main-field" aria-label={`${LENSES.find(lens => lens.id === context.lens)?.label ?? 'Connections'} analytical field`}>
-              {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} />}
-              {context.lens === 'portfolio' && <><div className="berry-section-heading"><h2>Cultivar portfolio</h2></div><BerryDataGrid model={model} onReady={fieldReady} /></>}
-              {context.lens === 'geography' && <Geography model={model} onReady={fieldReady} />}
-              {context.lens === 'comparison' && <Comparison model={model} onReady={fieldReady} />}
+              {context.lens === 'connections' && <MonitoringRoster model={model} onReady={fieldReady} {...filterReset} />}
+              {context.lens === 'portfolio' && <><div className="berry-section-heading"><h2>Cultivar portfolio</h2></div><BerryDataGrid model={model} onReady={fieldReady} {...filterReset} /></>}
+              {context.lens === 'geography' && <Geography model={model} onReady={fieldReady} {...filterReset} />}
+              {context.lens === 'comparison' && <Comparison model={model} onReady={fieldReady} {...filterReset} />}
               {context.lens === 'news' && <LandscapeNews onReady={fieldReady} />}
               {context.lens === 'sensory' && <SensoryDemo onReady={fieldReady} />}
             </section>{needsRail && <Developments model={model} onReady={railReady} />}</div>

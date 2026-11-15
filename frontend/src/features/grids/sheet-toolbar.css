@@ -44,6 +44,12 @@
 }
 .berry-app .berry-sheet-toolbar input[type='search'] { width: 220px; max-width: 100%; margin: 0; }
 .berry-app .berry-sheet-count { color: #52695c; font-size: 11px; }
+.berry-app .berry-sheet-active-filters { display: flex; align-items: center; flex-wrap: wrap; flex-basis: 100%; gap: 3px 6px; font-size: 11px; }
+.berry-app .berry-sheet-filter-chip { display: inline-flex; align-items: center; max-width: 100%; gap: 4px; padding: 1px 4px; border: 1px solid #b9cbbd; border-radius: 3px; background: #fff; }
+.berry-app .berry-sheet-filter-chip > span { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.berry-app .berry-sheet-filter-chip em { font-style: normal; color: #52695c; }
+.berry-app .berry-sheet-toolbar .berry-sheet-filter-chip button { border: 0; padding: 0 3px; background: transparent; color: #214f39; font: inherit; cursor: pointer; }
+.berry-app .berry-sheet-active-filters > .berry-button { min-height: 23px; padding: 1px 4px; font-size: 11px; }
 .berry-app .berry-sheet-columns > summary { cursor: pointer; list-style: none; }
 .berry-app .berry-sheet-columns > summary::-webkit-details-marker { display: none; }
 .berry-app .berry-sheet-columns[open] > summary { background: #e5efe2; }

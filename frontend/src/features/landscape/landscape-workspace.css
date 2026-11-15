@@ -23,6 +23,7 @@
 .berry-app .berry-landscape-page :is(.berry-deeper-connections, .berry-method-notes)[open] > summary { border-bottom: 1px solid #c5d3c7; }
 .berry-app .berry-landscape-page .berry-deeper-connections > .berry-connections-table { margin: 7px 8px; }
 .berry-app .berry-landscape-page .berry-method-notes > p { margin: 6px 8px; font-size: 12px; }
+.berry-app .berry-landscape-page .berry-empty-result { margin: 6px 0; color: #52695c; font-size: 12px; }
 @media (max-width: 600px) {
   .berry-app .berry-landscape-tools .berry-company-set { min-width: 0; flex-wrap: wrap; }
   .berry-app .berry-landscape-tools .berry-company-set select { max-width: 100%; }
