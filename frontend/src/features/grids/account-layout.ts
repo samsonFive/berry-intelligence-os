@@ -50,7 +50,7 @@ export class AccountGridLayouts {
       }
       const text = await response.text();
       this.assertSession();
-      if (new TextEncoder().encode(text).byteLength > 20_000) throw new GridLayoutError("The saved grid layout response is too large.");
+      if (new TextEncoder().encode(text).byteLength > this.options.catalog.limits.bytes) throw new GridLayoutError("The saved grid layout response is too large.");
       let body: unknown = null;
       if ((response.headers.get("content-type") ?? "").includes("application/json")) { try { body = JSON.parse(text); } catch { /* Handled as an invalid response below. */ } }
       if (!response.ok) {
@@ -58,7 +58,7 @@ export class AccountGridLayouts {
         if (response.status === 409) { this.state = { ...this.state, status: "conflict", conflict: true }; throw new GridLayoutError(detail, "conflict"); }
         throw new GridLayoutError(detail, response.status >= 500 ? "network" : "invalid");
       }
-      return validateSheetLayout(body);
+      return validateSheetLayout(body, this.options.catalog.limits);
     } catch (error) {
       if (error instanceof GridLayoutError) throw error;
       this.assertSession();

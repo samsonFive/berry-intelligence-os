@@ -1,0 +1,7 @@
+.berry-app .berry-applied-scope { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 8px; flex-basis: 100%; color: #355b43; font-size: 11px; line-height: 1.4; }
+.berry-app .berry-applied-scope > span + span::before { content: '·'; margin-right: 8px; color: #718477; }
+.berry-app .berry-applied-scope .berry-button { min-height: 24px; margin-left: auto; padding: 2px 5px; font-size: 11px; }
+.berry-app .berry-scope-pending { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; color: #74501d; font-size: 11px; }
+.berry-app .berry-scope-pending .berry-button { min-height: 25px; padding: 2px 5px; }
+.berry-app .berry-applied-scope > span { overflow-wrap: anywhere; }
+@media (max-width: 560px) { .berry-app .berry-applied-scope .berry-button { margin-left: 0; } }

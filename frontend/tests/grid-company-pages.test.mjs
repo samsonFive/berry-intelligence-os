@@ -66,7 +66,7 @@ test('variable company windows expose every column, including All, while the leg
   assert.throws(() => companyPage(all, 0, 38), /supported/);
 });
 
-test('twenty-five company windows fit unchanged account caps and fifty never relaxes that wire', async () => {
+test('ordinary catalogs keep forty-column caps unless the Portfolio namespace is explicitly supplied', async () => {
   const columns = count => [{ colId: 'cultivar.identity', lockedVisible: true }, { colId: 'cultivar.comparison-pin', lockedVisible: true },
     ...companies(count).map(row => ({ colId: `company.${row.id}.recorded-role` }))];
   const catalog = await createColumnCatalog(columns(25));

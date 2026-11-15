@@ -6,6 +6,7 @@ import { useAccountGridLayout } from './useAccountGridLayout';
 import { isUserLayoutEvent } from './grid-state';
 import { workspaceGridTheme } from './workspace-grid-theme';
 import { defaultSheetColumnState } from './sheet-layout';
+import { clearSheetFilters, sheetFilterSummary } from './filter-summary';
 import './grid.css';
 import './workspace-sheet.css';
 
@@ -21,14 +22,17 @@ const SHEET_COLUMN_DEFAULTS: ColDef<WorkspaceSheetRow> = {
 };
 
 /** Read-only intelligence uses the same grid, preference owner and toolbar as the roster. */
-export function WorkspaceSheet({ label, viewKey, columns, rows, onReady }: {
+export function WorkspaceSheet({ label, viewKey, columns, rows, onReady, resetFilterToken = 0, onFiltersReset }: {
   label: string; viewKey: string; columns: WorkspaceSheetColumn[]; rows: WorkspaceSheetRow[]; onReady?: (ready: boolean) => void;
+  resetFilterToken?: number; onFiltersReset?: (token: number) => void;
 }) {
   const specs = useMemo(() => columns.map(column => ({ colId: column.id, defaultWidth: column.width,
     minWidth: column.frozen ? 160 : 120, maxWidth: 1200, lockedVisible: column.frozen })), [columns]);
-  const layout = useAccountGridLayout<WorkspaceSheetRow>(specs, viewKey, false, true);
+  const layout = useAccountGridLayout<WorkspaceSheetRow>(specs, viewKey, false, true,
+    { token: resetFilterToken, onApplied: onFiltersReset });
   const grid = useRef<GridApi<WorkspaceSheetRow> | null>(null);
   const [mounted, setMounted] = useState(false), [count, setCount] = useState(rows.length);
+  const [columnFilters, setColumnFilters] = useState<Record<string, unknown>>({});
   const blocked = layout.busy || layout.status.phase === 'conflict';
   useLayoutEffect(() => onReady?.(mounted && !layout.busy), [mounted, layout.busy, onReady]);
   const definitions = useMemo<ColDef<WorkspaceSheetRow>[]>(() => columns.map(column => ({
@@ -40,11 +44,20 @@ export function WorkspaceSheet({ label, viewKey, columns, rows, onReady }: {
   })), [columns]);
   const reset = () => {
     grid.current?.applyColumnState({ state: defaultSheetColumnState(specs), applyOrder: true });
-    grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
+    layout.changed();
+  };
+  const activeFilters = sheetFilterSummary(layout.quickFilter, columnFilters, columns, layout.visible);
+  const syncFilters = () => {
+    const next = grid.current?.getFilterModel() ?? {};
+    setColumnFilters(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
   };
   return <section className="berry-workspace-sheet" aria-label={label}>
-    <SheetToolbar label={`${label} controls`} filter={{ label: 'Filter rows', value: layout.quickFilter, onChange: layout.changeQuickFilter,
-      placeholder: 'Search this view', disabled: layout.busy }} count={`${count} / ${rows.length} rows`}
+    <SheetToolbar label={`${label} controls`} filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+      placeholder: 'All fields, including hidden', disabled: layout.busy }} count={count === rows.length ? `${rows.length} rows` : `${count} ${count === 1 ? 'match' : 'matches'} of ${rows.length} rows`}
+      activeFilters={{ items: activeFilters, disabled: blocked, onClear: () => { if (grid.current) clearSheetFilters(grid.current, layout.changeQuickFilter); },
+        onRemove: id => { if (id === '$quick') layout.changeQuickFilter(''); else if (grid.current) {
+          const next = { ...grid.current.getFilterModel() }; delete next[id]; grid.current.setFilterModel(next); layout.changed();
+        } grid.current?.paginationGoToFirstPage(); } }}
       columns={{ columns: columns.map(column => ({ id: column.id, label: column.label, locked: column.frozen })), visible: layout.visible,
         onChange: layout.changeVisibility, onReload: layout.reloadSavedLayout, busy: layout.busy, actionDisabled: blocked || !mounted,
         onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }} reset={{ onClick: reset, disabled: blocked || !mounted }} />
@@ -56,12 +69,12 @@ export function WorkspaceSheet({ label, viewKey, columns, rows, onReady }: {
         defaultColDef={SHEET_COLUMN_DEFAULTS}
         rowHeight={42} headerHeight={34} animateRows={false}
         onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setMounted(true); }}
-        onModelUpdated={event => setCount(event.api.getDisplayedRowCount())}
+        onModelUpdated={event => { setCount(event.api.getDisplayedRowCount()); syncFilters(); }}
         onColumnResized={event => { if (isUserLayoutEvent('resize', event.source, event.finished)) layout.changed(); }}
         onColumnMoved={event => { if (isUserLayoutEvent('move', event.source, event.finished)) layout.changed(); }}
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}
         onSortChanged={event => { if (isUserLayoutEvent('sort', event.source)) layout.changed(); }}
-        onFilterChanged={event => { if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
+        onFilterChanged={event => { syncFilters(); if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
         overlayNoRowsTemplate="No rows match this filter." />
     </div>
   </section>;

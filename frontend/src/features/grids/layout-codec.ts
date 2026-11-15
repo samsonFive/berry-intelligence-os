@@ -1,5 +1,13 @@
 /** Private display preferences only; semantic grid IDs never become backend column keys. */
 export const LAYOUT_SCHEMA = "berry-grid-semantic-v1";
+export const MAX_PORTFOLIO_LAYOUT_COLUMNS = 512;
+export interface LayoutLimits { readonly columns: number; readonly bytes: number }
+/** Widen only Portfolio's existing semantic namespaces; other sheet contracts stay unchanged. */
+export function gridLayoutLimits(viewKey?: string): LayoutLimits {
+  return viewKey === 'berry-portfolio-v1' || /^berry-pg-v2-[a-f0-9]{64}$/.test(viewKey ?? '')
+    ? { columns: MAX_PORTFOLIO_LAYOUT_COLUMNS, bytes: 128 * 1024 }
+    : { columns: 40, bytes: 20_000 };
+}
 const LEGAL_KEY = /^[a-z0-9-]{1,80}$/;
 const COLUMN_KEY = /^c-[a-f0-9]{32}$/;
 const META = new Set(["schema", "sort", "quick", "view"]);
@@ -9,7 +17,7 @@ export class GridLayoutError extends Error {
 }
 export interface LayoutColumn { colId: string; defaultWidth?: number; minWidth?: number; maxWidth?: number; lockedVisible?: boolean; defaultHidden?: boolean; restoreAfter?: string }
 export interface CatalogColumn { colId: string; key: string; defaultWidth: number; minWidth: number; maxWidth: number; lockedVisible: boolean; defaultHidden?: boolean; restoreAfter?: string }
-export interface ColumnCatalog { columns: readonly CatalogColumn[]; byId: ReadonlyMap<string, CatalogColumn>; byKey: ReadonlyMap<string, CatalogColumn> }
+export interface ColumnCatalog { columns: readonly CatalogColumn[]; byId: ReadonlyMap<string, CatalogColumn>; byKey: ReadonlyMap<string, CatalogColumn>; limits: LayoutLimits }
 export interface GridLayoutSnapshot {
   columns: Array<{ colId: string; width: number; hide: boolean }>;
   sort: Array<{ colId: string; sort: "asc" | "desc" }>;
@@ -26,12 +34,14 @@ function fail(message: string): never { throw new GridLayoutError(message); }
 const object = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === "object" && !Array.isArray(value)
   && [Object.prototype, null].includes(Object.getPrototypeOf(value)));
 const keys = (value: unknown, limit: number): string[] => object(value) && Object.keys(value).length <= limit ? Object.keys(value) : fail("The saved grid layout exceeds its supported dimensions.");
-const list = (value: unknown): string[] => Array.isArray(value) && value.length <= 40 && value.every(item => typeof item === "string" && LEGAL_KEY.test(item))
+const list = (value: unknown, limit: number): string[] => Array.isArray(value) && value.length <= limit && value.every(item => typeof item === "string" && LEGAL_KEY.test(item))
   && new Set(value).size === value.length ? value : fail("The saved column order or visibility is invalid.");
 const width = (value: number, column: CatalogColumn) => Math.min(column.maxWidth, Math.max(column.minWidth, Math.round(value)));
 
-export async function createColumnCatalog(columns: readonly LayoutColumn[], digest?: (text: string) => Promise<string>): Promise<ColumnCatalog> {
-  if (!columns.length || columns.length > 40) fail("A grid layout supports between one and forty columns.");
+export async function createColumnCatalog(columns: readonly LayoutColumn[], digest?: (text: string) => Promise<string>, viewKey?: string): Promise<ColumnCatalog> {
+  const limits = gridLayoutLimits(viewKey);
+  if (!columns.length || columns.length > limits.columns) fail(limits.columns === 40
+    ? "A grid layout supports between one and forty columns." : `A Portfolio account layout supports between one and ${limits.columns} columns.`);
   const hash = digest ?? (async text => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text))))
     .map(byte => byte.toString(16).padStart(2, "0")).join(""));
   const byId = new Map<string, CatalogColumn>(), byKey = new Map<string, CatalogColumn>();
@@ -52,19 +62,19 @@ export async function createColumnCatalog(columns: readonly LayoutColumn[], dige
     const anchor = entries.findIndex(item => item.colId === column.restoreAfter);
     if (column.lockedVisible || anchor < 0 || anchor >= index) fail("A new column's default position needs an earlier available column.");
   }
-  return { columns: entries, byId, byKey };
+  return { columns: entries, byId, byKey, limits };
 }
 export function defaultGridLayout(catalog: ColumnCatalog): GridLayoutSnapshot {
   return { columns: catalog.columns.map(column => ({ colId: column.colId, width: column.defaultWidth, hide: !column.lockedVisible && Boolean(column.defaultHidden) })), sort: [], filterModel: {}, quickFilter: "" };
 }
-export function validateSheetLayout(value: unknown): SheetLayout {
+export function validateSheetLayout(value: unknown, limits: LayoutLimits = gridLayoutLimits()): SheetLayout {
   if (!object(value) || !Number.isSafeInteger(value.revision) || Number(value.revision) < 0) fail("The server returned an invalid layout revision.");
   const widths = value.widths, filters = value.filters;
-  for (const key of keys(widths, 40)) if (!LEGAL_KEY.test(key) || !Number.isInteger((widths as Record<string, unknown>)[key])
+  for (const key of keys(widths, limits.columns)) if (!LEGAL_KEY.test(key) || !Number.isInteger((widths as Record<string, unknown>)[key])
     || Number((widths as Record<string, unknown>)[key]) < 48 || Number((widths as Record<string, unknown>)[key]) > 1200) fail("The saved column sizes are invalid.");
   for (const key of keys(filters, 25)) if (key.length > 40 || typeof (filters as Record<string, unknown>)[key] !== "string"
     || String((filters as Record<string, unknown>)[key]).length > 400) fail("The saved grid filters exceed their supported limits.");
-  return { revision: Number(value.revision), widths: { ...(widths as Record<string, number>) }, order: [...list(value.order)], hidden: [...list(value.hidden)], filters: { ...(filters as Record<string, string>) } };
+  return { revision: Number(value.revision), widths: { ...(widths as Record<string, number>) }, order: [...list(value.order, limits.columns)], hidden: [...list(value.hidden, limits.columns)], filters: { ...(filters as Record<string, string>) } };
 }
 function cleanText(value: unknown, max = 200): string {
   return typeof value === "string" && value.length <= max && !/[\u0000-\u001f\u007f]/.test(value) ? value : fail("A grid filter contains unsupported text or exceeds its supported length.");
@@ -130,7 +140,7 @@ function positionMissingColumns(order: string[], catalog: ColumnCatalog, savedRe
   return result;
 }
 export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): LoadedGridLayout {
-  const wire = validateSheetLayout(value), snapshot = defaultGridLayout(catalog);
+  const wire = validateSheetLayout(value, catalog.limits), snapshot = defaultGridLayout(catalog);
   const empty = wire.revision === 0 && !wire.order.length && !wire.hidden.length && !Object.keys(wire.widths).length && !Object.keys(wire.filters).length;
   if (empty) return { status: "default", revision: 0, snapshot, writable: true, retainedUnknownColumns: 0 };
   if (wire.filters.schema !== LAYOUT_SCHEMA) return { status: "legacy-unmapped", revision: wire.revision, snapshot, writable: false, retainedUnknownColumns: 0,
@@ -151,7 +161,7 @@ export function decodeGridLayout(value: unknown, catalog: ColumnCatalog): Loaded
 }
 export function encodeGridLayout(snapshot: GridLayoutSnapshot, catalog: ColumnCatalog, previous?: SheetLayout): SheetLayout {
   if (!Array.isArray(snapshot.columns) || snapshot.columns.length !== catalog.columns.length || new Set(snapshot.columns.map(column => column.colId)).size !== snapshot.columns.length) fail("Save the complete current column layout.");
-  const base = previous ? validateSheetLayout(previous) : { revision: 0, widths: {}, order: [], hidden: [], filters: {} };
+  const base = previous ? validateSheetLayout(previous, catalog.limits) : { revision: 0, widths: {}, order: [], hidden: [], filters: {} };
   if (previous && !decodeGridLayout(base, catalog).writable) throw new GridLayoutError("The earlier layout is preserved. Choose a new layout namespace before saving.", "migration");
   const widths = Object.fromEntries(Object.entries(base.widths).filter(([key]) => !catalog.byKey.has(key)));
   const hidden = base.hidden.filter(key => !catalog.byKey.has(key));
@@ -182,8 +192,8 @@ export function encodeGridLayout(snapshot: GridLayoutSnapshot, catalog: ColumnCa
     const column = catalog.byId.get(colId); if (!column) fail("A grid filter refers to an unavailable column.");
     filters[column.key] = JSON.stringify(filterValue(snapshot.filterModel[colId]));
   }
-  const wire = validateSheetLayout({ revision: base.revision, widths, order, hidden: [...new Set(hidden)], filters });
-  if (new TextEncoder().encode(JSON.stringify(wire)).byteLength > 20_000) fail("The grid layout is too large to save. Earlier preferences have not been overwritten.");
+  const wire = validateSheetLayout({ revision: base.revision, widths, order, hidden: [...new Set(hidden)], filters }, catalog.limits);
+  if (new TextEncoder().encode(JSON.stringify(wire)).byteLength > catalog.limits.bytes) fail("The grid layout is too large to save. Earlier preferences have not been overwritten.");
   return wire;
 }
 export function validViewKey(value: string): boolean { return LEGAL_KEY.test(value); }

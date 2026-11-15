@@ -80,6 +80,10 @@
 #lw-summary-body a:hover {text-decoration:underline;background:#dfeddf;}
 .lw-view-tools {background:#f0f4ef;border:1px solid #c5d3c7;border-radius:5px;padding:6px 8px;gap:8px;}
 .lw-view-tools>label {font-size:10px;}
+.lw-filter-strip {display:flex;align-items:center;gap:8px;margin:4px 0;font-size:11px;min-width:0;}
+.lw-filter-strip[hidden] {display:none;}
+.lw-filter-strip>span {min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lw-filter-strip>button {flex-shrink:0;padding:3px 7px;font-size:11px;}
 .lw-view-tools button[aria-pressed=true] {background:#204f39;color:#fff;border-color:#204f39;}
 .lw-date-tools {border-top-color:#d1ddd1;padding-top:5px;gap:8px;}
 .lw-date-tools label {font-size:10px!important;}

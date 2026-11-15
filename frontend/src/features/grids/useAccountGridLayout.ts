@@ -4,13 +4,15 @@ import { AccountGridLayouts } from './account-layout';
 import { createColumnCatalog, GridLayoutError } from './layout-codec';
 import type { ColumnCatalog, LayoutColumn, LoadedGridLayout } from './layout-codec';
 import { captureGridLayout, restoredColumnState } from './grid-state';
+import { SheetFilterReset } from './filter-summary';
 
 type Phase = 'loading' | 'ready' | 'pending' | 'saving' | 'saved' | 'local' | 'conflict' | 'error';
 interface LayoutStatus { phase: Phase; message: string; retainedUnknownColumns: number; restored?: boolean }
 const initial: LayoutStatus = { phase: 'loading', message: 'Loading your saved grid layout…', retainedUnknownColumns: 0 };
 
 /** Account preferences are independent of investigation state and never dispatch it. */
-export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1', persistView = false, fitDefaultColumns = false) {
+export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKey = 'berry-portfolio-v1', persistView = false, fitDefaultColumns = false,
+  resetFilters?: { token: number; onApplied?: (token: number) => void }) {
   const [status, setStatus] = useState<LayoutStatus>(initial);
   const [quickFilter, setQuickFilter] = useState('');
   const [visible, setVisible] = useState<Record<string, boolean>>({});
@@ -27,6 +29,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const query = useRef('');
   const edit = useRef(0);
+  const filterReset = useRef(new SheetFilterReset());
   const retained = useRef(0);
   const reload = useRef<() => Promise<void>>(async () => {});
   const signature = JSON.stringify(specs);
@@ -84,7 +87,7 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     window.addEventListener('berry:session-transition', ended);
     void (async () => {
       try {
-        const columns = await createColumnCatalog(specs);
+        const columns = await createColumnCatalog(specs, undefined, viewKey);
         if (active.current !== generation) return;
         catalog.current = columns;
         owned = new AccountGridLayouts({ viewKey, catalog: columns });
@@ -167,6 +170,10 @@ export function useAccountGridLayout<Row>(specs: readonly LayoutColumn[], viewKe
     if (!persistView || !['grid', 'cards'].includes(value)) return;
     presentation.current = value; setView(value); changed();
   }, [changed, persistView]);
+  useEffect(() => {
+    filterReset.current.apply(resetFilters?.token ?? 0, status.phase !== 'loading' && !restoring.current, api.current,
+      query.current, changeQuickFilter, resetFilters?.onApplied);
+  }, [resetFilters?.token, resetFilters?.onApplied, status.phase, changeQuickFilter]);
   return { status, busy: status.phase === 'loading', quickFilter, visible, onReady, changed, syncVisibility,
     changeQuickFilter, changeVisibility, view, changeView, reloadSavedLayout: () => void reload.current() };
 }
