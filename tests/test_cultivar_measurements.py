@@ -173,6 +173,10 @@ def test_individual_claim_approval_is_scoped_and_retry_is_idempotent(world):
     assert set(fact["entity_ids"]) == {"berry-strawberry", "variety-one"}
     assert world.repos.entities.get("variety-two").get("fact_ids", []) == []
     assert _project(world)[0]["review_state"] == "reviewed"
+    assert fact["publication_scope"] == "private"
+    assert _project(world, False) == []
+    # Publishing a reviewed research claim is a separate stored authorization.
+    world.repos.facts.update(fact["id"], {**fact, "publication_scope": "public"})
     public = _project(world, False)
     assert len(public) == 1 and "source_native" not in public[0] and "review_events" not in public[0]
     assert _review(world, record)["fact_id"] == result["fact_id"]
@@ -246,6 +250,8 @@ def test_withdrawn_or_changed_source_cannot_keep_reviewed_projection(world):
     record = _normalize()
     stage_measurement(world.inbox, record)
     fact_id = _review(world, record)["fact_id"]
+    fact = world.repos.facts.get(fact_id)
+    world.repos.facts.update(fact_id, {**fact, "publication_scope": "public"})
     evidence = world.repos.evidence.get("ev-source")
     evidence["article"] = {"content_sha256": "b" * 64, "body": "Changed revision"}
     world.repos.evidence.update("ev-source", evidence)
