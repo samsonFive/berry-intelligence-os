@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "information_record.schema.json",
+  "title": "Stored source or evidence record",
+  "type": "object",
+  "required": ["id", "publication_scope", "information"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,239}$"},
+    "publication_scope": {"enum": ["public", "private"]},
+    "status": {"type": "string"},
+    "review_state": {"type": "string"},
+    "storage_origin": {"enum": ["canonical", "intake", "retained"]},
+    "information": {
+      "type": "object",
+      "required": ["review_status", "confidence_label", "publication_status"],
+      "properties": {
+        "review_status": {"enum": ["reviewed", "unreviewed", "rejected"]},
+        "confidence": {"type": ["string", "number", "object", "null"]},
+        "confidence_label": {"type": "string"},
+        "publication_status": {"type": "string"},
+        "verification_status": {"type": "string"},
+        "caveats": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

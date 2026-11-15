@@ -29,6 +29,8 @@ proves a filing/grant event, nothing about commercialization -- see
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 import hashlib
@@ -255,7 +257,7 @@ class CpvoRegistryService:
     def __post_init__(self) -> None:
         self.operations_dir = self.inbox_dir / "operations" / "cpvo_registry"
         self.state_path = self.operations_dir / "state.json"
-        self.evidence_dir = self.inbox_dir / "evidence"
+        self.evidence_dir = information_directory(inbox_dir=self.inbox_dir)
 
     def _entities(self) -> list[dict[str, Any]]:
         entities: list[dict[str, Any]] = []
@@ -367,7 +369,7 @@ class CpvoRegistryService:
             draft = build_cpvo_review_draft(clean_filing, berry_id=berry_id, suggestions=suggestions, captured_date=captured)
             review_ready.append(draft_id)
             if not dry_run:
-                _write_json(draft_path, draft)
+                upsert_record(draft, inbox_dir=self.inbox_dir)
                 seen.add(filing_id)
                 created.append(draft_id)
         if not dry_run:

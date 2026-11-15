@@ -12,6 +12,7 @@ import json
 import re
 from pathlib import Path
 
+from app.services.information_storage import enabled, retain_records, load_records_by_id
 from app.runtime_config import resolve_inbox_dir
 
 from app.services import competitive_evaluation as ce, personal_digest
@@ -30,7 +31,7 @@ def capture(inbox, selections, *, published=(), entities):
     path = Path(inbox) / 'news_packets/captures/packet-competitive-research.json'
     with pipeline_lock(Path(inbox), 'competitive-source-capture'):
         packet = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'records': []}
-        retained = {r['id']: r for r in packet['records']}
+        retained = {r['id']: r for r in (load_records_by_id(Path(inbox), packet.get('records_ids') or [], metadata_only=True) if enabled(inbox_dir=inbox) else packet['records'])}
         links = []
         for selected in selections:
             source = sources[(selected['batch_id'], selected['source_id'])]
@@ -72,6 +73,9 @@ def capture(inbox, selections, *, published=(), entities):
             links.append((source['id'], f['original_url'], article_id))
         packet['records'] = list(retained.values())
         packet['trust_effect'] = 'Private metadata captures only; no publication or extracted Atomic Evidence'
+        if enabled(inbox_dir=inbox):
+            packet['records_ids'] = retain_records(Path(inbox), packet.pop('records'))
+            packet['information_storage_version'] = 1
         atomic_json(path, packet)
         # Captures remain recoverable if a concurrent research revision prevents
         # linking; retry can finish the link without duplicating the article.

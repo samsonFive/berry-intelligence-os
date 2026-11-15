@@ -14,10 +14,11 @@
     {% if item.ai_untrusted %}{% if item.kind_label or item.primary_subject %} · {% endif %}AI-assisted{% endif %}
     {% if item.workflow_label and item.show_reading_actions %}{% if item.kind_label or item.primary_subject or item.ai_untrusted %} · {% endif %}{{ item.workflow_label }}{% endif %}
   </p>
-  {% if item.why %}
-    <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
-  {% elif item.summary %}
+  {% if item.summary %}
     <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
+  {% endif %}
+  {% if item.why and item.why != item.summary %}
+    <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
   {% endif %}
     {% set hits = learn_glossary_hits(item.title, item.why or item.summary or '') %}
   {% set compact = true %}

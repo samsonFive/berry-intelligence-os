@@ -40,8 +40,9 @@ python3 scripts/run_bounded_rehearsal.py \
 ```
 
 It holds `/run/lock/berry-review.lock` for the complete job, refuses any running
-container beyond production/Caddy/the static mobile server, requires healthy
-production plus 2GiB available RAM and 10GiB free disk, and only accepts a
+container beyond production app, its paired copilot, Caddy and the static mobile
+server. The production app and any running paired copilot must be healthy. It
+requires 2GiB available RAM and 10GiB free disk, and only accepts a
 release runtime copy without symlinks or hard links. It does not create or refresh that copy.
 Fixtures use ordinary login and never a real person's credentials.
 

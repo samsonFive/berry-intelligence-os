@@ -6,7 +6,7 @@ DATA_DIR="${BIOS_DATA_DIR:-$RUNTIME_DIR/data}"
 INBOX_DIR="${BIOS_INBOX_DIR:-$RUNTIME_DIR/inbox}"
 BACKUP_DIR="${BIOS_BACKUP_DIR:-}"
 
-mkdir -p "$DATA_DIR" "$INBOX_DIR/evidence" "$INBOX_DIR/discovered_media"
+mkdir -p "$DATA_DIR" "$INBOX_DIR"
 if [ -n "$BACKUP_DIR" ]; then
     mkdir -p "$BACKUP_DIR"
 fi
@@ -45,6 +45,15 @@ if [ -d /app/seed/data ]; then
         --canonical-sha "${BIOS_CANONICAL_SHA:-unknown}") \
         || echo "warning: trusted data sync failed; continuing with existing runtime data" >&2
 fi
+
+# Storage activation is an explicit maintenance operation, never a startup
+# migration. Both runtime roots must agree before creating any source directory
+# or starting the application. An incomplete cutover must block startup even
+# when the additive seed sync above failed non-fatally.
+(cd /app && python3 -m scripts.prepare_information_storage \
+    --data-dir "$DATA_DIR" \
+    --inbox-dir "$INBOX_DIR")
+mkdir -p "$INBOX_DIR/discovered_media"
 
 if [ "$(id -u)" = "0" ]; then
     chown -R berry:berry "$RUNTIME_DIR" || true

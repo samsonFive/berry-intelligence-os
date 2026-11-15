@@ -81,6 +81,42 @@ def _semantic_hash(path: Path) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
+def _runtime_path(data_dir: Path, relative: Path) -> Path:
+    """Canonical seed names stay stable while runtime storage is consolidated."""
+    from app.services.information_storage import assets_dir, enabled, information_directory
+    if enabled(data_dir=data_dir) and relative.parts:
+        if relative.parts[0] == "evidence":
+            return information_directory(data_dir=data_dir).joinpath(*relative.parts[1:])
+        if relative.parts[0] == "attachments":
+            return assets_dir(data_dir=data_dir).joinpath(*relative.parts[1:])
+    return data_dir / relative
+
+
+def _stored_source(path: Path) -> bool:
+    from app.services.information_storage import enabled
+    return path.parent.name == "records" and path.parent.parent.name == "information" and enabled(data_dir=path.parents[2])
+
+
+def _canonical_payload(seed_file: Path, runtime_file: Path) -> bytes:
+    if not _stored_source(runtime_file):
+        return seed_file.read_bytes()
+    from app.services.information_storage import prepare_record, read_json
+    source = json.loads(seed_file.read_text(encoding="utf-8"), object_pairs_hook=_reject_duplicate_keys)
+    existing = read_json(runtime_file) if runtime_file.is_file() else None
+    prepared = prepare_record(source, existing, origin="canonical")
+    if existing and "information_migration" in existing:
+        prepared["information_migration"] = existing["information_migration"]
+    return (json.dumps(prepared, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode()
+
+
+def _canonical_semantic_hash(seed_file: Path, runtime_file: Path) -> str:
+    if not _stored_source(runtime_file):
+        return _semantic_hash(seed_file)
+    source = json.loads(_canonical_payload(seed_file, runtime_file))
+    return hashlib.sha256(json.dumps(source, sort_keys=True, ensure_ascii=False, allow_nan=False,
+                                     separators=(",", ":")).encode()).hexdigest()
+
+
 def _record_id(path: Path) -> str | None:
     if path.suffix.casefold() != ".json":
         return None
@@ -114,6 +150,10 @@ def _load_manifest(runtime_data_dir: Path) -> dict[str, Any]:
 
 
 def _atomic_write(path: Path, content: bytes) -> None:
+    if _stored_source(path):
+        from app.services.information_storage import write_record
+        write_record(json.loads(content), data_dir=path.parents[2], origin="canonical")
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
     try:
@@ -137,7 +177,7 @@ def _snapshot(seed_file: Path, runtime_file: Path, *, canonical_sha: str, promot
     return {
         "canonical_sha": canonical_sha,
         "canonical_raw_sha256": _raw_hash(seed_file),
-        "semantic_sha256": _semantic_hash(seed_file),
+        "semantic_sha256": _canonical_semantic_hash(seed_file, runtime_file),
         "runtime_raw_sha256_at_promotion": _raw_hash(runtime_file),
         "promoted_at": promoted_at,
     }
@@ -167,6 +207,7 @@ def plan_trusted_data_sync(
     *,
     canonical_sha: str = "unknown",
 ) -> dict[str, Any]:
+    seed_data_dir, runtime_data_dir = Path(seed_data_dir).resolve(), Path(runtime_data_dir).resolve()
     if not seed_data_dir.is_dir():
         return {"skipped_missing_seed": True, "records": [], "counts": {state: 0 for state in PROMOTION_STATES}}
     manifest = _load_manifest(runtime_data_dir)
@@ -180,15 +221,17 @@ def plan_trusted_data_sync(
         seed_relatives.add(relative_text)
         if relative == SOURCES_RELATIVE_PATH:
             continue
-        runtime_file = runtime_data_dir / relative
+        runtime_file = _runtime_path(runtime_data_dir, relative)
+        seed_relatives.add(runtime_file.relative_to(runtime_data_dir).as_posix())
         if relative in AUTHORITATIVE_CONFIG_PATHS:
             if not runtime_file.is_file() or _raw_hash(seed_file) != _raw_hash(runtime_file):
                 authoritative_updates.append(relative_text)
             continue
         canonical_raw = _raw_hash(seed_file)
-        canonical_semantic = _semantic_hash(seed_file)
+        canonical_semantic = _canonical_semantic_hash(seed_file, runtime_file)
         row: dict[str, Any] = {
             "path": relative_text,
+            "runtime_path": runtime_file.relative_to(runtime_data_dir).as_posix(),
             "record_id": _record_id(seed_file),
             "canonical_raw_sha256": canonical_raw,
             "canonical_semantic_sha256": canonical_semantic,
@@ -273,8 +316,8 @@ def _update_equal_baselines(
         relative = seed_file.relative_to(seed_data_dir)
         if not _is_promotable(relative):
             continue
-        runtime_file = runtime_data_dir / relative
-        if runtime_file.is_file() and _semantic_hash(seed_file) == _semantic_hash(runtime_file):
+        runtime_file = _runtime_path(runtime_data_dir, relative)
+        if runtime_file.is_file() and _canonical_semantic_hash(seed_file, runtime_file) == _semantic_hash(runtime_file):
             relative_text = relative.as_posix()
             existing = manifest["records"].get(relative_text)
             snapshot = _snapshot(
@@ -297,6 +340,7 @@ def startup_sync_trusted_data(
 ) -> dict[str, Any]:
     """Add new seed files/config only and establish equal-content baselines."""
 
+    seed_data_dir, runtime_data_dir = Path(seed_data_dir).resolve(), Path(runtime_data_dir).resolve()
     if not seed_data_dir.is_dir():
         return {"skipped_missing_seed": True, "sources": None, "files_added": [], "files_updated": []}
     plan = plan_trusted_data_sync(seed_data_dir, runtime_data_dir, canonical_sha=canonical_sha)
@@ -309,7 +353,8 @@ def startup_sync_trusted_data(
         if row["state"] != "NEW":
             continue
         relative = Path(row["path"])
-        _atomic_write(runtime_data_dir / relative, (seed_data_dir / relative).read_bytes())
+        target = _runtime_path(runtime_data_dir, relative)
+        _atomic_write(target, _canonical_payload(seed_data_dir / relative, target))
         files_added.append(row["path"])
     for relative_text in plan["authoritative_config_updates"]:
         relative = Path(relative_text)
@@ -338,7 +383,7 @@ def _verify_backup_gate(archive: Path, rows: list[dict[str, Any]]) -> dict[str, 
         raise ValueError("verified backup does not include data scope")
     files = {entry["path"]: entry for entry in manifest.get("files", [])}
     for row in rows:
-        backup_path = f"data/{row['path']}"
+        backup_path = f"data/{row.get('runtime_path', row['path'])}"
         entry = files.get(backup_path)
         if entry is None:
             raise ValueError(f"verified backup is missing promotion target: {backup_path}")
@@ -361,6 +406,7 @@ def apply_safe_canonical_updates(
 ) -> dict[str, Any]:
     """Atomically apply only SAFE_CANONICAL_UPDATE rows, backup-gated."""
 
+    seed_data_dir, runtime_data_dir = Path(seed_data_dir).resolve(), Path(runtime_data_dir).resolve()
     if not canonical_sha or canonical_sha == "unknown":
         raise ValueError("--canonical-sha is required for promotion")
     transaction = _transaction_path(runtime_data_dir)
@@ -393,16 +439,21 @@ def apply_safe_canonical_updates(
             previous = rollback / relative
             staged.parent.mkdir(parents=True, exist_ok=True)
             previous.parent.mkdir(parents=True, exist_ok=True)
-            staged.write_bytes((seed_data_dir / relative).read_bytes())
-            previous.write_bytes((runtime_data_dir / relative).read_bytes())
+            target = _runtime_path(runtime_data_dir, relative)
+            staged.write_bytes(_canonical_payload(seed_data_dir / relative, target))
+            previous.write_bytes(target.read_bytes())
             canonical_json_bytes(staged)
         for row in rows:
             relative = Path(row["path"])
-            os.replace(staging / relative, runtime_data_dir / relative)
+            target = _runtime_path(runtime_data_dir, relative)
+            if _stored_source(target):
+                _atomic_write(target, (staging / relative).read_bytes())
+            else:
+                os.replace(staging / relative, target)
             replaced.append(row["path"])
             manifest["records"][row["path"]] = _snapshot(
                 seed_data_dir / relative,
-                runtime_data_dir / relative,
+                target,
                 canonical_sha=canonical_sha,
                 promoted_at=now,
             )
@@ -428,7 +479,7 @@ def apply_safe_canonical_updates(
         try:
             for relative_text in reversed(replaced):
                 relative = Path(relative_text)
-                os.replace(rollback / relative, runtime_data_dir / relative)
+                os.replace(rollback / relative, _runtime_path(runtime_data_dir, relative))
             if original_manifest["records"] or _manifest_path(runtime_data_dir).is_file():
                 _write_json_atomic(_manifest_path(runtime_data_dir), original_manifest)
             rollback_complete = True

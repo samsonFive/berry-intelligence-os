@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterable
 
 from app.services.analyst_state_io import atomic_json
+from app.services.information_storage import enabled, retain_records, load_records_by_id
 from app.services.article_dedup import normalize_canonical_url
 from app.services.clock import utc_today
 from app.services.industry_pulse.dedup import dedupe_hits, unique_hits
@@ -833,13 +834,24 @@ def load_cached_bundle(inbox_dir: Path, *, today: date | None = None) -> dict[st
         return None
     if str(payload.get("today") or "") != today.isoformat():
         return None
+    if enabled(inbox_dir=inbox_dir):
+        # Membership is date-specific; source records have one physical owner.
+        for field in ("records", "rotating_records"):
+            payload[field] = load_records_by_id(inbox_dir, payload.get(field + "_ids") or [], metadata_only=True)
     return payload
 
 
 def save_bundle(inbox_dir: Path, bundle: dict[str, Any]) -> Path:
     today = date.fromisoformat(str(bundle["today"]))
     path = cache_path(inbox_dir, today)
-    atomic_json(path, bundle)
+    if enabled(inbox_dir=inbox_dir):
+        envelope = {key: value for key, value in bundle.items() if key not in {"records", "rotating_records"}}
+        for field in ("records", "rotating_records"):
+            envelope[field + "_ids"] = retain_records(inbox_dir, bundle.get(field) or [])
+        envelope["information_storage_version"] = 1
+        atomic_json(path, envelope)
+    else:
+        atomic_json(path, bundle)
     from app.services import news_tags
     news_tags.incremental(inbox_dir, bundle.get('records') or [])
     return path

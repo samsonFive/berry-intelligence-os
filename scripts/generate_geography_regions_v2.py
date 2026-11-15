@@ -251,6 +251,9 @@ def _append_unique(values: list[Any], new_value: Any) -> list[Any]:
 
 
 def run(*, data_dir: Path, dry_run: bool) -> dict[str, Any]:
+    from app.services.information_storage import enabled
+    if enabled(data_dir=data_dir):
+        raise ValueError("Generate canonical seed data separately, then synchronize it into the activated runtime")
     geographies = _load_geographies(data_dir)
     existing_part_of = _load_existing_part_of(data_dir)
 

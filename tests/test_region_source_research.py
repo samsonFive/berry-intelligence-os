@@ -154,6 +154,7 @@ def test_route_permissions_pure_get_preparation_and_corrected_annotation_save(tm
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
     monkeypatch.setattr(main, "published_evidence", lambda: RECORDS)
+    monkeypatch.setattr(main, "unified_information", lambda **kwargs: deepcopy(RECORDS))
     monkeypatch.setattr(main, "all_relationships", lambda: REL)
     monkeypatch.setattr(main, "all_facts", lambda: [])
     calls = []

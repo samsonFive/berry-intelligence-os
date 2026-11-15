@@ -17,7 +17,7 @@ import signal
 import subprocess
 
 RELEASES = Path("/opt/berry-platform-releases")
-INFRASTRUCTURE = {"deploy-app-1", "deploy-caddy-1", "berry-mobile-review"}
+INFRASTRUCTURE = {"deploy-app-1", "deploy-copilot-1", "deploy-caddy-1", "berry-mobile-review"}
 MIN_AVAILABLE_KIB = 2 * 1024 * 1024
 MIN_FREE_BYTES = 10 * 1024**3
 CONFIGS = ("collection_pipelines.json", "source_collection_cadence.json", "source_universe.json")
@@ -42,11 +42,14 @@ def available_memory(text: str) -> int:
     return int(match.group(1))
 
 
-def host_budget(running: list[str], available_kib: int, free_bytes: int, healthy: str) -> None:
+def host_budget(running: list[str], available_kib: int, free_bytes: int, healthy: str,
+                *, copilot_healthy: str | None = None) -> None:
     if set(running) - INFRASTRUCTURE:
         raise ReviewBlocked("Another container is running; inspect it before starting a rehearsal")
     if not {"deploy-app-1", "deploy-caddy-1"}.issubset(running) or healthy != "healthy":
         raise ReviewBlocked("Production must be running and healthy first")
+    if "deploy-copilot-1" in running and copilot_healthy != "healthy":
+        raise ReviewBlocked("Production copilot must be healthy first")
     if available_kib < MIN_AVAILABLE_KIB or free_bytes < MIN_FREE_BYTES:
         raise ReviewBlocked("Insufficient host headroom: require 2GiB available RAM and 10GiB free disk")
 
@@ -135,10 +138,14 @@ def main() -> int:
     if len(script.encode()) > 1024 * 1024:
         raise ReviewBlocked("Preservation script exceeds 1MiB")
     with review_lock():
-        host_budget(docker("ps", "--format", "{{.Names}}").splitlines(),
+        running = docker("ps", "--format", "{{.Names}}").splitlines()
+        copilot_health = (docker("inspect", "--format", "{{.State.Health.Status}}", "deploy-copilot-1")
+                          if "deploy-copilot-1" in running else None)
+        host_budget(running,
                     available_memory(Path("/proc/meminfo").read_text()),
                     shutil.disk_usage(RELEASES).free,
-                    docker("inspect", "--format", "{{.State.Health.Status}}", "deploy-app-1"))
+                    docker("inspect", "--format", "{{.State.Health.Status}}", "deploy-app-1"),
+                    copilot_healthy=copilot_health)
         image_id = docker("image", "inspect", "--format", "{{.Id}}", args.image)
         container_id = docker(*create_args(args.name, image_id, runtime))
         if not re.fullmatch(r"[0-9a-f]{64}", container_id):

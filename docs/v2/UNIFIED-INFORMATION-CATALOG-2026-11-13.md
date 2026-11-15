@@ -33,24 +33,63 @@ review refines a record; it is no longer a prerequisite for using it. The separa
 Pending Review navigation entry and repeated trust badges are removed from the
 general feed. Confidence and review are available in collapsed item details.
 
-The legacy `data/evidence`, `inbox/evidence`, and retained-web files remain storage
-adapters behind the shared catalog. This is a non-destructive logical unification,
-not a bulk file migration: ingestion, review history, attachments and existing IDs
-keep working without copying or overwriting production runtime data. A later
-physical storage consolidation must migrate every writer and attachment reference
-together. There is no second persisted master catalog to become stale.
+The implementation now includes physical consolidation. After an explicit,
+verified migration, `data/information/records/<id>.json` is the authoritative
+source store for acquisition, source review, search, News and reports.
+`data/information/assets/` holds migrated attachments. Intake and retained-web
+adapters use the same record IDs and directory; retained daily/packet envelopes
+store ID references instead of duplicate source bodies. Updating source review
+changes the same record. It does not move or copy the record between states.
+
+`app/services/information_storage.py` resolves the active store. A data marker
+and inbox binding record the exact absolute runtime paths, including non-sibling
+data and inbox roots. A missing, mismatched or interrupted activation blocks
+startup and writes. Startup never migrates or silently falls back to legacy
+folders after activation. Unmigrated installations retain legacy behavior until
+an operator performs the maintenance cutover. Facts, Entities, Signals and other
+typed knowledge records keep their existing schemas and repositories.
+
+`scripts/migrate_information_storage.py` provides a read-only plan, verified raw
+backup, exclusive maintenance lock, resumable cutover and guarded rollback. Exact
+IDs preserve source identity; incompatible same-ID records or attachment
+collisions stop migration. Previous raw variants and record versions are audit
+history, not another live dataset. See the
+[storage migration runbook](../07-static-deployment/UNIFIED-INFORMATION-STORAGE-MIGRATION.md)
+for operational steps and rollback limits.
 
 Publication/export authorization remains separate from review and confidence.
-Static builds and public search continue to read their explicitly exportable
-snapshot; private intake, model output, user annotations and retained caches are
-not published by this change. Review is never inferred merely because a record
-appears in a search result or report.
+Each active source record has an independent `publication_scope` of `public` or
+`private`. Migration preserves previously published canonical sources as public;
+intake, retained-cache sources and internal canonical records remain private.
+New acquisition defaults to private, and reviewing a private source preserves its
+scope. Cache metadata cannot grant review or publication. Existing confidence
+is reused; this change adds no scoring model.
+
+Static builds and public search use a read-only public projection. It also hides
+derived records that depend on private sources and removes private backlinks
+from otherwise public records. Private intake, model output, user annotations,
+retained caches and audit backups are not published by this change. Review is
+never inferred merely because a record appears in a search result or report.
 
 The implementation is prepared in the isolated
-`feature/unified-information-20261113` checkout. Production runtime files have not
-been migrated and this change has not been deployed.
+`feature/unified-information-20261113` checkout. This document records prepared
+behavior, not a completed production migration or deployment. Runtime migration
+and release require their own verification receipts.
 
 ## Local validation
+
+Physical migration and public-scope checks passed 23 focused tests, including
+backup coverage, collision handling, interrupted cutover/resume, rollback,
+activation guards, cache-reference hydration, stale acquisition protection and
+private dependency projection. These are local fixture checks; they do not prove
+that a live runtime has been migrated.
+
+Container startup and compose checks passed 12 tests. The entrypoint passed a
+Bash syntax check; partial activation blocks startup, active restarts do not
+recreate legacy evidence directories, and private runtime/backup paths are
+excluded from Git.
+
+Earlier logical-catalog validation:
 
 A consolidated changed-path run passed 133 tests, including catalog membership,
 readonly scope, source readers, metadata preservation through optional review,

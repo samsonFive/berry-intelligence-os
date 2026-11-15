@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, enabled, prepare_record, upsert_record
+
 from collections import Counter, defaultdict
 from copy import deepcopy
 from datetime import date
@@ -189,9 +191,9 @@ def _verified_row(row, entities):
 
 
 def _plan(payload, batch_id, run, data_dir, inbox_dir, registered):
-    trusted = {key: row for key, row in _records(data_dir / "evidence").items()
+    trusted = {key: row for key, row in _records(information_directory(data_dir=data_dir)).items()
                if row.get("status") == "published"}
-    pending = _records(inbox_dir / "evidence")
+    pending = _records(information_directory(inbox_dir=inbox_dir))
     entities = _records(data_dir / "entities", recursive=True)
     existing = {**pending, **trusted}
     urls = _url_index(existing)
@@ -322,7 +324,7 @@ def reconcile(packet, *, data_dir, inbox_dir, mode="dry_run"):
     packet, data_dir, inbox_dir = map(Path, (packet, data_dir, inbox_dir))
     if mode not in {"dry_run", "apply", "rollback"}:
         raise ValueError("Unknown reconciliation mode")
-    if (data_dir / "evidence").resolve() == (inbox_dir / "evidence").resolve():
+    if not enabled(inbox_dir=inbox_dir) and (information_directory(data_dir=data_dir)).resolve() == (information_directory(inbox_dir=inbox_dir)).resolve():
         raise ValueError("The review inbox must be separate from canonical evidence")
     batch_id, run, export_bytes, payload = _read_packet(packet)
     digest = _json_sha(payload)
@@ -349,7 +351,7 @@ def _reconcile(payload, batch_id, run, digest, export_bytes, data_dir, inbox_dir
     for other in ledgers:
         if other["batch_id"] != batch_id and (other["run"]["provider"], other["run"]["run_id"]) == (run["provider"], run["run_id"]):
             raise ValueError(f"Run already recorded in batch {other['batch_id']}")
-    evidence_dir = inbox_dir / "evidence"
+    evidence_dir = information_directory(inbox_dir=inbox_dir)
     if mode == "rollback":
         if not ledger:
             raise ValueError("No staged batch to roll back")
@@ -365,7 +367,7 @@ def _reconcile(payload, batch_id, run, digest, export_bytes, data_dir, inbox_dir
                 # A reviewer may have edited a draft during an interrupted stage.
                 # Its presence settles the write, and rollback protects the edit.
                 continue
-            if not (data_dir / "evidence" / path.name).exists():
+            if not (information_directory(data_dir=data_dir) / path.name).exists():
                 staged = folder / "staged" / path.name
                 if _json_sha(load_json(staged)) != fingerprint:
                     raise ValueError(f"Staged draft hash mismatch {draft_id}")
@@ -385,6 +387,8 @@ def _reconcile(payload, batch_id, run, digest, export_bytes, data_dir, inbox_dir
     if not retained.exists():
         _create_file(retained, export_bytes)
     atomic_json(snapshot, payload)
+    if enabled(inbox_dir=inbox_dir):
+        drafts = {key: prepare_record(value, origin="intake") for key, value in drafts.items()}
     for draft_id, draft in drafts.items():
         atomic_json(folder / "staged" / f"{draft_id}.json", draft)
     ledger = _report("apply", batch_id, outcomes, run=run, packet_sha256=digest, state="preparing",
@@ -395,11 +399,30 @@ def _reconcile(payload, batch_id, run, digest, export_bytes, data_dir, inbox_dir
 
 def _rollback(ledger, ledger_path, data_dir, inbox_dir):
     folder = ledger_path.parent
-    evidence_dir = inbox_dir / "evidence"
-    trusted_dir = data_dir / "evidence"
+    evidence_dir = information_directory(inbox_dir=inbox_dir)
+    trusted_dir = information_directory(data_dir=data_dir)
     if ledger["state"] == "rolled_back":
         return {"mode": "rollback", "batch_id": ledger["batch_id"], "removed_drafts": [], "protected_drafts": []}
     removed, protected = [], []
+    if enabled(inbox_dir=inbox_dir):
+        for draft_id, digest in ledger["draft_sha256"].items():
+            path = evidence_dir / f"{draft_id}.json"
+            if not path.exists():
+                continue
+            current = load_json(path)
+            if current.get("status") == "archived" and current.get("intake_rollback_batch") == ledger["batch_id"]:
+                removed.append(draft_id)
+            elif _json_sha(current) != digest:
+                protected.append(draft_id)
+            else:
+                upsert_record({**current, "status": "archived", "review_state": "archived",
+                               "intake_rollback_batch": ledger["batch_id"]}, inbox_dir=inbox_dir)
+                removed.append(draft_id)
+        workspace = _workspace_page(inbox_dir, ledger, rollback=True)
+        ledger["state"] = "rollback_partial" if protected or (workspace and workspace["protected"]) else "rolled_back"
+        ledger["rollback"] = {"removed_drafts": removed, "protected_drafts": protected, "workspace": workspace}
+        atomic_json(ledger_path, ledger)
+        return {"mode": "rollback", "batch_id": ledger["batch_id"], **ledger["rollback"]}
     trusted_urls = _url_index(_records(trusted_dir))
     for draft_id, digest in ledger["draft_sha256"].items():
         path = evidence_dir / f"{draft_id}.json"

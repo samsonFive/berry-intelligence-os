@@ -38,6 +38,8 @@ is built.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 import hashlib
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
@@ -264,7 +266,7 @@ def intake_qualified_hits(
     source_index = _source_by_hostname(sources)
     existing = [_existing_record_view(r) for r in published_evidence] + [_existing_record_view(r) for r in drafts]
     existing_ids = {str(r.get("id") or "") for r in drafts}
-    evidence_dir = inbox_dir / "evidence"
+    evidence_dir = information_directory(inbox_dir=inbox_dir)
 
     candidates = [h for h in hits if h.qualifying and not h.duplicate_of]
     acquisitions_used = 0
@@ -324,7 +326,7 @@ def intake_qualified_hits(
             import json
 
             path = evidence_dir / f"{draft['id']}.json"
-            path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            upsert_record(draft, inbox_dir=inbox_dir)
         summary.drafts_created += 1
         existing_ids.add(draft["id"])
         summary.results.append(IntakeItemResult(hit_id=hit.query_id, url=hit.url, outcome=outcome, draft_id=draft["id"]))

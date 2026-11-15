@@ -31,10 +31,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory, enabled, upsert_record
 from app.services.deterministic_tagging import infer_berry_ids_from_text  # noqa: E402
 
 BACKFILL_VERSION = "berry-tagging-backfill-v1"
-EVIDENCE_DIR = ROOT / "data" / "evidence"
+EVIDENCE_DIR = information_directory(data_dir=ROOT / "data")
 
 
 def _classify(record: dict) -> list[str] | None:
@@ -83,10 +84,13 @@ def run(*, apply: bool) -> dict:
                 "version": BACKFILL_VERSION,
                 "applied_at": applied_at,
             }
-            path.write_text(
-                json.dumps(record, indent=2, ensure_ascii=False, sort_keys=False) + "\n",
-                encoding="utf-8",
-            )
+            if enabled(data_dir=ROOT / "data"):
+                upsert_record(record, data_dir=ROOT / "data", origin="canonical")
+            else:
+                path.write_text(
+                    json.dumps(record, indent=2, ensure_ascii=False, sort_keys=False) + "\n",
+                    encoding="utf-8",
+                )
 
     return {
         "scanned": scanned,

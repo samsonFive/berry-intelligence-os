@@ -22,6 +22,24 @@ review_state/
 artifacts/astra-repair/canary-runs/
 generated/
 demo-runtime/
+# Activated source storage contains private intake, source bodies and history.
+**/information/
+**/.information-store.json
+**/.information-store-transition.json
+**/.information-store.lock
+**/.information-stage-*/
+**/.information-rolled-back-*/
+**/information-migration-backups/
+**/information-????????????????????/
+**/PLAN.private.json
+**/.test-*/
+/.catalog-*/
+/.storage-integration-*/
+/.copilot-rehearsal-guard-tests/
+/.unified-*/
+/*-tests.log
+/catalog-consumer-final.log
+/unified-static-build.log
 deploy/.env
 review/*
 !review/review-backlog-2026-08-06.xlsx

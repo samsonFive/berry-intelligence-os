@@ -598,7 +598,11 @@ async def lifespan(app: FastAPI):
     if "pytest" not in sys.modules:
         validate_remote_interactive_config()
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
-    (INBOX_DIR / "evidence").mkdir(parents=True, exist_ok=True)
+    from app.services.information_storage import InformationStorageError, enabled, information_directory
+    if enabled(data_dir=DATA_DIR) != enabled(inbox_dir=INBOX_DIR):
+        raise InformationStorageError("Data and inbox must both use the same active information store")
+    enabled(data_dir=DATA_DIR, inbox_dir=INBOX_DIR)
+    information_directory(inbox_dir=INBOX_DIR).mkdir(parents=True, exist_ok=True)
     if "pytest" not in sys.modules and AUTHORING_MODE:
         from app.services.landscape_workspace import seed_watchlist_views
         seed_watchlist_views(INBOX_DIR)
@@ -654,7 +658,7 @@ async def request_corpus_middleware(request: Request, call_next):
     if should_skip_corpus(path):
         return await call_next(request)
     corpus = RequestCorpus(data_dir=DATA_DIR, schemas_dir=SCHEMAS_DIR, inbox_dir=INBOX_DIR,
-                           include_workspace_corrections=AUTHORING_MODE)
+                           include_workspace_corrections=AUTHORING_MODE, public_only=not AUTHORING_MODE)
     token = bind_request_corpus(corpus)
     try:
         request.state.corpus = corpus
@@ -717,6 +721,9 @@ def _path_sig(path: Path) -> tuple[str, int, int]:
 
 
 def _json_folder_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if folder == DATA_DIR / "evidence" or folder == INBOX_DIR / "evidence":
+        from app.services.information_storage import information_directory
+        folder = information_directory(data_dir=DATA_DIR) if folder == DATA_DIR / "evidence" else information_directory(inbox_dir=INBOX_DIR)
     if not folder.is_dir():
         return ()
     rows: list[tuple[str, int, int]] = []
@@ -1390,13 +1397,15 @@ def all_evidence() -> list[dict[str, Any]]:
 
 def unified_information(*, include_private: bool | None = None) -> list[dict[str, Any]]:
     """One live catalog. Public/static callers retain explicit export scope."""
-    from app.services.information_catalog import load_information
+    from app.services.information_catalog import load_information, stored_information_previews
     if include_private is None:
         include_private = AUTHORING_MODE
     corpus = get_request_corpus()
     if corpus is not None and include_private:
         return corpus.information
-    evidence = all_evidence() if include_private else published_evidence()
+    from app.services.information_storage import enabled
+    evidence = (stored_information_previews(INBOX_DIR) if include_private and enabled(inbox_dir=INBOX_DIR)
+                else all_evidence() if include_private else published_evidence())
     return _social_eligible_outputs(load_information(evidence, INBOX_DIR, include_private=include_private))
 
 
@@ -1409,17 +1418,13 @@ def published_evidence() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.published_evidence
-    records = _social_eligible_outputs([r for r in all_evidence() if r.get("status") == "published"])
+    records = _social_eligible_outputs([r for r in all_evidence() if r.get("status") == "published"
+        and (AUTHORING_MODE or r.get("publication_scope") != "private")])
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
 
 
 def _evidence_index() -> dict[str, dict[str, Any]]:
-    rows: dict[str, dict[str, Any]] = {}
-    for record in published_evidence() + list_pending_drafts() + unvalidated_auto_captured_evidence():
-        record_id = str(record.get("id") or "")
-        if record_id:
-            rows[record_id] = record
-    return rows
+    return {record["id"]: record for record in unified_information() if record.get("id")}
 
 
 def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
@@ -1782,7 +1787,10 @@ def safe_filename(name: str) -> str:
 
 
 def list_drafts() -> list[dict[str, Any]]:
-    records = load_json_files(INBOX_DIR / "evidence")
+    from app.services.information_storage import enabled, information_directory
+    records = load_json_files(information_directory(inbox_dir=INBOX_DIR))
+    if enabled(inbox_dir=INBOX_DIR):
+        records = [record for record in records if record.get("status") != "published"]
     return sorted(records, key=lambda r: r.get("captured_date", ""), reverse=True)
 
 
@@ -1818,6 +1826,12 @@ def list_pending_drafts() -> list[dict[str, Any]]:
 
 
 def get_draft(draft_id: str) -> dict[str, Any] | None:
+    if not AUTHORING_MODE:
+        return None
+    from app.services.information_storage import enabled, get_record
+    if enabled(inbox_dir=INBOX_DIR):
+        record = get_record(draft_id, inbox_dir=INBOX_DIR)
+        return record if record is not None and record.get("status") != "published" else None
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if not path.exists():
         return None
@@ -1858,17 +1872,17 @@ def adjacent_publication_draft_id(draft_id: str, *, step: int = 1) -> str | None
     return None
 
 
-def save_draft(record: dict[str, Any]) -> None:
-    folder = INBOX_DIR / "evidence"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+def save_draft(record: dict[str, Any], *, review_update: bool = False) -> None:
+    from app.services.information_storage import upsert_record
+    upsert_record(record, inbox_dir=INBOX_DIR, origin="intake", preserve_existing=False,
+                  allow_review_update=review_update)
     from app.services import news_tags
     news_tags.incremental(INBOX_DIR, [record])
 
 
 def save_attachment(draft_id: str, upload: UploadFile) -> dict[str, str]:
-    folder = INBOX_DIR / "attachments" / draft_id
+    from app.services.information_storage import assets_dir
+    folder = assets_dir(inbox_dir=INBOX_DIR) / draft_id
     folder.mkdir(parents=True, exist_ok=True)
     filename = safe_filename(upload.filename or "attachment")
     path = folder / filename
@@ -2646,12 +2660,25 @@ def save_evidence(record: dict[str, Any]) -> None:
 
 
 def delete_draft(draft_id: str) -> None:
+    from app.services.information_storage import enabled, get_record, write_record
+    if enabled(inbox_dir=INBOX_DIR):
+        record = get_record(draft_id, inbox_dir=INBOX_DIR)
+        if record is not None and record.get("status") != "published":
+            write_record({**record, "status": "archived"}, inbox_dir=INBOX_DIR, origin="intake")
+        return
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if path.exists():
         path.unlink()
 
 
 def move_draft_attachments(draft_id: str, evidence_id: str, attachments: list[dict[str, str]]) -> list[dict[str, str]]:
+    from app.services.information_storage import enabled, assets_dir
+    if enabled(inbox_dir=INBOX_DIR):
+        if draft_id != evidence_id:
+            raise ValueError("Source review must retain the information record identity")
+        folder = assets_dir(inbox_dir=INBOX_DIR) / draft_id
+        return [{**attachment, "url": f"/evidence/{evidence_id}/attachments/{attachment['filename']}"}
+                for attachment in attachments if (folder / attachment["filename"]).is_file()]
     source_dir = INBOX_DIR / "attachments" / draft_id
     if not source_dir.exists() or not attachments:
         return []
@@ -2682,7 +2709,8 @@ def restore_draft_attachments(draft_id: str, evidence_id: str, attachments: list
     subsequently fails and rolls back (ReviewPublishService), so a retry's
     own move_draft_attachments() call finds the files back where it
     expects them instead of silently publishing with no attachments."""
-    if not attachments:
+    from app.services.information_storage import enabled
+    if enabled(inbox_dir=INBOX_DIR) or not attachments:
         return
     source_dir = DATA_DIR / "attachments" / evidence_id
     if not source_dir.exists():
@@ -2779,7 +2807,7 @@ def canonical_statement_detail(request: Request, record_id: str) -> HTMLResponse
 
 @app.get("/evidence/{record_id}", response_class=HTMLResponse)
 def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
-    for record in all_evidence():
+    for record in all_evidence() if AUTHORING_MODE else published_evidence():
         if record.get("id") == record_id:
             entities = entity_index()
             linked_entities = [entities[e] for e in record.get("entity_ids", []) if e in entities]
@@ -2817,7 +2845,10 @@ def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
 
 @app.get("/evidence/{record_id}/attachments/{filename}")
 def evidence_attachment(record_id: str, filename: str) -> FileResponse:
-    directory = (DATA_DIR / "attachments" / record_id).resolve()
+    from app.services.information_storage import assets_dir
+    if not AUTHORING_MODE and _load_intelligence_record(record_id) is None:
+        raise HTTPException(status_code=404, detail="Attachment not found")
+    directory = (assets_dir(data_dir=DATA_DIR) / record_id).resolve()
     target = (directory / filename).resolve()
     if not target.is_file() or not target.is_relative_to(directory):
         raise HTTPException(status_code=404, detail="Attachment not found")
@@ -7223,13 +7254,15 @@ def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
         return None
     record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
     if record is not None:
+        if any(record.get(key) is not None and not isinstance(record[key], str) for key in ("status", "review_state")):
+            return None
         if record.get("status") in INACTIVE_STATES or record.get("review_state") in INACTIVE_STATES:
             return None
-        if not AUTHORING_MODE and record.get("status") != "published":
+        if not AUTHORING_MODE and (record.get("status") != "published" or record.get("publication_scope") == "private"):
             return None
         if not _social_eligible_outputs([record]):
             return None
-        return normalize_information(record)
+        return normalize_information(record, origin="inbox" if record.get("publication_scope") == "private" else "data")
     if AUTHORING_MODE:
         try:
             draft = get_draft(item_id)
@@ -7237,6 +7270,8 @@ def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
             return None
         if draft is not None:
             if draft.get("id") != item_id:
+                return None
+            if any(draft.get(key) is not None and not isinstance(draft[key], str) for key in ("status", "review_state")):
                 return None
             if draft.get("status") in INACTIVE_STATES or draft.get("review_state") in INACTIVE_STATES:
                 return None
@@ -8470,6 +8505,7 @@ def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
     records = {row["id"]: row for row in unified_information()}
     return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
         {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or "",
+         "date_label": row.get("date_label") or "Date basis not recorded",
          **({"published_date": records[row["id"]].get("published_date") or "",
              "date_label": dated_label(records[row["id"]])} if row["id"] in records else {})}
         for row in packet.get("source_trace") or []
@@ -10630,7 +10666,10 @@ def intake_detail(request: Request, draft_id: str) -> HTMLResponse:
 
 @app.get("/intake/{draft_id}/attachments/{filename}")
 def intake_attachment(draft_id: str, filename: str) -> FileResponse:
-    directory = (INBOX_DIR / "attachments" / draft_id).resolve()
+    from app.services.information_storage import assets_dir
+    if not AUTHORING_MODE and _load_intelligence_record(draft_id) is None:
+        raise HTTPException(status_code=404, detail="Attachment not found")
+    directory = (assets_dir(inbox_dir=INBOX_DIR) / draft_id).resolve()
     target = (directory / filename).resolve()
     if not target.is_file() or not target.is_relative_to(directory):
         raise HTTPException(status_code=404, detail="Attachment not found")
@@ -11407,7 +11446,7 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
     berries = [value for value in form.getlist("berries") if isinstance(value, str)]
     if berries:
         draft["berry_ids"] = berries
-    save_draft(draft)
+    save_draft(draft, review_update=True)
     return_to = _safe_review_return(field("return_to"), fallback=f"/review/{draft_id}")
     if is_session_return(return_to):
         return RedirectResponse(
@@ -11472,7 +11511,7 @@ def review_reject(
         }
     )
     try:
-        save_draft(draft)
+        save_draft(draft, review_update=True)
     except Exception:
         remove_created_event(event)
         raise

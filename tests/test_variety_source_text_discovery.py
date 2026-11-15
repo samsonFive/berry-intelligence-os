@@ -142,6 +142,8 @@ def setup_routes(monkeypatch,tmp_path,record):
     monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
     monkeypatch.setattr(main,'AUTHORING_MODE',True)
     monkeypatch.setattr(main,'published_evidence',lambda:[])
+    canonical = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence
+    monkeypatch.setattr(canonical, 'get', lambda item_id: deepcopy(record) if item_id == record['id'] else None)
     monkeypatch.setattr(main,'all_facts',lambda:[])
     monkeypatch.setattr(main,'all_entities',lambda:[])
     monkeypatch.setattr(routes,'world',lambda:(main,{'state':{'decisions':{}}},{record['id']:record},{}))

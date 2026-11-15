@@ -200,6 +200,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     exclusions = {}
     for record in records.values():
         key = str(record.get('id') or '')
+        if record.get('evidence_role') == 'atomic_evidence':
+            exclusions[key] = 'Individual claim; its parent publication appears in News'
+            continue
         if record.get('workspace_capture'):
             exclusions[key] = 'Saved passage or analyst capture; original publication remains in News'
             continue

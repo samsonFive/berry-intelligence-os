@@ -3,6 +3,7 @@
 Canonical Evidence handoff uses existing inbox drafts. SQLite is not a second
 trusted corpus. Source/mode/native ID identity prevents fixture contamination.
 """
+from app.services.information_storage import information_directory, enabled, upsert_record, prepare_record
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime, timezone, timedelta
@@ -244,9 +245,19 @@ class Store:
                 db.execute('INSERT OR IGNORE INTO source_deletions VALUES(?,?,?,?,?,?)',(key,p['source'],p['native_id'],mode,media_id or '',now()))
             db.execute('UPDATE audit SET event=? WHERE evidence_id=?',('source content removed; prior correction detail redacted',key))
             db.execute('INSERT INTO audit(evidence_id,event,at) VALUES(?,?,?)',(key,'removal:'+state,now()))
-        draft = self.inbox/'evidence'/f'{key}.json'
+        draft = information_directory(inbox_dir=self.inbox)/f'{key}.json'
         if draft.exists():
-            draft.unlink() # Untrusted handoff is invalidated, never published data.
+            if enabled(inbox_dir=self.inbox):
+                record = json.loads(draft.read_text(encoding='utf-8'))
+                record.update(status='archived', review_state='archived', source_content_removed=True,
+                              summary='', why_it_matters='', attachments=[])
+                for field in ('article', 'transcript', 'supporting_excerpt', 'original_text_excerpt'):
+                    record.pop(field, None)
+                # Invalidate the handoff without deleting the source's identity.
+                from app.services.analyst_state_io import atomic_json
+                atomic_json(draft, prepare_record(record))
+            else:
+                draft.unlink() # Legacy handoff invalidation.
         retained={m.get('object_ref') for r in self.records(mode=mode) for m in r['media']}
         for obj in objects:
             if obj and obj not in retained:
@@ -288,7 +299,7 @@ class Store:
         r = next((r for r in self.records() if r['id']==key),None)
         if not r or r['mode']=='fixture' or r.get('output_excluded'):
             raise ValueError('Unavailable/fixture observations cannot enter publication review')
-        folder = self.inbox/'evidence'; folder.mkdir(parents=True,exist_ok=True)
+        folder = information_directory(inbox_dir=self.inbox); folder.mkdir(parents=True,exist_ok=True)
         draft = {'id':key,'record_type':'evidence','status':'draft','review_state':'draft',
           'source_type':'social_observation','evidence_role':'publication_artifact','title':r['text'][:150] or 'Manual social URL capture',
           'source_name':r['source'],'source_url':r['canonical_url'],'captured_date':r['collected_at'][:10],
@@ -306,6 +317,9 @@ class Store:
         Draft202012Validator(json.loads(schema.read_text())).validate(draft)
         path=folder/f'{key}.json'
         if not path.exists():
+            if enabled(inbox_dir=self.inbox):
+                upsert_record(draft, inbox_dir=self.inbox)
+                return '/review/'+key
             with path.open('x',encoding='utf-8') as f:
                 json.dump(draft,f,ensure_ascii=False,indent=2)
         return '/review/'+key

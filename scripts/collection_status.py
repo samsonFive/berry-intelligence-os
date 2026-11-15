@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+
 import argparse
 from datetime import timedelta
 import json
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import env_path, resolve_data_dir, resolve_inbox_dir
@@ -252,7 +254,7 @@ def main(argv: list[str] | None = None) -> int:
             config_path=pipeline_config,
         ))
         capacity = build_review_capacity_report(
-            drafts=load_json_objects(args.inbox_dir / "evidence"),
+            drafts=load_json_objects(information_directory(inbox_dir=args.inbox_dir)),
             sources=repositories.sources.list(),
             entities=repositories.entities.list(),
             trusted=repositories.evidence.list(),

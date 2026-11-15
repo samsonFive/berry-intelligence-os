@@ -8,6 +8,8 @@ coverage rollups, and explainable operational alert conditions.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory
+
 from collections import defaultdict
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
@@ -563,7 +565,7 @@ def _runtime_signature(inbox_dir: Path, policy_file: Path) -> tuple[Any, ...]:
         inbox_dir / "operations" / "cron-logs",
         inbox_dir / "discovered_media",
         inbox_dir / "discovered_media" / "_state",
-        inbox_dir / "evidence",
+        information_directory(inbox_dir=inbox_dir),
     )
     try:
         policy_stat = policy_file.stat()
@@ -590,7 +592,7 @@ def _build_runtime_uncached(
         },
         run_records=_newest_json(inbox_dir / "operations" / "runs", history_limit),
         discovered_items=load_json_objects(inbox_dir / "discovered_media"),
-        drafts=load_json_objects(inbox_dir / "evidence"),
+        drafts=load_json_objects(information_directory(inbox_dir=inbox_dir)),
         scheduler_runs=_newest_json(inbox_dir / "operations" / "cron-logs", history_limit),
         policy=load_cadence_policy(policy_file),
         now=now,

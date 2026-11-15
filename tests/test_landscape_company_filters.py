@@ -59,10 +59,12 @@ def test_ownership_scope_obeys_source_and_relationship_review_policies(world):
     state=preferences()
     world['evidence'].append({'id':'ev-unreviewed','title':'Unreviewed ownership','status':'in_review'})
     world['relationships'][2].update(evidence_ids=['ev-unreviewed'],status='disputed')
-    assert not build(world,state,favorites='1',predicate='develops')['edges']
-    all_sources=build(world,state,favorites='1',predicate='develops',evidence='all')
+    assert not build(world,state,favorites='1',predicate='develops',evidence='reviewed')['edges']
+    all_sources=build(world,state,favorites='1',predicate='develops')
+    assert all_sources['edges']==build(world,state,favorites='1',predicate='develops',evidence='all')['edges']
     assert all_sources['company_scope']['basis'][0]['status']=='disputed'
     assert all_sources['company_scope']['basis'][0]['review']=='Includes unreviewed source'
+    assert next(row for row in all_sources['sources'] if row['id']=='ev-unreviewed')['information']['review_status']=='unreviewed'
     assert not build(world,state,favorites='1',predicate='develops',evidence='all',status='active')['edges']
     world['evidence'].pop()
     assert not build(world,state,favorites='1',predicate='develops',evidence='all')['edges']

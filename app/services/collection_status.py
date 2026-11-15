@@ -8,6 +8,8 @@ which do not have repository abstractions.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory
+
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta, timezone
 import json
@@ -512,7 +514,7 @@ class CollectionStatusService:
             transcript_cache_ready=lambda _item: False,
         )
         discoverable_ids = eligibility_probe.eligible_source_ids()
-        drafts = _safe_runtime_records(self._inbox / "evidence", kind="Evidence draft", problems=problems)
+        drafts = _safe_runtime_records(information_directory(inbox_dir=self._inbox), kind="Evidence draft", problems=problems)
         backlog, backlog_by_source = _draft_backlog(drafts)
         evidence = self._repos.evidence.list()
         trusted_by_source: dict[str, int] = {}
@@ -677,7 +679,7 @@ class CollectionStatusService:
 
         all_items = _load_discovered_items(self._inbox, problems)
         items = [item for item in all_items if item.get("source_id") in selected_set]
-        drafts = _safe_runtime_records(self._inbox / "evidence", kind="Evidence draft", problems=problems)
+        drafts = _safe_runtime_records(information_directory(inbox_dir=self._inbox), kind="Evidence draft", problems=problems)
         operations = _operation_states(self._operations, items, problems)
         lock = _lock_status(
             self._operations.lock_path,

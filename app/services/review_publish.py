@@ -403,7 +403,18 @@ class ReviewPublishService:
         evidence_record["source_completeness"] = derived_completeness
 
         existing_trusted = self._repos.evidence.get(evidence_id)
-        if existing_trusted is not None:
+        shared_store = bool(getattr(self._repos.evidence, "information_store_enabled", False))
+        updating_source = bool(shared_store and existing_trusted is not None
+                               and existing_trusted.get("status") != "published")
+        if updating_source:
+            # Review edits the existing item. Check the originally loaded source,
+            # since the analyst may intentionally edit its title or summary.
+            baseline = {**existing_trusted, "status": "published", "review_state": "published"}
+            original = {**request.draft, "status": "published", "review_state": "published"}
+            conflicts = trusted_publication_conflicts(baseline, original)
+            if conflicts:
+                return PublishResult(evidence_id=evidence_id, outcome="conflict", conflicts=conflicts)
+        elif existing_trusted is not None:
             conflicts = trusted_publication_conflicts(existing_trusted, evidence_record)
             if conflicts:
                 return PublishResult(
@@ -412,8 +423,23 @@ class ReviewPublishService:
                     conflicts=conflicts,
                     schema_errors=[],
                 )
-            self._delete_draft(request.draft_id)
+            if not shared_store:
+                self._delete_draft(request.draft_id)
             return PublishResult(evidence_id=evidence_id, outcome="already_published")
+
+        if shared_store:
+            previous = existing_trusted or request.draft
+            evidence_record = {**previous, **evidence_record,
+                               "publication_scope": previous.get("publication_scope", "private"),
+                               "information": {**(previous.get("information") or {}), "review_status": "reviewed"}}
+            evidence_record["review_history"] = [*(previous.get("review_history") or []), {
+                "action": "source_review", "reviewer": request.reviewer,
+                "reviewed_at": evidence_record.get("reviewed_at"),
+            }]
+            for record in [*facts_to_save, *relationships_to_save]:
+                record["publication_scope"] = evidence_record["publication_scope"]
+            for entity_id in new_entity_ids:
+                entities_by_id[entity_id]["publication_scope"] = evidence_record["publication_scope"]
 
         if request.draft.get("evidence_role") == "atomic_evidence":
             original_statement = request.draft.get("summary") or request.draft.get("title") or ""
@@ -462,7 +488,10 @@ class ReviewPublishService:
                     uow.facts.create(fact)
                 for relationship in relationships_to_save:
                     uow.relationships.create(relationship)
-                uow.evidence.create(evidence_record)
+                if updating_source:
+                    uow.evidence.update(evidence_id, evidence_record)
+                else:
+                    uow.evidence.create(evidence_record)
                 if self._review_events_inbox is not None:
                     source = self._repos.sources.get(request.draft.get("source_id")) if request.draft.get("source_id") else None
                     review_event = append_review_event(
@@ -478,7 +507,8 @@ class ReviewPublishService:
                 # compensates every structured write and leaves the draft
                 # safely retryable instead of stranded beside a committed
                 # Evidence record with the same deterministic id.
-                self._delete_draft(request.draft_id)
+                if not shared_store:
+                    self._delete_draft(request.draft_id)
         except DuplicateRecord:
             if review_event:
                 remove_created_event(review_event)
@@ -494,7 +524,8 @@ class ReviewPublishService:
                     outcome="conflict",
                     conflicts=conflicts,
                 )
-            self._delete_draft(request.draft_id)
+            if not shared_store:
+                self._delete_draft(request.draft_id)
             return PublishResult(evidence_id=evidence_id, outcome="already_published")
         except Exception:
             # The structured-data transaction rolled back (or never
@@ -573,6 +604,8 @@ class ReviewPublishService:
             "edited_before_approval": edited,
             "reviewed_at": date.today().isoformat(),
         }
+        if bool(getattr(self._repos.evidence, "information_store_enabled", False)):
+            fact_record["publication_scope"] = evidence.get("publication_scope", "private")
         schema_errors = [e.message for e in self._get_validator("fact.schema.json").iter_errors(fact_record)]
         if schema_errors:
             return ApproveClaimResult(schema_errors=schema_errors)

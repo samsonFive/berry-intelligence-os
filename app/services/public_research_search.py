@@ -15,6 +15,7 @@ from urllib.parse import urlencode, quote, urlsplit, urljoin,unquote
 import httpx
 from lxml import etree, html
 
+from app.services.information_storage import information_directory
 from app.services.ai_gateway.results import SearchHit, SearchResponse
 from app.services.ai_gateway.errors import GatewayUnavailableError
 from app.services.article_dedup import normalize_canonical_url
@@ -59,7 +60,7 @@ def registered_primary_sources(data_dir, entities):
     from pathlib import Path
     eligible=[e for e in entities.values()if e.get('entity_type')in {'variety','company','breeding_program'}]
     published={}
-    for path in (Path(data_dir)/'evidence').rglob('*.json'):
+    for path in information_directory(data_dir=data_dir).rglob('*.json'):
         try:record=json.loads(path.read_text(encoding='utf8'))
         except (OSError,ValueError):continue
         if record.get('status')=='published':published[record.get('id')]=record

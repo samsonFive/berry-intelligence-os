@@ -20,10 +20,12 @@ def information_flags(record: dict[str, Any]) -> dict[str, Any]:
         explicit = {}
     if status in INACTIVE_STATES or review in INACTIVE_STATES:
         reviewed = "rejected"
+    elif explicit.get("review_status") in {"reviewed", "unreviewed"} and (
+        status == "published" or not (status == "unreviewed" or record.get("live"))
+    ):
+        reviewed = explicit["review_status"]
     elif status == "unreviewed" or record.get("live"):
         reviewed = "unreviewed"
-    elif explicit.get("review_status") in {"reviewed", "unreviewed"}:
-        reviewed = explicit["review_status"]
     elif record.get("validated") is False or record.get("auto_captured") and not record.get("validated"):
         reviewed = "unreviewed"
     elif status == "published" or review == "published" or record.get("human_reviewed") is True:
@@ -76,9 +78,27 @@ def merge_information(evidence: Iterable[dict[str, Any]], drafts: Iterable[dict[
         reverse=True)
 
 
+def stored_information_previews(inbox_dir) -> list[dict[str, Any]]:
+    """Read the active inventory without retaining source bodies in list caches."""
+    from app.services.publication_sources import pending_source_previews
+    rows, issues = pending_source_previews(inbox_dir, publications_only=False)
+    if issues:
+        import logging
+        logging.getLogger(__name__).warning("Information catalog: %d unavailable stored records", len(issues))
+    return rows
+
+
 def load_information(evidence: list[dict[str, Any]], inbox_dir, *, include_private: bool = True) -> list[dict[str, Any]]:
+    from app.services.information_storage import enabled
+    if inbox_dir is not None and enabled(inbox_dir=inbox_dir):
+        # The canonical store already contains intake and retained-web rows.
+        # Re-reading old caches would resurrect retired copies after cutover.
+        rows = [normalize_information(row, origin="data" if row.get("publication_scope") == "public" else "inbox")
+                for row in evidence if include_private or row.get("publication_scope") == "public"]
+        return merge_information(rows, [])
     if not include_private or inbox_dir is None:
-        return merge_information(evidence, [])
+        from app.services.information_storage import is_public_record
+        return merge_information([row for row in evidence if include_private or is_public_record(row)], [])
     from app.services.personal_digest import retained_news
     from app.services.publication_sources import pending_source_previews
     # The streaming preview reader covers both publications and atomic claims.

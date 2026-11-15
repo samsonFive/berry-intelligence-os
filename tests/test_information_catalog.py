@@ -90,6 +90,62 @@ def test_catalog_request_cache_does_not_hide_new_records_next_request(tmp_path):
     assert [row["id"] for row in second.information] == ["ev-new"]
 
 
+def test_active_authoring_inventory_uses_body_free_previews_and_preserves_selected_source(tmp_path, monkeypatch):
+    from app.repositories.json.evidence import EvidenceRepository
+    from app.repositories.paths import SCHEMAS_DIR
+    from app.services import association_corrections, information_migration, information_storage
+    from app.services.request_corpus import RequestCorpus
+    from tests.test_information_storage_migration import write
+
+    data, inbox = tmp_path / "data", tmp_path / "inbox"
+    private = record("ev-private", article={"paragraphs": [{"text": "FULL ARTICLE CANARY"}]},
+        transcript={"status": "captured", "text": "FULL TRANSCRIPT CANARY"},
+        provider_response={"body": "PRIVATE PROVIDER CANARY"}, entity_ids=["company-old"],
+        ai_enrichment={"concise_summary": "Compact source preview", "raw_response": "RAW MODEL CANARY",
+                       "model_provenance": {"provider": "fixture", "request_body": "PRIVATE REQUEST CANARY"}})
+    write(data / "evidence/ev-public.json", record("ev-public", "published"))
+    write(inbox / "evidence/ev-private.json", private)
+    write(inbox / "evidence/ev-claim.json", record("ev-claim", evidence_role="atomic_evidence",
+                                                    statement="A source claim remains available."))
+    write(inbox / "evidence/ev-rejected.json", record("ev-rejected", "rejected"))
+    information_migration.apply_migration(data, inbox, tmp_path / "backups", quiesced=True)
+    stored = information_storage.get_record("ev-private", data_dir=data)
+    information_storage.write_record({**stored, "status": "published", "information": {
+        "review_status": "reviewed", "confidence": "medium"}}, data_dir=data)
+    corrections = [{"id": "correction-fixture", "record_id": "ev-private", "field": "entity_ids",
+                    "entity_id": "company-old", "action": "exclude"},
+                   {"id": "correction-fixture-add", "record_id": "ev-private", "field": "entity_ids",
+                    "entity_id": "company-correct", "action": "include"}]
+    monkeypatch.setattr(association_corrections, "load", lambda _inbox: corrections)
+
+    def prohibit_full_inventory(*_args, **_kwargs):
+        raise AssertionError("authoring inventory must not load full Evidence records")
+
+    monkeypatch.setattr(EvidenceRepository, "list", prohibit_full_inventory)
+    before = {path: path.read_bytes() for path in (data / "information/records").glob("*.json")}
+    corpus = RequestCorpus(data, SCHEMAS_DIR, inbox, include_workspace_corrections=True)
+    rows = corpus.information
+    assert rows is corpus.information
+    by_id = {row["id"]: row for row in rows}
+    assert set(by_id) == {"ev-public", "ev-private", "ev-claim"}
+    preview = by_id["ev-private"]
+    assert preview["publication_scope"] == "private"
+    assert preview["information"]["review_status"] == "reviewed"
+    assert preview["information"]["confidence"] == "medium"
+    assert preview["entity_ids"] == ["company-correct"]
+    assert preview["ai_enrichment"]["concise_summary"] == "Compact source preview"
+    assert preview["transcript_status"] == "captured"
+    assert "CANARY" not in json.dumps(rows)
+    assert all("article" not in row and "transcript" not in row and "provider_response" not in row for row in rows)
+    assert corpus._evidence is None
+    selected = corpus.repos().evidence.get("ev-private")
+    assert selected["article"] == private["article"]
+    assert selected["transcript"] == private["transcript"]
+    assert selected["provider_response"] == private["provider_response"]
+    assert selected["entity_ids"] == ["company-old"]
+    assert {path: path.read_bytes() for path in before} == before
+
+
 def test_feed_ranking_uses_content_and_date_without_review_gate():
     from app.services.intelligence_feed import build_intelligence_feed
     reviewed = record("ev-reviewed", "published", published_date="2026-11-11")

@@ -95,13 +95,29 @@ def get_repositories(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHE
             sources=JsonSourceRepository(data_dir=data_dir),
             market_observations=MarketObservationRepository(data_dir=data_dir, schemas_dir=schemas_dir),
         )
-    return _repository_cache[key]
+    repositories = _repository_cache[key]
+    from app.services.request_corpus import get_request_corpus
+    corpus = get_request_corpus()
+    if corpus is not None and corpus.public_only and Path(data_dir) == corpus.data_dir:
+        if corpus._public_repository_view is None:
+            from app.services.publication_scope import public_repositories
+            corpus._public_repository_view = public_repositories(repositories)
+        return corpus._public_repository_view
+    return repositories
 
 
 def get_query_services(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> QueryServices:
     """The 7 Core query services (docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md
     Part 3.3), each built from the repository registry for the same
     data_dir -- never from a filesystem path directly."""
+    repos = get_repositories(data_dir, schemas_dir)
+    if getattr(repos, "public_view", False):
+        if getattr(repos, "_query_services", None) is None:
+            repos._query_services = SimpleNamespace(
+                entity_intelligence=EntityIntelligenceQueryService(repos), lineage=LineageQueryService(repos),
+                timeline=TimelineQueryService(repos), scope=ScopeQueryService(repos),
+                reference=ReferenceQueryService(repos), coverage=CoverageQueryService(repos), search=SearchQueryService(repos))
+        return repos._query_services
     key = (data_dir, schemas_dir)
     if key not in _query_service_cache:
         repos = get_repositories(data_dir, schemas_dir)
@@ -136,6 +152,13 @@ def get_domain_services(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = S
     a filesystem path directly. The one and only Domain Pack this
     deployment activates today -- a second Domain Pack would add a
     sibling module here, not modify this one (Phase 7's own test)."""
+    repos = get_repositories(data_dir, schemas_dir)
+    if getattr(repos, "public_view", False):
+        if getattr(repos, "_domain_services", None) is None:
+            queries = get_query_services(data_dir, schemas_dir)
+            repos._domain_services = SimpleNamespace(landscape=BerriesLandscapeService(repos, queries),
+                                                     variety=BerriesVarietyService(repos))
+        return repos._domain_services
     key = (data_dir, schemas_dir)
     if key not in _domain_service_cache:
         repos = get_repositories(data_dir, schemas_dir)

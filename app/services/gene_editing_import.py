@@ -1,4 +1,5 @@
 """Add-only native Entity/publication import; publication review is never bypassed."""
+from app.services.information_storage import information_directory, upsert_record
 from copy import deepcopy
 import json
 import os
@@ -23,7 +24,7 @@ def import_snapshot(snapshot, data_dir, inbox_dir):
         entities = {r['id']: r for p in (data_dir/'entities').rglob('*.json') for r in [json.loads(p.read_text(encoding='utf-8'))]}
         urls = {}
         ids = set()
-        for folder in (data_dir/'evidence', inbox_dir/'evidence'):
+        for folder in (information_directory(data_dir=data_dir), information_directory(inbox_dir=inbox_dir)):
             for path in folder.glob('*.json'):
                 row = json.loads(path.read_text(encoding='utf-8'))
                 ids.add(row.get('id'))
@@ -41,7 +42,7 @@ def import_snapshot(snapshot, data_dir, inbox_dir):
                 counts['duplicate_urls'] += 1
                 continue
             row.update(status='in_review', review_state='in_review', evidence_role='publication_artifact')
-            atomic_json(inbox_dir/'evidence'/f"{row['id']}.json", row)
+            upsert_record(row, inbox_dir=inbox_dir)
             urls[canonical_url(row['source_url'])] = row['id']
             ids.add(row['id'])
             counts['news_created'] += 1

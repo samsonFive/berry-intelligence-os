@@ -10,6 +10,21 @@ __pycache__
 inbox
 generated
 demo-runtime
+# Never bake private runtime records, history or migration backups into seeds.
+**/information
+**/.information-store.json
+**/.information-store-transition.json
+**/.information-store.lock
+**/.information-stage-*
+**/.information-rolled-back-*
+**/information-migration-backups
+**/information-????????????????????
+**/PLAN.private.json
+.catalog-*
+.storage-integration-*
+.copilot-rehearsal-guard-tests
+.test-*
+.unified-*
 artifacts
 .experience-*
 .integration-review-tests-*

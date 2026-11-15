@@ -17,24 +17,27 @@ from app.services import map_regions,news_workspace,personal_digest,people_watch
 def test_only_visible_tab_prepares_news_and_regions(tmp_path,monkeypatch,tab,wants_news,wants_regions,authoring):
     company={'id':'company-fixture','entity_type':'company','name':'Fixture Berries',
              'canonical':False,'profile_url':'/entities/company/company-fixture'}
-    record={'id':'ev-fixture','entity_ids':['company-fixture'],'summary':'Current source text.'}
+    record={'id':'ev-fixture','status':'published','entity_ids':['company-fixture'],'summary':'Current source text.'}
     before=deepcopy(record);calls=[]
     monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
     monkeypatch.setattr(main,'AUTHORING_MODE',authoring)
     monkeypatch.setattr(company_routes.directory,'catalog',lambda *a,**k:{company['id']:company})
     monkeypatch.setattr(company_routes.directory,'people_for',lambda *a,**k:[])
     monkeypatch.setattr(people_watchlist,'discover_people',lambda *a:[])
-    def published():
+    def inventory(*,include_private):
         assert wants_news or wants_regions,'Unrelated tab loaded source records'
-        calls.append('published');return [record]
-    monkeypatch.setattr(main,'published_evidence',published)
+        assert include_private is authoring
+        calls.append('catalog');return [record]
+    monkeypatch.setattr(main,'unified_information',inventory)
     monkeypatch.setattr(main,'all_relationships',lambda:[])
     def facts():
         assert wants_news,'Non-News tab requested News facts'
         calls.append('facts');return []
     monkeypatch.setattr(main,'all_facts',facts)
-    def sources(rows,inbox):
-        assert authoring and (wants_news or wants_regions)
+    def sources(rows,inbox,*,include_private,catalog):
+        assert wants_news or wants_regions
+        assert rows==[record] and inbox==tmp_path
+        assert include_private is authoring and catalog is True
         calls.append('sources');return {record['id']:record}
     monkeypatch.setattr(personal_digest,'source_records',sources)
     news={'cards':[],'matching':1,'filters':{'company':company['id']}}
@@ -57,6 +60,6 @@ def test_only_visible_tab_prepares_news_and_regions(tmp_path,monkeypatch,tab,wan
     assert context['profile_regions']==(regions[:1]if wants_regions else [])
     assert calls.count('news')==int(wants_news)
     assert calls.count('regions')==int(wants_regions)
-    assert calls.count('published')==int(wants_news or wants_regions)
-    assert calls.count('sources')==int(authoring and (wants_news or wants_regions))
+    assert calls.count('catalog')==int(wants_news or wants_regions)
+    assert calls.count('sources')==int(wants_news or wants_regions)
     assert record==before and not list(tmp_path.iterdir())

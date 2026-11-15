@@ -193,6 +193,9 @@ def setup(monkeypatch, tmp_path, records, entities=None):
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "empty-data")
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     monkeypatch.setattr(main, "published_evidence", lambda: records)
+    canonical = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence
+    monkeypatch.setattr(canonical, "get", lambda item_id: next(
+        (deepcopy(row) for row in records if row.get("id") == item_id), None))
     monkeypatch.setattr(main, "all_entities", lambda: entities)
     monkeypatch.setattr(main, "all_facts", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])

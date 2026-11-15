@@ -16,6 +16,7 @@ Usage:
 
 from __future__ import annotations
 
+
 import argparse
 import json
 from pathlib import Path
@@ -25,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.signal_candidates import generate_candidates, persist_candidates
 from app.services.signal_review import archive_candidates_absent_from
@@ -41,7 +43,7 @@ def _parser() -> argparse.ArgumentParser:
 
 def _load_evidence(data_dir: Path, inbox_dir: Path) -> list[dict]:
     records = []
-    for folder in (data_dir / "evidence", inbox_dir / "evidence"):
+    for folder in (information_directory(data_dir=data_dir), information_directory(inbox_dir=inbox_dir)):
         if not folder.is_dir():
             continue
         for path in folder.glob("*.json"):

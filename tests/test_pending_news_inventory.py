@@ -70,12 +70,12 @@ def test_pending_story_is_in_raw_news_before_save_and_only_in_subscribed_digest(
     monkeypatch.setattr(main, 'get_draft', lambda *args: pytest.fail('Feed browsing hydrated a selected draft body'))
     monkeypatch.setattr(main, 'list_drafts', lambda: pytest.fail('Feed browsing loaded the draft backlog'))
     _, context, records, _ = world()
-    assert records[row['id']]['status'] == 'unreviewed' and 'article' not in records[row['id']]
+    assert records[row['id']]['information']['review_status'] == 'unreviewed' and 'article' not in records[row['id']]
     assert context['pending_source_issue_count'] == 0
     news = client.get('/today?q=New+blueberry&view=unreviewed')
     assert news.status_code == 200 and row['title'] in news.text and row['article']['image_url'] in news.text
     assert row['article']['paragraphs'][0]['text'] not in news.text
-    assert row['title'] not in client.get('/today?q=New+blueberry&view=trusted').text
+    assert row['title'] in client.get('/today?q=New+blueberry&view=trusted').text
     assert row['title'] not in client.get('/digest').text
     list_id = personal_digest.edit_list(main.INBOX_DIR, action='create', name='Breeding watch',
                                       company_ids=['company-digest'], allowed_companies={'company-digest'})
@@ -100,7 +100,7 @@ def test_selected_reader_actions_and_source_review_remain_separate(workspace):
     assert row['title'] not in client.get('/digest').text
     assert client.post(f'/digest/stories/{row["id"]}', json={'action': 'save'}).status_code == 200
     assert row['title'] in client.get('/digest').text
-    assert row['title'] not in client.get('/today?view=trusted').text
+    assert row['title'] in client.get('/today?view=trusted').text
     assert path.read_bytes() == original
 
 
@@ -131,13 +131,17 @@ def test_canonical_wins_and_conflicting_urls_never_lend_metadata(workspace):
     _, _, records, _ = world()
     assert records[canonical['id']]['title'] == canonical['title'] and records[canonical['id']]['status'] == 'published'
     assert 'Canonical original prose.' in client.get('/api/intelligence/ev-canonical/reader?personal=1').text
-    cached = pending('ev-conflicting')
+    cached = pending('ev-conflicting', image_url='https://cache.example/older-source.jpg', summary='Older cached source synopsis.')
     save_bundle(main.INBOX_DIR, {'today':date.today().isoformat(), 'records':[cached]})
     conflict = deepcopy(cached)
-    conflict.update(title='Conflicting incoming blueberry story', source_url='https://different.example/story')
+    conflict.update(title='Conflicting incoming blueberry story', source_url='https://different.example/story',
+                    summary='Current source synopsis.', article={}, image_url='')
     write(conflict)
     _, _, records, _ = world()
-    assert records[cached['id']]['title'] == cached['title'] and records[cached['id']]['source_url'] == cached['source_url']
+    selected = records[cached['id']]
+    assert selected['title'] == conflict['title'] and selected['source_url'] == conflict['source_url']
+    assert selected['summary'] == conflict['summary']
+    assert cached['image_url'] not in str(selected) and cached['summary'] not in str(selected)
 
 
 @pytest.mark.parametrize('change', [{'status':'published'}, {'evidence_role':'atomic_evidence'}, {'status':{'invalid':'shape'}}])

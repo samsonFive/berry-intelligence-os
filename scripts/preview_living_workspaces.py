@@ -15,6 +15,9 @@ sys.path.insert(0, str(ROOT))
 
 
 def seed(research_inbox: Path, preview_inbox: Path):
+    from app.services.information_storage import enabled
+    if enabled(inbox_dir=research_inbox) or enabled(inbox_dir=preview_inbox):
+        raise SystemExit("For an activated runtime, create the isolated preview using verified full backup and restore")
     from app.services.living_workspaces import Store, compose_brief
     store = Store(preview_inbox)
     # One-time, explicitly requested roster repair. Later user scope edits survive restart.

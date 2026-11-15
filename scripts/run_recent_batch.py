@@ -6,6 +6,7 @@ by default; publisher transcripts and YouTube captions may still be used.
 
 from __future__ import annotations
 
+
 import argparse
 import json
 from datetime import datetime, timezone
@@ -18,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory, upsert_record
 from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
@@ -177,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
             if result.transcript_status == "ready":
                 report["totals"]["transcript_ready"] += 1
             if result.state == "awaiting_publication_review" and result.publication_draft_id:
-                draft_path = args.inbox_dir / "evidence" / f"{result.publication_draft_id}.json"
+                draft_path = information_directory(inbox_dir=args.inbox_dir) / f"{result.publication_draft_id}.json"
                 if draft_path.exists():
                     draft = json.loads(draft_path.read_text(encoding="utf-8"))
                     if (draft.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") != "ok" and completer:
@@ -189,7 +191,7 @@ def main(argv: list[str] | None = None) -> int:
                             entities=companies,
                             complete_json=completer,
                         )
-                        draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                        upsert_record(draft, inbox_dir=args.inbox_dir)
                     if (draft.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") == "ok":
                         row["enriched"] = True
                         report["totals"]["enriched"] += 1

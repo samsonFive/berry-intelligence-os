@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+
 import argparse
 import json
 from pathlib import Path
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
@@ -38,7 +40,7 @@ def _parser() -> argparse.ArgumentParser:
 
 def _locations(args: argparse.Namespace, inbox_dir: Path) -> list[tuple[str, Path]]:
     values = [
-        ("current_runtime_evidence", inbox_dir / "evidence"),
+        ("current_runtime_evidence", information_directory(inbox_dir=inbox_dir)),
         ("current_runtime_normalized_transcripts", inbox_dir / "discovered_media" / "_normalized_transcripts"),
         ("current_runtime_transcripts", inbox_dir / "transcripts"),
         ("current_runtime_source_artifacts", inbox_dir / "source_artifacts"),

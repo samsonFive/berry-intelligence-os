@@ -9,6 +9,8 @@ intelligence.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, enabled
+
 from contextlib import nullcontext
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -822,8 +824,8 @@ class CollectionRunner:
         if not parent_id:
             return counts
         records = list(self._repos.evidence.list())
-        inbox = self._inbox_dir / "evidence"
-        if inbox.exists():
+        inbox = information_directory(inbox_dir=self._inbox_dir)
+        if inbox.exists() and not enabled(inbox_dir=self._inbox_dir):
             for path in inbox.glob("*.json"):
                 try:
                     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -831,6 +833,8 @@ class CollectionRunner:
                     continue
                 if isinstance(payload, dict):
                     records.append(payload)
+        if enabled(inbox_dir=self._inbox_dir):
+            records = list({row["id"]: row for row in records if row.get("id")}.values())
         for record in records:
             if record.get("evidence_role") != "atomic_evidence" or record.get("parent_evidence_id") != parent_id:
                 continue

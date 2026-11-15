@@ -29,6 +29,19 @@ def test_memory_unknown_fails_closed():
         review.available_memory("MemFree: 9999999 kB\n")
 
 
+def test_paired_copilot_is_allowed_only_when_healthy():
+    running = ["deploy-app-1", "deploy-copilot-1", "deploy-caddy-1", "berry-mobile-review"]
+    review.host_budget(running, review.MIN_AVAILABLE_KIB, review.MIN_FREE_BYTES, "healthy",
+                       copilot_healthy="healthy")
+    for status in (None, "starting", "unhealthy", ""):
+        with pytest.raises(review.ReviewBlocked, match="copilot must be healthy"):
+            review.host_budget(running, review.MIN_AVAILABLE_KIB, review.MIN_FREE_BYTES, "healthy",
+                               copilot_healthy=status)
+    with pytest.raises(review.ReviewBlocked, match="Another container"):
+        review.host_budget(running + ["other-release-preview"], review.MIN_AVAILABLE_KIB,
+                           review.MIN_FREE_BYTES, "healthy", copilot_healthy="healthy")
+
+
 def test_runtime_cannot_escape_release_copy(tmp_path):
     releases = tmp_path / "releases"
     runtime = releases / "test/runtime"

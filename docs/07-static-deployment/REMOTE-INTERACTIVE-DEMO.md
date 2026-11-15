@@ -11,14 +11,23 @@ Bind mounts from `BIOS_DEMO_RUNTIME` (default `../demo-runtime` relative to `dep
 
 | Host path | Container path | Role |
 | --- | --- | --- |
-| `demo-runtime/data` | `/app/runtime/data` | Trusted published records (writable so Approve persists) |
-| `demo-runtime/inbox` | `/app/runtime/inbox` | Drafts, discovered media, normalized transcripts |
+| `demo-runtime/data` | `/app/runtime/data` | Knowledge repositories and, after explicit migration, the shared private/public source store |
+| `demo-runtime/inbox` | `/app/runtime/inbox` | Discovery, media, review/reading state, cache references and the active-store binding; legacy intake before migration |
 
 The image does **not** bake `inbox/` or credentials. `BIOS_RUNTIME_DIR=/app/runtime`.
 Rebuild/redeploy replaces the image but not either bind-mounted directory.
 Operational state, analyst queue state, Signal candidate audit, and transcripts
 all live below the mounted inbox. See
 `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` for backup/restore procedure.
+
+Source storage can be explicitly consolidated into
+`/app/runtime/data/information/records`, with attachments under
+`data/information/assets`. Review and confidence are per-record metadata;
+`publication_scope` separately controls public export. Startup does not migrate
+existing installations. It validates matching data/inbox activation and fails
+closed on an interrupted cutover. Follow the
+[storage migration runbook](UNIFIED-INFORMATION-STORAGE-MIGRATION.md) for the
+maintenance window, rehearsal, verified backup, resume and storage/image rollback.
 
 ## Authentication
 

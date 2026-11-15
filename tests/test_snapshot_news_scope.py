@@ -58,9 +58,11 @@ def test_snapshot_matches_all_shared_news_filters_and_actual_timestamp_order(fil
     assert [r['id'] for r in model['entries']] == news['matching_ids']
     assert [r['id'] for r in model['packet']['recent_developments']] == news['matching_ids']
     assert model['coverage']['counts']['evidence_count'] == news['matching']
-    assert {'ev-future', 'ev-auto', 'ev-no-fact', 'ev-filing'}.isdisjoint(news['matching_ids'])
+    assert {'ev-future', 'ev-filing'}.isdisjoint(news['matching_ids'])
+    assert news['filters']['view']=='all'  # Legacy reviewed-only bookmarks share the same inventory.
     assert (records, state) == before
     if not filters:
+        assert {'ev-auto','ev-no-fact'} <= set(news['matching_ids'])
         assert news['matching_ids'][:2] == ['ev-offset', 'ev-utc']
         assert pdf_export._cutoff_date(model['packet']) == '2026-09-30T22:00:00-03:00'
 
@@ -104,6 +106,11 @@ def test_routes_use_scope_validate_dates_and_never_read_private_marks_when_reado
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)
     monkeypatch.setattr(main, 'entity_index', lambda: ENTITIES)
     monkeypatch.setattr(main, 'published_evidence', lambda: records)
+    private={**records[0],'id':'ev-private-only','status':'draft','title':'PRIVATE SNAPSHOT SOURCE'}
+    def inventory(*,include_private):
+        assert include_private is main.AUTHORING_MODE
+        return [*records,private] if include_private else records
+    monkeypatch.setattr(main, 'unified_information', inventory)
     monkeypatch.setattr(main, 'all_relationships', lambda: REL)
     monkeypatch.setattr(main, 'all_facts', lambda: facts)
     monkeypatch.setattr(feed_first, 'load_state', lambda *_: state)
@@ -117,5 +124,7 @@ def test_routes_use_scope_validate_dates_and_never_read_private_marks_when_reado
         assert client.get('/explorer/snapshot.pdf?window=custom&' + query).status_code == 422
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
     monkeypatch.setattr(feed_first, 'load_state', lambda *_: pytest.fail('Readonly map/snapshot must not read private marks/lists'))
-    assert client.get('/explorer/snapshot?sections=developments').status_code == 200
+    public=client.get('/explorer/snapshot?sections=developments')
+    assert public.status_code == 200
+    assert 'PRIVATE SNAPSHOT SOURCE' not in public.text and '/intelligence/ev-private-only' not in public.text
     assert client.get('/explorer/snapshot?list=list-focus').status_code == 422

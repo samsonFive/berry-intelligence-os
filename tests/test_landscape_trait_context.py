@@ -40,10 +40,12 @@ def test_trait_sources_must_all_be_in_exact_policy_and_selection(world):
     world['entities']['variety-a']['attributes']['traits'][0]['evidence_ids']=['ev-a','ev-pending']
     world['evidence'].append({'id':'ev-pending','title':'Pending source','status':'in_review','berry_ids':['berry-blueberry']})
     world['relationships'].append({'id':'r-pending-trait','subject_id':'company-a','object_id':'variety-a','predicate':'markets','status':'active','evidence_ids':['ev-pending']})
-    reviewed=build(world,countries='')
+    reviewed=build(world,countries='',evidence='reviewed')
     assert [row['display_value'] for row in reviewed['nodes']['variety-a']['traits']]==['0']
-    all_sources=build(world,countries='',evidence='all')
+    all_sources=build(world,countries='')
     assert len(all_sources['nodes']['variety-a']['traits'])==2
+    assert all_sources['filters']['evidence']=='all'
+    assert next(row for row in all_sources['sources'] if row['id']=='ev-pending')['information']['review_status']=='unreviewed'
     assert {'ev-a','ev-pending'}==set(all_sources['nodes']['variety-a']['traits'][0]['evidence_ids'])
     # This role selection cannot reuse sources from otherwise hidden roles.
     scoped=build(world,countries='',evidence='all',predicate='markets')

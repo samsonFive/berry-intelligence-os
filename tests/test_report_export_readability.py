@@ -147,7 +147,7 @@ def test_reading_order_and_source_numbers_are_stable_without_editing_records():
 def test_source_dates_distinguish_capture_and_publication(monkeypatch):
     from app import main
     monkeypatch.setattr(main, "living_catalog", lambda: [])
-    monkeypatch.setattr(main, "published_evidence", lambda: [
+    monkeypatch.setattr(main, "unified_information", lambda: [
         {"id": "ev-captured", "captured_date": "2026-10-03"},
         {"id": "ev-published", "published_date": "2026-09-20", "captured_date": "2026-10-03"},
     ])

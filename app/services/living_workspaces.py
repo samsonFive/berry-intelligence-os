@@ -5,6 +5,8 @@ and recoverable; a page placement never owns or deletes a knowledge record.
 """
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, enabled, upsert_record
+
 from contextlib import contextmanager, closing
 from copy import deepcopy
 from datetime import UTC, datetime
@@ -314,12 +316,16 @@ class Store:
 
     def flush(self):
         # Never replace an existing draft: analyst review is authoritative.
-        folder = self.inbox / "evidence"
+        folder = information_directory(inbox_dir=self.inbox)
         folder.mkdir(parents=True, exist_ok=True)
         with self.transaction() as db:
             for row in db.execute("SELECT id,body FROM outbox").fetchall():
                 path = folder / (row[0] + ".json")
                 if not path.exists():
+                    if enabled(inbox_dir=self.inbox):
+                        upsert_record(json.loads(row[1]), inbox_dir=self.inbox)
+                        db.execute("DELETE FROM outbox WHERE id=?", (row[0],))
+                        continue
                     tmp = folder / (row[0] + "." + uuid4().hex + ".tmp")
                     tmp.write_text(row[1] + "\n", encoding="utf-8")
                     # Exclusive creation avoids overwriting a simultaneous review.
