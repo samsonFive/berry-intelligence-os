@@ -15,6 +15,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+from types import SimpleNamespace
 from typing import Any, Iterable
 from urllib.parse import urlsplit, urlunsplit
 
@@ -231,7 +232,8 @@ def _evidence_version_digest(evidence: dict[str, Any]) -> str:
 
 
 def load_evidence_dependencies(data_dir: Path, *, facts: Iterable[dict[str, Any]] = (),
-                               evidence_ids: Iterable[str] | None = None) -> dict[str, dict[str, Any]]:
+                               evidence_ids: Iterable[str] | None = None,
+                               inbox_dir: Path | None = None) -> dict[str, dict[str, Any]]:
     """Body-free source metadata, hydrating only already-approved dependencies.
 
 The ordinary Evidence repository scans and retains whole source records.
@@ -243,37 +245,56 @@ article bodies, including unrelated publications and transcript artifacts.
     active reviewed measurement dependencies are always included independently.
 """
     from app.services.publication_sources import _current_preview
-    from app.services.information_storage import SAFE_ID, enabled, information_directory
+    from app.services.information_storage import (
+        InformationStorageError, enabled, get_record, information_directory, safe_id,
+    )
+    from ijson.common import JSONError
 
     needed = {str(evidence_id) for fact in facts
               if fact.get("status") == "active"
               and re.fullmatch(r"cultivar_measurement:cm-[a-z0-9-]+-[a-f0-9]{16}:[a-f0-9]{64}",
                                str(fact.get("origin") or ""))
               for evidence_id in fact.get("evidence_ids") or []}
-    shared_store = enabled(data_dir=data_dir)
-    def safe_source_id(value):
-        return bool((SAFE_ID if shared_store else re.compile(r"ev-[a-z0-9-]+\Z")).fullmatch(str(value)))
-    folder = information_directory(data_dir=data_dir)
-    paths = (sorted(folder.glob("*.json")) if evidence_ids is None else
-             [folder / f"{source_id}.json" for source_id in sorted(
-                 {str(value) for value in evidence_ids if safe_source_id(value)}
-                 | {value for value in needed if safe_source_id(value)})])
-    result = {}
-    for path in paths:
-        if path.is_symlink() or not safe_source_id(path.stem):
-            continue
-        try:
-            record = _current_preview(path)
-            if record.get("id") != path.stem:
+    # The storage adapter rejects incomplete/mismatched activation markers.
+    # Never fall back to, or recreate, retired evidence directories.
+    context = {"data_dir": Path(data_dir)}
+    if inbox_dir is not None:
+        context["inbox_dir"] = Path(inbox_dir)
+    folder = information_directory(**context)
+    shared = enabled(**context)
+    if shared and inbox_dir is not None and information_directory(inbox_dir=inbox_dir) != folder:
+        raise InformationStorageError("Data and inbox do not resolve the same active information store")
+    folders = [(folder, context)]
+    if inbox_dir is not None and not shared:
+        folders.append((information_directory(inbox_dir=inbox_dir), {"inbox_dir": Path(inbox_dir)}))
+    requested = None
+    if evidence_ids is not None:
+        requested = set()
+        for value in [*evidence_ids, *needed]:
+            try:
+                requested.add(safe_id(str(value)))
+            except InformationStorageError:
                 continue
-            if path.stem in needed:
-                # Direct single-file read: repository.get() would hydrate
-                # every unrelated publication just to find this one record.
-                record = json.loads(path.read_text(encoding="utf-8"))
-            result[path.stem] = record
-        except (OSError, ValueError, OverflowError):
-            # Missing/corrupt dependencies cannot satisfy the trust gate.
-            continue
+    result = {}
+    for folder, location in folders:
+        paths = (sorted(folder.glob("*.json")) if requested is None else
+                 [folder / f"{source_id}.json" for source_id in sorted(requested)])
+        for path in paths:
+            if path.is_symlink() or path.stem in result:
+                continue
+            try:
+                safe_id(path.stem)
+                record = _current_preview(path)
+                if record.get("id") != path.stem:
+                    continue
+                if path.stem in needed:
+                    # Single-record adapter access, never repository.list().
+                    record = get_record(path.stem, **location)
+                if record is not None:
+                    result[path.stem] = record
+            except (OSError, ValueError, OverflowError, JSONError):
+                # Missing/corrupt dependencies cannot satisfy the trust gate.
+                continue
     return result
 
 
@@ -306,8 +327,10 @@ def _source_ready(binding: dict[str, Any], evidence_by_id: dict[str, dict[str, A
     if binding.get("source_intake_role") == "acquisition_or_context_inventory":
         return False
     evidence = evidence_by_id.get(str(binding.get("evidence_id") or ""))
+    metadata = evidence.get("information") if evidence and isinstance(evidence.get("information"), dict) else {}
     return bool(evidence and evidence.get("status") == "published"
                 and information_flags(evidence)["review_status"] == "reviewed"
+                and metadata.get("review_status") != "rejected"
                 and _url(binding.get("source_url"))
                 and _url(binding["source_url"]) == _url(evidence.get("source_url")))
 
@@ -424,8 +447,9 @@ Do not add this private store to static search/build inputs. A public view
 must deliberately ask for include_private=False and provide current trust
 dependencies; an empty/default dependency set exposes no pending research.
 """
+    fact_rows = list(facts)
     facts_by_origin: dict[str, list[dict[str, Any]]] = {}
-    for fact in facts:
+    for fact in fact_rows:
         facts_by_origin.setdefault(str(fact.get("origin") or ""), []).append(fact)
     events_by_id: dict[str, list[dict[str, Any]]] = {}
     for event in load_review_events(Path(inbox_dir), workflow=WORKFLOW):
@@ -447,15 +471,97 @@ dependencies; an empty/default dependency set exposes no pending research.
             row.update(review_state="superseded", review_label="Earlier proposal — identity resolved in a later version",
                        can_approve=False)
     if not include_private:
-        rows = [row for row in rows if row["review_state"] == "reviewed" and row["publication_scope"] == "public"]
+        rows = _public_measurements(rows, fact_rows, evidence_by_id or {}, entities_by_id or {})
         for row in rows:
             # Operational review notes and raw private provenance remain private.
-            for field in ("source_native", "review_events", "candidate_entity_ids", "import_batch_id", "identity_resolution"):
+            for field in ("source_native", "review_events", "candidate_entity_ids", "import_batch_id", "identity_resolution",
+                          "supersedes", "review_origin"):
                 row.pop(field, None)
             row["source_bindings"] = [{key: binding.get(key) for key in (
                 "source_id", "source_url", "source_title", "locator", "source_dataset",
             )} for binding in row["source_bindings"]]
     return rows
+
+
+def _public_measurements(rows: list[dict[str, Any]], facts: list[dict[str, Any]],
+                         evidence: dict[str, dict[str, Any]], entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """Scope is independent of review; mixed/unknown context stays private.
+
+Use the platform's public dependency projection over already-loaded records.
+No additional repository scan or persisted trust/publication change occurs.
+"""
+    from app.services.publication_scope import public_repositories, ID_TOKEN
+
+    class Snapshot:
+        def __init__(self, records):
+            self.records = list(records)
+
+        def list(self):
+            return self.records
+
+    public = public_repositories(SimpleNamespace(
+        facts=Snapshot(facts), evidence=Snapshot(evidence.values()), entities=Snapshot(entities.values())))
+    public_facts = {row["id"]: row for row in public.facts.list()}
+    public_sources = {row["id"] for row in public.evidence.list()}
+    public_entities = {row["id"] for row in public.entities.list()
+                       if (row.get("attributes") or {}).get("catalog_visibility") != "workspace"}
+    known_ids = set(evidence) | set(entities) | {row["id"] for row in facts}
+    public_ids = set(public_facts) | public_sources | public_entities
+    reference_fields = {"references", "source_refs", "evidence_refs", "platform_import_refs", "href", "url", "uri", "path", "file"}
+
+    def classified(value, *, key="", top=False, reference=False, allowed=None, urls=None):
+        if isinstance(value, dict):
+            for name, child in value.items():
+                if top and name in {"id", "row_id"}:
+                    continue  # The source-native ledger row's own identity.
+                if name in known_ids and name not in public_ids:
+                    return False
+                is_reference = (name == "id" or name in reference_fields or
+                    name.endswith(("_id", "_ids", "_url", "_href", "_uri", "_path", "_file", "_ref", "_refs")))
+                if not classified(child, key=name, reference=reference or is_reference, allowed=allowed, urls=urls):
+                    return False
+            return True
+        if isinstance(value, list):
+            return all(classified(item, key=key, reference=reference, allowed=allowed, urls=urls) for item in value)
+        if value is None or value == "":
+            return True
+        if not isinstance(value, str):
+            return not reference
+        if key in {"path", "file"} or key.endswith(("_path", "_file")) or value.startswith(("file:", "/app/", "/opt/", "/Users/")) or re.match(r"^[A-Za-z]:[\\/]", value):
+            return False
+        links = re.findall(r"https?://[^\s<>\"']+", value)
+        if any(_url(link.rstrip(".,);]")) not in urls for link in links):
+            return False
+        tokens = {token.rstrip(".") for token in ID_TOKEN.findall(value)}
+        tokens.update(token.rsplit(".", 1)[0] for token in list(tokens) if token.endswith((".json", ".html")))
+        if (tokens & known_ids) - public_ids:
+            return False
+        if reference:
+            return value in allowed or _url(value) in urls
+        return True
+
+    result = []
+    for row in rows:
+        fact = public_facts.get(row.get("fact_id"))
+        if (row["review_state"] != "reviewed" or row.get("publication_scope") != "public"
+                or fact is None or fact.get("publication_scope") != "public"):
+            continue
+        if any(source_id not in public_sources for source_id in fact.get("evidence_ids") or []):
+            continue
+        if any(entity_id not in public_entities for entity_id in fact.get("entity_ids") or []):
+            continue
+        bindings = row["source_bindings"]
+        if not bindings or any(binding.get("evidence_id") not in public_sources
+                or _url(binding.get("source_url")) != _url(evidence[binding["evidence_id"]].get("source_url"))
+                for binding in bindings):
+            continue
+        allowed = public_ids | {binding["source_id"] for binding in bindings}
+        urls = {_url(evidence[binding["evidence_id"]].get("source_url")) for binding in bindings}
+        if not classified(row["source_native"], top=True, allowed=allowed, urls=urls):
+            continue
+        row["publication_scope"] = "public"
+        result.append(row)
+    return result
 
 
 def _identity_revision(inbox_dir: Path, record_id: str) -> dict[str, Any] | None:
