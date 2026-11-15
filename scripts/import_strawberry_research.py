@@ -23,7 +23,7 @@ def main(argv=None):
     parser.add_argument("--captured-at", help="ISO date or datetime; preserve research capture date")
     parser.add_argument("--extract-bodies", action="store_true", help="Extract only retained local selectable text; no network")
     parser.add_argument("--publication-source-ids", type=Path, help="Explicit JSON list of substantive cited source IDs allowed into pending publication review")
-    parser.add_argument("--data-dir", type=Path, default=ROOT / "data", help="Read-only canonical identity/Evidence reference")
+    parser.add_argument("--data-dir", type=Path, default=ROOT / "data", help="Runtime data root; active source store receives private intake on --apply")
     parser.add_argument("--inbox-dir", type=Path, help="Explicit private inbox destination")
     parser.add_argument("--apply", action="store_true", help="Stage pending private records; never approve")
     args = parser.parse_args(argv)

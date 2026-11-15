@@ -243,20 +243,24 @@ article bodies, including unrelated publications and transcript artifacts.
     active reviewed measurement dependencies are always included independently.
 """
     from app.services.publication_sources import _current_preview
+    from app.services.information_storage import SAFE_ID, enabled, information_directory
 
     needed = {str(evidence_id) for fact in facts
               if fact.get("status") == "active"
               and re.fullmatch(r"cultivar_measurement:cm-[a-z0-9-]+-[a-f0-9]{16}:[a-f0-9]{64}",
                                str(fact.get("origin") or ""))
               for evidence_id in fact.get("evidence_ids") or []}
-    folder = Path(data_dir) / "evidence"
+    shared_store = enabled(data_dir=data_dir)
+    def safe_source_id(value):
+        return bool((SAFE_ID if shared_store else re.compile(r"ev-[a-z0-9-]+\Z")).fullmatch(str(value)))
+    folder = information_directory(data_dir=data_dir)
     paths = (sorted(folder.glob("*.json")) if evidence_ids is None else
              [folder / f"{source_id}.json" for source_id in sorted(
-                 {str(value) for value in evidence_ids if re.fullmatch(r"ev-[a-z0-9-]+", str(value))}
-                 | {value for value in needed if re.fullmatch(r"ev-[a-z0-9-]+", value)})])
+                 {str(value) for value in evidence_ids if safe_source_id(value)}
+                 | {value for value in needed if safe_source_id(value)})])
     result = {}
     for path in paths:
-        if path.is_symlink() or not re.fullmatch(r"ev-[a-z0-9-]+", path.stem):
+        if path.is_symlink() or not safe_source_id(path.stem):
             continue
         try:
             record = _current_preview(path)
@@ -298,10 +302,12 @@ def candidate_statement(record: dict[str, Any], source_binding: dict[str, Any] |
 
 
 def _source_ready(binding: dict[str, Any], evidence_by_id: dict[str, dict[str, Any]]) -> bool:
+    from app.services.information_catalog import information_flags
     if binding.get("source_intake_role") == "acquisition_or_context_inventory":
         return False
     evidence = evidence_by_id.get(str(binding.get("evidence_id") or ""))
     return bool(evidence and evidence.get("status") == "published"
+                and information_flags(evidence)["review_status"] == "reviewed"
                 and _url(binding.get("source_url"))
                 and _url(binding["source_url"]) == _url(evidence.get("source_url")))
 
@@ -399,6 +405,12 @@ def _project(record: dict[str, Any], *, facts_by_origin: dict[str, list[dict[str
         "reviewer": approval_event.get("actor") if approval_event else None,
         "review_events": deepcopy(events),
     })
+    # An explicit public Fact authorization and a public source are both
+    # required. Reviewing private research does not grant publication scope.
+    from app.services.information_storage import is_public_record
+    result["publication_scope"] = "public" if (reviewed_fact and reviewed_fact.get("publication_scope") == "public"
+        and any(item.get("evidence_id") in reviewed_fact.get("evidence_ids", [])
+                and is_public_record(evidence_by_id[item["evidence_id"]]) for item in ready_sources)) else "private"
     return result
 
 
@@ -435,7 +447,7 @@ dependencies; an empty/default dependency set exposes no pending research.
             row.update(review_state="superseded", review_label="Earlier proposal — identity resolved in a later version",
                        can_approve=False)
     if not include_private:
-        rows = [row for row in rows if row["review_state"] == "reviewed"]
+        rows = [row for row in rows if row["review_state"] == "reviewed" and row["publication_scope"] == "public"]
         for row in rows:
             # Operational review notes and raw private provenance remain private.
             for field in ("source_native", "review_events", "candidate_entity_ids", "import_batch_id", "identity_resolution"):

@@ -604,7 +604,11 @@ class ReviewPublishService:
             "edited_before_approval": edited,
             "reviewed_at": date.today().isoformat(),
         }
-        if bool(getattr(self._repos.evidence, "information_store_enabled", False)):
+        if str(request.origin or "").startswith("cultivar_measurement:"):
+            # A private research claim may cite an already public source.
+            # Its human review is independent of authorization to publish it.
+            fact_record["publication_scope"] = "private"
+        elif bool(getattr(self._repos.evidence, "information_store_enabled", False)):
             fact_record["publication_scope"] = evidence.get("publication_scope", "private")
         schema_errors = [e.message for e in self._get_validator("fact.schema.json").iter_errors(fact_record)]
         if schema_errors:

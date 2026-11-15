@@ -345,18 +345,25 @@ def _binding(doc, records):
 def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
     """Dry-run by default; apply only additive private inbox records and blobs."""
     from app.services.cultivar_measurements import normalize_measurement, stage_measurement, validate_measurement
+    from app.services import information_storage as storage
     packet, ledger, raw = _read_packet(packet_path)
     inbox_dir, data_dir = Path(inbox_dir), Path(data_dir)
     if inbox_dir.resolve().is_relative_to(data_dir.resolve()) or data_dir.resolve().is_relative_to(inbox_dir.resolve()):
         raise ValueError("Private intake inbox and canonical data root must be disjoint")
     entities = _records(data_dir / "entities", recursive=True)
-    records = _records(inbox_dir / "evidence")
-    records.update(_records(data_dir / "evidence"))
+    shared_store = storage.enabled(data_dir=data_dir, inbox_dir=inbox_dir)
+    if shared_store:
+        records = {record["id"]: record for record in storage.list_records(data_dir=data_dir, inbox_dir=inbox_dir)}
+    else:
+        records = _records(inbox_dir / "evidence")
+        records.update(_records(data_dir / "evidence"))
     bindings, publications, statuses = {}, [], Counter()
     for doc in packet["documents"]:
         evidence_id, disposition, draft = _binding(doc, records)
         statuses[disposition] += 1
         if draft:
+            if draft["id"] in records:
+                raise ValueError("Research source ID conflicts with an existing source identity or version")
             draft["captured_date"] = packet["captured_at"][:10]
             draft["berry_ids"] = [packet["berry_id"]]
             publications.append(draft)
@@ -438,18 +445,59 @@ def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
     from app.services.pipeline_lock import pipeline_lock
     with pipeline_lock(inbox_dir, "strawberry-research-import"):
         import_root = inbox_dir / PRIVATE_FOLDER / packet["batch_id"]
+        index_path = import_root / "import-index.json"
+        previous_assets = json.loads(index_path.read_text(encoding="utf-8")).get("information_assets", {}) if index_path.is_file() else {}
         _install(import_root / "packet.json", _json_bytes(packet))
         _install(import_root / "combined-research.json", raw)
+        asset_references = {}
         for capture in [*packet["artifacts"], *packet["supporting_files"]]:
-            _install(import_root / capture["path"], _inside(Path(packet_path).resolve().parent, capture["path"]).read_bytes())
+            body = _inside(Path(packet_path).resolve().parent, capture["path"]).read_bytes()
+            # New binaries linked to public sources remain private research:
+            # adding a file beneath a public Evidence ID would expose it.
+            owners = sorted({bindings[source_id]["evidence_id"] for source_id in capture.get("source_ids", [])
+                             if bindings.get(source_id, {}).get("evidence_id")
+                             and records[bindings[source_id]["evidence_id"]].get("publication_scope", "private") == "private"})
+            previous = previous_assets.get(capture["sha256"])
+            if index_path.is_file() and not previous:
+                # Pre-cutover import ledgers are immutable audit history.
+                # Keep their original registered blob in place on replay.
+                owners = []
+            if shared_store and previous:
+                bound_ids = {bindings[source_id]["evidence_id"] for source_id in capture.get("source_ids", []) if source_id in bindings}
+                if (previous.get("evidence_id") not in bound_ids or previous.get("filename") != Path(capture["path"]).name
+                        or previous.get("sha256") != capture["sha256"] or previous.get("bytes") != capture["bytes"]):
+                    raise ValueError("Stored research asset binding changed; explicit reconciliation is required")
+                owners = [previous["evidence_id"]]
+            if shared_store and capture.get("role") == "source_original" and owners:
+                owner = owners[0]
+                filename = Path(capture["path"]).name
+                asset_folder = storage.assets_dir(data_dir=data_dir, inbox_dir=inbox_dir) / owner
+                if asset_folder.is_symlink():
+                    raise ValueError("Shared research asset directory cannot be a symbolic link")
+                _install(asset_folder / filename, body)
+                asset_references[capture["sha256"]] = {"evidence_id": owner, "filename": filename,
+                    "sha256": capture["sha256"], "bytes": capture["bytes"]}
+                for draft in publications:
+                    if draft["id"] == owner:
+                        draft.setdefault("attachments", []).append({"filename": filename,
+                            "original_filename": capture["original_filename"], "sha256": capture["sha256"],
+                            "content_type": "application/pdf" if filename.endswith(".pdf") else "application/octet-stream",
+                            "url": f"/intake/{owner}/attachments/{filename}"})
+            else:
+                _install(import_root / capture["path"], body)
         for draft in publications:
-            _install(inbox_dir / "evidence" / (draft["id"] + ".json"), _json_bytes(draft))
+            if shared_store:
+                storage.upsert_record(draft, data_dir=data_dir, inbox_dir=inbox_dir, origin="intake")
+            else:
+                _install(inbox_dir / "evidence" / (draft["id"] + ".json"), _json_bytes(draft))
         outcomes = Counter(stage_measurement(inbox_dir, record)["outcome"] for record in measurements)
         # Runtime binding decisions are append-only snapshots, not a replacement for edits.
         binding_digest = digest(plan["source_bindings"])
         _install(import_root / f"source-bindings-{binding_digest[:16]}.json", _json_bytes(plan["source_bindings"]))
         index = {key: packet[key] for key in ("version", "batch_id", "captured_at", "berry_id", "packet_sha256", "ledger_sha256",
                                                "counts", "artifacts", "supporting_files", "trust_effect")}
+        if asset_references:
+            index["information_assets"] = asset_references
         _install(import_root / "import-index.json", _json_bytes(index))
         plan["counts"]["measurement_outcomes"] = dict(outcomes)
     return plan
