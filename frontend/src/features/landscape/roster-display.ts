@@ -1,8 +1,9 @@
 export type RosterPageSize = 25 | 50 | 100 | 'all';
 export function rosterResultSummary(matched: number, searched: number, companySet: number, complete: boolean, companySearch = false): string {
-  const result = !complete ? `${matched} matches on this page`
-    : matched !== searched ? `${matched} matches of ${searched} companies`
-      : companySearch ? `${searched} search matches` : `${searched} companies`;
+  const matches = matched === 1 ? 'match' : 'matches';
+  const result = !complete ? `${matched} ${matches} on this page`
+    : matched !== searched ? `${matched} ${matches} of ${searched} companies`
+      : companySearch ? `${searched} search ${matches}` : `${searched} companies`;
   return searched !== companySet ? `${result} · ${companySet} in company set` : result;
 }
 /** Only actual companies count; tier decorations never consume display rows. */

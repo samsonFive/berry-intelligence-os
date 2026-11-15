@@ -53,7 +53,7 @@ export function WorkspaceSheet({ label, viewKey, columns, rows, onReady, resetFi
   };
   return <section className="berry-workspace-sheet" aria-label={label}>
     <SheetToolbar label={`${label} controls`} filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
-      placeholder: 'All fields, including hidden', disabled: layout.busy }} count={count === rows.length ? `${rows.length} rows` : `${count} matches of ${rows.length} rows`}
+      placeholder: 'All fields, including hidden', disabled: layout.busy }} count={count === rows.length ? `${rows.length} rows` : `${count} ${count === 1 ? 'match' : 'matches'} of ${rows.length} rows`}
       activeFilters={{ items: activeFilters, disabled: blocked, onClear: () => { if (grid.current) clearSheetFilters(grid.current, layout.changeQuickFilter); },
         onRemove: id => { if (id === '$quick') layout.changeQuickFilter(''); else if (grid.current) {
           const next = { ...grid.current.getFilterModel() }; delete next[id]; grid.current.setFilterModel(next); layout.changed();
