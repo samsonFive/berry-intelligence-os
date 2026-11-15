@@ -1849,3 +1849,15 @@ claims and all 3,393 canonical JSON files unchanged. Actual production import
 counts are recorded separately in the coordinated release receipt. No automatic
 source onboarding, source schedule or trust promotion is implied. See
 [Cultivar integration](CULTIVAR-PLANTING-EVIDENCE-INTEGRATION-2026-11-15.md).
+
+## November 15 supplemental company logos — source package only
+
+Five additional existing-company logos were verified against their own official
+homepage HTML and actual raster images: Planasa Genetics, Advanced Berry
+Breeding, Fresh Forward Breeding & Marketing, Fresas Nuevos Materiales and Masiá
+Ciscar. The separate bounded seed preserves the original 47-reference cohort,
+analyst decisions and all cache/export holds. Offline additive/idempotent replay
+passed; this is not a production install or complete roster coverage. Angus,
+ABZ and Marionnet access gaps remain. No source schedule, provider spend or
+canonical intelligence was changed. See
+[supplement](BRAND-MEDIA-LOGO-SUPPLEMENT-2026-11-15.md).

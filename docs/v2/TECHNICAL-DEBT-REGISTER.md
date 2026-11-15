@@ -4218,3 +4218,5 @@ manual entry. Saved edits and explicit clearing survive reopen. Existing stored
 names and human publication/Atomic review gates remain intact. Focused and
 integration regressions pass; source capture and event-level recall remain open.
 See `PUBLICATION-VARIETY-REVIEW-REPAIR-2026-11-14.md`.
+
+November 15 logo-coverage follow-up: a separate five-company source-reference seed now covers verified official marks for Planasa Genetics, Advanced Berry Breeding, Fresh Forward Breeding & Marketing, Fresas Nuevos Materiales and Masiá Ciscar in offline additive replay. This package is not installed in production. Angus HTTP403, ABZ hostname resolution and Marionnet connection failure remain source-access gaps; broader coverage and dated production acceptance remain open. Original media choices, cache/export holds and older-reader compatibility debt are unchanged. See [supplement](BRAND-MEDIA-LOGO-SUPPLEMENT-2026-11-15.md).
