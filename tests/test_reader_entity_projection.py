@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 
 from app import main
 from app.repositories.json.entities import EntityRepository
+from app.services.publication_scope import PublicRepositoryView
 from app.services.request_corpus import RequestCorpus, bind_request_corpus, reset_request_corpus
 
 
@@ -103,9 +104,14 @@ def test_actual_overlay_refreshes_both_alias_fields_name_and_workspace_visibilit
     calls = []
     original = EntityRepository.reader_index
     def track(self, *, include_workspace):
-        calls.append(include_workspace)
+        calls.append(("raw", include_workspace))
         return original(self, include_workspace=include_workspace)
+    original_public = PublicRepositoryView.reader_index
+    def track_public(self, *, include_workspace):
+        calls.append(("public", include_workspace))
+        return original_public(self, include_workspace=include_workspace)
     monkeypatch.setattr(EntityRepository, "reader_index", track)
+    monkeypatch.setattr(PublicRepositoryView, "reader_index", track_public)
     client = TestClient(main.app)
     url = f"/api/intelligence/{item_id}/reader"
     public = client.get(url)
@@ -123,7 +129,7 @@ def test_actual_overlay_refreshes_both_alias_fields_name_and_workspace_visibilit
     assert workspace.status_code == 200
     assert 'href="/entities/variety/variety-internal">Internal Selection</a>' in workspace.text
     assert "Fixture source body remains intact." in public.text and "Fixture source body remains intact." in workspace.text
-    assert calls == [False, False, True]
+    assert calls == [("public", False), ("public", False), ("raw", True)]
     full_page = client.get(f"/intelligence/{item_id}")
     assert full_page.status_code == 200
-    assert calls == [False, False, True], "Full-page Reader must retain the complete entity index"
+    assert calls == [("public", False), ("public", False), ("raw", True)], "Full-page Reader must retain the complete entity index"

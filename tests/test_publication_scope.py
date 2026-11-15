@@ -101,6 +101,33 @@ def test_snapshot_reads_each_raw_family_once_then_get_list_are_copied_readonly()
             operation({"id": "new"})
 
 
+def test_reader_index_uses_sanitized_display_fields_and_last_duplicate_visibility():
+    entity = {"id": "company-public", "entity_type": "company", "name": "Public company",
+              "aliases": ["Public alias", "ev-private"], "also_known_as": ["Public alternate", "/intelligence/ev-private"],
+              "description": "Full details are not Reader display fields.", "evidence_ids": ["ev-private"]}
+    raw = repositories(entities=[entity,
+        {"id": "company-private", "publication_scope": "private", "name": "PRIVATE ENTITY CANARY"},
+        {"id": "company-duplicate", "name": "Earlier public row"},
+        {"id": "company-duplicate", "name": "Last workspace row", "attributes": {"catalog_visibility": "workspace"}}],
+        evidence=[{"id": "ev-private", "status": "published", "publication_scope": "private"}])
+    def prohibit_raw_index(**_kwargs):
+        raise AssertionError("Public Reader must not open the raw entity index")
+    raw.entities.reader_index = prohibit_raw_index
+    original = deepcopy(raw.entities.rows)
+    view = public_repositories(raw).entities
+    expected = {"company-public": {"id": "company-public", "entity_type": "company", "name": "Public company",
+                                   "aliases": ["Public alias"], "also_known_as": ["Public alternate"]}}
+    assert view.reader_index(include_workspace=False) == expected
+    including_workspace = view.reader_index(include_workspace=True)
+    assert including_workspace["company-duplicate"]["name"] == "Last workspace row"
+    assert "company-private" not in including_workspace
+    assert "CANARY" not in json.dumps(including_workspace) and "ev-private" not in json.dumps(including_workspace)
+    including_workspace["company-public"]["aliases"].append("caller mutation")
+    including_workspace["company-public"]["also_known_as"].clear()
+    assert view.reader_index(include_workspace=False) == expected
+    assert raw.entities.rows == original and raw.entities.list_calls == 1
+
+
 def test_private_attribute_sibling_is_removed_without_dropping_public_detail():
     attributes = {
         "public_note": "Visible company detail", "private_link": "/intelligence/ev-private",

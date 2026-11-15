@@ -91,6 +91,15 @@ class PublicRepositoryView:
     def list(self, **filters):
         return deepcopy([row for row in self._rows if all(row.get(key) == value for key, value in filters.items())])
 
+    def reader_index(self, *, include_workspace):
+        """Reader display fields from this public snapshot, never the raw index."""
+        fields = ("id", "name", "entity_type", "aliases", "also_known_as")
+        return {
+            key: {field: deepcopy(row[field]) for field in fields if field in row}
+            for key, row in self._by_id.items()
+            if include_workspace or (row.get("attributes") or {}).get("catalog_visibility") != "workspace"
+        }
+
     def latest_by_key(self, **filters):
         latest = {}
         for row in self.list(**filters):
