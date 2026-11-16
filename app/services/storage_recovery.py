@@ -462,9 +462,16 @@ class _AcceptedFiles:
             self.private_paths.add(name)
         if 'mode' in ref:
             _need(type(ref['mode']) is int and 0 <= ref['mode'] <= 0o777 and mode == ref['mode'], 'accepted_file_mode_changed')
-        if self.read_file is not None or parse:
-            if self.read_file is not None:
-                body = self.read_file(path, maximum)
+        read_file = self.read_file
+        if read_file is not None and hasattr(read_file, 'handles'):
+            _need(callable(read_file.handles), 'accepted_reader_selector_invalid')
+            handled = read_file.handles(path)
+            _need(type(handled) is bool, 'accepted_reader_selector_invalid')
+            if not handled:
+                read_file = None
+        if read_file is not None or parse:
+            if read_file is not None:
+                body = read_file(path, maximum)
             else:
                 fd = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
                 with os.fdopen(fd, 'rb') as handle:
@@ -575,6 +582,9 @@ def _logging_pair(before: dict, after: dict, log_config: dict) -> None:
     from copy import deepcopy
     for name in before:
         old, new = before[name], after[name]
+        _need(isinstance(old.get('Id'), str) and _HEX.fullmatch(old['Id'])
+              and isinstance(new.get('Id'), str) and _HEX.fullmatch(new['Id']), 'configuration_only_container_identity_invalid')
+        _need(old['Id'] != new['Id'], 'configuration_only_container_not_recreated')
         _need(old['Image'] == new['Image'] and sorted(old['Config'].get('Env') or []) == sorted(new['Config'].get('Env') or [])
               and sorted(old['Mounts'], key=_canonical) == sorted(new['Mounts'], key=_canonical), 'configuration_only_runtime_changed')
         a, b = deepcopy(old['Config']), deepcopy(new['Config'])

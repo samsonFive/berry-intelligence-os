@@ -313,7 +313,8 @@ def test_previous_discovery_follows_accepted_receipt_hash_not_image_uniqueness(t
         _previous(ledger, raw)
 
 
-@pytest.mark.skipif(os.name == 'nt', reason='Production collector uses POSIX host paths')
+@pytest.mark.skipif(os.name != 'posix' or not hasattr(os, 'geteuid') or os.geteuid() != 0,
+                    reason='Default collector requires root-private POSIX metadata; covered by isolated sudo suite')
 def test_unsigned_historical_baselines_and_archives_never_authorize_retention(tmp_path, monkeypatch):
     from app.services.runtime_backup import create_backup, verify_backup
     from app.services import runtime_backup
@@ -350,6 +351,7 @@ def test_unsigned_historical_baselines_and_archives_never_authorize_retention(tm
     previous_path = Path(arguments['previous_ledger_path']); previous_path.write_bytes(encoded(previous))
     (Path(previous['stage']) / 'cutover-fixture/old-ledger.bytes').write_bytes(encoded(older))
     ledger_path = Path(arguments['ledger_path']); ledger_path.write_bytes(encoded(current))
+    ledger_path.chmod(0o600)
     for ledger, before in [(current, previous), (previous, older)]:
         Path(ledger['receipt']).write_bytes(encoded({'status': 'PASS', 'image': ledger['image'],
             'old_ledger_sha256': hashlib.sha256(encoded(before)).hexdigest(),
@@ -513,10 +515,21 @@ def test_opaque_recovery_inventory_streams_beyond_the_parsed_metadata_budget(tmp
             reads.append(size)
             return self.handle.read(size)
     monkeypatch.setattr(storage_recovery.os, 'fdopen', lambda *args, **kwargs: BoundedRead(original(*args, **kwargs)))
-    reader = storage_recovery._AcceptedFiles(stat_file=file_stat)
+    overlay = tmp_path / 'overlay.json'
+    overlay.write_bytes(b'{"value":"old"}')
+    overlay_body = b'{"value":"new"}'
+    callback_calls = []
+    def read_overlay(path, maximum):
+        assert path == overlay, 'unhandled inventory must stream through the default reader'
+        callback_calls.append(path)
+        return overlay_body
+    read_overlay.handles = lambda path: path == overlay
+    reader = storage_recovery._AcceptedFiles(read_file=read_overlay, stat_file=file_stat)
     reader.file({'path': str(inventory), 'sha256': expected.hexdigest()})
+    assert reader.json({'path': str(overlay), 'sha256': hashlib.sha256(overlay_body).hexdigest()}) == {'value': 'new'}
     reader.reread()
     assert len(reads) == 12
+    assert callback_calls == [overlay, overlay]
     assert reader.pins[str(inventory)]['size'] == 5 * 1024**2
 
 
@@ -565,8 +578,12 @@ def test_default_reader_accepts_pinned_uid1000_marker_but_never_private_proof(tm
     os.chown(marker, 1000, 1000)
     ref = {'path': str(marker), 'sha256': hashlib.sha256(marker.read_bytes()).hexdigest(), 'mode': 0o600}
     assert _AcceptedFiles().json(ref, private=False)['state'] == 'active'
+    def read_overlay(path, maximum):
+        raise AssertionError('unhandled app-owned marker must use the default bounded parser')
+    read_overlay.handles = lambda path: False
+    assert _AcceptedFiles(read_file=read_overlay).json(ref, private=False)['state'] == 'active'
     with pytest.raises(StorageRecoveryError, match='accepted_private_file_invalid'):
-        _AcceptedFiles().json(ref, private=True)
+        _AcceptedFiles(read_file=read_overlay).json(ref, private=True)
 
 
 def test_configuration_only_accepts_current_store_and_binds_all_three_containers(authenticated_configuration_memory):
@@ -603,6 +620,80 @@ def test_configuration_only_cannot_smuggle_physical_storage_rollback(authenticat
     _reseal_memory_wrapper(state, wrapper)
     with pytest.raises(StorageRecoveryError, match='accepted_rollback_recipe_invalid'):
         validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+
+
+def test_logging_recreation_requires_valid_full_container_ids():
+    from app.services.storage_recovery import _logging_pair
+    for invalid in ('short-id', 'A' * 64, None):
+        for side in ('old', 'new'):
+            old, new = {'Id': 'a' * 64}, {'Id': 'b' * 64}
+            (old if side == 'old' else new)['Id'] = invalid
+            with pytest.raises(StorageRecoveryError, match='configuration_only_container_identity_invalid'):
+                _logging_pair({'caddy': old}, {'caddy': new}, {})
+
+
+def test_resealed_already_configured_pair_cannot_reuse_app_node_or_caddy_ids(authenticated_configuration_memory):
+    from app.services.storage_recovery import _canonical, _native_pair_binding, recovery_live_binding
+    state = authenticated_configuration_memory
+    original_bodies = copy.deepcopy(state['bodies'])
+    target = {'Type': 'json-file', 'Config': {'max-size': '10m', 'max-file': '3'}}
+    for reused in ('app', 'copilot', 'caddy'):
+        state['bodies'].clear(); state['bodies'].update(original_bodies)
+        wrapper = copy.deepcopy(state['env']['wrapper'])
+        proof_ref, phase_ref = wrapper['recovery_files']['final_proof'], wrapper['recovery_files']['phase_receipt']
+        proof = json.loads(state['bodies'][proof_ref['path']])
+        pre = json.loads(state['bodies'][wrapper['snapshots']['pre']['path']])
+        post = json.loads(state['bodies'][wrapper['snapshots']['post']['path']])
+        caddy_pre = json.loads(state['bodies'][proof['caddy']['pre_snapshot']['path']])
+        caddy_post = json.loads(state['bodies'][proof['caddy']['post_snapshot']['path']])
+        # Logging is already correct before this release. Only actual recreation
+        # may satisfy the configuration-only producer contract.
+        for container in [*pre.values(), caddy_pre]:
+            container['HostConfig']['LogConfig'] = copy.deepcopy(target)
+        if reused == 'caddy':
+            old_id = caddy_post['Id']; caddy_post['Id'] = caddy_pre['Id']
+            if caddy_post['Config'].get('Hostname') == old_id[:12]:
+                caddy_post['Config']['Hostname'] = caddy_post['Id'][:12]
+        else:
+            old_id = post[reused]['Id']; post[reused]['Id'] = pre[reused]['Id']
+            if post[reused]['Config'].get('Hostname') == old_id[:12]:
+                post[reused]['Config']['Hostname'] = post[reused]['Id'][:12]
+            post['copilot']['HostConfig']['NetworkMode'] = 'container:' + post['app']['Id']
+        def seal(ref, value):
+            state['bodies'][ref['path']] = encoded(value)
+            ref['sha256'] = hashlib.sha256(state['bodies'][ref['path']]).hexdigest()
+        seal(wrapper['snapshots']['pre'], pre); seal(wrapper['snapshots']['post'], post)
+        proof['pair_snapshots'] = copy.deepcopy(wrapper['snapshots'])
+        proof['old_binding'] = _native_pair_binding(pre)
+        proof['candidate_binding'] = _native_pair_binding(post)
+        seal(proof['caddy']['pre_snapshot'], caddy_pre); seal(proof['caddy']['post_snapshot'], caddy_post)
+        handoff_ref = proof['caddy']['barrier_handoff']
+        handoff = json.loads(state['bodies'][handoff_ref['path']])
+        handoff.update(old_container_id=caddy_pre['Id'], new_container_id=caddy_post['Id'])
+        seal(handoff_ref, handoff)
+        seal(proof_ref, proof)
+        phase = json.loads(state['bodies'][phase_ref['path']])
+        phase['final_verification']['recovery_proof_sha256'] = proof_ref['sha256']
+        phase['final_verification']['candidate_binding_sha256'] = hashlib.sha256(_canonical(proof['candidate_binding'])).hexdigest()
+        seal(phase_ref, phase)
+        _reseal_memory_wrapper(state, wrapper)
+        # Refresh the complete outer manifest as a would-be producer could, so
+        # this refusal cannot be attributed to stale hashes or live metadata.
+        manifest = state['manifest']
+        manifest['ledger_sha256'] = hashlib.sha256(state['bodies'][manifest['ledger_path']]).hexdigest()
+        accepted = manifest['accepted_recovery_proofs'][0]
+        accepted['sha256'] = hashlib.sha256(state['bodies'][accepted['path']]).hexdigest()
+        accepted['ledger_sha256'] = manifest['ledger_sha256']
+        for pin in manifest['accepted_content_pins']:
+            pin.update(sha256=hashlib.sha256(state['bodies'][pin['path']]).hexdigest(), size=len(state['bodies'][pin['path']]))
+        for receipt in manifest['accepted_promotion_receipts']:
+            value = json.loads(state['bodies'][receipt['path']])
+            receipt.update(sha256=hashlib.sha256(state['bodies'][receipt['path']]).hexdigest(),
+                           new_ledger_sha256=value['new_ledger_sha256'])
+        manifest['accepted_caddy_id'] = caddy_post['Id']
+        manifest['live_binding'] = recovery_live_binding(post['app'], post['copilot'], caddy_inspection=caddy_post)
+        with pytest.raises(StorageRecoveryError, match='configuration_only_container_not_recreated'):
+            validate_accepted_recovery_proofs(manifest, read_file=state['read'], stat_file=state['stat'])
 
 
 @pytest.mark.skipif(os.name != 'posix' or not hasattr(os, 'geteuid') or os.geteuid() != 0,
