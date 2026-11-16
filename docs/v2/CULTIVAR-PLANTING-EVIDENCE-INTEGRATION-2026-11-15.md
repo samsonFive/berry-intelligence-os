@@ -85,6 +85,13 @@ document identity/version checks permit it. Reviewed state is never copied from
 one source version to another. No source registry or recurring acquisition
 schedule is auto-enabled.
 
+Active-store imports keep source identity/privacy checks, original-file writes
+and immutable asset registration within the shared Source lease. They release
+that lease before acquiring measurement draft locks, matching the human review
+path's ordering and avoiding a concurrent replay/review lock inversion. A failed
+measurement stage leaves the registered originals available for exact replay;
+individual approval still checks the current Source and its version.
+
 Every observation retains its literal cultivar label, record kind, exact region
 and surveyed population, crop period, metric, value, unit, denominator, cohort,
 production system, source references and original row. Unknowns remain unknown;

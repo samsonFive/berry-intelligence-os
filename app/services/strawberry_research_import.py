@@ -669,7 +669,6 @@ def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
                 _install(target, _inside(Path(packet_path).resolve().parent, capture["path"]).read_bytes())
             for draft in publications:
                 _write_new_private_source(draft, data_dir=data_dir, inbox_dir=inbox_dir, source_lease_held=shared_store)
-            outcomes = Counter(stage_measurement(inbox_dir, record)["outcome"] for record in measurements)
             # Runtime binding decisions are append-only snapshots, not a replacement for edits.
             binding_digest = digest(plan["source_bindings"])
             _install(import_root / f"source-bindings-{binding_digest[:16]}.json", _json_bytes(plan["source_bindings"]))
@@ -678,7 +677,12 @@ def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
             if asset_references:
                 index["information_assets"] = asset_references
             _install(import_root / "import-index.json", _json_bytes(index))
-            plan["counts"]["measurement_outcomes"] = dict(outcomes)
+        # Human review holds a measurement lock before updating its Source.
+        # Finish source/asset registration and release the Source lease before
+        # taking measurement locks. These immutable private proposals retain
+        # their captured bindings; approval rechecks current Source versions.
+        outcomes = Counter(stage_measurement(inbox_dir, record)["outcome"] for record in measurements)
+        plan["counts"]["measurement_outcomes"] = dict(outcomes)
     return plan
 
 

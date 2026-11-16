@@ -3,6 +3,7 @@ from copy import deepcopy
 from contextlib import contextmanager
 from hashlib import sha256
 import json
+from threading import Event, Thread
 
 from fastapi.testclient import TestClient
 import pytest
@@ -337,6 +338,86 @@ def test_source_lease_releases_after_asset_install_failure(sample, tmp_path, mon
     with storage.storage_lock(data_dir=data, inbox_dir=inbox, timeout=0.1):
         assert not list(storage.information_directory(data_dir=data).glob("*.json"))
     assert not (inbox / "cultivar_measurements").exists()
+
+
+def test_import_replay_does_not_hold_source_lease_while_waiting_for_review_row(sample, tmp_path, monkeypatch):
+    from app.services import cultivar_measurements as measurements
+
+    build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    first = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    source_id = first["source_bindings"][0]["evidence_id"]
+    row_path = sorted((inbox / measurements.FOLDER).glob("*.json"))[0]
+    row_id = row_path.stem
+    row_before = row_path.read_bytes()
+    review_holds_row, start_source_update, source_updated = Event(), Event(), Event()
+    errors = []
+
+    def review_source_update():
+        try:
+            # The actual human-review lock order: measurement, then Source.
+            with measurements._locks(inbox).lock_draft(row_id):
+                review_holds_row.set()
+                if not start_source_update.wait(5):
+                    raise AssertionError("Import replay never reached measurement staging")
+                storage.upsert_record({"id": source_id, "summary": "Concurrent human review edit"},
+                                      data_dir=data, inbox_dir=inbox)
+                source_updated.set()
+        except BaseException as exc:
+            errors.append(exc)
+
+    original_stage = measurements.stage_measurement
+
+    def stage_after_review_can_update(folder, record):
+        if record["id"] == row_id:
+            start_source_update.set()
+            assert source_updated.wait(5), "Import retained the Source lease while waiting for a measurement lock"
+        return original_stage(folder, record)
+
+    monkeypatch.setattr(measurements, "stage_measurement", stage_after_review_can_update)
+    reviewer = Thread(target=review_source_update, daemon=True)
+    reviewer.start()
+    try:
+        assert review_holds_row.wait(5)
+        replay = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    finally:
+        start_source_update.set()
+        reviewer.join(5)
+    assert not reviewer.is_alive() and not errors
+    assert source_updated.is_set()
+    assert storage.get_record(source_id, data_dir=data, inbox_dir=inbox)["summary"] == "Concurrent human review edit"
+    assert row_path.read_bytes() == row_before
+    assert replay["counts"]["measurement_outcomes"] == {"already_present_identical": first["counts"]["observations"]}
+    assert replay["information_assets"] == first["information_assets"]
+
+
+def test_measurement_staging_failure_keeps_registered_original_replayable(sample, tmp_path, monkeypatch):
+    from app.services import cultivar_measurements as measurements
+
+    packet = build(sample, publication_source_ids=["S1"])
+    _, _, _, data, inbox, packet_dir = sample
+    activate(data, inbox, tmp_path / "backups")
+    original_stage = measurements.stage_measurement
+
+    def fail_stage(*args, **kwargs):
+        raise OSError("Simulated measurement staging failure")
+
+    monkeypatch.setattr(measurements, "stage_measurement", fail_stage)
+    with pytest.raises(OSError, match="Simulated measurement staging failure"):
+        import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    index = inbox / "cultivar_measurement_imports/test-batch/import-index.json"
+    index_before = index.read_bytes()
+    original, _ = source_artifact(inbox, "test-batch", packet["artifacts"][0]["sha256"])
+    original_before = original.read_bytes()
+    assert not list((inbox / measurements.FOLDER).glob("*.json"))
+    with storage.storage_lock(data_dir=data, inbox_dir=inbox, timeout=0.1):
+        assert len(list(storage.information_directory(data_dir=data).glob("*.json"))) == 1
+    monkeypatch.setattr(measurements, "stage_measurement", original_stage)
+    replay = import_packet(packet_dir / "packet.json", data_dir=data, inbox_dir=inbox, apply=True)
+    assert replay["counts"]["measurement_outcomes"] == {"created": replay["counts"]["observations"]}
+    assert index.read_bytes() == index_before and original.read_bytes() == original_before
+    assert not (inbox / "cultivar_measurement_imports/test-batch" / packet["artifacts"][0]["path"]).exists()
 
 
 def test_reviewed_private_measurement_citing_public_source_requires_explicit_public_authorization(world, tmp_path):
