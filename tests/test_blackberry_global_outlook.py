@@ -181,4 +181,34 @@ def test_route_retains_existing_inventory_adapter_before_unified_release(tmp_pat
     response = blackberry_outlook(request)
     assert calls == ["existing-adapter"]
     assert response.status_code == 200
-    assert "No news matches this scope" in response.body.decode()
+    assert "Latest linked news" in response.body.decode()
+    assert "No news matches this scope" not in response.body.decode()
+
+
+def test_missing_fields_and_empty_scopes_stay_compact_while_material_caveats_remain(tmp_path, research, entities, monkeypatch):
+    from app import main
+    from app.blackberry_outlook_routes import blackberry_outlook
+    research["varieties"][0].update(entity_id=None, regions=[], company_ids=[])
+    research.update(commitments=[], developments=[], executive_findings=[])
+    target = tmp_path / outlook.PACKAGE
+    target.parent.mkdir()
+    target.write_text(json.dumps(research), encoding="utf-8")
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "entity_index", lambda: entities)
+    monkeypatch.setattr(main, "unified_information", lambda: [])
+    request = Request({"type": "http", "method": "GET", "path": outlook.PATH,
+                       "query_string": b"variety=first", "headers": [], "app": main.app})
+    body = blackberry_outlook(request).body.decode()
+    for text in ("Regional scope not established", "<span>Not established</span>", "No commitment recorded in this scope",
+                 "No commitment is recorded", "No development is recorded", "No executive findings are included",
+                 "canonical profile link not established", "No news matches this scope"):
+        assert text not in body
+    assert "Territory rights describe access; they do not establish production acreage." in body
+    assert "Stock remains unconfirmed." in body
+    assert "Primary license announcement" in body
+    empty_request = Request({"type": "http", "method": "GET", "path": outlook.PATH,
+                             "query_string": b"q=nonexistent-filter", "headers": [], "app": main.app})
+    empty = blackberry_outlook(empty_request).body.decode()
+    assert "0 varieties" in empty
+    assert "No variety matches these research filters" not in empty

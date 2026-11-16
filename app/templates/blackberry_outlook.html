@@ -4,13 +4,13 @@
 {% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=1"><link rel="stylesheet" href="/static/blackberry_outlook.css?v=1">{% endblock %}
 
 {% macro source_links(rows) %}
-{% if rows %}<details class="bb-sources"><summary>Sources · {{ rows|length }}</summary><ol>{% for source in rows %}<li>{% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>{% else %}{{ source.title }}{% endif %}<small>{{ source.publisher }} · {{ source.published_date|us_date if source.published_date else (source.publication_date_note or 'Publication date not established') }}</small>{% if source.access_note %}<small>{{ source.access_note }}</small>{% endif %}</li>{% endfor %}</ol></details>{% endif %}
+{% if rows %}<details class="bb-sources"><summary>Sources · {{ rows|length }}</summary><ol>{% for source in rows %}<li>{% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>{% else %}{{ source.title }}{% endif %}<small>{{ source.publisher }} · {{ source.published_date|us_date if source.published_date else (source.publication_date_note or '—') }}</small>{% if source.access_note %}<small>{{ source.access_note }}</small>{% endif %}</li>{% endfor %}</ol></details>{% endif %}
 {% endmacro %}
 {% macro party(row) %}<a href="{{ row.href }}">{{ row.name }}</a>{% endmacro %}
 
 {% block content %}
 <div class="bb-outlook" data-blackberry-outlook>
-  <header class="bb-header">
+  <header class="digest-heading bb-header">
     <div><p class="eyebrow">GLOBAL PRODUCT INTELLIGENCE · 2027</p><h1>{{ title }}</h1><p class="bb-intro">The genetics, commercial commitments and changing routes to market shaping the next blackberry season.</p><p class="bb-date">Research through {{ as_of|us_date }} · Primocane and floricane</p></div>
     <div class="bb-actions">{% if report %}<a class="green-button" href="{{ report.href }}">Read the global brief</a><a class="outline-button" href="{{ report.download_href }}">Download PDF</a>{% endif %}<a href="/varieties/season?berry=berry-blackberry">Season and trial comparison ↗</a></div>
   </header>
@@ -19,7 +19,7 @@
 
   <section id="bb-playing-field" class="bb-section">
     <div class="bb-section-title"><h2>What shapes the playing field</h2><span>Research interpretation</span></div>
-    <div class="bb-findings">{% for row in findings %}<article><p class="bb-number">{{ '%02d'|format(loop.index) }}</p><h3>{{ row.title }}</h3><p>{{ row.text }}</p>{% if row.implication %}<p class="bb-implication"><b>For 2027</b> {{ row.implication }}</p>{% endif %}{{ source_links(row.sources) }}</article>{% else %}<p>No executive findings are included in this research edition.</p>{% endfor %}</div>
+    <div class="bb-findings">{% for row in findings %}<article><p class="bb-number">{{ '%02d'|format(loop.index) }}</p><h3>{{ row.title }}</h3><p>{{ row.text }}</p>{% if row.implication %}<p class="bb-implication"><b>For 2027</b> {{ row.implication }}</p>{% endif %}{{ source_links(row.sources) }}</article>{% endfor %}</div>
   </section>
 
   <section id="bb-regions" class="bb-section">
@@ -43,16 +43,16 @@
   <section class="bb-focus" id="bb-focus" aria-label="Selected research detail">
     <div class="bb-section-title"><div><p class="eyebrow">{{ 'GENETICS IN FOCUS' if selected_variety else 'COMPANY IN FOCUS' }}</p><h2>{{ selected.name }}</h2></div><a href="{{ clear_focus_href }}#bb-genetics">Clear selection</a></div>
     {% if selected_variety %}<p>{{ selected.habit_label }}{% if selected.aliases %} · {{ selected.aliases|join(' · ') }}{% endif %}</p><p>{{ selected.notable_reason }}</p><p><b>2027 context.</b> {{ selected.outlook_2027 }}</p><p>{% for company in selected.companies %}{{ party(company) }}{% if not loop.last %} · {% endif %}{% endfor %}</p>{% else %}<p>{{ selected.summary }}</p><p>{{ selected.roles|join(' · ') }}</p>{% endif %}
-    <div class="bb-links">{% if selected.profile_href %}<a href="{{ selected.profile_href }}">Open {{ 'variety' if selected_variety else 'company' }} profile ↗</a>{% else %}<span>Research entry · canonical profile link not established</span>{% endif %}{% if selected.report_href %}<a href="{{ selected.report_href }}">Individual variety report ↗</a>{% endif %}<a href="#bb-commitments">See commitments ↓</a><a href="#bb-news">See related news ↓</a></div>
+    <div class="bb-links">{% if selected.profile_href %}<a href="{{ selected.profile_href }}">Open {{ 'variety' if selected_variety else 'company' }} profile ↗</a>{% endif %}{% if selected.report_href %}<a href="{{ selected.report_href }}">Individual variety report ↗</a>{% endif %}<a href="#bb-commitments">See commitments ↓</a><a href="#bb-news">See related news ↓</a></div>
     {{ source_links(selected.sources) }}
   </section>
   {% endif %}
 
   <section id="bb-genetics" class="bb-section">
     <div class="bb-section-title"><h2>Varieties and genetics of note</h2><span>{{ varieties|length }} in scope</span></div>
-    <p class="bb-note">Open a name for its research context, commitments and linked news. Fruiting habit describes the cultivar; a primocane cultivar may also produce a crop on second-year canes.</p>
+    <p class="bb-note">Regions reflect the cited trials, offers or licenses. Fruiting habit describes the cultivar; a primocane cultivar may also produce a crop on second-year canes.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="Blackberry genetics comparison"><table id="bb-varieties"><thead><tr><th scope="col">Variety / identity</th><th scope="col">Habit and region</th><th scope="col">Organizations</th><th scope="col">Why it matters</th><th scope="col">2027 context</th><th scope="col">Commitment and sources</th></tr></thead><tbody>
-    {% for row in varieties %}<tr><th scope="row"><a class="bb-name" href="{{ row.href }}#bb-focus">{{ row.name }}</a>{% if row.aliases %}<small>{{ row.aliases|join(' · ') }}</small>{% endif %}{% if row.profile_href %}<small><a href="{{ row.profile_href }}">Variety profile ↗</a></small>{% endif %}</th><td><b class="bb-habit bb-{{ row.habit }}">{{ row.habit_label }}</b><small>{{ row.region_labels|join(' · ') or 'Regional scope not established' }}</small>{% if row.countries %}<small>{{ row.countries|join(' · ') }}</small>{% endif %}</td><td>{% for company in row.companies %}<div>{{ party(company) }}</div>{% else %}<span>Not established</span>{% endfor %}</td><td>{{ row.notable_reason }}</td><td>{{ row.outlook_2027 }}</td><td>{% for commitment in row.commitments %}<a class="bb-commitment-tag" href="#commitment-{{ commitment.id }}">{{ commitment.category_label }}</a>{% else %}<small>No commitment recorded in this scope</small>{% endfor %}{{ source_links(row.sources) }}</td></tr>{% else %}<tr><td colspan="6">No variety matches these research filters. <a href="{{ path }}#bb-genetics">Reset the scope</a>.</td></tr>{% endfor %}
+    {% for row in varieties %}<tr><th scope="row"><a class="bb-name" href="{{ row.href }}#bb-focus">{{ row.name }}</a>{% if row.aliases %}<small>{{ row.aliases|join(' · ') }}</small>{% endif %}{% if row.profile_href %}<small><a href="{{ row.profile_href }}">Variety profile ↗</a></small>{% endif %}</th><td><b class="bb-habit bb-{{ row.habit }}">{{ row.habit_label }}</b>{% if row.region_labels %}<small>{{ row.region_labels|join(' · ') }}</small>{% endif %}{% if row.countries %}<small>{{ row.countries|join(' · ') }}</small>{% endif %}</td><td>{% for company in row.companies %}<div>{{ party(company) }}</div>{% else %}—{% endfor %}</td><td>{{ row.notable_reason }}</td><td>{{ row.outlook_2027 }}</td><td>{% for commitment in row.commitments %}<a class="bb-commitment-tag" href="#commitment-{{ commitment.id }}">{{ commitment.category_label }}</a>{% endfor %}{{ source_links(row.sources) }}</td></tr>{% else %}<tr><td colspan="6">—</td></tr>{% endfor %}
     </tbody></table></div>
   </section>
 
@@ -60,7 +60,7 @@
     <div class="bb-section-title"><h2>Where companies have committed</h2><span>{{ commitments|length }} in scope</span></div>
     <p class="bb-note">Supply, planting, licensing, trials and rights are different commitments. Territory rights describe access; they do not establish production acreage. Scale stays attached to its reported period and scope.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="Company commitment register"><table id="bb-commitment-table"><thead><tr><th scope="col">Commitment</th><th scope="col">Organizations / genetics</th><th scope="col">Date and territory</th><th scope="col">Reported scale and scope</th><th scope="col">Commercial meaning</th><th scope="col">Sources</th></tr></thead><tbody>
-    {% for row in commitments %}<tr id="commitment-{{ row.id }}"><th scope="row"><b>{{ row.title }}</b><small>{{ row.category_label }}</small></th><td>{% for company in row.companies %}<div>{{ party(company) }}</div>{% endfor %}{% for variety in row.varieties %}<small>{{ party(variety) }}</small>{% endfor %}</td><td>{{ row.date|us_date if row.date else 'Date not established' }}<small>{{ row.countries|join(' · ') if row.countries else 'See the stated source scope' }}</small></td><td><p>{{ row.summary }}</p>{% if row.scale %}<p><b>{{ row.scale }}</b></p>{% endif %}{% if row.scope_limit %}<small>{{ row.scope_limit }}</small>{% endif %}</td><td>{{ row.implication }}</td><td>{{ source_links(row.sources) }}</td></tr>{% else %}<tr><td colspan="6">No commitment is recorded for this scope. This does not establish an absence of commercial activity.</td></tr>{% endfor %}
+    {% for row in commitments %}<tr id="commitment-{{ row.id }}"><th scope="row"><b>{{ row.title }}</b><small>{{ row.category_label }}</small></th><td>{% for company in row.companies %}<div>{{ party(company) }}</div>{% endfor %}{% for variety in row.varieties %}<small>{{ party(variety) }}</small>{% endfor %}</td><td>{{ row.date|us_date if row.date else '—' }}{% if row.countries %}<small>{{ row.countries|join(' · ') }}</small>{% endif %}</td><td><p>{{ row.summary }}</p>{% if row.scale %}<p><b>{{ row.scale }}</b></p>{% endif %}{% if row.scope_limit %}<small>{{ row.scope_limit }}</small>{% endif %}</td><td>{{ row.implication }}</td><td>{{ source_links(row.sources) }}</td></tr>{% else %}<tr><td colspan="6">—</td></tr>{% endfor %}
     </tbody></table></div>
   </section>
 
@@ -71,15 +71,15 @@
 
   <section id="bb-developments" class="bb-section">
     <div class="bb-section-title"><h2>Developments and their implications</h2><span>Selected research through {{ as_of|us_date }}</span></div>
-    <div class="bb-development-list">{% for row in developments %}<article><time>{{ row.date|us_date if row.date else 'Publication date not established' }}</time><div><h3>{{ row.title }}</h3><p>{{ row.summary }}</p>{% if row.implication %}<p class="bb-implication"><b>Meaning for 2027.</b> {{ row.implication }}</p>{% endif %}{{ source_links(row.sources) }}</div></article>{% else %}<p>No development is recorded for this scope.</p>{% endfor %}</div>
+    <div class="bb-development-list">{% for row in developments %}<article><time>{{ row.date|us_date if row.date else '—' }}</time><div><h3>{{ row.title }}</h3><p>{{ row.summary }}</p>{% if row.implication %}<p class="bb-implication"><b>Meaning for 2027.</b> {{ row.implication }}</p>{% endif %}{{ source_links(row.sources) }}</div></article>{% else %}<p>—</p>{% endfor %}</div>
   </section>
 
   <section id="bb-news" class="bb-section">
     <div class="bb-section-title"><h2>Latest linked news</h2><a href="{{ news_href }}">Open News ↗</a></div>
     <p class="bb-note">{{ news_total }} linked {{ 'story' if news_total == 1 else 'stories' }} in the live inventory{% if news_total > cards|length %}; showing the latest {{ cards|length }}{% endif %}. Research filters select companies and genetics; each article retains its own geography, publication date and source qualifications. This section updates as the shared news inventory changes.</p>
-    {% include "_news_cards.html" %}
+    {% if cards %}{% include "_news_cards.html" %}{% else %}<p>—</p>{% endif %}
   </section>
 
-  <section class="bb-section bb-research-notes"><h2>Reading this outlook</h2><p>This is a dated research synthesis. The commercial meaning is interpretation of the cited material. A 2027 watchlist entry does not confirm 2027 plant stock, planted hectares or shipping performance.</p>{% if limitations %}<details><summary>Coverage and open questions</summary><ul>{% for item in limitations %}<li>{{ item }}</li>{% endfor %}</ul></details>{% endif %}<details><summary>Research source register · {{ sources|length }}</summary><ol>{% for source in sources %}<li>{% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>{% else %}{{ source.title }}{% endif %} · {{ source.publisher }} · {{ source.published_date|us_date if source.published_date else 'Publication date not established' }}</li>{% endfor %}</ol></details></section>
+  <section class="bb-section bb-research-notes"><h2>Reading this outlook</h2><p>This is a dated research synthesis. The commercial meaning is interpretation of the cited material. A 2027 watchlist entry does not confirm 2027 plant stock, planted hectares or shipping performance.</p>{% if limitations %}<details><summary>Coverage and open questions</summary><ul>{% for item in limitations %}<li>{{ item }}</li>{% endfor %}</ul></details>{% endif %}<details><summary>Research source register · {{ sources|length }}</summary><ol>{% for source in sources %}<li>{% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>{% else %}{{ source.title }}{% endif %} · {{ source.publisher }} · {{ source.published_date|us_date if source.published_date else (source.publication_date_note or '—') }}</li>{% endfor %}</ol></details></section>
 </div><p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
