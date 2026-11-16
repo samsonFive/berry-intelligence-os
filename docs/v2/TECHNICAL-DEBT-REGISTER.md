@@ -8,6 +8,16 @@ the current release owner's stricter capacity floor remains binding. Direct-root
 daily rotation continues separately. See
 [the operations contract](../07-static-deployment/STORAGE-CONTROLS.md).
 
+Activation also requires authenticated producer evidence for historical baseline
+and Compose/environment contents, and the actual migration's physical-store and
+rollback dependencies. An old stage pathname, a newly computed hash of its
+contents, or a generic archive PASS does not establish that acceptance. This
+strict adapter is implemented with synthetic native-producer and Linux/root
+fixtures. Actual producer adoption, local archive capacity and pre/post-cutover
+acceptance remain open until the release owner supplies genuine evidence.
+Automatic retirement must
+remain inactive while that gate is unresolved.
+
 Verified off-host replication and restore exercises remain an operations
 follow-up. Local retention and local Codex chat notifications do not provide
 recovery from loss of the host; scheduled chat checks require the computer and

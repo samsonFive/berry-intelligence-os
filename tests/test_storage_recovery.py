@@ -8,10 +8,12 @@ import os
 from pathlib import Path
 
 import pytest
+from test_storage_retention import environment as accepted_environment
 
 from app.services.storage_recovery import (
     StorageRecoveryError, _previous, _read, _safe,
     build_protection_manifest, collect_recovery_manifest,
+    validate_accepted_recovery_proofs,
 )
 
 
@@ -48,9 +50,9 @@ def evidence(root='/srv/fictional'):
                'org.opencontainers.image.revision': 'a' * 40,
                'com.docker.compose.project.config_files': root + '/deploy/base.yml,' + root + '/old-release/override.json',
                'com.docker.compose.project.environment_file': root + '/deploy/.env',
-           }}, 'Mounts': mounts, 'State': {'Running': True, 'Health': {'Status': 'healthy'}},
+           }}, 'HostConfig': {}, 'Mounts': mounts, 'State': {'Running': True, 'Health': {'Status': 'healthy'}},
            '_storage_recovery_sidecar': {'container_id': 'd' * 64, 'image': image('d'), 'healthy': True,
-                                          'network_mode': 'container:' + 'a' * 64}}
+                                          'network_mode': 'container:' + 'a' * 64, 'config_fingerprint': 'd' * 64}}
     proofs = {role: {'path': row['backup'], 'size': 100, 'sha256': letter * 64, 'verified': True}
               for (role, row), letter in zip(ledgers.items(), ['a', 'b'])}
     return {'ledger_bytes': encoded(ledgers['current']), 'previous_ledger_bytes': encoded(ledgers['previous']),
@@ -202,6 +204,7 @@ def test_live_copilot_identity_health_image_and_namespace_are_bound():
     from app.services.storage_recovery import recovery_live_binding
     app = evidence()['app_inspection']
     node = {'Id': 'd' * 64, 'Image': image('d'), 'HostConfig': {'NetworkMode': 'container:' + app['Id']},
+            'Config': {'Env': ['TOKEN=fictional-secret']}, 'Mounts': [],
             'State': {'Running': True, 'Health': {'Status': 'healthy'}}}
     original = recovery_live_binding(app, node)
     assert original['healthy'] and original['copilot']['container_id'] == node['Id']
@@ -213,6 +216,11 @@ def test_live_copilot_identity_health_image_and_namespace_are_bound():
     assert recovery_live_binding(app, changed)['healthy'] is False
     changed = copy.deepcopy(node); changed['HostConfig']['NetworkMode'] = 'container:' + 'e' * 64
     assert recovery_live_binding(app, changed)['healthy'] is False
+    changed = copy.deepcopy(node); changed['HostConfig']['LogConfig'] = {'Type': 'local', 'Config': {'max-size': '10m'}}
+    assert recovery_live_binding(app, changed)['copilot']['config_fingerprint'] != original['copilot']['config_fingerprint']
+    changed_app = copy.deepcopy(app); changed_app['Config']['Env'] = ['TOKEN=changed-fictional-secret']
+    assert recovery_live_binding(changed_app, node)['config_fingerprint'] != original['config_fingerprint']
+    assert 'fictional-secret' not in json.dumps(original)
 
 
 def test_image_probe_uses_closed_text_stdin_and_checks_source(monkeypatch):
@@ -306,7 +314,7 @@ def test_previous_discovery_follows_accepted_receipt_hash_not_image_uniqueness(t
 
 
 @pytest.mark.skipif(os.name == 'nt', reason='Production collector uses POSIX host paths')
-def test_collector_verifies_real_small_archives_and_refuses_lost_dependency(tmp_path, monkeypatch):
+def test_unsigned_historical_baselines_and_archives_never_authorize_retention(tmp_path, monkeypatch):
     from app.services.runtime_backup import create_backup, verify_backup
     from app.services import runtime_backup
     from app.services import storage_recovery
@@ -354,12 +362,283 @@ def test_collector_verifies_real_small_archives_and_refuses_lost_dependency(tmp_
         bounded_calls.append(path)
         return verify_backup(path, **limits)
     monkeypatch.setattr(runtime_backup, 'verify_backup', bounded_verify)
-    manifest = collect_recovery_manifest(ledger_path, tmp_path / 'backups', arguments['app_inspection'])
-    assert len(bounded_calls) == 2
-    assert all(row['backup']['verified'] and row['backup']['manifest_file_count'] == 2
-               for row in manifest['recovery_sets'])
-    assert len(manifest['protected_image_provenance']) == len(manifest['protected_images'])
-    assert {r['role'] for r in manifest['accepted_promotion_receipts']} == {'current', 'previous'}
-    Path(previous['rollback_override']).unlink()
-    with pytest.raises((StorageRecoveryError, OSError)):
+    with pytest.raises(StorageRecoveryError, match='accepted_recovery_proof_missing'):
         collect_recovery_manifest(ledger_path, tmp_path / 'backups', arguments['app_inspection'])
+    assert not bounded_calls
+
+
+@pytest.fixture
+def authenticated_memory(accepted_environment):
+    """Real producer fixture bytes, then pure injected reads for adversarial races."""
+    return _memory_state(accepted_environment)
+
+
+def _memory_state(env):
+    from types import SimpleNamespace
+    manifest = copy.deepcopy(env['value'])
+    bodies = {pin['path']: Path(pin['path']).read_bytes() for pin in manifest['accepted_content_pins']}
+    modes = {pin['path']: pin['mode'] for pin in manifest['accepted_content_pins']}
+
+    def read_file(path, maximum):
+        name = str(path)
+        if name not in bodies:
+            raise FileNotFoundError
+        assert len(bodies[name]) <= maximum
+        return bodies[name]
+
+    def stat_file(path):
+        name = str(path)
+        if name not in bodies:
+            raise FileNotFoundError
+        return SimpleNamespace(st_mode=0o100000 | modes.get(name, 0o600), st_uid=0, st_nlink=1,
+            st_dev=1, st_ino=1, st_size=len(bodies[name]), st_mtime_ns=1)
+
+    return {'env': env, 'manifest': manifest, 'bodies': bodies, 'read': read_file, 'stat': stat_file}
+
+
+@pytest.fixture
+def authenticated_configuration_memory(accepted_environment):
+    from storage_logging_fixtures import configuration_only_environment
+    env = configuration_only_environment(accepted_environment, now=datetime(2026, 11, 16, 12, tzinfo=timezone.utc))
+    return _memory_state(env)
+
+
+def test_authenticated_full_producer_closure_passes_without_exposing_private_config(authenticated_memory):
+    state = authenticated_memory
+    validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+    assert 'accepted-private-value' not in json.dumps(state['manifest'])
+
+
+@pytest.mark.parametrize('change', ['baseline', 'compose', 'environment', 'store_marker', 'plan', 'raw_manifest', 'rollback_module'])
+def test_accepted_exact_bytes_cannot_be_replaced_at_the_same_path(authenticated_memory, change):
+    state = authenticated_memory
+    wrapper = state['env']['wrapper']; recovery = wrapper['recovery_files']
+    refs = {'baseline': wrapper['snapshots']['pre'], 'compose': wrapper['configuration']['post']['app']['compose_files'][0],
+        'environment': wrapper['configuration']['post']['app']['environment_files'][0],
+        'store_marker': next(pin for pin in wrapper['configuration']['post']['app']['dependency_files'] if pin['path'].endswith('store.json')),
+        'plan': wrapper['plan'], 'raw_manifest': recovery['raw_manifest'], 'rollback_module': recovery['rollback_modules'][0]}
+    state['bodies'][refs[change]['path']] += b'changed-private-value'
+    with pytest.raises(StorageRecoveryError, match='accepted_file_digest_mismatch') as caught:
+        validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+    assert 'changed-private-value' not in str(caught.value)
+
+
+@pytest.mark.parametrize('change', ['app_config', 'copilot_config', 'proof_pointer', 'missing_raw_directory'])
+def test_matching_images_cannot_bypass_accepted_configuration_or_protection(authenticated_memory, change):
+    state = authenticated_memory; manifest = state['manifest']
+    if change == 'app_config':
+        manifest['live_binding']['config_fingerprint'] = '0' * 64
+    elif change == 'copilot_config':
+        manifest['live_binding']['copilot']['config_fingerprint'] = '0' * 64
+    elif change == 'proof_pointer':
+        manifest['accepted_recovery_proofs'][0]['sha256'] = '0' * 64
+    else:
+        raw = str(Path(state['env']['wrapper']['recovery_files']['raw_plan']['path']).parent)
+        manifest['protected_paths'] = [row for row in manifest['protected_paths'] if row['path'] != raw]
+        manifest['protected_paths'].append({'path': raw, 'kind': 'file'})
+    with pytest.raises(StorageRecoveryError, match='accepted_(live_configuration|content_manifest|directory_protection)'):
+        validate_accepted_recovery_proofs(manifest, read_file=state['read'], stat_file=state['stat'])
+
+
+def test_accepted_content_is_reread_after_other_dependencies(authenticated_memory):
+    state = authenticated_memory; target = state['env']['wrapper']['snapshots']['pre']['path']; calls = 0
+    def racing_read(path, maximum):
+        nonlocal calls
+        if str(path) == target:
+            calls += 1
+            if calls == 2:
+                state['bodies'][target] += b'late-change'
+        return state['read'](path, maximum)
+    with pytest.raises(StorageRecoveryError, match='accepted_file_(changed|digest_mismatch)'):
+        validate_accepted_recovery_proofs(state['manifest'], read_file=racing_read, stat_file=state['stat'])
+    assert calls == 2
+
+
+def test_transition_created_during_collection_is_rechecked(authenticated_memory):
+    state = authenticated_memory
+    transition = str(state['env']['runtime'] / 'data/.information-store-transition.json'); probes = 0
+    def racing_stat(path):
+        nonlocal probes
+        if str(path) == transition:
+            probes += 1
+            if probes == 2:
+                state['bodies'][transition] = b'{}'
+        return state['stat'](path)
+    with pytest.raises(StorageRecoveryError, match='accepted_store_transition_present'):
+        validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=racing_stat)
+
+
+def test_full_caddy_identity_and_logging_are_bound_without_changing_binding_shape():
+    from app.services.storage_recovery import recovery_live_binding
+    app = evidence()['app_inspection']
+    caddy = {'Id': 'e' * 64, 'Image': image('e'), 'Config': {'Env': ['TOKEN=private-caddy-value']},
+        'HostConfig': {'LogConfig': {'Type': 'json-file', 'Config': {'max-size': '10m'}}}, 'Mounts': [], 'State': {'Running': True}}
+    original = recovery_live_binding(app, caddy_inspection=caddy)
+    assert len(original) == 8 and original['healthy']
+    for field in ('Id', 'HostConfig'):
+        changed = copy.deepcopy(caddy)
+        if field == 'Id': changed['Id'] = 'f' * 64
+        else: changed['HostConfig']['LogConfig']['Config']['max-size'] = '999m'
+        assert recovery_live_binding(app, caddy_inspection=changed)['config_fingerprint'] != original['config_fingerprint']
+    changed = copy.deepcopy(caddy); changed['State']['Running'] = False
+    assert recovery_live_binding(app, caddy_inspection=changed)['healthy'] is False
+    assert 'private-caddy-value' not in json.dumps(original)
+
+
+def test_opaque_recovery_inventory_streams_beyond_the_parsed_metadata_budget(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from app.services import storage_recovery
+    import stat
+    inventory = tmp_path / 'opaque-inventory.json'
+    block = b'x' * 1024**2
+    expected = hashlib.sha256()
+    with inventory.open('wb') as handle:
+        for _ in range(5):
+            handle.write(block); expected.update(block)
+    if os.name == 'nt':
+        monkeypatch.setattr(storage_recovery, '_host_path', lambda value: str(Path(value)))
+    def file_stat(path):
+        info = path.stat()
+        return SimpleNamespace(st_mode=stat.S_IFREG | 0o600, st_size=info.st_size,
+            st_dev=info.st_dev, st_ino=info.st_ino, st_mtime_ns=info.st_mtime_ns, st_uid=0, st_nlink=1)
+    original = storage_recovery.os.fdopen
+    reads = []
+    class BoundedRead:
+        def __init__(self, handle): self.handle = handle
+        def __enter__(self): return self
+        def __exit__(self, *args): self.handle.close()
+        def fileno(self): return self.handle.fileno()
+        def read(self, size=-1):
+            assert 0 < size <= 1024**2
+            reads.append(size)
+            return self.handle.read(size)
+    monkeypatch.setattr(storage_recovery.os, 'fdopen', lambda *args, **kwargs: BoundedRead(original(*args, **kwargs)))
+    reader = storage_recovery._AcceptedFiles(stat_file=file_stat)
+    reader.file({'path': str(inventory), 'sha256': expected.hexdigest()})
+    reader.reread()
+    assert len(reads) == 12
+    assert reader.pins[str(inventory)]['size'] == 5 * 1024**2
+
+
+def _reseal_memory_wrapper(state, wrapper):
+    """Model a newly accepted outer pointer; native evidence stays immutable."""
+    ledger_path = state['manifest']['ledger_path']
+    ledger = json.loads(state['bodies'][ledger_path])
+    wrapper_path = ledger['recovery_proof']['path']
+    state['bodies'][wrapper_path] = encoded(wrapper)
+    ledger['recovery_proof']['sha256'] = hashlib.sha256(state['bodies'][wrapper_path]).hexdigest()
+    state['bodies'][ledger_path] = encoded(ledger)
+    receipt = json.loads(state['bodies'][ledger['receipt']])
+    receipt['new_ledger_sha256'] = hashlib.sha256(state['bodies'][ledger_path]).hexdigest()
+    state['bodies'][ledger['receipt']] = encoded(receipt)
+
+
+def test_even_valid_stale_pre_snapshot_cannot_replace_accepted_post_snapshot(authenticated_memory):
+    state = authenticated_memory
+    wrapper = copy.deepcopy(state['env']['wrapper'])
+    wrapper['snapshots']['post'] = wrapper['snapshots']['pre']
+    _reseal_memory_wrapper(state, wrapper)
+    with pytest.raises(StorageRecoveryError, match='accepted_snapshot_identity_mismatch'):
+        validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+
+
+def test_bare_replay_step_claims_cannot_replace_the_reviewed_protocol(authenticated_memory):
+    state = authenticated_memory
+    archive = state['env']['wrapper']['archives']['current']
+    recipe = json.loads(state['bodies'][archive['recovery_recipe']['path']])
+    recipe.pop('replay_protocol')
+    state['bodies'][archive['recovery_recipe']['path']] = encoded(recipe)
+    wrapper = copy.deepcopy(state['env']['wrapper'])
+    wrapper['archives']['current']['recovery_recipe']['sha256'] = hashlib.sha256(encoded(recipe)).hexdigest()
+    _reseal_memory_wrapper(state, wrapper)
+    with pytest.raises(StorageRecoveryError, match='accepted_file_reference_invalid'):
+        validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+
+
+@pytest.mark.skipif(os.name != 'posix' or not hasattr(os, 'geteuid') or os.geteuid() != 0,
+                    reason='Root Linux fixture verifies actual UID1000 application marker ownership')
+def test_default_reader_accepts_pinned_uid1000_marker_but_never_private_proof(tmp_path):
+    from app.services.storage_recovery import _AcceptedFiles
+    marker = tmp_path / 'store.json'
+    marker.write_bytes(b'{"version":1,"state":"active"}')
+    marker.chmod(0o600)
+    os.chown(marker, 1000, 1000)
+    ref = {'path': str(marker), 'sha256': hashlib.sha256(marker.read_bytes()).hexdigest(), 'mode': 0o600}
+    assert _AcceptedFiles().json(ref, private=False)['state'] == 'active'
+    with pytest.raises(StorageRecoveryError, match='accepted_private_file_invalid'):
+        _AcceptedFiles().json(ref, private=True)
+
+
+def test_configuration_only_accepts_current_store_and_binds_all_three_containers(authenticated_configuration_memory):
+    from app.services.storage_recovery import recovery_live_binding
+    state = authenticated_configuration_memory; manifest = state['manifest']; env = state['env']
+    validate_accepted_recovery_proofs(manifest, read_file=state['read'], stat_file=state['stat'])
+    assert manifest['operation_kind'] == 'configuration-only' and manifest['accepted_caddy_id'] == env['post_caddy']['Id']
+    baseline = copy.deepcopy(manifest['live_binding'])
+    for service, field in [('app', 'Config'), ('copilot', 'HostConfig'), ('caddy', 'HostConfig'), ('caddy', 'Id')]:
+        pair, caddy = copy.deepcopy(env['post_pair']), copy.deepcopy(env['post_caddy'])
+        target = caddy if service == 'caddy' else pair[service]
+        if field == 'Id': target['Id'] = '0' * 64
+        elif field == 'Config': target['Config']['Env'].append('UNACCEPTED=fictional-private-value')
+        else: target['HostConfig']['LogConfig']['Config']['max-size'] = '999m'
+        manifest['live_binding'] = recovery_live_binding(pair['app'], pair['copilot'], caddy_inspection=caddy)
+        with pytest.raises(StorageRecoveryError, match='accepted_live_configuration_mismatch'):
+            validate_accepted_recovery_proofs(manifest, read_file=state['read'], stat_file=state['stat'])
+    manifest['live_binding'] = baseline
+    assert 'accepted-private-value' not in json.dumps(manifest)
+
+
+def test_configuration_only_cannot_smuggle_physical_storage_rollback(authenticated_configuration_memory):
+    state = authenticated_configuration_memory
+    wrapper = copy.deepcopy(state['env']['wrapper'])
+    proof_ref = wrapper['recovery_files']['final_proof']; phase_ref = wrapper['recovery_files']['phase_receipt']
+    proof = json.loads(state['bodies'][proof_ref['path']])
+    proof['rollback_recipe']['steps'].insert(2, 'strict-storage-rollback')
+    state['bodies'][proof_ref['path']] = encoded(proof)
+    proof_ref['sha256'] = hashlib.sha256(encoded(proof)).hexdigest()
+    phase = json.loads(state['bodies'][phase_ref['path']])
+    phase['final_verification']['recovery_proof_sha256'] = proof_ref['sha256']
+    state['bodies'][phase_ref['path']] = encoded(phase)
+    phase_ref['sha256'] = hashlib.sha256(encoded(phase)).hexdigest()
+    _reseal_memory_wrapper(state, wrapper)
+    with pytest.raises(StorageRecoveryError, match='accepted_rollback_recipe_invalid'):
+        validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+
+
+@pytest.mark.skipif(os.name != 'posix' or not hasattr(os, 'geteuid') or os.geteuid() != 0,
+                    reason='Default production collector is root/POSIX; all writes stay inside this fixture')
+def test_default_collector_verifies_local_archives_and_rechecks_accepted_content(accepted_environment, monkeypatch):
+    from app.services import storage_recovery, runtime_backup
+    env = accepted_environment
+    original_verify = runtime_backup.verify_backup; calls = []
+    def verified(path, **limits):
+        assert limits == {'maximum_manifest_bytes': 16 * 1024**2, 'maximum_members': 100001}
+        calls.append(path)
+        return original_verify(path, **limits)
+    monkeypatch.setattr(runtime_backup, 'verify_backup', verified)
+    monkeypatch.setattr(storage_recovery, '_verify_image_set', lambda expected: [
+        {'image': image, 'source_sha': source, 'exists': True, 'provenance_verified': True}
+        for image, source in sorted(expected.items())])
+    app = storage_recovery._pair_app(env['post_pair'])
+    result = collect_recovery_manifest(env['ledger'], env['backups'], app_inspection=app)
+    assert len(calls) == 2 and all(row['backup']['verified'] for row in result['recovery_sets'])
+    validate_accepted_recovery_proofs(result)
+    assert 'accepted-private-value' not in json.dumps(result)
+    def changed_during_image_verification(expected):
+        env['accepted_dependency'].write_bytes(b'UNACCEPTED=late-private-value\n')
+        return [{'image': image, 'source_sha': source, 'exists': True, 'provenance_verified': True}
+                for image, source in sorted(expected.items())]
+    monkeypatch.setattr(storage_recovery, '_verify_image_set', changed_during_image_verification)
+    with pytest.raises(StorageRecoveryError, match='accepted_file_digest_mismatch'):
+        collect_recovery_manifest(env['ledger'], env['backups'], app_inspection=app)
+
+
+def test_later_configuration_release_keeps_previous_unified_backup_honestly_direct():
+    from app.services.storage_recovery import _archive_role
+    pin = {'path': '/srv/backups/previous/berry-runtime-20261116T000000Z.tar.gz', 'sha256': 'a' * 64, 'size': 1,
+        'capture_phase': 'pre-configuration', 'store_schema': 'unified-v1', 'recovery_role': 'direct',
+        'recovery_recipe': None, 'transformation_proof': None}
+    _archive_role(pin, 'previous', 'configuration-only', {}, {}, {}, {}, {}, None)
+    pin['store_schema'] = 'legacy'
+    with pytest.raises(StorageRecoveryError, match='accepted_archive_role_mismatch'):
+        _archive_role(pin, 'previous', 'configuration-only', {}, {}, {}, {}, {}, None)

@@ -15,14 +15,51 @@ direct-root archives remain exclusively under the existing daily rotation.
 
 Before each run, the service collects the accepted current and previous release
 identities from the release ledger and its retained before-ledger snapshot.
-It verifies both recovery archives against release receipts, member checksums
+The accepted ledger must pin an immutable `berry.recovery-proof.v1` document by
+its absolute private path and SHA256. That proof authenticates genuine PRE/POST
+captures, the exact release plan and previous ledger, and the final completed
+producer verification. Full private app/copilot inspection snapshots bind
+Config, HostConfig (including logging), mounts and the paired namespace.
+Ordered Compose files, environment files and transitive recovery dependencies
+must match their accepted content hashes and modes. A stage pathname or a hash
+computed only when consuming an old baseline does not establish acceptance.
+
+The proof also retains the physical store/migration markers, exact raw migration
+backup subtree and the guarded rollback recipe/modules. Seal it before writing
+the new accepted ledger; write the old/new-ledger promotion receipt afterward.
+Use the completed producer's final verification rather than an earlier progress
+event. Unknown or incomplete producer/schema/state evidence holds deletion.
+
+The proof declares `operation_kind` as `unified-migration` or
+`configuration-only`. Archive pins state their capture phase, physical store
+schema and recovery role. A legacy archive captured before migration requires
+an authenticated observed transformation and a supported, image-bound replay
+protocol. It is not a snapshot of the activated unified store. Replay must
+verify restored source bytes before restoring their original nanosecond file
+times, generate a fresh migration plan at the restored paths, and use a new
+empty backup base without reusing a saved resume identity. Preserve reading and
+review decisions and verify the resulting store. Missing protocol or execution
+evidence holds automatic retirement; this service never performs a restore.
+
+A configuration-only logging cutover authenticates its own fresh app/copilot
+and Caddy snapshots and current state. It preserves images, environment,
+resources, mounts and store markers while changing the declared log settings
+and required container identities/namespace metadata. Its failure recovery
+restores configuration against current data. Required inherited migration
+material is a flat, explicit pin set; older full-archive generations are not
+recursively inherited. Caddy identity/configuration participates in subsequent
+live checks when the operation changed Caddy.
+
+The service verifies both recovery archives against release receipts, member checksums
 and gzip integrity, checks immutable images and the running app/copilot pair,
 and protects the full dependency sets: accepted stages, configuration and
 environment files, referenced archives, image identities and actual mounted
 data/subtrees. The generic backup-root mount is not blanket protection for all
 old archives. Missing, ambiguous, stale or changed recovery evidence stops
 deletion. Recovery pins must use release child directories so daily root
-rotation cannot delete them.
+rotation cannot delete them. Both pinned archives must be present locally for
+this policy. Retain verified off-host copies as well; an off-host transfer
+receipt alone cannot satisfy the host's recurring archive verification.
 
 The nested pool retains the latest verified archive in seven daily, four weekly
 and three monthly buckets. Current and previous recovery sets are additional
@@ -63,7 +100,7 @@ Keep any already verified off-host recovery copies and their manifests.
 The host monitor samples every five minutes using available blocks rather than
 reserved filesystem space. The combined example uses 20 GB warning, 12 GB
 critical, a 10 GiB deployment reserve, and 5%/2% free inode thresholds. The
-collector/monitor enforce an 8 GiB minimum; installation must preserve any
+monitor policy enforces an 8 GiB minimum; installation must preserve any
 stricter reserve accepted by the current release owner and must account for
 that owner's complete backup/startup budget. Monitoring thresholds do not
 lower a release gate. The monitor emits new conditions,

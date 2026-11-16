@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import re
 import stat
 import subprocess
 import sys
@@ -63,12 +64,32 @@ def _write(path: Path, value: dict) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def _live_binding() -> dict:
-    result = subprocess.run(["docker", "inspect", "deploy-app-1", "deploy-copilot-1"], input="", capture_output=True,
+def _live_binding(protection: dict) -> dict:
+    kind = protection.get("operation_kind")
+    need(kind in {"unified-migration", "configuration-only"}, "accepted_operation_kind_unsupported")
+    identifiers = ["deploy-app-1", "deploy-copilot-1"]
+    caddy_id = protection.get("accepted_caddy_id")
+    if kind == "configuration-only":
+        need(isinstance(caddy_id, str) and bool(re.fullmatch(r"[a-f0-9]{64}", caddy_id)),
+             "accepted_caddy_identity_missing")
+        identifiers.append(caddy_id)
+    else:
+        need(caddy_id is None, "unexpected_caddy_profile")
+    result = subprocess.run(["docker", "inspect", *identifiers], input="", capture_output=True,
                             text=True, timeout=30)
     need(result.returncode == 0, "running_app_unavailable")
-    rows = json.loads(result.stdout)
-    return recovery_live_binding(rows[0], rows[1])
+    try:
+        rows = json.loads(result.stdout)
+    except ValueError:
+        raise RetentionHold("running_app_unavailable") from None
+    need(isinstance(rows, list) and len(rows) == len(identifiers) and all(isinstance(row, dict) for row in rows),
+         "running_app_unavailable")
+    if kind == "configuration-only":
+        need(rows[2].get("Id") == caddy_id, "running_caddy_identity_mismatch")
+    try:
+        return recovery_live_binding(rows[0], rows[1], caddy_inspection=rows[2] if len(rows) == 3 else None)
+    except StorageRecoveryError as error:
+        raise RetentionHold(str(error)) from None
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -178,7 +199,7 @@ def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes)
             verify_protected_image_provenance(protection["protected_image_provenance"])
         except StorageRecoveryError:
             raise RetentionHold("protected_image_provenance_unavailable") from None
-        return _live_binding()
+        return _live_binding(protection)
 
     try:
         # This admission check precedes protection/plan/history replacement in

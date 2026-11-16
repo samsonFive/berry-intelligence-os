@@ -18,6 +18,7 @@ import tarfile
 from typing import Callable, Any
 
 from app.services.runtime_backup import RuntimeBackupError, verify_backup
+from app.services.storage_recovery import StorageRecoveryError, validate_accepted_recovery_proofs
 
 UTC = timezone.utc
 ARCHIVE_NAME = re.compile(r"berry-runtime-(\d{8}T\d{6}Z)\.tar\.gz\Z")
@@ -134,7 +135,8 @@ def fingerprint(path: Path, *, single_link: bool = True) -> dict[str, Any]:
     return {**before, "sha256": digest.hexdigest()}
 
 
-def _verified_archive(path: Path, expected_time: datetime | None = None, *, single_link: bool = True) -> dict[str, Any]:
+def _verified_archive(path: Path, expected_time: datetime | None = None, *, single_link: bool = True,
+                      recovery_backup: dict | None = None, accepted_content_pins: list | None = None) -> dict[str, Any]:
     before = fingerprint(path, single_link=single_link)
     try:
         # A tar reader can stop before the gzip footer. Scan headers and then
@@ -162,6 +164,23 @@ def _verified_archive(path: Path, expected_time: datetime | None = None, *, sing
         names = [entry["path"] for entry in entries]
         need(len(names) == len(set(names)), "duplicate_manifest_paths_preserved")
         need(expected_time is None or created == expected_time, "filename_manifest_time_mismatch")
+        if recovery_backup is not None:
+            members = {entry["path"]: entry for entry in entries}
+            marker_names = ("data/information/store.json", "inbox/.information-store.json")
+            need("data/.information-store-transition.json" not in members, "recovery_archive_transition_present")
+            schema = recovery_backup.get("store_schema")
+            if schema == "legacy":
+                need(not any(name in members for name in marker_names), "recovery_archive_store_schema_mismatch")
+            elif schema == "unified-v1":
+                need(isinstance(accepted_content_pins, list), "accepted_active_store_proof_missing")
+                for name in marker_names:
+                    relative = PurePosixPath(name)
+                    pins = [pin for pin in accepted_content_pins if Path(pin["path"]).name == relative.name
+                            and (relative.name != "store.json" or Path(pin["path"]).parent.name == "information")]
+                    need(len(pins) == 1 and name in members
+                         and members[name].get("sha256") == pins[0]["sha256"], "recovery_archive_store_schema_mismatch")
+            else:
+                raise RetentionHold("recovery_archive_store_schema_unsupported")
     except RetentionHold:
         raise
     except (OSError, ValueError, KeyError, TypeError, EOFError, RuntimeBackupError, tarfile.TarError):
@@ -199,7 +218,8 @@ def load_protection(path: Path, *, verify_archives: bool = True) -> dict[str, An
         need(archive.is_relative_to(backup_root) and archive.parent != backup_root,
              "root_level_recovery_backup_unsupported")
         if verify_archives:
-            checked = _verified_archive(archive, single_link=False)
+            checked = _verified_archive(archive, single_link=False, recovery_backup=backup,
+                                        accepted_content_pins=value.get("accepted_content_pins"))
             need(checked["fingerprint"]["size"] == backup["size"], "recovery_backup_size_changed")
             need(checked["fingerprint"]["sha256"] == backup["sha256"], "recovery_backup_hash_changed")
             verified.append(checked)
@@ -209,16 +229,18 @@ def load_protection(path: Path, *, verify_archives: bool = True) -> dict[str, An
         backup_paths.append(str(archive))
     need(len(set(backup_paths)) == 2, "distinct_recovery_backups_required")
     live = value.get("live_binding")
-    need(isinstance(live, dict) and set(live) == {"app_id", "image", "source_sha", "mount_fingerprint", "compose_fingerprint", "healthy", "copilot"},
+    need(isinstance(live, dict) and set(live) == {"app_id", "image", "source_sha", "mount_fingerprint", "compose_fingerprint", "config_fingerprint", "healthy", "copilot"},
          "live_recovery_binding_required")
     need(bool(DIGEST.fullmatch(str(live.get("app_id", ""))))
          and bool(DIGEST.fullmatch(str(live.get("mount_fingerprint", ""))))
          and bool(DIGEST.fullmatch(str(live.get("compose_fingerprint", ""))))
+         and bool(DIGEST.fullmatch(str(live.get("config_fingerprint", ""))))
          and live.get("healthy") is True, "live_recovery_binding_invalid")
     node = live.get("copilot") or {}
-    need(set(node) == {"container_id", "image", "healthy", "network_mode"}
+    need(set(node) == {"container_id", "image", "healthy", "network_mode", "config_fingerprint"}
          and bool(DIGEST.fullmatch(str(node.get("container_id", ""))))
          and bool(IMAGE.fullmatch(str(node.get("image", "")))) and node.get("healthy") is True
+         and bool(DIGEST.fullmatch(str(node.get("config_fingerprint", ""))))
          and node.get("network_mode") == "container:" + live["app_id"], "live_copilot_binding_invalid")
     for item in protected:
         need(isinstance(item, dict) and item.get("kind") in {"file", "directory"}, "protection_path_kind_invalid")
@@ -293,8 +315,19 @@ def load_protection(path: Path, *, verify_archives: bool = True) -> dict[str, An
          and ledger.get("previous_image") == previous["image"]
          and live.get("image") == current["image"] and live.get("source_sha") == current["source_sha"],
          "recovery_ledger_identity_mismatch")
+    _accepted_proof(value)
+    # These content seals originate in the accepted ledger's immutable proof,
+    # rather than a new fingerprint of whatever configuration exists today.
+    protected.extend({"path": row["path"], "kind": "file"} for row in value["accepted_content_pins"])
     return {"path": str(path), "sha256": sha(body), "value": value, "protected_paths": protected,
             "current": current, "previous": previous, "verified_backups": verified}
+
+
+def _accepted_proof(value: dict) -> None:
+    try:
+        validate_accepted_recovery_proofs(value)
+    except StorageRecoveryError as error:
+        raise RetentionHold(str(error)) from None
 
 
 def _binding(protection: dict, provider: Callable[[], dict] | None) -> None:
@@ -446,12 +479,14 @@ def create_plan(archive_roots: list[Path], protection_manifest: Path, *, policy:
             continue
         candidates.append({**checked, "checksum_sidecar": sidecar})
         total += checked["fingerprint"]["size"]
+    _accepted_proof(protection["value"])
     _binding(protection, binding_provider)
     need(sha(read(Path(protection["value"]["ledger_path"]))) == protection["value"]["ledger_sha256"], "release_ledger_changed")
     return {"version": 1, "state": "planned", "created_at": current_time.isoformat(), "policy": asdict(policy),
             "archive_roots": [str(root) for root in roots], "protection_manifest": str(protection_manifest),
             "protection_manifest_sha256": protection["sha256"], "ledger_path": protection["value"]["ledger_path"],
             "ledger_sha256": protection["value"]["ledger_sha256"], "recovery_sets_verified": True,
+            "accepted_content_pins": protection["value"]["accepted_content_pins"],
             "protected_backup_pins": protection["verified_backups"], "protected_file_pins": protected_file_pins, "retained": retained,
             "candidates": candidates, "candidate_bytes": total, "deferred": deferred, "held": held}
 
@@ -542,6 +577,8 @@ def apply_plan(plan_bytes: bytes, expected_sha256: str, *, binding_provider: Cal
     protection = load_protection(protection_path)
     need(protection["value"]["ledger_path"] == plan["ledger_path"]
          and protection["value"]["ledger_sha256"] == plan["ledger_sha256"], "plan_recovery_binding_mismatch")
+    need(plan.get("accepted_content_pins") == protection["value"]["accepted_content_pins"],
+         "plan_accepted_content_pins_mismatch")
     _binding(protection, binding_provider)
     expected_file_names = {item["path"] for item in protection["protected_paths"] if item["kind"] == "file"} - {
         row["path"] for row in protection["verified_backups"]}
@@ -589,6 +626,8 @@ def apply_plan(plan_bytes: bytes, expected_sha256: str, *, binding_provider: Cal
                 need(Path(sidecar["path"]) == path.with_suffix(path.suffix + ".sha256"), "sidecar_path_invalid")
                 _same_fingerprint(Path(sidecar["path"]), sidecar["fingerprint"])
             need(open_file_guard is None or not open_file_guard(path), "archive_in_use_preserved")
+            _accepted_proof(protection["value"])
+            _binding(protection, binding_provider)
             if event_callback:
                 event_callback({"event": "retirement_intent", "path": str(path), "sha256": row["fingerprint"]["sha256"]})
             _unlink_pinned(path, row["fingerprint"])
@@ -597,6 +636,8 @@ def apply_plan(plan_bytes: bytes, expected_sha256: str, *, binding_provider: Cal
             if event_callback:
                 event_callback({"event": "archive_retired", **result})
             if sidecar:
+                _accepted_proof(protection["value"])
+                _binding(protection, binding_provider)
                 _unlink_pinned(Path(sidecar["path"]), sidecar["fingerprint"])
         except Exception as error:
             held.append({"path": str(path), "reason": str(error) if isinstance(error, RetentionHold) else "retirement_guard_held"})
