@@ -189,15 +189,33 @@ def rotate_backups(
     }
 
 
-def _validated_members(tar: tarfile.TarFile) -> tuple[dict[str, Any], dict[str, tarfile.TarInfo]]:
-    members = {member.name: member for member in tar.getmembers()}
+def _validated_members(
+    tar: tarfile.TarFile,
+    *,
+    maximum_manifest_bytes: int | None = None,
+    maximum_members: int | None = None,
+) -> tuple[dict[str, Any], dict[str, tarfile.TarInfo]]:
+    for name, limit in (("maximum_manifest_bytes", maximum_manifest_bytes), ("maximum_members", maximum_members)):
+        if limit is not None and (type(limit) is not int or limit < 1):
+            raise RuntimeBackupError(f"{name} must be a positive integer")
+    members: dict[str, tarfile.TarInfo] = {}
+    for count, member in enumerate(tar, start=1):
+        if maximum_members is not None and count > maximum_members:
+            raise RuntimeBackupError("backup exceeds maximum member count")
+        members[member.name] = member
     manifest_member = members.get("MANIFEST.json")
     if manifest_member is None or not manifest_member.isfile():
         raise RuntimeBackupError("backup has no MANIFEST.json")
+    if maximum_manifest_bytes is not None and manifest_member.size > maximum_manifest_bytes:
+        raise RuntimeBackupError("backup manifest exceeds maximum bytes")
     handle = tar.extractfile(manifest_member)
     if handle is None:
         raise RuntimeBackupError("backup manifest cannot be read")
-    manifest = json.loads(handle.read().decode("utf-8"))
+    with handle:
+        manifest_bytes = handle.read() if maximum_manifest_bytes is None else handle.read(maximum_manifest_bytes + 1)
+    if maximum_manifest_bytes is not None and len(manifest_bytes) > maximum_manifest_bytes:
+        raise RuntimeBackupError("backup manifest exceeds maximum bytes")
+    manifest = json.loads(manifest_bytes.decode("utf-8"))
     if manifest.get("format_version") != BACKUP_FORMAT_VERSION:
         raise RuntimeBackupError("unsupported backup format version")
     expected = {entry["path"]: entry for entry in manifest.get("files", [])}
@@ -210,15 +228,28 @@ def _validated_members(tar: tarfile.TarFile) -> tuple[dict[str, Any], dict[str, 
     return manifest, members
 
 
-def verify_backup(archive: Path) -> dict[str, Any]:
+def verify_backup(
+    archive: Path,
+    *,
+    maximum_manifest_bytes: int | None = None,
+    maximum_members: int | None = None,
+) -> dict[str, Any]:
     with tarfile.open(archive, "r:gz") as tar:
-        manifest, members = _validated_members(tar)
+        manifest, members = _validated_members(
+            tar, maximum_manifest_bytes=maximum_manifest_bytes, maximum_members=maximum_members,
+        )
         for entry in manifest["files"]:
             member = members.get(entry["path"])
             if member is None or not member.isfile() or member.size != entry["size"]:
                 raise RuntimeBackupError(f"missing or size-mismatched member: {entry['path']}")
             handle = tar.extractfile(member)
-            if handle is None or hashlib.sha256(handle.read()).hexdigest() != entry["sha256"]:
+            if handle is None:
+                raise RuntimeBackupError(f"checksum mismatch: {entry['path']}")
+            digest = hashlib.sha256()
+            with handle:
+                for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                    digest.update(chunk)
+            if digest.hexdigest() != entry["sha256"]:
                 raise RuntimeBackupError(f"checksum mismatch: {entry['path']}")
         return manifest
 

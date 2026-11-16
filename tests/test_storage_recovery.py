@@ -307,7 +307,8 @@ def test_previous_discovery_follows_accepted_receipt_hash_not_image_uniqueness(t
 
 @pytest.mark.skipif(os.name == 'nt', reason='Production collector uses POSIX host paths')
 def test_collector_verifies_real_small_archives_and_refuses_lost_dependency(tmp_path, monkeypatch):
-    from app.services.runtime_backup import create_backup
+    from app.services.runtime_backup import create_backup, verify_backup
+    from app.services import runtime_backup
     from app.services import storage_recovery
 
     monkeypatch.setattr(storage_recovery, '_verify_image_set', lambda expected: [
@@ -347,7 +348,14 @@ def test_collector_verifies_real_small_archives_and_refuses_lost_dependency(tmp_
             'new_ledger_sha256': hashlib.sha256(encoded(ledger)).hexdigest()}))
     for name in ['deploy/base.yml', 'deploy/.env', 'old-release/override.json']:
         path = tmp_path / name; path.parent.mkdir(exist_ok=True); path.write_bytes(b'fixture')
+    bounded_calls = []
+    def bounded_verify(path, **limits):
+        assert limits == {'maximum_manifest_bytes': 16 * 1024**2, 'maximum_members': 100001}
+        bounded_calls.append(path)
+        return verify_backup(path, **limits)
+    monkeypatch.setattr(runtime_backup, 'verify_backup', bounded_verify)
     manifest = collect_recovery_manifest(ledger_path, tmp_path / 'backups', arguments['app_inspection'])
+    assert len(bounded_calls) == 2
     assert all(row['backup']['verified'] and row['backup']['manifest_file_count'] == 2
                for row in manifest['recovery_sets'])
     assert len(manifest['protected_image_provenance']) == len(manifest['protected_images'])

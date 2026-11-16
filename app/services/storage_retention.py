@@ -153,7 +153,7 @@ def _verified_archive(path: Path, expected_time: datetime | None = None, *, sing
             for block in iter(lambda: stream.read(1024 * 1024), b""):
                 expanded += len(block)
                 need(expanded <= MAX_EXPANDED_ARCHIVE_BYTES, "expanded_archive_limit_preserved")
-        manifest = verify_backup(path)
+        manifest = verify_backup(path, maximum_manifest_bytes=16 * 1024**2, maximum_members=100_001)
         need(manifest.get("format_version") == 1 and set(manifest.get("scope", [])) == {"data", "inbox"},
              "unknown_archive_format_preserved")
         created = timestamp(manifest["created_at"])

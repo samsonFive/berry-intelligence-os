@@ -325,7 +325,7 @@ def _archive_proof(path: Path, receipt: dict, receipt_path: Path) -> dict:
             h.update(block)
     _need(h.hexdigest() == receipt['sha256'], 'protected_archive_digest_mismatch')
     try:
-        manifest = verify_backup(path)
+        manifest = verify_backup(path, maximum_manifest_bytes=16 * 1024**2, maximum_members=100001)
         with gzip.open(path, 'rb') as stream:
             for _block in iter(lambda: stream.read(4 * 1024**2), b''):
                 pass

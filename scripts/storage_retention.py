@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from contextlib import ExitStack
 from datetime import datetime, timezone
 import json
@@ -138,6 +139,25 @@ def _history(path: Path, event: dict, *, maximum_bytes: int = 1024**2) -> None:
         os.close(parent)
 
 
+def _unresolved_intent_count(record: dict) -> int:
+    """Match outcomes in order; a state label alone cannot close an intent."""
+    events = record.get("events")
+    if not isinstance(events, list):
+        return 1
+    pending = Counter()
+    for event in events:
+        if not isinstance(event, dict) or not isinstance(event.get("path"), str) or not isinstance(event.get("sha256"), str):
+            return 1
+        key = (event["path"], event["sha256"])
+        if event.get("event") == "retirement_intent":
+            pending[key] += 1
+        elif event.get("event") == "archive_retired" and pending[key] > 0:
+            pending[key] -= 1
+        else:
+            return 1
+    return sum(pending.values())
+
+
 def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes) -> tuple[dict, int]:
     """All metadata/status/history writes happen while the caller holds 3 locks."""
     roots = [Path(value) for value in config["archive_roots"]]
@@ -151,6 +171,7 @@ def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes)
         protection = load_protection(args.protection, verify_archives=False)["value"]
     _validate_outputs(args, config, protection)
     previous = json.loads(_private_file(args.status_file)) if args.status_file.exists() else {}
+    intents_path = STATE_DIR / "retention-intents.json"
 
     def binding_with_images():
         try:
@@ -160,6 +181,12 @@ def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes)
         return _live_binding()
 
     try:
+        # This admission check precedes protection/plan/history replacement in
+        # every mode, including a dry run. Never erase a prior uncertain unlink.
+        if intents_path.exists():
+            old_intents = json.loads(_private_file(intents_path))
+            need(old_intents.get("state") in {"complete", "partial", "held"}
+                 and _unresolved_intent_count(old_intents) == 0, "unfinished_retirement_requires_review")
         if args.refresh_protection:
             _write(args.protection, protection)
         if args.apply and not args.refresh_protection:
@@ -178,12 +205,8 @@ def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes)
              and plan["protection_manifest"] == str(args.protection)
              and plan.get("policy_file_sha256") == sha(policy_body), "plan_policy_binding_changed")
         need(sha(plan_bytes) == digest, "plan_sha256_mismatch")
-        intents_path = STATE_DIR / "retention-intents.json"
         history_path = STATE_DIR / "retention-history.jsonl"
         if args.apply:
-            if intents_path.exists():
-                old_intents = json.loads(_private_file(intents_path))
-                need(old_intents.get("state") in {"complete", "partial", "held"}, "unfinished_retirement_requires_review")
             intents = {"version": 1, "state": "started", "plan_sha256": digest, "events": []}
             _history(history_path, {"event": "run_started", "plan_sha256": digest, "ledger_sha256": plan["ledger_sha256"],
                                     "at": datetime.now(timezone.utc).isoformat(), "policy": plan["policy"]})
@@ -196,9 +219,17 @@ def _run_locked(args, config: dict, policy: RetentionPolicy, policy_body: bytes)
 
             result = apply_plan(plan_bytes, digest, binding_provider=binding_with_images, event_callback=event,
                                 open_file_guard=archive_open_file)
-            intents["state"] = result["state"]
-            _write(intents_path, intents)
+            unresolved = _unresolved_intent_count(intents)
+            intents["state"] = "needs_review" if unresolved else result["state"]
+            if unresolved:
+                _write(intents_path, intents)
+                result.update({"state": "held", "reason": "unfinished_retirement_requires_review",
+                               "retirement_outcome_uncertain": True, "unresolved_intent_count": unresolved})
             _history(history_path, {"event": "run_finished", **result})
+            if not unresolved:
+                # Close the marker only after the durable run outcome exists.
+                # A history failure leaves the on-disk started marker intact.
+                _write(intents_path, intents)
             status = {**result, "mode": "apply", "last_success_at": result["checked_at"] if result["state"] == "complete" else previous.get("last_success_at")}
         else:
             status = {"version": 1, "state": "planned", "mode": "dry_run", "checked_at": datetime.now(timezone.utc).isoformat(),

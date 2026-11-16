@@ -183,3 +183,83 @@ def test_rotation_refuses_backup_inside_runtime(tmp_path: Path) -> None:
     (runtime / "inbox").mkdir(parents=True)
     with pytest.raises(RuntimeBackupError, match="outside"):
         rotate_backups(runtime, runtime / "backups")
+
+
+@pytest.mark.parametrize("bounded_metadata", [False, True])
+def test_verification_streams_body_checksums_and_returns_identical_manifest(tmp_path: Path, monkeypatch, bounded_metadata) -> None:
+    runtime = tmp_path / "runtime"
+    body = b"multi-chunk-body\n" * (140 * 1024)
+    source = runtime / "data" / "large.db"
+    source.parent.mkdir(parents=True)
+    source.write_bytes(body)
+    archive = create_backup(runtime, tmp_path / "backups")
+    expected = verify_backup(archive)
+    with tarfile.open(archive, "r:gz") as tar:
+        manifest_size = tar.getmember("MANIFEST.json").size
+    original_extract = tarfile.TarFile.extractfile
+    reads = []
+
+    class GuardedRead:
+        def __init__(self, handle, name):
+            self.handle, self.name = handle, name
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.handle.close()
+
+        def read(self, size=-1):
+            reads.append((self.name, size))
+            if self.name != "MANIFEST.json":
+                assert 0 < size <= 1024 * 1024, "body must not be read without a bounded chunk size"
+            elif bounded_metadata:
+                assert 0 < size <= manifest_size + 1, "manifest must use its configured read budget"
+            return self.handle.read(size)
+
+    def extract(tar, member):
+        return GuardedRead(original_extract(tar, member), member.name)
+
+    monkeypatch.setattr(tarfile.TarFile, "extractfile", extract)
+    limits = {"maximum_manifest_bytes": manifest_size, "maximum_members": 2} if bounded_metadata else {}
+    assert verify_backup(archive, **limits) == expected
+    assert expected["files"][0]["sha256"] == hashlib.sha256(body).hexdigest()
+    assert len([name for name, _ in reads if name == "data/large.db"]) >= 4
+
+
+def test_manifest_budget_rejects_oversized_metadata_before_reading(tmp_path: Path, monkeypatch) -> None:
+    archive = legacy_locked_archive(tmp_path)
+    with tarfile.open(archive, "r:gz") as tar:
+        manifest_size = tar.getmember("MANIFEST.json").size
+
+    def unexpected_read(*args):
+        pytest.fail("oversized manifest must be rejected before extraction")
+
+    monkeypatch.setattr(tarfile.TarFile, "extractfile", unexpected_read)
+    with pytest.raises(RuntimeBackupError, match="manifest exceeds maximum bytes"):
+        verify_backup(archive, maximum_manifest_bytes=manifest_size - 1)
+
+
+def test_member_budget_stops_iteration_without_full_inventory_or_body_reads(tmp_path: Path, monkeypatch) -> None:
+    archive = legacy_locked_archive(tmp_path)
+
+    def unexpected_inventory(*args):
+        pytest.fail("bounded verification must not allocate tar.getmembers()")
+
+    monkeypatch.setattr(tarfile.TarFile, "getmembers", unexpected_inventory)
+    assert len(verify_backup(archive, maximum_members=3)["files"]) == 2
+
+    def unexpected_extract(*args):
+        pytest.fail("member limit must be checked before extraction")
+
+    monkeypatch.setattr(tarfile.TarFile, "extractfile", unexpected_extract)
+    with pytest.raises(RuntimeBackupError, match="maximum member count"):
+        verify_backup(archive, maximum_members=2)
+
+
+@pytest.mark.parametrize("name", ["maximum_manifest_bytes", "maximum_members"])
+@pytest.mark.parametrize("invalid", [0, -1, True, 1.0])
+def test_verification_rejects_invalid_optional_budgets(tmp_path: Path, name, invalid) -> None:
+    archive = legacy_locked_archive(tmp_path)
+    with pytest.raises(RuntimeBackupError, match="positive integer"):
+        verify_backup(archive, **{name: invalid})

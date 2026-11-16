@@ -627,6 +627,98 @@ def test_missing_image_provenance_and_unaccepted_receipts_hold_all_retirement(en
     assert all(path.exists() for path in old)
 
 
+def offline_cli_execution(environment, monkeypatch):
+    cli, args, config = cli_fixture(environment, monkeypatch)
+    monkeypatch.setattr(cli, "collect_recovery_manifest", lambda *_: environment["value"])
+    monkeypatch.setattr(cli, "verify_protected_image_provenance", lambda proofs: proofs)
+    monkeypatch.setattr(cli, "_live_binding", binding)
+    monkeypatch.setattr(cli, "archive_open_file", lambda _: False)
+    monkeypatch.setattr(cli, "_write", lambda path, value: path.write_bytes(encoded(value)))
+    history = []
+    monkeypatch.setattr(cli, "_history", lambda _path, event: history.append(event))
+    return cli, args, config, history
+
+
+def test_post_unlink_fsync_error_keeps_uncertain_intent_and_blocks_next_run(environment, monkeypatch):
+    import app.services.storage_retention as retention
+    env = environment
+    old = add_old(env, 3)
+    cli, args, config, history = offline_cli_execution(env, monkeypatch)
+    args.apply = True
+    original_unlink = retention._unlink_pinned
+
+    def unlink_then_fsync_error(path, expected):
+        path.unlink()
+        raise OSError("synthetic parent fsync failure after unlink")
+
+    monkeypatch.setattr(retention, "_unlink_pinned", unlink_then_fsync_error)
+    first, code = cli._run_locked(args, config, RetentionPolicy(daily=2, weekly=0, monthly=0), encoded(config))
+    assert code == 1 and first["state"] == "held" and first["retirement_outcome_uncertain"] is True
+    assert sum(path.exists() for path in old) == 2
+    intents_path = cli.STATE_DIR / "retention-intents.json"
+    unresolved = intents_path.read_bytes()
+    marker = json.loads(unresolved)
+    assert marker["state"] == "needs_review"
+    assert [event["event"] for event in marker["events"]] == ["retirement_intent"]
+    previous_plan, previous_protection = args.plan_output.read_bytes(), args.protection.read_bytes()
+    previous_history = list(history)
+    monkeypatch.setattr(retention, "_unlink_pinned", original_unlink)
+    second, code = cli._run_locked(args, config, RetentionPolicy(daily=2, weekly=0, monthly=0), encoded(config))
+    assert code == 1 and second["reason"] == "unfinished_retirement_requires_review"
+    assert intents_path.read_bytes() == unresolved
+    assert args.plan_output.read_bytes() == previous_plan and args.protection.read_bytes() == previous_protection
+    assert history == previous_history and sum(path.exists() for path in old) == 2
+
+
+@pytest.mark.parametrize("prior_state", ["held", "partial", "complete"])
+def test_unmatched_prior_intent_blocks_even_dryrun_before_plan_protection_history_writes(environment, monkeypatch, prior_state):
+    env = environment
+    old = add_old(env, 2)
+    cli, args, config, history = offline_cli_execution(env, monkeypatch)
+    args.apply = False
+    intents_path = cli.STATE_DIR / "retention-intents.json"
+    marker = {"version": 1, "state": prior_state, "plan_sha256": "d" * 64,
+              "events": [{"event": "retirement_intent", "path": str(old[0]), "sha256": sha(old[0].read_bytes())}]}
+    intents_path.write_bytes(encoded(marker))
+    args.protection.write_bytes(encoded(env["value"]))
+    args.plan_output.write_bytes(b"prior plan forensic evidence\n")
+    before = {path: path.read_bytes() for path in [intents_path, args.protection, args.plan_output]}
+    status, code = cli._run_locked(args, config, RetentionPolicy(daily=2, weekly=0, monthly=0), encoded(config))
+    assert code == 1 and status["reason"] == "unfinished_retirement_requires_review"
+    assert {path: path.read_bytes() for path in before} == before
+    assert not history and all(path.exists() for path in old)
+
+
+def test_final_history_failure_cannot_close_or_replace_retirement_marker(environment, monkeypatch):
+    env = environment
+    old = add_old(env, 2)
+    cli, args, config, history = offline_cli_execution(env, monkeypatch)
+    args.apply = True
+
+    def failing_final_history(_path, event):
+        if event["event"] == "run_finished":
+            raise OSError("synthetic final history fsync failure")
+        history.append(event)
+
+    monkeypatch.setattr(cli, "_history", failing_final_history)
+    with pytest.raises(OSError):
+        cli._run_locked(args, config, RetentionPolicy(daily=2, weekly=0, monthly=0), encoded(config))
+    assert not any(path.exists() for path in old)
+    marker_path = cli.STATE_DIR / "retention-intents.json"
+    marker_bytes = marker_path.read_bytes()
+    marker = json.loads(marker_bytes)
+    assert marker["state"] == "started"
+    assert cli._unresolved_intent_count(marker) == 0  # matched outcomes still need a durable final record
+    previous_plan, previous_protection = args.plan_output.read_bytes(), args.protection.read_bytes()
+    monkeypatch.setattr(cli, "_history", lambda _path, event: history.append(event))
+    before_history = list(history)
+    status, code = cli._run_locked(args, config, RetentionPolicy(daily=2, weekly=0, monthly=0), encoded(config))
+    assert code == 1 and status["reason"] == "unfinished_retirement_requires_review"
+    assert marker_path.read_bytes() == marker_bytes
+    assert args.plan_output.read_bytes() == previous_plan and args.protection.read_bytes() == previous_protection
+    assert history == before_history
+
+
 def test_symlink_and_hardlink_archives_never_deleted(environment):
     env = environment
     old = add_old(env, 3)

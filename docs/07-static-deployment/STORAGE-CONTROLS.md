@@ -28,7 +28,10 @@ The nested pool retains the latest verified archive in seven daily, four weekly
 and three monthly buckets. Current and previous recovery sets are additional
 pins. Files younger than 72 hours, invalid archives, unknown formats/names,
 filesystem indirection and unreferenced objects without a verified plan are
-preserved. Each invocation retires at most ten archives and 5 GiB. It never
+preserved. Host verification streams member checksums and limits manifest
+metadata to 16 MiB and the TAR inventory to 100,001 members. Inventories beyond
+those limits are held for review. Each invocation retires at most ten archives
+and 5 GiB. It never
 removes directories, Docker images, volumes or live runtime data. Small
 configuration and audit receipts remain in their original locations.
 
@@ -38,7 +41,8 @@ the protected runtime. The dry-run plan pins the ledger, protection manifest,
 policy, archive paths, identities and hashes. Explicit application of an
 existing plan requires its SHA256. The timer instead generates and applies a
 fresh plan under one lock context. Retirement intents and results are persisted;
-an incomplete operation is held for review rather than silently retried.
+an unmatched retirement intent is held for review before any later plan or
+protection metadata can replace it, including after an error following unlink.
 
 ```sh
 python3 -I -B /opt/berry-storage-controls/current/scripts/storage_retention.py \
