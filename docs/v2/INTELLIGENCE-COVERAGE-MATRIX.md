@@ -1863,3 +1863,24 @@ passed; this is not a production install or complete roster coverage. Angus,
 ABZ and Marionnet access gaps remain. No source schedule, provider spend or
 canonical intelligence was changed. See
 [supplement](BRAND-MEDIA-LOGO-SUPPLEMENT-2026-11-15.md).
+
+## November 16 global blackberry outlook — private research edition
+
+The authored 2027 brief and connected private global view cover both fruiting
+habits across five regional contexts. The local edition contains 34 genetics
+entries, 39 organizations, 26 distinct commitment records, 12 selected
+developments and 65 source references. Fourteen entries link to existing
+Blackberry variety profiles; other entries retain source-linked research
+drilldowns. These are research-package counts, not a global census, measured
+market share, source-independence count or collection-recall score.
+
+The report builds on the earlier variety collection and season comparison.
+It distinguishes commercial supply, nursery offers, licenses, reported
+cultivation, trials and platform investments. Unknown habits, supplier claims,
+forecast periods and limited source access remain explicit. Asia-Pacific and
+Middle East/Africa coverage is materially thinner than Europe, the US and
+Mexico. No canonical identity, Fact, source schedule or recurring acquisition
+was added. Related News reads the existing shared inventory. The package and
+application are locally verified; production installation remains with the
+reserved storage-migration release owner. See
+[implementation](GLOBAL-BLACKBERRY-OUTLOOK-2027.md).

@@ -4235,3 +4235,18 @@ See `UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.
 Open News source limitations (2026-11-14): WSJ public business RSS is a current metadata route, not complete publisher coverage or body access. Tochigi listing has nine undated crop leads in the reviewed input; preserve unknowns rather than guessing from filenames/page updates. Full Japanese PDF bodies, verified first-public times and scheduled route receipts remain unproven until separately evidenced. See NEWS-PUBLIC-ROUTES-2026-11-14.md.
 
 November 15 logo-coverage follow-up: a separate five-company source-reference seed now covers verified official marks for Planasa Genetics, Advanced Berry Breeding, Fresh Forward Breeding & Marketing, Fresas Nuevos Materiales and Masiá Ciscar in offline additive replay. This package is not installed in production. Angus HTTP403, ABZ hostname resolution and Marionnet connection failure remain source-access gaps; broader coverage and dated production acceptance remain open. Original media choices, cache/export holds and older-reader compatibility debt are unchanged. See [supplement](BRAND-MEDIA-LOGO-SUPPLEMENT-2026-11-15.md).
+
+### TD-BLACKBERRY-2027-001 — research refresh and installed-runtime acceptance
+
+The dated private global blackberry view is locally implemented and tested.
+Source-attributed interpretation and the live News inventory remain distinct;
+opening the page does not refresh research or poll providers. A future edition
+requires a deliberate source refresh rather than silently treating a 2026
+announcement as fulfilled 2027 production. Unresolved canonical identities use
+research drilldowns and exact cited-URL news joins; no inferred alias or growing
+footprint is written. Quantified cultivar adoption, several regions and some
+source bodies remain incomplete. Production acceptance must follow the sole
+reserved storage-migration operator's handoff, with fresh baseline reconciliation,
+private content hashes, additive report registration and authenticated route
+checks. Local validation is not production acceptance. See
+[implementation](GLOBAL-BLACKBERRY-OUTLOOK-2027.md).
