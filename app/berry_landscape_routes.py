@@ -4,10 +4,12 @@ from urllib.parse import urlencode
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse
 
+from app.blackberry_outlook_routes import router as blackberry_outlook_router
 from app.services import company_directory, global_berry_landscape as landscape
 from app.services.global_berry_coverage import public_coverage
 
 router = APIRouter()
+router.include_router(blackberry_outlook_router)
 PAGE_SIZE = 30
 
 
@@ -68,6 +70,7 @@ def global_berry_landscape(request: Request, crop: str):
     tabs = {slug: landscape_href(slug, model['query']) for slug in ('', *landscape.CROPS)}
     pages = {key: _page(model, key, request.query_params, path) for key in ('companies', 'footprint', 'relationships', 'events')}
     strategy = None
+    from app.services.blackberry_global_outlook import available as blackberry_outlook_available
     if main.AUTHORING_MODE:
         from app.berry_strategy_routes import panel
         strategy = panel(main, model)
@@ -78,4 +81,5 @@ def global_berry_landscape(request: Request, crop: str):
         'event_types': landscape.EVENT_TYPES, 'footprint_types': landscape.FOOTPRINT_TYPES,
         'directory_sorts': landscape.DIRECTORY_SORTS, 'authoring_mode': main.AUTHORING_MODE,
         'strategy': strategy,
+        'blackberry_outlook_available': bool(main.AUTHORING_MODE and crop == 'blackberry' and blackberry_outlook_available(main.INBOX_DIR)),
     })

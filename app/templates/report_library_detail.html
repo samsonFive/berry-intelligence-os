@@ -10,6 +10,7 @@
       <p class="v2-meta">{{ report.subtitle }} · {{ report.published_date|us_date }} · {{ report.page_count }} pages</p>
     </div>
     <div class="sh-actions">
+      {% if report.id == 'global-blackberry-outlook-2027' %}<a class="sh-btn" href="/landscapes/global/blackberry/2027">Explore the global blackberry view</a>{% endif %}
       <a class="sh-btn" href="{{ report.html_href }}" target="_blank" rel="noopener">Open full page</a>
       <a class="sh-btn sh-btn-primary" href="{{ report.download_href }}" download>Download PDF</a>
       {% if report.xlsx_download_href %}<a class="sh-btn" href="{{ report.xlsx_download_href }}" download>Download Excel</a>{% endif %}

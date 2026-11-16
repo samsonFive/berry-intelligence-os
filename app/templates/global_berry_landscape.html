@@ -54,6 +54,13 @@
     {% endfor %}
   </nav>
 
+  {% if blackberry_outlook_available %}
+  <section class="landscape-panel">
+    <header><h2>Blackberry outlook for 2027</h2><a class="green-button" href="/landscapes/global/blackberry/2027">Open the global product view ↗</a></header>
+    <p>Explore notable primocane and floricane genetics, company commitments, regional implications and the latest linked news. Read the accompanying global research brief.</p>
+  </section>
+  {% endif %}
+
   <form method="get" action="{{ path }}" class="landscape-customize" aria-label="Landscape filters">
     <div class="landscape-filters">
       {% for field, label, choices, all_label in [('region','Macroregion',regions,'Worldwide'), ('role','Value-chain role',roles,'All roles'), ('event_type','Milestone type',event_types,'All types')] %}
