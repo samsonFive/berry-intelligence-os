@@ -318,3 +318,19 @@ jobs:
       - name: Run complete deterministic suite
         if: needs.change-scope.outputs.docs-only != 'true'
         run: python -m pytest -q
+      - name: Exercise host controls with Linux root permissions in isolated fixtures
+        if: needs.change-scope.outputs.docs-only != 'true'
+        shell: bash
+        run: |
+          sudo -- "$(command -v python)" -m pytest -q \
+            --basetemp "$RUNNER_TEMP/storage-controls-root" \
+            tests/test_storage_recovery.py tests/test_storage_retention.py \
+            tests/test_storage_monitor.py tests/test_storage_controls_units.py
+      - name: Validate host service and timer units
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: >-
+          systemd-analyze verify
+          deploy/systemd/bios-storage-monitor.service
+          deploy/systemd/bios-storage-monitor.timer
+          deploy/systemd/bios-storage-retention.service
+          deploy/systemd/bios-storage-retention.timer

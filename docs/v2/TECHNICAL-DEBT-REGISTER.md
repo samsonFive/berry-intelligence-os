@@ -1,3 +1,22 @@
+# Host storage retention and monitoring — November 16, 2026
+
+The host-control candidate bounds nested release/rehearsal archive history,
+protects the accepted current and previous recovery dependency sets, and adds
+disk/inode status, alert deduplication and log limits. Its source and fixture
+checks do not replace coordinated activation and post-cutover recovery checks;
+the current release owner's stricter capacity floor remains binding. Direct-root
+daily rotation continues separately. See
+[the operations contract](../07-static-deployment/STORAGE-CONTROLS.md).
+
+Verified off-host replication and restore exercises remain an operations
+follow-up. Local retention and local Codex chat notifications do not provide
+recovery from loss of the host; scheduled chat checks require the computer and
+app to be online. Capacity planning must include the backup, restored-copy
+rehearsal and startup working sets rather than application data alone.
+Unpacked restored copies and build workspaces are outside archive retention.
+Their creation and retirement still need a bounded release-workspace lifecycle;
+operators must verify the exact unused copies before removing them.
+
 # Private Strategy inputs — November 11, 2026
 
 The Strategy input candidate closes the missing private capability-input workflow

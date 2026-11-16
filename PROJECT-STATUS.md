@@ -1,5 +1,21 @@
 # Berry Intelligence — current mission status
 
+## Host storage controls — November 16 candidate
+
+Host-only backup retention, disk/inode monitoring and bounded journal/container
+logging are prepared for a coordinated operations release. Nested archive
+retention preserves verified current and previous recovery dependencies, uses
+the existing three release locks, and applies bounded, hash-pinned plans.
+The existing fourteen direct-root daily backups retain their separate rotation.
+Monitoring publishes a safe operational status and deduplicated condition,
+recovery and reminder events. External delivery remains opt-in.
+
+This source status does not claim host activation or a completed Docker
+recreation. The deployment owner must hand over the server window, preserve the
+actual stricter capacity reserve, and rebaseline the accepted recovery sets.
+Private operational receipts record activation and remaining capacity. See
+[the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
+
 **Cultivar planting evidence integration (15 November 2026):** The final regional
 report, platform audit and Excel workbook are now in the private Reports library;
 all prior readers/files were preserved. A generic source-bound cultivar research

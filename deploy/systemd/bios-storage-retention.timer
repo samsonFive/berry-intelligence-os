@@ -1,0 +1,12 @@
+[Unit]
+Description=Bound backup history every six hours
+
+[Timer]
+OnCalendar=*-*-* 03,09,15,21:17:00 America/Los_Angeles
+RandomizedDelaySec=10min
+AccuracySec=1min
+Persistent=true
+Unit=bios-storage-retention.service
+
+[Install]
+WantedBy=timers.target
