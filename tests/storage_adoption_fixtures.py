@@ -12,8 +12,11 @@ from pathlib import Path
 
 from storage_recovery_fixtures import encoded
 
+_NO_TRANSITION = object()
 
-def adoption_environment(environment, *, native_kind=None, logos=False, prepared=False, inventory=False):
+
+def adoption_environment(environment, *, native_kind=None, logos=False, prepared=False, inventory=False,
+                         recovery_transition=_NO_TRANSITION):
     import app.services.storage_recovery as recovery
 
     env = dict(environment)
@@ -62,7 +65,8 @@ def adoption_environment(environment, *, native_kind=None, logos=False, prepared
     recipe['transformation_proof'] = source['transformation_proof']
     replace(source['recovery_recipe'], recipe)
 
-    extension = _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, inventory=inventory) if logos else {}
+    extension = _logo_extension(env, wrapper, plan, proof, phase, write, replace, private,
+        inventory=inventory, recovery_transition=recovery_transition) if logos else {}
     if prepared:
         extension['native_verified_receipt']['sha256'] = _prepared_original(env, wrapper, proof, phase, write, replace)['sha256']
     verification = write(private / 'timestamp-receiver-complete.private.json', {
@@ -193,7 +197,8 @@ def _prepared_original(env, wrapper, proof, phase, write, replace):
     return native_ref
 
 
-def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, *, inventory=False):
+def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, *, inventory=False,
+                    recovery_transition=_NO_TRANSITION):
     """Actual extended-logo producer field shapes, with fictional artifact bytes."""
     from datetime import datetime, timezone
     from app.services import storage_recovery as recovery
@@ -227,8 +232,10 @@ def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, *
     plan['modules'].update(logo_seed=module, preservation=preservation_module)
     preservation = write(private / 'original-preservation-completion.json', {'state': 'passed',
         'image': plan['candidate_image'], 'program_sha256': preservation_module['sha256']})
-    plan['proofs']['rehearsal'] = write(private / 'rehearsal-admission.json', {
-        'native_evidence': {'rehearsal': {'path': 'C:\\fictional-original\\completion.json', 'sha256': preservation['sha256']}}})
+    admission = {'native_evidence': {'rehearsal': {'path': 'C:\\fictional-original\\completion.json', 'sha256': preservation['sha256']}}}
+    if recovery_transition is not _NO_TRANSITION:
+        admission['recovered_production_binding'] = recovery_transition
+    plan['proofs']['rehearsal'] = write(private / 'rehearsal-admission.json', admission)
     # All six original core admissions remain distinct from this auxiliary copy.
     for name in ('image', 'ci', 'prior_archive', 'barrier'):
         plan['proofs'][name] = write(private / (name + '-admission.json'), {'fixture': name})

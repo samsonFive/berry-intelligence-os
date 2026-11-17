@@ -80,6 +80,18 @@ def test_adoption_profile_refuses_manufactured_native_operation_kind(accepted_en
         adoption_environment(accepted_environment, native_kind='unified-migration')
 
 
+@pytest.mark.parametrize('transition', [None, {
+    'execution': {'path': '/opt/fictional/operator-private/transition-execution.json', 'sha256': '9' * 64},
+    'proof': {'path': '/opt/fictional/operator-private/transition-proof.json', 'sha256': '8' * 64},
+}])
+def test_fully_sealed_adoption_cannot_ignore_an_unsupported_recovered_pair_admission(accepted_environment, transition):
+    # The fixture seals the admission, native plan/finalproof/phase, historical
+    # origin, adoption descriptor and both promotion receipts before collection.
+    # A future declaration remains unsupported even when its value is null.
+    with pytest.raises(recovery.StorageRecoveryError, match='accepted_recovery_transition_unsupported'):
+        adoption_environment(accepted_environment, logos=True, recovery_transition=transition)
+
+
 def test_adoption_cannot_change_runtime_or_lie_about_receipt_lineage(adopted):
     state = _memory_state(adopted)
     baseline = copy.deepcopy(state['bodies'])

@@ -27,6 +27,8 @@ Configuration comparisons also bind generated sidecar hostnames to the actual
 app namespaces and compare complete bind specifications independent of order.
 Explicit original environment-file provenance remains required for cutover and
 rollback; native execution and interruption qualification remain open.
+The proposed recovered-binding transition is explicitly held until its genuine
+final producer packet has a supported profile and complete dependency closure.
 Private operational receipts record activation and remaining capacity. See
 [the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
 

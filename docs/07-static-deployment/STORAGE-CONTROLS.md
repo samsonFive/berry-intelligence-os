@@ -76,6 +76,12 @@ metadata receipt; runtime stage, images, source, configuration, current containe
 identities and logical previous release remain unchanged. Unknown producer
 profiles and unsupported extensions remain held for review.
 
+The recovered-production-binding transition extension is held until a supported
+profile validates its final genuine execution and dependency closure. Historical
+container identities or rollback observations must not be relabeled as current
+state; a sealed admission document alone does not establish support for a new
+transition schema.
+
 Both distinct recovery archives, full native content/store/rollback provenance
 and the supported image-bound replay evidence are still required. Reuse an
 already verified compatible previous archive in place. A local copy or a source

@@ -35,6 +35,10 @@ checks both app namespaces, full bind strings/options/multiplicity and effective
 mounts while retaining exact environment provenance. The private Compose path
 must preserve the original ordered, protected environment-file arguments during
 cutover and rollback. Actual native cutover/interruption proof remains open.
+The proposed recovered-production-binding transition is unsupported and held;
+its final native execution/immutable historical ledger/raw-snapshot closure must
+be evaluated before adding an explicit profile. Original producer artifacts and
+historical observations must remain unchanged.
 
 Verified off-host replication and restore exercises remain an operations
 follow-up. Local retention and local Codex chat notifications do not provide

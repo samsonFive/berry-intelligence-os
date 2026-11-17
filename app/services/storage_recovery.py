@@ -1668,6 +1668,11 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
     extra = {'timestamp_completion', 'timestamp_dependencies', 'live_base_dependency', 'logo_supplement'} if logos else set()
     _need(isinstance(recovery, dict) and set(recovery) == required | extra, 'accepted_recovery_dependencies_missing')
     native = files.json(recovery['baseline']); plan = files.json(wrapper['plan'])
+    admission_refs = plan.get('proofs') or {}
+    if isinstance(admission_refs, dict) and 'rehearsal' in admission_refs:
+        admission = files.json(admission_refs['rehearsal'])
+        _need('recovered_production_binding' not in admission, 'accepted_recovery_transition_unsupported')
+        del admission
     phase = files.json(recovery['phase_receipt']); proof = files.json(recovery['final_proof'])
     if adoption is not None:
         _need('operation_kind' not in plan and 'operation_kind' not in proof
