@@ -6,6 +6,7 @@ never reads environment values into its output and never removes anything.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import ast
 import gzip
 import hashlib
 import json
@@ -27,6 +28,9 @@ _HEX = re.compile(r'[a-f0-9]{64}\Z')
 _SOURCE = re.compile(r'[a-f0-9]{40}\Z')
 _IMAGE = re.compile(r'sha256:[a-f0-9]{64}\Z')
 RECOVERY_PROOF_SCHEMA = 'berry.recovery-proof.v1'
+ADOPTION_SCHEMA = 'berry.recovery-adoption.v1'
+ADOPTION_PROFILE = 'frozen-590-extended-snapshot.v1'
+ADOPTION_LOGO_PROFILE = 'frozen-590-extended-logos.v1'
 _BEFORE_NAMES = frozenset({
     'old-ledger.bytes', 'ledger-before.bytes', 'report-library-ledger-before.bytes',
     'ledger-before.json', 'current-before.json',
@@ -447,13 +451,17 @@ class _AcceptedFiles:
         self.read_file, self.stat_file, self.pins, self.private_paths = read_file, stat_file or _safe, {}, set()
         self.absent_paths = set()
 
-    def file(self, ref: dict, *, private=False, parse=False) -> bytes | None:
+    def file(self, ref: dict, *, private=False, parse=False, maximum_bytes=None) -> bytes | None:
         _need(isinstance(ref, dict) and set(ref) in ({'path', 'sha256'}, {'path', 'sha256', 'mode'}), 'accepted_file_reference_invalid')
         name = _host_path(ref['path']); path = Path(name)
         _need(isinstance(ref['sha256'], str) and _HEX.fullmatch(ref['sha256']), 'accepted_file_reference_invalid')
         before = self.stat_file(path)
         mode = stat.S_IMODE(before.st_mode)
         maximum = 4 * 1024**2 if parse else 256 * 1024**2
+        if maximum_bytes is not None:
+            _need(type(maximum_bytes) is int and 0 < maximum_bytes <= 32 * 1024**2 and parse,
+                  'accepted_parse_budget_invalid')
+            maximum = maximum_bytes
         _need(stat.S_ISREG(before.st_mode) and getattr(before, 'st_nlink', 1) == 1
               and before.st_size <= maximum and not mode & 0o022,
               'accepted_file_permissions_or_bound_invalid')
@@ -501,8 +509,8 @@ class _AcceptedFiles:
         self.pins[name] = pin
         return body
 
-    def json(self, ref: dict, *, private=True) -> dict:
-        return _parsed(self.file(ref, private=private, parse=True))
+    def json(self, ref: dict, *, private=True, maximum_bytes=None) -> dict:
+        return _parsed(self.file(ref, private=private, parse=True, maximum_bytes=maximum_bytes))
 
     def reread(self):
         expected = list(self.pins.values())
@@ -611,7 +619,7 @@ def _logging_pair(before: dict, after: dict, log_config: dict) -> None:
         _need(a == b, 'configuration_only_runtime_changed')
 
 
-def _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files):
+def _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files, backup_root):
     from copy import deepcopy
     _need(proof.get('pair_snapshots') == wrapper['snapshots']
           and all(proof.get('configuration_post', {}).get(name) == wrapper['configuration']['post'][name]
@@ -619,8 +627,15 @@ def _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files):
     inherited = proof.get('inherited_storage_recovery') or {}
     _need(inherited.get('kind') == 'inherited-active-unified-store', 'configuration_only_storage_unproven')
     origin = files.json(inherited.get('origin_proof'))
-    _need(origin.get('state') == 'recovery-prepared' and origin.get('operation_kind') == 'unified-migration',
-          'configuration_only_origin_unproven')
+    context = None
+    if inherited.get('native_origin') is not None:
+        context = _load_accepted_closure_checked(None, backup_root, read_file=files.read_file,
+            stat_file=files.stat_file, native_wrapper_ref=inherited['native_origin'], shared_files=files)
+        _need(context['wrapper']['recovery_files']['final_proof'] == inherited.get('origin_proof')
+              and context['native_proof'] == origin, 'configuration_only_origin_unproven')
+    else:
+        _need(origin.get('state') == 'recovery-prepared' and origin.get('operation_kind') == 'unified-migration',
+              'configuration_only_origin_unproven')
     for source, target in [('raw_plan', 'raw_plan'), ('raw_manifest', 'raw_manifest')]:
         _need(inherited.get(source) == recovery[target], 'configuration_only_storage_unproven')
     legacy = inherited.get('legacy_promotion_manifest') or {}
@@ -690,6 +705,9 @@ def _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files):
     normalized['raw_backup_seals'] = {'PLAN.private.json': inherited['raw_plan']['sha256'], 'MANIFEST.json': inherited['raw_manifest']['sha256']}
     normalized['legacy_promotion_manifest'] = legacy
     normalized['_accepted_caddy'] = new_caddy
+    if context is not None:
+        normalized['_accepted_native_directories'] = context['required_directories']
+        normalized['_accepted_native_images'] = context['images']
     return normalized, inherited.get('rollback_modules'), origin
 
 
@@ -768,28 +786,343 @@ def _load_accepted_closure(ledger_path: Path, backup_root: Path, *, older_path=N
         raise StorageRecoveryError('accepted_recovery_proof_invalid') from None
 
 
-def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, older_path=None, read_file=None, stat_file=None) -> dict:
-    files = _AcceptedFiles(read_file, stat_file)
-    raw = (read_file or _read)(ledger_path, 4 * 1024**2)
-    ledger = _parsed(raw); current = _identity(ledger)
-    files.file({'path': str(ledger_path), 'sha256': _sha(raw)}, private=True)
-    pointer = ledger.get('recovery_proof')
-    _need(isinstance(pointer, dict) and set(pointer) == {'schema', 'path', 'sha256'}
-          and pointer['schema'] == RECOVERY_PROOF_SCHEMA, 'accepted_recovery_proof_missing')
-    wrapper_ref = {key: pointer[key] for key in ('path', 'sha256')}
-    _need(Path(_host_path(pointer['path'])).is_relative_to(Path(current['stage'])), 'accepted_recovery_proof_outside_stage')
-    wrapper = files.json(wrapper_ref)
-    _need(set(wrapper) == {'schema', 'operation_kind', 'operation_nonce', 'current', 'previous_ledger', 'plan', 'snapshots',
-                          'configuration', 'recovery_files', 'protected_dirs', 'archives', 'images'}
+def _pin_references(value, files):
+    """Authenticate producer-declared reference trees without parsing inventories."""
+    if isinstance(value, dict):
+        if 'path' in value and 'sha256' in value:
+            files.file({key: value[key] for key in ('path', 'sha256')})
+        else:
+            for item in value.values():
+                _pin_references(item, files)
+    elif isinstance(value, list):
+        for item in value:
+            _pin_references(item, files)
+
+
+def _accepted_before(ledger, expected_sha, files):
+    """Resolve bounded historical metadata with the same injected reader."""
+    matches = []
+    for folder in _metadata_folders(Path(_host_path(ledger['stage']))):
+        for name in sorted(_BEFORE_NAMES):
+            path = folder / name
+            if not path.exists() and not path.is_symlink():
+                continue
+            try:
+                reader = files.read_file
+                if reader is not None and hasattr(reader, 'handles') and not reader.handles(path):
+                    reader = None
+                body = (reader or _read)(path, 4 * 1024**2)
+            except FileNotFoundError:
+                continue
+            if _sha(body) == expected_sha:
+                files.file({'path': str(path), 'sha256': expected_sha}, private=True, parse=True)
+                _need(_identity(_parsed(body))['image'] == ledger.get('previous_image'), 'accepted_previous_image_mismatch')
+                matches.append(path)
+    _need(matches and len(matches) <= 32, 'previous_ledger_not_found')
+    return matches[0]
+
+
+def _logo_constants(ref, files):
+    """Read literal protocol constants from authenticated code without executing it."""
+    body = files.file(ref, parse=True, maximum_bytes=1024**2)
+    names = {'SOURCE', 'SEED_SHA', 'INDEX', 'EXPECTED', 'CHOICES'}
+    values = {}
+    try:
+        for node in ast.parse(body).body:
+            if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+                name = node.targets[0].id
+                if name in names:
+                    _need(name not in values, 'accepted_logo_protocol_unsupported')
+                    values[name] = ast.literal_eval(node.value)
+    except (SyntaxError, ValueError, TypeError, RecursionError):
+        raise StorageRecoveryError('accepted_logo_protocol_unsupported') from None
+    _need(set(values) == names and values['INDEX'] == 'inbox/brand_media/index.json'
+          and isinstance(values['EXPECTED'], dict) and len(values['EXPECTED']) == 5
+          and all(isinstance(key, str) and isinstance(value, str) and _HEX.fullmatch(value)
+                  for key, value in values['EXPECTED'].items())
+          and values['CHOICES'] == ('primary', 'analyst_selected', 'rejected', 'match_status', 'policy', 'object_ref')
+          and isinstance(values['SEED_SHA'], str) and _HEX.fullmatch(values['SEED_SHA']), 'accepted_logo_protocol_unsupported')
+    return values
+
+
+def _logo_audit(ref, before_ref, constants, source, files):
+    audit = files.json(ref, maximum_bytes=32 * 1024**2)
+    before = files.json(before_ref, maximum_bytes=32 * 1024**2)
+    expected = constants['EXPECTED']; missing = audit.get('missing_ids')
+    _need(audit.get('schema') == 'berry.logo-supplement-47ad.v1' and audit.get('state') == 'verified'
+          and audit.get('source_sha') == constants['SOURCE'] and audit.get('seed_sha256') == constants['SEED_SHA']
+          and audit.get('index_path') == constants['INDEX'] and audit.get('expected_normalized_hashes') == expected
+          and isinstance(missing, list) and all(isinstance(item, str) for item in missing)
+          and missing == sorted(set(missing)) and set(missing) <= set(expected), 'accepted_logo_audit_invalid')
+    for name, apply, ids in [('dry', False, missing), ('apply', True, missing), ('replay', True, [])]:
+        result = {'requested': 5, 'missing': len(ids), 'preserved': 5 - len(ids), 'created': len(ids) if apply else 0,
+            'missing_ids': ids, 'added_ids': ids if apply else [], 'preserved_ids': sorted(set(expected) - set(ids)),
+            'applied': apply, 'changed': bool(apply and ids)}
+        _need(_canonical(audit.get(name)) == _canonical(result), 'accepted_logo_audit_invalid')
+    rows = before.get('assets')
+    _need(type(before.get('version')) is int and before['version'] == 1 and set(before) == {'version', 'assets'}
+          and isinstance(rows, dict) and all(isinstance(row, dict) for row in rows.values()), 'accepted_logo_preseed_invalid')
+    old = {key: _sha(_canonical(value)) for key, value in rows.items()}
+    choices = {key: {field: row[field] for field in constants['CHOICES'] if field in row} for key, row in rows.items()}
+    after = audit.get('after_raw_row_hashes')
+    _need(audit.get('before_raw_row_hashes') == old and sorted(set(expected) - set(old)) == missing
+          and isinstance(after, dict) and set(after) == set(old) | set(missing)
+          and all(after[key] == value for key, value in old.items())
+          and all(after[key] == expected[key] for key in missing)
+          and audit.get('old_choices_before_sha256') == audit.get('old_choices_after_sha256') == _sha(_canonical(choices))
+          and audit.get('mutations') == ([constants['INDEX']] if missing else [])
+          and all(audit.get(key) is True for key in ('raw_rows_preserved', 'no_binary_downloads', 'new_grants_false', 'replay_exact_noop'))
+          and audit.get('forced_selections') is False
+          and audit.get('preseed_index', {}).get('sha256') == before_ref['sha256'] == audit.get('before_index', {}).get('sha256'),
+          'accepted_logo_preservation_invalid')
+    if source is not None:
+        _need(source.get(constants['INDEX']) == {key: audit.get('after_index', {}).get(key) for key in ('sha256', 'size', 'mode')},
+              'accepted_logo_snapshot_invalid')
+    return audit
+
+
+def _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files):
+    """Validate the actual timestamp/logo extension's declared native joins."""
+    completion = adoption['receiver']
+    _need(recovery['timestamp_completion'] == adoption['descriptor']['local_archive']['source']['verification'],
+          'accepted_timestamp_completion_invalid')
+    dependencies = recovery['timestamp_dependencies']
+    _need(isinstance(dependencies, dict) and set(dependencies) == {'native_verified_receipt', 'timestamp_proof', 'sidecar'},
+          'accepted_timestamp_dependencies_invalid')
+    for name, ref in dependencies.items():
+        _need(completion.get(name, {}).get('sha256') == ref['sha256'], 'accepted_timestamp_copy_invalid')
+    native = files.json(dependencies['native_verified_receipt'])
+    checked = files.json(dependencies['timestamp_proof'])
+    sidecar = files.json(dependencies['sidecar'], maximum_bytes=16 * 1024**2)
+    source = files.json(recovery['source_receipt'], maximum_bytes=16 * 1024**2)
+    inventory, times = source.get('source_manifest'), sidecar.get('source_mtime_ns')
+    _need(isinstance(inventory, dict) and inventory and isinstance(times, dict) and set(times) == set(inventory)
+          and all(type(value) is int and -(2**63) <= value < 2**63 for value in times.values()), 'accepted_timestamp_inventory_invalid')
+    for name, row in inventory.items():
+        path = PurePosixPath(name)
+        _need(not path.is_absolute() and path.as_posix() == name and '..' not in path.parts and len(path.parts) >= 2
+              and path.parts[0] in {'data', 'inbox'} and '\\' not in name and '\x00' not in name
+              and isinstance(row, dict) and set(row) == {'sha256', 'size', 'mode'}
+              and isinstance(row['sha256'], str) and _HEX.fullmatch(row['sha256'])
+              and type(row['size']) is int and row['size'] >= 0 and type(row['mode']) is int and 0 <= row['mode'] <= 0o777,
+              'accepted_timestamp_inventory_invalid')
+    inventory_sha, timestamp_sha = _sha(_canonical(inventory)), _sha(_canonical(times))
+    bindings = phase['bindings']; archive = source.get('archive') or {}; remote = archive.get('timestamps') or {}
+    _need(set(remote) == {'path', 'sha256', 'digest', 'count'} and _host_path(remote.get('path')),
+          'accepted_timestamp_source_invalid')
+    _need(native.get('state') == 'completed' and native.get('writers_resumed') is True
+          and all(native.get(key) == completion.get(key) == plan.get(key) for key in ('nonce', 'source_sha', 'canonical_sha', 'candidate_image'))
+          and native.get('final_receipt_sha256') == completion['final_receipt_sha256']
+          and native.get('candidate_binding_sha256') == completion['candidate_binding_sha256']
+          and native.get('proof_seals') == bindings.get('proof_seals'), 'accepted_timestamp_completion_invalid')
+    _need(checked.get('state') == 'verified' and sidecar.get('state') == 'captured'
+          and type(sidecar.get('version')) is int and sidecar['version'] == 1
+          and type(sidecar.get('source_timestamp_version')) is int and sidecar['source_timestamp_version'] == 1
+          and type(checked.get('source_timestamp_version')) is int and checked['source_timestamp_version'] == 1
+          and source.get('source_stable') is sidecar.get('source_stable') is sidecar.get('source_mtime_stable') is True
+          and all(value == inventory_sha for value in (source.get('source_inventory_sha256'), source.get('source_inventory_after_sha256'),
+              sidecar.get('source_inventory_sha256'), sidecar.get('source_inventory_after_sha256'), checked.get('source_inventory_sha256'),
+              native.get('source_inventory_sha256'), bindings.get('source_inventory_sha256')))
+          and all(value == timestamp_sha for value in (sidecar.get('source_mtime_ns_sha256'), sidecar.get('source_mtime_ns_after_sha256'),
+              remote.get('digest'), checked.get('timestamp_digest'), completion.get('timestamp_digest')))
+          and checked.get('source_receipt_sha256') == native.get('source_receipt_sha256') == recovery['source_receipt']['sha256']
+          and checked.get('nonce') == source.get('nonce') == plan['nonce']
+          and checked.get('candidate_image') == source.get('candidate_image') == plan['candidate_image']
+          and all(type(value) is int and value == len(times) for value in (remote.get('count'), checked.get('files'), completion.get('files')))
+          and remote.get('sha256') == dependencies['sidecar']['sha256']
+          and checked.get('remote_sidecar') == remote and checked.get('local_sidecar') == completion['sidecar']
+          and checked.get('archive_sha256') == archive.get('archive_sha256') == completion['archive_sha256']
+          and _canonical({key: value for key, value in proof.get('offhost_archive', {}).items() if key != 'path'}) == _canonical(archive)
+          and sidecar.get('archive') == {key: value for key, value in archive.items() if key != 'timestamps'}
+          and sidecar.get('base_producer_sha256') == recovery['live_base_dependency']['sha256'], 'accepted_timestamp_source_invalid')
+    files.file(recovery['live_base_dependency'])
+    refs = recovery['logo_supplement']
+    _need(isinstance(refs, dict) and set(refs) == {'audit', 'preseed_index', 'helper', 'copy_proof'}
+          and refs == proof.get('logo_supplement') == source.get('logo_supplement')
+          and refs['helper'] == plan.get('modules', {}).get('logo_seed')
+          and refs['copy_proof'] == plan.get('logo_supplement', {}).get('copy_proof')
+          and completion.get('logo_supplement', {}).get('remote') == refs,
+          'accepted_logo_native_context_invalid')
+    constants = _logo_constants(refs['helper'], files)
+    _need(constants['SOURCE'] == plan['source_sha'], 'accepted_logo_protocol_unsupported')
+    audit = _logo_audit(refs['audit'], refs['preseed_index'], constants, inventory, files)
+    _need(phase.get('seed', {}).get('logo_supplement') == audit and audit.get('preseed_index') == refs['preseed_index'],
+          'accepted_logo_seed_invalid')
+    retained = completion['logo_supplement']
+    _need(all(retained.get(name, {}).get('sha256') == refs[name]['sha256'] for name in ('audit', 'preseed_index')),
+          'accepted_logo_receiver_invalid')
+    copied = files.json(refs['copy_proof'])
+    _need(copied.get('schema') == 'berry.copy-logo-supplement-complete.v1' and copied.get('state') == 'verified'
+          and copied.get('source_sha') == plan['source_sha'] and copied.get('candidate_image') == plan['candidate_image']
+          and copied.get('logo_helper_sha256') == refs['helper']['sha256'] and copied.get('seed_sha256') == constants['SEED_SHA']
+          and type(copied.get('helper_exit')) is int and copied['helper_exit'] == 0
+          and type(copied.get('watcher_exit')) is int and copied['watcher_exit'] == 0
+          and copied.get('oom_killed') is False and copied.get('isolated_copy_preserved') is True,
+          'accepted_logo_copy_invalid')
+    _pin_references(copied, files)
+    _logo_audit(copied.get('logo_audit'), copied.get('preseed_index'), constants, None, files)
+    preservation = files.json(copied.get('preservation_completion'))
+    rehearsal = files.json(plan.get('proofs', {}).get('rehearsal'))
+    _need(copied['preservation_completion']['sha256'] == rehearsal.get('native_evidence', {}).get('rehearsal', {}).get('sha256')
+          and preservation.get('state') == 'passed' and preservation.get('image') == plan['candidate_image']
+          and preservation.get('program_sha256') == plan.get('modules', {}).get('preservation', {}).get('sha256'),
+          'accepted_logo_preservation_chain_invalid')
+
+
+def _adoption_context(wrapper, files):
+    """Join the immutable offhost/HOLD acceptance to an explicit local copy.
+
+    This derives migration semantics from the frozen producer's actual shape.
+    It never inserts an operation kind into that producer's bytes.
+    """
+    descriptor = files.json(wrapper.get('adoption'))
+    _need(set(descriptor) == {'schema', 'profile', 'origin_ledger', 'origin_receipt', 'origin_wrapper', 'local_archive'}
+          and descriptor['schema'] == ADOPTION_SCHEMA and descriptor['profile'] in {ADOPTION_PROFILE, ADOPTION_LOGO_PROFILE},
+          'accepted_adoption_profile_unsupported')
+    body = files.file(descriptor['origin_ledger'], private=True, parse=True)
+    origin = _parsed(body); historical = files.json(descriptor['origin_wrapper'])
+    receipt = files.json(descriptor['origin_receipt'])
+    _need(origin.get('pr') == 590 and origin.get('receipt') == descriptor['origin_receipt']['path']
+          and origin.get('recovery_proof') == {'schema': 'berry.unified-release-recovery.v1', **descriptor['origin_wrapper']}
+          and receipt.get('state') == 'accepted' and receipt.get('status') == 'PASS'
+          and receipt.get('candidate_image') == origin.get('image')
+          and receipt.get('source_sha') == origin.get('source_sha')
+          and receipt.get('new_ledger_sha256') == descriptor['origin_ledger']['sha256']
+          and receipt.get('old_ledger_sha256') == wrapper['previous_ledger']['sha256']
+          and receipt.get('recovery_proof') == origin['recovery_proof']
+          and receipt.get('retention_readiness') == 'HOLD', 'accepted_adoption_origin_unproven')
+    fields = {'schema', 'operation_kind', 'operation_nonce', 'current', 'previous_ledger', 'previous_accepted', 'plan',
+              'snapshots', 'configuration', 'recovery_files', 'protected_dirs', 'archives', 'images', 'retention_readiness'}
+    _need(set(historical) == fields and historical['schema'] == 'berry.unified-release-recovery.v1'
+          and historical['operation_kind'] == 'unified-migration' and historical['retention_readiness'] == 'HOLD',
+          'accepted_adoption_origin_unproven')
+    compared = fields - {'schema', 'operation_kind', 'previous_accepted', 'archives', 'retention_readiness'}
+    if descriptor['profile'] == ADOPTION_LOGO_PROFILE:
+        compared.remove('protected_dirs')
+        previous = historical.get('previous_accepted') or {}
+        known_files = {previous.get('backup')}
+        def gather(value):
+            if isinstance(value, dict):
+                if 'path' in value and 'sha256' in value:
+                    known_files.add(value['path'])
+                else:
+                    for item in value.values(): gather(item)
+            elif isinstance(value, list):
+                for item in value: gather(item)
+        gather(previous.get('historical_acceptance'))
+        gather(previous.get('historical_proof_dependencies'))
+        _need(isinstance(historical.get('protected_dirs'), list)
+              and _canonical(wrapper['protected_dirs']) == _canonical([
+                  path for path in historical['protected_dirs'] if path not in known_files]),
+              'accepted_adoption_protected_path_classification_invalid')
+        # The producer's known archive FILE is deliberately not inspected in a
+        # flat historical lookup. Every remaining declared subtree must really
+        # be a directory; an unfamiliar existing file is never reclassified.
+        for directory in wrapper['protected_dirs']:
+            _safe(Path(_host_path(directory)), directory=True)
+    for key in compared:
+        _need(_canonical(historical[key]) == _canonical(wrapper[key]), 'accepted_adoption_native_context_changed')
+    mapping = descriptor['local_archive']
+    _need(isinstance(mapping, dict) and set(mapping) == {'source', 'destination'}
+          and set(historical['archives']) == {'current'}
+          and _canonical(mapping['source']) == _canonical(historical['archives']['current']),
+          'accepted_adoption_archive_mapping_invalid')
+    source, destination = mapping['source'], mapping['destination']
+    _need(set(source) == {'location', 'path', 'sha256', 'size', 'verification'} and source['location'] == 'offhost-verified'
+          and isinstance(source['path'], str) and source['path'] == origin.get('backup')
+          and set(destination) == {'path', 'sha256', 'size'}
+          and source['path'] != destination['path']
+          and all(destination[key] == source[key] == wrapper['archives']['current'][key] for key in ('sha256', 'size'))
+          and destination['path'] == wrapper['archives']['current']['path'], 'accepted_adoption_archive_mapping_invalid')
+    verification = files.json(source['verification'])
+    phase_ref = wrapper['recovery_files']['phase_receipt']
+    _need(verification.get('state') == 'completed' and verification.get('writers_resumed') is True
+          and verification.get('archive_sha256') == source['sha256']
+          and verification.get('final_receipt_sha256') == phase_ref['sha256']
+          and verification.get('source_receipt_sha256') == wrapper['recovery_files']['source_receipt']['sha256']
+          and all(verification.get(key) == origin.get(key) for key in ('source_sha', 'image') if key in verification)
+          and verification.get('candidate_image') == origin.get('image')
+          and verification.get('nonce') == wrapper['operation_nonce'], 'accepted_adoption_receiver_unproven')
+    metadata = origin.get('unified_information_release') or {}
+    _need(metadata.get('source_sha') == origin.get('source_sha') and metadata.get('retention_readiness') == 'HOLD'
+          and metadata.get('native_final_proof') == wrapper['recovery_files']['final_proof']
+          and isinstance(metadata.get('proofs'), dict), 'accepted_adoption_origin_unproven')
+    proofs = metadata['proofs']
+    for key, expected in {'plan': wrapper['plan'], 'snapshot_pre': wrapper['snapshots']['pre'],
+                          'snapshot_post': wrapper['snapshots']['post'], 'phase_receipt': phase_ref,
+                          'final_proof': wrapper['recovery_files']['final_proof'], 'archive_verification': source['verification']}.items():
+        _need(proofs.get(key) == expected, 'accepted_adoption_origin_unproven')
+    _pin_references(proofs, files)
+    preserved = historical['previous_accepted']
+    _need(isinstance(preserved, dict) and preserved.get('ledger') == wrapper['previous_ledger'], 'accepted_adoption_previous_unproven')
+    _pin_references(preserved.get('historical_acceptance'), files)
+    _pin_references(preserved.get('historical_proof_dependencies'), files)
+    return {'descriptor': descriptor, 'ledger': origin, 'raw': body, 'historical': historical, 'receiver': verification}
+
+
+def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, older_path=None, read_file=None, stat_file=None,
+                                 native_wrapper_ref=None, shared_files=None) -> dict:
+    files = shared_files if shared_files is not None else _AcceptedFiles(read_file, stat_file)
+    native_only = native_wrapper_ref is not None
+    if native_only:
+        wrapper_ref = native_wrapper_ref
+        wrapper = files.json(wrapper_ref)
+        _need(wrapper.get('operation_kind') == 'recovery-adoption', 'configuration_only_origin_unproven')
+        adoption = _adoption_context(wrapper, files)
+        raw = adoption['raw']; ledger = {**adoption['ledger'], 'backup': adoption['descriptor']['local_archive']['destination']['path']}
+        ledger_path = Path(adoption['descriptor']['origin_ledger']['path'])
+    else:
+        raw = (read_file or _read)(ledger_path, 4 * 1024**2)
+        ledger = _parsed(raw)
+        files.file({'path': str(ledger_path), 'sha256': _sha(raw)}, private=True)
+        pointer = ledger.get('recovery_proof')
+        _need(isinstance(pointer, dict) and set(pointer) == {'schema', 'path', 'sha256'}
+              and pointer['schema'] == RECOVERY_PROOF_SCHEMA, 'accepted_recovery_proof_missing')
+        wrapper_ref = {key: pointer[key] for key in ('path', 'sha256')}
+        wrapper = files.json(wrapper_ref)
+        adoption = _adoption_context(wrapper, files) if wrapper.get('operation_kind') == 'recovery-adoption' else None
+    current = _identity(ledger)
+    _need(Path(_host_path(wrapper_ref['path'])).is_relative_to(Path(current['stage'])), 'accepted_recovery_proof_outside_stage')
+    fields = {'schema', 'operation_kind', 'operation_nonce', 'current', 'previous_ledger', 'plan', 'snapshots',
+              'configuration', 'recovery_files', 'protected_dirs', 'archives', 'images'}
+    _need(set(wrapper) == fields | ({'adoption'} if adoption is not None else set())
           and wrapper['schema'] == RECOVERY_PROOF_SCHEMA, 'accepted_recovery_proof_schema_invalid')
     nonce = wrapper['operation_nonce']
-    kind = wrapper['operation_kind']
-    _need(kind in {'unified-migration', 'configuration-only'}, 'accepted_operation_kind_unsupported')
+    operation_kind = wrapper['operation_kind']
+    _need(operation_kind in {'unified-migration', 'configuration-only', 'recovery-adoption'}, 'accepted_operation_kind_unsupported')
+    kind = 'unified-migration' if adoption is not None else operation_kind
+    if adoption is not None and not native_only:
+        _need(_canonical({key: value for key, value in ledger.items() if key not in {'backup', 'receipt', 'recovery_proof'}}) ==
+              _canonical({key: value for key, value in adoption['ledger'].items() if key not in {'backup', 'receipt', 'recovery_proof'}})
+              and ledger['backup'] == adoption['descriptor']['local_archive']['destination']['path'],
+              'accepted_adoption_runtime_changed')
     _need(isinstance(nonce, str) and re.fullmatch('[a-f0-9]{32,64}', nonce), 'accepted_operation_nonce_invalid')
     _need(wrapper['current'] == {key: current[key] for key in ('source_sha', 'image', 'stage')}, 'accepted_current_identity_mismatch')
     previous_raw = files.file(wrapper['previous_ledger'], private=True, parse=True)
     previous_ledger = _parsed(previous_raw); previous = _identity(previous_ledger)
     _need(ledger.get('previous_image') == previous['image'], 'accepted_previous_identity_mismatch')
+    if adoption is not None:
+        preserved = adoption['historical']['previous_accepted']
+        pin = wrapper['archives']['previous']
+        _need(preserved.get('backup') == previous['backup'] == pin['path']
+              and preserved.get('stage') == previous['stage']
+              and type(preserved.get('original_backup_size')) is int and preserved['original_backup_size'] == pin['size']
+              and preserved.get('original_archive_sha256') == pin['sha256']
+              and preserved.get('historical_acceptance', {}).get('decision', {}).get('path') == previous_ledger.get('receipt')
+              and isinstance(preserved.get('historical_proof_dependencies'), list) and preserved['historical_proof_dependencies'],
+              'accepted_adoption_previous_unproven')
+    previous_adoption = None
+    previous_pointer = previous_ledger.get('recovery_proof') or {}
+    if kind == 'configuration-only' and previous_pointer.get('schema') == RECOVERY_PROOF_SCHEMA:
+        previous_wrapper_ref = {key: previous_pointer[key] for key in ('path', 'sha256')}
+        previous_wrapper = files.json(previous_wrapper_ref)
+        if previous_wrapper.get('operation_kind') == 'recovery-adoption':
+            previous_adoption = _load_accepted_closure_checked(None, backup_root, read_file=read_file, stat_file=stat_file,
+                native_wrapper_ref=previous_wrapper_ref, shared_files=files)
+            original = previous_adoption['adoption']['ledger']
+            _need(_canonical({key: value for key, value in previous_ledger.items() if key not in {'backup', 'receipt', 'recovery_proof'}}) ==
+                  _canonical({key: value for key, value in original.items() if key not in {'backup', 'receipt', 'recovery_proof'}})
+                  and previous['backup'] == previous_adoption['current']['backup'], 'accepted_adoption_runtime_changed')
     accepted = []
     for role, document, body in [('current', ledger, raw), ('previous', previous_ledger, previous_raw)]:
         receipt_ref = {'path': _host_path(document.get('receipt')), 'sha256': ''}
@@ -804,10 +1137,24 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
             _need(value['approved_head'] == document['source_sha'], 'accepted_promotion_source_mismatch')
         accepted.append({'role': role, **receipt_ref, 'status': 'PASS', 'image': document['image'],
                          'old_ledger_sha256': value['old_ledger_sha256'], 'new_ledger_sha256': value['new_ledger_sha256']})
-    _need(accepted[0]['old_ledger_sha256'] == wrapper['previous_ledger']['sha256'], 'accepted_previous_ledger_mismatch')
-    if older_path is None:
-        older_path, _ = _previous(previous_ledger, previous_raw)
-    older_ref = {'path': str(older_path), 'sha256': accepted[1]['old_ledger_sha256']}
+    expected_before = adoption['descriptor']['origin_ledger']['sha256'] if adoption is not None and not native_only else wrapper['previous_ledger']['sha256']
+    _need(accepted[0]['old_ledger_sha256'] == expected_before, 'accepted_previous_ledger_mismatch')
+    if previous_adoption is not None:
+        logical_before = previous_adoption['wrapper']['previous_ledger']
+        older_path = Path(logical_before['path']) if older_path is None else older_path
+        older_sha = logical_before['sha256']
+        _need(accepted[1]['old_ledger_sha256'] == previous_adoption['adoption']['descriptor']['origin_ledger']['sha256'],
+              'accepted_previous_ledger_mismatch')
+    elif adoption is not None:
+        discovered = _accepted_before(previous_ledger, accepted[1]['old_ledger_sha256'], files)
+        older_path = discovered if older_path is None else older_path
+        older_sha = accepted[1]['old_ledger_sha256']
+    elif older_path is None:
+        older_path = _accepted_before(previous_ledger, accepted[1]['old_ledger_sha256'], files)
+        older_sha = accepted[1]['old_ledger_sha256']
+    else:
+        older_sha = accepted[1]['old_ledger_sha256']
+    older_ref = {'path': str(older_path), 'sha256': older_sha}
     older_raw = files.file(older_ref, private=True, parse=True); older = _identity(_parsed(older_raw))
     _need(previous_ledger.get('previous_image') == older['image'], 'accepted_previous_before_mismatch')
     snapshots, baselines = {}, {}
@@ -829,15 +1176,33 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
     recovery = wrapper['recovery_files']
     required = {'baseline', 'phase_receipt', 'final_proof', 'source_receipt', 'post_apply_manifest', 'post_startup_manifest',
                 'legacy_promotion_manifest', 'raw_plan', 'raw_manifest', 'rollback_modules'}
-    _need(isinstance(recovery, dict) and set(recovery) == required, 'accepted_recovery_dependencies_missing')
+    logos = adoption is not None and adoption['descriptor']['profile'] == ADOPTION_LOGO_PROFILE
+    extra = {'timestamp_completion', 'timestamp_dependencies', 'live_base_dependency', 'logo_supplement'} if logos else set()
+    _need(isinstance(recovery, dict) and set(recovery) == required | extra, 'accepted_recovery_dependencies_missing')
     native = files.json(recovery['baseline']); plan = files.json(wrapper['plan'])
     phase = files.json(recovery['phase_receipt']); proof = files.json(recovery['final_proof'])
-    _need(plan.get('operation_kind') == kind and proof.get('operation_kind') == kind
-          and phase.get('bindings', {}).get('operation_kind') == kind, 'accepted_operation_kind_mismatch')
+    if adoption is not None:
+        _need('operation_kind' not in plan and 'operation_kind' not in proof
+              and 'operation_kind' not in phase.get('bindings', {}), 'accepted_adoption_native_kind_manufactured')
+        _pin_references(plan.get('proofs'), files)
+        _need(adoption['receiver'].get('candidate_binding_sha256') == phase.get('final_verification', {}).get('candidate_binding_sha256'),
+              'accepted_adoption_receiver_unproven')
+        _need(adoption['receiver'].get('canonical_sha') == plan.get('canonical_sha')
+              and adoption['ledger']['unified_information_release'].get('canonical_sha') == plan.get('canonical_sha')
+              and proof.get('offhost_archive', {}).get('path') == adoption['descriptor']['local_archive']['source']['path'],
+              'accepted_adoption_native_context_changed')
+        if logos:
+            _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files)
+    else:
+        _need(plan.get('operation_kind') == kind and proof.get('operation_kind') == kind
+              and phase.get('bindings', {}).get('operation_kind') == kind, 'accepted_operation_kind_mismatch')
     inherited_modules, origin = [], None
     if kind == 'configuration-only':
         _need(current['image'] == previous['image'] and current['source_sha'] == previous['source_sha'], 'configuration_only_runtime_changed')
-        proof, inherited_modules, origin = _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files)
+        proof, inherited_modules, origin = _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files, backup_root)
+        if previous_adoption is not None:
+            _need(proof.get('inherited_storage_recovery', {}).get('native_origin') == previous_wrapper_ref,
+                  'configuration_only_origin_unproven')
     for name in required - {'baseline', 'phase_receipt', 'final_proof', 'rollback_modules'}:
         files.file(recovery[name])
     modules = recovery['rollback_modules']
@@ -937,6 +1302,7 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
           'accepted_active_store_binding_mismatch')
     files.absent(data / '.information-store-transition.json')
     mount_directories = set(directories) | {current['stage'], previous['stage']}
+    mount_directories.update(proof.get('_accepted_native_directories', set()))
     for pair in snapshots.values():
         for container in pair.values():
             for mount in container['Mounts']:
@@ -979,6 +1345,8 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
         expected_images[row['image']] = row['source_sha']
     for identity in (current, previous, older):
         _need(expected_images.get(identity['image']) == identity['source_sha'], 'accepted_image_closure_incomplete')
+    for image, source in proof.get('_accepted_native_images', {}).items():
+        _need(expected_images.get(image) == source, 'accepted_image_closure_incomplete')
     for pair in snapshots.values():
         for row in pair.values():
             _need(expected_images.get(row['Image']) == row['Config'].get('Labels', {}).get('org.opencontainers.image.revision'),
@@ -989,10 +1357,14 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
     if kind == 'configuration-only':
         caddy_id = proof['_accepted_caddy']['Id']
         post_app['_storage_recovery_caddy'] = _caddy_snapshot(proof['_accepted_caddy'])
+    native_origin = wrapper_ref if adoption is not None else proof.get('inherited_storage_recovery', {}).get('native_origin')
     return {'files': files, 'ledger': ledger, 'raw': raw, 'current': current, 'previous': previous,
         'previous_raw': previous_raw, 'previous_path': Path(wrapper['previous_ledger']['path']), 'older_path': Path(older_path),
         'older_raw': older_raw, 'baselines': baselines, 'wrapper': wrapper, 'proofs': archives, 'accepted': accepted,
-        'post_app': post_app, 'images': expected_images, 'caddy_id': caddy_id,
+        'post_app': post_app, 'images': expected_images, 'caddy_id': caddy_id, 'native_proof': proof, 'adoption': adoption,
+        'native_origin': native_origin,
+        'adoption_origin_sha256': adoption['descriptor']['origin_ledger']['sha256'] if adoption is not None and not native_only else None,
+        'previous_adoption_origin_sha256': previous_adoption['adoption']['descriptor']['origin_ledger']['sha256'] if previous_adoption else None,
         'active_markers': {'data/information/store.json': marker_pins[marker_names[0]],
                            'inbox/.information-store.json': marker_pins[marker_names[1]]},
         'required_directories': mount_directories,
@@ -1021,7 +1393,11 @@ def validate_accepted_recovery_proofs(manifest: dict, *, read_file=None, stat_fi
           and manifest.get('previous_before_ledger_sha256') == _sha(context['older_raw']), 'accepted_ledger_manifest_mismatch')
     _need(manifest.get('live_binding') == recovery_live_binding(context['post_app']), 'accepted_live_configuration_mismatch')
     _need(manifest.get('operation_kind') == context['wrapper']['operation_kind']
-          and manifest.get('accepted_caddy_id') == context['caddy_id'], 'accepted_operation_manifest_mismatch')
+          and manifest.get('accepted_caddy_id') == context['caddy_id']
+          and manifest.get('accepted_native_origin') == context['native_origin']
+          and manifest.get('adoption_origin_ledger_sha256') == context['adoption_origin_sha256']
+          and manifest.get('previous_adoption_origin_ledger_sha256') == context['previous_adoption_origin_sha256'],
+          'accepted_operation_manifest_mismatch')
     for role, identity in [('current', context['current']), ('previous', context['previous'])]:
         rows = [row for row in manifest.get('recovery_sets', []) if row.get('role') == role]
         _need(len(rows) == 1 and all(rows[0].get(key) == identity[key] for key in ('image', 'source_sha', 'stage'))
@@ -1037,6 +1413,32 @@ def validate_accepted_recovery_proofs(manifest: dict, *, read_file=None, stat_fi
     _need(set(manifest.get('protected_images', [])) == set(context['images'])
           and {row.get('image'): row.get('source_sha') for row in manifest.get('protected_image_provenance', [])} == context['images'],
           'accepted_image_manifest_mismatch')
+
+
+def accepted_native_origin(manifest: dict, *, read_file=None, stat_file=None) -> dict | None:
+    """Return authenticated flat storage provenance for a later configuration.
+
+    No environment values or full container snapshots leave this API. Runtime
+    archives are verified separately by the caller's full collection.
+    """
+    validate_accepted_recovery_proofs(manifest, read_file=read_file, stat_file=stat_file)
+    ref = manifest.get('accepted_native_origin')
+    if ref is None:
+        return None
+    try:
+        context = _load_accepted_closure_checked(None, Path(_host_path(manifest['backup_root'])),
+            read_file=read_file, stat_file=stat_file, native_wrapper_ref=ref)
+    except StorageRecoveryError:
+        raise
+    except (OSError, ValueError, TypeError, KeyError, AttributeError, IndexError):
+        raise StorageRecoveryError('accepted_recovery_proof_invalid') from None
+    proof = context['native_proof']; recovery = context['wrapper']['recovery_files']
+    return {'native_origin': ref, 'origin_proof': recovery['final_proof'], 'migration': proof['migration'],
+        'raw_plan': recovery['raw_plan'], 'raw_manifest': recovery['raw_manifest'],
+        'legacy_promotion_manifest': proof['legacy_promotion_manifest'], 'rollback_modules': recovery['rollback_modules'],
+        'protected_dirs': [directory for directory in context['wrapper']['protected_dirs']
+            if Path(directory).is_relative_to(Path(manifest['backup_root'])) and Path(directory) != Path(manifest['backup_root'])],
+        'active_markers': list(context['active_markers'].values())}
 
 
 def collect_recovery_manifest(ledger_path: Path = LEDGER_PATH, backup_root: Path = BACKUP_ROOT,
@@ -1074,6 +1476,9 @@ def collect_recovery_manifest(ledger_path: Path = LEDGER_PATH, backup_root: Path
     result['accepted_content_pins'] = sorted(context['files'].pins.values(), key=lambda row: row['path'])
     result['operation_kind'] = context['wrapper']['operation_kind']
     result['accepted_caddy_id'] = context['caddy_id']
+    result['accepted_native_origin'] = context['native_origin']
+    result['adoption_origin_ledger_sha256'] = context['adoption_origin_sha256']
+    result['previous_adoption_origin_ledger_sha256'] = context['previous_adoption_origin_sha256']
     result['previous_before_ledger_path'] = str(older_path)
     result['previous_before_ledger_sha256'] = _sha(older_raw)
     for row in result['protected_paths']:

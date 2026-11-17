@@ -66,7 +66,7 @@ def _write(path: Path, value: dict) -> None:
 
 def _live_binding(protection: dict) -> dict:
     kind = protection.get("operation_kind")
-    need(kind in {"unified-migration", "configuration-only"}, "accepted_operation_kind_unsupported")
+    need(kind in {"unified-migration", "configuration-only", "recovery-adoption"}, "accepted_operation_kind_unsupported")
     identifiers = ["deploy-app-1", "deploy-copilot-1"]
     caddy_id = protection.get("accepted_caddy_id")
     if kind == "configuration-only":

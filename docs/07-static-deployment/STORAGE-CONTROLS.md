@@ -30,8 +30,8 @@ the new accepted ledger; write the old/new-ledger promotion receipt afterward.
 Use the completed producer's final verification rather than an earlier progress
 event. Unknown or incomplete producer/schema/state evidence holds deletion.
 
-The proof declares `operation_kind` as `unified-migration` or
-`configuration-only`. Archive pins state their capture phase, physical store
+The proof declares `operation_kind` as `unified-migration`,
+`recovery-adoption` or `configuration-only`. Archive pins state their capture phase, physical store
 schema and recovery role. A legacy archive captured before migration requires
 an authenticated observed transformation and a supported, image-bound replay
 protocol. It is not a snapshot of the activated unified store. Replay must
@@ -40,6 +40,31 @@ times, generate a fresh migration plan at the restored paths, and use a new
 empty backup base without reusing a saved resume identity. Preserve reading and
 review decisions and verify the resulting store. Missing protocol or execution
 evidence holds automatic retirement; this service never performs a restore.
+
+The explicit recovery-adoption profile admits a supported native migration
+history through a metadata-only acceptance. It preserves the original accepted
+ledger, HOLD wrapper, receipts and native artifacts, including genuinely absent
+native kind fields. A versioned descriptor authenticates that original history
+and maps the exact final off-host archive hash/size to its verified nested local
+copy. It never substitutes a rehearsal archive or labels the historical HOLD
+ready. The new ledger changes only the backup locator, recovery pointer and
+metadata receipt; runtime stage, images, source, configuration, current container
+identities and logical previous release remain unchanged. Unknown producer
+profiles and unsupported extensions remain held for review.
+
+Both distinct recovery archives, full native content/store/rollback provenance
+and the supported image-bound replay evidence are still required. Reuse an
+already verified compatible previous archive in place. A local copy or a source
+fixture alone does not establish adoption. Small private operator files can
+bootstrap metadata verification without installing active services or creating
+another full runtime copy.
+
+The extended snapshot and the timestamp/logo supplement have separate explicit
+native profiles. Supplement evidence is joined to the accepted source, native
+completion, audit and copy-preservation receipts. Helper constants are read as
+bounded literal data; the collector never executes producer files. Known file
+entries in the producer's path list are classified explicitly. Historical
+archive pairs do not become permanent inherited body-verification requirements.
 
 A configuration-only logging cutover authenticates its own fresh app/copilot
 and Caddy snapshots and current state. It preserves images, environment,
@@ -119,6 +144,14 @@ destination. Scheduled Codex follow-ups can also read the safe status and return
 to an existing chat; such local checks depend on the computer and app remaining
 online. They do not replace the independent host monitor.
 
+The scheduled chat check runs once daily at 09:00 America/Los_Angeles. The
+release owner also runs the reviewed read-only check after each production
+deployment or terminal failed cutover/recovery, records its sanitized result
+with the private closeout and delivers actionable changes to the existing
+authorized alerts chat. An access or integrity failure is monitoring unavailable.
+The private handoff supplies the exact pinned command and destination. No
+deployment polling watcher is needed.
+
 ## Log rotation
 
 `deploy/logging/journald-berry-storage.conf` limits persistent journal storage to
@@ -138,6 +171,9 @@ Do not truncate Docker-owned files or restart the Docker daemon as a shortcut.
 
 1. Reserve the server slot and capture the current accepted release/configuration
    and both recovery sets. Never install from stale release bindings.
+   If a supported native history needs recovery adoption, complete that explicit
+   metadata acceptance first. Retire only proved unused owned rehearsal copies
+   while retaining their evidence before staging a missing local archive.
 2. Deploy an immutable, hash-verified host package at
    `/opt/berry-storage-controls/releases/<source-sha>` and switch the root-owned
    `current` link only while its timers/services are inactive. Include the three
@@ -161,6 +197,16 @@ Do not truncate Docker-owned files or restart the Docker daemon as a shortcut.
    Inspect each running container's logging driver/options afterward, verify
    app/copilot health, normal login, retained private reports and the scheduler,
    then record the final source/configuration and available disk space.
+
+Reserve each phase against freshly measured available blocks on every relevant
+filesystem. Existing local recovery archives are already included in that free
+space and need not be duplicated. Keep the actual raw rollback and new-store
+working sets; rehearsal surplus does not fund a second simultaneous archive.
+After genuine adoption, an inactive installation and reviewed archive-only
+first apply may reclaim verified eligible history before the logging snapshot.
+Credit only measured reclamation. Logging admission uses its actual post-migration
+full-source/header/metadata bound plus startup reserve, not an earlier compressed
+backup estimate. Missing capacity keeps the next phase on HOLD.
 
 If a control fails, disable only the newly owned timers/units or restore their
 recorded previous configuration. Never restore analyst databases or replace the

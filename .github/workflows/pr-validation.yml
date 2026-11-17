@@ -298,7 +298,7 @@ jobs:
     name: Python tests
     needs: change-scope
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -325,7 +325,8 @@ jobs:
           sudo -- "$(command -v python)" -m pytest -q \
             --basetemp "$RUNNER_TEMP/storage-controls-root" \
             tests/test_storage_recovery.py tests/test_storage_retention.py \
-            tests/test_storage_monitor.py tests/test_storage_controls_units.py
+            tests/test_storage_monitor.py tests/test_storage_controls_units.py \
+            tests/test_storage_recovery_adoption.py
       - name: Validate host service and timer units
         if: needs.change-scope.outputs.docs-only != 'true'
         run: >-

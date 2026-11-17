@@ -22,6 +22,7 @@ from app.services.storage_retention import (
 )
 from storage_recovery_fixtures import fixture_filesystem, producer_evidence, reseal_wrapper
 from storage_logging_fixtures import configuration_only_environment
+from storage_adoption_fixtures import adoption_environment
 
 NOW = datetime(2026, 11, 16, 12, tzinfo=timezone.utc)
 CURRENT = "sha256:" + "a" * 64
@@ -171,6 +172,77 @@ def test_configuration_only_acceptance_preserves_caddy_store_and_both_recovery_r
     assert result["state"] == "complete" and result["retired_count"] == 4
     assert env["current"].exists() and env["previous"].exists() and all(not path.exists() for path in old)
     assert {str(path): path.read_bytes() for path in env["runtime"].rglob("*") if path.is_file()} == before
+
+
+def test_recovery_adoption_retires_only_expired_archives_and_preserves_native590_evidence(environment):
+    env = adoption_environment(environment)
+    old = add_old(env, 2)
+    native = [env["wrapper"]["plan"], env["wrapper"]["recovery_files"]["final_proof"],
+              env["wrapper"]["recovery_files"]["phase_receipt"], env["origin_ledger"], env["origin_receipt"]]
+    evidence_before = {row["path"]: Path(row["path"]).read_bytes() for row in native}
+    live_before = {str(path): path.read_bytes() for path in env["runtime"].rglob("*") if path.is_file()}
+    assert env["value"]["adoption_origin_ledger_sha256"] == env["origin_ledger"]["sha256"]
+    assert env["value"]["adoption_origin_ledger_sha256"] != env["value"]["previous_ledger_sha256"]
+    assert "operation_kind" not in json.loads(evidence_before[native[0]["path"]])
+    assert "operation_kind" not in json.loads(evidence_before[native[1]["path"]])
+    assert "operation_kind" not in json.loads(evidence_before[native[2]["path"]])["bindings"]
+    protected_before = {path: path.read_bytes() for path in [env["current"], env["previous"], env["ledger"]]}
+    value = plan(env)
+    assert {row["path"] for row in value["candidates"]} == {str(path) for path in old}
+    result = apply(env, value)
+    assert result["state"] == "complete" and result["retired_count"] == 2
+    assert all(not path.exists() and path.parent.is_dir() for path in old)
+    assert {path: path.read_bytes() for path in protected_before} == protected_before
+    assert {path: Path(path).read_bytes() for path in evidence_before} == evidence_before
+    assert {str(path): path.read_bytes() for path in env["runtime"].rglob("*") if path.is_file()} == live_before
+
+
+def test_resealed_adoption_receipt_cannot_substitute_logical_previous_for_authenticated_origin(environment):
+    env = adoption_environment(environment)
+    old = add_old(env, 2)
+    value = env["value"]
+    proof = next(row for row in value["accepted_promotion_receipts"] if row["role"] == "current")
+    receipt_path = Path(proof["path"])
+    receipt = json.loads(receipt_path.read_bytes())
+    fake_before = value["previous_ledger_sha256"]
+    receipt["old_ledger_sha256"] = fake_before
+    receipt_path.write_bytes(encoded(receipt))
+    proof.update(old_ledger_sha256=fake_before, sha256=sha(receipt_path.read_bytes()))
+    value["adoption_origin_ledger_sha256"] = fake_before
+    env["protection"].write_bytes(encoded(value))
+    # The consumer's before-SHA comparison now agrees with these caller-supplied
+    # fields; the immutable accepted adoption descriptor must still reject them.
+    with pytest.raises(RetentionHold, match="accepted_previous_ledger_mismatch"):
+        plan(env)
+    assert all(path.exists() for path in old)
+    assert Path(env["origin_ledger"]["path"]).read_bytes() == env["origin_original_bytes"]
+
+
+def test_configuration_after_adoption_keeps_original_native_lineage_and_distinct_local_recovery_sets(environment):
+    adopted = adoption_environment(environment)
+    origin = adopted["value"]["accepted_native_origin"]
+    native = [adopted["wrapper"]["plan"], adopted["wrapper"]["recovery_files"]["final_proof"],
+              adopted["wrapper"]["recovery_files"]["phase_receipt"], adopted["origin_ledger"], origin]
+    evidence_before = {row["path"]: Path(row["path"]).read_bytes() for row in native}
+    env = configuration_only_environment(adopted, now=NOW)
+    value = env["value"]
+    receipts = {row["role"]: row for row in value["accepted_promotion_receipts"]}
+    assert value["adoption_origin_ledger_sha256"] is None
+    assert value["accepted_native_origin"] == origin
+    assert receipts["current"]["old_ledger_sha256"] == value["previous_ledger_sha256"]
+    assert receipts["previous"]["old_ledger_sha256"] == value["previous_adoption_origin_ledger_sha256"] == adopted["origin_ledger"]["sha256"]
+    assert value["previous_adoption_origin_ledger_sha256"] != value["previous_before_ledger_sha256"]
+    assert env["current"] != env["previous"] == adopted["current"]
+    old = add_old(env, 2)
+    live_before = {str(path): path.read_bytes() for path in env["runtime"].rglob("*") if path.is_file()}
+    retirement = create_plan(env["roots"], env["protection"], now=NOW,
+        policy=RetentionPolicy(daily=2, weekly=0, monthly=0), binding_provider=env["binding_provider"])
+    assert {row["path"] for row in retirement["candidates"]} == {str(path) for path in old}
+    result = apply(env, retirement, binding_provider=env["binding_provider"])
+    assert result["state"] == "complete" and result["retired_count"] == 2
+    assert env["current"].exists() and env["previous"].exists() and all(not path.exists() for path in old)
+    assert {path: Path(path).read_bytes() for path in evidence_before} == evidence_before
+    assert {str(path): path.read_bytes() for path in env["runtime"].rglob("*") if path.is_file()} == live_before
 
 
 def test_direct_root_daily_archive_never_pruned_or_used_as_global_tier(environment):
@@ -536,6 +608,17 @@ def test_changed_previous_ledger_cannot_be_rebound_by_planning_a_new_file_hash(e
     assert all(path.exists() for path in old)
 
 
+@pytest.mark.parametrize("field", ["adoption_origin_ledger_sha256", "previous_adoption_origin_ledger_sha256"])
+def test_existing_unified_profile_cannot_supply_arbitrary_adoption_lineage_overrides(environment, field):
+    env = environment
+    old = add_old(env)
+    env["value"][field] = env["value"]["previous_before_ledger_sha256"]
+    env["protection"].write_bytes(encoded(env["value"]))
+    with pytest.raises(RetentionHold, match="adoption_origin_ledger_pin"):
+        plan(env)
+    assert all(path.exists() for path in old)
+
+
 @pytest.mark.parametrize("field,value", [("healthy", False), ("network_mode", "bridge"),
                                        ("container_id", "0" * 64), ("image", "sha256:" + "0" * 64),
                                        ("config_fingerprint", "0" * 64)])
@@ -801,6 +884,34 @@ def test_configuration_only_provider_refuses_unaccepted_caddy_reference_before_d
     monkeypatch.setattr(cli.subprocess, "run", lambda *args, **kwargs: calls.append(args))
     with pytest.raises(RetentionHold, match="accepted_caddy_identity_missing"):
         cli._live_binding({"operation_kind": "configuration-only", "accepted_caddy_id": identifier})
+    assert not calls
+
+
+@pytest.mark.parametrize("kind", ["unified-migration", "recovery-adoption"])
+def test_unchanged_pair_profiles_keep_two_container_inspection_and_no_caddy(monkeypatch, kind):
+    from types import SimpleNamespace
+    from app.services.storage_recovery import recovery_live_binding
+    cli = retention_cli()
+    rows = live_inspection_rows()[:2]
+    calls = []
+
+    def inspect(argv, **kwargs):
+        calls.append(argv)
+        return SimpleNamespace(returncode=0, stdout=json.dumps(rows))
+
+    monkeypatch.setattr(cli.subprocess, "run", inspect)
+    actual = cli._live_binding({"operation_kind": kind, "accepted_caddy_id": None})
+    assert actual == recovery_live_binding(*rows)
+    assert calls == [["docker", "inspect", "deploy-app-1", "deploy-copilot-1"]]
+
+
+@pytest.mark.parametrize("caddy", ["3" * 64, "short", False])
+def test_recovery_adoption_refuses_any_caddy_profile_before_docker(monkeypatch, caddy):
+    cli = retention_cli()
+    calls = []
+    monkeypatch.setattr(cli.subprocess, "run", lambda *args, **kwargs: calls.append(args))
+    with pytest.raises(RetentionHold, match="unexpected_caddy_profile"):
+        cli._live_binding({"operation_kind": "recovery-adoption", "accepted_caddy_id": caddy})
     assert not calls
 
 

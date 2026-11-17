@@ -13,9 +13,12 @@ recovery and reminder events. External delivery remains opt-in.
 This source status does not claim host activation or a completed Docker
 recreation. The deployment owner must hand over the server window, preserve the
 actual stricter capacity reserve, and rebaseline the accepted recovery sets.
-The historical configuration-content proof and actual post-migration recovery
-contract remain an explicit activation gate; archive/image checks alone do not
-close it.
+The explicit metadata-only recovery-adoption profile preserves a supported
+native migration's accepted ledger/HOLD artifacts and authenticates an exact
+off-host-to-local archive mapping. Runtime identities/configuration and the
+logical previous release remain unchanged. Actual producer packets, both local
+recovery sets, native replay execution and post-migration capacity remain
+activation gates; archive/image or source-fixture checks alone do not close them.
 Private operational receipts record activation and remaining capacity. See
 [the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
 

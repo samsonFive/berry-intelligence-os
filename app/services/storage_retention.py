@@ -272,11 +272,26 @@ def load_protection(path: Path, *, verify_archives: bool = True) -> dict[str, An
     promotions = value.get("accepted_promotion_receipts")
     need(isinstance(promotions, list) and len(promotions) == 2
          and {row.get("role") for row in promotions} == {"current", "previous"}, "accepted_promotion_proofs_required")
+    kind = value.get("operation_kind")
+    adoption_origin = value.get("adoption_origin_ledger_sha256")
+    previous_adoption_origin = value.get("previous_adoption_origin_ledger_sha256")
+    if kind == "recovery-adoption":
+        need(isinstance(adoption_origin, str) and bool(DIGEST.fullmatch(adoption_origin)),
+             "adoption_origin_ledger_pin_required")
+    else:
+        need(adoption_origin is None, "unexpected_adoption_origin_ledger_pin")
+    if previous_adoption_origin is not None:
+        need(kind == "configuration-only" and isinstance(previous_adoption_origin, str)
+             and bool(DIGEST.fullmatch(previous_adoption_origin)), "previous_adoption_origin_ledger_pin_invalid")
+    # The strict accepted-proof validator below authenticates these two exact
+    # metadata-adoption links. Logical previous recovery roles stay unchanged.
+    current_before_sha = adoption_origin if kind == "recovery-adoption" else value["previous_ledger_sha256"]
+    previous_before_sha = previous_adoption_origin or value["previous_before_ledger_sha256"]
     for proof in promotions:
         role = proof["role"]
         document, recovery, document_sha, before_sha = (
-            (ledger, current, value["ledger_sha256"], value["previous_ledger_sha256"]) if role == "current" else
-            (previous_ledger, previous, value["previous_ledger_sha256"], value["previous_before_ledger_sha256"]))
+            (ledger, current, value["ledger_sha256"], current_before_sha) if role == "current" else
+            (previous_ledger, previous, value["previous_ledger_sha256"], previous_before_sha))
         receipt_path = safe(Path(proof["path"]))
         need(str(receipt_path) == document.get("receipt") and receipt_path.is_relative_to(Path(recovery["stage"])),
              "accepted_promotion_path_mismatch")

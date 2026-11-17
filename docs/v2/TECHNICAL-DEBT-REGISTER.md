@@ -12,8 +12,12 @@ Activation also requires authenticated producer evidence for historical baseline
 and Compose/environment contents, and the actual migration's physical-store and
 rollback dependencies. An old stage pathname, a newly computed hash of its
 contents, or a generic archive PASS does not establish that acceptance. This
-strict adapter is implemented with synthetic native-producer and Linux/root
-fixtures. Actual producer adoption, local archive capacity and pre/post-cutover
+strict adapter includes an explicit metadata-only adoption profile with
+synthetic native-producer fixtures. It retains genuine native artifacts and
+their absent kind fields, authenticates the original accepted HOLD history and
+requires an exact distinct local archive mapping. It does not rewrite historical
+acceptance or infer activation from an off-host receipt. Actual producer-packet
+compatibility, native replay execution, local archive capacity and pre/post-cutover
 acceptance remain open until the release owner supplies genuine evidence.
 Automatic retirement must
 remain inactive while that gate is unresolved.

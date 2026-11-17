@@ -130,6 +130,8 @@ def configuration_only_environment(environment, *, now):
             "steps": ["pause-reviewed-writers", "stop-known-pair", "restore-old-caddy-configuration", "verify-new-caddy-write-barrier",
                 "restore-old-compose-pair-on-current-store", "verify-current-store-preservation", "verify-old-pair",
                 "restore-original-timer", "restore-write-barrier"]}}
+    if environment["value"].get("accepted_native_origin") is not None:
+        proof_value["inherited_storage_recovery"]["native_origin"] = copy.deepcopy(environment["value"]["accepted_native_origin"])
     final_proof = write(private / "recovery-proof-1.json", proof_value)
     recovery_files["final_proof"] = final_proof
     recovery_files["phase_receipt"] = write(private / "completed-phase.json", {"phase": "completed", "writers_resumed": True,
@@ -156,6 +158,8 @@ def configuration_only_environment(environment, *, now):
         read_file=env["accepted_read_file"], stat_file=env["accepted_stat_file"])
     value = copy.deepcopy(environment["value"])
     value.update(operation_kind="configuration-only", accepted_caddy_id=context["caddy_id"],
+        accepted_native_origin=context["native_origin"], adoption_origin_ledger_sha256=context["adoption_origin_sha256"],
+        previous_adoption_origin_ledger_sha256=context["previous_adoption_origin_sha256"],
         ledger_sha256=digest(ledger.read_bytes()), previous_ledger_path=previous["path"], previous_ledger_sha256=previous["sha256"],
         previous_before_ledger_path=older["path"], previous_before_ledger_sha256=older["sha256"],
         live_binding=recovery.recovery_live_binding(context["post_app"]), accepted_promotion_receipts=context["accepted"],
