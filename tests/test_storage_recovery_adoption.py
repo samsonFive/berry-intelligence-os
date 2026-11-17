@@ -194,3 +194,33 @@ def test_logo_variant_refuses_wrong_types_choices_missing_extra_and_unknown_file
             json.loads(state['bodies'][evidence['final_proof']['path']]),
             json.loads(state['bodies'][evidence['phase_receipt']['path']]),
             recovery._AcceptedFiles(state['read'], state['stat']))
+
+
+def test_optional_candidate_image_inventory_is_durable_and_bound_to_image_admission(accepted_environment):
+    env = adoption_environment(accepted_environment, logos=True, inventory=True)
+    state = _memory_state(env)
+    recovery.validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+    plan = json.loads(state['bodies'][env['wrapper']['plan']['path']])
+    reference = plan['candidate_image_manifest']
+    assert reference['path'] in {pin['path'] for pin in state['manifest']['accepted_content_pins']}
+    original = state['bodies'][reference['path']]
+    state['bodies'].pop(reference['path'])
+    with pytest.raises(recovery.StorageRecoveryError, match='accepted_recovery_proof_invalid'):
+        recovery.validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+    state['bodies'][reference['path']] = original + b'changed'
+    with pytest.raises(recovery.StorageRecoveryError, match='accepted_file_digest_mismatch'):
+        recovery.validate_accepted_recovery_proofs(state['manifest'], read_file=state['read'], stat_file=state['stat'])
+    state['bodies'][reference['path']] = original
+    for source, path in [('0' * 40, '/app/reports/one.json'), (plan['source_sha'], '/app/../outside.json')]:
+        manifest = json.loads(original); manifest['source_sha'] = source
+        manifest['exact_image_files'] = {path: '1' * 64}
+        state['bodies'][reference['path']] = encoded(manifest)
+        changed = copy.deepcopy(plan)
+        changed['candidate_image_manifest']['sha256'] = hashlib.sha256(encoded(manifest)).hexdigest()
+        admission_ref = changed['proofs']['image']
+        admission = json.loads(state['bodies'][admission_ref['path']])
+        admission['image_verification_sha256'] = changed['candidate_image_manifest']['sha256']
+        state['bodies'][admission_ref['path']] = encoded(admission)
+        admission_ref['sha256'] = hashlib.sha256(encoded(admission)).hexdigest()
+        with pytest.raises(recovery.StorageRecoveryError):
+            recovery._candidate_image_inventory(changed, recovery._AcceptedFiles(state['read'], state['stat']))

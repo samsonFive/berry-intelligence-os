@@ -13,7 +13,7 @@ from pathlib import Path
 from storage_recovery_fixtures import encoded
 
 
-def adoption_environment(environment, *, native_kind=None, logos=False):
+def adoption_environment(environment, *, native_kind=None, logos=False, prepared=False, inventory=False):
     import app.services.storage_recovery as recovery
 
     env = dict(environment)
@@ -62,7 +62,9 @@ def adoption_environment(environment, *, native_kind=None, logos=False):
     recipe['transformation_proof'] = source['transformation_proof']
     replace(source['recovery_recipe'], recipe)
 
-    extension = _logo_extension(env, wrapper, plan, proof, phase, write, replace, private) if logos else {}
+    extension = _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, inventory=inventory) if logos else {}
+    if prepared:
+        extension['native_verified_receipt']['sha256'] = _prepared_original(env, wrapper, proof, phase, write, replace)['sha256']
     verification = write(private / 'timestamp-receiver-complete.private.json', {
         'state': 'completed', 'writers_resumed': True, 'nonce': wrapper['operation_nonce'],
         'source_sha': original['source_sha'], 'canonical_sha': plan['canonical_sha'], 'candidate_image': original['image'],
@@ -126,6 +128,7 @@ def adoption_environment(environment, *, native_kind=None, logos=False):
         accepted_recovery_proofs=context['accepted_recovery_proofs'], accepted_promotion_receipts=context['accepted'])
     value['accepted_content_pins'] = sorted(context['files'].pins.values(), key=lambda pin: pin['path'])
     value['protected_paths'].extend({'path': pin['path'], 'kind': 'file'} for pin in value['accepted_content_pins'])
+    value['protected_paths'].extend({'path': path, 'kind': 'directory'} for path in context['required_directories'])
     for row in value['recovery_sets']:
         row['backup'].update(wrapper['archives'][row['role']])
     env['protection'].write_bytes(encoded(value))
@@ -135,7 +138,62 @@ def adoption_environment(environment, *, native_kind=None, logos=False):
     return env
 
 
-def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private):
+def _prepared_original(env, wrapper, proof, phase, write, replace):
+    """A tiny genuine-shaped streamed original PLAN; its bytes stay immutable."""
+    from app.services import storage_recovery as recovery
+    files = wrapper['recovery_files']
+    source = json.loads(Path(files['source_receipt']['path']).read_bytes())
+    stamps = json.loads(Path(files['timestamp_dependencies']['sidecar']['path']).read_bytes())['source_mtime_ns']
+    sources = [{'root': name.split('/', 1)[0], 'relative': name.split('/', 1)[1], **row, 'mtime_ns': stamps[name]}
+               for name, row in sorted(source['source_manifest'].items())]
+    fingerprint = hashlib.sha256(json.dumps({'data': '/app/runtime/data', 'inbox': '/app/runtime/inbox', 'sources': sources},
+        sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    identifier = 'information-' + fingerprint[:20]
+    backup = env['backups'] / 'information-migration-backups' / identifier
+    container_backup = '/app/backups/information-migration-backups/' + identifier
+    counts = {'records': 1, 'variants': 1, 'source_files': len(sources), 'assets': 0, 'cache_envelopes': 0, 'public': 1, 'private': 0}
+    plan = {'version': 1, 'migration_id': identifier, 'data_dir': '/app/runtime/data', 'inbox_dir': '/app/runtime/inbox',
+        'source_fingerprint': fingerprint, 'sources': sources, 'records': {'fictional': {'body': '\U0001f353'}}, 'counts': counts}
+    body = (json.dumps(plan, ensure_ascii=True, sort_keys=True, indent=2) + '\n').encode('ascii')
+    old_parent = str(Path(files['raw_plan']['path']).parent)
+    files['raw_plan'] = write(backup / 'PLAN.private.json', body)
+    files['raw_manifest'] = write(backup / 'MANIFEST.json', {'fixture': 'original native source inventory'})
+    original = {'schema': 'berry.prepared-migration-plan.v1', 'state': 'prepared', 'encoding': 'ascii-json',
+        'path': container_backup + '/PLAN.private.json', 'sha256': files['raw_plan']['sha256'],
+        'canonical_sha256': hashlib.sha256(recovery._canonical(plan)).hexdigest(), 'source_fingerprint': fingerprint,
+        'migration_id': identifier, 'bytes': len(body), 'largest_source_codepoint': 0x1f353, 'counts': counts,
+        'budget': {'schema': 'berry.prepared-migration-budget.v1', 'fits': True, 'components': {'raw_sources': 4096},
+            'future_upper_bound': 4096, 'total_phase_upper_bound': 4096, 'disk_floor_bytes': 10 * 1024**3,
+            'free_bytes': 20 * 1024**3, 'phase_budget_bytes': None}}
+    write(backup / 'PLAN-preparation.private.json', original)
+    wrapper['protected_dirs'] = [str(backup) if path == old_parent else path for path in wrapper['protected_dirs']]
+    wrapper['protected_dirs'].sort()
+    marker_path = env['active_store_marker']
+    marker = json.loads(marker_path.read_bytes()); marker.update(migration_id=identifier, backup_dir=container_backup)
+    marker_ref = write(marker_path, marker)
+    for config in wrapper['configuration']['post'].values():
+        for pin in config['dependency_files']:
+            if pin['path'] == str(marker_path): pin['sha256'] = marker_ref['sha256']
+    proof['migration'] = {'activated': True, 'migration_id': identifier, 'backup_path': container_backup}
+    proof['raw_backup_seals'] = {'PLAN.private.json': files['raw_plan']['sha256'], 'MANIFEST.json': files['raw_manifest']['sha256']}
+    replace(files['final_proof'], proof)
+    phase['final_verification']['recovery_proof_sha256'] = files['final_proof']['sha256']
+    replace(files['phase_receipt'], phase)
+    archive = wrapper['archives']['current']
+    transform = json.loads(Path(archive['transformation_proof']['path']).read_bytes())
+    transform.update(raw_plan=files['raw_plan'], migration_id=identifier, final_proof=files['final_proof'])
+    replace(archive['transformation_proof'], transform)
+    recipe = json.loads(Path(archive['recovery_recipe']['path']).read_bytes())
+    recipe.update(raw_plan=files['raw_plan'], migration_id=identifier, transformation_proof=archive['transformation_proof'])
+    replace(archive['recovery_recipe'], recipe)
+    native_ref = files['timestamp_dependencies']['native_verified_receipt']
+    native = json.loads(Path(native_ref['path']).read_bytes())
+    native['final_receipt_sha256'] = files['phase_receipt']['sha256']
+    replace(native_ref, native)
+    return native_ref
+
+
+def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private, *, inventory=False):
     """Actual extended-logo producer field shapes, with fictional artifact bytes."""
     from datetime import datetime, timezone
     from app.services import storage_recovery as recovery
@@ -174,6 +232,12 @@ def _logo_extension(env, wrapper, plan, proof, phase, write, replace, private):
     # All six original core admissions remain distinct from this auxiliary copy.
     for name in ('image', 'ci', 'prior_archive', 'barrier'):
         plan['proofs'][name] = write(private / (name + '-admission.json'), {'fixture': name})
+    if inventory:
+        plan['candidate_image_manifest'] = write(private / 'candidate-image-inventory.json', {
+            'source_sha': plan['source_sha'], 'exact_image_files': {'/app/app/example.py': '1' * 64,
+                '/app/reports/one.json': '2' * 64, '/app/reports/two.json': '3' * 64}})
+        plan['proofs']['image'] = write(private / 'image-admission.json', {'state': 'verified', 'image': plan['candidate_image'],
+            'source_sha': plan['source_sha'], 'image_verification_sha256': plan['candidate_image_manifest']['sha256']})
     audit = {'schema': 'berry.logo-supplement-47ad.v1', 'state': 'verified', 'source_sha': plan['source_sha'],
         'seed_sha256': 'd' * 64, 'index_path': 'inbox/brand_media/index.json', 'preseed_index': before_ref,
         'before_index': {'sha256': before_ref['sha256'], 'size': Path(before_ref['path']).stat().st_size, 'mode': 0o600},

@@ -19,6 +19,10 @@ off-host-to-local archive mapping. Runtime identities/configuration and the
 logical previous release remain unchanged. Actual producer packets, both local
 recovery sets, native replay execution and post-migration capacity remain
 activation gates; archive/image or source-fixture checks alone do not close them.
+The separate streamed-plan replay v2 contract preserves v1, binds one fresh
+native preparation to apply, and requires observed image/resource evidence.
+Missing historical kernel observations require a new admitted qualification;
+source-only fixtures do not establish production recovery readiness.
 Private operational receipts record activation and remaining capacity. See
 [the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
 

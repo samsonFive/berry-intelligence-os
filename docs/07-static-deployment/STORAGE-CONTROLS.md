@@ -41,6 +41,30 @@ empty backup base without reusing a saved resume identity. Preserve reading and
 review decisions and verify the resulting store. Missing protocol or execution
 evidence holds automatic retirement; this service never performs a restore.
 
+Replay v1 keeps its original default-plan contract. The separate v2 contract
+supports a fresh streamed ASCII plan prepared by the authenticated native
+helper. It restores metadata from the source inventory and timestamp sidecar,
+verifies every source before changing file times, releases inventory buffers,
+then prepares one plan exclusively in a new empty backup directory. Apply uses
+only that returned plan identity; it never replans or rewrites the aggregate
+plan. Raw-file and canonical JSON hashes remain separate. A deterministic
+migration identity may repeat when the restored sources and visible paths match;
+the new directory and preparation evidence establish freshness.
+
+V2 requires both a functional image-bound fixture and representative resource
+evidence for metadata allocation and native prepare/apply. Source/API fixtures
+alone leave adoption on hold. The functional execution retains its actual
+container inspection and raw result, bound to the image, executable and read-only
+inputs; changing a receipt's execution label is insufficient. Observed kernel
+limits, swap, peak usage, OOM
+counters and initial/terminal container identity must be retained; declared
+limits or guessed missing counters are insufficient. A separately owned
+qualification can supply missing observations without rewriting old producer
+proofs or claiming another rollback exercise. Keep its small receipts outside
+the temporary workspace. Qualification requires actual capacity admission and
+preserves the native helper's reserve; it does not authorize another full
+runtime copy or automatic cleanup.
+
 The explicit recovery-adoption profile admits a supported native migration
 history through a metadata-only acceptance. It preserves the original accepted
 ledger, HOLD wrapper, receipts and native artifacts, including genuinely absent
@@ -65,6 +89,8 @@ completion, audit and copy-preservation receipts. Helper constants are read as
 bounded literal data; the collector never executes producer files. Known file
 entries in the producer's path list are classified explicitly. Historical
 archive pairs do not become permanent inherited body-verification requirements.
+An optional native candidate image-manifest reference is retained and checked
+against its image admission and source, including safe exact inventory paths.
 
 A configuration-only logging cutover authenticates its own fresh app/copilot
 and Caddy snapshots and current state. It preserves images, environment,

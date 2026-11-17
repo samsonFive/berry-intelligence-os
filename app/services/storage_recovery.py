@@ -31,6 +31,14 @@ RECOVERY_PROOF_SCHEMA = 'berry.recovery-proof.v1'
 ADOPTION_SCHEMA = 'berry.recovery-adoption.v1'
 ADOPTION_PROFILE = 'frozen-590-extended-snapshot.v1'
 ADOPTION_LOGO_PROFILE = 'frozen-590-extended-logos.v1'
+REPLAY_V2_CHECKS = frozenset({
+    'restore-bytes-and-modes', 'source-hashes-before-mtime', 'source-mtime-ns-rehydration',
+    'fresh-plan-at-new-paths', 'new-empty-backup-base', 'winner-and-variants-preserved',
+    'analyst-decisions-preserved', 'current-store-verification', 'fresh-prepared-plan',
+    'this-plan-id', 'no-old-plan-reuse', 'no-replan', 'no-aggregate-plan-rewrite',
+    'ascii-plan-full-roundtrip', 'prepared-raw-and-canonical-sha', 'source-fingerprint-validated',
+    'buffers-released-before-plan', 'all-protected-runtime-state',
+})
 _BEFORE_NAMES = frozenset({
     'old-ledger.bytes', 'ledger-before.bytes', 'report-library-ledger-before.bytes',
     'ledger-before.json', 'current-before.json',
@@ -711,6 +719,442 @@ def _configuration_only_proof(proof, plan, recovery, snapshots, wrapper, files, 
     return normalized, inherited.get('rollback_modules'), origin
 
 
+def _v2_closed(value, keys, reason):
+    _need(isinstance(value, dict) and set(value) == set(keys), reason)
+
+
+def _v2_int(value, minimum=0):
+    return type(value) is int and value >= minimum
+
+
+def _v2_preparation(value):
+    _v2_closed(value, {'schema', 'state', 'encoding', 'path', 'sha256', 'canonical_sha256', 'source_fingerprint',
+        'migration_id', 'bytes', 'largest_source_codepoint', 'counts', 'budget'}, 'replay_v2_preparation_invalid')
+    _need(value['schema'] == 'berry.prepared-migration-plan.v1' and value['state'] == 'prepared' and value['encoding'] == 'ascii-json'
+          and all(isinstance(value[key], str) and _HEX.fullmatch(value[key])
+                  for key in ('sha256', 'canonical_sha256', 'source_fingerprint'))
+          and value['migration_id'] == 'information-' + value['source_fingerprint'][:20]
+          and _v2_int(value['bytes'], 1) and _v2_int(value['largest_source_codepoint'])
+          and value['largest_source_codepoint'] <= 0x10ffff, 'replay_v2_preparation_invalid')
+    _host_path(value['path'])
+    _v2_closed(value['counts'], {'records', 'variants', 'source_files', 'assets', 'cache_envelopes', 'public', 'private'},
+        'replay_v2_preparation_invalid')
+    _need(all(_v2_int(count) for count in value['counts'].values())
+          and value['counts']['records'] == value['counts']['public'] + value['counts']['private']
+          and isinstance(value['budget'], dict) and value['budget'].get('schema') == 'berry.prepared-migration-budget.v1'
+          and value['budget'].get('fits') is True, 'replay_v2_preparation_invalid')
+    budget = value['budget']
+    _need(type(budget.get('disk_floor_bytes')) is int and budget['disk_floor_bytes'] == 10 * 1024**3
+          and _v2_int(budget.get('future_upper_bound')) and _v2_int(budget.get('total_phase_upper_bound'))
+          and budget['total_phase_upper_bound'] >= budget['future_upper_bound']
+          and _v2_int(budget.get('free_bytes')) and budget['free_bytes'] >= budget['disk_floor_bytes'] + budget['future_upper_bound']
+          and (budget.get('phase_budget_bytes') is None or _v2_int(budget['phase_budget_bytes'], 1)
+               and budget['total_phase_upper_bound'] <= budget['phase_budget_bytes']), 'replay_v2_preparation_invalid')
+    return value
+
+
+def _v2_metadata(protocol, source, archive, files):
+    metadata = protocol['source_metadata']
+    _v2_closed(metadata, {'from', 'source_receipt', 'timestamp_sidecar', 'program', 'verify_archive_member_coverage',
+        'verify_size_sha256_mode_before_metadata', 'restore_mtime_ns', 'reject_unknown_roots_and_unsafe_paths',
+        'release_buffers_before_plan'}, 'replay_v2_metadata_invalid')
+    _need(metadata['from'] == 'source-receipt.source_manifest+timestamp-sidecar.source_mtime_ns'
+          and all(metadata[key] is True for key in ('verify_archive_member_coverage', 'verify_size_sha256_mode_before_metadata',
+              'restore_mtime_ns', 'reject_unknown_roots_and_unsafe_paths', 'release_buffers_before_plan'))
+          and metadata['source_receipt'] == source.get('source_receipt')
+          and metadata['timestamp_sidecar'].get('sha256') == source.get('offhost_archive', {}).get('timestamps', {}).get('sha256'),
+          'replay_v2_metadata_invalid')
+    files.file(metadata['program'])
+    receipt = files.json(metadata['source_receipt'], maximum_bytes=16 * 1024**2)
+    times = files.json(metadata['timestamp_sidecar'], maximum_bytes=16 * 1024**2)
+    rows, stamps = receipt.get('source_manifest'), times.get('source_mtime_ns')
+    _need(isinstance(rows, dict) and rows and isinstance(stamps, dict) and set(rows) == set(stamps), 'replay_v2_metadata_invalid')
+    total, largest = 0, 0
+    for name, row in rows.items():
+        path = PurePosixPath(name)
+        _need(isinstance(name, str) and path.as_posix() == name and not path.is_absolute() and len(path.parts) >= 2
+              and path.parts[0] in {'data', 'inbox'} and '..' not in path.parts and '\\' not in name and '\x00' not in name,
+              'replay_v2_metadata_invalid')
+        _v2_closed(row, {'sha256', 'size', 'mode'}, 'replay_v2_metadata_invalid')
+        _need(isinstance(row['sha256'], str) and _HEX.fullmatch(row['sha256']) and _v2_int(row['size'])
+              and _v2_int(row['mode']) and row['mode'] <= 0o777 and type(stamps[name]) is int
+              and -(2**63) <= stamps[name] < 2**63, 'replay_v2_metadata_invalid')
+        total += row['size']; largest = max(largest, max(map(ord, name)))
+    inventory, timestamp = _sha(_canonical(rows)), _sha(_canonical(stamps))
+    _need(receipt.get('source_stable') is times.get('source_stable') is times.get('source_mtime_stable') is True
+          and receipt.get('nonce') == source.get('nonce') and receipt.get('candidate_image') == protocol['image']
+          and receipt.get('archive', {}).get('archive_sha256') == archive['sha256']
+          and all(value == inventory for value in (receipt.get('source_inventory_sha256'), receipt.get('source_inventory_after_sha256'),
+              times.get('source_inventory_sha256'), times.get('source_inventory_after_sha256')))
+          and times.get('source_mtime_ns_sha256') == times.get('source_mtime_ns_after_sha256') == timestamp
+          and receipt.get('archive', {}).get('timestamps', {}).get('digest') == timestamp
+          and _canonical(times.get('archive')) == _canonical({key: value for key, value in receipt['archive'].items() if key != 'timestamps'}),
+          'replay_v2_metadata_invalid')
+    return {'source_inventory_sha256': inventory, 'timestamp_digest': timestamp, 'files': len(rows), 'bytes': total,
+        'source_receipt_bytes': files.pins[metadata['source_receipt']['path']]['size'],
+        'timestamp_sidecar_bytes': files.pins[metadata['timestamp_sidecar']['path']]['size'],
+        'largest_relative_path_codepoint': largest}
+
+
+def _v2_apply(value, prepared):
+    _v2_closed(value, {'resume_id', 'migration_id', 'plan_calls', 'aggregate_plan_writes', 'before_plan_sha256',
+        'after_plan_sha256', 'before_plan_bytes', 'after_plan_bytes'}, 'replay_v2_apply_invalid')
+    _need(value['resume_id'] == value['migration_id'] == prepared['migration_id']
+          and type(value['plan_calls']) is int and value['plan_calls'] == 1
+          and type(value['aggregate_plan_writes']) is int and value['aggregate_plan_writes'] == 0
+          and value['before_plan_sha256'] == value['after_plan_sha256'] == prepared['sha256']
+          and type(value['before_plan_bytes']) is int and type(value['after_plan_bytes']) is int
+          and value['before_plan_bytes'] == value['after_plan_bytes'] == prepared['bytes'], 'replay_v2_apply_invalid')
+
+
+def _v2_command(config, inspection, protocol, protocol_ref, recipe, files, mode, *, resource_config=None, workspace=None):
+    """Bind direct isolated Python to the actual read-only code/input mounts."""
+    _v2_closed(config, {'schema', 'source_mode', 'image', 'source_sha', 'program', 'protocol', 'recipe_input',
+        'preparer', 'metadata', 'output_dir', 'work_dir'}, 'replay_v2_execution_invalid')
+    _need(config['schema'] == 'berry.migration-replay-functional-config.v2' and config['source_mode'] == 'app'
+          and config['image'] == protocol['image'] and config['source_sha'] == protocol['source_sha']
+          and config['program'] == protocol['program'] and config['protocol'] == protocol_ref
+          and config['preparer'] == protocol['plan']['program'] and config['metadata'] == protocol['source_metadata']['program'],
+          'replay_v2_execution_invalid')
+    supplied = files.json(config['recipe_input'])
+    _v2_closed(supplied, {'schema', 'candidate_image', 'source_sha', 'replay_protocol', 'operator_modules', 'raw_plan'},
+        'replay_v2_execution_invalid')
+    _need(supplied['schema'] == 'berry.migration-replay-input.v2'
+          and all(_canonical(supplied[key]) == _canonical(recipe[key])
+                  for key in ('candidate_image', 'source_sha', 'replay_protocol', 'operator_modules', 'raw_plan')),
+          'replay_v2_execution_invalid')
+    output, work = _host_path(config['output_dir']), _host_path(config['work_dir'])
+    arguments = ['-I', '-B', config['program']['path'], mode, '--protocol', protocol_ref['path'], '--protocol-sha256', protocol_ref['sha256'],
+        '--recipe', config['recipe_input']['path'], '--recipe-sha256', config['recipe_input']['sha256'],
+        '--output-dir', output, '--work-dir', work]
+    if mode == '--prepare-apply-only':
+        _need(resource_config is not None and workspace is not None, 'replay_v2_execution_invalid')
+        _host_path(resource_config['backup_dir'])
+        _need(PurePosixPath(resource_config['backup_dir']).is_relative_to(work)
+              and PurePosixPath(resource_config['backup_dir']) != PurePosixPath(work), 'replay_v2_execution_invalid')
+        arguments += ['--runtime-dir', str(PurePosixPath(resource_config['data_dir']).parent),
+            '--backup-base', str(PurePosixPath(resource_config['backup_dir']) / 'migration-backups'),
+            '--scratch-dir', str(PurePosixPath(resource_config['backup_dir']) / 'scratch')]
+    raw_config = inspection.get('Config') or {}
+    _need(raw_config.get('Entrypoint') in (None, []) and raw_config.get('Cmd') == ['python3', *arguments]
+          and inspection.get('Path') == 'python3' and inspection.get('Args') == arguments
+          and not inspection.get('HostConfig', {}).get('Tmpfs') and not raw_config.get('Volumes'), 'replay_v2_execution_invalid')
+    required = [config[key] for key in ('program', 'protocol', 'recipe_input', 'preparer', 'metadata')]
+    required += [protocol['plan']['original_preparation_receipt'], protocol['source_metadata']['source_receipt'],
+                 protocol['source_metadata']['timestamp_sidecar']]
+    rows = inspection.get('Mounts')
+    _need(isinstance(rows, list) and all(isinstance(row, dict) and row.get('Type') == 'bind' for row in rows),
+          'replay_v2_execution_invalid')
+    mounts = {_host_path(row.get('Destination')): row for row in rows}
+    _need(len(mounts) == len(rows), 'replay_v2_execution_invalid')
+    allowed = {ref['path'] for ref in required} | {output, work}
+    if workspace is not None: allowed.add('/app/runtime')
+    _need(set(mounts) == allowed, 'replay_v2_execution_invalid')
+    for ref in required:
+        row = mounts[ref['path']]
+        _need(_host_path(row.get('Source')) == ref['path'] and row.get('RW') is False, 'replay_v2_execution_invalid')
+        files.file(ref)
+    for name, row in mounts.items():
+        path = PurePosixPath(name)
+        overlaps_app = path.is_relative_to('/app') or PurePosixPath('/app').is_relative_to(path)
+        _need(not overlaps_app or workspace is not None and name == '/app/runtime'
+              and Path(_host_path(row.get('Source'))) == workspace and row.get('RW') is True, 'replay_v2_execution_invalid')
+    _need(mounts[output].get('RW') is True and mounts[work].get('RW') is True, 'replay_v2_execution_invalid')
+    output_host, work_host = Path(_host_path(mounts[output].get('Source'))), Path(_host_path(mounts[work].get('Source')))
+    _need(not output_host.is_relative_to(work_host) and not work_host.is_relative_to(output_host)
+          and all(not Path(ref['path']).is_relative_to(output_host) and not Path(ref['path']).is_relative_to(work_host) for ref in required),
+          'replay_v2_execution_invalid')
+    if workspace is not None:
+        _need(not output_host.is_relative_to(workspace) and not workspace.is_relative_to(output_host)
+              and not work_host.is_relative_to(workspace) and not workspace.is_relative_to(work_host), 'replay_v2_execution_invalid')
+    return output_host, work_host, mounts
+
+
+def _v2_functional_execution(ref, protocol, recipe, verified, native, files):
+    execution = files.json(ref)
+    _v2_closed(execution, {'schema', 'state', 'completion', 'inspection', 'config', 'result'}, 'replay_v2_execution_invalid')
+    _need(execution['schema'] == 'berry.migration-replay-functional-execution.v2' and execution['state'] == 'passed'
+          and execution['result'] == verified['native_receipt'], 'replay_v2_execution_invalid')
+    completion = files.json(execution['completion']); inspection = files.json(execution['inspection']); config = files.json(execution['config'])
+    _v2_closed(completion, {'schema', 'state', 'container_id', 'image', 'source_sha', 'program_sha256', 'config_sha256',
+        'result_sha256', 'inspection_sha256', 'helper_exit', 'oom_killed'}, 'replay_v2_execution_invalid')
+    state = inspection.get('State') or {}
+    _need(completion['schema'] == 'berry.migration-replay-functional-complete.v2' and completion['state'] == 'passed'
+          and isinstance(completion['container_id'], str) and _HEX.fullmatch(completion['container_id'])
+          and completion['container_id'] == inspection.get('Id') and completion['image'] == inspection.get('Image') == protocol['image']
+          and completion['source_sha'] == protocol['source_sha'] and completion['program_sha256'] == protocol['program']['sha256']
+          and completion['config_sha256'] == execution['config']['sha256']
+          and completion['result_sha256'] == execution['result']['sha256']
+          and completion['inspection_sha256'] == execution['inspection']['sha256']
+          and type(completion['helper_exit']) is int and completion['helper_exit'] == 0 and completion['oom_killed'] is False
+          and state.get('Running') is False and state.get('Status') == 'exited' and type(state.get('ExitCode')) is int
+          and state['ExitCode'] == 0 and state.get('OOMKilled') is False, 'replay_v2_execution_invalid')
+    output, work, mounts = _v2_command(config, inspection, protocol, recipe['replay_protocol'], recipe, files, '--fixture-only')
+    _need(Path(verified['native_receipt']['path']).is_relative_to(output)
+          and Path(verified['preparation_receipt']['path']).is_relative_to(output)
+          and native['roots']['proof_dir'] == config['output_dir'], 'replay_v2_execution_invalid')
+    observed = PurePosixPath(_host_path(native['prepared_plan']['receipt_path']))
+    _need(observed.is_relative_to(config['output_dir'])
+          and output.joinpath(*observed.relative_to(config['output_dir']).parts) == Path(verified['preparation_receipt']['path']),
+          'replay_v2_execution_invalid')
+
+
+def _v2_kernel(execution, completion, program_sha, protocol, files):
+    inspection, config, phase, result = [files.json(execution[key]) for key in ('inspection', 'config', 'phase', 'result')]
+    kernel = files.json(execution['kernel'])
+    _v2_closed(kernel, {'schema', 'state', 'container_id', 'initial_inspection', 'observer', 'init_pid', 'proc_cgroup_path',
+        'cgroup_path', 'memory_max_bytes', 'swap_max_bytes', 'memory_peak_bytes', 'events_before', 'events_after',
+        'populated_after', 'result_sha256'}, 'replay_v2_kernel_invalid')
+    initial = files.json(kernel['initial_inspection']); files.file(kernel['observer'])
+    identifier = completion.get('container_id'); state = inspection.get('State') or {}; start = initial.get('State') or {}
+    limit = kernel['memory_max_bytes']; swap = kernel['swap_max_bytes']
+    _need(kernel['schema'] == 'berry.migration-replay-kernel.v2' and kernel['state'] == 'verified'
+          and isinstance(identifier, str) and _HEX.fullmatch(identifier)
+          and identifier == inspection.get('Id') == initial.get('Id') == kernel['container_id'] == phase.get('ephemeral', {}).get('id')
+          and inspection.get('Image') == initial.get('Image') == completion.get('image') == phase.get('ephemeral', {}).get('image') == protocol['image']
+          and completion.get('state') == 'passed' and completion.get('program_sha256') == program_sha
+          and completion.get('config_sha256') == execution['config']['sha256']
+          and completion.get('phase_sha256') == execution['phase']['sha256']
+          and config.get('policy', {}).get('program_sha256') == program_sha
+          and config.get('policy', {}).get('source_sha') == protocol['source_sha']
+          and all(type(completion.get(key)) is int and completion[key] == 0 for key in ('helper_exit', 'watcher_exit'))
+          and completion.get('oom_killed') is False and state.get('Running') is False and state.get('Status') == 'exited'
+          and type(state.get('ExitCode')) is int and state['ExitCode'] == 0 and state.get('OOMKilled') is False
+          and start.get('Running') is True and _v2_int(kernel['init_pid'], 1)
+          and type(start.get('Pid')) is int and start['Pid'] == kernel['init_pid']
+          and isinstance(start.get('StartedAt'), str) and bool(start['StartedAt']) and not start['StartedAt'].startswith('0001-')
+          and start['StartedAt'] == state.get('StartedAt') and isinstance(state.get('FinishedAt'), str)
+          and bool(state['FinishedAt']) and not state['FinishedAt'].startswith('0001-')
+          and _v2_int(limit, 1) and limit <= 448 * 1024**2 and type(swap) is int and swap == 0
+          and type(completion.get('memory_cap_mib')) is int and completion['memory_cap_mib'] * 1024**2 == limit
+          and _v2_int(kernel['memory_peak_bytes'], 1) and kernel['memory_peak_bytes'] <= limit
+          and kernel['populated_after'] is False and kernel['result_sha256'] == execution['result']['sha256'], 'replay_v2_kernel_invalid')
+    for row in (initial, inspection):
+        host = row.get('HostConfig') or {}
+        _need(type(host.get('Memory')) is int and host['Memory'] == limit
+              and type(host.get('MemorySwap')) is int and host['MemorySwap'] == limit + swap, 'replay_v2_kernel_invalid')
+    group = _host_path(kernel['proc_cgroup_path'])
+    _need(kernel['cgroup_path'] == '/sys/fs/cgroup' + group and identifier in PurePosixPath(group).name, 'replay_v2_kernel_invalid')
+    for key in ('events_before', 'events_after'):
+        _v2_closed(kernel[key], {'oom', 'oom_kill'}, 'replay_v2_kernel_invalid')
+        _need(all(type(value) is int and value == 0 for value in kernel[key].values()), 'replay_v2_kernel_invalid')
+    _need(kernel['events_before'] == kernel['events_after'], 'replay_v2_kernel_invalid')
+    return inspection, config, phase, result
+
+
+def _v2_resources(ref, protocol, verified, native_plan, original, stats, source, recipe, files):
+    initial_pins = set(files.pins)
+    evidence = files.json(ref)
+    _v2_closed(evidence, {'schema', 'mode', 'metadata_execution', 'prepare_apply_execution'}, 'replay_v2_resource_invalid')
+    _need(evidence['schema'] == 'berry.migration-replay-resource.v2'
+          and evidence['mode'] in {'composed-native', 'owned-qualification'}, 'replay_v2_resource_invalid')
+    roles = {}
+    for role in ('metadata_execution', 'prepare_apply_execution'):
+        execution = evidence[role]
+        _v2_closed(execution, {'completion', 'inspection', 'kernel', 'config', 'phase', 'result'}, 'replay_v2_resource_invalid')
+        completion = files.json(execution['completion'])
+        if role == 'prepare_apply_execution' and evidence['mode'] == 'owned-qualification':
+            _v2_closed(completion, {'schema', 'state', 'nonce', 'image', 'source_sha', 'protocol_sha256', 'program_sha256',
+                'original_preparation_receipt', 'source_receipt', 'timestamp_sidecar', 'native_completion', 'inspection',
+                'kernel', 'config', 'phase', 'result', 'workspace_root', 'backup_base_before'}, 'replay_v2_qualification_invalid')
+            _need(completion['schema'] == 'berry.migration-replay-qualification-complete.v2' and completion['state'] == 'passed'
+                  and isinstance(completion['nonce'], str) and re.fullmatch('[a-f0-9]{32,64}', completion['nonce'])
+                  and completion['image'] == protocol['image'] and completion['source_sha'] == protocol['source_sha']
+                  and completion['protocol_sha256'] == verified['protocol_sha256']
+                  and completion['program_sha256'] == protocol['program']['sha256']
+                  and completion['original_preparation_receipt'] == protocol['plan']['original_preparation_receipt']
+                  and all(completion[key] == protocol['source_metadata'][key] for key in ('source_receipt', 'timestamp_sidecar'))
+                  and all(completion[key] == execution[key] for key in ('inspection', 'kernel', 'config', 'phase', 'result')),
+                  'replay_v2_qualification_invalid')
+            qualification = completion
+            completion = files.json(qualification['native_completion'])
+        else:
+            qualification = None
+        program_sha = protocol['program']['sha256'] if role == 'metadata_execution' or qualification is not None else protocol['plan']['program']['sha256']
+        inspection, config, phase, result = _v2_kernel(execution, completion, program_sha, protocol, files)
+        if role == 'metadata_execution' or qualification is not None:
+            policy = config.get('policy') or {}
+            _need(policy.get('metadata_program_sha256') == protocol['source_metadata']['program']['sha256']
+                  and policy.get('preparer_sha256') == protocol['plan']['program']['sha256'], 'replay_v2_execution_invalid')
+            output, work, _ = _v2_command(policy.get('replay_execution'), inspection, protocol, recipe['replay_protocol'], recipe,
+                files, '--metadata-allocation' if role == 'metadata_execution' else '--prepare-apply-only',
+                resource_config=config if qualification is not None else None,
+                workspace=Path(_host_path(qualification['workspace_root'])) if qualification is not None else None)
+            _need(Path(execution['result']['path']).is_relative_to(output), 'replay_v2_execution_invalid')
+        _need(_canonical(completion.get('counts')) == _canonical(result.get('counts'))
+              and isinstance(completion.get('counts'), dict) and isinstance(completion.get('hashes'), dict)
+              and result.get('state') == 'passed'
+              and _canonical(completion.get('hashes')) == _canonical(result.get('hashes')), 'replay_v2_resource_result_invalid')
+        roles[role] = execution, completion, inspection, config, phase, result, qualification
+    execution, completion, inspection, config, phase, result, _ = roles['metadata_execution']
+    _v2_closed(result, {'state', 'counts', 'hashes', 'artifacts'}, 'replay_v2_metadata_resource_invalid')
+    _v2_closed(result['counts'], {'files', 'bytes'}, 'replay_v2_metadata_resource_invalid')
+    _v2_closed(result['hashes'], {'inventory', 'timestamp'}, 'replay_v2_metadata_resource_invalid')
+    _v2_closed(result['artifacts'], {'metadata_allocation'}, 'replay_v2_metadata_resource_invalid')
+    metadata = result.get('artifacts', {}).get('metadata_allocation')
+    _v2_closed(metadata, {'schema', 'state', 'source_receipt', 'timestamp_sidecar', *stats, 'validated_entries',
+        'maps_released_before_plan', 'stream_buffer_bytes'}, 'replay_v2_metadata_resource_invalid')
+    _need(metadata['schema'] == 'berry.migration-replay-metadata-allocation.v2' and metadata['state'] == 'passed'
+          and all(metadata[key] == protocol['source_metadata'][key] for key in ('source_receipt', 'timestamp_sidecar'))
+          and all(type(metadata[key]) is type(value) and metadata[key] == value for key, value in stats.items())
+          and type(metadata['validated_entries']) is int and metadata['validated_entries'] == stats['files']
+          and metadata['maps_released_before_plan'] is True and type(metadata['stream_buffer_bytes']) is int
+          and metadata['stream_buffer_bytes'] == 2 * 1024**2
+          and all(type(result['counts'][key]) is int and result['counts'][key] == stats[key] for key in ('files', 'bytes'))
+          and result['hashes'] == {'inventory': stats['source_inventory_sha256'], 'timestamp': stats['timestamp_digest']}
+          and completion.get('result_sha256') == execution['result']['sha256'], 'replay_v2_metadata_resource_invalid')
+    execution, completion, inspection, config, phase, result, qualification = roles['prepare_apply_execution']
+    observed = _v2_preparation(result.get('artifacts', {}).get('prepared_migration_plan'))
+    if qualification is None:
+        _v2_closed(result.get('artifacts'), {'full_file_manifests', 'snapshot_spills', 'prepared_migration_plan'},
+            'replay_v2_resource_result_invalid')
+        rehearsal = files.json(native_plan.get('proofs', {}).get('rehearsal'))
+        native = rehearsal.get('native_evidence') or {}
+        _need(native.get('rehearsal', {}).get('sha256') == execution['completion']['sha256']
+              and native.get('rehearsal_helper_stdout', {}).get('sha256') == execution['result']['sha256']
+              and _canonical(rehearsal.get('http_coverage', {}).get('evidence', {}).get('rehearsal_helper_stdout')) ==
+                  _canonical(native.get('rehearsal_helper_stdout'))
+              and native.get('rehearsal_config', {}).get('sha256') == execution['config']['sha256']
+              and native.get('rehearsal_phase', {}).get('sha256') == execution['phase']['sha256'], 'replay_v2_native_reuse_unanchored')
+        _need(result.get('state') == 'passed' and all(_v2_int(observed['counts'][key])
+              and observed['counts'][key] >= value for key, value in original['counts'].items())
+              and observed['bytes'] >= original['bytes'] and observed['largest_source_codepoint'] >= original['largest_source_codepoint']
+              and _v2_int(result.get('counts', {}).get('original_files')) and result['counts']['original_files'] >= stats['files']
+              and all(type(result.get('counts', {}).get(key)) is int and type(config.get('policy', {}).get(expected)) is int
+                      and result['counts'][key] == config['policy'][expected]
+                      for key, expected in [('reports', 'expected_report_count'), ('workspaces', 'expected_workspace_count')])
+              and all(type(result.get('counts', {}).get(key)) is int and result['counts'][key] == observed['counts'][key]
+                      for key in ('records', 'variants', 'assets')),
+              'replay_v2_workload_not_covered')
+    else:
+        _v2_closed(result, {'schema', 'state', 'image', 'source_sha', 'program_sha256', 'preparer_sha256', 'counts',
+            'hashes', 'artifacts', 'apply'}, 'replay_v2_qualification_invalid')
+        _need(result['schema'] == 'berry.migration-replay-prepare-apply.v2' and result['state'] == 'passed'
+              and result['image'] == protocol['image'] and result['source_sha'] == protocol['source_sha']
+              and result['program_sha256'] == protocol['program']['sha256']
+              and result['preparer_sha256'] == config.get('policy', {}).get('preparer_sha256') == protocol['plan']['program']['sha256']
+              and all(_canonical(observed[key]) == _canonical(original[key]) for key in
+                  ('sha256', 'canonical_sha256', 'source_fingerprint', 'migration_id', 'bytes', 'counts', 'largest_source_codepoint'))
+              and result['hashes'].get('source_inventory_sha256') == stats['source_inventory_sha256']
+              and result['hashes'].get('timestamp_digest') == stats['timestamp_digest'], 'replay_v2_workload_not_covered')
+        _v2_closed(result['artifacts'], {'prepared_migration_plan'}, 'replay_v2_qualification_invalid')
+        _v2_closed(result['hashes'], {'source_inventory_sha256', 'timestamp_digest', 'before_plan_sha256', 'after_plan_sha256'},
+            'replay_v2_qualification_invalid')
+        _need(_canonical(result['counts']) == _canonical(observed['counts'])
+              and result['hashes']['before_plan_sha256'] == result['hashes']['after_plan_sha256'] == observed['sha256'],
+              'replay_v2_qualification_invalid')
+        _v2_apply(result['apply'], observed)
+        workspace = Path(_host_path(qualification['workspace_root']))
+        before = qualification['backup_base_before']
+        _v2_closed(before, {'path', 'device', 'inode', 'entries', 'observed_before_prepare'}, 'replay_v2_qualification_invalid')
+        _need(_v2_int(before['device']) and _v2_int(before['inode'], 1) and before['entries'] == []
+              and before['observed_before_prepare'] is True, 'replay_v2_qualification_invalid')
+        def mapped(container_path):
+            path = PurePosixPath(_host_path(container_path))
+            choices = [row for row in inspection.get('Mounts', []) if row.get('Type') == 'bind'
+                       and path.is_relative_to(PurePosixPath(row.get('Destination', '')))]
+            _need(choices, 'replay_v2_qualification_invalid')
+            row = max(choices, key=lambda item: len(PurePosixPath(item['Destination']).parts))
+            return Path(_host_path(row['Source'])).joinpath(*path.relative_to(row['Destination']).parts)
+        _need(mapped(config['data_dir']) == workspace / 'data' and mapped(config['inbox_dir']) == workspace / 'inbox'
+              and observed['path'] == str(PurePosixPath(config['backup_dir']) / 'migration-backups' /
+                  observed['migration_id'] / 'PLAN.private.json')
+              and mapped(str(PurePosixPath(config['backup_dir']) / 'migration-backups')) == Path(_host_path(before['path'])),
+              'replay_v2_qualification_invalid')
+        for mount in source.get('old_binding', {}).get('app', {}).get('mounts', []):
+            if mount.get('Destination') in {'/app/runtime/data', '/app/runtime/inbox'}:
+                active = Path(_host_path(mount['Source']))
+                _need(not workspace.is_relative_to(active) and not active.is_relative_to(workspace), 'replay_v2_qualification_invalid')
+        # Durable receipts survive retirement; observed PLAN/workspace paths do
+        # not become generic file pins or permanent runtime-copy dependencies.
+        for role in roles.values():
+            for pin in role[0].values():
+                _need(not Path(_host_path(pin['path'])).is_relative_to(workspace), 'replay_v2_qualification_invalid')
+        _need(all(not Path(path).is_relative_to(workspace) for path in set(files.pins) - initial_pins),
+              'replay_v2_qualification_invalid')
+
+
+def _replay_protocol_v2(protocol, verified, recipe, archive, recovery, source, proof, plan, files):
+    _v2_closed(protocol, {'schema', 'image', 'source_sha', 'restore', 'source_metadata', 'plan', 'apply', 'verification',
+        'original_migration_id_is_provenance_only', 'program'}, 'replay_v2_protocol_invalid')
+    _need(protocol['image'] == recipe['candidate_image'] and protocol['source_sha'] == recipe['source_sha']
+          and _canonical(protocol['restore']) == _canonical({'module': 'app.services.runtime_backup', 'function': 'restore_backup', 'require_empty': True})
+          and _canonical(protocol['apply']) == _canonical({'module': 'app.services.information_migration', 'function': 'apply_migration', 'quiesced': True,
+              'resume_id': 'this-prepared-plan.migration_id', 'no_replan': True, 'no_aggregate_plan_rewrite': True})
+          and protocol['verification'] == ['current-store', 'winner-and-variants', 'analyst-decisions', 'all-protected-runtime-state']
+          and protocol['original_migration_id_is_provenance_only'] is True, 'replay_v2_protocol_invalid')
+    preparing = protocol['plan']
+    _v2_closed(preparing, {'module', 'function', 'program', 'original_preparation_receipt', 'fresh_runtime_paths',
+        'new_empty_backup_base', 'encoding', 'exclusive_prepared_plan'}, 'replay_v2_protocol_invalid')
+    _need(preparing['module'] == 'accepted-preservation-helper' and preparing['function'] == 'prepare_migration_plan'
+          and preparing['program'] == recipe['operator_modules'].get('preservation')
+          and preparing['fresh_runtime_paths'] is preparing['new_empty_backup_base'] is preparing['exclusive_prepared_plan'] is True
+          and preparing['encoding'] == 'ascii-json', 'replay_v2_protocol_invalid')
+    files.file(preparing['program']); files.file(protocol['program'])
+    _need(preparing['original_preparation_receipt']['path'] == str(Path(recovery['raw_plan']['path']).with_name('PLAN-preparation.private.json')),
+          'replay_v2_original_preparation_invalid')
+    original = _v2_preparation(files.json(preparing['original_preparation_receipt'], private=False))
+    _need(original['sha256'] == recovery['raw_plan']['sha256']
+          and original['path'] == str(PurePosixPath(source['migration']['backup_path']) / 'PLAN.private.json')
+          and original['migration_id'] == source['migration']['migration_id'], 'replay_v2_original_preparation_invalid')
+    stats = _v2_metadata(protocol, source, archive, files)
+    _v2_closed(verified, {'schema', 'state', 'image', 'source_sha', 'protocol_sha256', 'program_sha256', 'checks',
+        'test_program', 'native_receipt', 'native_execution', 'preparation_receipt', 'resource_evidence'}, 'replay_v2_verification_invalid')
+    _need(verified['schema'] == 'berry.migration-replay-verification.v2' and verified['state'] == 'passed'
+          and verified['image'] == recipe['candidate_image'] and verified['source_sha'] == recipe['source_sha']
+          and verified['protocol_sha256'] == recipe['replay_protocol']['sha256']
+          and verified['program_sha256'] == protocol['program']['sha256']
+          and isinstance(verified['checks'], dict) and set(verified['checks']) == REPLAY_V2_CHECKS
+          and all(value is True for value in verified['checks'].values()), 'replay_v2_verification_invalid')
+    files.file(verified['test_program'])
+    native = files.json(verified['native_receipt'])
+    _v2_closed(native, {'schema', 'state', 'fixture_only', 'execution_context', 'image', 'source_sha', 'protocol_sha256',
+        'program_sha256', 'preparer_sha256', 'module_sha256', 'roots', 'source_metadata', 'prepared_plan', 'apply', 'checks'},
+        'replay_v2_native_invalid')
+    _need(native['schema'] == 'berry.migration-replay-native.v2' and native['state'] == 'passed'
+          and native['fixture_only'] is True and native['execution_context'] == 'app-modules-fixture'
+          and all(_canonical(native[key]) == _canonical(verified[key]) for key in ('image', 'source_sha', 'protocol_sha256', 'program_sha256', 'checks'))
+          and native['preparer_sha256'] == preparing['program']['sha256'], 'replay_v2_native_invalid')
+    _v2_closed(native['module_sha256'], {'runtime_backup', 'information_migration', 'information_storage', 'metadata'}, 'replay_v2_native_invalid')
+    _need(all(isinstance(value, str) and _HEX.fullmatch(value) for value in native['module_sha256'].values())
+          and native['module_sha256']['metadata'] == protocol['source_metadata']['program']['sha256'], 'replay_v2_native_invalid')
+    roots = native['roots']
+    _v2_closed(roots, {'runtime', 'data', 'inbox', 'backup_base', 'proof_dir', 'fresh_runtime', 'new_empty_backup_base'}, 'replay_v2_native_invalid')
+    for key in ('runtime', 'data', 'inbox', 'backup_base', 'proof_dir'):
+        _host_path(roots[key])
+    _need(roots['fresh_runtime'] is roots['new_empty_backup_base'] is True
+          and Path(roots['data']) == Path(roots['runtime']) / 'data' and Path(roots['inbox']) == Path(roots['runtime']) / 'inbox'
+          and all(not Path(roots['backup_base']).is_relative_to(Path(roots[key])) for key in ('data', 'inbox')),
+          'replay_v2_native_invalid')
+    prepared = _v2_preparation(files.json(verified['preparation_receipt']))
+    observed = native['prepared_plan']
+    _v2_closed(observed, {'path', 'receipt_path', 'receipt_sha256', 'sha256', 'canonical_sha256', 'source_fingerprint',
+        'migration_id', 'bytes', 'counts', 'largest_source_codepoint'}, 'replay_v2_native_invalid')
+    _need(all(_canonical(observed[key]) == _canonical(prepared[key]) for key in observed if key not in {'receipt_path', 'receipt_sha256'})
+          and observed['receipt_sha256'] == verified['preparation_receipt']['sha256']
+          and prepared['path'] == str(PurePosixPath(roots['backup_base']) / prepared['migration_id'] / 'PLAN.private.json')
+          and Path(_host_path(observed['receipt_path'])).is_relative_to(Path(roots['proof_dir']))
+          and not Path(roots['proof_dir']).is_relative_to(Path(roots['runtime']))
+          and not Path(roots['proof_dir']).is_relative_to(Path(roots['backup_base']))
+          and prepared['largest_source_codepoint'] > 0xffff, 'replay_v2_native_invalid')
+    _v2_apply(native['apply'], prepared)
+    # Functional fixture metadata is intentionally synthetic; representative
+    # original input/resource coverage is independently checked below.
+    metadata = native['source_metadata']
+    _v2_closed(metadata, {'archive_sha256', 'source_receipt_sha256', 'timestamp_sidecar_sha256', 'inventory_sha256',
+        'timestamp_sha256', 'files', 'verified_before_mtime', 'released_before_plan'}, 'replay_v2_native_invalid')
+    _need(all(isinstance(metadata[key], str) and _HEX.fullmatch(metadata[key]) for key in
+          ('archive_sha256', 'source_receipt_sha256', 'timestamp_sidecar_sha256', 'inventory_sha256', 'timestamp_sha256'))
+          and _v2_int(metadata['files'], 1) and metadata['verified_before_mtime'] is metadata['released_before_plan'] is True,
+          'replay_v2_native_invalid')
+    _v2_functional_execution(verified['native_execution'], protocol, recipe, verified, native, files)
+    native_plan = plan
+    inherited = proof.get('inherited_storage_recovery') or {}
+    if inherited.get('native_origin') is not None:
+        wrapper = files.json(inherited['native_origin']); native_plan = files.json(wrapper['plan'])
+    _v2_resources(verified['resource_evidence'], protocol, verified, native_plan, original, stats, source, recipe, files)
+
+
 def _archive_role(pin, role, kind, current, recovery, proof, phase, plan, files, origin=None):
     fields = {'path', 'sha256', 'size', 'capture_phase', 'store_schema', 'recovery_role', 'recovery_recipe', 'transformation_proof'}
     _need(isinstance(pin, dict) and set(pin) == fields, 'accepted_archive_role_missing')
@@ -739,7 +1183,10 @@ def _archive_role(pin, role, kind, current, recovery, proof, phase, plan, files,
           and recipe.get('transformation_proof') == pin['transformation_proof'], 'accepted_migration_replay_unproven')
     protocol = files.json(recipe.get('replay_protocol'))
     verified = files.json(recipe.get('protocol_verification'))
-    _need(protocol.get('schema') == 'berry.migration-replay-protocol.v1'
+    if protocol.get('schema') == 'berry.migration-replay-protocol.v2':
+        _replay_protocol_v2(protocol, verified, recipe, pin, recovery, source, proof, plan, files)
+    else:
+        _need(protocol.get('schema') == 'berry.migration-replay-protocol.v1'
           and protocol.get('image') == recipe['candidate_image'] and protocol.get('source_sha') == recipe['source_sha']
           and protocol.get('restore') == {'module': 'app.services.runtime_backup', 'function': 'restore_backup', 'require_empty': True}
           and protocol.get('source_metadata') == {'from': 'raw-plan.sources', 'verify_size_and_sha256_before_metadata': True,
@@ -749,11 +1196,11 @@ def _archive_role(pin, role, kind, current, recovery, proof, phase, plan, files,
               'quiesced': True, 'resume_id': None, 'new_empty_backup_base': True}
           and protocol.get('verification') == ['current-store', 'winner-and-variants', 'analyst-decisions', 'all-protected-runtime-state']
           and protocol.get('original_migration_id_is_provenance_only') is True, 'accepted_migration_replay_protocol_unsupported')
-    files.file(protocol.get('program'))
-    checks = {'restore-bytes-and-modes', 'source-hashes-before-mtime', 'source-mtime-ns-rehydration',
+        files.file(protocol.get('program'))
+        checks = {'restore-bytes-and-modes', 'source-hashes-before-mtime', 'source-mtime-ns-rehydration',
               'fresh-plan-at-new-paths', 'new-empty-backup-base', 'no-resume-id', 'winner-and-variants-preserved',
               'analyst-decisions-preserved', 'current-store-verification'}
-    _need(verified.get('schema') == 'berry.migration-replay-verification.v1' and verified.get('state') == 'passed'
+        _need(verified.get('schema') == 'berry.migration-replay-verification.v1' and verified.get('state') == 'passed'
           and verified.get('image') == recipe['candidate_image'] and verified.get('source_sha') == recipe['source_sha']
           and verified.get('protocol_sha256') == recipe['replay_protocol']['sha256']
           and verified.get('program_sha256') == protocol['program']['sha256']
@@ -967,6 +1414,31 @@ def _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files):
           and preservation.get('state') == 'passed' and preservation.get('image') == plan['candidate_image']
           and preservation.get('program_sha256') == plan.get('modules', {}).get('preservation', {}).get('sha256'),
           'accepted_logo_preservation_chain_invalid')
+
+
+def _candidate_image_inventory(plan, files):
+    """Retain the known optional image-inventory producer extension."""
+    reference = plan['candidate_image_manifest']
+    _v2_closed(reference, {'path', 'sha256'}, 'accepted_candidate_image_manifest_invalid')
+    admission = files.json(plan.get('proofs', {}).get('image'))
+    _need(admission.get('state') == 'verified' and admission.get('image', admission.get('image_id')) == plan['candidate_image']
+          and admission.get('source_sha') == plan['source_sha']
+          and admission.get('image_verification_sha256') == reference['sha256'], 'accepted_candidate_image_manifest_invalid')
+    manifest = files.json(reference, private=False)
+    inventory = manifest.get('exact_image_files')
+    _need(manifest.get('source_sha') == plan['source_sha'] and isinstance(inventory, dict) and inventory,
+          'accepted_candidate_image_manifest_invalid')
+    reports = 0
+    for name, checksum in inventory.items():
+        path = PurePosixPath(_host_path(name))
+        _need(path.is_relative_to('/app') and path != PurePosixPath('/app')
+              and isinstance(checksum, str) and _HEX.fullmatch(checksum), 'accepted_candidate_image_manifest_invalid')
+        if name.startswith('/app/reports/'):
+            relative = path.relative_to('/app/reports')
+            _need(relative.parts and '..' not in relative.parts, 'accepted_candidate_image_manifest_invalid')
+            reports += 1
+    # The accepted native producer enforces its own release-specific count.
+    _need(reports > 0, 'accepted_candidate_image_manifest_invalid')
 
 
 def _adoption_context(wrapper, files):
@@ -1193,6 +1665,8 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
               'accepted_adoption_native_context_changed')
         if logos:
             _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files)
+            if 'candidate_image_manifest' in plan:
+                _candidate_image_inventory(plan, files)
     else:
         _need(plan.get('operation_kind') == kind and proof.get('operation_kind') == kind
               and phase.get('bindings', {}).get('operation_kind') == kind, 'accepted_operation_kind_mismatch')

@@ -22,6 +22,13 @@ acceptance remain open until the release owner supplies genuine evidence.
 Automatic retirement must
 remain inactive while that gate is unresolved.
 
+The streamed-plan replay v2 adapter adds separate source-inventory/time-sidecar
+verification and one freshly prepared native plan without changing v1. Its
+functional fixture and representative allocation/prepare-apply resource proofs
+remain distinct. Missing kernel observations cannot be inferred from historical
+declared limits; a new owned, capacity-admitted qualification must retain genuine
+observations before adoption. Source tests do not close this operations gap.
+
 Verified off-host replication and restore exercises remain an operations
 follow-up. Local retention and local Codex chat notifications do not provide
 recovery from loss of the host; scheduled chat checks require the computer and
