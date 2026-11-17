@@ -4218,3 +4218,20 @@ manual entry. Saved edits and explicit clearing survive reopen. Existing stored
 names and human publication/Atomic review gates remain intact. Focused and
 integration regressions pass; source capture and event-level recall remain open.
 See `PUBLICATION-VARIETY-REVIEW-REPAIR-2026-11-14.md`.
+
+### TD-INFORMATION-001 — legacy information persistence adapters, November 13
+
+The live catalog now unifies stored Evidence, intake and retained web results;
+review and confidence no longer gate News, search, research or report membership.
+The physical files remain in their existing directories behind that catalog.
+Consolidating storage requires migrating all acquisition/review writers,
+attachments, source-body references and exact-ID tombstones together, with a
+production backup and preservation rehearsal. Do not create a second persisted
+master index or silently move production data to achieve a UI cleanup. Existing
+specialist review workflows and domain object types remain available. Local
+implementation and validation do not constitute a production migration or deploy.
+See `UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.
+
+Open News source limitations (2026-11-14): WSJ public business RSS is a current metadata route, not complete publisher coverage or body access. Tochigi listing has nine undated crop leads in the reviewed input; preserve unknowns rather than guessing from filenames/page updates. Full Japanese PDF bodies, verified first-public times and scheduled route receipts remain unproven until separately evidenced. See NEWS-PUBLIC-ROUTES-2026-11-14.md.
+
+November 15 logo-coverage follow-up: a separate five-company source-reference seed now covers verified official marks for Planasa Genetics, Advanced Berry Breeding, Fresh Forward Breeding & Marketing, Fresas Nuevos Materiales and Masiá Ciscar in offline additive replay. This package is not installed in production. Angus HTTP403, ABZ hostname resolution and Marionnet connection failure remain source-access gaps; broader coverage and dated production acceptance remain open. Original media choices, cache/export holds and older-reader compatibility debt are unchanged. See [supplement](BRAND-MEDIA-LOGO-SUPPLEMENT-2026-11-15.md).

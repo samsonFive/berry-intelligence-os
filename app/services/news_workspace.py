@@ -121,9 +121,10 @@ def parameters(params):
         raise ValueError('Choose All or Any selected tags')
     if values['adjacent'] not in {'', '1'}:
         raise ValueError('Choose a supported adjacent-crop toggle')
-    values["view"] = values["view"] or "unreviewed"
-    if values["view"] not in {"trusted", "unreviewed"}:
-        raise ValueError("Choose Trusted or Unreviewed")
+    # Keep old bookmarks usable while all source states share one inventory.
+    if values["view"] not in {"", "all", "trusted", "unreviewed"}:
+        raise ValueError("Choose All news")
+    values["view"] = "all"
     if not values["berry"]:
         values["berry"] = str(params.get("crop") or "")
     values["berry"] = ",".join(dict.fromkeys(
@@ -199,6 +200,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     exclusions = {}
     for record in records.values():
         key = str(record.get('id') or '')
+        if record.get('evidence_role') == 'atomic_evidence':
+            exclusions[key] = 'Individual claim; its parent publication appears in News'
+            continue
         if record.get('workspace_capture'):
             exclusions[key] = 'Saved passage or analyst capture; original publication remains in News'
             continue
@@ -302,9 +306,6 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         trusted = source_reviewed(record) and key in support
         counts["unreviewed"] += 1  # Raw source lane includes reviewed sources, labeled separately.
         counts["trusted"] += int(trusted)
-        if filters["view"] == "trusted" and not trusted:
-            exclusions[key] = 'No reviewed publication plus active supporting fact'
-            continue
         matched.append((record, stamp, trusted, mentions))
     matched.sort(key=lambda row: (row[1] or datetime.min.replace(tzinfo=UTC), row[0]["id"]), reverse=True)
     pages = max(1, (len(matched) + PAGE_SIZE - 1) // PAGE_SIZE)
@@ -324,7 +325,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
             card["deck"] = "Article summary unavailable. Open the story for source links."
         from app.services.feed_first_reader import is_public_http_url
         card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
-        card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
+        from app.services.information_catalog import information_flags
+        card.update(trusted=trusted, source_reviewed=source_reviewed(record),
+                    information=information_flags(record), escalated_count=len(support.get(card["id"], [])))
         kind = media_kind(record)
         transcript = record.get('transcript') if isinstance(record.get('transcript'), dict) else {}
         transcript_status = record.get('transcript_status') or transcript.get('status')

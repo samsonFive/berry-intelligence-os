@@ -65,6 +65,10 @@ PRIVATE_SENTINELS = {
 
 
 def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_path) -> None:
+    from app.services import review_events
+    def forbid_review_history(*args, **kwargs):
+        raise AssertionError("Public static builds must not read private review history")
+    monkeypatch.setattr(review_events, "load_review_events", forbid_review_history)
     data_dir = tmp_path / "data"
     inbox_dir = tmp_path / "inbox"
     monkeypatch.setattr(main, "DATA_DIR", data_dir)

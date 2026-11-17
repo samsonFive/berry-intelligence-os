@@ -7,6 +7,8 @@ isolated so one bad search does not abort the run.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 import json
@@ -183,7 +185,7 @@ class PatentMonitorService:
     def __post_init__(self) -> None:
         self.operations_dir = self.inbox_dir / "operations" / "patent_monitor"
         self.state_path = self.operations_dir / "state.json"
-        self.evidence_dir = self.inbox_dir / "evidence"
+        self.evidence_dir = information_directory(inbox_dir=self.inbox_dir)
 
     def _entities(self) -> list[dict[str, Any]]:
         entities: list[dict[str, Any]] = []
@@ -198,7 +200,7 @@ class PatentMonitorService:
 
     def _trusted_evidence(self) -> list[dict[str, Any]]:
         records: list[dict[str, Any]] = []
-        folder = self.data_dir / "evidence"
+        folder = information_directory(data_dir=self.data_dir)
         if not folder.is_dir():
             return records
         for path in folder.glob("*.json"):
@@ -319,7 +321,7 @@ class PatentMonitorService:
             )
             review_ready.append(draft_id)
             if not dry_run:
-                _write_json(draft_path, draft)
+                upsert_record(draft, inbox_dir=self.inbox_dir)
                 seen.add(number)
                 created.append(draft_id)
         if not dry_run:

@@ -117,7 +117,8 @@ def test_static_library_has_relocatable_statement_and_all_published_source_links
     sources=[source(),source('ev-second'),source('ev-hidden',status='draft',title='PRIVATE DRAFT TITLE')]
     for row in sources:(data/'evidence'/f"{row['id']}.json").write_text(json.dumps(row),encoding='utf-8')
     (data/'facts').mkdir()
-    records=[fact(evidence_ids=['ev-first','ev-second','ev-hidden']),
+    records=[fact(evidence_ids=['ev-first','ev-second']),
+             fact(id='fact-private-support',evidence_ids=['ev-first','ev-hidden'],statement='PRIVATE MIXED SUPPORT FINDING'),
              fact(id='fact-withdrawn',status='withdrawn',statement='PRIVATE WITHDRAWN FINDING')]
     for row in records:(data/'facts'/f"{row['id']}.json").write_text(json.dumps(row),encoding='utf-8')
     monkeypatch.setattr(main,'DATA_DIR',data)
@@ -131,6 +132,8 @@ def test_static_library_has_relocatable_statement_and_all_published_source_links
     html=page.read_text(encoding='utf-8')
     assert '../../evidence/ev-first/index.html' in html and '../../evidence/ev-second/index.html' in html
     assert 'data-open-reader' not in html and 'PRIVATE DRAFT TITLE' not in html
+    assert not (build.OUTPUT_DIR/'evidence/ev-hidden/index.html').exists()
+    assert not (build.OUTPUT_DIR/'facts/fact-private-support/index.html').exists()
     assert not (build.OUTPUT_DIR/'facts/fact-withdrawn/index.html').exists()
-    assert 'PRIVATE WITHDRAWN FINDING' not in html
+    assert 'PRIVATE WITHDRAWN FINDING' not in html and 'PRIVATE MIXED SUPPORT FINDING' not in html
     assert '<form' not in html and 'Fixture reviewer' not in html

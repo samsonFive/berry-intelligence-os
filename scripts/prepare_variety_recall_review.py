@@ -16,6 +16,7 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from app.services.information_storage import information_directory, enabled
 from app.services.variety_universe.identity import fold_identity
 
 VERSION = 'variety-name-human-review-v1'
@@ -57,7 +58,7 @@ def write_new(target, value, *, folder):
 def original_record(data_dir, identifier):
     if not SAFE_ID.fullmatch(identifier):
         raise ValueError('Invalid source record ID')
-    paths = list((data_dir / 'evidence').rglob(identifier + '.json'))
+    paths = list((information_directory(data_dir=data_dir)).rglob(identifier + '.json'))
     if len(paths) != 1:
         raise ValueError('Source needs exactly one existing publication record')
     record = json.loads(paths[0].read_text(encoding='utf-8'))

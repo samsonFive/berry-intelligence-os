@@ -21,8 +21,9 @@ from app.services.variety_universe.corpus_discovery import discover_corpus_varie
 from app.services.variety_universe.coverage import BERRY_ORDER
 from app.services.berries.variety import variety_trait_profile
 from app.services import company_directory, personal_digest
+from app.services.information_catalog import INACTIVE_STATES, information_flags
 
-ENGINE_VERSION = "landscape-5"
+ENGINE_VERSION = "landscape-6"
 GENETIC_TYPES = {"variety", "breeding_program"}
 ACTOR_TYPES = {"company", "breeding_program", "variety"}
 ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder",
@@ -74,7 +75,7 @@ def selection(params, entities, *, today=None, state=None):
     if (focus and entities[focus].get("entity_type") in GENETIC_TYPES
             and entities[focus].get("berry_ids") and not set(berry_scope).intersection(entities[focus]["berry_ids"])):
         raise ValueError("This program or variety is outside the selected berry; choose its berry or reset focus.")
-    enums = {"predicate": ("", *ROLE_LABELS), "evidence": ("reviewed", "all"),
+    enums = {"predicate": ("", *ROLE_LABELS), "evidence": ("all", "reviewed"),
              "status": ("all", "active", "historical", "disputed"),
              "view": ("portrait", "changes", "explain", "relationships", "compare"),
              "window": ("all", "7d", "30d", "ytd", "custom"),
@@ -115,6 +116,7 @@ def href(filters, **changes):
 
 
 def _source(row):
+    flags = information_flags(row)
     raw_url = str(row.get("source_url") or "")
     try:
         parsed = urlsplit(raw_url)
@@ -122,8 +124,9 @@ def _source(row):
         parsed = urlsplit("")
     safe_url = raw_url if parsed.scheme in {"http", "https"} and parsed.hostname and not parsed.username else ""
     return {"id": row["id"], "title": row.get("title") or row["id"], "url": safe_url,
+            "information": flags,
             "source_name": row.get("source_name") or "Source name not recorded", "status": row.get("status"),
-            "review": "Reviewed source · claims retain their own review" if row.get("status") == "published" else "Unreviewed source",
+            "review": "Reviewed source · claims retain their own review" if flags["review_status"] == "reviewed" else "Unreviewed source",
             "published": _day(row.get("published_date")), "captured": _day(row.get("captured_date")),
             "summary": row.get("summary") or "No source summary recorded.",
             "significance": row.get("why_it_matters") or "",
@@ -166,6 +169,14 @@ def _location_label(row):
     return "Location reported · check source"
 
 
+def _eligible_sources(evidence, policy):
+    """Review is an optional selector over one inventory, never the default."""
+    return {row["id"]: row for row in evidence
+            if row.get("status") not in INACTIVE_STATES
+            and row.get("review_state") not in INACTIVE_STATES
+            and (policy == "all" or information_flags(row)["review_status"] == "reviewed")}
+
+
 def build_bundle(entities, relationships, evidence, params, *, today=None, state=None):
     """Complete selected scope; visibility limits apply only to the web portrait.
 
@@ -187,8 +198,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None, state
         bundle = _combined_bundle(entities, relationships, evidence, filters, fingerprint, today, state)
         _remember(cache_key, bundle)
         return bundle
-    records = {row["id"]: row for row in evidence if row.get("status") == "published" or
-               (filters["evidence"] == "all" and row.get("status") == "in_review")}
+    records = _eligible_sources(evidence, filters["evidence"])
     country_scope = set(filters["countries"])
     for country in filters["countries"]:
         country_scope.update(geography_descendants(country, relationships=relationships))
@@ -230,7 +240,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None, state
                            "berry_ids": [berry],
                            "predicate": row["predicate"], "role": ROLE_LABELS[row["predicate"]],
                            "status": row["status"], "status_label": {"active": "Documented relationship", "historical": "Historical relationship", "disputed": "Disputed / review required"}[row["status"]],
-                           "review": "Includes unreviewed source" if any(r.get("status") != "published" for r in source_rows) else "Reviewed sources",
+                           "review": "Includes unreviewed source" if any(information_flags(r)["review_status"] != "reviewed" for r in source_rows) else "Reviewed sources",
                            "evidence_ids": source_ids, "unavailable_evidence_count": len(row.get("evidence_ids", [])) - len(source_ids),
                            "notes": row.get("notes") or "No relationship notes recorded.", "caveat": _caveat(row),
                            "location_label": _location_label(row),
@@ -462,8 +472,7 @@ def _combined_bundle(entities, relationships, evidence, filters, fingerprint, to
                 edges[edge["id"]] = deepcopy(edge)
                 edges[edge["id"]]["berry_ids"] = []
             edges[edge["id"]]["berry_ids"].append(crop)
-    records = {row["id"]: row for row in evidence if row.get("status") == "published" or
-               (filters["evidence"] == "all" and row.get("status") == "in_review")}
+    records = _eligible_sources(evidence, filters["evidence"])
     # These diagnostics overlap across crops; do not add them as distinct records.
     excluded = {key: max((p["coverage"]["excluded"][key] for p in panels), default=0)
                 for key in ("missing_endpoints", "unavailable_sources")}

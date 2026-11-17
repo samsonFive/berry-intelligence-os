@@ -125,7 +125,7 @@ def test_pending_capture_is_explicit_then_available_to_queue_without_approval(mo
     original = path.read_bytes()
     client = setup(monkeypatch, tmp_path, [])
     def acquire(inbox, record, **kwargs):
-        assert record["id"] == row["id"] and record["status"] == "unreviewed"
+        assert record["id"] == row["id"] and record["information"]["review_status"] == "unreviewed"
         capture(inbox, record, "Blackberry varieties include Newly Captured Lead.")
         return reader.load_capture(inbox, record["id"])
     monkeypatch.setattr(reader, "capture_item", acquire)
@@ -143,7 +143,7 @@ def test_selected_reader_uses_canonical_text_despite_a_same_id_pending_version(m
     client = setup(monkeypatch, tmp_path, [published])
     response = client.get(f'/api/intelligence/{published["id"]}/reader?personal=1')
     assert response.status_code == 200 and "Canonical Lead" in response.text
-    assert "Private Conflicting Lead" not in response.text and "Source reviewed" in response.text
+    assert "Private Conflicting Lead" not in response.text and "<dd>Reviewed</dd>" in response.text
 
 
 def test_digest_uses_saved_pending_operator_edits_and_does_not_rehydrate_rejected_text(monkeypatch, tmp_path):

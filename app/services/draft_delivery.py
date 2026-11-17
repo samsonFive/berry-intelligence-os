@@ -7,6 +7,8 @@ to drafts. Operators must name source and destination identities explicitly.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, enabled, upsert_record
+
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 import hashlib
@@ -151,14 +153,14 @@ def load_json(path: Path) -> dict[str, Any]:
 
 
 def evidence_dir(inbox: Path) -> Path:
-    return inbox / "evidence"
+    return information_directory(inbox_dir=inbox)
 
 
 def trusted_evidence_paths(data_dir: Path | None) -> dict[str, Path]:
     if data_dir is None or not data_dir.is_dir():
         return {}
     found: dict[str, Path] = {}
-    for path in data_dir.joinpath("evidence").glob("*.json"):
+    for path in information_directory(data_dir=data_dir).glob("*.json"):
         found[path.stem] = path
     return found
 
@@ -381,7 +383,10 @@ def deliver_drafts(
         )
         if decision.outcome == NEW_DRAFT and apply and not dry_run:
             dest_evidence.mkdir(parents=True, exist_ok=True)
-            dest_path.write_bytes(source_path.read_bytes())
+            if enabled(inbox_dir=destination_inbox):
+                upsert_record(record, inbox_dir=destination_inbox)
+            else:
+                dest_path.write_bytes(source_path.read_bytes())
             copy_referenced_artifacts(record, source_inbox, destination_inbox, dry_run=False)
             decision.written = True
             decision.destination_hash = file_sha256(dest_path)

@@ -598,7 +598,11 @@ async def lifespan(app: FastAPI):
     if "pytest" not in sys.modules:
         validate_remote_interactive_config()
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
-    (INBOX_DIR / "evidence").mkdir(parents=True, exist_ok=True)
+    from app.services.information_storage import InformationStorageError, enabled, information_directory
+    if enabled(data_dir=DATA_DIR) != enabled(inbox_dir=INBOX_DIR):
+        raise InformationStorageError("Data and inbox must both use the same active information store")
+    enabled(data_dir=DATA_DIR, inbox_dir=INBOX_DIR)
+    information_directory(inbox_dir=INBOX_DIR).mkdir(parents=True, exist_ok=True)
     if "pytest" not in sys.modules and AUTHORING_MODE:
         from app.services.landscape_workspace import seed_watchlist_views
         seed_watchlist_views(INBOX_DIR)
@@ -654,7 +658,7 @@ async def request_corpus_middleware(request: Request, call_next):
     if should_skip_corpus(path):
         return await call_next(request)
     corpus = RequestCorpus(data_dir=DATA_DIR, schemas_dir=SCHEMAS_DIR, inbox_dir=INBOX_DIR,
-                           include_workspace_corrections=AUTHORING_MODE)
+                           include_workspace_corrections=AUTHORING_MODE, public_only=not AUTHORING_MODE)
     token = bind_request_corpus(corpus)
     try:
         request.state.corpus = corpus
@@ -717,6 +721,9 @@ def _path_sig(path: Path) -> tuple[str, int, int]:
 
 
 def _json_folder_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if folder == DATA_DIR / "evidence" or folder == INBOX_DIR / "evidence":
+        from app.services.information_storage import information_directory
+        folder = information_directory(data_dir=DATA_DIR) if folder == DATA_DIR / "evidence" else information_directory(inbox_dir=INBOX_DIR)
     if not folder.is_dir():
         return ()
     rows: list[tuple[str, int, int]] = []
@@ -1388,6 +1395,20 @@ def all_evidence() -> list[dict[str, Any]]:
     return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
+def unified_information(*, include_private: bool | None = None) -> list[dict[str, Any]]:
+    """One live catalog. Public/static callers retain explicit export scope."""
+    from app.services.information_catalog import load_information, stored_information_previews
+    if include_private is None:
+        include_private = AUTHORING_MODE
+    corpus = get_request_corpus()
+    if corpus is not None and include_private:
+        return corpus.information
+    from app.services.information_storage import enabled
+    evidence = (stored_information_previews(INBOX_DIR) if include_private and enabled(inbox_dir=INBOX_DIR)
+                else all_evidence() if include_private else published_evidence())
+    return _social_eligible_outputs(load_information(evidence, INBOX_DIR, include_private=include_private))
+
+
 def _social_eligible_outputs(records):
     from app.services.social_intelligence.output_eligibility import for_new_outputs
     return for_new_outputs(records, DATA_DIR, INBOX_DIR)
@@ -1397,17 +1418,13 @@ def published_evidence() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.published_evidence
-    records = _social_eligible_outputs([r for r in all_evidence() if r.get("status") == "published"])
+    records = _social_eligible_outputs([r for r in all_evidence() if r.get("status") == "published"
+        and (AUTHORING_MODE or r.get("publication_scope") != "private")])
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
 
 
 def _evidence_index() -> dict[str, dict[str, Any]]:
-    rows: dict[str, dict[str, Any]] = {}
-    for record in published_evidence() + list_pending_drafts() + unvalidated_auto_captured_evidence():
-        record_id = str(record.get("id") or "")
-        if record_id:
-            rows[record_id] = record
-    return rows
+    return {record["id"]: record for record in unified_information() if record.get("id")}
 
 
 def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
@@ -1770,7 +1787,10 @@ def safe_filename(name: str) -> str:
 
 
 def list_drafts() -> list[dict[str, Any]]:
-    records = load_json_files(INBOX_DIR / "evidence")
+    from app.services.information_storage import enabled, information_directory
+    records = load_json_files(information_directory(inbox_dir=INBOX_DIR))
+    if enabled(inbox_dir=INBOX_DIR):
+        records = [record for record in records if record.get("status") != "published"]
     return sorted(records, key=lambda r: r.get("captured_date", ""), reverse=True)
 
 
@@ -1806,6 +1826,12 @@ def list_pending_drafts() -> list[dict[str, Any]]:
 
 
 def get_draft(draft_id: str) -> dict[str, Any] | None:
+    if not AUTHORING_MODE:
+        return None
+    from app.services.information_storage import enabled, get_record
+    if enabled(inbox_dir=INBOX_DIR):
+        record = get_record(draft_id, inbox_dir=INBOX_DIR)
+        return record if record is not None and record.get("status") != "published" else None
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if not path.exists():
         return None
@@ -1846,17 +1872,17 @@ def adjacent_publication_draft_id(draft_id: str, *, step: int = 1) -> str | None
     return None
 
 
-def save_draft(record: dict[str, Any]) -> None:
-    folder = INBOX_DIR / "evidence"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+def save_draft(record: dict[str, Any], *, review_update: bool = False) -> None:
+    from app.services.information_storage import upsert_record
+    upsert_record(record, inbox_dir=INBOX_DIR, origin="intake", preserve_existing=False,
+                  allow_review_update=review_update)
     from app.services import news_tags
     news_tags.incremental(INBOX_DIR, [record])
 
 
 def save_attachment(draft_id: str, upload: UploadFile) -> dict[str, str]:
-    folder = INBOX_DIR / "attachments" / draft_id
+    from app.services.information_storage import assets_dir
+    folder = assets_dir(inbox_dir=INBOX_DIR) / draft_id
     folder.mkdir(parents=True, exist_ok=True)
     filename = safe_filename(upload.filename or "attachment")
     path = folder / filename
@@ -2634,12 +2660,25 @@ def save_evidence(record: dict[str, Any]) -> None:
 
 
 def delete_draft(draft_id: str) -> None:
+    from app.services.information_storage import enabled, get_record, write_record
+    if enabled(inbox_dir=INBOX_DIR):
+        record = get_record(draft_id, inbox_dir=INBOX_DIR)
+        if record is not None and record.get("status") != "published":
+            write_record({**record, "status": "archived"}, inbox_dir=INBOX_DIR, origin="intake")
+        return
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if path.exists():
         path.unlink()
 
 
 def move_draft_attachments(draft_id: str, evidence_id: str, attachments: list[dict[str, str]]) -> list[dict[str, str]]:
+    from app.services.information_storage import enabled, assets_dir
+    if enabled(inbox_dir=INBOX_DIR):
+        if draft_id != evidence_id:
+            raise ValueError("Source review must retain the information record identity")
+        folder = assets_dir(inbox_dir=INBOX_DIR) / draft_id
+        return [{**attachment, "url": f"/evidence/{evidence_id}/attachments/{attachment['filename']}"}
+                for attachment in attachments if (folder / attachment["filename"]).is_file()]
     source_dir = INBOX_DIR / "attachments" / draft_id
     if not source_dir.exists() or not attachments:
         return []
@@ -2670,7 +2709,8 @@ def restore_draft_attachments(draft_id: str, evidence_id: str, attachments: list
     subsequently fails and rolls back (ReviewPublishService), so a retry's
     own move_draft_attachments() call finds the files back where it
     expects them instead of silently publishing with no attachments."""
-    if not attachments:
+    from app.services.information_storage import enabled
+    if enabled(inbox_dir=INBOX_DIR) or not attachments:
         return
     source_dir = DATA_DIR / "attachments" / evidence_id
     if not source_dir.exists():
@@ -2767,7 +2807,7 @@ def canonical_statement_detail(request: Request, record_id: str) -> HTMLResponse
 
 @app.get("/evidence/{record_id}", response_class=HTMLResponse)
 def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
-    for record in all_evidence():
+    for record in all_evidence() if AUTHORING_MODE else published_evidence():
         if record.get("id") == record_id:
             entities = entity_index()
             linked_entities = [entities[e] for e in record.get("entity_ids", []) if e in entities]
@@ -2805,7 +2845,10 @@ def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
 
 @app.get("/evidence/{record_id}/attachments/{filename}")
 def evidence_attachment(record_id: str, filename: str) -> FileResponse:
-    directory = (DATA_DIR / "attachments" / record_id).resolve()
+    from app.services.information_storage import assets_dir
+    if not AUTHORING_MODE and _load_intelligence_record(record_id) is None:
+        raise HTTPException(status_code=404, detail="Attachment not found")
+    directory = (assets_dir(data_dir=DATA_DIR) / record_id).resolve()
     target = (directory / filename).resolve()
     if not target.is_file() or not target.is_relative_to(directory):
         raise HTTPException(status_code=404, detail="Attachment not found")
@@ -4749,20 +4792,19 @@ def saved_page(request: Request) -> HTMLResponse:
 
 
 @app.get("/statements", response_class=HTMLResponse)
-def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+def statements_page(request: Request, review: str = "all") -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(403, "Statement review is available in the analyst workspace")
     if review not in {"unreviewed", "reviewed", "all"}:
         raise HTTPException(422, "Choose Unreviewed, Reviewed or All statements")
     from app.services.feed_first import statements_review_index
-    from app.services.feed_first_live import cached_live_records, merge_decision_records
     from app.services.statement_workspace import present_statements
 
     world = _feed_first_world()
     rows = statements_review_index(world["state"])
     records = {
         str(row.get("id")): row
-        for row in merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR))
+        for row in unified_information()
         if row.get("id")
     }
     rows = present_statements(rows, records, world["entities"], return_to="/statements?" + urlencode({"review": review}))
@@ -5864,7 +5906,7 @@ def _present_research_company_compare(company_ids: list[str]) -> dict[str, Any] 
 
 def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
     entities = entity_index()
-    evidence = published_evidence()
+    evidence = unified_information()
     if scope.tag_ids:
         from app.services import news_tags
         catalog = news_tags.catalog(INBOX_DIR)
@@ -5888,6 +5930,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE and not scope.tag_ids else None
     packet = assemble_research_packet(
         scope,
+        load_record=_load_intelligence_record,
         entities=entities,
         relationships=relationships,
         published_evidence=evidence,
@@ -7136,6 +7179,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     ]
     readiness = load_publication_transcript_readiness(INBOX_DIR)
     feed = build_intelligence_feed(
+        records=unified_information(),
         drafts=drafts,
         published=evidence,
         entities=entities,
@@ -7204,12 +7248,46 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
-    draft = get_draft(item_id) if AUTHORING_MODE else None
-    if draft is not None and draft.get("status") != "rejected":
-        return draft
+    from app.services.feed_first import SAFE_ID_RE
+    from app.services.information_catalog import INACTIVE_STATES, normalize_information
+    if not SAFE_ID_RE.fullmatch(item_id):
+        return None
     record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
-    if record is not None and record.get("status") == "published":
-        return record
+    if record is not None:
+        if any(record.get(key) is not None and not isinstance(record[key], str) for key in ("status", "review_state")):
+            return None
+        if record.get("status") in INACTIVE_STATES or record.get("review_state") in INACTIVE_STATES:
+            return None
+        if not AUTHORING_MODE and (record.get("status") != "published" or record.get("publication_scope") == "private"):
+            return None
+        if not _social_eligible_outputs([record]):
+            return None
+        return normalize_information(record, origin="inbox" if record.get("publication_scope") == "private" else "data")
+    if AUTHORING_MODE:
+        try:
+            draft = get_draft(item_id)
+        except (OSError, ValueError):
+            return None
+        if draft is not None:
+            if draft.get("id") != item_id:
+                return None
+            if any(draft.get(key) is not None and not isinstance(draft[key], str) for key in ("status", "review_state")):
+                return None
+            if draft.get("status") in INACTIVE_STATES or draft.get("review_state") in INACTIVE_STATES:
+                return None
+            if not _social_eligible_outputs([draft]):
+                return None
+            return normalize_information(draft, origin="inbox")
+        from app.services.personal_digest import retained_news
+        corpus = get_request_corpus()
+        existing = corpus.cached_information_record(item_id) if corpus is not None else None
+        if existing is not None and existing.get("status") == "unreviewed":
+            return existing
+        cached = retained_news(INBOX_DIR, selected_id=item_id)
+        if cached:
+            if not _social_eligible_outputs([cached[0]]):
+                return None
+            return normalize_information(cached[0], origin="inbox")
     return None
 
 
@@ -8424,9 +8502,10 @@ def _decision_memo_coverage(packet: dict[str, Any]) -> dict[str, Any]:
 
 def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
     names = {row["id"]: row.get("name") or row["id"] for row in living_catalog()}
-    records = {row["id"]: row for row in published_evidence()}
+    records = {row["id"]: row for row in unified_information()}
     return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
         {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or "",
+         "date_label": row.get("date_label") or "Date basis not recorded",
          **({"published_date": records[row["id"]].get("published_date") or "",
              "date_label": dated_label(records[row["id"]])} if row["id"] in records else {})}
         for row in packet.get("source_trace") or []
@@ -8440,7 +8519,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             inbox_dir=INBOX_DIR,
             entities=entity_index(),
             relationships=all_relationships(),
-            published_evidence=published_evidence(),
+            published_evidence=unified_information(),
             facts=all_facts(),
             signals=all_signals(),
             assessments=all_assessments(),
@@ -8455,10 +8534,11 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
         scope,
-        pending_publications=pending_publication_drafts(),
+        load_record=_load_intelligence_record,
+        pending_publications=[],
         entities=entities,
         relationships=all_relationships(),
-        published_evidence=[*published_evidence(), *(pending_publication_drafts() if scope.research_query else [])],
+        published_evidence=unified_information(),
         facts=all_facts(),
         signals=all_signals(),
         assessments=all_assessments(),
@@ -8497,7 +8577,8 @@ def _cultivar_research_context() -> tuple[list[dict[str, Any]], dict[str, Any], 
     facts = all_facts()
     packets = cultivar_import_packets(INBOX_DIR)
     evidence = cultivar_evidence_dependencies(
-        DATA_DIR, facts=facts, evidence_ids=cultivar_source_dependency_ids(INBOX_DIR, packets),
+        DATA_DIR, inbox_dir=INBOX_DIR, facts=facts,
+        evidence_ids=cultivar_source_dependency_ids(INBOX_DIR, packets),
     )
     rows = list_cultivar_measurements(
         INBOX_DIR, facts=facts, evidence_by_id=evidence,
@@ -8754,15 +8835,12 @@ def _explorer_context(request, countries, berry, sections=None):
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     from dataclasses import replace
     from app.services.feed_first import load_state, empty_state
-    from app.services.personal_digest import source_records
-    view = request.query_params.get("view", "trusted")
-    if view not in {"trusted", "unreviewed"}:
+    view = request.query_params.get("view", "all")
+    if view not in {"all", "trusted", "unreviewed"}:
         raise HTTPException(status_code=422, detail="Unknown intelligence view")
-    query = replace(query, view=view)
-    records = published_evidence()
-    if view == "unreviewed" and sections is None and AUTHORING_MODE:
-        records = list(source_records(records, INBOX_DIR).values())
-    elif sections is None and AUTHORING_MODE:
+    query = replace(query, view="all")
+    records = unified_information(include_private=AUTHORING_MODE)
+    if sections is None and AUTHORING_MODE:
         from app.services.feed_first_reader import attach_capture_previews
         records = list(attach_capture_previews({row['id']: row for row in records}, INBOX_DIR).values())
     args = (query, records, entities, all_relationships(), BERRIES)
@@ -8804,7 +8882,7 @@ def _explorer_context(request, countries, berry, sections=None):
         origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "favorites", "window", "start", "end", "tz") if model["filters"][key]}
         values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
         model["snapshot_href"] = "/explorer/snapshot?" + urlencode(values)
-        model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
+        model["review_urls"] = {"all": "/explorer?" + urlencode({**values, "view": "all"})}
         model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
     model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
     model["news_return"] = "/today?" + urlencode(origin) if origin else ""
@@ -10589,7 +10667,10 @@ def intake_detail(request: Request, draft_id: str) -> HTMLResponse:
 
 @app.get("/intake/{draft_id}/attachments/{filename}")
 def intake_attachment(draft_id: str, filename: str) -> FileResponse:
-    directory = (INBOX_DIR / "attachments" / draft_id).resolve()
+    from app.services.information_storage import assets_dir
+    if not AUTHORING_MODE and _load_intelligence_record(draft_id) is None:
+        raise HTTPException(status_code=404, detail="Attachment not found")
+    directory = (assets_dir(inbox_dir=INBOX_DIR) / draft_id).resolve()
     target = (directory / filename).resolve()
     if not target.is_file() or not target.is_relative_to(directory):
         raise HTTPException(status_code=404, detail="Attachment not found")
@@ -11366,7 +11447,7 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
     berries = [value for value in form.getlist("berries") if isinstance(value, str)]
     if berries:
         draft["berry_ids"] = berries
-    save_draft(draft)
+    save_draft(draft, review_update=True)
     return_to = _safe_review_return(field("return_to"), fallback=f"/review/{draft_id}")
     if is_session_return(return_to):
         return RedirectResponse(
@@ -11431,7 +11512,7 @@ def review_reject(
         }
     )
     try:
-        save_draft(draft)
+        save_draft(draft, review_update=True)
     except Exception:
         remove_created_event(event)
         raise
@@ -11457,7 +11538,7 @@ def api_feed(
     media_format: str | None = None,
 ) -> list[dict[str, Any]]:
     return filter_evidence(
-        published_evidence(),
+        unified_information(),
         q=q, berry=berry, source=source, priority=priority,
         competitor=competitor, geography=geography, region=region,
         media_format=media_format,
@@ -11475,7 +11556,7 @@ def api_entity_detail(entity_type: str, entity_id: str) -> dict[str, Any]:
 @app.get("/api/search")
 def api_search(q: str = "") -> dict[str, Any]:
     needle = q.strip().lower()
-    evidence_matches = filter_evidence(published_evidence(), q=needle) if needle else []
+    evidence_matches = filter_evidence(unified_information(), q=needle) if needle else []
     entity_matches = [
         e
         for e in all_entities()
@@ -11505,21 +11586,24 @@ def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
             [
                 _json_folder_sig(INBOX_DIR / "evidence"),
                 _json_folder_sig(INBOX_DIR / "signal_candidates"),
+                _json_folder_sig(INBOX_DIR / "feed_first_live"),
+                _json_folder_sig(INBOX_DIR / "news_packets" / "captures"),
             ]
         )
     return tuple(parts)
 
 
 def _search_pools(*, include_private: bool) -> SearchPools:
+    inventory = unified_information(include_private=include_private)
     return SearchPools(
+        evidence=inventory,
         entities=all_entities(),
         relationships=all_relationships(),
-        published_evidence=published_evidence(),
         sources=load_sources(),
         signals=all_signals(),
         assessments=all_assessments(),
         strategic_questions=load_strategic_questions(),
-        pending_drafts=list_pending_drafts() if include_private else [],
+        pending_drafts=[row for row in inventory if row.get("_catalog_origin") == "inbox"] if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
         identity_redirects=identity_redirects(),
         learn_concepts=learn_all_concepts(),
@@ -11549,6 +11633,7 @@ def run_global_search(
     sort: str = "newest",
 ) -> dict[str, Any]:
     started = time.perf_counter()
+    include_private = include_private and AUTHORING_MODE
     payload = search_documents(
         _cached_search_documents(include_private=include_private),
         query,

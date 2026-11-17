@@ -49,6 +49,19 @@ def selectors(**extra):
     return {"ctx_v": "1", "berry": "berry-blueberry", "countries": "geography-china", **extra}
 
 
+def test_unreviewed_development_flags_survive_preview_and_pdf_appendix(export_world):
+    export_world.evidence[0].update(status="draft", confidence="medium")
+    payload = export.build_payload(export_world, selectors(), ["developments"])
+    first = payload["data"]["developments"]["cards"][0]
+    assert first["information"]["review_status"] == "unreviewed"
+    assert first["information"]["confidence"] == "medium"
+    source = next(row for row in payload["sources"] if row["id"] == first["id"])
+    assert source["information"] == first["information"]
+    text = "\n".join(page.extract_text() or "" for page in PdfReader(BytesIO(export.render_pdf(payload))).pages)
+    assert "Confidence: Medium" in text and "Unreviewed" in text
+    assert "Escalated" not in text
+
+
 def test_preview_is_complete_and_selector_source_body_safe(export_world):
     before = deepcopy(export_world.evidence)
     result = export.preview(export_world, selectors(), ["relationships", "portfolio", "developments"])

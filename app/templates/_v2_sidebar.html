@@ -99,10 +99,6 @@
 
   <p class="v2-nav-group">Decide</p>
   {% if not static_build %}
-  <a href="/pending" class="v2-nav-link{% if path == '/pending' %} is-active{% endif %}" title="Pending Review" aria-label="Pending Review{{ count_label(nav_work_counts.review_now) }}"{% if path == '/pending' %} aria-current="page"{% endif %}>
-    {{ nav_icon('review') }}<span class="v2-nav-text">Pending Review</span>
-    {{ count_badge(nav_work_counts.review_now, labels.review_now or (nav_work_counts.review_now ~ ' Publications awaiting review')) }}
-  </a>
   <a href="/signals/review" class="v2-nav-link{% if path.startswith('/signals/review') or path.startswith('/signals/candidates') %} is-active{% endif %}" title="Signal Review" aria-label="Signal Review{{ count_label(nav_work_counts.emerging_signals) }}"{% if path.startswith('/signals/review') %} aria-current="page"{% endif %}>
     {{ nav_icon('signals') }}<span class="v2-nav-text">Signal Review</span>
     {{ count_badge(nav_work_counts.emerging_signals, labels.emerging_signals or (nav_work_counts.emerging_signals ~ ' Signal candidates awaiting review')) }}

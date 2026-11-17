@@ -15,6 +15,7 @@ from uuid import uuid4
 from app.services import analyst_queue, feed_first, company_source_scope
 from app.services.feed_first_live import CACHE_SUBDIR
 from app.services.analyst_state_io import serialized_write
+from app.services.information_storage import enabled, load_records_by_id
 
 PRIORITIES = {"high", "medium", "low", "none"}
 PROGRESS_LABELS = {
@@ -26,6 +27,7 @@ PROGRESS_LABELS = {
 def retained_news(inbox_dir: Path, *, selected_id: str | None = None, issues=None) -> list[dict[str, Any]]:
     """Read retained daily caches, newest version per exact ID; never fetch."""
     records: dict[str, dict[str, Any]] = {}
+    shared_store = enabled(inbox_dir=inbox_dir)
     paths = list((Path(inbox_dir) / CACHE_SUBDIR).glob("????-??-??.json")) + list((Path(inbox_dir) / "news_packets" / "captures").glob("packet-*.json"))
     for path in sorted(paths, key=lambda path: path.stat().st_mtime):
         try:
@@ -38,7 +40,8 @@ def retained_news(inbox_dir: Path, *, selected_id: str | None = None, issues=Non
             if issues is not None:
                 issues.append({'path': str(path), 'issue': 'Captured archive envelope malformed'})
             continue
-        rows = payload.get('records') or []
+        rows = (load_records_by_id(inbox_dir, payload.get('records_ids') or payload.get('record_ids') or [], metadata_only=True)
+                if shared_store else payload.get('records') or [])
         if not isinstance(rows, list):
             if issues is not None:
                 issues.append({'path': str(path), 'issue': 'Captured archive record list malformed'})
@@ -53,15 +56,19 @@ def retained_news(inbox_dir: Path, *, selected_id: str | None = None, issues=Non
                 continue
             if feed_first.SAFE_ID_RE.fullmatch(item_id):
                 # Cached discovery is never promoted by a supplied status string.
-                records[item_id] = {**record, "status": "unreviewed"}
+                records[item_id] = record if shared_store else {**record, "status": "unreviewed"}
     return list(records.values())
 
 
 def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True,
-                   pending=None, metadata_only: bool = False, index_issues=None) -> dict[str, dict[str, Any]]:
-    records = {str(row["id"]): row for row in retained_news(inbox_dir, issues=index_issues)} if include_private else {}
+                   pending=None, metadata_only: bool = False, index_issues=None,
+                   catalog: bool = False) -> dict[str, dict[str, Any]]:
+    records = ({str(row["id"]): row for row in retained_news(inbox_dir, issues=index_issues)}
+               if include_private and not catalog else {})
     for row in published:
-        if not row.get("id") or row.get("status") != "published":
+        if not row.get("id") or (not include_private and row.get("status") != "published"):
+            continue
+        if row.get("status") in {"rejected", "archived", "withdrawn", "deleted"}:
             continue
         item_id = str(row["id"])
         cached = records.get(item_id) or {}
@@ -71,9 +78,9 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
         if image and not feed_first.safe_image_url(row):
             row = {**row, "article": {**(row.get("article") or {}), "image_url": image}}
         records[item_id] = row
-    if include_private and pending is not None:
+    if include_private and pending is not None and not catalog:
         from app.services.publication_sources import active_publication_record, inactive_publication_record
-        canonical_ids = {str(row['id']) for row in published if row.get('id') and row.get('status') == 'published'}
+        canonical_ids = {str(row['id']) for row in published if row.get('id')}
         for original in pending:
             key = str(original.get('id') or '')
             if key in canonical_ids:

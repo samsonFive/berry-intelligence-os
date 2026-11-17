@@ -96,6 +96,11 @@ def _review(world, record, **changes):
     return review_measurement(world.inbox, record["id"], **values)
 
 
+def _authorize_public_fact(world, fact_id):
+    fact = world.repos.facts.get(fact_id)
+    world.repos.facts.update(fact_id, {**fact, "publication_scope": "public"})
+
+
 def test_source_native_row_and_qualitative_aggregate_are_preserved(world):
     row = _row(record_kind="aggregate", cultivar="Plant Sciences exclusives", value=None, unit=None)
     record = _normalize(row)
@@ -155,6 +160,18 @@ def test_source_approval_alone_never_approves_measurement_and_version_needs_conf
     assert world.repos.facts.list() == []
 
 
+@pytest.mark.parametrize("review_status", ["unreviewed", "rejected"])
+def test_published_source_with_explicit_unapproved_metadata_remains_retrievable_but_cannot_approve_claim(world, review_status):
+    source = world.repos.evidence.get("ev-source")
+    source["information"] = {"review_status": review_status}
+    world.repos.evidence.update(source["id"], source)
+    record = _normalize()
+    stage_measurement(world.inbox, record)
+    rows = _project(world)
+    assert len(rows) == 1 and not rows[0]["can_approve"]
+    assert not _review(world, record)["ok"] and world.repos.facts.list() == []
+
+
 def test_explicit_primary_source_selection_is_required(world):
     record = _normalize(bindings=[_binding(), _binding(source_id="S2", source_title="Second source")])
     stage_measurement(world.inbox, record)
@@ -173,6 +190,10 @@ def test_individual_claim_approval_is_scoped_and_retry_is_idempotent(world):
     assert set(fact["entity_ids"]) == {"berry-strawberry", "variety-one"}
     assert world.repos.entities.get("variety-two").get("fact_ids", []) == []
     assert _project(world)[0]["review_state"] == "reviewed"
+    assert fact["publication_scope"] == "private"
+    assert _project(world, False) == []
+    # Publishing a reviewed research claim is a separate stored authorization.
+    world.repos.facts.update(fact["id"], {**fact, "publication_scope": "public"})
     public = _project(world, False)
     assert len(public) == 1 and "source_native" not in public[0] and "review_events" not in public[0]
     assert _review(world, record)["fact_id"] == result["fact_id"]
@@ -246,6 +267,8 @@ def test_withdrawn_or_changed_source_cannot_keep_reviewed_projection(world):
     record = _normalize()
     stage_measurement(world.inbox, record)
     fact_id = _review(world, record)["fact_id"]
+    fact = world.repos.facts.get(fact_id)
+    world.repos.facts.update(fact_id, {**fact, "publication_scope": "public"})
     evidence = world.repos.evidence.get("ev-source")
     evidence["article"] = {"content_sha256": "b" * 64, "body": "Changed revision"}
     world.repos.evidence.update("ev-source", evidence)
@@ -380,3 +403,199 @@ def test_explicit_source_ids_bound_metadata_reads_but_keep_active_version_depend
     previews.clear()
     assert load_evidence_dependencies(world.data, evidence_ids=[]) == {}
     assert previews == []
+
+
+def _migrate(world):
+    from app.services.information_migration import apply_migration
+    world.inbox.mkdir(parents=True, exist_ok=True)
+    apply_migration(world.data, world.inbox, world.data.parent / "source-migration-backups", quiesced=True)
+    for parent in (world.data, world.inbox):
+        legacy = parent / "evidence"
+        if legacy.is_dir():
+            assert not list(legacy.glob("*.json"))
+            legacy.rmdir()
+
+
+def test_dependency_reader_follows_real_cutover_and_never_recreates_legacy_buckets(world):
+    from app.services import information_storage as store
+    source = world.repos.evidence.get("ev-source")
+    private = deepcopy(source)
+    private.update(id="S1retained.2026_source", status="draft", review_state="in_review",
+                   information_confidence={"level": "medium", "score": 0.42})
+    path = world.inbox / "evidence" / (private["id"] + ".json")
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(private), encoding="utf-8")
+    # Legacy metadata retrieval includes private intake when the inbox is named.
+    before = load_evidence_dependencies(world.data, inbox_dir=world.inbox,
+                                        evidence_ids=["ev-source", private["id"]])
+    assert set(before) == {"ev-source", private["id"]}
+    _migrate(world)
+    after = load_evidence_dependencies(world.data, inbox_dir=world.inbox,
+                                       evidence_ids=["ev-source", private["id"]])
+    assert set(after) == set(before)
+    assert after[private["id"]]["publication_scope"] == "private"
+    assert after[private["id"]]["information"]["review_status"] == "unreviewed"
+    assert after[private["id"]]["information_confidence"] == private["information_confidence"]
+    assert store.record_path(private["id"], data_dir=world.data).parent == world.data / "information" / "records"
+    assert world.repos.evidence.get(private["id"])["id"] == private["id"]
+    assert not (world.data / "evidence").exists() and not (world.inbox / "evidence").exists()
+
+
+def test_migrated_review_dependencies_stay_bounded_and_recheck_the_source_body(world, monkeypatch):
+    from app.services import information_storage as store, publication_sources
+    source = world.repos.evidence.get("ev-source")
+    source["article"] = {"paragraphs": [{"index": 0, "text": "Source version read by the reviewer"}]}
+    world.repos.evidence.update(source["id"], source)
+    unrelated = deepcopy(source)
+    unrelated.update(id="ev-unrelated", title="Unrelated body must remain unopened")
+    world.repos.evidence.create(unrelated)
+    record = _normalize()
+    stage_measurement(world.inbox, record)
+    assert _review(world, record)["ok"]
+    _migrate(world)
+    facts = world.repos.facts.list()
+    entities = {row["id"]: row for row in world.repos.entities.list()}
+    previews, bodies = [], []
+    original_preview, original_get = publication_sources._current_preview, store.get_record
+    def preview(path):
+        previews.append(path.stem)
+        return original_preview(path)
+    def get_record(source_id, **context):
+        bodies.append(source_id)
+        return original_get(source_id, **context)
+    monkeypatch.setattr(publication_sources, "_current_preview", preview)
+    monkeypatch.setattr(store, "get_record", get_record)
+    def projection():
+        dependencies = load_evidence_dependencies(world.data, inbox_dir=world.inbox,
+                                                  evidence_ids=[], facts=facts)
+        return list_measurements(world.inbox, facts=facts, evidence_by_id=dependencies,
+                                 entities_by_id=entities)
+    assert projection()[0]["review_state"] == "reviewed"
+    assert previews == ["ev-source"] and bodies == ["ev-source"]
+    changed = original_get("ev-source", data_dir=world.data)
+    changed["article"]["paragraphs"][0]["text"] = "Source body changed after review"
+    store.write_record(changed, data_dir=world.data)
+    previews.clear()
+    bodies.clear()
+    assert projection()[0]["review_state"] != "reviewed"
+    assert previews == ["ev-source"] and bodies == ["ev-source"]
+    assert not (world.data / "evidence").exists() and not (world.inbox / "evidence").exists()
+
+
+@pytest.mark.parametrize("failure", ["missing_marker", "missing_binding", "transition", "wrong_inbox"])
+def test_dependency_reader_rejects_broken_store_without_legacy_fallback(world, failure):
+    from app.services import information_storage as store
+    _migrate(world)
+    inbox = world.inbox
+    if failure == "missing_marker":
+        (world.data / "information" / "store.json").unlink()
+    elif failure == "missing_binding":
+        (world.inbox / store.BINDING_NAME).unlink()
+    elif failure == "transition":
+        (world.data / store.TRANSITION_NAME).write_text("{}", encoding="utf-8")
+    else:
+        inbox = world.inbox.parent / "wrong-inbox"
+    with pytest.raises(store.InformationStorageError):
+        load_evidence_dependencies(world.data, inbox_dir=inbox, evidence_ids=["ev-source"])
+    assert not (world.data / "evidence").exists() and not (world.inbox / "evidence").exists()
+
+
+def test_private_unreviewed_source_is_retrievable_and_arbitrary_id_claim_preserves_private_scope(world):
+    from app.services import information_storage as store
+    source = deepcopy(world.repos.evidence.get("ev-source"))
+    source.update(id="S1retained.2026_source", status="draft", review_state="in_review")
+    path = world.inbox / "evidence" / (source["id"] + ".json")
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(source), encoding="utf-8")
+    record = _normalize(bindings=[_binding(evidence_id=source["id"])])
+    stage_measurement(world.inbox, record)
+    _migrate(world)
+    sources = load_evidence_dependencies(world.data, inbox_dir=world.inbox, evidence_ids=[source["id"]])
+    visible = list_measurements(world.inbox, evidence_by_id=sources,
+                                entities_by_id={row["id"]: row for row in world.repos.entities.list()})
+    assert len(visible) == 1 and visible[0]["value"] == 13.5
+    assert sources[source["id"]]["information"]["review_status"] == "unreviewed"
+    assert not _review(world, record)["ok"] and world.repos.facts.list() == []
+    # Source review changes the existing record without granting public scope.
+    retained = store.get_record(source["id"], data_dir=world.data)
+    world.repos.evidence.update(source["id"], {**retained, "status": "published", "review_state": "published",
+        "information": {**retained["information"], "review_status": "reviewed"}})
+    result = _review(world, record)
+    assert result["ok"], result.get("errors")
+    fact = world.repos.facts.get(result["fact_id"])
+    assert fact["publication_scope"] == "private"
+    assert set(fact["entity_ids"]) == {"berry-strawberry", "variety-one"}
+    assert world.repos.entities.get("variety-two").get("fact_ids", []) == []
+    assert _project(world)[0]["review_state"] == "reviewed" and _project(world, False) == []
+    assert not (world.data / "evidence").exists() and not (world.inbox / "evidence").exists()
+
+
+@pytest.mark.parametrize("private_family", ["source", "fact", "entity"])
+def test_review_does_not_override_private_source_fact_or_entity_scope(world, private_family):
+    record = _normalize()
+    stage_measurement(world.inbox, record)
+    result = _review(world, record)
+    assert result["ok"]
+    _authorize_public_fact(world, result["fact_id"])
+    assert len(_project(world, False)) == 1
+    repository, key = {
+        "source": (world.repos.evidence, "ev-source"),
+        "fact": (world.repos.facts, result["fact_id"]),
+        "entity": (world.repos.entities, "variety-one"),
+    }[private_family]
+    stored = repository.get(key)
+    stored["publication_scope"] = "private"
+    repository.update(key, stored)
+    assert _project(world)[0]["review_state"] == "reviewed"
+    assert _project(world, False) == []
+
+
+@pytest.mark.parametrize("secondary_scope", ["private", "unresolved"])
+def test_public_primary_claim_cannot_release_private_or_unknown_secondary_context(world, secondary_scope):
+    private = deepcopy(world.repos.evidence.get("ev-source"))
+    private.update(id="ev-private-context", source_url="https://private.example/context", publication_scope="private")
+    world.repos.evidence.create(private)
+    second = _binding(source_id="S2", evidence_id=private["id"] if secondary_scope == "private" else None,
+                      source_url=private["source_url"], source_title="PRIVATE_CONTEXT_SENTINEL")
+    row = _row(source_ids=["S1", "S2"])
+    record = _normalize(row, bindings=[_binding(), second])
+    stage_measurement(world.inbox, record)
+    result = _review(world, record)
+    assert result["ok"]
+    _authorize_public_fact(world, result["fact_id"])
+    assert _project(world)[0]["review_state"] == "reviewed"
+    assert _project(world)[0]["publication_scope"] == "public"
+    assert _project(world, False) == []
+
+
+@pytest.mark.parametrize("extra", [
+    {"context_evidence_id": "unknown-source-not-classified"},
+    {"platform_import_refs": [{"path": "data/imports/private-notes.json", "source_id": "not-public"}]},
+    {"context": {"id": "unknown-context-record"}},
+    {"context_url": "https://unclassified.example/research"},
+])
+def test_unclassified_source_native_references_withhold_entire_public_projection(world, extra):
+    record = _normalize(_row(**extra))
+    stage_measurement(world.inbox, record)
+    result = _review(world, record)
+    assert result["ok"]
+    _authorize_public_fact(world, result["fact_id"])
+    assert _project(world)[0]["publication_scope"] == "public"
+    assert len(_project(world)) == 1 and _project(world, False) == []
+
+
+@pytest.mark.parametrize("extra", [
+    {"limitations": "Private source context is ev-private-context."},
+    {"references": {"ev-private-context": "Additional source notes"}},
+])
+def test_private_native_context_reference_cannot_escape_as_prose_or_dictionary_key(world, extra):
+    private = deepcopy(world.repos.evidence.get("ev-source"))
+    private.update(id="ev-private-context", publication_scope="private")
+    world.repos.evidence.create(private)
+    record = _normalize(_row(**extra))
+    stage_measurement(world.inbox, record)
+    result = _review(world, record)
+    assert result["ok"]
+    _authorize_public_fact(world, result["fact_id"])
+    assert _project(world)[0]["publication_scope"] == "public"
+    assert len(_project(world)) == 1 and _project(world, False) == []

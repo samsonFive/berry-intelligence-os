@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT))
 
 from openpyxl import load_workbook  # noqa: E402
 
+from app.services.information_storage import information_directory, upsert_record
 import app.main as bios  # noqa: E402
 
 VALID_DECISIONS = {"validate", "purge", "purge+block"}
@@ -66,7 +67,7 @@ def main() -> None:
             bad_decision.append((record_id, decision))
             continue
 
-        path = bios.DATA_DIR / "evidence" / f"{record_id}.json"
+        path = information_directory(data_dir=bios.DATA_DIR) / f"{record_id}.json"
         if not path.exists():
             not_found.append(record_id)
             continue
@@ -76,7 +77,7 @@ def main() -> None:
 
         if decision == "validate":
             record["validated"] = True
-            path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            upsert_record(record, data_dir=bios.DATA_DIR, origin="canonical")
             if source is not None:
                 source["validated_count"] = source.get("validated_count", 0) + 1
             counts["validate"] += 1

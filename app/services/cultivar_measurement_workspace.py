@@ -10,6 +10,7 @@ from typing import Any
 from urllib.parse import urlencode, urlsplit
 
 from app.services.cultivar_measurements import CultivarMeasurementError
+from app.services.information_storage import SAFE_ID, InformationStorageError, safe_id
 
 IMPORTS_FOLDER = "cultivar_measurement_imports"
 STATES = {"pending", "blocked", "deferred", "rejected", "reviewed", "superseded"}
@@ -56,8 +57,10 @@ def source_dependency_ids(inbox_dir: Path, packets: list[dict[str, Any]]) -> set
             found = True
             for item in values:
                 evidence_id = item.get("evidence_id") if isinstance(item, dict) else None
-                if isinstance(evidence_id, str) and re.fullmatch(r"ev-[a-z0-9-]+", evidence_id):
-                    ids.add(evidence_id)
+                try:
+                    ids.add(safe_id(evidence_id))
+                except InformationStorageError:
+                    continue
     return ids if found else None
 
 
@@ -83,10 +86,13 @@ def present_measurement(record: dict[str, Any], *,
         stored = evidence.get(binding.get("evidence_id")) or {}
         source["url"] = _original_link(binding.get("source_url"))
         source["title"] = binding.get("source_title") or binding["source_id"]
-        source["published"] = stored.get("status") == "published"
-        source["source_href"] = ("/evidence/" if source["published"] else "/review/") + binding["evidence_id"] if binding.get("evidence_id") else None
-        if source["source_href"] and not source["published"]:
-            source["source_href"] += "?" + urlencode({"return_to": row["href"]})
+        from app.services.information_catalog import information_flags
+        source["information"] = information_flags(stored)
+        source["published"] = bool(stored and source["information"]["review_status"] == "reviewed")
+        evidence_id = binding.get("evidence_id")
+        source["source_href"] = "/intelligence/" + evidence_id if isinstance(evidence_id, str) and SAFE_ID.fullmatch(evidence_id) else None
+        source["review_href"] = ("/review/" + evidence_id + "?" + urlencode({"return_to": row["href"]})
+                                 if source["source_href"] and not source["published"] else None)
         source["artifacts"] = []
         for packet in packets:
             if packet["_batch_id"] != record.get("import_batch_id"):
@@ -160,12 +166,31 @@ def source_artifact(inbox_dir: Path, batch_id: str, digest: str) -> tuple[Path, 
     asset = matches[0]; relative = str(asset.get("path") or "")
     if "\\" in relative or ":" in relative or relative.startswith("/") or ".." in Path(relative).parts:
         raise CultivarMeasurementError("Invalid source capture path.")
-    path = root / relative
+    asset_root = root
+    from app.services import information_storage as storage
+    index = root / "import-index.json"
+    if storage.enabled(inbox_dir=inbox_dir) and index.is_file():
+        if index.is_symlink():
+            raise CultivarMeasurementError("Invalid source capture index.")
+        registration = json.loads(index.read_text(encoding="utf-8"))
+        reference = registration.get("information_assets", {}).get(digest)
+        if reference:
+            evidence_id, filename = reference.get("evidence_id"), reference.get("filename")
+            if (registration.get("packet_sha256") != packet.get("packet_sha256")
+                    or not isinstance(evidence_id, str) or not SAFE_ID.fullmatch(evidence_id)
+                    or not isinstance(filename, str) or not re.fullmatch(r"[a-f0-9]{64}\.[a-z0-9]+", filename)
+                    or filename != Path(relative).name or reference.get("sha256") != digest
+                    or reference.get("bytes") != asset.get("bytes")
+                    or storage.get_record(evidence_id, inbox_dir=inbox_dir) is None):
+                raise CultivarMeasurementError("Invalid shared source capture binding.")
+            asset_root = storage.assets_dir(inbox_dir=inbox_dir) / evidence_id
+            relative = filename
+    path = asset_root / relative
     try:
-        if any(p.is_symlink() for p in [path, *path.parents] if p.is_relative_to(root)):
+        if any(p.is_symlink() for p in [path, *path.parents] if p.is_relative_to(asset_root)):
             raise CultivarMeasurementError("Source capture links are not allowed.")
         resolved = path.resolve(strict=True)
-        if not resolved.is_relative_to(root.resolve(strict=True)) or not resolved.is_file():
+        if not resolved.is_relative_to(asset_root.resolve(strict=True)) or not resolved.is_file():
             raise CultivarMeasurementError("Source capture escapes its import.")
         if resolved.stat().st_size != asset.get("bytes") or hashlib.sha256(resolved.read_bytes()).hexdigest() != digest:
             raise CultivarMeasurementError("Source capture no longer matches its registered version.")

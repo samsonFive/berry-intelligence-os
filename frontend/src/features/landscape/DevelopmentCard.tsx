@@ -8,6 +8,7 @@ import { SourceLink } from '../../components/ui';
 import { useInvestigation } from '../../state/InvestigationProvider';
 import { safeHref, type NewsCard } from './models';
 import { Citation } from './Citation';
+import { InformationDetails } from './InformationDetails';
 import { retainedSourceLinks, RETAINED_LINK_LIMITATION } from './retained-source-links';
 import { newsTagEditorHref, saveNewsAction, updateNewsDecision, type NewsAction } from './news-actions';
 import './legacy-news.css';
@@ -69,11 +70,12 @@ export function DevelopmentCard({ card, newsHref = '/today' }: { card: NewsCard;
       <h2><a data-open-reader href={readerHref} onClick={read}>{card.headline}</a></h2>
       {card.translated ? <p className="card-meta">Auto-translated to English</p> : card.translation_pending && <p className="card-meta">English translation pending · original source available</p>}
       {card.media_label && <p className="card-meta"><b>{card.media_label}</b>{card.media_note ? ` · ${card.media_note}` : ''}</p>}
-      <div className="card-labels"><span className={`trust-label${card.trusted ? ' trusted' : ''}`}>{card.trusted ? 'Escalated' : card.source_reviewed ? 'Source reviewed' : 'Unreviewed'}</span>{card.crop_labels?.map(crop => <span key={crop}>{crop}</span>)}
+      <div className="card-labels">{card.crop_labels?.map(crop => <span key={crop}>{crop}</span>)}
         {!!card.assigned_tags?.length && <span className="news-article-tags" aria-label="Article tags">{card.assigned_tags.slice(0, 3).map(tag => <a className="news-tag-label" key={tag.id} href={manageTags} title={tag.description} aria-label={`Manage ${tag.name} in News`}>{tag.name}</a>)}{card.assigned_tags.length > 3 && <a className="news-tag-label" href={manageTags} aria-label="Manage all article tags in News">+{card.assigned_tags.length - 3}</a>}</span>}
         <a className="news-tag-label news-tag-add" href={manageTags} aria-label="Manage tags in News" title="Open the established News tag tools">+</a>
       </div>
       <p className="card-deck">{card.deck || 'No preview text is available. Open the story or read at the publisher.'}</p>
+      <InformationDetails information={card.information} reviewed={card.source_reviewed || card.trusted} />
       {card.scope_match?.kind === 'related_context' && <p className="card-meta card-scope-match">{card.scope_match.primary_label && <>About {card.scope_match.primary_label} · </>}Context for {card.scope_match.subject_labels.join(' · ')}</p>}
       {!!card.company_mentions?.length && <p className="card-meta">Mentioned in source: {card.company_mentions.map(company => company.name).join(' · ')} · company link not reviewed</p>}
       {!!(card.entities?.length || card.geography_chips?.length) && <div className="news-context">{card.entities?.slice(0, 3).map(entity => <a key={entity.id} href={safeHref(entity.profile_url)} onClick={event => {

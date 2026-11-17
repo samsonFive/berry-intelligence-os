@@ -7,6 +7,8 @@ publish Evidence, or approve extracted proposals.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record, enabled
+
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import date
@@ -384,16 +386,16 @@ class MediaOrchestrationService:
         if errors:
             raise MediaOrchestrationError("publication draft failed Evidence validation: " + "; ".join(errors))
         if not dry_run:
-            path = self._inbox_dir / "evidence" / f"{draft['id']}.json"
+            path = information_directory(inbox_dir=self._inbox_dir) / f"{draft['id']}.json"
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            upsert_record(draft, inbox_dir=self._inbox_dir)
         return draft
 
     def publication_records(self) -> list[dict[str, Any]]:
         """Trusted and pending publication records for body-conflict checks."""
         records = list(self._repos.evidence.list())
-        inbox = self._inbox_dir / "evidence"
-        if inbox.exists():
+        inbox = information_directory(inbox_dir=self._inbox_dir)
+        if inbox.exists() and not enabled(inbox_dir=self._inbox_dir):
             for path in sorted(inbox.glob("*.json")):
                 try:
                     value = json.loads(path.read_text(encoding="utf-8"))
@@ -401,7 +403,8 @@ class MediaOrchestrationService:
                     continue
                 if isinstance(value, dict):
                     records.append(value)
-        return records
+        return (list({row["id"]: row for row in records if row.get("id")}.values())
+                if enabled(inbox_dir=self._inbox_dir) else records)
 
     def bind_transcript(
         self, transcript_payload: dict[str, Any], parent_evidence_id: str
@@ -409,7 +412,11 @@ class MediaOrchestrationService:
         """Bind parent metadata without mutating transcript content or input."""
 
         parent = self._repos.evidence.get(parent_evidence_id)
-        if not self._is_trusted_publication(parent):
+        captured_source = bool(enabled(inbox_dir=self._inbox_dir) and parent
+                               and self._is_publication_candidate(parent)
+                               and parent.get("status") not in {"rejected", "archived", "withdrawn", "deleted"}
+                               and parent.get("review_state") not in {"rejected", "archived"})
+        if not (self._is_trusted_publication(parent) or captured_source):
             raise MediaOrchestrationError("transcript parent must be a trusted publication_artifact")
         payload = deepcopy(transcript_payload)
         embedded_parent = payload.get("parent_evidence_id")
@@ -417,11 +424,21 @@ class MediaOrchestrationService:
             raise MediaOrchestrationError(
                 f"transcript parent mismatch: {embedded_parent!r} != {parent_evidence_id!r}"
             )
+        if captured_source:
+            if payload.get("source_id") and parent.get("source_id") != payload["source_id"]:
+                raise MediaOrchestrationError("transcript Source does not match captured publication")
+            discovery_id = payload.get("discovered_item_id") or payload.get("item_id")
+            if discovery_id and parent.get("discovered_item_id") and discovery_id != parent["discovered_item_id"]:
+                raise MediaOrchestrationError("transcript discovery identity does not match captured publication")
         payload["parent_evidence_id"] = parent_evidence_id
         payload.pop("discovered_item_id", None)
         payload.pop("item_id", None)
         try:
-            return TranscriptArtifact.from_dict(payload)
+            transcript = TranscriptArtifact.from_dict(payload)
+            reference = (parent or {}).get("source_artifact") or {}
+            if captured_source and reference.get("content_sha256") and reference["content_sha256"] != transcript.content_sha256():
+                raise MediaOrchestrationError("transcript content differs from the retained source body")
+            return transcript
         except TranscriptContractError as exc:
             raise MediaOrchestrationError(f"malformed transcript: {exc}") from exc
 
@@ -510,44 +527,54 @@ class MediaOrchestrationService:
                         transcript_error = "transcript source reference failed Evidence validation: " + "; ".join(reference_errors)
                         transcript_status = "malformed"
                     elif not dry_run:
-                        path = self._inbox_dir / "evidence" / f"{draft['id']}.json"
-                        path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                        path = information_directory(inbox_dir=self._inbox_dir) / f"{draft['id']}.json"
+                        upsert_record(draft, inbox_dir=self._inbox_dir)
             planned = ParentResolution(
                 status="would_create_draft" if dry_run else "pending_draft",
                 draft_id=draft["id"],
                 candidate_ids=(draft["id"],),
                 message=("Publication draft would be created." if dry_run else "Publication draft created for review."),
             )
-            return OrchestrationResult(
-                item_id=item_id,
-                state="discovered" if dry_run else "awaiting_publication_review",
-                parent_resolution=planned,
-                publication_draft_id=draft["id"],
-                transcript_status=transcript_status,
-                next_action="Create and review the publication draft." if dry_run else "Review the publication draft.",
-                dry_run=dry_run,
-                errors=[transcript_error] if transcript_error else [],
-            )
+            if enabled(inbox_dir=self._inbox_dir) and not dry_run:
+                resolution = ParentResolution(status="available", evidence_id=draft["id"],
+                                              draft_id=draft["id"], candidate_ids=(draft["id"],),
+                                              message="Captured source available; review is optional.")
+            else:
+                return OrchestrationResult(
+                    item_id=item_id,
+                    state="discovered" if dry_run else "awaiting_publication_review",
+                    parent_resolution=planned,
+                    publication_draft_id=draft["id"],
+                    transcript_status=transcript_status,
+                    next_action="Create and review the publication draft." if dry_run else "Review the publication draft.",
+                    dry_run=dry_run,
+                    errors=[transcript_error] if transcript_error else [],
+                )
 
         if resolution.status in {"pending_draft", "rejected_draft"}:
-            return OrchestrationResult(
-                item_id=item_id,
-                state=("awaiting_publication_review" if resolution.status == "pending_draft" else "publication_rejected"),
-                parent_resolution=resolution,
-                publication_draft_id=resolution.draft_id,
-                transcript_status=transcript_status,
-                next_action=(
-                    (
-                        "Review the publication draft; then retry transcript acquisition."
-                        if transcript_status == "acquisition_failed"
-                        else "Review the publication draft."
-                    )
-                    if resolution.status == "pending_draft"
-                    else "Review the rejection before creating another publication draft."
-                ),
-                dry_run=dry_run,
-                errors=[transcript_error] if transcript_error else [],
-            )
+            if enabled(inbox_dir=self._inbox_dir) and resolution.status == "pending_draft":
+                resolution = ParentResolution(status="available", evidence_id=resolution.draft_id,
+                                              draft_id=resolution.draft_id, candidate_ids=resolution.candidate_ids,
+                                              message="Captured source available; review is optional.")
+            else:
+                return OrchestrationResult(
+                    item_id=item_id,
+                    state=("awaiting_publication_review" if resolution.status == "pending_draft" else "publication_rejected"),
+                    parent_resolution=resolution,
+                    publication_draft_id=resolution.draft_id,
+                    transcript_status=transcript_status,
+                    next_action=(
+                        (
+                            "Review the publication draft; then retry transcript acquisition."
+                            if transcript_status == "acquisition_failed"
+                            else "Review the publication draft."
+                        )
+                        if resolution.status == "pending_draft"
+                        else "Review the rejection before creating another publication draft."
+                    ),
+                    dry_run=dry_run,
+                    errors=[transcript_error] if transcript_error else [],
+                )
 
         if transcript_error:
             acquisition_failed = transcript_status == "acquisition_failed"
@@ -555,6 +582,7 @@ class MediaOrchestrationService:
                 item_id=item_id,
                 state="publication_approved",
                 parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                 transcript_status=transcript_status,
                 next_action=(
                     "Correct the acquisition/transcription failure and retry."
@@ -570,6 +598,7 @@ class MediaOrchestrationService:
                     item_id=item_id,
                     state="publication_approved",
                     parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                     transcript_status="not_applicable",
                     next_action="No transcript applies to a written article; its source text is available for a future qualified extraction step.",
                     dry_run=dry_run,
@@ -578,6 +607,7 @@ class MediaOrchestrationService:
                 item_id=item_id,
                 state="publication_approved",
                 parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                 transcript_status="missing",
                 next_action="Acquire or transcribe and normalize the media.",
                 dry_run=dry_run,
@@ -590,6 +620,7 @@ class MediaOrchestrationService:
                 item_id=item_id,
                 state="publication_approved",
                 parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                 transcript_status="malformed",
                 next_action="Correct the transcript association or normalized transcript.",
                 dry_run=dry_run,
@@ -602,6 +633,7 @@ class MediaOrchestrationService:
                 item_id=item_id,
                 state="ready_for_extraction",
                 parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                 transcript_status="ready",
                 transcript_id=transcript.transcript_id,
                 transcript_sha256=content_hash,
@@ -620,6 +652,7 @@ class MediaOrchestrationService:
                 item_id=item_id,
                 state="ready_for_extraction",
                 parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
                 transcript_status="ready",
                 transcript_id=transcript.transcript_id,
                 transcript_sha256=content_hash,
@@ -636,7 +669,9 @@ class MediaOrchestrationService:
             "provider_errors": extracted.provider_errors,
         }
         if extracted.accepted:
-            next_action = "Review the atomic Evidence proposals in inbox/evidence/."
+            next_action = ("Read the extracted statements and their source qualifications."
+                           if enabled(inbox_dir=self._inbox_dir)
+                           else "Review the atomic Evidence proposals in inbox/evidence/.")
         elif extracted.duplicates:
             next_action = "No new proposals were created; existing proposals remain in the review workflow."
         else:
@@ -645,6 +680,7 @@ class MediaOrchestrationService:
             item_id=item_id,
             state="extraction_complete",
             parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
             transcript_status="ready",
             transcript_id=transcript.transcript_id,
             transcript_sha256=content_hash,
@@ -702,7 +738,7 @@ class MediaOrchestrationService:
             raise MediaOrchestrationError("discovered item file name and id do not match")
 
     def _publication_drafts_for(self, item: dict[str, Any], deterministic_id: str) -> list[dict[str, Any]]:
-        folder = self._inbox_dir / "evidence"
+        folder = information_directory(inbox_dir=self._inbox_dir)
         if not folder.exists():
             return []
         matches: list[dict[str, Any]] = []
@@ -727,8 +763,8 @@ class MediaOrchestrationService:
         trusted/pending_draft/ambiguous resolution instead of a third
         outcome the caller has to special-case."""
         candidates: list[dict[str, Any]] = list(self._repos.evidence.list())
-        folder = self._inbox_dir / "evidence"
-        if folder.exists():
+        folder = information_directory(inbox_dir=self._inbox_dir)
+        if folder.exists() and not enabled(inbox_dir=self._inbox_dir):
             for path in sorted(folder.glob("*.json")):
                 try:
                     draft = json.loads(path.read_text(encoding="utf-8"))

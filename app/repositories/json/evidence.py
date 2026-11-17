@@ -24,7 +24,38 @@ from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 
 class EvidenceRepository(JsonRecordRepository):
     def __init__(self, data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> None:
+        self.data_dir = Path(data_dir)
         super().__init__(folder=data_dir / "evidence", schema_path=schemas_dir / "evidence.schema.json")
+
+    @property
+    def information_store_enabled(self) -> bool:
+        from app.services.information_storage import enabled
+        return enabled(data_dir=self.data_dir)
+
+    def _sync_folder(self) -> None:
+        from app.services.information_storage import information_directory
+        folder = information_directory(data_dir=self.data_dir)
+        if folder != self._folder:
+            self._folder = folder
+            self._invalidate_cache()
+
+    def _load_all_with_paths(self):
+        self._sync_folder()
+        return super()._load_all_with_paths()
+
+    def get(self, record_id: str) -> dict[str, Any] | None:
+        if self.information_store_enabled:
+            from app.services.information_storage import get_record
+            return get_record(record_id, data_dir=self.data_dir)
+        return super().get(record_id)
+
+    def _write(self, path: Path, record: dict[str, Any]) -> None:
+        if self.information_store_enabled:
+            from app.services.information_storage import write_record
+            write_record(record, data_dir=self.data_dir, origin="canonical")
+            self._invalidate_cache()
+        else:
+            super()._write(path, record)
 
     def list(self, **filters: Any) -> list[dict[str, Any]]:
         records = super().list(**filters)

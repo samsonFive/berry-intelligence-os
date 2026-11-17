@@ -8,6 +8,15 @@ from app.services.analyst_state_io import atomic_json, serialized_write
 
 NAME = 'variety_view_state.json'
 KEY = re.compile(r'^[a-z0-9-]{1,80}$')
+PORTFOLIO_KEY = re.compile(r'^berry-pg-v2-[a-f0-9]{64}$')
+PORTFOLIO_MAX_COLUMNS = 512
+
+
+def layout_limits(key=None):
+    # Existing semantic Portfolio keys only; legacy/general sheet limits are unchanged.
+    if key == 'berry-portfolio-v1' or isinstance(key, str) and PORTFOLIO_KEY.fullmatch(key):
+        return PORTFOLIO_MAX_COLUMNS, 128 * 1024
+    return 40, 20_000
 
 
 def actor_key(actor):
@@ -30,11 +39,12 @@ def get(inbox_dir, actor, key):
     return load(inbox_dir)['analysts'].get(actor_key(actor), {}).get(key, {'revision': 0, 'widths': {}, 'order': [], 'hidden': [], 'filters': {}})
 
 
-def clean(payload):
+def clean(payload, key=None):
     if not isinstance(payload, dict):
         raise ValueError('A layout object is required')
     widths, order, hidden, filters = (payload.get(k, default) for k, default in [('widths', {}), ('order', []), ('hidden', []), ('filters', {})])
-    if not isinstance(widths, dict) or len(widths) > 40 or not isinstance(order, list) or len(order) > 40 or not isinstance(hidden, list) or len(hidden) > 40 or not isinstance(filters, dict) or len(filters) > 25:
+    max_columns, max_bytes = layout_limits(key)
+    if not isinstance(widths, dict) or len(widths) > max_columns or not isinstance(order, list) or len(order) > max_columns or not isinstance(hidden, list) or len(hidden) > max_columns or not isinstance(filters, dict) or len(filters) > 25:
         raise ValueError('Invalid layout dimensions')
     ids = [*widths, *order, *hidden]
     if any(not isinstance(k, str) or not KEY.fullmatch(k) for k in ids):
@@ -43,12 +53,15 @@ def clean(payload):
         raise ValueError('Invalid column size or order')
     if any(not isinstance(k, str) or len(k) > 40 or not isinstance(v, str) or len(v) > 400 for k, v in filters.items()):
         raise ValueError('Invalid saved filters')
-    return dict(widths=widths, order=order, hidden=hidden, filters=filters)
+    cleaned = dict(widths=widths, order=order, hidden=hidden, filters=filters)
+    if len(json.dumps(cleaned, ensure_ascii=False, separators=(',', ':')).encode('utf-8')) > max_bytes:
+        raise ValueError('Layout is too large')
+    return cleaned
 
 
 @serialized_write
 def save(inbox_dir, actor, key, payload):
-    cleaned = clean(payload)
+    cleaned = clean(payload, key)
     current = get(inbox_dir, actor, key)
     if payload.get('revision') != current['revision']:
         raise ValueError('This layout changed in another tab. Reload before saving more changes.')

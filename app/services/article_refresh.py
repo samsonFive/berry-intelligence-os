@@ -19,6 +19,8 @@ this as a drop-in replacement for a plain process() call on article items.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 import json
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -120,12 +122,12 @@ def _persist_relevance_tier(inbox_dir: Path, draft_id: str | None, tier: str | N
     it from the stored draft, not from a CLI return value)."""
     if dry_run or not draft_id or not tier:
         return
-    draft_path = inbox_dir / "evidence" / f"{draft_id}.json"
+    draft_path = information_directory(inbox_dir=inbox_dir) / f"{draft_id}.json"
     if not draft_path.exists():
         return
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     draft["relevance_tier"] = tier
-    draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    upsert_record(draft, inbox_dir=inbox_dir)
 
 
 def _persist_source_failure(
@@ -133,14 +135,14 @@ def _persist_source_failure(
 ) -> None:
     if dry_run or not draft_id:
         return
-    draft_path = inbox_dir / "evidence" / f"{draft_id}.json"
+    draft_path = information_directory(inbox_dir=inbox_dir) / f"{draft_id}.json"
     if not draft_path.exists():
         return
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     discovery = draft.setdefault("discovery_provenance", {})
     discovery["acquisition_failure_category"] = normalize_failure_category(category)
     draft = with_source_completeness(draft, failure_category=category)
-    draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    upsert_record(draft, inbox_dir=inbox_dir)
 
 
 def _content_check_requested(item: dict[str, Any]) -> bool:
@@ -540,7 +542,7 @@ def process_discovered_article(
         _record_attempt(body=body, content_quality="READABLE_ALREADY_REPRESENTED")
         return result, extra
 
-    draft_path = inbox_dir / "evidence" / f"{result.publication_draft_id}.json"
+    draft_path = information_directory(inbox_dir=inbox_dir) / f"{result.publication_draft_id}.json"
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     draft["article"] = body.as_dict()
     _reconcile_published_date(draft, body)
@@ -580,6 +582,6 @@ def process_discovered_article(
         extra["enrichment_caveats"] = enrichment.get("caveats")
 
     draft = with_source_completeness(draft)
-    draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    upsert_record(draft, inbox_dir=inbox_dir)
     _record_attempt(body=body, publication_id=result.publication_draft_id)
     return result, extra

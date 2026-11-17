@@ -1,0 +1,14 @@
+{# Review and confidence describe an item; they do not determine where it lives. #}
+{% if not static_build %}
+{% set information = information_record.get('information') or {} %}
+<details class="reader-secondary news-coverage information-details">
+  <summary>Confidence &amp; source details</summary>
+  <dl>
+    <dt>Review</dt><dd>{{ (information.review_status or ('reviewed' if information_source_reviewed else 'unreviewed'))|replace('_', ' ')|capitalize }}</dd>
+    <dt>Confidence</dt><dd>{{ information.confidence_label or 'Not assessed' }}</dd>
+    {% if information.verification_status %}<dt>Verification</dt><dd>{{ information.verification_status|replace('_', ' ')|capitalize }}</dd>{% endif %}
+  </dl>
+  {% if information_ai_assisted %}<p>AI assisted. Source statements retain their individual qualifications.</p>{% endif %}
+  {% if information.caveats %}<ul>{% for caveat in information.caveats %}<li>{{ caveat }}</li>{% endfor %}</ul>{% endif %}
+</details>
+{% endif %}

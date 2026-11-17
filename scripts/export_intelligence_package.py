@@ -14,7 +14,7 @@ from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Export a minimal JSON Intelligence Package")
+    parser = argparse.ArgumentParser(description="Export a public JSON Intelligence Package")
     destinations = parser.add_mutually_exclusive_group(required=True)
     destinations.add_argument("--output", type=Path)
     destinations.add_argument("--validate-only", type=Path)

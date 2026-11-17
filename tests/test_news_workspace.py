@@ -49,7 +49,7 @@ def test_media_filters_reuse_scope_relevance_and_trust():
         result = project(rows, {'media': media, 'berry': 'blueberry', 'countries': 'geography-peru'})
         assert ids(result) == [key]
         assert result['filters']['media'] == media
-        assert not ids(project(rows, {'media': media, 'view': 'trusted'}))
+        assert ids(project(rows, {'media': media, 'view': 'trusted'})) == [key]
     assert 'description only' in project(rows, {'media': 'podcast'})['cards'][0]['media_note'].lower()
     assert not ids(project(rows, {'media': 'video', 'window': 'today'}))
     with pytest.raises(ValueError, match='media'):
@@ -63,7 +63,7 @@ def test_relevant_public_record_enters_unreviewed_news():
     unrelated = article('ev-official-unrelated', source_type='government_document',
                         title='Update on steel tariffs', summary='The government published tariffs for imported steel.')
     assert ids(project([notice, unrelated])) == ['ev-official-recall']
-    assert not ids(project([notice], {'view': 'trusted'}))
+    assert ids(project([notice], {'view': 'trusted'})) == ['ev-official-recall']
 
 
 def test_declared_blog_source_does_not_require_blog_in_article_path():
@@ -194,13 +194,14 @@ def test_company_early_scope_retains_the_original_malformed_record_path(monkeypa
     with pytest.raises(TypeError):project([row],{'company':'company-grower'})
 
 
-def test_trusted_requires_reviewed_source_plus_active_escalation():
+def test_review_and_claim_support_are_flags_in_one_inventory():
     rows = [article('ev-escalated'), article('ev-source-reviewed'), article('live-raw', live=True),
             article('ev-auto', submitted_by='auto'), article('ev-retired')]
     facts = [{'id': 'fact-' + key, 'status': 'active', 'evidence_ids': [key]} for key in ['ev-escalated', 'live-raw', 'ev-auto']]
     facts.append({'id': 'fact-retired', 'status': 'withdrawn', 'evidence_ids': ['ev-retired']})
     model = project(rows, {'view': 'trusted'}, facts=facts)
-    assert ids(model) == ['ev-escalated']
+    assert set(ids(model)) == {row['id'] for row in rows}
+    assert model['filters']['view'] == 'all'
     assert model['counts'] == {'trusted': 1, 'unreviewed': 5}
     raw = project(rows, facts=facts)
     assert len(raw['cards']) == 5
@@ -268,6 +269,9 @@ def workspace(monkeypatch, tmp_path):
     monkeypatch.setattr(main, 'all_relationships', lambda: RELATIONSHIPS)
     monkeypatch.setattr(main, 'all_facts', lambda: [])
     monkeypatch.setattr(main, 'published_evidence', lambda: [article(published_date='2026-01-01')])
+    from app.services.information_catalog import load_information
+    monkeypatch.setattr(main, 'unified_information', lambda **kw: load_information(
+        main.published_evidence(), main.INBOX_DIR, include_private=kw.get('include_private', True)))
     save_bundle(main.INBOX_DIR, {'today': '2026-09-30', 'records': [article('live-raw', published_date='2026-09-30')]})
     return TestClient(main.app)
 
@@ -307,19 +311,19 @@ def test_native_multi_scope_and_reader_for_raw_news(workspace):
     response = workspace.get('/today?berry_choice=berry-blueberry&berry_choice=berry-strawberry&countries_choice=geography-peru')
     assert response.status_code == 200 and 'data-item-id="live-raw"' in response.text
     assert 'berry-blueberry%2Cberry-strawberry' in response.text
-    assert 'view=unreviewed' in response.text
+    assert 'view=all' in response.text
     assert workspace.get('/api/intelligence/live-raw/reader?personal=1').status_code == 200
     assert workspace.post('/digest/stories/live-raw', json={'action': 'save'}).status_code == 200
     assert 'live-raw' in workspace.get('/digest').text
-    assert not workspace.get('/today?view=trusted').text.count('data-item-id="live-raw"')
+    assert workspace.get('/today?view=trusted').text.count('data-item-id="live-raw"')
 
 
-def test_map_receives_retained_raw_scope_but_snapshot_stays_trusted(workspace):
+def test_map_and_snapshot_use_the_same_retained_inventory(workspace):
     from app.services.global_explorer import IntelligenceQuery
     query = IntelligenceQuery(('geography-peru',), berry_ids=('berry-blueberry',), view='unreviewed')
     records = list(personal_digest.source_records(main.published_evidence(), main.INBOX_DIR).values())
     assert {row['id'] for row in query.retrieve(records, RELATIONSHIPS)} == {'live-raw', 'ev-news'}
-    assert {row['id'] for row in IntelligenceQuery(('geography-peru',), berry_ids=('berry-blueberry',)).retrieve(records, RELATIONSHIPS)} == {'ev-news'}
+    assert {row['id'] for row in IntelligenceQuery(('geography-peru',), berry_ids=('berry-blueberry',)).retrieve(records, RELATIONSHIPS)} == {'live-raw', 'ev-news'}
     from urllib.parse import urlencode
     scoped = '/today?window=custom&start=2026-09-01&end=2026-09-30&company=company-grower'
     page = workspace.get('/explorer?' + urlencode({'countries': 'geography-peru', 'berry': 'berry-blueberry', 'view': 'unreviewed', 'news_return': scoped}))

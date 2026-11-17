@@ -304,8 +304,9 @@ def test_compact_marks_do_not_repeat_kind() -> None:
     footer = card.split("v2-card-footer", 1)[1]
     assert "item.kind_label" in card
     assert "item.kind_label" not in footer
-    assert "v2-mark-pending" in footer
-    assert "v2-mark-trusted" in footer
+    assert "v2-mark-pending" not in footer
+    assert "v2-mark-trusted" not in footer
+    assert "_information_details.html" in card
 
 
 def test_cold_unrelated_html_nav_does_not_run_ranked_brief(monkeypatch) -> None:

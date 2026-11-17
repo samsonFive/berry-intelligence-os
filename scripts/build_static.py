@@ -178,6 +178,17 @@ def copy_public_static_assets(source: Path, destination: Path) -> None:
 
 
 def build() -> list[Path]:
+    from app.services.request_corpus import RequestCorpus, bind_request_corpus, reset_request_corpus
+    from app import main as application
+    token = bind_request_corpus(RequestCorpus(data_dir=application.DATA_DIR, schemas_dir=SCHEMAS_DIR,
+        inbox_dir=application.INBOX_DIR, public_only=True))
+    try:
+        return _build_public_snapshot()
+    finally:
+        reset_request_corpus(token)
+
+
+def _build_public_snapshot() -> list[Path]:
     if OUTPUT_DIR.exists():
         shutil.rmtree(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True)
@@ -313,7 +324,8 @@ def build() -> list[Path]:
                 },
             )
         )
-        source_dir = ROOT / "data" / "attachments" / record_id
+        from app.services.information_storage import assets_dir
+        source_dir = assets_dir(data_dir=DATA_DIR) / record_id
         if source_dir.exists():
             dest_dir = OUTPUT_DIR / "evidence" / record_id / "attachments"
             dest_dir.mkdir(parents=True, exist_ok=True)

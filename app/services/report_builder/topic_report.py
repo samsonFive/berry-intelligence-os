@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from app.services.report_builder.scope import ResolvedScope
+from app.services.information_catalog import information_flags
 from app.services.report_builder.synthesis import SectionDraft
 from app.services.topic_discovery import discover_topic
 from app.services.topic_retrieval import plan_query
@@ -26,13 +27,14 @@ def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entit
     if scope.research_snapshot is not None:
         research = scope.research_snapshot
     else:
-        from app.services.evidence_claim_review import trust_tier_label
         from app.services.topic_retrieval import record_passages
-        local = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "support_status", "source_review_hold")} | {"origin": "collected", "trust_class": trust_tier_label(row) if row.get("status") == "published" else "PENDING / UNREVIEWED"} for row in packet.get("topic_matches") or []]
+        local = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "support_status", "source_review_hold")} | {"origin": "collected"} for row in packet.get("topic_matches") or []]
         for snapshot, record in zip(local, packet.get("topic_matches") or []):
+            snapshot["information"] = information_flags(record)
+            snapshot["trust_class"] = snapshot["information"]["review_status"].upper() + " SOURCE"
             text = "\n\n".join(p for loc, p in record_passages(record) if loc not in {"title", "summary", "snippet"})
-            snapshot["source_version"] = hashlib.sha256(text.encode()).hexdigest() if text else None
-            snapshot["source_version_basis"] = "stored_source_passages"
+            snapshot["source_version"] = hashlib.sha256(text.encode()).hexdigest() if text else record.get("source_version")
+            snapshot["source_version_basis"] = "stored_source_passages" if text else record.get("source_version_basis")
             snapshot["retrieved_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         public_labels = [str(entities[eid].get("name") or "") for eid in (*scope.company_ids, *scope.variety_ids, *(g for g in scope.geography_ids if g not in scope.geography_descendant_ids)) if eid in entities]
         if scope.berry_id:
@@ -42,6 +44,8 @@ def attach_topic_research(packet: dict[str, Any], scope: ResolvedScope, *, entit
         web = discover_topic(plan, inbox_dir=inbox_dir, entities=entities, **({'data_dir':data_dir} if data_dir is not None else {}), constraints={"public_labels": public_labels, "required_label_groups": required, "public_variety_names": varieties}) if scope.source_scope == "combined" else {"items": [], "status": "not_requested", "failures": [], "queries_this_request": 0}
         # Keep only the matched passage + identity/provenance on the report.
         web_rows = [{key: row.get(key) for key in ("id", "title", "source_name", "source_url", "published_date", "publication_date_basis", "passage", "passage_locator", "match_reason", "classification_evidence_ids", "relevance", "provider", "retrieved_at", "capture_status", "capture_reason", "capture_provenance", "source_version", "support_status", "source_review_hold")} | {"origin": "web", "trust_class": "LIVE / UNREVIEWED"} for row in web.get("items") or []]
+        for snapshot in web_rows:
+            snapshot["information"] = information_flags(snapshot)
         from app.services.research_event_groups import event_groups
         groups = event_groups([*(packet.get('topic_matches') or []), *(web.get('items') or [])],entities)
         research = {"plan": plan.as_dict(), "source_scope": scope.source_scope, "retrieval_trace": packet.get("retrieval_trace"), "local": local, "web": web_rows, "discovery": {k: v for k, v in web.items() if k != "items"},

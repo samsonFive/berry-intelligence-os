@@ -46,11 +46,7 @@ def context(request, params=None):
     if params.get('topic') == 'gene-editing':
         from app.services.gene_editing import landscape_model
         entities = {row['id']: row for row in main.all_entities()}
-        from app.services.publication_sources import pending_source_previews
-        pending, _ = pending_source_previews(main.INBOX_DIR)
-        # Publication identity is canonical; a reviewed record supersedes its draft.
-        records = {r['id']: r for r in pending}
-        records.update({r['id']: r for r in main.all_evidence()})
+        records = {r['id']: r for r in main.unified_information()}
         alias_path = main.INBOX_DIR/'gene_editing/evidence_aliases.json'
         aliases = json.loads(alias_path.read_text(encoding='utf-8')) if alias_path.exists() else {}
         model = landscape_model(main.DATA_DIR, entities, records.values(), params, evidence_aliases=aliases)
@@ -73,7 +69,7 @@ def context(request, params=None):
     if params.get("berry", "berry-blueberry") not in (*BERRY_ORDER, "all"):
         raise HTTPException(422, "Choose blueberry, strawberry, raspberry, blackberry or All berries.")
     entities = {row["id"]: row for row in main.all_entities() if row["id"] not in SEED_FIXTURE_ENTITY_IDS}
-    evidence = [row for row in main._social_eligible_outputs(main.all_evidence()) if row["id"] not in SEED_FIXTURE_EVIDENCE_IDS]
+    evidence = [row for row in main.unified_information() if row["id"] not in SEED_FIXTURE_EVIDENCE_IDS]
     relationships = main._social_eligible_outputs(main.all_relationships())
     try:
         state = company_state(main.INBOX_DIR)

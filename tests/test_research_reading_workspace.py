@@ -71,7 +71,8 @@ def test_live_capture_outcome_is_honest_without_replacing_review_status(monkeypa
     page = TestClient(main.app).post('/api/research/live', json={'scope': _scope().as_dict()}, headers={'Origin': 'http://testserver'})
     assert page.status_code == 200
     assert f'data-live-status="{status}"' in page.text
-    assert 'LIVE / UNREVIEWED' in page.text
+    assert 'Recent source coverage' in page.text
+    assert 'Trusted / approved' not in page.text
     if status != 'complete':
         assert 'Source check complete' not in page.text
 

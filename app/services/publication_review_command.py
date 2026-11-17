@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Any, Callable, Protocol
 
 from jsonschema import Draft202012Validator, FormatChecker
+from app.services.information_storage import enabled, record_path, get_record, upsert_record
 
 from app.services import publication_review_domain as domain
 from app.services.draft_delivery import atomic_write_json
@@ -534,7 +535,12 @@ class PublicationReviewCommandService:
                     details={"warnings": list(eligibility.warnings)},
                 )
             publication_id = state.draft.get("id") or envelope.draft_id
-            if self._deps.evidence_reader.get(publication_id) is not None:
+            current_source = self._deps.evidence_reader.get(publication_id)
+            shared_draft = bool(enabled(data_dir=self._deps.evidence_data_dir) and current_source
+                                and current_source.get("status") not in {"published", "rejected", "archived", "withdrawn", "deleted"}
+                                and current_source.get("source_url") == state.draft.get("source_url")
+                                and current_source.get("source_id") == state.draft.get("source_id"))
+            if current_source is not None and not shared_draft:
                 raise domain.CommandError(
                     domain.ERROR_IDENTITY_CONFLICT, f"a trusted publication already exists at id {publication_id!r}",
                 )
@@ -705,8 +711,22 @@ class PublicationReviewCommandService:
         # Step 6 (real visibility boundary): one atomic file write. Never
         # re-written if it already exists from a prior, interrupted attempt
         # at this exact transaction -- idempotent by construction.
-        evidence_path = self._deps.evidence_data_dir / "evidence" / f"{publication_id}.json"
-        if not evidence_path.is_file():
+        shared_store = enabled(data_dir=self._deps.evidence_data_dir)
+        evidence_path = record_path(publication_id, data_dir=self._deps.evidence_data_dir)
+        existing = get_record(publication_id, data_dir=self._deps.evidence_data_dir) if shared_store else None
+        if existing is not None and existing.get("source_url") != state.draft.get("source_url"):
+            raise domain.CommandError(domain.ERROR_PROMOTION_INCOMPLETE, "Source identity changed before review commit")
+        if shared_store and (existing is None or existing.get("status") != "published"):
+            previous = existing or state.draft
+            publication_record = {**previous, **publication_record,
+                "publication_scope": previous.get("publication_scope", "private"),
+                "attachments": previous.get("attachments") or [],
+                "fact_ids": previous.get("fact_ids") or publication_record.get("fact_ids") or [],
+                "relationship_ids": previous.get("relationship_ids") or publication_record.get("relationship_ids") or [],
+                "information": {**(previous.get("information") or {}), "review_status": "reviewed"}}
+            self._validate_against_evidence_schema(publication_record)
+            upsert_record(publication_record, data_dir=self._deps.evidence_data_dir, allow_review_update=True)
+        elif not evidence_path.is_file():
             self._validate_against_evidence_schema(publication_record)
             atomic_write_json(evidence_path, publication_record)
 

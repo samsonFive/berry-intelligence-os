@@ -71,7 +71,8 @@ def test_credit_free_rules_fill_pending_sources_and_preserve_semantic_and_manual
     from app import news_workspace_routes as routes
     from app.services import personal_digest
     corpus = {row['id']: row for row in [previous, pending]}
-    main = SimpleNamespace(INBOX_DIR=tmp_path, AUTHORING_MODE=False, published_evidence=lambda: [])
+    main = SimpleNamespace(INBOX_DIR=tmp_path, AUTHORING_MODE=False, published_evidence=lambda: [],
+                           unified_information=lambda **kwargs: list(corpus.values()))
     monkeypatch.setattr(routes, 'world', lambda: (main, {}, corpus, {}))
     monkeypatch.setattr(personal_digest, 'source_records', lambda *args, **kwargs: corpus)
     monkeypatch.setattr(semantic, 'run', unexpected_worker)

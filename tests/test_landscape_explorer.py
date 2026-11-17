@@ -132,12 +132,15 @@ def test_invalid_selection_rejected(world, params):
         build(world, **params)
 
 
-def test_source_policy_excludes_private_and_pending_by_default(world):
+def test_source_policy_includes_active_information_with_optional_review_filter(world):
     world["evidence"][0]["status"] = "in_review"
-    assert build(world)["edges"] == []
+    assert len(build(world)["edges"]) == 5
+    assert build(world, evidence="reviewed")["edges"] == []
     assert len(build(world, evidence="all")["edges"]) == 5
     world["evidence"][0]["status"] = "draft"
-    assert build(world, evidence="all")["edges"] == []
+    assert len(build(world)["edges"]) == 5
+    world["evidence"][0]["status"] = "rejected"
+    assert build(world)["edges"] == []
 
 
 def test_disputes_history_and_legacy_intent_are_explicit(world):
@@ -273,6 +276,7 @@ def client_world(world, monkeypatch, tmp_path):
     monkeypatch.setattr(main, "all_entities", lambda: list(world["entities"].values()))
     monkeypatch.setattr(main, "all_relationships", lambda: world["relationships"])
     monkeypatch.setattr(main, "all_evidence", lambda: world["evidence"])
+    monkeypatch.setattr(main, "unified_information", lambda **kwargs: main._social_eligible_outputs(world["evidence"]))
     return TestClient(main.app)
 
 
@@ -417,10 +421,12 @@ def test_comparison_filters_and_exports_keep_exact_crop_source_parity(client_wor
     world['evidence'].append({'id':'ev-private','status':'in_review','title':'Unreviewed strawberry source','berry_ids':['berry-strawberry']})
     world['relationships'][5]['evidence_ids'] = ['ev-private']
     query = 'berry=berry-blueberry&compare=berry-strawberry&view=compare&countries=&theme=dark'
-    reviewed = client_world.get('/api/landscapes/explorer?'+query).json()
+    reviewed = client_world.get('/api/landscapes/explorer?'+query+'&evidence=reviewed').json()
     assert reviewed['crop_scopes'][1]['coverage']['relationships'] == 0
     query += '&evidence=all'
     bundle = client_world.get('/api/landscapes/explorer?'+query).json()
+    default = client_world.get('/api/landscapes/explorer?'+query.replace('&evidence=all', '')).json()
+    assert default['crop_scopes'][1]['coverage']['relationships'] == bundle['crop_scopes'][1]['coverage']['relationships']
     page = client_world.get('/landscapes/explorer?'+query)
     assert page.status_code == 200 and 'Strawberry landscape comparison' in page.text
     assert 'Shared company' in page.text and 'Unreviewed strawberry source' in page.text

@@ -16,7 +16,9 @@ def context(entity_id):
     actor = entities.get(entity_id, {})
     if actor.get("entity_type") not in map_regions.ACTIVITIES:
         raise HTTPException(404, "Company or variety not found")
-    records = list(personal_digest.source_records(main.published_evidence(), main.INBOX_DIR).values()) if main.AUTHORING_MODE else main.published_evidence()
+    records = list(personal_digest.source_records(
+        main.unified_information(include_private=main.AUTHORING_MODE), main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE, catalog=True).values())
     relationships = main.all_relationships()
     private = map_regions.load(main.INBOX_DIR) if main.AUTHORING_MODE else None
     rows = [row for row in map_regions.catalog(entities, relationships, records, private) if row["entity_id"] == entity_id]

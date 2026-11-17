@@ -36,6 +36,7 @@ sys.path.insert(0, str(ROOT))
 
 from playwright.sync_api import sync_playwright  # noqa: E402
 
+from app.services.information_storage import information_directory, enabled, upsert_record
 from app.main import is_redundant_summary  # noqa: E402
 
 MIN_DESCRIPTION_LENGTH = 40
@@ -63,7 +64,7 @@ BLOCK_SIGNALS = (
 
 def find_candidates() -> list[Path]:
     paths = []
-    for path_str in glob.glob(str(ROOT / "data" / "evidence" / "*.json")):
+    for path_str in glob.glob(str(information_directory(data_dir=ROOT / "data") / "*.json")):
         path = Path(path_str)
         record = json.loads(path.read_text(encoding="utf-8"))
         if not record.get("validated"):
@@ -211,7 +212,7 @@ def main() -> None:
 
                 record["summary"] = description
                 record["origin_domain"] = urlparse(final_url).netloc.lower().removeprefix("www.")
-                path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                upsert_record(record, data_dir=ROOT / "data", origin="canonical")
                 resolved += 1
                 if i % 25 == 0 or i == len(candidates):
                     print(f"[{i}/{len(candidates)}] resolved={resolved} no_description={no_description} failed={failed}")

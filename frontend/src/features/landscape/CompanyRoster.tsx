@@ -11,13 +11,14 @@ import { useInvestigation } from '../../state/InvestigationProvider';
 import { VerifiedCompanyLogo } from '../brand-media/VerifiedCompanyLogo';
 import { loadCompleteMonitoring } from './complete-monitoring';
 import { RosterLayoutBusy } from './roster-layout-context';
-import { rosterDisplayPage, type RosterPageSize } from './roster-display';
+import { rosterDisplayPage, rosterResultSummary, type RosterPageSize } from './roster-display';
 import { companyPageSwitchBlocked } from '../grids/company-pages';
 import { isUserLayoutEvent } from '../grids/grid-state';
 import { useAccountGridLayout } from '../grids/useAccountGridLayout';
 import { workspaceGridTheme } from '../grids/workspace-grid-theme';
 import { SheetToolbar } from '../grids/SheetToolbar';
 import { defaultSheetColumnState } from '../grids/sheet-layout';
+import { clearSheetFilters, sheetFilterSummary } from '../grids/filter-summary';
 import { CompactCollection, CompactGenetics, CompactGeographies, CompactRoles } from './RosterCompactCells';
 import { CompanyTierControl } from './CompanyTierControl';
 import { CompanyRosterDetails } from './CompanyRosterDetails';
@@ -48,9 +49,10 @@ const ROSTER_UNPIN: NonNullable<GridOptions<CompanyRosterRow>['processUnpinnedCo
 export interface CompanyRosterProps {
   model: LandscapeModel;
   onReady: (ready: boolean) => void;
+  resetFilterToken?: number;
+  onFiltersReset?: (token: number) => void;
   renderNode: (node: LandscapeNode) => ReactNode;
   renderEdge: (edge: LandscapeEdge) => ReactNode;
-  renderGeographies: (geographies: MonitoringCompany['geographies']) => ReactNode;
 }
 
 function CompanySearch({ disabled }: { disabled: boolean }) {
@@ -103,13 +105,14 @@ function CompanyCompare({ company }: { company: MonitoringCompany }) {
     onChange={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })} />;
 }
 
-function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: CompanyRosterProps & { roster: MonitoringModel }) {
+function RosterDisplay({ model, roster, onReady, renderNode, renderEdge, resetFilterToken = 0, onFiltersReset }: CompanyRosterProps & { roster: MonitoringModel }) {
   const { context, dispatch } = useInvestigation();
   const companyIds = useMemo(() => roster.companies.map(company => company.id), [roster.companies]);
   const [pageSize, setPageSize] = useState<RosterPageSize>(50);
   const sizeRef = useRef(pageSize); sizeRef.current = pageSize;
   const [pageState, setPageState] = useState({ index: 0, count: 1, start: 0, end: Math.min(50, roster.companies.length), total: roster.companies.length });
-  const layout = useAccountGridLayout<CompanyRosterRow>(COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, true, true);
+  const layout = useAccountGridLayout<CompanyRosterRow>(COMPANY_ROSTER_COLUMNS, COMPANY_ROSTER_VIEW_KEY, true, true,
+    { token: resetFilterToken, onApplied: onFiltersReset });
   const grid = useRef<GridApi<CompanyRosterRow> | null>(null);
   const focus = useRef(context.focus); focus.current = context.focus;
   const rowClass = useCallback<NonNullable<GridOptions<CompanyRosterRow>['getRowClass']>>(params => params.data?.id === focus.current ? 'berry-grid-row-focused' : '', []);
@@ -125,6 +128,7 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
   const [gridMounted, setGridMounted] = useState(false), [cards, setCards] = useState(roster.companies.slice(0, 50));
   const [cardOrder, setCardOrder] = useState(COMPANY_ROSTER_COLUMNS.map(column => column.colId));
   const [tierReceipt, setTierReceipt] = useState('');
+  const [columnFilters, setColumnFilters] = useState<Record<string, unknown>>({});
   const root = useRef<HTMLElement>(null), companyDetails = useRef<CompanyRosterDetailsHandle>(null);
   const rowData = roster.companies;
   const tierHeaders = useMemo(() => companyTierRows(roster.companies, roster.tier_groups ?? []).filter(isRosterTierHeader), [roster.companies, roster.tier_groups]);
@@ -140,6 +144,8 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
     setPageState(previous => JSON.stringify(previous) === JSON.stringify(state) ? previous : state);
     const order = grid.current.getColumnState().map(column => column.colId);
     setCardOrder(previous => previous.join('\u0000') === order.join('\u0000') ? previous : order);
+    const filters = grid.current.getFilterModel();
+    setColumnFilters(previous => JSON.stringify(previous) === JSON.stringify(filters) ? previous : filters);
   }, []);
   useLayoutEffect(() => onReady(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const identity = (company: MonitoringCompany, tier?: { label: string; count: number }) => <CompanyIdentity company={company} ids={companyIds} details={companyDetails} tier={tier} />;
@@ -187,7 +193,15 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
   }, [text, model, context.focus, context.cohort_companies]);
   const resetLayout = () => {
     grid.current?.applyColumnState({ state: defaultSheetColumnState(COMPANY_ROSTER_COLUMNS), applyOrder: true });
-    grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
+    layout.changed();
+  };
+  const activeFilters = sheetFilterSummary(layout.quickFilter, columnFilters,
+    COMPANY_ROSTER_COLUMNS.map(column => ({ id: column.colId, label: column.label })), layout.visible);
+  const clearFilters = () => { if (grid.current) clearSheetFilters(grid.current, layout.changeQuickFilter); };
+  const removeFilter = (id: string) => {
+    if (id === '$quick') layout.changeQuickFilter('');
+    else if (grid.current) { const next = { ...grid.current.getFilterModel() }; delete next[id]; grid.current.setFilterModel(next); layout.changed(); }
+    grid.current?.paginationGoToFirstPage();
   };
   const pages = <nav className="berry-roster-pages" aria-label="Company roster pages"><span aria-live="polite">{pageState.total ? `${pageState.start + 1}–${pageState.end} of ${pageState.total} companies` : 'No companies match'}</span>
     <label>Companies per view<select aria-label="Companies per view" value={pageSize} disabled={blocked} onChange={event => { setPageSize(event.target.value === 'all' ? 'all' : Number(event.target.value) as RosterPageSize); grid.current?.paginationGoToFirstPage(); }}>
@@ -207,9 +221,11 @@ function RosterDisplay({ model, roster, onReady, renderNode, renderEdge }: Compa
     <div className="berry-roster-tier-summary" aria-label="Tiers across the selected company set">{roster.tier_groups?.map(group => <span key={group.tier}><strong>{group.label}</strong> {group.count}{context.q && <small> · {group.matching_count} search matches</small>}</span>)}</div>
     <SheetToolbar label="Company roster tools" className="berry-roster-view-tools"
       display={{ value: layout.view, onChange: layout.changeView, label: 'Company roster display', disabled: blocked }}
-      filter={{ label: 'Filter companies', value: layout.quickFilter, onChange: layout.changeQuickFilter,
-        placeholder: 'All companies in this result', disabled: layout.busy }}
-      count={<span className="berry-roster-row-count">{cards.length} / {pageState.total} companies shown</span>}
+      filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+        placeholder: 'All fields, including hidden', disabled: layout.busy }}
+      count={<span className="berry-roster-row-count">{rosterResultSummary(pageState.total, roster.companies.length, roster.universe_count,
+        roster.companies.length === roster.total, Boolean(context.q))}</span>}
+      activeFilters={{ items: activeFilters, onClear: clearFilters, onRemove: removeFilter, disabled: blocked }}
       columns={{ columns: COMPANY_ROSTER_COLUMNS.map(column => ({ id: column.colId, label: column.label, locked: column.lockedVisible })),
         visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility, onReload: layout.reloadSavedLayout,
         actionDisabled: blocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}

@@ -5,7 +5,8 @@
   "type": "object",
   "required": ["id", "record_type", "status", "source_type", "title", "captured_date", "summary", "submitted_by", "priority"],
   "properties": {
-    "id": {"type": "string", "pattern": "^ev-[a-z0-9-]+$"},
+    "id": {"type": "string"},
+    "publication_scope": {"enum": ["public", "private"]},
     "record_type": {"const": "evidence"},
     "status": {"enum": ["draft", "in_review", "published", "archived", "rejected"]},
     "source_type": {"type": "string"},
@@ -437,6 +438,11 @@
     }
   },
   "allOf": [
+    {
+      "if": {"required": ["publication_scope"], "properties": {"publication_scope": {"const": "private"}}},
+      "then": {"properties": {"id": {"pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,239}$"}}},
+      "else": {"properties": {"id": {"pattern": "^ev-[a-z0-9-]+$"}}}
+    },
     {
       "if": {"properties": {"evidence_role": {"const": "atomic_evidence"}}, "required": ["evidence_role"]},
       "then": {"required": ["parent_evidence_id", "artifact_locator", "extraction_provenance"]}

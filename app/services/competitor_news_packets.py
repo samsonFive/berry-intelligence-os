@@ -14,6 +14,7 @@ from uuid import uuid4
 
 from app.services import feed_first, personal_digest
 from app.services.analyst_state_io import atomic_json, serialized_write
+from app.services.information_storage import enabled, retain_records
 from app.services.article_dedup import normalize_canonical_url
 from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.feed_first_live import berry_ids_for, match_entity_ids, match_geography_ids
@@ -315,7 +316,10 @@ def capture_job(inbox_dir: Path, job_id: str, entities: dict, stored: list[dict]
             for error in row_validator.iter_errors(row):
                 job["validation"]["errors"].append({"record_id": row["external_record_id"], "code": "schema", "message": "Invalid export field: " + ".".join(str(key) for key in error.path)})
         # Capture data stays private. Readable by the shared Digest, never canonical Evidence.
-        atomic_json(inbox_dir / "news_packets" / "captures" / (job_id + ".json"), {"records": list(fresh.values()), "captured_at": job["capture"]["completed_at"]})
+        captured = ({"records_ids": retain_records(inbox_dir, fresh.values()), "information_storage_version": 1}
+                    if enabled(inbox_dir=inbox_dir) else {"records": list(fresh.values())})
+        atomic_json(inbox_dir / "news_packets" / "captures" / (job_id + ".json"),
+                    {**captured, "captured_at": job["capture"]["completed_at"]})
         job["status"] = "failed" if job["capture"]["errors"] or job["validation"]["errors"] else "ready"
     except Exception:
         job["status"] = "failed"

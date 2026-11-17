@@ -8,6 +8,8 @@ validation, provenance, identity, dedupe, and inbox persistence.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 from dataclasses import dataclass, field
 from datetime import date
 import hashlib
@@ -258,12 +260,12 @@ class TranscriptEvidenceExtractionService:
                 result.invalid.append(f"candidate {index}: {exc}")
                 continue
             proposal_id = proposal["id"]
-            draft_path = self._inbox_dir / "evidence" / f"{proposal_id}.json"
+            draft_path = information_directory(inbox_dir=self._inbox_dir) / f"{proposal_id}.json"
             if self._repos.evidence.get(proposal_id) is not None or draft_path.exists():
                 result.duplicates.append(proposal_id)
                 continue
             draft_path.parent.mkdir(parents=True, exist_ok=True)
-            draft_path.write_text(json.dumps(proposal, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            upsert_record(proposal, inbox_dir=self._inbox_dir)
             result.accepted.append(proposal_id)
         return result
 

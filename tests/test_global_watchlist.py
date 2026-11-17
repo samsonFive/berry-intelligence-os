@@ -473,7 +473,8 @@ def test_global_landscapes_include_current_captures_and_share_news_tag_overrides
         doc = html.fromstring(response.text)
         assert doc.xpath('//*[@id="gw-news"]//h2/a/text()') == [row['title']]
         assert tag in doc.xpath('//*[@id="gw-news"]//button[@data-tag-id]/@data-tag-id')
-        assert doc.xpath('//*[@id="gw-news"]//span[contains(@class, "trust-label")]/text()') == ['Unreviewed']
+        assert not doc.xpath('//*[@id="gw-news"]//span[contains(@class, "trust-label")]')
+        assert doc.xpath('//*[@id="gw-news"]//details[contains(@class, "information-details")]//dd/text()')[:2] == ['Unreviewed', 'Not assessed']
         assert doc.xpath('//*[@id="newsTagDrawer"]')
 
     params = {'saved_view': 'lview-watchlist-global-blueberry', 'tag': f'{tag},{other_tag}'}

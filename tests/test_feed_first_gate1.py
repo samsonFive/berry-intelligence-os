@@ -406,7 +406,7 @@ def test_human_gate_workspace_reviews_statement_in_place(tmp_path, monkeypatch):
 
     page = client.get("/statements?review=unreviewed")
     assert page.status_code == 200
-    assert "Review extracted statements" in page.text
+    assert "<h1>Statements</h1>" in page.text
     assert 'data-statement-action="approve"' in page.text
     assert 'data-statement-edit="' + statement_id + '"' in page.text
     assert "Statement triage progress" in page.text
@@ -420,7 +420,8 @@ def test_human_gate_workspace_reviews_statement_in_place(tmp_path, monkeypatch):
         assert reviewed.json()["statement"]["review_state"] == "reviewed"
 
     remaining = client.get("/statements?review=unreviewed")
-    assert "Triage complete" in remaining.text
+    assert "No statements match this review flag" in remaining.text
+    assert 'href="/statements"' in remaining.text
     labeled = client.get("/statements?review=reviewed")
     assert statement_id in labeled.text
 

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AllCommunityModule, ModuleRegistry, type ColDef, type GridApi, type ICellRendererParams } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { Button, EmptyState, EntityButton, Preview } from '../../components/ui';
@@ -7,6 +7,7 @@ import { splitIds } from '../../contracts/investigation';
 import type { LandscapeEdge, LandscapeModel, LandscapeNode } from '../landscape/models';
 import { Citation } from '../landscape/Citation';
 import type { LayoutColumn } from './layout-codec';
+import { MAX_PORTFOLIO_LAYOUT_COLUMNS } from './layout-codec';
 import { isUserLayoutEvent } from './grid-state';
 import { useAccountGridLayout } from './useAccountGridLayout';
 import { COMPANY_COLUMN_SIZES, companyPage, companyPageSwitchBlocked, companyPageViewKey } from './company-pages';
@@ -20,6 +21,7 @@ import './grid.css';
 import { workspaceGridTheme } from './workspace-grid-theme';
 import { SheetToolbar } from './SheetToolbar';
 import { defaultSheetColumnState } from './sheet-layout';
+import { clearSheetFilters, sheetFilterSummary } from './filter-summary';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -48,7 +50,10 @@ function PortfolioRelationship({ edge, model, open }: {
 }
 
 /** A real Community grid. Canonical identity and comparison membership stay separate. */
-export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onReady?: (ready: boolean) => void }) {
+export function BerryDataGrid({ model, onReady, resetFilterToken, onFiltersReset }: {
+  model: LandscapeModel; onReady?: (ready: boolean) => void;
+  resetFilterToken?: number; onFiltersReset?: (token: number) => void;
+}) {
   const { companies, rows } = useMemo(() => portfolioData(model), [model]);
   const pagination = useCompanyPageMemory(companies);
   const pageIndex = pagination.index;
@@ -57,6 +62,7 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
     catch (error) { return { page: null, error: error instanceof Error ? error.message : 'Company columns are unavailable.' }; }
   }, [companies, pageIndex, pagination.size]);
   const page = plan.page;
+  const [companyActionsOpen, setCompanyActionsOpen] = useState(false);
   const pageIdentity = JSON.stringify([page?.membershipBound, page?.companies.map(company => company.id)]);
   const [resolvedLayout, setResolvedLayout] = useState<{ identity: string; key: string; error: string } | null>(null);
   useEffect(() => {
@@ -68,20 +74,29 @@ export function BerryDataGrid({ model, onReady }: { model: LandscapeModel; onRea
   }, [pageIdentity, pagination.ready]);
   const displayGrid = Boolean(pagination.ready && page && rows.length && resolvedLayout?.identity === pageIdentity && !resolvedLayout.error);
   const finalMessage = pagination.ready && (!page || !rows.length || resolvedLayout?.identity === pageIdentity && Boolean(resolvedLayout.error));
-  useLayoutEffect(() => { if (!displayGrid) onReady?.(finalMessage); }, [onReady, displayGrid, finalMessage]);
+  useLayoutEffect(() => {
+    if (!displayGrid) {
+      onReady?.(finalMessage);
+      if (finalMessage && resetFilterToken) onFiltersReset?.(resetFilterToken);
+    }
+  }, [onReady, displayGrid, finalMessage, resetFilterToken, onFiltersReset]);
   if (!pagination.ready) return <p role="status" className="berry-loading">Restoring company columns…</p>;
   if (!page) return <EmptyState title="Company columns could not be displayed">{plan.error}</EmptyState>;
   if (!rows.length) return <EmptyState title="No cultivar portfolio relationships in this scope">Recorded geographic connections can still be inspected in Connections. Missing portfolio records do not establish an absence of commercial access.</EmptyState>;
   if (!resolvedLayout || resolvedLayout.identity !== pageIdentity) return <p role="status" className="berry-loading">Preparing company columns {page.start + 1}–{page.end} of {page.total}…</p>;
   if (resolvedLayout.error) return <EmptyState title="Company display preferences are unavailable">{resolvedLayout.error}</EmptyState>;
   return <PortfolioGrid key={`${resolvedLayout.key}:${pageIdentity}`} model={model} companies={page.companies} rows={rows}
-    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady} />;
+    viewKey={resolvedLayout.key} page={page} changePage={pagination.setIndex} changeSize={pagination.setSize} onReady={onReady}
+    resetFilterToken={resetFilterToken} onFiltersReset={onFiltersReset}
+    companyActionsOpen={companyActionsOpen} onCompanyActionsToggle={setCompanyActionsOpen} />;
 }
 
 interface PortfolioGridProps {
   model: LandscapeModel; companies: LandscapeNode[]; rows: PortfolioRow[];
   viewKey: string; page: CompanyPage<LandscapeNode>; changePage: (index: number) => void;
   changeSize: (size: CompanyColumnSize) => void; onReady?: (ready: boolean) => void;
+  resetFilterToken?: number; onFiltersReset?: (token: number) => void;
+  companyActionsOpen: boolean; onCompanyActionsToggle: (open: boolean) => void;
 }
 function PortfolioGrid(props: PortfolioGridProps) {
   const { companies } = props;
@@ -90,31 +105,60 @@ function PortfolioGrid(props: PortfolioGridProps) {
     { colId: 'cultivar.comparison-pin', defaultWidth: 75, minWidth: 65, maxWidth: 90, lockedVisible: true },
     ...companies.map(company => ({ colId: `company.${company.id}.recorded-role`, defaultWidth: 260, minWidth: 220, maxWidth: 1200 })),
   ], [companies]);
-  return specs.length > 40 ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
+  return specs.length > MAX_PORTFOLIO_LAYOUT_COLUMNS ? <SessionPortfolioGrid {...props} specs={specs} /> : <AccountPortfolioGrid {...props} specs={specs} />;
 }
 function AccountPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
-  const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey);
+  const layout = useAccountGridLayout<PortfolioRow>(props.specs, props.viewKey, false, false,
+    { token: props.resetFilterToken ?? 0, onApplied: props.onFiltersReset });
   return <PortfolioDisplay {...props} layout={layout} sessionOnly={false} />;
 }
 function SessionPortfolioGrid(props: PortfolioGridProps & { specs: LayoutColumn[] }) {
   const layout = usePortfolioSessionLayout<PortfolioRow>(props.specs, props.viewKey);
   return <PortfolioDisplay {...props} layout={layout} sessionOnly />;
 }
-function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs }: PortfolioGridProps & {
+function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize, onReady, layout, sessionOnly, specs, resetFilterToken, onFiltersReset, companyActionsOpen, onCompanyActionsToggle }: PortfolioGridProps & {
   layout: ReturnType<typeof useAccountGridLayout<PortfolioRow>>; sessionOnly: boolean; specs: readonly LayoutColumn[];
 }) {
   const { context, dispatch } = useInvestigation();
   const selectedCompanies = splitIds(context.cohort_companies);
   const selectedVarieties = splitIds(context.cohort_varieties);
   const [gridMounted, setGridMounted] = useState(false);
+  const [matchedRows, setMatchedRows] = useState(rows.length);
+  const [columnFilters, setColumnFilters] = useState<Record<string, unknown>>({});
   const grid = useRef<GridApi<PortfolioRow> | null>(null);
+  const syncFilters = useCallback(() => {
+    const api = grid.current;
+    if (!api || api.isDestroyed()) return;
+    setMatchedRows(api.getDisplayedRowCount());
+    const filters = api.getFilterModel();
+    setColumnFilters(previous => JSON.stringify(previous) === JSON.stringify(filters) ? previous : filters);
+  }, []);
+  const appliedSessionFilterReset = useRef(0);
+  useEffect(() => {
+    const token = resetFilterToken ?? 0, api = grid.current;
+    if (!sessionOnly || !token || token === appliedSessionFilterReset.current || layout.busy || !gridMounted || !api || api.isDestroyed()) return;
+    appliedSessionFilterReset.current = token;
+    if (layout.quickFilter || Object.keys(api.getFilterModel()).length) {
+      api.setFilterModel(null); layout.changeQuickFilter('');
+    }
+    api.paginationGoToFirstPage(); onFiltersReset?.(token);
+  }, [sessionOnly, resetFilterToken, onFiltersReset, gridMounted, layout.busy, layout.quickFilter, layout.changeQuickFilter]);
   useLayoutEffect(() => onReady?.(gridMounted && !layout.busy), [onReady, gridMounted, layout.busy]);
   const pageBlocked = companyPageSwitchBlocked(layout.status.phase);
   const columnChoices = [{ id: 'cultivar.identity', label: 'Cultivar', locked: true }, { id: 'cultivar.comparison-pin', label: 'Comparison pin', locked: true },
     ...companies.map(company => ({ id: `company.${company.id}.recorded-role`, label: company.label }))];
   const resetLayout = () => {
     grid.current?.applyColumnState({ state: defaultSheetColumnState(specs), applyOrder: true });
-    grid.current?.setFilterModel(null); layout.changeQuickFilter(''); layout.changed();
+    layout.changed();
+  };
+  const activeFilters = sheetFilterSummary(layout.quickFilter, columnFilters, columnChoices, layout.visible);
+  const clearFilters = () => { if (grid.current) clearSheetFilters(grid.current, layout.changeQuickFilter); };
+  const removeFilter = (id: string) => {
+    if (id === '$quick') layout.changeQuickFilter('');
+    else if (grid.current) {
+      const next = { ...grid.current.getFilterModel() }; delete next[id]; grid.current.setFilterModel(next); layout.changed();
+    }
+    grid.current?.paginationGoToFirstPage();
   };
   const columnDefs = useMemo<ColDef<PortfolioRow>[]>(() => [
     {
@@ -160,34 +204,38 @@ function PortfolioDisplay({ model, companies, rows, page, changePage, changeSize
         <Button size="small" variant="secondary" disabled={pageBlocked || page.index === page.count - 1} onClick={() => changePage(page.index + 1)}>Next companies</Button></div>}
     </nav>
     {page.paged && pageBlocked && <p className="berry-scope-note" role="status">{layout.status.phase === 'conflict' ? 'Reload the saved layout before changing company page.' : 'Wait for the current layout to finish loading or saving before changing company page.'}</p>}
+    <details className="berry-portfolio-company-actions" open={companyActionsOpen}
+      onToggle={event => onCompanyActionsToggle(event.currentTarget.open)}><summary>Company actions · {companies.length}</summary>
     <div className="berry-grid-company-controls" aria-label="Company focus and comparison pins">{companies.map(company => <div key={company.id}>
       <EntityButton compact name={company.label} selected={context.focus === company.id} onClick={() => dispatch({ type: 'focusEntity', entity: { type: 'company', id: company.id }, origin: 'grid' })} />
       <Button size="small" variant="ghost" aria-pressed={selectedCompanies.includes(company.id)} onClick={() => dispatch({ type: 'togglePin', entity: { type: 'company', id: company.id }, origin: 'grid' })}>{selectedCompanies.includes(company.id) ? 'Unpin' : 'Pin'}</Button>
-    </div>)}</div>
+    </div>)}</div></details>
     <SheetToolbar label="Cultivar portfolio tools" className="berry-grid-preferences"
-      filter={{ label: 'Filter this company group', value: layout.quickFilter, onChange: layout.changeQuickFilter,
-        placeholder: 'Cultivar, role or company in this group', disabled: layout.busy }}
-      count={`${rows.length} loaded cultivars`}
+      filter={{ label: 'Table search', value: layout.quickFilter, onChange: layout.changeQuickFilter,
+        placeholder: 'All fields, including hidden', disabled: layout.busy }}
+      count={matchedRows === rows.length ? `${rows.length} cultivars` : `${matchedRows} ${matchedRows === 1 ? 'match' : 'matches'} of ${rows.length} cultivars`}
+      activeFilters={{ items: activeFilters, onClear: clearFilters, onRemove: removeFilter, disabled: pageBlocked || layout.busy }}
       columns={{ columns: columnChoices, visible: layout.visible, busy: layout.busy, onChange: layout.changeVisibility,
         onReload: layout.reloadSavedLayout, reloadLabel: sessionOnly ? 'Reload session layout' : 'Reload saved layout',
         actionDisabled: pageBlocked || !gridMounted, onFit: () => { grid.current?.sizeColumnsToFit(); layout.changed(); } }}
       reset={{ onClick: resetLayout, disabled: pageBlocked || !gridMounted }} />
-    {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than forty columns keep resize, order, visibility and filter preferences in this session. Account layouts remain unchanged. Return to 10 or 25 company columns to restore their saved account layout.</p>}>Session layout</Preview>
+    {sessionOnly ? <div className="berry-grid-layout-status" data-phase={layout.status.phase}><Preview label="Session layout" content={<p>Windows with more than {MAX_PORTFOLIO_LAYOUT_COLUMNS} columns keep display preferences in this session. Choose a smaller company group to save its layout to your account.</p>}>Session layout</Preview>
       {layout.status.phase === 'error' && <span role="status">{layout.status.message}</span>}</div> : <div className="berry-grid-layout-status" data-phase={layout.status.phase} hidden={['ready', 'saved'].includes(layout.status.phase)}>
       <p role="status" aria-live="polite">{layout.status.message}</p>
       {['error', 'conflict', 'local'].includes(layout.status.phase) && <Button size="small" variant="ghost" disabled={layout.busy} onClick={layout.reloadSavedLayout}>Reload saved layout</Button>}
     </div>}
     <div className="berry-grid berry-portfolio-grid" data-grid-edition="community" aria-busy={layout.busy} inert={layout.busy}>
       <AgGridReact<PortfolioRow> theme={berryGridTheme} rowData={rows} columnDefs={columnDefs}
-        getRowId={params => params.data.id} quickFilterText={layout.quickFilter} maintainColumnOrder
+        getRowId={params => params.data.id} quickFilterText={layout.quickFilter} includeHiddenColumnsInQuickFilter maintainColumnOrder
         processUnpinnedColumns={params => params.columns.filter(column => !['cultivar.identity', 'cultivar.comparison-pin'].includes(column.getColId()))}
         defaultColDef={{ sortable: true, filter: 'agTextColumnFilter', filterParams: { maxNumConditions: 2 }, cellDataType: false, resizable: true, wrapHeaderText: true, autoHeaderHeight: true }}
-        onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setGridMounted(true); }}
+        onGridReady={event => { grid.current = event.api; layout.onReady(event.api); setGridMounted(true); syncFilters(); }}
+        onModelUpdated={syncFilters}
         onColumnResized={event => { if (isUserLayoutEvent('resize', event.source, event.finished)) layout.changed(); }}
         onColumnMoved={event => { if (isUserLayoutEvent('move', event.source, event.finished)) layout.changed(); }}
         onColumnVisible={event => { layout.syncVisibility(); if (isUserLayoutEvent('visible', event.source)) layout.changed(); }}
         onSortChanged={event => { if (isUserLayoutEvent('sort', event.source)) layout.changed(); }}
-        onFilterChanged={event => { if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
+        onFilterChanged={event => { syncFilters(); if (isUserLayoutEvent('filter', event.source) && !event.afterDataChange) layout.changed(); }}
         rowHeight={42} headerHeight={34} animateRows={false} suppressCellFocus={false}
         getRowClass={params => params.data?.id === context.focus ? 'berry-grid-row-focused' : ''}
         overlayNoRowsTemplate="No loaded cultivar rows match this filter." />

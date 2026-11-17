@@ -19,19 +19,19 @@
       <label class="intel-reviewer" for="feed-reviewer">Reviewer
         <input id="feed-reviewer" name="reviewer" required value="{{ reviewer }}" autocomplete="name">
       </label>
-      <p class="shortcut-key" aria-label="Feed keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>Enter</kbd> read · <kbd>a</kbd> promote · <kbd>s</kbd> keep · <kbd>r</kbd> dismiss</p>
+      <p class="shortcut-key" aria-label="Feed keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>Enter</kbd> read · <kbd>a</kbd> review source · <kbd>s</kbd> keep · <kbd>r</kbd> dismiss</p>
     {% endif %}
   </div>
 </section>
 
 {% if promoted_id or promoted_title %}
   <div class="banner banner-success" role="status">
-    Promoted to trusted intelligence{% if promoted_date %} · {{ promoted_date }}{% endif %}.
+    Source review saved{% if promoted_date %} · {{ promoted_date }}{% endif %}.
     {% if promoted_id %}<a href="/intelligence/{{ promoted_id }}">Open item</a>{% endif %}
   </div>
 {% endif %}
 {% if saved %}
-  <div class="banner banner-success" role="status">Pending item saved. It remains untrusted until you promote it.</div>
+  <div class="banner banner-success" role="status">Item saved.</div>
 {% endif %}
 
 {% if not static_build %}

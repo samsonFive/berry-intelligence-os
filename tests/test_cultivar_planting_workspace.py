@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 
 from app import main
 from app.services.cultivar_measurements import normalize_measurement, stage_measurement
-from app.services.cultivar_measurement_workspace import import_packets, source_artifact, workspace
+from app.services.cultivar_measurement_workspace import import_packets, source_artifact, source_dependency_ids, workspace
 from app.services.cultivar_measurements import CultivarMeasurementError
 
 
@@ -178,6 +178,18 @@ def test_list_metadata_does_not_open_packet_article_bodies(tmp_path):
     assert "documents" not in result[0]
 
 
+def test_source_dependencies_accept_migrated_ids_and_reject_path_escapes(tmp_path):
+    root = tmp_path / "cultivar_measurement_imports" / "fixture-import"
+    root.mkdir(parents=True)
+    (root / "source-bindings-fixture.json").write_text(json.dumps([
+        {"evidence_id": "retained.2026_source"}, {"evidence_id": "ev-original"},
+        {"evidence_id": "../auth/users"}, {"evidence_id": None},
+    ]))
+    assert source_dependency_ids(tmp_path, [{"_batch_id": "fixture-import"}]) == {
+        "retained.2026_source", "ev-original",
+    }
+
+
 def test_identity_decision_creates_revised_proposal_and_preserves_catalog(research_world):
     w = research_world; row = dict(w["native"]); row["id"] = "AMBIGUOUS-1"
     row["platform_candidate_ids"] = ["variety-one", "variety-two"]
@@ -212,3 +224,48 @@ def test_remote_anonymous_users_cannot_read_captures_or_submit_decisions(researc
         "action": "approve", "content_sha256": w["record"]["content_sha256"], "reviewer": "spoofed",
         "confirm_individual_review": "true"})
     assert response.status_code == 302 and w["repos"].facts.list() == []
+
+
+def test_migrated_source_remains_visible_and_individual_review_keeps_private_scope(research_world, tmp_path):
+    from app.services import information_migration, information_storage
+    from tests.test_information_storage_application import remove_retired_empty_directories
+    from tests.test_review_publish_portability import _publish
+
+    w = research_world
+    source_id = w["binding"]["evidence_id"]
+    source = w["repos"].evidence.get(source_id)
+    source.update(status="in_review", review_state="in_review", publication_scope="private")
+    w["repos"].evidence.update(source_id, source)
+    information_migration.apply_migration(w["data"], w["inbox"], tmp_path / "migration-backups", quiesced=True)
+    remove_retired_empty_directories(w["data"], w["inbox"])
+
+    # Acquisition is searchable before any optional human source review.
+    assert source_id in {row["id"] for row in main.unified_information(include_private=True)}
+    target = "/variety-plantings/" + w["record"]["id"]
+    listing = w["client"].get("/variety-plantings?berry=strawberry")
+    assert listing.status_code == 200 and "Cultivar One" in listing.text
+    detail = w["client"].get(target)
+    assert detail.status_code == 200 and ("/review/" + source_id) in detail.text
+    assert w["repos"].facts.list() == []
+
+    response = _publish(w["client"], source_id, title=source["title"], summary=source["summary"],
+                        source_type="report", source_name="Survey owner", source_url=source["source_url"],
+                        published_date="", captured_date=source["captured_date"], return_to=target)
+    assert response.status_code == 303 and response.headers["location"] == target
+    assert w["repos"].facts.list() == []
+    current = information_storage.get_record(source_id, data_dir=w["data"], inbox_dir=w["inbox"])
+    assert current["status"] == "published" and current["publication_scope"] == "private"
+
+    response = w["client"].post(target + "/review", data={
+        "action": "approve", "content_sha256": w["record"]["content_sha256"], "reviewer": "human-reviewer",
+        "confirm_individual_review": "true", "source_id": "S1", "source_version_confirmed": "true",
+        "source_confirmation_note": "Read Figure 1 p7 in the original 2025/26 report.",
+    }, follow_redirects=False)
+    assert response.status_code == 303
+    facts = w["repos"].facts.list()
+    assert len(facts) == 1 and facts[0]["publication_scope"] == "private"
+    assert set(facts[0]["entity_ids"]) == {"berry-strawberry", "variety-one"}
+    assert len(information_storage.list_records(data_dir=w["data"], inbox_dir=w["inbox"])) == 1
+    assert not (w["data"] / "evidence").exists() and not (w["inbox"] / "evidence").exists()
+    detail = w["client"].get(target)
+    assert "planting-status-reviewed" in detail.text and ("/facts/" + facts[0]["id"]) in detail.text

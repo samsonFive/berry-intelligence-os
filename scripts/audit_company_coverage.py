@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from app.services.information_storage import information_directory
 from app.services.company_news_coverage import company_news_coverage
 from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.source_body import reader_content
@@ -28,7 +29,7 @@ def main():
     company = next((r for r in companies if r.get("id") == args.company_id), None)
     if company is None:
         parser.error("Company ID not found in the selected data directory")
-    evidence = [json.loads(p.read_text(encoding="utf-8")) for p in (args.data_dir / "evidence").glob("*.json")]
+    evidence = [json.loads(p.read_text(encoding="utf-8")) for p in (information_directory(data_dir=args.data_dir)).glob("*.json")]
     published = [r for r in evidence if r.get("status") == "published"]
     linked = linked_evidence_for_entity(company, published)
     current = company_news_coverage(company, published=linked, days=args.days, today=args.as_of)

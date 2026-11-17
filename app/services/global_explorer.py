@@ -26,7 +26,7 @@ class IntelligenceQuery:
     berry_id: str = ''
     country_codes: tuple[str, ...] = ()
     berry_ids: tuple[str, ...] = ()
-    view: str = "trusted"
+    view: str = "all"
 
     @classmethod
     def parse(cls, countries, berry, entities, berries):
@@ -68,7 +68,8 @@ class IntelligenceQuery:
             scope.update(resolve_geography_scope(eid, relationships=relationships).all_ids)
         if self.country_codes and not scope:
             return []
-        return sorted((r for r in records if (r.get('status') == 'published' or (self.view == 'unreviewed' and r.get('status') == 'unreviewed'))
+        return sorted((r for r in records if r.get('status') not in {'rejected', 'archived', 'withdrawn', 'deleted'}
+            and r.get('review_state') not in {'rejected', 'archived', 'withdrawn', 'deleted'}
             and 'structural' not in (r.get('tags') or [])
             and (not scope or bool(record_geography_ids(r) & scope))
             and (not self.commodities() or bool(set(self.commodities()) & set(r.get('berry_ids') or [])))),
@@ -97,16 +98,13 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             continue
         for eid in fact.get("evidence_ids") or []:
             escalations.setdefault(eid, []).append(fact)
-    if facts is not None and query.view == "trusted":
-        from app.services.news_workspace import source_reviewed
-        records = [r for r in records if r.get("id") in escalations and source_reviewed(r)]
     selected = query.retrieve(records, relationships)
     entries = [present_feed_item(r, entities=entities, berry_labels=berries) for r in selected] if present_entries else []
     by_id = {r['id']: r for r in selected}
     for item in entries:
         record = by_id[item['id']]
         item['image_url'] = safe_image_url(record)
-        item['explorer_feedback'] = query.view == 'unreviewed'
+        item['explorer_feedback'] = True
         item['decision'] = decision_for(item['id'], state or {})
         item['escalations'] = escalations.get(item['id'], [])
         item['trust'] = 'trusted' if item['escalations'] else 'pending'
@@ -141,7 +139,7 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
 def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None,
                    location_options=(), location_ids=(), news_params=None, now=None, inbox_dir=None, authoring=False):
     from dataclasses import replace
-    query = replace(query, view="trusted")
+    query = replace(query, view="all")
     news_scope = []
     news_filters = {}
     news_ids = None
@@ -149,7 +147,7 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         from app.services import news_workspace, feed_first
         news = news_workspace.model(records={r['id']: r for r in records}, entities=entities,
             relationships=relationships, facts=facts or [], state=state or {},
-            params={**news_params, **query.params(), 'view': 'trusted'}, now=now)
+            params={**news_params, **query.params(), 'view': 'all'}, now=now)
         news_filters, news_ids = news['filters'], news['matching_ids']
         company = entities.get(news_filters['company'])
         if company:
@@ -203,7 +201,7 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         rows = entries if key in {'overview', 'developments'} else [r for r in entries if any(
             e['entity_type'] == ('company' if key == 'companies' else 'variety') for e in r['entities'])]
         if key == 'overview':
-            source_label = 'reviewed news source' if news_params is not None else 'published source'
+            source_label = 'news source' if news_params is not None else 'captured source'
             text = f"{len(entries)} {source_label}{'' if len(entries) == 1 else 's'} {'matches' if len(entries) == 1 else 'match'} the selected filters. Read the supporting sources before drawing market conclusions."
         else:
             text = '\n\n'.join(escape(f"{r['title']}\n{r['source_name']} · Published {r['date'] or 'date unknown'}") for r in rows) or 'No sources match the selected filters for this section.'
@@ -215,7 +213,8 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
               'report_type':'market_snapshot', 'scope':scope, 'sections':sections}
     cited = {eid for s in sections for eid in s['citation_ids']}
     trace = [{'id':r['id'], 'title':escape(r['title']), 'source_name':escape(r['source_name']),
-              'date':r['date'], 'source_url':r['source_url'], 'href':r['href']} for r in entries if r['id'] in cited]
+              'date':r['date'], 'source_url':r['source_url'], 'href':r['href'],
+              'information':r.get('information') or {}} for r in entries if r['id'] in cited]
     if 'statistics' in included:
         trace.extend({'id': g['id'], 'title': f"{g['country']} · {g['commodity']} · {g['period']}",
                       'source_name': g['source'], 'date': g['published_date'] if g['published_date'] != 'Not supplied' else '',

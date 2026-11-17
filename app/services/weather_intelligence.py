@@ -35,6 +35,8 @@ app/services/trade_intelligence.py exactly):
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 from calendar import monthrange
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
@@ -289,7 +291,7 @@ class WeatherIntelligenceService:
     def __post_init__(self) -> None:
         self.operations_dir = self.inbox_dir / "operations" / "weather_intelligence"
         self.state_path = self.operations_dir / "state.json"
-        self.evidence_dir = self.inbox_dir / "evidence"
+        self.evidence_dir = information_directory(inbox_dir=self.inbox_dir)
 
     def fetch_region(self, request: WeatherRegionRequest) -> tuple[list[dict[str, Any]], dict[str, Any]] | None:
         region_entry = self.production_regions.get(request.production_region_id)
@@ -351,7 +353,7 @@ class WeatherIntelligenceService:
             )
             review_ready.append(draft_id)
             if not dry_run:
-                _write_json(draft_path, draft)
+                upsert_record(draft, inbox_dir=self.inbox_dir)
                 seen.add(signature)
                 created.append(draft_id)
         if not dry_run:

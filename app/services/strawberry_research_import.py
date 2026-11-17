@@ -7,6 +7,7 @@ Publication drafts are created only for substantive row-supporting documents.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from contextlib import nullcontext
 from copy import deepcopy
 from datetime import date, datetime
 from hashlib import sha256
@@ -18,6 +19,7 @@ import tempfile
 from urllib.parse import urlsplit
 
 from app.services.article_dedup import normalize_canonical_url
+from app.services import information_storage
 from app.services.map_regions import public_source_url
 
 VERSION = "strawberry-research-intake-v1"
@@ -273,7 +275,8 @@ def _read_packet(packet_path):
         raise ValueError("Authored research ledger hash mismatch")
     for capture in [*packet["artifacts"], *packet["supporting_files"]]:
         path = _inside(packet_path.parent, capture["path"])
-        if path.is_symlink() or path.stat().st_size > MAX_ARTIFACT_BYTES or sha256(path.read_bytes()).hexdigest() != capture["sha256"]:
+        if (path.is_symlink() or path.stat().st_size > MAX_ARTIFACT_BYTES or path.stat().st_size != capture["bytes"]
+                or sha256(path.read_bytes()).hexdigest() != capture["sha256"]):
             raise ValueError("Retained research capture hash mismatch")
     return packet, json.loads(raw), raw
 
@@ -289,9 +292,83 @@ def _records(folder, recursive=False):
     return result
 
 
+def _active_source_store(data_dir, inbox_dir):
+    active = information_storage.enabled(data_dir=data_dir, inbox_dir=inbox_dir)
+    if active and (information_storage.information_directory(inbox_dir=inbox_dir)
+                   != information_storage.information_directory(data_dir=data_dir, inbox_dir=inbox_dir)):
+        raise information_storage.InformationStorageError("Active information store requires its paired inbox binding")
+    return active
+
+
+def _source_records(data_dir, inbox_dir, documents):
+    """Keep only matching source metadata, never the inventory's article bodies.
+
+    The shared streaming reader bounds both individual previews and its cache.
+    A workspace-capture marker omits the saved binary hash, so only a matching
+    record with that marker may require a full read, immediately reduced again.
+    Stored capture metadata selects a source version; it does not revalidate an
+    old binary or confer source/claim approval.
+    """
+    from app.services.publication_sources import _current_preview
+
+    wanted_urls = {doc["canonical_url"] for doc in documents}
+    wanted_ids = {"ev-strawberry-source-" + doc["id"][4:] for doc in documents}
+    if _active_source_store(data_dir, inbox_dir):
+        layouts = [{"data_dir": data_dir, "inbox_dir": inbox_dir}]
+    else:
+        # Canonical legacy IDs take precedence even when their current URL no
+        # longer matches. A stale intake copy must not resurrect the older URL.
+        layouts = [{"data_dir": data_dir}, {"inbox_dir": inbox_dir}]
+    records, seen = {}, set()
+    for layout in layouts:
+        folder = information_storage.information_directory(**layout)
+        for path in sorted(folder.glob("*.json")):
+            if path.is_symlink() or not path.is_file():
+                raise ValueError("Unsafe source information record")
+            information_storage.safe_id(path.stem)
+            if path.stem in seen:
+                continue
+            preview = _current_preview(path)
+            if preview.get("id") != path.stem:
+                raise ValueError("Source information record ID does not match its filename")
+            seen.add(path.stem)
+            if (path.stem not in wanted_ids
+                    and normalize_canonical_url(preview.get("source_url")) not in wanted_urls):
+                continue
+            if preview.get("workspace_capture") and not _known_capture_hash(preview):
+                preview = information_storage.get_record(path.stem, **layout)
+                if preview is None:
+                    raise ValueError("Matching source record changed during import planning")
+            record = {key: preview.get(key) for key in ("id", "status", "source_url", "publication_scope")}
+            record["discovery_provenance"] = {"retained_binary_sha256": _known_capture_hash(preview)}
+            records[record["id"]] = record
+    return records
+
+
+def _write_new_private_source(draft, *, data_dir, inbox_dir, source_lease_held=False):
+    """Create only the planned private source; never use intake to edit it."""
+    if _active_source_store(data_dir, inbox_dir):
+        # Every source writer honors this lease, including writers outside the
+        # import pipeline. Never merge over an item created after planning.
+        lease = nullcontext() if source_lease_held else information_storage.storage_lock(data_dir=data_dir, inbox_dir=inbox_dir)
+        with lease:
+            if information_storage.get_record(draft["id"], data_dir=data_dir, inbox_dir=inbox_dir) is not None:
+                raise ValueError("Source record appeared after planning; reload before importing")
+            path = information_storage.record_path(draft["id"], data_dir=data_dir, inbox_dir=inbox_dir)
+            prepared = draft if source_lease_held else information_storage.prepare_record(draft, origin="intake", preserve_existing=True)
+            _install(path, _json_bytes(prepared))
+            return path
+    # Naming only the inbox retains the legacy private-draft location.
+    path = information_storage.record_path(draft["id"], inbox_dir=inbox_dir)
+    _install(path, _json_bytes(draft))
+    return path
+
+
 def _known_capture_hash(record):
-    provenance = record.get("discovery_provenance") or {}
-    workspace = record.get("workspace_capture") or {}
+    provenance = record.get("discovery_provenance")
+    workspace = record.get("workspace_capture")
+    provenance = provenance if isinstance(provenance, dict) else {}
+    workspace = workspace if isinstance(workspace, dict) else {}
     return provenance.get("retained_binary_sha256") or workspace.get("binary_sha256")
 
 
@@ -316,6 +393,7 @@ def _binding(doc, records):
     except ValueError:
         published_date = None
     draft = {"id": evidence_id, "record_type": "evidence", "status": "draft", "review_state": "in_review",
+             "publication_scope": "private",
              "evidence_role": "publication_artifact", "source_type": "web_article",
              "source_name": urlsplit(doc["source_url"]).hostname or "Source publisher", "source_url": doc["source_url"],
              "title": first["title"], "published_date": published_date,
@@ -342,21 +420,16 @@ def _binding(doc, records):
     return evidence_id, "new_pending_publication", draft
 
 
-def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
-    """Dry-run by default; apply only additive private inbox records and blobs."""
-    from app.services.cultivar_measurements import normalize_measurement, stage_measurement, validate_measurement
-    packet, ledger, raw = _read_packet(packet_path)
-    inbox_dir, data_dir = Path(inbox_dir), Path(data_dir)
-    if inbox_dir.resolve().is_relative_to(data_dir.resolve()) or data_dir.resolve().is_relative_to(inbox_dir.resolve()):
-        raise ValueError("Private intake inbox and canonical data root must be disjoint")
-    entities = _records(data_dir / "entities", recursive=True)
-    records = _records(inbox_dir / "evidence")
-    records.update(_records(data_dir / "evidence"))
+def _plan_source_bindings(packet, records):
+    """Plan immutable source-native bindings without changing current Sources."""
+    records = dict(records)
     bindings, publications, statuses = {}, [], Counter()
     for doc in packet["documents"]:
         evidence_id, disposition, draft = _binding(doc, records)
         statuses[disposition] += 1
         if draft:
+            if draft["id"] in records:
+                raise ValueError("Deterministic source ID conflicts with an existing source record")
             draft["captured_date"] = packet["captured_at"][:10]
             draft["berry_ids"] = [packet["berry_id"]]
             publications.append(draft)
@@ -382,6 +455,126 @@ def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
                 binding["access_status"] = "source_identity_or_version_hold"
                 binding["evidence_id"] = None
             bindings[source["id"]] = binding
+    return bindings, publications, statuses
+
+
+def _check_asset_target(path, capture, *, require_existing=False):
+    """Validate an additive destination without creating directories or bytes."""
+    path = Path(path)
+    for ancestor in path.parents:
+        if ancestor.is_symlink() or (ancestor.exists() and not ancestor.is_dir()):
+            raise ValueError("Research asset parent must be an ordinary directory")
+    if path.is_symlink() or (path.exists() and not path.is_file()):
+        raise ValueError("Research asset must be a regular file")
+    if not path.exists():
+        if require_existing:
+            raise ValueError("Previously registered public source asset is missing; private bytes cannot be created there")
+        return
+    checksum = sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            checksum.update(block)
+    if path.stat().st_size != capture["bytes"] or checksum.hexdigest() != capture["sha256"]:
+        raise ValueError("Conflicting existing research asset bytes")
+
+
+def resolve_information_assets(packet, *, data_dir, inbox_dir, bindings, records, publications):
+    """Read-only shared-original plan and exact new private source payloads.
+
+    Registry absence means the artifact stays at its immutable private batch
+    path. Only source originals with a bound private owner can receive a new
+    shared path. Existing registrations never move on replay; a now-public
+    owner may retain only a complete, already identical registered original.
+    Callers must replan under the source lease before installing any bytes.
+    """
+    shared_store = _active_source_store(data_dir, inbox_dir)
+    import_root = Path(inbox_dir) / PRIVATE_FOLDER / packet["batch_id"]
+    index_path = import_root / "import-index.json"
+    if index_path.is_symlink():
+        raise ValueError("Research import registration cannot be a symbolic link")
+    previous_index = None
+    if index_path.exists():
+        if not index_path.is_file() or index_path.stat().st_size > 16_000_000:
+            raise ValueError("Unsafe research import registration")
+        previous_index = json.loads(index_path.read_text(encoding="utf-8"))
+        if (previous_index.get("batch_id") != packet["batch_id"]
+                or previous_index.get("packet_sha256") != packet["packet_sha256"]):
+            raise ValueError("Research import registration differs from the immutable packet")
+    previous_assets = (previous_index or {}).get("information_assets", {})
+    if not isinstance(previous_assets, dict):
+        raise ValueError("Invalid registered research asset map")
+    planned_sources = {draft["id"]: deepcopy(draft) for draft in publications}
+    owners_by_id = {**records, **planned_sources}
+    references = {}
+    for capture in [*packet["artifacts"], *packet["supporting_files"]]:
+        previous = previous_assets.get(capture["sha256"])
+        bound_ids = {bindings[source_id]["evidence_id"] for source_id in capture.get("source_ids", [])
+                     if bindings.get(source_id, {}).get("evidence_id")}
+        owners = sorted(key for key in bound_ids
+                        if owners_by_id.get(key, {}).get("publication_scope") == "private")
+        if previous_index is not None and previous is None:
+            # A pre-cutover ledger without this shared registration keeps its
+            # batch original forever; replay does not introduce a second copy.
+            owners = []
+        if previous is not None:
+            if (not shared_store or capture.get("role") != "source_original" or not isinstance(previous, dict)
+                    or previous.get("evidence_id") not in bound_ids
+                    or previous.get("evidence_id") not in owners_by_id
+                    or previous.get("filename") != Path(capture["path"]).name
+                    or previous.get("sha256") != capture["sha256"] or previous.get("bytes") != capture["bytes"]):
+                raise ValueError("Stored research asset binding changed; explicit reconciliation is required")
+            owners = [previous["evidence_id"]]
+        if shared_store and capture.get("role") == "source_original" and owners:
+            owner = information_storage.safe_id(owners[0])
+            filename = Path(capture["path"]).name
+            reference = {"evidence_id": owner, "filename": filename,
+                         "sha256": capture["sha256"], "bytes": capture["bytes"]}
+            target = information_storage.assets_dir(data_dir=data_dir, inbox_dir=inbox_dir) / owner / filename
+            _check_asset_target(target, capture, require_existing=owners_by_id[owner].get("publication_scope") != "private")
+            references[capture["sha256"]] = reference
+            if owner in planned_sources:
+                planned_sources[owner].setdefault("attachments", []).append({"filename": filename,
+                    "original_filename": capture["original_filename"], "sha256": capture["sha256"],
+                    "content_type": "application/pdf" if filename.endswith(".pdf") else "application/octet-stream",
+                    "url": f"/intake/{owner}/attachments/{filename}"})
+        else:
+            _check_asset_target(_inside(import_root, capture["path"]), capture)
+    if set(previous_assets) - set(references):
+        raise ValueError("Registered research asset is not represented by this packet")
+    prepared = [information_storage.prepare_record(row, origin="intake", preserve_existing=True)
+                if shared_store else row for row in planned_sources.values()]
+    return references, prepared
+
+
+def _new_source_metadata(publications):
+    return {row["id"]: {"source_url": row["source_url"],
+                "source_document_id": row["discovery_provenance"]["source_document_id"],
+                "publication_scope": row.get("publication_scope"),
+                "status": row.get("status"), "review_state": row.get("review_state"),
+                "storage_origin": row.get("storage_origin"), "submitted_by": row.get("submitted_by"),
+                "review_status": (row.get("information") or {}).get("review_status", "unreviewed"),
+                "attachments": deepcopy(row.get("attachments", [])),
+                "record_sha256": sha256(_json_bytes(row)).hexdigest(), "record_bytes": len(_json_bytes(row))}
+            for row in publications}
+
+
+def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
+    """Stage private source information and inbox proposals; never Facts.
+
+    An activated unified store owns source rows under data/information/records.
+    Entities/Facts stay untouched; an inactive installation uses legacy intake.
+    """
+    from app.services.cultivar_measurements import normalize_measurement, stage_measurement, validate_measurement
+    packet, ledger, raw = _read_packet(packet_path)
+    inbox_dir, data_dir = Path(inbox_dir), Path(data_dir)
+    if inbox_dir.resolve().is_relative_to(data_dir.resolve()) or data_dir.resolve().is_relative_to(inbox_dir.resolve()):
+        raise ValueError("Private intake inbox and canonical data root must be disjoint")
+    entities = _records(data_dir / "entities", recursive=True)
+    shared_store = _active_source_store(data_dir, inbox_dir)
+    records = _source_records(data_dir, inbox_dir, packet["documents"])
+    bindings, publications, statuses = _plan_source_bindings(packet, records)
+    asset_references, publications = resolve_information_assets(packet, data_dir=data_dir, inbox_dir=inbox_dir,
+        bindings=bindings, records=records, publications=publications)
     measurements = [normalize_measurement(row, source_bindings=[bindings[key] for key in row["source_ids"]],
                      captured_at=packet["captured_at"], import_batch_id=packet["batch_id"], entities_by_id=entities,
                      berry_id=packet["berry_id"])
@@ -432,25 +625,63 @@ def import_packet(packet_path, *, data_dir, inbox_dir, apply=False):
                 "new_publication_drafts": len(publications), "numeric_observations": sum(r.get("value") is not None for r in ledger["rows"]),
                 "source_dispositions": dict(statuses),
                 "identity_statuses": dict(Counter(m["identity_status"] for m in measurements))},
-            "trust_effect": packet["trust_effect"], "source_bindings": list(bindings.values())}
+            "trust_effect": packet["trust_effect"], "source_bindings": list(bindings.values()),
+            "information_assets": asset_references, "new_sources": _new_source_metadata(publications)}
     if not apply:
         return plan
     from app.services.pipeline_lock import pipeline_lock
     with pipeline_lock(inbox_dir, "strawberry-research-import"):
-        import_root = inbox_dir / PRIVATE_FOLDER / packet["batch_id"]
-        _install(import_root / "packet.json", _json_bytes(packet))
-        _install(import_root / "combined-research.json", raw)
-        for capture in [*packet["artifacts"], *packet["supporting_files"]]:
-            _install(import_root / capture["path"], _inside(Path(packet_path).resolve().parent, capture["path"]).read_bytes())
-        for draft in publications:
-            _install(inbox_dir / "evidence" / (draft["id"] + ".json"), _json_bytes(draft))
+        source_lease = information_storage.storage_lock(data_dir=data_dir, inbox_dir=inbox_dir) if shared_store else nullcontext()
+        with source_lease:
+            # Re-resolve current source identity, version and privacy before any
+            # private original or source row is installed. The same lease spans
+            # all asset writes and every create-only Source operation.
+            if _active_source_store(data_dir, inbox_dir) != shared_store:
+                raise ValueError("Source storage layout changed during import planning")
+            fresh_records = _source_records(data_dir, inbox_dir, packet["documents"])
+            fresh_bindings, fresh_publications, _ = _plan_source_bindings(packet, fresh_records)
+            fresh_assets, fresh_publications = resolve_information_assets(packet, data_dir=data_dir, inbox_dir=inbox_dir,
+                bindings=fresh_bindings, records=fresh_records, publications=fresh_publications)
+            fresh_plan = {"source_bindings": list(fresh_bindings.values()), "information_assets": fresh_assets,
+                          "new_sources": _new_source_metadata(fresh_publications)}
+            if digest(fresh_plan) != digest({key: plan[key] for key in fresh_plan}):
+                raise ValueError("Source record appeared after planning or its identity/privacy changed; reload before importing")
+            if shared_store:
+                for draft in publications:
+                    if information_storage.get_record(draft["id"], data_dir=data_dir, inbox_dir=inbox_dir) is not None:
+                        raise ValueError("Source record appeared after planning; reload before importing")
+            import_root = inbox_dir / PRIVATE_FOLDER / packet["batch_id"]
+            _install(import_root / "packet.json", _json_bytes(packet))
+            _install(import_root / "combined-research.json", raw)
+            owners_by_id = {**fresh_records, **{row["id"]: row for row in fresh_publications}}
+            for capture in [*packet["artifacts"], *packet["supporting_files"]]:
+                if reference := asset_references.get(capture["sha256"]):
+                    owner = reference["evidence_id"]
+                    target = information_storage.assets_dir(data_dir=data_dir, inbox_dir=inbox_dir) / owner / reference["filename"]
+                    if owners_by_id[owner].get("publication_scope") != "private":
+                        # A previously registered original can outlive a later
+                        # explicit public authorization. Never repair/recreate
+                        # private input bytes under that now-public owner.
+                        _check_asset_target(target, capture, require_existing=True)
+                        continue
+                else:
+                    target = _inside(import_root, capture["path"])
+                _install(target, _inside(Path(packet_path).resolve().parent, capture["path"]).read_bytes())
+            for draft in publications:
+                _write_new_private_source(draft, data_dir=data_dir, inbox_dir=inbox_dir, source_lease_held=shared_store)
+            # Runtime binding decisions are append-only snapshots, not a replacement for edits.
+            binding_digest = digest(plan["source_bindings"])
+            _install(import_root / f"source-bindings-{binding_digest[:16]}.json", _json_bytes(plan["source_bindings"]))
+            index = {key: packet[key] for key in ("version", "batch_id", "captured_at", "berry_id", "packet_sha256", "ledger_sha256",
+                                                   "counts", "artifacts", "supporting_files", "trust_effect")}
+            if asset_references:
+                index["information_assets"] = asset_references
+            _install(import_root / "import-index.json", _json_bytes(index))
+        # Human review holds a measurement lock before updating its Source.
+        # Finish source/asset registration and release the Source lease before
+        # taking measurement locks. These immutable private proposals retain
+        # their captured bindings; approval rechecks current Source versions.
         outcomes = Counter(stage_measurement(inbox_dir, record)["outcome"] for record in measurements)
-        # Runtime binding decisions are append-only snapshots, not a replacement for edits.
-        binding_digest = digest(plan["source_bindings"])
-        _install(import_root / f"source-bindings-{binding_digest[:16]}.json", _json_bytes(plan["source_bindings"]))
-        index = {key: packet[key] for key in ("version", "batch_id", "captured_at", "berry_id", "packet_sha256", "ledger_sha256",
-                                               "counts", "artifacts", "supporting_files", "trust_effect")}
-        _install(import_root / "import-index.json", _json_bytes(index))
         plan["counts"]["measurement_outcomes"] = dict(outcomes)
     return plan
 

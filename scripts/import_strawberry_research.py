@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.services.strawberry_research_import import build_packet, import_packet
+from app.services.information_storage import InformationStorageError
 
 
 def main(argv=None):
@@ -23,7 +24,7 @@ def main(argv=None):
     parser.add_argument("--captured-at", help="ISO date or datetime; preserve research capture date")
     parser.add_argument("--extract-bodies", action="store_true", help="Extract only retained local selectable text; no network")
     parser.add_argument("--publication-source-ids", type=Path, help="Explicit JSON list of substantive cited source IDs allowed into pending publication review")
-    parser.add_argument("--data-dir", type=Path, default=ROOT / "data", help="Read-only canonical identity/Evidence reference")
+    parser.add_argument("--data-dir", type=Path, default=ROOT / "data", help="Runtime data; active unified stores receive new private source records here. Entities/Facts remain unchanged")
     parser.add_argument("--inbox-dir", type=Path, help="Explicit private inbox destination")
     parser.add_argument("--apply", action="store_true", help="Stage pending private records; never approve")
     args = parser.parse_args(argv)
@@ -41,7 +42,7 @@ def main(argv=None):
                 parser.error("Import requires --inbox-dir")
             result = import_packet(args.packet, data_dir=args.data_dir, inbox_dir=args.inbox_dir, apply=args.apply)
             result.pop("source_bindings", None)
-    except (ValueError, KeyError, OSError) as exc:
+    except (ValueError, KeyError, OSError, InformationStorageError) as exc:
         parser.exit(2, f"Research intake failed: {exc}\n")
     print(json.dumps(result, indent=2, ensure_ascii=True))
     return 0

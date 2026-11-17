@@ -14,17 +14,16 @@
     {% if item.ai_untrusted %}{% if item.kind_label or item.primary_subject %} · {% endif %}AI-assisted{% endif %}
     {% if item.workflow_label and item.show_reading_actions %}{% if item.kind_label or item.primary_subject or item.ai_untrusted %} · {% endif %}{{ item.workflow_label }}{% endif %}
   </p>
-  {% if item.why %}
-    <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
-  {% elif item.summary %}
+  {% if item.summary %}
     <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
+  {% endif %}
+  {% if item.why and item.why != item.summary %}
+    <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
   {% endif %}
     {% set hits = learn_glossary_hits(item.title, item.why or item.summary or '') %}
   {% set compact = true %}
   {% include "_learn_glossary_hits.html" %}
-  {% if item.ai_untrusted %}
-    <p class="v2-meta v2-card-ai">AI-assisted · pending analyst review</p>
-  {% endif %}
+  {% with information_record=item.record or {}, information_source_reviewed=item.trust == 'trusted', information_ai_assisted=item.ai_untrusted %}{% include '_information_details.html' %}{% endwith %}
   {% if item.primary_subject %}
     <p class="v2-card-subject">{{ item.primary_subject.name }}</p>
   {% endif %}
@@ -46,7 +45,6 @@
   <footer class="v2-card-footer">
     {% if item.berry_direct %}<span class="v2-mark v2-mark-direct">Direct</span>{% endif %}
     {% if item.watch_match == 'primary' %}<span class="v2-mark v2-mark-watch">Watch</span>{% endif %}
-    {% if item.trust == 'pending' %}<span class="v2-mark v2-mark-pending">Pending</span>{% elif item.trust == 'trusted' %}<span class="v2-mark v2-mark-trusted">Trusted</span>{% endif %}
     {% if item.story_thread or item.is_thread %}<span class="v2-mark v2-mark-story">Story</span>{% endif %}
     {% if item.related_candidates %}<span class="v2-mark v2-mark-signal">Emerging signal</span>{% elif item.related_signals %}<span class="v2-mark v2-mark-confirmed">Signal</span>{% endif %}
   </footer>
@@ -91,7 +89,7 @@
           <input type="hidden" name="berries" value="{{ berry }}">
         {% endfor %}
         <input type="hidden" name="reviewer" value="{{ reviewer }}">
-        <button class="v2-btn v2-btn-primary" type="submit" data-promote>Promote</button>
+        <button class="v2-btn v2-btn-quiet" type="submit" data-promote>Review source</button>
       </form>
     {% endif %}
     {% if authoring_mode and item.show_reading_actions %}

@@ -1,4 +1,4 @@
-/** RAM-only layouts for windows beyond the existing forty-column account wire. */
+/** RAM-only fallback for windows beyond the bounded Portfolio account contract. */
 export interface PortfolioSessionColumn {
   colId: string; width?: number | null; hide?: boolean | null; sort?: 'asc' | 'desc' | null;
   sortIndex?: number | null; pinned?: 'left' | 'right' | boolean | null; flex?: number | null;

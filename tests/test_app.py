@@ -228,7 +228,7 @@ def test_intake_form_renders_with_tabs() -> None:
     assert "Note / Observation" in response.text
 
 
-def test_intake_creates_draft_outside_published_data(monkeypatch, tmp_path) -> None:
+def test_intake_is_available_in_the_live_catalog_with_unreviewed_flags(monkeypatch, tmp_path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
 
     response = client.post(
@@ -255,7 +255,8 @@ def test_intake_creates_draft_outside_published_data(monkeypatch, tmp_path) -> N
     assert "unreviewed draft" in detail.text
 
     feed = client.get("/api/feed")
-    assert all(item["id"] != draft_id for item in feed.json())
+    assert any(item["id"] == draft_id for item in feed.json())
+    assert next(row for row in main.unified_information() if row["id"] == draft_id)["information"]["review_status"] == "unreviewed"
 
 
 def test_intake_missing_required_field_returns_error(monkeypatch, tmp_path) -> None:
@@ -693,7 +694,7 @@ def test_work_queue_renders() -> None:
     assert "WORK" in response.text
     assert "intel-card" in response.text
     assert "Read" in response.text
-    assert "Trusted" in response.text
+    assert "Confidence &amp; source details" in response.text
     assert "0 failures" not in response.text.casefold()
 
 

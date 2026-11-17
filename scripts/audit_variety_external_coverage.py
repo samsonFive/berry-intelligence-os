@@ -11,6 +11,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from app.services.information_storage import information_directory
 from app.services.variety_external_coverage import analyze_gdr_csv, analyze_grin_values, compare_baseline
 from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
 from app.services.variety_universe.corpus_discovery import build_discovered_candidates
@@ -23,7 +24,7 @@ def audit(csv_path, data_dir, checked_on, reported_stocks, query_organisms=None)
 
 def compare_with_stored(baseline, data_dir):
     def records(folder):
-        return [json.loads(path.read_text(encoding="utf-8")) for path in sorted((data_dir / folder).rglob("*.json"))]
+        return [json.loads(path.read_text(encoding="utf-8")) for path in sorted((information_directory(data_dir=data_dir) if folder == "evidence" else data_dir / folder).rglob("*.json"))]
     entities = records("entities")
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
     corpus = build_discovered_candidates(varieties=varieties, entities=entities,

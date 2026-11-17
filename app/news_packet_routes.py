@@ -14,10 +14,9 @@ router = APIRouter()
 def world():
     from app import main
     entities = {row["id"]: row for row in main.all_entities()}
-    records = personal_digest.source_records(main.published_evidence(), main.INBOX_DIR)
-    for row in main.all_evidence() + main.list_pending_drafts():
-        if row.get("status") in {"in_review", "draft", "pending"} and row.get("id") not in records:
-            records[row["id"]] = row
+    records = personal_digest.source_records(
+        main.unified_information(include_private=main.AUTHORING_MODE), main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE, catalog=True)
     projected = [{key: value for key, value in row.items() if key not in {"article", "transcript", "images", "reader_capture"}} for row in records.values()]
     return main, entities, projected
 

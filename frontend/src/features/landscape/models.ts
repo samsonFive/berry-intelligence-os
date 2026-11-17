@@ -54,6 +54,14 @@ export interface CatalogOption {
 export interface RetainedSourceLink { url: string; label: string; kind: string }
 export interface NewsDecision { reaction: 'up' | 'down' | null; saved: boolean }
 export interface NewsTag { id: string; name: string; description?: string; version?: string | number }
+export interface InformationFlags {
+  review_status: string;
+  confidence_label: string;
+  confidence?: string | number | Record<string, unknown> | null;
+  verification_status?: string;
+  caveats?: string[];
+  publication_status?: string;
+}
 export interface NewsCard {
   id: string;
   headline: string;
@@ -68,6 +76,7 @@ export interface NewsCard {
   reference_image?: { url: string; alt?: string; title?: string; label?: string; note?: string; credit?: string; creator?: string; license?: string; source_url?: string } | null;
   source_reviewed: boolean;
   trusted: boolean;
+  information?: InformationFlags;
   translated?: boolean;
   translation_pending?: boolean;
   media_label?: string;

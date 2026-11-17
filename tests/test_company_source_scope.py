@@ -57,11 +57,12 @@ def test_unreviewed_name_only_does_not_receive_company_association(changes):
     assert news([article(entity_ids=["company-nursery"], **changes)], {"company": "company-nursery"})["matching"] == 1
 
 
-def test_direct_links_deduplicate_mentions_and_trusted_still_requires_active_statement():
+def test_direct_links_deduplicate_mentions_and_legacy_views_use_the_same_inventory():
     row = article(entity_ids=["company-nursery"])
     assert news([row], {"company": "company-nursery"})["cards"][0]["company_mentions"] == []
     recalled = article()
-    assert news([recalled], {"company": "company-nursery", "view": "trusted"})["matching"] == 0
+    unconfirmed = news([recalled], {"company": "company-nursery", "view": "trusted"})
+    assert unconfirmed["matching"] == 1 and not unconfirmed["cards"][0]["trusted"]
     model = news([recalled], {"company": "company-nursery", "view": "trusted"},
                  facts=[{"id": "fact-original", "status": "active", "evidence_ids": [recalled["id"]]}])
     assert model["matching"] == 1 and model["cards"][0]["trusted"]

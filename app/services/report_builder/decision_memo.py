@@ -41,6 +41,7 @@ from app.services.change_scenario import change_scenario_for
 from app.services.competitive_moves.research_desk import competitive_moves_for
 from app.services.emerging_radar.research_desk import developments_for
 from app.services.market_reality.research_desk import market_context_for_research_scope
+from app.services.information_catalog import information_flags, merge_information
 from app.services.report_builder.scope import ResolvedScope
 from app.services.report_builder.synthesis import SectionDraft
 from app.services.research_desk import ResearchScope, assemble_research_packet
@@ -169,6 +170,7 @@ def build_decision_memo_packet(
     completer: Any | None = None,
     now: datetime | None = None,
 ) -> dict[str, Any]:
+    published_evidence = merge_information(published_evidence, [])
     war_room_scope = WarRoomScope(
         berry_id=scope.berry_id,
         geography_ids=tuple(scope.geography_ids),
@@ -191,6 +193,13 @@ def build_decision_memo_packet(
         completer=completer,
         now=now,
     )
+    evidence_by_id = {row["id"]: row for row in published_evidence}
+    for row in session["what_changed"]:
+        record = evidence_by_id.get(row.get("id"))
+        if record is not None:
+            row["kind"] = "Source reporting"
+            row["href"] = f"/intelligence/{row['id']}"
+            row["information"] = information_flags(record)
 
     scenarios, genetics_geography = _build_change_scenarios(
         scope,
@@ -226,6 +235,7 @@ def build_decision_memo_packet(
             source_index[str(row["id"])] = {
                 "id": row["id"], "title": row["title"], "href": row["href"],
                 "source_name": row["kind"], "date": row.get("when") or "",
+                **({"information": row["information"]} if row.get("information") else {}),
             }
     for m in session["who_is_moving"]:
         if m.get("id") and m["id"] not in source_index:
@@ -325,8 +335,9 @@ _TAKEAWAY_INSTRUCTIONS = (
     "You are writing the executive takeaway for an internal competitive-intelligence decision memo. "
     "Write 3-6 concise bullet points a director could read in 30 seconds. State ONLY what is directly "
     "supported by the numbered items below -- never add outside knowledge, never speculate beyond them, "
-    "never invent a company, variety, date, or figure not present in them. Every bullet's citation_ids "
-    "must be drawn only from the ids listed. No generic consultant filler ('the market is dynamic', "
+    "never invent a company, variety, date, or figure not present in them. "
+    "Source reporting remains attributed; do not call unreviewed material verified or invent confidence. "
+    "Every bullet's citation_ids must be drawn only from the ids listed. No generic consultant filler ('the market is dynamic', "
     "'companies should monitor closely'). If the items below do not support a substantive takeaway, "
     "return an empty bullets array."
 )
@@ -341,6 +352,9 @@ def _digest_line(row: dict[str, Any]) -> str | None:
         value = row.get(key)
         if value:
             parts.append(str(value)[:160])
+    if row.get("information"):
+        flags = row["information"]
+        parts.append(f"review: {flags['review_status']}; confidence: {flags['confidence_label']}")
     return " | ".join(parts)
 
 
@@ -631,7 +645,7 @@ def _section_internal_data_needed(packet: dict[str, Any]) -> SectionDraft:
     architecture without pretending it exists. No invented data, no
     private content sent anywhere; this is a fixed, honest placeholder."""
     lines = [
-        "This memo is built entirely from public, structured, and trusted-Evidence intelligence.",
+        "This memo uses captured public sources and structured intelligence, with confidence and review details retained per source.",
         "The following internal inputs are not yet connected and are never sent to any external provider:",
         "",
         "OUR TESTING / PERFORMANCE: Internal evidence not connected.",

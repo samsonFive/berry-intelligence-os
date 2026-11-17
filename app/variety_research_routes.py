@@ -82,7 +82,7 @@ async def save_view(request: Request, view_key: str):
     from app import main
     from app.services import variety_view_state
     require_edit(request)
-    if len(await request.body()) > 20_000:
+    if len(await request.body()) > variety_view_state.layout_limits(view_key)[1]:
         raise HTTPException(413, 'Layout is too large')
     try:
         return JSONResponse(variety_view_state.save(main.INBOX_DIR, main.session_username(request) or 'local', view_key, await request.json()),

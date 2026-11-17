@@ -11,6 +11,7 @@ already active rather than running two at once.
 
 from __future__ import annotations
 
+
 import argparse
 import json
 import os
@@ -29,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
@@ -40,7 +42,7 @@ from app.services.media_discovery import list_discovered_items
 
 
 def _load_drafts(inbox_dir: Path) -> list[dict]:
-    folder = inbox_dir / "evidence"
+    folder = information_directory(inbox_dir=inbox_dir)
     if not folder.is_dir():
         return []
     drafts = []

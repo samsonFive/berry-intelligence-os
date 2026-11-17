@@ -99,9 +99,13 @@ class RequestCorpus:
     schemas_dir: Path
     inbox_dir: Path | None = None
     include_workspace_corrections: bool = False
+    public_only: bool = False
+    _public_repository_view: Any = field(default=None, repr=False)
     _repos: Any = field(default=None, repr=False)
     _evidence: list[dict[str, Any]] | None = field(default=None, repr=False)
     _published: list[dict[str, Any]] | None = field(default=None, repr=False)
+    _information: list[dict[str, Any]] | None = field(default=None, repr=False)
+    _information_by_id: dict[str, dict[str, Any]] | None = field(default=None, repr=False)
     _entities: list[dict[str, Any]] | None = field(default=None, repr=False)
     _facts: list[dict[str, Any]] | None = field(default=None, repr=False)
     _relationships: list[dict[str, Any]] | None = field(default=None, repr=False)
@@ -131,6 +135,9 @@ class RequestCorpus:
             from app.composition import get_repositories
 
             self._repos = get_repositories(self.data_dir, self.schemas_dir)
+            if self.public_only:
+                from app.services.publication_scope import public_repositories
+                self._repos = public_repositories(self._repos)
         return self._repos
 
     def _eligible_for_new_outputs(self, records):
@@ -156,9 +163,35 @@ class RequestCorpus:
         return self._list("_evidence", load)
 
     @property
+    def information(self) -> list[dict[str, Any]]:
+        """Live inventory independent of review/publication state."""
+        from app.services.information_catalog import load_information, stored_information_previews
+        from app.services.information_storage import enabled
+        def load():
+            if not self.public_only and self.inbox_dir is not None and enabled(inbox_dir=self.inbox_dir):
+                records = stored_information_previews(self.inbox_dir)
+                if self.include_workspace_corrections:
+                    from app.services.association_corrections import apply, load as load_corrections
+                    records = apply(records, load_corrections(self.inbox_dir))
+            else:
+                records = self.evidence
+            return self._eligible_for_new_outputs(load_information(records, self.inbox_dir,
+                include_private=not self.public_only))
+        return self._list("_information", load)
+
+    def cached_information_record(self, record_id: str) -> dict[str, Any] | None:
+        """Reuse a loaded catalog without triggering a scan on Reader paths."""
+        if self._information is None:
+            return None
+        if self._information_by_id is None:
+            self._information_by_id = {row["id"]: row for row in self._information}
+        return self._information_by_id.get(record_id)
+
+    @property
     def published_evidence(self) -> list[dict[str, Any]]:
         if self._published is None:
-            records = self._eligible_for_new_outputs([r for r in self.evidence if r.get("status") == "published"])
+            records = self._eligible_for_new_outputs([r for r in self.evidence if r.get("status") == "published"
+                and (not self.public_only or r.get("publication_scope") != "private")])
             self._published = sorted(
                 records,
                 key=lambda r: r.get("published_date") or r.get("captured_date", ""),

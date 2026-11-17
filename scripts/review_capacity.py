@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+
 import argparse
 import json
 from pathlib import Path
@@ -11,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.composition import get_repositories
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.review_capacity import build_review_capacity_report, load_json_objects
@@ -65,7 +67,7 @@ def main(argv: list[str] | None = None) -> int:
     data_dir = args.data_dir or resolve_data_dir(ROOT)
     inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
     repositories = get_repositories(data_dir, SCHEMAS_DIR)
-    drafts = load_json_objects(inbox_dir / "evidence")
+    drafts = load_json_objects(information_directory(inbox_dir=inbox_dir))
     run_records = load_json_objects(inbox_dir / "operations" / "runs")
     run_records += load_json_objects(inbox_dir / "operations" / "pipelines", recursive=True)
     run_records.sort(key=lambda row: str(row.get("completed_at") or row.get("started_at") or ""))

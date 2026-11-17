@@ -12,12 +12,13 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.services.variety_universe.corpus_discovery import build_discovered_candidates
 
 
 def audit(data_dir, *, inbox_dir=None):
     def records(folder):
-        return [json.loads(path.read_text(encoding="utf-8")) for path in sorted((data_dir / folder).rglob("*.json"))]
+        return [json.loads(path.read_text(encoding="utf-8")) for path in sorted((information_directory(data_dir=data_dir) if folder == "evidence" else data_dir / folder).rglob("*.json"))]
     entities, evidence, facts = records("entities"), records("evidence"), records("facts")
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
     evidence = [row for row in evidence if row.get("status") == "published"]
@@ -25,7 +26,7 @@ def audit(data_dir, *, inbox_dir=None):
     if inbox_dir is not None:
         from app.services.variety_universe.article_sources import available_article_sources
         pending = []
-        for path in sorted((Path(inbox_dir) / "evidence").glob("*.json")):
+        for path in sorted((information_directory(inbox_dir=inbox_dir)).glob("*.json")):
             try:
                 row = json.loads(path.read_text(encoding="utf-8"))
             except (OSError, ValueError):

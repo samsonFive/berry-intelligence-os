@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "checked_at": "2026-11-15T17:53:08.798685+00:00",
+  "status": "SOURCE_VERIFIED_NOT_INSTALLED",
+  "selection": "Five existing competitor/breeder identities with no logo in the original20-entity cohort; bounded follow-up, not complete186-company coverage.",
+  "counts": {
+    "new_existing_company_identities": 5,
+    "new_logo_references": 5,
+    "provider_calls": 0,
+    "production_changes": 0,
+    "image_objects_in_committed_package": 0,
+    "image_objects_in_application_runtime": 0
+  },
+  "source_proofs": [
+    {
+      "asset_id": "asset-f0a755a8239b36a06dc86b26",
+      "entity_id": "company-planasa",
+      "source_page_url": "https://planasa.com/",
+      "source_html_sha256": "87bf0a5c7c3efa3ec184a7396b8b474fbb8e382fe186b67136d82ab1c104f98e",
+      "source_checked_at": "2026-11-15T17:49:22.134401+00:00",
+      "source_locator": "Official company homepage img.big-logo-home[data-nectar-img-src]",
+      "image_url": "https://planasa.com/wp-content/uploads/2022/02/Grupo-747.jpg",
+      "image_sha256_at_inspection": "527883d13fe6d7a603e994e7bef0fb19e45799e9652e1de97ae9729e4fd556d5",
+      "image_content_type": "image/jpeg",
+      "image_bytes_at_inspection": 28883,
+      "width": 382,
+      "height": 118,
+      "background": "light",
+      "classification_basis": "Planasa Genetics wordmark from the Planasa homepage; green leaf and Planasa GENETICS text. This is the named genetics wordmark, not a different company identity."
+    },
+    {
+      "asset_id": "asset-0c849d69e238ac86d170b56b",
+      "entity_id": "company-advanced-berry-breeding",
+      "source_page_url": "https://www.abbreeding.nl/",
+      "source_html_sha256": "855c0353a3501c77f069db36391883874bf789f0d376a7d25d2b83b7f910c7d4",
+      "source_checked_at": "2026-11-15T17:49:23.644533+00:00",
+      "source_locator": "Official homepage header img#logo[alt=\"Advanced Berry Breeding\"]",
+      "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Logo-ABB-2018-wit-V1.png",
+      "image_sha256_at_inspection": "20ccd7330cd906d0d1e3c6016e4452b444e47cff56a33ce367570b40741e0b40",
+      "image_content_type": "image/png",
+      "image_bytes_at_inspection": 49220,
+      "width": 1385,
+      "height": 418,
+      "background": "dark",
+      "classification_basis": "Full Advanced Berry Breeding wordmark with a faceted red raspberry and white lettering; use existing dark matte without modifying pixels."
+    },
+    {
+      "asset_id": "asset-4ed64d54751d744e4efcf17e",
+      "entity_id": "company-fresh-forward",
+      "source_page_url": "https://www.fresh-forward.nl/en",
+      "source_html_sha256": "1aa91baf75d7914ea2159a25c235a474b3c2ab55a1164788f2919dd094f8d8c9",
+      "source_checked_at": "2026-11-15T17:50:52.830124+00:00",
+      "source_locator": "Official breeding-company homepage img.logo-img[alt=\"Fresh Forward\"]",
+      "image_url": "https://www.fresh-forward.nl/img/logo.png",
+      "image_sha256_at_inspection": "16c062a673b84b5b7eed305c9a0772c16583c3dd8136f39673ba9cd0f62df270",
+      "image_content_type": "image/png",
+      "image_bytes_at_inspection": 6260,
+      "width": 210,
+      "height": 112,
+      "background": "dark",
+      "classification_basis": "Fresh Forward Breeding & Marketing wordmark with red and white lettering; exact breeding company, not the unrelated strategic consultancy at freshforward.com."
+    },
+    {
+      "asset_id": "asset-2cd9ef7facfd076fc2e759de",
+      "entity_id": "company-fresas-nuevos-materiales",
+      "source_page_url": "https://www.fresasnm.com/",
+      "source_html_sha256": "89a1dc2c6a95b68895c21e684950f548411b385d002fd3e49ca39a268833ed60",
+      "source_checked_at": "2026-11-15T17:50:50.936527+00:00",
+      "source_locator": "Official homepage first header image, fresas-nm-logo-color-300x150.png",
+      "image_url": "https://www.fresasnm.com/wp-content/uploads/2020/07/fresas-nm-logo-color-300x150.png",
+      "image_sha256_at_inspection": "2fd580669c84d2ac3b7e7689eeefcae3d524b8216eef5fb3031b1cd839019cd0",
+      "image_content_type": "image/png",
+      "image_bytes_at_inspection": 27623,
+      "width": 300,
+      "height": 150,
+      "background": "light",
+      "classification_basis": "FNM emblem with strawberry shape and Fresas Nuevos Materiales lettering; full company mark, not a named cultivar brand."
+    },
+    {
+      "asset_id": "asset-cfcc923bac6d80a73599a1b4",
+      "entity_id": "company-masia-ciscar",
+      "source_page_url": "https://www.masiaciscar.es/",
+      "source_html_sha256": "49c1be7173995bf10247dafb760556a5d8bb5dbc92594dc460091853edafb838",
+      "source_checked_at": "2026-11-15T17:50:54.109468+00:00",
+      "source_locator": "Official homepage header image cropped-logo-masia.png; alt identifies Masiá Ciscar",
+      "image_url": "https://www.masiaciscar.es/wp-content/uploads/2025/07/cropped-logo-masia.png",
+      "image_sha256_at_inspection": "634adbcb79109671f584b10b05812859d0c067506d53e4b3ca056bb00e94000f",
+      "image_content_type": "image/png",
+      "image_bytes_at_inspection": 21464,
+      "width": 300,
+      "height": 90,
+      "background": "light",
+      "classification_basis": "Masiá Ciscar wordmark with strawberry emblem; visually inspected on the company homepage and original raster."
+    }
+  ],
+  "gaps": [
+    {
+      "entity_id": "company-angus-soft-fruits",
+      "reason": "Official .co.uk and .com homepage requests returned403; distinct Good Natured brand is not substituted."
+    },
+    {
+      "entity_id": "company-abz-seeds",
+      "reason": "Current official webpage hostname could not be resolved in the bounded verification; not replaced with a third-party favicon."
+    },
+    {
+      "entity_id": "company-marionnet",
+      "reason": "Official homepage closed the connection during bounded verification."
+    }
+  ]
+}

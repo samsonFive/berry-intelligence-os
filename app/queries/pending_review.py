@@ -8,6 +8,8 @@ continue to read the source draft and therefore retain the complete article.
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, enabled
+
 from dataclasses import dataclass
 import hashlib
 import json
@@ -130,7 +132,7 @@ class JsonPendingDraftSnapshotProvider:
 
     def __init__(self, inbox_dir: Path):
         self.inbox_dir = inbox_dir
-        self.evidence_dir = inbox_dir / "evidence"
+        self.evidence_dir = information_directory(inbox_dir=inbox_dir)
         self.index_path = inbox_dir / INDEX_RELATIVE_PATH
 
     def _read_index(self) -> dict[str, Any]:
@@ -163,6 +165,7 @@ class JsonPendingDraftSnapshotProvider:
         from app.services.intelligence_feed import classify_kind
 
         paths = sorted(self.evidence_dir.glob("*.json")) if self.evidence_dir.is_dir() else []
+        shared_store = enabled(inbox_dir=self.inbox_dir)
         match_index = build_attribution_match_index(entities)
         dependency = _dependency_digest(entities, sources)
         stored = self._read_index()
@@ -206,7 +209,12 @@ class JsonPendingDraftSnapshotProvider:
             entries[path.name] = entry
             if entry.get("body_omitted"):
                 omitted += 1
-            records.append(dict(entry["record"]))
+            row = dict(entry["record"])
+            if shared_store and (
+                    row.get("status") in {"published", "rejected", "archived", "withdrawn", "deleted"}
+                    or (row.get("information") or {}).get("review_status") == "reviewed"):
+                continue
+            records.append(row)
         next_index = {
             "version": INDEX_VERSION,
             "dependency_sha256": dependency,

@@ -15,6 +15,7 @@ from typing import Any
 from urllib.parse import urlencode
 
 from app.services import landscape_explorer as explorer
+from app.services.information_catalog import information_flags
 from app.services.berries.landscape import SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE_EVIDENCE_IDS
 
 CONTEXT_FIELDS = (
@@ -31,7 +32,7 @@ NATIVE_NEWS_FIELDS = ("id", "headline", "deck", "source_name", "source_url", "so
     "full_reader_href", "published_at", "image_url", "reference_image", "source_reviewed", "trusted", "translated",
     "translation_pending", "media_kind", "media_label", "media_note", "company_mentions", "scope_match",
     "coverage_sources", "independence", "retained_source_links", "crop_labels", "decision", "entities",
-    "geography_chips", "assigned_tags")
+    "geography_chips", "assigned_tags", "information")
 ID_RE = re.compile(r"^[A-Za-z0-9_.-]{1,180}$")
 
 
@@ -163,7 +164,7 @@ class World:
     @property
     def evidence_index(self):
         if self._evidence_index is None:
-            self._evidence_index = {row["id"]: row for row in self.published}
+            self._evidence_index = {row["id"]: row for row in self.evidence}
         return self._evidence_index
 
     @property
@@ -206,11 +207,16 @@ class World:
     @property
     def news(self):
         if self._news is None:
-            from app.services.personal_digest import source_records
-            from app.services.publication_sources import pending_source_previews
-            pending, problems = pending_source_previews(self.main.INBOX_DIR)
-            records = source_records(self.published, self.main.INBOX_DIR, include_private=True,
-                                     pending=pending, metadata_only=True, index_issues=problems)
+            from app.services.publication_sources import source_preview
+            from app.services.feed_first_translate import cached_translations
+            from app.services.feed_first_reader import attach_capture_previews
+            from app.services.media_reader import attach_transcript_metadata
+            # The catalog already resolved canonical identity and tombstones.
+            # Decorate that inventory without reintroducing older cached rows.
+            records = {row["id"]: source_preview(row) for row in self.evidence}
+            records = cached_translations(records, self.main.INBOX_DIR)
+            records = attach_capture_previews(records, self.main.INBOX_DIR)
+            records = attach_transcript_metadata(records, self.main.INBOX_DIR)
             self._news = {key: value for key, value in records.items() if key not in SEED_FIXTURE_EVIDENCE_IDS}
         return self._news
 
@@ -219,7 +225,7 @@ def load_world():
     from app import main
     from app.landscape_explorer_routes import company_state
     entities = {row["id"]: row for row in main.all_entities() if row["id"] not in SEED_FIXTURE_ENTITY_IDS}
-    evidence = [row for row in main._social_eligible_outputs(main.all_evidence()) if row["id"] not in SEED_FIXTURE_EVIDENCE_IDS]
+    evidence = [row for row in main.unified_information() if row["id"] not in SEED_FIXTURE_EVIDENCE_IDS]
     relationships = main._social_eligible_outputs(main.all_relationships())
     return World(main, entities, relationships, evidence, company_state(main.INBOX_DIR))
 
@@ -266,7 +272,7 @@ def base_bundle(world, context):
     bundle = explorer.build_bundle(world.entities, world.relationships, world.evidence, {
         "berry": context["berry"],
         "countries": context["countries"], "focus": "", "window": "all", "time": "published",
-        "view": "portrait", "evidence": "reviewed", "limit": "5000",
+        "view": "portrait", "evidence": "all", "limit": "5000",
     }, state=world.state)
     roles = set(ids(context["actor_roles"]))
     if roles:
@@ -295,15 +301,35 @@ def base_bundle(world, context):
 
 def source_metadata(row):
     """No article/transcript/excerpts or private raw attributes on list routes."""
+    flags = information_flags(row)
     if "review" not in row:
-        from app.services.company_source_scope import source_reviewed
-        reviewed = source_reviewed(row)
+        reviewed = flags["review_status"] == "reviewed"
         row = {**explorer._source(row), "review": "Reviewed source · claims retain their own review" if reviewed else "Unreviewed source"}
     allowed = ("id", "title", "url", "source_name", "status", "review", "published", "captured", "number")
     result = {key: row[key] for key in allowed if key in row}
+    result["information"] = flags
     result["varieties"] = [{key: value for key, value in item.items() if key in
                             {"id", "name", "catalog_id", "href", "status", "berry_id"}}
                            for item in row.get("varieties", [])]
+    return result
+
+
+def _annotate_information(value, evidence_index):
+    """Preserve item flags through legacy presenters' curated source rows."""
+    if isinstance(value, list):
+        return [_annotate_information(item, evidence_index) for item in value]
+    if not isinstance(value, dict):
+        return value
+    result = {key: _annotate_information(item, evidence_index) for key, item in value.items()}
+    record = evidence_index.get(str(value.get("id") or ""))
+    if record is not None:
+        result["information"] = information_flags(record)
+        if "trust" in result:
+            result["trust"] = "published" if record.get("status") == "published" else "unreviewed"
+        if "is_draft" in result:
+            result["is_draft"] = record.get("status") != "published"
+        if str(result.get("href") or "").startswith("/evidence/") and record.get("status") != "published":
+            result["href"] = f"/intelligence/{record['id']}"
     return result
 
 
@@ -527,12 +553,13 @@ def comparison_data(world, context):
     kind = context["comparison_kind"]
     selected = ids(context["cohort_companies" if kind == "company" else "cohort_varieties"])
     kwargs = dict(entities=world.entities, relationships=world.relationships,
-                  published_evidence=world.published, facts=world.facts,
+                  published_evidence=world.evidence, facts=world.facts,
                   evidence_by_id=world.evidence_index, signals=world.signals,
                   assessments=world.assessments, berry_labels=world.berry_labels)
     presenter = present_company_compare if kind == "company" else present_variety_compare
     result = presenter(selected, **kwargs)
-    return {**result, "comparison_kind": kind, "scope_applicability": module_scope(context, "comparison")}
+    return {**_annotate_information(result, world.evidence_index),
+            "comparison_kind": kind, "scope_applicability": module_scope(context, "comparison")}
 
 
 def pagination(params, *, default_limit=36):
@@ -686,7 +713,7 @@ def developments_data(world, context, bundle, *, all_cards=False, _subjects=None
         subject_ids, basis = list(_subjects), _basis
     labels = [world.entities[key].get("name", key) for key in subject_ids]
     params = {"berry": "" if context["berry"] == "all" else context["berry"],
-              "countries": context["countries"], "view": "unreviewed", "tz": "UTC",
+              "countries": context["countries"], "view": "all", "tz": "UTC",
               "window": "custom" if context["news_from"] or context["news_to"] else "",
               "start": context["news_from"], "end": context["news_to"]}
     # Subject narrowing precedes pagination, but never removes the module's berry,
@@ -811,7 +838,7 @@ def developments_data(world, context, bundle, *, all_cards=False, _subjects=None
 
 def _entity_sources(world, entity, bundle):
     linked = set(entity.get("evidence_ids") or [])
-    linked.update(row["id"] for row in world.published if entity["id"] in (row.get("entity_ids") or []))
+    linked.update(row["id"] for row in world.evidence if entity["id"] in (row.get("entity_ids") or []))
     for edge in bundle["edges"]:
         if entity["id"] in {edge["subject_id"], edge["object_id"]}:
             linked.update(edge["evidence_ids"])
@@ -894,6 +921,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
         media_url = str(reading_record.get("media_url") or "")
         return {"type": kind, "id": key, "title": card.get("headline", record.get("title", key)),
                 "kind_label": "Source publication", "status": record.get("status", "unreviewed"),
+                "information": information_flags(record),
                 "summary": content["summary"], "sections": [], "sources": [source_metadata(record)],
                 "expand_href": f"/intelligence/{key}?personal=1", "outside_scope": key not in {s["id"] for s in bundle["sources"]},
                 "article_text": content["article_text"], "article_blocks": content["article_blocks"],
@@ -907,7 +935,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
                           "transcript_read_error": reading_record.get("transcript_read_error") or "",
                           "transcript_provenance": {field: value for field, value in (reading_record.get("transcript_provenance") or {}).items()
                                                     if field in {"method", "created_by", "created_at", "language"}}},
-                "trust_note": "Publication review and individual claim approval remain separate."}
+                "trust_note": "Confidence and review details belong to this source and its individual claims."}
     if kind == "relationship":
         edge = next((row for row in bundle["edges"] if row["id"] == key), None)
         if edge is None:
@@ -922,7 +950,9 @@ def detail_data(world, context, bundle, kind, key, request=None):
         record = world.evidence_index.get(key)
         if record is None or not record.get("commercial_observation"):
             raise LookupError("This commercial observation is unavailable.")
-        model = present_observation(record, entities=world.entities, trust="published")
+        model = present_observation(record, entities=world.entities,
+                                    trust="published" if record.get("status") == "published" else "unreviewed")
+        model["information"] = information_flags(record)
         return {"type": kind, "id": key, "title": record.get("title", key), "kind_label": "Commercial observation",
                 "status": record.get("status"), "summary": record.get("summary", ""),
                 "sections": [{"title": "Observed listing", "data": model, "items": [
@@ -934,7 +964,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
     if not entity or entity.get("entity_type") != kind:
         raise LookupError("This identity is unavailable.")
     sections = []
-    kwargs = dict(entities=world.entities, relationships=world.relationships, published_evidence=world.published,
+    kwargs = dict(entities=world.entities, relationships=world.relationships, published_evidence=world.evidence,
                   facts=world.facts, evidence_by_id=world.evidence_index, signals=world.signals,
                   assessments=world.assessments, berry_labels=world.berry_labels)
     if kind == "company":
@@ -967,7 +997,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
     elif kind == "geography":
         from app.services.geography_workspace import geography_detail
         model = geography_detail(key, entities=world.entities, relationships=world.relationships,
-                                 published_evidence=world.published, signals=world.signals,
+                                 published_evidence=world.evidence, signals=world.signals,
                                  assessments=world.assessments, berry_labels=world.berry_labels)
         sources = _entity_sources(world, entity, bundle)
         sections.append({"title": "Recorded geographic activity", "data": model, "items": [
@@ -979,7 +1009,7 @@ def detail_data(world, context, bundle, kind, key, request=None):
     return {"type": kind, "id": key, "title": entity.get("name", key),
             "kind_label": {"company": "Company", "variety": "Cultivar", "geography": "Geography"}[kind],
             "status": entity.get("status", "unknown"), "summary": str(entity.get("description") or "")[:6000],
-            "sections": sections, "sources": _entity_sources(world, entity, bundle),
+            "sections": _annotate_information(sections, world.evidence_index), "sources": _entity_sources(world, entity, bundle),
             "expand_href": f"/geographies/{key}" if kind == "geography" else f"/entities/{kind}/{key}",
             "outside_scope": key not in bundle["nodes"], "roles": list(entity.get("roles") or []),
             "scope_note": "Profile sections show the full selected identity; the investigation scope remains unchanged."}

@@ -18,8 +18,9 @@ def world():
     if main.AUTHORING_MODE:
         from app.services.publication_sources import pending_source_previews
         pending, issues = pending_source_previews(main.INBOX_DIR)
-    records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
-                                   include_private=main.AUTHORING_MODE, pending=pending, metadata_only=True, index_issues=issues)
+    records = digest.source_records(main.unified_information(include_private=main.AUTHORING_MODE), main.INBOX_DIR,
+                                   include_private=main.AUTHORING_MODE, pending=pending, metadata_only=True,
+                                   index_issues=issues, catalog=True)
     context['pending_source_issue_count'] = len(issues)
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     return main, context, records, entities
@@ -93,7 +94,6 @@ async def digest_lists(request: Request):
 def personal_source_record(item_id: str, *, records=None):
     """Selected pending source lookup; never load all draft bodies in a Reader."""
     from app import main
-    from app.services.publication_sources import active_publication_record, inactive_publication_record
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         return None
     def with_preview(record):
@@ -105,19 +105,12 @@ def personal_source_record(item_id: str, *, records=None):
     published = next((row for row in main.published_evidence() if row.get("id") == item_id), None)
     if published is not None:
         return with_preview(published)  # Canonical prose remains authoritative.
+    if main.AUTHORING_MODE:
+        # The selected item resolves from the same catalog regardless of its
+        # review state, including atomic proposals and retained web records.
+        selected = main._load_intelligence_record(item_id)
+        return with_preview(selected)
     record = (records or {}).get(item_id)
-    if main.AUTHORING_MODE:
-        retained = digest.retained_news(main.INBOX_DIR, selected_id=item_id)
-        if retained:
-            record = retained[0]
-    if main.AUTHORING_MODE:
-        original = main.get_draft(item_id)
-        if original and original.get("id") == item_id and inactive_publication_record(original):
-            return None
-        draft = active_publication_record(original)
-        if (draft is not None and draft["id"] == item_id
-                and (record is None or draft.get("source_url") == record.get("source_url"))):
-            return with_preview(draft)
     return with_preview(record)
 
 

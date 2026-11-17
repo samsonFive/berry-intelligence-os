@@ -2,6 +2,21 @@
 
 Local-first, evidence-based competitive intelligence for berry crops.
 
+## Unified information catalog (November 13, 2026)
+
+The user explicitly replaced review/trust/publication buckets with one live
+information inventory. `main.unified_information()` / `RequestCorpus.information`
+is the read path for search, News, reports, research and the active app adapters.
+Review and existing `information_confidence` are item metadata; optional human
+review must not gate retrieval or create separate default lists. This direction
+supersedes older visibility/promotion requirements below, including the required
+Research Desk trust split. Preserve object types, source attribution, actual
+qualifications, individual review history and explicit rejected/archived states.
+Do not fabricate confidence scores, verification or Facts from unreviewed claims.
+Public/static export scope stays explicit and never includes private intake or
+retained-web caches. Legacy storage paths are compatibility adapters, not separate
+live datasets. See `docs/v2/UNIFIED-INFORMATION-CATALOG-2026-11-13.md`.
+
 ## Research report standard
 
 Use the neutral, descriptive variety-profile format in `reports/README.md` and `reports/templates/variety-commercial-profile.md`. Lead with the findings, group details with headings, bullets, and comparisons, and keep methodology and repository workflow in supporting notes. Do not assume a particular client or company viewpoint. Add recommendations, decision gates, or review deadlines only when requested. Preserve individual clickable citations and clearly attributed supporting images. Finished reports are registered in `reports/library.json` and read/downloaded through the existing private Reports area; they do not create trusted intelligence records.

@@ -1,6 +1,14 @@
 from fastapi.testclient import TestClient
 from app.main import app
 from app.services.global_explorer import IntelligenceQuery, explorer_model, snapshot_model
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def isolated_route_inventory(monkeypatch):
+    from app import main
+    from app.services.information_catalog import merge_information
+    monkeypatch.setattr(main, 'unified_information', lambda **kw: merge_information(main.published_evidence(), []))
 
 ENTITIES = {f'geography-{x}': {'id': f'geography-{x}', 'name':x.title(), 'entity_type':'geography', 'attributes': {'iso_3166_1_alpha_2':iso}} for x,iso in [('peru','PE'),('chile','CL'),('china','CN')]}
 ENTITIES['geography-lima'] = {'id':'geography-lima','name':'Lima','entity_type':'geography'}
@@ -17,11 +25,11 @@ def test_multi_country_and_berry_composition():
     assert {r['id'] for r in query.retrieve(RECORDS,REL)} == {'pe','cl','cn','lima'}
     assert query.params()['berry']=='berry-blueberry'
 
-def test_no_pending_enrichment_or_hq_inference():
+def test_unreviewed_membership_does_not_infer_geography_from_enrichment():
     query=IntelligenceQuery(('geography-peru',),'berry-blueberry')
     pending=evidence('draft','geography-peru');pending['status']='draft'
     untagged=evidence('untagged','geography-spain');untagged['ai_enrichment']={'suggested_geography_ids':['geography-peru']}
-    assert query.retrieve([pending,untagged],REL)==[]
+    assert query.retrieve([pending,untagged],REL)==[pending]
 
 def test_empty_and_snapshot_provenance():
     query=IntelligenceQuery(('geography-peru',),'berry-blueberry')
@@ -120,22 +128,22 @@ def test_multi_berry_native_form_and_glasshouse_shell(monkeypatch):
     assert response.status_code==200
     assert 'gx-workspace' in response.text and '/static/map_workspace.css' in response.text
     assert '/static/stakeholder.css' not in response.text
-    assert 'Trusted' in response.text
+    assert 'All news' in response.text
     assert 'glasshouse' in response.text
     pdf=client.get('/explorer/snapshot.pdf?countries=geography-peru&berry=berry-blueberry,berry-strawberry')
     assert pdf.status_code==200 and pdf.content.startswith(b'%PDF')
 
 
-def test_trusted_requires_active_fact_and_keeps_source_images():
+def test_review_is_per_item_and_keeps_source_images():
     from dataclasses import replace
     query = IntelligenceQuery(('geography-peru',), 'berry-blueberry')
     records = [evidence('pe','geography-peru',image_url='https://example.org/photo.jpg'), evidence('raw','geography-peru')]
     facts = [{'id':'fact-pe','status':'active','statement':'Escalated claim','evidence_ids':['pe']}, {'id':'fact-raw','status':'draft','evidence_ids':['raw']}]
     trusted = explorer_model(query,records,ENTITIES,REL,BERRIES,facts=facts)
-    assert [r['id'] for r in trusted['entries']] == ['pe']
-    assert trusted['entries'][0]['image_url'] == 'https://example.org/photo.jpg'
+    assert {r['id'] for r in trusted['entries']} == {'pe', 'raw'}
+    assert next(r for r in trusted['entries'] if r['id'] == 'pe')['image_url'] == 'https://example.org/photo.jpg'
     raw = explorer_model(replace(query,view='unreviewed'),records,ENTITIES,REL,BERRIES,facts=facts)
     assert len(raw['entries']) == 2
     assert all(r['explorer_feedback'] for r in raw['entries'])
     snapshot = snapshot_model(replace(query,view='unreviewed'),records,ENTITIES,REL,BERRIES,['developments'],facts=facts)
-    assert [r['id'] for r in snapshot['entries']] == ['pe']
+    assert {r['id'] for r in snapshot['entries']} == {'pe', 'raw'}

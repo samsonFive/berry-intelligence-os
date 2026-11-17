@@ -1,6 +1,6 @@
 """AI-Assisted Report Builder V1 -- the intelligence packet.
 
-A deterministic, inspectable composition of already-trusted objects for
+A deterministic, inspectable composition of captured information for
 one resolved report scope. Every item retained here keeps its canonical
 id, trust/state, date + date_basis, and a source href/provenance --
 nothing here is prose, and nothing here is generated. This module never
@@ -39,7 +39,7 @@ question.
 from __future__ import annotations
 
 from datetime import date, timedelta
-from typing import Any
+from typing import Any, Callable
 
 from app.services.brief_pack import company_snapshot, source_trace, variety_snapshot
 from app.services.chronology import meaningful_stamp
@@ -47,6 +47,7 @@ from app.services.company_news_coverage import company_news_coverage
 from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.geography_hierarchy import matched_geography_ids
 from app.services.global_search import GEO_PREDICATES
+from app.services.information_catalog import information_flags, merge_information
 from app.services.report_builder.scope import ResolvedScope
 from app.services.strategic_question_workspace import strategic_question_detail
 
@@ -57,6 +58,7 @@ RECENT_DEVELOPMENTS_LIMIT = 15
 
 def _evidence_date_row(record: dict[str, Any], *, scope_geography_ids: frozenset[str] = frozenset()) -> dict[str, Any]:
     when, origin = meaningful_stamp(record, mode="timeline_evidence")
+    flags = information_flags(record)
     row = {
         "id": record.get("id"),
         "title": record.get("title") or record.get("source_name") or record.get("id"),
@@ -64,8 +66,9 @@ def _evidence_date_row(record: dict[str, Any], *, scope_geography_ids: frozenset
         "date": when.date().isoformat() if when else "",
         "date_basis": origin or "",
         "is_fallback_date": False,
-        "trust": "trusted" if record.get("status") == "published" else "pending_unreviewed",
-        "href": f"/evidence/{record.get('id')}" if record.get("status") == "published" else f"/intelligence/{record.get('id')}",
+        "trust": flags["review_status"],
+        "information": flags,
+        "href": f"/intelligence/{record.get('id')}",
         "reader_href": f"/intelligence/{record.get('id')}",
     }
     if scope_geography_ids:
@@ -75,6 +78,17 @@ def _evidence_date_row(record: dict[str, Any], *, scope_geography_ids: frozenset
         # matched by a Europe query stays visibly "Spain").
         row["matched_geography_ids"] = matched_geography_ids(record, scope_geography_ids)
     return row
+
+
+def _source_trace(evidence_ids: set[str], evidence_by_id: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep one citation list with confidence and review attributes per item."""
+    rows = source_trace(evidence_ids, evidence_by_id)
+    for row in rows:
+        record = evidence_by_id[row["id"]]
+        row["information"] = information_flags(record)
+        row["trust"] = row["information"]["review_status"]
+        row["href"] = f"/intelligence/{row['id']}"
+    return rows
 
 
 def _entity_ids_in_scope(scope: ResolvedScope) -> set[str]:
@@ -193,10 +207,14 @@ def build_report_packet(
     variety_candidates: list[dict[str, Any]],
     berry_labels: dict[str, str],
     pending_publications: list[dict[str, Any]] | None = None,
+    load_record: Callable[[str], dict[str, Any] | None] | None = None,
 ) -> dict[str, Any]:
     """Deterministic packet assembly for one resolved scope. Safe to call
-    repeatedly with the same scope against the same trusted data -- it
+    repeatedly with the same scope against the same captured data -- it
     always produces the same packet (no randomness, no model call)."""
+    # The legacy arguments remain accepted, but no review transition is
+    # required before a captured source participates in report retrieval.
+    published_evidence = merge_information(published_evidence, pending_publications or [])
     entity_ids = _entity_ids_in_scope(scope)
     evidence_by_id = {r["id"]: r for r in published_evidence if r.get("id")}
 
@@ -212,6 +230,10 @@ def build_report_packet(
             recommendations=recommendations,
             berry_labels=berry_labels,
         )
+        if sq:
+            sq["source_trace"] = _source_trace(
+                {row["id"] for row in sq.get("source_trace") or [] if row.get("id")}, evidence_by_id,
+            )
         return {
             "report_type": scope.report_type,
             "berry_id": scope.berry_id,
@@ -246,9 +268,13 @@ def build_report_packet(
             company_coverages.append(company_news_coverage(
                 company,
                 published=[r for r in published_evidence if _in_berry(r, scope.berry_id)],
-                pending=[r for r in pending_publications or [] if _in_berry(r, scope.berry_id)],
+                pending=[],
                 days=scope.date_window_days,
             ))
+    for coverage in company_coverages:
+        for row in [*coverage["items"], *coverage["undated"]]:
+            row["information"] = information_flags(evidence_by_id.get(row["id"], {}))
+            row["trust_label"] = row["information"]["review_status"].capitalize()
     window_ids = {r["id"] for c in company_coverages for r in c["items"]}
     scoped_evidence = [
         r
@@ -263,6 +289,7 @@ def build_report_packet(
     retrieval_trace = None
     if scope.research_query:
         from app.services.topic_retrieval import normalize, plan_query, record_passages, retrieve
+        from app.services.topic_source_catalog import bounded_topic_match, hydrate_topic_sources
         from dataclasses import replace
         plan = plan_query(scope.research_query, use_original=scope.use_original_query)
         if scope.date_window_days and not plan.start:
@@ -273,8 +300,10 @@ def build_report_packet(
                 return True
             haystack = " " + normalize(" ".join(p for _, p in record_passages(record))) + " "
             return any(" " + normalize(str(name)) + " " in haystack for eid in ids for name in [entities.get(eid, {}).get("name"), *(entities.get(eid, {}).get("aliases") or [])] if name)
-        eligible = [r for r in scoped_evidence if dimension_matches(r, scope.geography_ids) and dimension_matches(r, scope.company_ids) and dimension_matches(r, scope.variety_ids)]
-        topic_matches = retrieve(eligible, plan, entities=entities)
+        inspected = hydrate_topic_sources(scoped_evidence, load_record)
+        eligible = [r for r in inspected if dimension_matches(r, scope.geography_ids) and dimension_matches(r, scope.company_ids) and dimension_matches(r, scope.variety_ids)]
+        topic_matches = [bounded_topic_match(row) for row in retrieve(eligible, plan, entities=entities)]
+        evidence_by_id.update({row["id"]: row for row in topic_matches})
         retrieval_trace = {"raw_query": scope.research_query, "plan": plan.as_dict(), "source_scope": scope.source_scope, "input_count": len(published_evidence), "scope_eligible_count": len(eligible), "matched_count": len(topic_matches), "body_available_count": sum(any(loc not in {"title", "summary", "snippet"} for loc, _ in record_passages(r)) for r in eligible), "filters": {"berry_id": scope.berry_id, "company_ids": list(scope.company_ids), "variety_ids": list(scope.variety_ids), "geography_ids": list(scope.geography_ids), "publication_start": plan.start, "publication_end": plan.end}, "index": "read-through supplied accessible records; no persisted index lag"}
         scoped_evidence = topic_matches
         # Topic reports cannot cite unrelated crop-wide signals/assessments.
@@ -377,7 +406,7 @@ def build_report_packet(
         "recent_developments": [_evidence_date_row(r, scope_geography_ids=scope_geography_ids) for r in recent],
         "signals": signal_rows,
         "assessments": assessment_rows,
-        "source_trace": source_trace(trace_evidence_ids, evidence_by_id),
+        "source_trace": _source_trace(trace_evidence_ids, evidence_by_id),
         "known_ids": known_ids,
         "geography_ids": list(scope.geography_ids),
         "geography_descendant_ids": list(scope.geography_descendant_ids),

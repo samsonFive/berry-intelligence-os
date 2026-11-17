@@ -1,5 +1,5 @@
 {% macro citations(ids) %}{% for source_id in ids %}{% set match = namespace(found=false) %}{% for source in answer.sources %}{% if source.id == source_id %}<a href="#rd-source-{{ source_id }}" aria-label="Source {{ loop.index }}: {{ source.title }}">Source {{ loop.index }}</a>{% set match.found = true %}{% endif %}{% endfor %}{% if not match.found %}<span>Citation unavailable</span>{% endif %}{% endfor %}{% endmacro %}
-{% macro source_link(row) %}{% if row.url %}{% set href = public_source_url(row.url) %}{% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}<span>{{ row.title }} · link unavailable</span>{% endif %}{% elif authoring_mode and row.href and row.href.startswith("/evidence/") %}<a href="/intelligence/{{ row.id }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}{% endmacro %}
+{% macro source_link(row) %}{% if authoring_mode and (row.reader_href or row.href and (row.href.startswith("/evidence/") or row.href.startswith("/intelligence/"))) %}<a href="/intelligence/{{ row.id }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a>{% elif row.url %}{% set href = public_source_url(row.url) %}{% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}<span>{{ row.title }} · link unavailable</span>{% endif %}{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}{% endmacro %}
 <div class="rd-layout">
   <article class="rd-brief">
     <section class="rd-section rd-lead-section">
@@ -28,12 +28,12 @@
       {% for group in answer.event_groups %}<details><summary>{{ group.members[0].title }} · {{ group.member_ids|length }} articles</summary><p>{{ group.reason }}</p><ul>{% for member in group.members %}<li>{{ member.date or member.published_date or 'Date unknown' }} · {{ source_link(member) }}</li>{% endfor %}</ul></details>{% endfor %}</section>{% endif %}
     {% if answer.verification_leads %}<section class="rd-section"><h2>Sources requiring verification</h2><p>These leads do not support a source-grounded finding for this question.</p><ul>{% for row in answer.verification_leads %}<li>{{ source_link(row) }} — {{ row.source_review_hold or 'Requested identity, crop/cane or trial location is not established by the captured passage.' }}</li>{% endfor %}</ul></section>{% endif %}
     <section class="rd-section">
-      <div class="rd-section-title"><h2>Recent source coverage</h2><span>Past 90 days · LIVE / UNREVIEWED</span></div>
+      <div class="rd-section-title"><h2>Recent source coverage</h2><span>Past 90 days</span></div>
       {% if answer.current_developments %}
       <div class="rd-source-cards">
         {% for row in answer.current_developments[:8] %}
         <article>
-          <div><span>LIVE / UNREVIEWED</span><time>{{ row.date or 'date unknown' }}</time></div>
+          <div><time>{{ row.date or 'date unknown' }}</time></div>
           <h3>{{ source_link(row) }}</h3>
           <p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p>
         </article>
@@ -49,8 +49,8 @@
     </section>
 
     {% for key, heading in [('historical_developments','Older developments & context'), ('undated_developments','Sources needing publication-date verification')] %}
-    {% if answer[key] %}<section class="rd-section"><div class="rd-section-title"><h2>{{ heading }}</h2><span>LIVE / UNREVIEWED</span></div>
-      <div class="rd-source-cards">{% for row in answer[key][:8] %}<article><div><span>LIVE / UNREVIEWED</span><time>{{ row.date or 'date unknown' }}</time></div><h3>{{ source_link(row) }}</h3><p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p></article>{% endfor %}</div>
+    {% if answer[key] %}<section class="rd-section"><div class="rd-section-title"><h2>{{ heading }}</h2></div>
+      <div class="rd-source-cards">{% for row in answer[key][:8] %}<article><div><time>{{ row.date or 'date unknown' }}</time></div><h3>{{ source_link(row) }}</h3><p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p></article>{% endfor %}</div>
     </section>{% endif %}
     {% endfor %}
 
@@ -426,9 +426,10 @@
       <ol class="rd-sources">
         {% for row in answer.sources %}
         <li id="rd-source-{{ row.id }}">
-          <span>Source {{ loop.index }} · {{ row.trust_class }}</span>
+          <span>Source {{ loop.index }}</span>
           {{ source_link(row) }}
           <small>{{ row.source_name }}{% if row.date %} · {{ row.date }}{% endif %}</small>
+          <details><summary>Confidence and review</summary>{% if row.information %}{{ row.information.confidence_label }} · {{ row.information.review_status|replace('_', ' ')|capitalize }}{% else %}Not assessed · Unreviewed{% endif %}</details>
         </li>
         {% endfor %}
       </ol>
@@ -438,8 +439,7 @@
   <aside class="rd-rail">
     <details class="rd-rail-card"><summary>Sources and scope counts</summary>
       <dl>
-        <div><dt>Trusted / approved</dt><dd>{{ packet.evidence|length }}</dd></div>
-        <div><dt>Live results</dt><dd>{{ answer.current_developments|length + answer.weak_signals|selectattr('url')|list|length }}</dd></div>
+        <div><dt>Sources</dt><dd>{{ answer.sources|length }}</dd></div>
         <div><dt>Companies</dt><dd>{{ packet.companies|length }}</dd></div>
         <div><dt>Varieties</dt><dd>{{ packet.varieties|length }}</dd></div>
         <div><dt>Rights / IP</dt><dd>{{ packet.rights_ip|length }}</dd></div>

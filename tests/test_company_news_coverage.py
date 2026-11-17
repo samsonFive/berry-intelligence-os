@@ -28,21 +28,22 @@ def test_current_company_coverage_recalls_alias_and_separates_date_unknown_and_p
     assert (published, pending) == original
 
 
-def test_company_report_keeps_complete_inventory_but_pending_out_of_trusted_synthesis():
+def test_company_report_includes_unreviewed_sources_with_their_qualifications():
     scope = ResolvedScope(report_type="competitive_landscape", company_ids=(COMPANY["id"],), date_window_days=90,
                           berry_id=None, geography_ids=(), variety_ids=(), strategic_question_id=None, focus_notes="")
     published = [record(f"article-{n}") for n in range(20)] + [record("old", published_date="2021-12-14")]
-    pending = [record("pending", status="draft", evidence_role="publication_artifact")]
+    pending = [record("pending", status="draft", evidence_role="publication_artifact", published_date=date.today().isoformat())]
     packet = build_report_packet(scope, entities={COMPANY["id"]: COMPANY}, relationships=[], published_evidence=published,
                                  pending_publications=pending, facts=[], signals=[], assessments=[], strategic_questions=[],
                                  recommendations=[], variety_candidates=[{"id": "unrelated-candidate", "berry_id": "berry-blueberry"}], berry_labels={"berry-blueberry": "Blueberry"})
     assert len(packet["source_inventory"]) == 21
     assert len(packet["recent_developments"]) == 15
     assert packet["variety_candidates"] == []
-    assert "pending" not in packet["known_ids"]
+    assert "pending" in packet["known_ids"]
     assert "old" not in packet["known_ids"]
-    assert all(r["id"] != "pending" for r in packet["source_trace"])
-    assert "pending" not in str(_grounding_digest(packet, "recent_developments"))
+    assert any(r["id"] == "pending" for r in packet["source_trace"])
+    grounding = _grounding_digest(packet, "recent_developments")
+    assert any("pending" in line and "review: unreviewed" in line for line in grounding)
 
 
 def test_same_record_in_both_stores_is_counted_once_with_published_status():

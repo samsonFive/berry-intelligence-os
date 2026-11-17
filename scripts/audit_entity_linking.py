@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory
 from app.services.entity_alias_recall import MIN_ALIAS_LENGTH, TEXT_FIELDS, linked_evidence_for_entity
 
 
@@ -65,7 +66,7 @@ def main() -> int:
     entities = {str(entity["id"]): entity for entity in entities_list}
     evidence = [
         record
-        for record in _load_records(ROOT / "data" / "evidence")
+        for record in _load_records(information_directory(data_dir=ROOT / "data"))
         if record.get("status") == "published"
     ]
     evidence_by_id = {str(record["id"]): record for record in evidence}

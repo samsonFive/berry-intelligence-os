@@ -1,9 +1,10 @@
 """Deterministic global intelligence search (navigation, not a trust layer).
 
-Builds a cheap in-memory document list from already-loaded repositories.
-Does not call Morning Brief, Story Thread grouping of the full feed,
-variety_footprint, or collection scans. Pending/inbox documents are opt-in
-and must never be written into static/public output.
+Builds a cheap in-memory document list from the information catalog or
+already-loaded repositories. Review flags never partition intelligence or
+affect matching rank. Private runtime documents remain opt-in and must never
+be written into static/public output. Does not call Morning Brief, full-feed
+Story Thread grouping, variety_footprint, or collection scans.
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ from dataclasses import dataclass, field
 from typing import Any, Iterable
 
 from app.services.article_dedup import normalize_canonical_url, normalize_title
+from app.services.information_catalog import information_flags
 from app.services.patent_monitor.entity_link import _fold
 from app.services.ui_context import BERRY_GLOBAL
 from app.services.variety_workspace import identity_fields
@@ -70,7 +72,7 @@ STATE_LABELS = {
     "assessment": "Assessment",
     "educational_knowledge": "Educational knowledge",
 }
-# Lower is better. Pending must never outrank an equally matched trusted hit.
+# Review is an item attribute, not a search ranking or visibility gate.
 STATE_RANK = {
     "trusted": 0,
     "confirmed_signal": 1,
@@ -78,14 +80,15 @@ STATE_RANK = {
     "assessment": 1,
     "story": 2,
     "educational_knowledge": 2,
-    "pending": 3,
+    "pending": 0,
     "emerging_signal": 3,
 }
 RANK_EXACT_CANONICAL = 100
 RANK_EXACT_ALIAS = 95
 RANK_LINKED_ENTITY = 88
 RANK_TITLE_NAME = 80
-RANK_TRUSTED_DIRECT = 70
+RANK_DIRECT = 70
+RANK_TRUSTED_DIRECT = RANK_DIRECT  # compatibility for existing callers
 RANK_STORY_SIGNAL = 55
 RANK_WEAK_TEXT = 30
 
@@ -244,6 +247,9 @@ class SearchDoc:
     folded_aliases: tuple[str, ...] = ()
     related_ids: tuple[str, ...] = ()
     match_hints: tuple[str, ...] = ()
+    review_status: str = ""
+    confidence: Any = None
+    confidence_label: str = ""
 
 
 @dataclass
@@ -259,6 +265,9 @@ class SearchPools:
     signal_candidates: list[dict[str, Any]] = field(default_factory=list)
     identity_redirects: list[dict[str, Any]] = field(default_factory=list)
     learn_concepts: list[dict[str, Any]] = field(default_factory=list)
+    # Live callers supply the catalog once; legacy/static callers may retain
+    # their explicit publication and inbox inputs.
+    evidence: list[dict[str, Any]] | None = None
 
 
 def _names_for_entity(entity: dict[str, Any]) -> tuple[str, list[str]]:
@@ -312,7 +321,8 @@ def _signal_state(record: dict[str, Any], *, emerging: bool) -> str:
 
 def build_search_documents(pools: SearchPools, *, include_private: bool) -> list[SearchDoc]:
     entities_by_id = {str(row["id"]): row for row in pools.entities if row.get("id")}
-    evidence_by_id = {str(row["id"]): row for row in pools.published_evidence if row.get("id")}
+    evidence = pools.evidence if pools.evidence is not None else pools.published_evidence
+    evidence_by_id = {str(row["id"]): row for row in evidence if row.get("id")}
     related: dict[str, set[str]] = defaultdict(set)
     for rel in pools.relationships:
         subject = str(rel.get("subject_id") or "")
@@ -427,7 +437,11 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
         source_id = str(record.get("source_id") or "")
         kind = _kind_label(record)
         date, date_basis, is_fallback_date = _evidence_date(record)
-        state = "pending" if private or record.get("status") != "published" else "trusted"
+        flags = information_flags(record)
+        # Retain API state keys for existing readers. Review/confidence live on
+        # the item and do not determine membership of the intelligence group.
+        state = "trusted" if flags["review_status"] == "reviewed" else "pending"
+        private = private or record.get("_catalog_origin") == "inbox" or record.get("status") != "published"
         href = f"/intelligence/{record_id}"
         entity_ids = _as_tuple(record.get("entity_ids"))
         geography_ids = tuple(
@@ -475,19 +489,23 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 subtitle=kind,
                 kind_label=kind,
                 relevance_tier=str(record.get("relevance_tier") or ""),
-                private=private or state == "pending",
+                private=private,
                 haystack=haystack,
                 folded_canonical=_fold(title),
                 related_ids=entity_ids + geography_ids,
+                review_status=flags["review_status"],
+                confidence=flags["confidence"],
+                confidence_label=flags["confidence_label"],
             )
         )
 
-    for record in pools.published_evidence:
+    for record in evidence:
         add_evidence(record, private=False)
 
     if include_private:
-        for record in pools.pending_drafts:
-            add_evidence(record, private=True)
+        if pools.evidence is None:
+            for record in pools.pending_drafts:
+                add_evidence(record, private=True)
         for cluster in _cheap_pending_threads(pools.pending_drafts):
             add(cluster)
 
@@ -729,8 +747,8 @@ def _match_rank(doc: SearchDoc, *, query: str, folded_query: str) -> tuple[int, 
     if query in hay or (folded_query and folded_query in _fold(doc.haystack)):
         if doc.group in {"signals", "story_threads"}:
             return RANK_STORY_SIGNAL, "text"
-        if doc.group == "intelligence" and doc.state == "trusted" and doc.relevance_tier != "adjacent":
-            return RANK_TRUSTED_DIRECT, "text"
+        if doc.group == "intelligence" and doc.relevance_tier != "adjacent":
+            return RANK_DIRECT, "text"
         return RANK_WEAK_TEXT, "text"
     return 0, ""
 
@@ -759,6 +777,10 @@ def _result_payload(doc: SearchDoc, *, rank: int, matched_as: str, in_context: b
             date_display = UNKNOWN_DATE_LABELS.get(doc.object_type, DEFAULT_UNKNOWN_DATE_LABEL)
             if doc.captured_date:
                 date_secondary = f"Captured {_human_date(doc.captured_date)}"
+    state_label = (
+        doc.review_status.replace("_", " ").capitalize()
+        if doc.review_status else STATE_LABELS.get(doc.state, doc.state)
+    )
     return {
         "id": doc.id,
         "group": doc.group,
@@ -771,7 +793,10 @@ def _result_payload(doc: SearchDoc, *, rank: int, matched_as: str, in_context: b
         "subtitle": doc.subtitle,
         "href": doc.href,
         "state": doc.state,
-        "state_label": STATE_LABELS.get(doc.state, doc.state),
+        "state_label": state_label,
+        "review_status": doc.review_status,
+        "confidence": doc.confidence,
+        "confidence_label": doc.confidence_label,
         "open_reader": bool(doc.open_reader),
         "item_id": doc.item_id or (doc.id if doc.open_reader else ""),
         "date": doc.date,
@@ -908,8 +933,8 @@ def search_documents(
         for related_doc in candidates:
             current = hits.get(related_doc.id)
             linked_rank = RANK_LINKED_ENTITY
-            if related_doc.group == "intelligence" and related_doc.state == "trusted":
-                linked_rank = max(linked_rank, RANK_TRUSTED_DIRECT)
+            if related_doc.group == "intelligence":
+                linked_rank = max(linked_rank, RANK_DIRECT)
             if related_doc.group in {"signals", "story_threads"}:
                 linked_rank = max(linked_rank, RANK_STORY_SIGNAL)
             if current is None or current["rank"] < linked_rank:

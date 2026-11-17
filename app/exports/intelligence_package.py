@@ -15,6 +15,9 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from app.services.information_storage import is_public_record
+from app.services.publication_scope import public_repositories
+
 PACKAGE_VERSION = "1.0.0"
 INTELLIGENCE_OS_VERSION = "0.1.0"
 SEED_ENTITY_IDS = {"company-example-genetics", "company-example-nursery", "retailer-example-market", "variety-example-blue", "variety-example-red"}
@@ -46,7 +49,11 @@ class IntelligencePackageExporter:
         self.generated_on = generated_on or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
     def collect(self) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
-        records = {name: sorted(getattr(self.repositories, name).list(), key=lambda r: r["id"]) for name in FAMILIES}
+        # Publication review does not grant public visibility. Take a fresh
+        # public projection for each export, including dependent conclusions
+        # and backlinks, before materializing any package content or metadata.
+        repositories = public_repositories(self.repositories)
+        records = {name: sorted(getattr(repositories, name).list(), key=lambda r: r["id"]) for name in FAMILIES}
         records["entities"] = [r for r in records["entities"] if r["id"] not in SEED_ENTITY_IDS]
         all_evidence = records["evidence"]
         records["evidence"] = [
@@ -84,7 +91,7 @@ class IntelligencePackageExporter:
                     1 for record in all_evidence
                     if record["id"] not in SEED_EVIDENCE_IDS and record.get("status") != "published"
                 ),
-                "reason": "published-only portable package boundary",
+                "reason": "public projection excludes non-public evidence before package collection",
                 "pruned_reference_count": len(pruned_evidence_references),
             },
             "relationships_without_exportable_evidence": {
@@ -126,11 +133,11 @@ class IntelligencePackageExporter:
             "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
             "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
             "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
-            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Public Evidence and operational records with public support; known V1 fictional seed/demo records excluded.", "filter": {"publication_scope": "public", "evidence_status": ["published"], "non_evidence_status": "preserved"}},
             "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
             "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
             "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
-            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+            "notes": "Minimal BL-035 public export. Publication scope is independent of review status. Private sources, their dependent conclusions and private backlinks are excluded. Public Evidence is published-only; legacy Signals retain proposed status so operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
         }
         (output / "manifest.json").write_bytes(_json_bytes(manifest))
         errors = validate_package(output, self.schemas_dir)
@@ -203,6 +210,10 @@ def validate_package(package: Path, schemas_dir: Path) -> list[str]:
     for family, values in records.items():
         ids = [r["id"] for r in values]
         if len(ids) != len(set(ids)): errors.append(f"duplicate id in {family}")
+        for record in values:
+            if (family == "evidence" and not is_public_record(record)
+                    or record.get("publication_scope", "public") != "public"):
+                errors.append(f"package includes non-public record: {family}:{record['id']}")
         schema_name = SCHEMAS.get(family)
         if schema_name:
             validator = Draft202012Validator(json.loads((schemas_dir / schema_name).read_text()), format_checker=FormatChecker())

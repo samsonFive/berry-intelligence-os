@@ -165,14 +165,21 @@ def test_no_repository_loader_reads_data_imports(rehearsal_items):
     assert trusted_ids.isdisjoint(rehearsal_ids)
 
 
-def test_validate_records_never_scans_data_imports():
-    """scripts/validate_records.py's own folder list is fixed and does not
-    include data/imports -- read directly from the script's source rather
-    than re-deriving the list, so this test fails loudly if a future edit
-    ever adds an imports scan without updating this guard."""
-    source = (REPO / "scripts" / "validate_records.py").read_text(encoding="utf-8")
-    folders = re.findall(r'ROOT / "data" / "([a-z-]+)"', source)
-    assert "imports" not in folders
+def test_validate_records_never_scans_data_imports(tmp_path, monkeypatch):
+    """Exercise the runtime validator; import audit payloads are not records."""
+    from app import runtime_config
+    from scripts import validate_records
+    data = tmp_path / "data"
+    (data / "imports").mkdir(parents=True)
+    (data / "imports/private-audit.json").write_text("not a schema-shaped JSON record", encoding="utf-8")
+    monkeypatch.setattr(runtime_config, "resolve_data_dir", lambda root: data)
+    folders = []
+    original = validate_records.validate_folder
+    def validate_store(schema, folder):
+        folders.append(folder.relative_to(data).as_posix())
+        return original(schema, folder)
+    monkeypatch.setattr(validate_records, "validate_folder", validate_store)
+    assert validate_records.main() == 0
     assert set(folders) == {
         "evidence", "entities", "facts", "relationships", "strategic-questions",
         "signals", "assessments", "recommendations",

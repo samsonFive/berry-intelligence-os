@@ -27,6 +27,8 @@ Two responsibilities, kept separate on purpose:
 
 from __future__ import annotations
 
+from app.services.information_storage import information_directory, upsert_record
+
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 import hashlib
@@ -272,7 +274,7 @@ class TradeIntelligenceService:
     def __post_init__(self) -> None:
         self.operations_dir = self.inbox_dir / "operations" / "trade_intelligence"
         self.state_path = self.operations_dir / "state.json"
-        self.evidence_dir = self.inbox_dir / "evidence"
+        self.evidence_dir = information_directory(inbox_dir=self.inbox_dir)
 
     def fetch_lane(self, request: TradeLaneRequest) -> tuple[str, list[dict[str, Any]]] | None:
         reporter_code = COMTRADE_COUNTRY_CODES.get(request.reporter_geo)
@@ -345,7 +347,7 @@ class TradeIntelligenceService:
             )
             review_ready.append(draft_id)
             if not dry_run:
-                _write_json(draft_path, draft)
+                upsert_record(draft, inbox_dir=self.inbox_dir)
                 seen.add(signature)
                 created.append(draft_id)
         if not dry_run:

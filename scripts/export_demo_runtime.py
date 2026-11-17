@@ -21,6 +21,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from app.services.information_storage import information_directory, enabled
 from app.main import BASE_DIR, DATA_DIR, INBOX_DIR  # noqa: E402
 
 SPECIMEN_DRAFT_IDS = (
@@ -96,7 +97,7 @@ def _should_skip(path: Path) -> bool:
 
 def selected_draft_ids(inbox_dir: Path, *, include_all_pending: bool) -> list[str]:
     ids = list(SPECIMEN_DRAFT_IDS)
-    evidence_dir = inbox_dir / "evidence"
+    evidence_dir = information_directory(inbox_dir=inbox_dir)
     if include_all_pending and evidence_dir.is_dir():
         for path in sorted(evidence_dir.glob("*.json")):
             record = _load_json(path)
@@ -147,6 +148,9 @@ def export_demo_runtime(
 ) -> dict[str, Any]:
     data_dir = Path(data_dir or DATA_DIR)
     inbox_dir = Path(inbox_dir or INBOX_DIR)
+    if enabled(data_dir=data_dir, inbox_dir=inbox_dir):
+        raise ValueError("Demo fixture export does not copy an active consolidated information store. "
+                         "Use a verified runtime backup and the information-storage restore/rebind workflow.")
     output = output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     dest_data = output / "data"
@@ -159,7 +163,7 @@ def export_demo_runtime(
     drafts: list[dict[str, Any]] = []
     missing_drafts: list[str] = []
     for draft_id in wanted_ids:
-        path = inbox_dir / "evidence" / f"{draft_id}.json"
+        path = information_directory(inbox_dir=inbox_dir) / f"{draft_id}.json"
         if not path.is_file():
             missing_drafts.append(draft_id)
             continue

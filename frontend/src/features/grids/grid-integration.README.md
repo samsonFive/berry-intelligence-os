@@ -23,8 +23,11 @@ outside dismissal and Escape return to its summary. Quick filtering is explicitl
 over loaded rows, and neither filter changes canonical scope or cohorts. Text
 filters support two conditions; quick filtering is limited to 200 characters.
 The adapter's storage/retained-column/filter/sort limits remain authoritative and
-fail visibly without dropping prior preferences. More than 38 company columns
-plus the two fixed columns shows an explicit cap rather than a truncated matrix.
+fail visibly without dropping prior preferences. Portfolio's existing semantic
+account namespaces support up to 510 company columns plus the two fixed columns.
+The 50-company and current full-company windows use the same optimistic account
+adapter as smaller windows. Only windows beyond the bounded 512-column account
+contract use the existing bounded session fallback; no matrix is truncated.
 
 A failed load never enables autosave. An unmapped older row remains stored and
 shows a visible default/local-only fallback. A 409 keeps the current local display
