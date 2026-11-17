@@ -326,7 +326,8 @@ jobs:
             --basetemp "$RUNNER_TEMP/storage-controls-root" \
             tests/test_storage_recovery.py tests/test_storage_retention.py \
             tests/test_storage_monitor.py tests/test_storage_controls_units.py \
-            tests/test_storage_recovery_adoption.py tests/test_storage_replay_v2.py
+            tests/test_storage_recovery_adoption.py tests/test_storage_replay_v2.py \
+            tests/test_storage_recovered_origin.py
       - name: Validate host service and timer units
         if: needs.change-scope.outputs.docs-only != 'true'
         run: >-

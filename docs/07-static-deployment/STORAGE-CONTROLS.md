@@ -76,11 +76,16 @@ metadata receipt; runtime stage, images, source, configuration, current containe
 identities and logical previous release remain unchanged. Unknown producer
 profiles and unsupported extensions remain held for review.
 
-The recovered-production-binding transition extension is held until a supported
-profile validates its final genuine execution and dependency closure. Historical
-container identities or rollback observations must not be relabeled as current
-state; a sealed admission document alone does not establish support for a new
-transition schema.
+Existing profiles hold the recovered-production-binding transition extension.
+A separate explicit recovered-origin profile authenticates its native execution,
+complete raw pair snapshots, original and recovered baselines, manual recovery
+closure and protected Compose/environment inputs. Its descriptor adds one sealed
+metadata capsule with explicit server execution and recovery-closure references.
+Admission-machine copy locations are observations; the host never opens them.
+The immutable previous ledger and earlier rollback, marker and timer observations
+remain historical. The recovered pair must match the later native PRE capture,
+including full configuration, effective mounts and process lifecycle. Source
+fixtures do not certify an actual accepted release or authorize activation.
 
 Both distinct recovery archives, full native content/store/rollback provenance
 and the supported image-bound replay evidence are still required. Reuse an

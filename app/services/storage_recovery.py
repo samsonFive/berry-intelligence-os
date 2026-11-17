@@ -10,8 +10,9 @@ import ast
 import gzip
 import hashlib
 import json
+import math
 import os
-from pathlib import Path, PurePosixPath
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import re
 import stat
 import subprocess
@@ -31,6 +32,7 @@ RECOVERY_PROOF_SCHEMA = 'berry.recovery-proof.v1'
 ADOPTION_SCHEMA = 'berry.recovery-adoption.v1'
 ADOPTION_PROFILE = 'frozen-590-extended-snapshot.v1'
 ADOPTION_LOGO_PROFILE = 'frozen-590-extended-logos.v1'
+ADOPTION_RECOVERED_LOGO_PROFILE = 'frozen-590-recovered-extended-logos.v1'
 REPLAY_V2_CHECKS = frozenset({
     'restore-bytes-and-modes', 'source-hashes-before-mtime', 'source-mtime-ns-rehydration',
     'fresh-plan-at-new-paths', 'new-empty-backup-base', 'winner-and-variants-preserved',
@@ -1432,6 +1434,327 @@ def _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files):
           'accepted_logo_preservation_chain_invalid')
 
 
+def _recovered_observation_ref(value):
+    """An admission-machine locator is evidence, never a host filesystem path."""
+    _need(isinstance(value, dict) and set(value) == {'path', 'sha256'}
+          and isinstance(value['sha256'], str) and _HEX.fullmatch(value['sha256'])
+          and isinstance(value['path'], str) and 0 < len(value['path']) <= 4096
+          and '\x00' not in value['path'], 'accepted_recovered_observation_invalid')
+    name = value['path']; posix, windows = PurePosixPath(name), PureWindowsPath(name)
+    _need((posix.is_absolute() and posix.as_posix() == name and '..' not in posix.parts and '\\' not in name)
+          or (windows.is_absolute() and '..' not in windows.parts), 'accepted_recovered_observation_invalid')
+    return value
+
+
+def _recovered_pair_binding(pair):
+    result = _native_pair_binding(pair)
+    for role, row in pair.items():
+        result[role]['state'] = {'running': row['State'].get('Running'),
+            'health': row['State'].get('Health', {}).get('Status'),
+            'started_at': row['State'].get('StartedAt'), 'restart_count': row.get('RestartCount')}
+    return result
+
+
+def _recovered_configuration(before, after, baseline):
+    """Recompute the native producer's complete, narrowly normalized hashes."""
+    _pair_app(before); _pair_app(after)
+    compose = baseline['compose']['app']
+    _need(_canonical(compose) == _canonical(baseline['compose']['copilot']), 'accepted_recovered_compose_mismatch')
+    _host_path(compose['working_dir'])
+    _need(isinstance(compose['project'], str) and re.fullmatch('[a-zA-Z0-9_-]+', compose['project']),
+          'accepted_recovered_compose_mismatch')
+    paths = [pin['path'] for pin in compose['files']]
+    env_paths = [pin['path'] for pin in baseline['protected_environment_files']]
+    _need(paths and env_paths and len(set(paths)) == len(paths) and len(set(env_paths)) == len(env_paths),
+          'accepted_recovered_compose_mismatch')
+    for name in [*paths, *env_paths]: _host_path(name)
+    semantics, translations = {}, []
+    ignored = {'com.docker.compose.config-hash', 'com.docker.compose.image', 'com.docker.compose.project.config_files'}
+    for role in ('app', 'copilot'):
+        left, right = before[role], after[role]
+        _need(all(isinstance(row.get('Id'), str) and _HEX.fullmatch(row['Id']) for row in (left, right))
+              and left['Id'] != right['Id'] and left['Image'] == right['Image'], 'accepted_recovered_identity_mismatch')
+        if role == 'copilot':
+            _need(left['HostConfig'].get('NetworkMode') == 'container:' + before['app']['Id']
+                  and right['HostConfig'].get('NetworkMode') == 'container:' + after['app']['Id'],
+                  'accepted_recovered_namespace_mismatch')
+        raw_fields = [('Config.Image', left['Config'].get('Image'), right['Config'].get('Image')),
+            ('Mounts.order', left.get('Mounts'), right.get('Mounts')),
+            ('Config.Hostname', left['Config'].get('Hostname'), right['Config'].get('Hostname')),
+            ('Config.Env.order', left['Config'].get('Env'), right['Config'].get('Env')),
+            ('HostConfig.Binds.order', left['HostConfig'].get('Binds'), right['HostConfig'].get('Binds'))]
+        if role == 'copilot':
+            raw_fields.append(('HostConfig.NetworkMode', left['HostConfig'].get('NetworkMode'), right['HostConfig'].get('NetworkMode')))
+        for label in ('com.docker.compose.config-hash', 'com.docker.compose.image'):
+            raw_fields.append(('Config.Labels.' + label, (left['Config'].get('Labels') or {}).get(label),
+                               (right['Config'].get('Labels') or {}).get(label)))
+        for field, old, new in raw_fields:
+            if _canonical(old) != _canonical(new):
+                translations.append({'role': role, 'field': field, 'before_sha256': _sha(_canonical(old)), 'after_sha256': _sha(_canonical(new))})
+        sides = []
+        for pair, row in ((before, left), (after, right)):
+            config = _parsed(_canonical(row['Config'])); host = _parsed(_canonical(row['HostConfig']))
+            mounts = row.get('Mounts')
+            _need(isinstance(mounts, list) and all(isinstance(m, dict) and isinstance(m.get('Destination'), str) for m in mounts)
+                  and len({m['Destination'] for m in mounts}) == len(mounts), 'accepted_recovered_mounts_invalid')
+            mounts = sorted(mounts, key=lambda m: m['Destination'])
+            labels = config.get('Labels') or {}
+            _need(labels.get('com.docker.compose.project.config_files') == ','.join(paths)
+                  and labels.get('com.docker.compose.project.environment_file') == ','.join(env_paths),
+                  'accepted_recovered_compose_mismatch')
+            environment = config.get('Env') or []
+            _need(isinstance(environment, list) and all(isinstance(s, str) and '=' in s for s in environment)
+                  and len({s.split('=', 1)[0] for s in environment}) == len(environment), 'accepted_recovered_environment_invalid')
+            config['Image'] = left['Image']; config['Env'] = sorted(s.split('=', 1) for s in environment)
+            config['Labels'] = {key: value for key, value in labels.items() if key not in ignored}
+            if role == 'copilot' and left['Config'].get('Hostname') == before['app']['Id'][:12]:
+                _need(row['Config'].get('Hostname') == pair['app']['Id'][:12], 'accepted_recovered_hostname_mismatch')
+                config['Hostname'] = 'generated-shared-app-hostname'
+            elif left['Config'].get('Hostname') == left['Id'][:12]:
+                _need(row['Config'].get('Hostname') == row['Id'][:12], 'accepted_recovered_hostname_mismatch')
+                config['Hostname'] = 'generated-container-hostname'
+            if role == 'copilot': host['NetworkMode'] = 'container:paired-app'
+            if isinstance(host.get('Binds'), list):
+                _need(all(isinstance(s, str) and s for s in host['Binds']) and len(set(host['Binds'])) == len(host['Binds']),
+                      'accepted_recovered_binds_invalid')
+                host['Binds'] = sorted(host['Binds'])
+            sides.append({'config_sha256': _sha(_canonical(config)), 'hostconfig_sha256': _sha(_canonical(host)),
+                'mounts_sha256': _sha(_canonical(mounts)), 'fields': {
+                    'Config': {key: _sha(_canonical(value)) for key, value in config.items()},
+                    'HostConfig': {key: _sha(_canonical(value)) for key, value in host.items()}}})
+        _need(_canonical(sides[0]) == _canonical(sides[1]), 'accepted_recovered_configuration_mismatch')
+        semantics[role] = {'before': sides[0], 'after': sides[1]}
+    _need(len({row['Id'] for row in [*before.values(), *after.values()]}) == 4, 'accepted_recovered_identity_mismatch')
+    return semantics, translations
+
+
+def _adoption_recovered_evidence(adoption, wrapper, plan, native_pre, files):
+    """Authenticate a distinct recovered-origin profile without rewriting 590."""
+    capsule = files.json(adoption['descriptor']['recovered_origin'])
+    _need(set(capsule) == {'schema', 'transition_execution', 'recovery_closure'}
+          and capsule['schema'] == 'berry.recovered-origin-adoption.v1', 'accepted_recovered_origin_invalid')
+    rehearsal = files.json(plan.get('proofs', {}).get('rehearsal'))
+    bridge = rehearsal.get('recovered_production_binding')
+    fields = {'execution', 'proof', 'stdout', 'program', 'validator', 'counts', 'raw_snapshots',
+              'original_baseline', 'original_pre_baseline', 'recovered_baseline', 'admission_baselines'}
+    _need(isinstance(bridge, dict) and set(bridge) in (fields, fields | {'local_transports'}), 'accepted_recovered_bridge_invalid')
+    _recovered_observation_ref(bridge['execution'])
+    _need(capsule['transition_execution']['sha256'] == bridge['execution']['sha256'], 'accepted_recovered_execution_mapping_invalid')
+    execution = files.json(capsule['transition_execution'])
+    _need(set(execution) == {'schema', 'version', 'state', 'exit_code', 'program', 'started_at_utc', 'finished_at_utc', 'stdout', 'proof'}
+          and execution['schema'] == 'berry.recovery-transition-execution.v1' and type(execution['version']) is int
+          and execution['version'] == 1 and execution['state'] == 'completed'
+          and type(execution['exit_code']) is int and execution['exit_code'] == 0
+          and all(execution[key] == bridge[key] for key in ('program', 'stdout', 'proof')), 'accepted_recovered_execution_invalid')
+    program_body = files.file(execution['program'], parse=True, maximum_bytes=1024**2)
+    proof_body = files.file(execution['proof'], private=True, parse=True)
+    _need(proof_body == files.file(execution['stdout'], private=True, parse=True), 'accepted_recovered_stdout_mismatch')
+    proof = _parsed(proof_body)
+    fields = {'schema', 'version', 'state', 'validator_program', 'original_baseline', 'recovered_baseline', 'observed_at_utc',
+        'production_binding', 'raw_snapshots', 'semantic_configuration', 'mechanical_translations', 'protected_files', 'preservation',
+        'ledgers', 'rollback', 'binding_program', 'original_pre_baseline', 'original_pre_binding', 'state_observations', 'native_checks'}
+    _need(set(proof) == fields and proof['schema'] == 'berry.recovered-production-binding-transition.v1'
+          and type(proof['version']) is int and proof['version'] == 1 and proof['state'] == 'verified'
+          and proof['validator_program'] == bridge['validator']
+          and all(proof[key] == bridge[key] for key in ('raw_snapshots', 'original_baseline', 'original_pre_baseline', 'recovered_baseline')),
+          'accepted_recovered_proof_invalid')
+    for name in ('validator_program', 'binding_program'): files.file(proof[name])
+    def utc(value):
+        _need(isinstance(value, str) and value.endswith('Z'), 'accepted_recovered_time_invalid')
+        try: return datetime.fromisoformat(value[:-1] + '+00:00')
+        except ValueError: raise StorageRecoveryError('accepted_recovered_time_invalid') from None
+    _need(utc(execution['started_at_utc']) <= utc(proof['observed_at_utc']) <= utc(execution['finished_at_utc']),
+          'accepted_recovered_time_invalid')
+    baselines = {name: files.json(proof[name + '_baseline']) for name in ('original', 'original_pre', 'recovered')}
+    original, prior, recovered = (baselines[name] for name in ('original', 'original_pre', 'recovered'))
+    _need(all(isinstance(row.get('production_binding'), dict) and set(row['production_binding']) == {'app', 'copilot'}
+              and all(binding.get('state', {}).get('running') is True and binding['state'].get('health') == 'healthy'
+                      for binding in row['production_binding'].values()) for row in baselines.values()),
+          'accepted_recovered_baseline_unhealthy')
+    stable = ('app_image', 'app_user', 'app_mounts', 'compose', 'protected_environment_files', 'entrypoint_sha256',
+        'requirements_web_sha256', 'runtime_bindings', 'private_report_ids', 'private_report_files', 'private_report_library_sha256',
+        'packaged_report_files', 'packaged_report_catalog', 'packaged_report_library_sha256')
+    _need(all(key in original and all(_canonical(row.get(key)) == _canonical(original[key]) for row in (prior, recovered)) for key in stable),
+          'accepted_recovered_preservation_mismatch')
+    workspace = original.get('workspaces', {})
+    _need(type(workspace.get('page_count')) is int and workspace['page_count'] > 0, 'accepted_recovered_preservation_mismatch')
+    for table in ('objects', 'history', 'requests', 'outbox'):
+        row = workspace.get(table)
+        _need(isinstance(row, dict) and set(row) == {'count', 'sha256'} and type(row['count']) is int and row['count'] >= 0
+              and isinstance(row['sha256'], str) and _HEX.fullmatch(row['sha256']), 'accepted_recovered_preservation_mismatch')
+    workspace = {key: workspace[key] for key in ('page_count', 'objects', 'history', 'requests', 'outbox')}
+    _need(all(_canonical(workspace) == _canonical({key: row.get('workspaces', {}).get(key) for key in workspace}) for row in (prior, recovered)),
+          'accepted_recovered_preservation_mismatch')
+    _need(isinstance(proof['raw_snapshots'], dict) and set(proof['raw_snapshots']) == {'original', 'recovered'},
+          'accepted_recovered_raw_pair_invalid')
+    pairs = {name: files.json(ref) for name, ref in proof['raw_snapshots'].items()}
+    for pair in pairs.values():
+        _pair_app(pair)
+        _need(all(type(row['State'].get('Pid')) is int and row['State']['Pid'] > 0
+                  and not any(row['State'].get(key) for key in ('OOMKilled', 'Paused', 'Dead', 'Restarting'))
+                  for row in pair.values()), 'accepted_recovered_raw_pair_unhealthy')
+    bindings = {name: _recovered_pair_binding(pair) for name, pair in pairs.items()}
+    _need(_canonical(bindings['original']) == _canonical(prior.get('production_binding'))
+          and _canonical(bindings['recovered']) == _canonical(recovered.get('production_binding'))
+          and _canonical(proof['original_pre_binding']) == _canonical(prior['production_binding'])
+          and _canonical(proof['production_binding']) == _canonical({'original': original['production_binding'], 'recovered': recovered['production_binding']}),
+          'accepted_recovered_raw_binding_mismatch')
+    for role in ('app', 'copilot'):
+        _need(_canonical({k: v for k, v in original['production_binding'][role].items() if k != 'state'}) ==
+              _canonical({k: v for k, v in prior['production_binding'][role].items() if k != 'state'}), 'accepted_recovered_original_binding_mismatch')
+    _need(_canonical(proof['state_observations']) == _canonical({name if name != 'original' else 'rehearsal':
+        {role: row['production_binding'][role]['state'] for role in ('app', 'copilot')} for name, row in baselines.items()}),
+        'accepted_recovered_state_mismatch')
+    semantics, translations = _recovered_configuration(pairs['original'], pairs['recovered'], original)
+    _need(_canonical(proof['semantic_configuration']) == _canonical(semantics)
+          and _canonical(proof['mechanical_translations']) == _canonical(translations), 'accepted_recovered_semantics_mismatch')
+    _pair_app(native_pre)
+    for role in ('app', 'copilot'):
+        _need(all(_canonical(pairs['recovered'][role].get(key)) == _canonical(native_pre[role].get(key))
+                  for key in ('Id', 'Image', 'Config', 'HostConfig'))
+              and _canonical(sorted(pairs['recovered'][role]['Mounts'], key=_canonical)) ==
+                  _canonical(sorted(native_pre[role]['Mounts'], key=_canonical)), 'accepted_recovered_native_pre_mismatch')
+        for row in (pairs['recovered'][role], native_pre[role]):
+            _need(type(row.get('RestartCount')) is int and row['RestartCount'] >= 0
+                  and utc(row['State'].get('StartedAt')).year > 1, 'accepted_recovered_lifecycle_invalid')
+        _need(pairs['recovered'][role]['RestartCount'] == native_pre[role]['RestartCount']
+              and pairs['recovered'][role]['State']['StartedAt'] == native_pre[role]['State']['StartedAt'],
+              'accepted_recovered_lifecycle_mismatch')
+    protected = {'compose': original['compose'], 'environment': original['protected_environment_files']}
+    _need(_canonical(proof['protected_files']) == _canonical({'original': protected, 'recovered': protected}),
+          'accepted_recovered_compose_mismatch')
+    for ref in [*original['compose']['app']['files'], *original['protected_environment_files']]:
+        files.file({key: ref[key] for key in ('path', 'sha256', 'mode') if key in ref})
+    preservation = {key: original[key] for key in ('private_report_ids', 'private_report_files', 'private_report_library_sha256',
+        'packaged_report_files', 'packaged_report_catalog', 'packaged_report_library_sha256')}
+    preservation['workspaces'] = workspace
+    _need(_canonical(proof['preservation']) == _canonical(preservation), 'accepted_recovered_preservation_mismatch')
+    counts = {'workspaces': workspace['page_count'], 'workspace_tables': 4, 'private_report_files': len(original['private_report_files']),
+              'private_reports': len(original['private_report_ids'])}
+    _need(_canonical(bridge['counts']) == _canonical(counts), 'accepted_recovered_counts_mismatch')
+    admissions = bridge['admission_baselines']
+    _need(isinstance(admissions, dict) and set(admissions) == {'original', 'recovered'}, 'accepted_recovered_observation_invalid')
+    for name in ('original', 'recovered'):
+        _need(_recovered_observation_ref(admissions[name])['sha256'] == proof[name + '_baseline']['sha256'], 'accepted_recovered_baseline_mapping_invalid')
+    _need(proof['recovered_baseline']['sha256'] == plan['proofs']['baseline']['sha256'], 'accepted_recovered_native_pre_mismatch')
+    if 'local_transports' in bridge:
+        transports = bridge['local_transports']
+        _need(isinstance(transports, dict) and set(transports) == {'program', 'proof', 'stdout', 'original_pre_baseline'},
+              'accepted_recovered_observation_invalid')
+        for name, ref in transports.items():
+            _need(_recovered_observation_ref(ref)['sha256'] == (execution if name != 'original_pre_baseline' else proof)[name]['sha256'],
+                  'accepted_recovered_transport_mismatch')
+    ledgers = proof['ledgers']
+    _need(isinstance(ledgers, dict) and set(ledgers) == {'current', 'immutable'}
+          and all(isinstance(ref, dict) and set(ref) == {'path', 'sha256'} for ref in ledgers.values())
+          and ledgers['current']['path'] == str(LEDGER_PATH) and ledgers['current']['path'] != ledgers['immutable']['path']
+          and ledgers['current']['sha256'] == ledgers['immutable']['sha256'] == wrapper['previous_ledger']['sha256'],
+          'accepted_recovered_historical_ledger_mismatch')
+    files.file(ledgers['immutable'], private=True)  # current.json has since legitimately advanced.
+    expected_pins = {'VALIDATOR_SHA': proof['validator_program']['sha256'], 'BINDING_SHA': proof['binding_program']['sha256'],
+        'ORIGINAL_SHA': proof['original_baseline']['sha256'], 'PRE_BASELINE_SHA': proof['original_pre_baseline']['sha256'],
+        'PRE_SHA': proof['raw_snapshots']['original']['sha256'], 'POST_SHA': proof['raw_snapshots']['recovered']['sha256'],
+        'RECOVERED_SHA': proof['recovered_baseline']['sha256'], 'LEDGER_SHA': ledgers['immutable']['sha256']}
+    try: statements = ast.parse(program_body).body
+    except (SyntaxError, ValueError): raise StorageRecoveryError('accepted_recovered_producer_invalid') from None
+    constants = {}
+    for statement in statements:
+        if isinstance(statement, ast.Assign) and len(statement.targets) == 1 and isinstance(statement.targets[0], ast.Name):
+            name = statement.targets[0].id
+            if name in expected_pins:
+                _need(name not in constants and isinstance(statement.value, ast.Constant) and isinstance(statement.value.value, str),
+                      'accepted_recovered_producer_invalid')
+                constants[name] = statement.value.value
+    _need(constants == expected_pins, 'accepted_recovered_producer_pin_mismatch')
+    _recovered_manual_closure(capsule['recovery_closure'], proof, pairs, baselines, files)
+
+
+def _recovered_manual_closure(ref, proof, pairs, baselines, files):
+    closure = files.json(ref)
+    receipt = files.json(closure.get('config_health_receipt'))
+    closure_fields = {'schema', 'state', 'original_release_restored', 'unified_deployment_accepted', 'pair', 'full_pair_snapshot',
+        'config_health_receipt', 'recovered_baseline', 'protected_workspace_tables', 'workspaces', 'private_report_files', 'reports',
+        'legacy_promotion_manifest_runtime_and_semantic_hashes_preserved', 'legacy_promotion_manifest_canonical_source',
+        'active_store_markers_absent', 'barrier_restored', 'ingress', 'timer', 'collector_service', 'original_timer_hold',
+        'accepted_ledger_unchanged', 'closed_at_unix'}
+    receipt_fields = {'schema', 'state', 'pair', 'snapshot', 'validator', 'original_plan', 'write_barrier_remains_held',
+                      'collector_remains_held', 'finished_at_unix'}
+    _need(set(closure) == closure_fields and set(receipt) == receipt_fields
+          and closure.get('schema') == 'berry.original-release-recovery-closure.v1' and closure.get('state') == 'recovered'
+          and closure.get('original_release_restored') is True and closure.get('unified_deployment_accepted') is False
+          and closure.get('accepted_ledger_unchanged') is True and closure.get('active_store_markers_absent') is True
+          and closure.get('barrier_restored') is True
+          and receipt.get('schema') == 'berry.original-pair-recovery.v1'
+          and receipt.get('state') == 'old-pair-config-and-health-verified'
+          and receipt.get('write_barrier_remains_held') is True and receipt.get('collector_remains_held') is True
+          and receipt.get('validator') == proof['validator_program']
+          and closure.get('full_pair_snapshot') == receipt.get('snapshot') == proof['raw_snapshots']['recovered']
+          and closure.get('recovered_baseline') == proof['recovered_baseline'], 'accepted_recovered_manual_closure_invalid')
+    expected_pair = {role: {'id': row['Id'], 'image': row['Image'], 'healthy': True} for role, row in pairs['recovered'].items()}
+    _need(_canonical(closure.get('pair')) == _canonical(receipt.get('pair')) == _canonical(expected_pair),
+          'accepted_recovered_manual_pair_mismatch')
+    manual = files.json(receipt.get('original_plan'))
+    manual_fields = {'schema', 'state', 'argv', 'rendered', 'expected_images', 'original_snapshot', 'baseline', 'journal',
+                     'ordered_env_files', 'source_markers_absent', 'environment_values_preserved', 'native_created_at'}
+    rollback = proof['rollback']
+    _need(isinstance(rollback, dict) and set(rollback) == {'journal', 'migration_id', 'state', 'markers', 'information_directory'}
+          and rollback['state'] == 'rolled_back' and isinstance(rollback['migration_id'], str)
+          and re.fullmatch('information-[a-z0-9-]+', rollback['migration_id']), 'accepted_recovered_rollback_invalid')
+    journal = files.json(rollback['journal'], private=False, maximum_bytes=16 * 1024**2)
+    _need(journal.get('state') == 'rolled_back' and journal.get('migration_id') == rollback['migration_id'], 'accepted_recovered_rollback_invalid')
+    original = baselines['original_pre']; compose = original['compose']['app']
+    env_paths = [item['path'] for item in original['protected_environment_files']]
+    argv = ['docker', '--host', 'unix:///var/run/docker.sock', 'compose', '--project-name', compose['project'],
+            '--project-directory', compose['working_dir']]
+    for name in env_paths: argv += ['--env-file', name]
+    for item in compose['files']: argv += ['-f', item['path']]
+    argv += ['up', '-d', '--no-build', '--pull', 'never', '--force-recreate', 'app', 'copilot']
+    _need(set(manual) == manual_fields and manual.get('schema') == 'berry.original-pair-recovery-plan.v1' and manual.get('state') == 'prepared'
+          and manual.get('baseline') == proof['original_pre_baseline'] and manual.get('original_snapshot') == proof['raw_snapshots']['original']
+          and manual.get('journal') == rollback['journal'] and manual.get('source_markers_absent') is True
+          and manual.get('environment_values_preserved') is True and manual.get('ordered_env_files') == env_paths
+          and manual.get('argv') == argv
+          and manual.get('expected_images') == {role: row['Image'] for role, row in pairs['original'].items()},
+          'accepted_recovered_manual_plan_invalid')
+    files.file(manual.get('rendered'), private=True)
+    environment = dict(row.split('=', 1) for row in pairs['original']['app']['Config'].get('Env', []))
+    expected_counts = {'protected_workspace_tables': 4, 'workspaces': original['workspaces']['page_count'],
+        'private_report_files': len(original['private_report_files']),
+        'reports': len(original['private_report_ids']) + len(original['packaged_report_catalog']['reports'])}
+    _need(_canonical({key: closure[key] for key in expected_counts}) == _canonical(expected_counts)
+          and closure['legacy_promotion_manifest_runtime_and_semantic_hashes_preserved'] is True
+          and closure['legacy_promotion_manifest_canonical_source'] == environment.get('BIOS_CANONICAL_SHA')
+          and isinstance(environment.get('BIOS_CANONICAL_SHA'), str) and _SOURCE.fullmatch(environment['BIOS_CANONICAL_SHA'])
+          and all(type(value) is int or type(value) is float and math.isfinite(value)
+                  for value in (manual['native_created_at'], receipt['finished_at_unix'], closure['closed_at_unix']))
+          and manual['native_created_at'] <= receipt['finished_at_unix'] <= closure['closed_at_unix'],
+          'accepted_recovered_manual_preservation_invalid')
+    mounts = {row['Destination']: row['Source'] for row in pairs['original']['app']['Mounts']}
+    data, inbox = Path(_host_path(mounts['/app/runtime/data'])), Path(_host_path(mounts['/app/runtime/inbox']))
+    markers = {'data': {'path': str(data / 'information/store.json'), 'exists': False},
+               'inbox': {'path': str(inbox / '.information-store.json'), 'exists': False},
+               'transition': {'path': str(data / '.information-store-transition.json'), 'exists': False}}
+    _need(_canonical(rollback['markers']) == _canonical(markers)
+          and rollback['information_directory'] in ({'path': str(data / 'information'), 'state': 'absent'},
+                                                   {'path': str(data / 'information'), 'state': 'empty'}),
+          'accepted_recovered_historical_markers_invalid')
+    checks = proof['native_checks']
+    expected = {'workspace_read_mode': 'mode=ro transaction; SQLite may update WAL SHM', 'actual_current_pair_inspections': 3,
+        'actual_private_report_inventories': 2, 'actual_workspace_table_reads': 2, 'actual_packaged_report_inventory': True,
+        'protected_compose_files': len(compose['files'])}
+    _need(isinstance(checks, dict) and set(checks) == set(expected) | {'resource_counts'}
+          and _canonical({k: checks[k] for k in expected}) == _canonical(expected), 'accepted_recovered_native_checks_invalid')
+    resources = checks['resource_counts']
+    _need(isinstance(resources, dict) and set(resources) == {'before', 'after'}, 'accepted_recovered_native_checks_invalid')
+    for row in resources.values():
+        _need(isinstance(row, dict) and set(row) == {'disk_free_bytes', 'mem_available_bytes'}
+              and all(type(v) is int for v in row.values()) and row['disk_free_bytes'] >= 10 * 1024**3
+              and row['mem_available_bytes'] >= 2 * 1024**3, 'accepted_recovered_native_checks_invalid')
+    timer_hold = files.json(closure.get('original_timer_hold'))
+    _need(isinstance(timer_hold.get('original'), dict) and closure.get('timer', {}).get('ActiveState') == timer_hold['original'].get('ActiveState')
+          and closure.get('timer', {}).get('UnitFileState') == timer_hold['original'].get('UnitFileState'), 'accepted_recovered_historical_timer_invalid')
+
+
 def _candidate_image_inventory(plan, files):
     """Retain the known optional image-inventory producer extension."""
     reference = plan['candidate_image_manifest']
@@ -1464,8 +1787,11 @@ def _adoption_context(wrapper, files):
     It never inserts an operation kind into that producer's bytes.
     """
     descriptor = files.json(wrapper.get('adoption'))
+    recovered = descriptor.get('profile') == ADOPTION_RECOVERED_LOGO_PROFILE
     _need(set(descriptor) == {'schema', 'profile', 'origin_ledger', 'origin_receipt', 'origin_wrapper', 'local_archive'}
-          and descriptor['schema'] == ADOPTION_SCHEMA and descriptor['profile'] in {ADOPTION_PROFILE, ADOPTION_LOGO_PROFILE},
+          | ({'recovered_origin'} if recovered else set())
+          and descriptor['schema'] == ADOPTION_SCHEMA
+          and descriptor['profile'] in {ADOPTION_PROFILE, ADOPTION_LOGO_PROFILE, ADOPTION_RECOVERED_LOGO_PROFILE},
           'accepted_adoption_profile_unsupported')
     body = files.file(descriptor['origin_ledger'], private=True, parse=True)
     origin = _parsed(body); historical = files.json(descriptor['origin_wrapper'])
@@ -1485,7 +1811,7 @@ def _adoption_context(wrapper, files):
           and historical['operation_kind'] == 'unified-migration' and historical['retention_readiness'] == 'HOLD',
           'accepted_adoption_origin_unproven')
     compared = fields - {'schema', 'operation_kind', 'previous_accepted', 'archives', 'retention_readiness'}
-    if descriptor['profile'] == ADOPTION_LOGO_PROFILE:
+    if descriptor['profile'] in {ADOPTION_LOGO_PROFILE, ADOPTION_RECOVERED_LOGO_PROFILE}:
         compared.remove('protected_dirs')
         previous = historical.get('previous_accepted') or {}
         known_files = {previous.get('backup')}
@@ -1664,14 +1990,15 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
     recovery = wrapper['recovery_files']
     required = {'baseline', 'phase_receipt', 'final_proof', 'source_receipt', 'post_apply_manifest', 'post_startup_manifest',
                 'legacy_promotion_manifest', 'raw_plan', 'raw_manifest', 'rollback_modules'}
-    logos = adoption is not None and adoption['descriptor']['profile'] == ADOPTION_LOGO_PROFILE
+    recovered_origin = adoption is not None and adoption['descriptor']['profile'] == ADOPTION_RECOVERED_LOGO_PROFILE
+    logos = adoption is not None and adoption['descriptor']['profile'] in {ADOPTION_LOGO_PROFILE, ADOPTION_RECOVERED_LOGO_PROFILE}
     extra = {'timestamp_completion', 'timestamp_dependencies', 'live_base_dependency', 'logo_supplement'} if logos else set()
     _need(isinstance(recovery, dict) and set(recovery) == required | extra, 'accepted_recovery_dependencies_missing')
     native = files.json(recovery['baseline']); plan = files.json(wrapper['plan'])
     admission_refs = plan.get('proofs') or {}
     if isinstance(admission_refs, dict) and 'rehearsal' in admission_refs:
         admission = files.json(admission_refs['rehearsal'])
-        _need('recovered_production_binding' not in admission, 'accepted_recovery_transition_unsupported')
+        _need(recovered_origin or 'recovered_production_binding' not in admission, 'accepted_recovery_transition_unsupported')
         del admission
     phase = files.json(recovery['phase_receipt']); proof = files.json(recovery['final_proof'])
     if adoption is not None:
@@ -1688,6 +2015,8 @@ def _load_accepted_closure_checked(ledger_path: Path, backup_root: Path, *, olde
             _adoption_logo_evidence(adoption, recovery, plan, proof, phase, files)
             if 'candidate_image_manifest' in plan:
                 _candidate_image_inventory(plan, files)
+        if recovered_origin:
+            _adoption_recovered_evidence(adoption, wrapper, plan, snapshots['pre'], files)
     else:
         _need(plan.get('operation_kind') == kind and proof.get('operation_kind') == kind
               and phase.get('bindings', {}).get('operation_kind') == kind, 'accepted_operation_kind_mismatch')

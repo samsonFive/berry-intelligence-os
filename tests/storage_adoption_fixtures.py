@@ -15,7 +15,7 @@ from storage_recovery_fixtures import encoded
 _NO_TRANSITION = object()
 
 
-def adoption_environment(environment, *, native_kind=None, logos=False, prepared=False, inventory=False,
+def adoption_environment(environment, *, native_kind=None, logos=False, prepared=False, inventory=False, recovered=False,
                          recovery_transition=_NO_TRANSITION):
     import app.services.storage_recovery as recovery
 
@@ -67,6 +67,10 @@ def adoption_environment(environment, *, native_kind=None, logos=False, prepared
 
     extension = _logo_extension(env, wrapper, plan, proof, phase, write, replace, private,
         inventory=inventory, recovery_transition=recovery_transition) if logos else {}
+    if recovered:
+        from storage_recovered_origin_fixtures import recovered_origin_evidence
+        recovered_origin = recovered_origin_evidence(env, wrapper, plan, proof, phase, write, replace, private)
+        extension['native_verified_receipt']['sha256'] = recovery_files['timestamp_dependencies']['native_verified_receipt']['sha256']
     if prepared:
         extension['native_verified_receipt']['sha256'] = _prepared_original(env, wrapper, proof, phase, write, replace)['sha256']
     verification = write(private / 'timestamp-receiver-complete.private.json', {
@@ -114,6 +118,8 @@ def adoption_environment(environment, *, native_kind=None, logos=False, prepared
         'origin_ledger': origin_ledger, 'origin_receipt': origin_receipt, 'origin_wrapper': historical_ref,
         'local_archive': {'source': historical['archives']['current'],
             'destination': {key: source[key] for key in ('path', 'sha256', 'size')}}}
+    if recovered:
+        descriptor.update(profile=recovery.ADOPTION_RECOVERED_LOGO_PROFILE, recovered_origin=recovered_origin)
     descriptor_ref = write(private / 'adoption-descriptor.private.json', descriptor)
     wrapper.update(operation_kind='recovery-adoption', adoption=descriptor_ref)
     wrapper_ref = write(private / 'accepted-adoption.private.json', wrapper)
