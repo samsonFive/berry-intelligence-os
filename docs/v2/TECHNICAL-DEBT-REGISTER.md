@@ -1,3 +1,56 @@
+# Host storage retention and monitoring — November 16, 2026
+
+The host-control candidate bounds nested release/rehearsal archive history,
+protects the accepted current and previous recovery dependency sets, and adds
+disk/inode status, alert deduplication and log limits. Its source and fixture
+checks do not replace coordinated activation and post-cutover recovery checks;
+the current release owner's stricter capacity floor remains binding. Direct-root
+daily rotation continues separately. See
+[the operations contract](../07-static-deployment/STORAGE-CONTROLS.md).
+
+Activation also requires authenticated producer evidence for historical baseline
+and Compose/environment contents, and the actual migration's physical-store and
+rollback dependencies. An old stage pathname, a newly computed hash of its
+contents, or a generic archive PASS does not establish that acceptance. This
+strict adapter includes an explicit metadata-only adoption profile with
+synthetic native-producer fixtures. It retains genuine native artifacts and
+their absent kind fields, authenticates the original accepted HOLD history and
+requires an exact distinct local archive mapping. It does not rewrite historical
+acceptance or infer activation from an off-host receipt. Actual producer-packet
+compatibility, native replay execution, local archive capacity and pre/post-cutover
+acceptance remain open until the release owner supplies genuine evidence.
+Automatic retirement must
+remain inactive while that gate is unresolved.
+
+The streamed-plan replay v2 adapter adds separate source-inventory/time-sidecar
+verification and one freshly prepared native plan without changing v1. Its
+functional fixture and representative allocation/prepare-apply resource proofs
+remain distinct. Missing kernel observations cannot be inferred from historical
+declared limits; a new owned, capacity-admitted qualification must retain genuine
+observations before adoption. Source tests do not close this operations gap.
+
+The logging comparison audit identified generated app-derived sidecar hostnames
+and bind-list ordering as concrete Docker recreation cases. The narrow repair
+checks both app namespaces, full bind strings/options/multiplicity and effective
+mounts while retaining exact environment provenance. The private Compose path
+must preserve the original ordered, protected environment-file arguments during
+cutover and rollback. Actual native cutover/interruption proof remains open.
+The recovered-production-binding transition has a separate explicit source
+profile for native execution, immutable historical ledger, complete raw snapshots,
+manual recovery closure and the later native PRE identity/lifecycle. Source tests
+do not certify the actual release packet or outstanding native/resource proof.
+Older profiles still hold that extension. Original producer artifacts and
+historical observations remain unchanged.
+
+Verified off-host replication and restore exercises remain an operations
+follow-up. Local retention and local Codex chat notifications do not provide
+recovery from loss of the host; scheduled chat checks require the computer and
+app to be online. Capacity planning must include the backup, restored-copy
+rehearsal and startup working sets rather than application data alone.
+Unpacked restored copies and build workspaces are outside archive retention.
+Their creation and retirement still need a bounded release-workspace lifecycle;
+operators must verify the exact unused copies before removing them.
+
 # Private Strategy inputs — November 11, 2026
 
 The Strategy input candidate closes the missing private capability-input workflow

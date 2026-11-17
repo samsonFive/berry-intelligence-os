@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "monitor": {
+    "paths": [
+      {"id": "production", "path": "/"}
+    ],
+    "state_dir": "/var/lib/berry-storage-controls",
+    "status_file": "/opt/berry-intelligence-os/demo-runtime/inbox/operations/storage/status.json",
+    "release_locks": [
+      "/run/lock/berry-review.lock",
+      "/opt/berry-platform-releases/brand-media-release.lock",
+      "/opt/berry-platform-releases/watchlist524-release.lock"
+    ],
+    "warning_free_bytes": 20000000000,
+    "critical_free_bytes": 12000000000,
+    "reserve_free_bytes": 8589934592,
+    "warning_inode_percent": 5,
+    "critical_inode_percent": 2,
+    "reminder_seconds": 21600,
+    "retry_seconds": 300,
+    "stale_after_seconds": 900,
+    "status_uid": 1000,
+    "status_gid": 1000,
+    "notification": {"kind": "none"}
+  }
+}

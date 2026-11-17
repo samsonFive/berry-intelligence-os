@@ -1,0 +1,33 @@
+[Unit]
+Description=Verify recovery sets and retire expired nested runtime archives
+After=local-fs.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 -I -B /opt/berry-storage-controls/current/scripts/storage_retention.py --policy /etc/berry-storage-controls/policy.json --protection /var/lib/berry-storage-controls/recovery.json --refresh-protection --apply
+TimeoutStartSec=20min
+User=root
+Group=root
+UMask=0077
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+Environment=DOCKER_CONFIG=/var/lib/berry-storage-controls/docker-client
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ReadWritePaths=/var/lib/berry-storage-controls /var/backups/berry-intelligence-os /opt/berry-platform-releases
+ReadWritePaths=/run/lock/berry-review.lock
+MemoryMax=768M
+CPUQuota=50%
+IOWeight=10
+Nice=10
+TasksMax=32
+LimitFSIZE=32M
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=berry-storage-retention

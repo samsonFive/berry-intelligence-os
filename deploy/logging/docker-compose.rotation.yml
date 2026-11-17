@@ -1,0 +1,23 @@
+# Apply with the entire current Compose chain in a reviewed release window.
+# Recreate app+copilot together to preserve the shared network namespace.
+# Existing containers do not adopt these limits until recreated. Never modify
+# Docker-owned log files directly or restart the daemon to apply this override.
+services:
+  app:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  copilot:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  caddy:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

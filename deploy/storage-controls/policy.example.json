@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "ledger_path": "/opt/berry-platform-releases/current.json",
+  "backup_root": "/var/backups/berry-intelligence-os",
+  "archive_roots": [
+    "/var/backups/berry-intelligence-os",
+    "/opt/berry-platform-releases"
+  ],
+  "release_locks": [
+    "/run/lock/berry-review.lock",
+    "/opt/berry-platform-releases/brand-media-release.lock",
+    "/opt/berry-platform-releases/watchlist524-release.lock"
+  ],
+  "retention": {
+    "daily": 7,
+    "weekly": 4,
+    "monthly": 3,
+    "minimum_age_seconds": 259200,
+    "maximum_archives_per_run": 10,
+    "maximum_bytes_per_run": 5368709120,
+    "maximum_scan_depth": 3,
+    "maximum_scan_entries": 100000
+  },
+  "monitor": {
+    "paths": [{"id": "production", "path": "/opt"}],
+    "state_dir": "/var/lib/berry-storage-controls",
+    "status_file": "/opt/berry-intelligence-os/demo-runtime/inbox/operations/storage/status.json",
+    "release_locks": [
+      "/run/lock/berry-review.lock",
+      "/opt/berry-platform-releases/brand-media-release.lock",
+      "/opt/berry-platform-releases/watchlist524-release.lock"
+    ],
+    "warning_free_bytes": 20000000000,
+    "critical_free_bytes": 12000000000,
+    "reserve_free_bytes": 10737418240,
+    "warning_inode_percent": 5,
+    "critical_inode_percent": 2,
+    "reminder_seconds": 21600,
+    "retry_seconds": 300,
+    "stale_after_seconds": 900,
+    "status_uid": 1000,
+    "status_gid": 1000,
+    "notification": {"kind": "none"}
+  }
+}

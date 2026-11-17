@@ -1,5 +1,39 @@
 # Berry Intelligence — current mission status
 
+## Host storage controls — November 16 candidate
+
+Host-only backup retention, disk/inode monitoring and bounded journal/container
+logging are prepared for a coordinated operations release. Nested archive
+retention preserves verified current and previous recovery dependencies, uses
+the existing three release locks, and applies bounded, hash-pinned plans.
+The existing fourteen direct-root daily backups retain their separate rotation.
+Monitoring publishes a safe operational status and deduplicated condition,
+recovery and reminder events. External delivery remains opt-in.
+
+This source status does not claim host activation or a completed Docker
+recreation. The deployment owner must hand over the server window, preserve the
+actual stricter capacity reserve, and rebaseline the accepted recovery sets.
+The explicit metadata-only recovery-adoption profile preserves a supported
+native migration's accepted ledger/HOLD artifacts and authenticates an exact
+off-host-to-local archive mapping. Runtime identities/configuration and the
+logical previous release remain unchanged. Actual producer packets, both local
+recovery sets, native replay execution and post-migration capacity remain
+activation gates; archive/image or source-fixture checks alone do not close them.
+The separate streamed-plan replay v2 contract preserves v1, binds one fresh
+native preparation to apply, and requires observed image/resource evidence.
+Missing historical kernel observations require a new admitted qualification;
+source-only fixtures do not establish production recovery readiness.
+Configuration comparisons also bind generated sidecar hostnames to the actual
+app namespaces and compare complete bind specifications independent of order.
+Explicit original environment-file provenance remains required for cutover and
+rollback; native execution and interruption qualification remain open.
+A separate recovered-origin profile is prepared with explicit server-reference,
+raw-pair, immutable historical ledger and manual recovery closure checks. Actual
+packet certification and owner handoff remain open; older profiles still hold
+that extension.
+Private operational receipts record activation and remaining capacity. See
+[the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
+
 **Cultivar planting evidence integration (15 November 2026):** The final regional
 report, platform audit and Excel workbook are now in the private Reports library;
 all prior readers/files were preserved. A generic source-bound cultivar research
