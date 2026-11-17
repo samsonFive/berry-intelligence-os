@@ -632,6 +632,80 @@ def test_logging_recreation_requires_valid_full_container_ids():
                 _logging_pair({'caddy': old}, {'caddy': new}, {})
 
 
+def _logging_comparison_pair():
+    target = {'Type': 'json-file', 'Config': {'max-size': '10m', 'max-file': '3'}}
+    before = {}
+    for name, identifier in [('app', 'a' * 64), ('copilot', 'c' * 64), ('caddy', 'e' * 64)]:
+        binds = ['/srv/data:/runtime/data:rw,rprivate', '/srv/protected.env:/runtime/protected.env:ro']
+        mounts = [{'Type': 'bind', 'Source': '/srv/data', 'Destination': '/runtime/data', 'RW': True, 'Mode': 'rw', 'Propagation': 'rprivate'},
+                  {'Type': 'bind', 'Source': '/srv/protected.env', 'Destination': '/runtime/protected.env', 'RW': False, 'Mode': 'ro', 'Propagation': 'rprivate'}]
+        before[name] = {'Id': identifier, 'Image': image(identifier[0]),
+            'Config': {'Image': image(identifier[0]), 'Hostname': identifier[:12], 'Env': ['A=1', 'B=2'],
+                'Labels': {'com.docker.compose.project.environment_file': '/srv/protected.env',
+                    'com.docker.compose.project.config_files': '/srv/compose.yml', 'fixed': 'retained'}},
+            'HostConfig': {'Binds': binds, 'NetworkMode': 'container:' + 'a' * 64 if name == 'copilot' else 'bridge',
+                'LogConfig': {'Type': 'json-file', 'Config': {}}, 'Memory': 1024**3}, 'Mounts': mounts}
+    before['copilot']['Config']['Hostname'] = before['app']['Id'][:12]
+    after = copy.deepcopy(before)
+    for name, identifier in [('app', 'b' * 64), ('copilot', 'd' * 64), ('caddy', 'f' * 64)]:
+        after[name]['Id'] = identifier; after[name]['Config']['Hostname'] = identifier[:12]
+        after[name]['Config']['Env'].reverse(); after[name]['Mounts'].reverse(); after[name]['HostConfig']['Binds'].reverse()
+        after[name]['HostConfig']['LogConfig'] = copy.deepcopy(target)
+        after[name]['Config']['Labels']['com.docker.compose.project.config_files'] += ',/srv/logging.yml'
+    after['copilot']['Config']['Hostname'] = after['app']['Id'][:12]
+    after['copilot']['HostConfig']['NetworkMode'] = 'container:' + after['app']['Id']
+    return before, after, target
+
+
+def test_logging_recreation_accepts_bind_order_and_only_proven_paired_app_hostname():
+    from app.services.storage_recovery import _logging_pair
+    before, after, target = _logging_comparison_pair()
+    # Multiplicity is preserved, even if Compose changes only list order.
+    before['app']['HostConfig']['Binds'].append(before['app']['HostConfig']['Binds'][0])
+    after['app']['HostConfig']['Binds'].append(before['app']['HostConfig']['Binds'][0])
+    unchanged = copy.deepcopy((before, after))
+    _logging_pair({key: before[key] for key in ('app', 'copilot')}, {key: after[key] for key in ('app', 'copilot')}, target)
+    _logging_pair({'caddy': before['caddy']}, {'caddy': after['caddy']}, target)
+    assert (before, after) == unchanged
+
+
+@pytest.mark.parametrize('change', ['bind-option', 'bind-duplicate', 'bind-source', 'mount-rw', 'mount-source',
+    'custom-hostname', 'unbound-hostname', 'old-namespace', 'new-namespace', 'environment-label', 'none-empty'])
+def test_logging_recreation_rejects_actual_configuration_drift_despite_safe_reordering(change):
+    from app.services.storage_recovery import _logging_pair
+    before, after, target = _logging_comparison_pair()
+    if change == 'bind-option': after['app']['HostConfig']['Binds'][0] += ',z'
+    elif change == 'bind-duplicate': after['app']['HostConfig']['Binds'].append(after['app']['HostConfig']['Binds'][0])
+    elif change == 'bind-source': after['app']['HostConfig']['Binds'][0] = after['app']['HostConfig']['Binds'][0].replace('/srv/', '/unaccepted/', 1)
+    elif change == 'mount-rw': after['app']['Mounts'][0]['RW'] = not after['app']['Mounts'][0]['RW']
+    elif change == 'mount-source': after['app']['Mounts'][0]['Source'] = '/unaccepted'
+    elif change == 'custom-hostname':
+        before['copilot']['Config']['Hostname'] = 'fixed-node'; after['copilot']['Config']['Hostname'] = 'changed-node'
+    elif change == 'unbound-hostname': before['copilot']['Config']['Hostname'] = '9' * 12
+    elif change == 'old-namespace': before['copilot']['HostConfig']['NetworkMode'] = 'container:' + '9' * 64
+    elif change == 'new-namespace': after['copilot']['HostConfig']['NetworkMode'] = 'container:' + '9' * 64
+    elif change == 'environment-label':
+        for row in after.values(): row['Config']['Labels'].pop('com.docker.compose.project.environment_file')
+    else:
+        before['app']['HostConfig']['Binds'] = None; after['app']['HostConfig']['Binds'] = []
+    with pytest.raises(StorageRecoveryError, match='configuration_only_runtime_changed'):
+        _logging_pair(before, after, target)
+
+
+@pytest.mark.parametrize('invalid', ['short', 'A' * 64, None])
+def test_logging_paired_hostname_requires_both_actual_full_app_ids(invalid):
+    from app.services.storage_recovery import _logging_pair
+    before, after, target = _logging_comparison_pair()
+    before['app']['Id'] = invalid
+    before['copilot']['HostConfig']['NetworkMode'] = 'container:' + str(invalid)
+    before['copilot']['Config']['Hostname'] = str(invalid)[:12]
+    # The Node guard must stand on its own even before the app's own loop.
+    before = {'copilot': before['copilot'], 'app': before['app']}
+    after = {'copilot': after['copilot'], 'app': after['app']}
+    with pytest.raises(StorageRecoveryError, match='configuration_only_runtime_changed'):
+        _logging_pair(before, after, target)
+
+
 def test_resealed_already_configured_pair_cannot_reuse_app_node_or_caddy_ids(authenticated_configuration_memory):
     from app.services.storage_recovery import _canonical, _native_pair_binding, recovery_live_binding
     state = authenticated_configuration_memory

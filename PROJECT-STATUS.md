@@ -23,6 +23,10 @@ The separate streamed-plan replay v2 contract preserves v1, binds one fresh
 native preparation to apply, and requires observed image/resource evidence.
 Missing historical kernel observations require a new admitted qualification;
 source-only fixtures do not establish production recovery readiness.
+Configuration comparisons also bind generated sidecar hostnames to the actual
+app namespaces and compare complete bind specifications independent of order.
+Explicit original environment-file provenance remains required for cutover and
+rollback; native execution and interruption qualification remain open.
 Private operational receipts record activation and remaining capacity. See
 [the installation and verification contract](docs/07-static-deployment/STORAGE-CONTROLS.md).
 

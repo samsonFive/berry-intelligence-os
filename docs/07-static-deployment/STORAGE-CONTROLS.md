@@ -101,6 +101,14 @@ material is a flat, explicit pin set; older full-archive generations are not
 recursively inherited. Caddy identity/configuration participates in subsequent
 live checks when the operation changed Caddy.
 
+Logging-only comparison preserves the complete configuration and effective mount
+rows. Bind ordering is compared using full strings, including duplicate entries
+and options. A sidecar hostname derived from the app is accepted only when both
+old and new network namespaces prove the corresponding app identity. Custom
+hostnames, environment provenance labels and all other configuration remain
+checked. Compose render, recreation and rollback must explicitly retain the
+original ordered, protected environment-file inputs.
+
 The service verifies both recovery archives against release receipts, member checksums
 and gzip integrity, checks immutable images and the running app/copilot pair,
 and protects the full dependency sets: accepted stages, configuration and

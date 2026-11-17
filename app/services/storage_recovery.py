@@ -603,10 +603,21 @@ def _logging_pair(before: dict, after: dict, log_config: dict) -> None:
         _need(old['Id'] != new['Id'], 'configuration_only_container_not_recreated')
         _need(old['Image'] == new['Image'] and sorted(old['Config'].get('Env') or []) == sorted(new['Config'].get('Env') or [])
               and sorted(old['Mounts'], key=_canonical) == sorted(new['Mounts'], key=_canonical), 'configuration_only_runtime_changed')
+        paired_ids = None
+        if name == 'copilot':
+            old_app, new_app = before.get('app', {}).get('Id'), after.get('app', {}).get('Id')
+            _need(isinstance(old_app, str) and _HEX.fullmatch(old_app)
+                  and isinstance(new_app, str) and _HEX.fullmatch(new_app)
+                  and old['HostConfig'].get('NetworkMode') == 'container:' + old_app
+                  and new['HostConfig'].get('NetworkMode') == 'container:' + new_app, 'configuration_only_runtime_changed')
+            paired_ids = old_app, new_app
         a, b = deepcopy(old['Config']), deepcopy(new['Config'])
         a['Env'] = b['Env'] = sorted(old['Config'].get('Env') or [])
         a['Image'] = b['Image'] = new['Image']
-        if a.get('Hostname') == old['Id'][:12]:
+        if paired_ids is not None and a.get('Hostname') == paired_ids[0][:12]:
+            _need(b.get('Hostname') == paired_ids[1][:12], 'configuration_only_runtime_changed')
+            a['Hostname'] = b['Hostname'] = 'generated-paired-app'
+        elif a.get('Hostname') == old['Id'][:12]:
             _need(b.get('Hostname') == new['Id'][:12], 'configuration_only_runtime_changed')
             a['Hostname'] = b['Hostname'] = 'generated'
         if 'com.docker.compose.replace' in (b.get('Labels') or {}):
@@ -621,6 +632,11 @@ def _logging_pair(before: dict, after: dict, log_config: dict) -> None:
         a, b = deepcopy(old['HostConfig']), deepcopy(new['HostConfig'])
         _need(b.get('LogConfig') == log_config, 'configuration_only_logging_unproven')
         a.pop('LogConfig', None); b.pop('LogConfig', None)
+        for value in (a, b):
+            if value.get('Binds') is not None:
+                _need(isinstance(value['Binds'], list) and all(isinstance(bind, str) for bind in value['Binds']),
+                      'configuration_only_runtime_changed')
+                value['Binds'] = sorted(value['Binds'])
         if name == 'copilot':
             _need(b.get('NetworkMode') == 'container:' + after['app']['Id'], 'configuration_only_runtime_changed')
             a['NetworkMode'] = b['NetworkMode'] = 'paired'

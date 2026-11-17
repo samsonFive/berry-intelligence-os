@@ -29,6 +29,13 @@ remain distinct. Missing kernel observations cannot be inferred from historical
 declared limits; a new owned, capacity-admitted qualification must retain genuine
 observations before adoption. Source tests do not close this operations gap.
 
+The logging comparison audit identified generated app-derived sidecar hostnames
+and bind-list ordering as concrete Docker recreation cases. The narrow repair
+checks both app namespaces, full bind strings/options/multiplicity and effective
+mounts while retaining exact environment provenance. The private Compose path
+must preserve the original ordered, protected environment-file arguments during
+cutover and rollback. Actual native cutover/interruption proof remains open.
+
 Verified off-host replication and restore exercises remain an operations
 follow-up. Local retention and local Codex chat notifications do not provide
 recovery from loss of the host; scheduled chat checks require the computer and
