@@ -24,6 +24,26 @@ MAX_TOTAL = 5_000_000
 MIMES = {'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif', 'application/pdf': 'pdf'}
 
 
+def information_records(main, *, include_private=True):
+    """Read the current catalog or the older live platform's complete source reader.
+
+    The compatibility path reads raw Digest source candidates, before personal
+    selection/filtering, plus every stored Evidence record. Current explicit
+    Evidence states win over older source projections. Output privacy gates
+    still run in the directory/activity/report adapters.
+    """
+    catalog = getattr(main, 'unified_information', None)
+    if callable(catalog):
+        return catalog(include_private=include_private)
+    from app.personal_digest_routes import world
+    platform, _, sources, _ = world()
+    if platform is not main:
+        raise ValueError('The viewer source reader does not match this platform.')
+    records = dict(sources)
+    records.update({r['id']: r for r in main.all_evidence() if r.get('id')})
+    return [r for r in records.values() if include_private or r.get('publication_scope') != 'private']
+
+
 def logo_reference_kind(url):
     """Discovery URLs are not a visual classification or identity review."""
     value = url.lower()

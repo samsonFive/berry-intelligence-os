@@ -180,7 +180,7 @@ def _directory(berry):
     enriched = [effective_record(r, enrichment) if r.get('entity_type') == 'variety' else r for r in entities.values()]
     companies = [r for r in company_rows.values() if not r.get('is_registry') and r.get('status') not in {'rejected', 'archived'}]
     return service.directory_from_catalog(companies, enriched, main.all_relationships(), berry,
-                                          evidence=main.unified_information(include_private=main.AUTHORING_MODE))
+                                          evidence=viewer_content.information_records(main, include_private=main.AUTHORING_MODE))
 
 
 def _prepare(main, candidates, records, filters, values, latest, baseline_upload, flavor_upload, expected):
@@ -217,7 +217,7 @@ def _prepare(main, candidates, records, filters, values, latest, baseline_upload
     from app.company_routes import context
     _, entity_map, _, _, company_rows = context()
     public_records = {r['id']: r for r in viewer_content.supplemental_records(main.INBOX_DIR, entity_map)}
-    public_records.update({r['id']: r for r in main.unified_information(include_private=True)})
+    public_records.update({r['id']: r for r in viewer_content.information_records(main, include_private=True)})
     from app.services.social_intelligence.output_eligibility import output_exclusions
     blocked = set(output_exclusions(main.DATA_DIR, main.INBOX_DIR))
     stored = list(public_records.values())

@@ -2,7 +2,7 @@
 import base64
 from pathlib import Path
 
-from app.services import report_library
+from app.services import report_library, viewer_content
 from app.services.report_builder import reports_store
 from app.viewer_assets.static_site import clean_html
 
@@ -59,7 +59,7 @@ def selected_reports(main, selected):
                     continue
                 source_ids.update(section.get('citation_ids') or [])
                 sections.append('<section><h2>' + escape(str(section.get('title') or section.get('section_id') or 'Section')) + '</h2><p style="white-space:pre-wrap">' + escape(str(prose)) + '</p></section>')
-            records = {v['id']: v for v in main.unified_information(include_private=True)}
+            records = {v['id']: v for v in viewer_content.information_records(main, include_private=True)}
             references = []
             for sid in sorted(source_ids):
                 source = records.get(sid) or {}

@@ -9,6 +9,20 @@ import pytest
 from app.services import viewer_content as c, viewer_export as s
 
 
+def test_older_live_reader_keeps_unselected_sources_and_current_evidence_states(monkeypatch):
+    from types import SimpleNamespace
+    from app import personal_digest_routes
+    main = SimpleNamespace(all_evidence=lambda: [record(id='stored'), record(id='removed', status='withdrawn')])
+    sources = {r['id']: r for r in [record(id='unselected'), record(id='removed'), record(id='private', publication_scope='private')]}
+    monkeypatch.setattr(personal_digest_routes, 'world', lambda: (main, {}, sources, {}))
+    rows = {r['id']: r for r in c.information_records(main)}
+    assert set(rows) == {'stored', 'unselected', 'removed', 'private'}
+    assert rows['removed']['status'] == 'withdrawn'
+    assert 'private' not in {r['id'] for r in c.information_records(main, include_private=False)}
+    main.unified_information = lambda **kwargs: [record(id='canonical')]
+    assert [r['id'] for r in c.information_records(main)] == ['canonical']
+
+
 def workspace():
     return s.normalize_workspace({**s.empty_workspace(), 'directory': {
         'companies': [{'id': 'company-a', 'name': 'Example', 'socials': [{'platform': 'linkedin', 'url': 'https://example.com/company'}]}],
