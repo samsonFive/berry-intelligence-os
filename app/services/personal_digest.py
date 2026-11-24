@@ -175,7 +175,7 @@ def inclusion(record: dict[str, Any], state: dict[str, Any], reading: dict[str, 
 
 def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict[str, Any]],
                  state: dict[str, Any], reading: dict[str, Any], params: dict[str, str],
-                 today: date | None = None) -> dict[str, Any]:
+                 today: date | None = None, paginate: bool = True) -> dict[str, Any]:
     today = today or date.today()
     filters = {key: str(params.get(key) or "") for key in ("q", "status", "origin", "berry", "country", "window", "start", "end", "priority", "tier", "favorites", "list")}
     from app.services.company_directory import matches_marks, TIERS
@@ -262,7 +262,7 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
         page = 1
     pages = max(1, (len(cards) + 35) // 36)
     page = min(page, pages)
-    return {"cards": cards[(page - 1) * 36:page * 36], "matching": len(cards), "counts": counts,
+    return {"cards": cards[(page - 1) * 36:page * 36] if paginate else cards, "matching": len(cards), "counts": counts,
             "filters": filters, "page": page, "pages": pages, "lists": company_lists(state)}
 
 

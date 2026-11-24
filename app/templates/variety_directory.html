@@ -7,6 +7,7 @@
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=16">{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace">
+{% if authoring_mode and not static_build %}<p><a class="outline-button" href="/exports/viewer">Export to viewer</a></p>{% endif %}
 {% if authoring_mode and not static_build %}<p class="company-panel"><a href="/variety-plantings{% if filters.berry %}?berry={{ filters.berry|urlencode }}{% endif %}">Planting evidence by cultivar and region →</a></p>{% endif %}
 {% if not static_build %}<p class="company-panel"><a href="/varieties/season{% if filters.berry %}?berry={{ filters.berry|urlencode }}{% endif %}">2027 berry season comparison →</a></p>{% endif %}
 {% if authoring_mode and not static_build %}<p class="company-panel"><a href="/varieties/research">Imported patent variety research →</a> · Existing profiles, new unverified pages, commercial contacts, sources and image captures.</p>{% endif %}

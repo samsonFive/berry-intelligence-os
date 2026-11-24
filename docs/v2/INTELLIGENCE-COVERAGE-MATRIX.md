@@ -1,3 +1,11 @@
+# HTML-only export scope — November 23, 2026
+
+Company and variety directories now have corporate tier filters (associated-company matching for varieties), with Projects and selected Reports sections in package 3. Tier/project/flavor inputs stay corporate. Finished library artifacts and saved prose are explicit opt-in exports, not new evidence acquisition or review/promotion. The repository-only preview contains no selected report or real corporate project/tier assignment.
+
+# Weekly viewer export checkpoint — November 23, 2026
+
+This is an export-adapter coverage check, not new source acquisition or a claim about live production completeness. The repository snapshot projects 267 companies, 504 varieties, and 250 directly linked public-source activity records. After image-role checks, the initial bounded release packages 55 assets (38 logo references and 17 website images not classified as logos); 219 missing/excluded asset candidates are reported individually, including missing URLs, formats, retrieval failures, a social-platform icon and portable-budget exclusions. Local retained social/public-job adapters are covered separately and may be empty when the operator's private runtime is not present. The Personal Digest remains account-specific and curated; no real operator newsletter was fabricated for the repository-only package. SharePoint acceptance is outstanding.
+
 # Historical brand/packaging social-media checkpoint — November 11, 2026
 
 The following is the initial two-company audit. The bounded 20-entity preview

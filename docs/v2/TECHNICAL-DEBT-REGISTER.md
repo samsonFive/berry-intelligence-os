@@ -1,3 +1,11 @@
+# HTML-only viewer publishing checkpoint — November 23, 2026
+
+Package 3 removes browser JavaScript/storage and adds native CSS directory filters, corporate-only tiers/projects and explicit report selection. SharePoint acceptance is still open: verify inline CSS, :has selector support, relative folder links/downloads and retirement of deselected report files. A new empty corporate staging directory is required. Shared project status editing remains a source/publish workflow rather than a browser save feature.
+
+# Static viewer hosting adapter — November 23, 2026
+
+The weekly research export and corporate-only flavor supplement are implemented in the viewer feature checkout. Actual SharePoint delivery remains unverified pending the corporate site's hosting route and feature availability. Keep that adapter separate from public-content normalization. Do not claim document-library upload or local-browser validation proves tenant compatibility. Current self-contained asset limits produce explicit omissions; larger asset sets need the agreed hosting adapter. Final-head CI and deployment acceptance remain open.
+
 # Private Strategy inputs — November 11, 2026
 
 The Strategy input candidate closes the missing private capability-input workflow
