@@ -45,6 +45,14 @@ def test_activity_is_independent_of_digest_and_keeps_labels_not_private_fields()
     assert 'PRIVATE_SENTINEL' not in json.dumps(values)
 
 
+def test_job_status_preserves_source_qualifications_without_truncation():
+    status = 'Listing observed publicly; current recruitment status is not confirmed. ' * 3
+    values = c.activity_from_records([record(source_type='job_posting', job_status=status)], workspace()['directory'])
+    assert values[0]['job_status'] == status.strip()
+    with pytest.raises(ValueError):
+        c.activity_from_records([record(source_type='job_posting', job_status='x' * 501)], workspace()['directory'])
+
+
 @pytest.mark.parametrize('updates', [{'publication_scope': 'private'}, {'status': 'rejected'}, {'review_state': 'archived'},
                                      {'evidence_role': 'atomic_proposal'}, {'source_url': 'javascript:alert(1)'}, {'entity_ids': ['company-other']}])
 def test_ineligible_activity_stays_out(updates):
