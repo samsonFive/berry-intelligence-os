@@ -117,7 +117,7 @@ def normalize_activity(value):
                        'company_ids': s.strings(r.get('company_ids')), 'variety_ids': s.strings(r.get('variety_ids')),
                        'berries': [s.crop(v) for v in s.strings(r.get('berries'))], 'status': s.text(r.get('status'), 100),
                        'confidence': s.text(r.get('confidence'), 200), 'caveats': [s.text(v) for v in (r.get('caveats') or [])] if isinstance(r.get('caveats', []), list) else [s.text(r['caveats'])],
-                       'job_status': s.text(r.get('job_status'), 100),
+                       'job_status': s.text(r.get('job_status'), 500),
                        'availability': 'retained_archive' if r.get('availability') == 'retained_archive' else 'stored_current'})
     return sorted(s.unique(result, 'activity'), key=lambda r: (r['published_date'] or r['captured_date'], r['id']), reverse=True)
 

@@ -279,6 +279,10 @@ def directory_from_catalog(companies, entities, relationships, berry='', evidenc
     from app.services.variety_workspace import build_variety_indexes
     from app.services.variety_catalog import visible
 
+    inactive = {'rejected', 'archived', 'withdrawn', 'deleted'}
+    evidence = [r for r in evidence if r.get('publication_scope') != 'private'
+                and r.get('status') not in inactive and r.get('review_state') not in inactive
+                and r.get('evidence_role') not in {'atomic_evidence', 'atomic_proposal'}]
     entity_map = {r['id']: r for r in entities}
     varieties = [r for r in entities if r.get('entity_type') == 'variety' and visible(r)
                  and (not berry or berry in r.get('berry_ids', []))]
