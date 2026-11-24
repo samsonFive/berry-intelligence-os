@@ -6,6 +6,7 @@ __pycache__/
 gene-*.log
 .verify-tmp/
 .test-tmp/
+.viewer-test-tmp*/
 .pkg-test-tmp*/
 .mem-test*/
 .astra-tests*/

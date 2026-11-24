@@ -50,7 +50,7 @@ function Shell({ features }: { features: FeatureSlots }) {
     <header className="berry-topbar" data-region="app-chrome"><Link className="berry-brand" to={investigationHref("/app/landscape", context)} aria-label="Berry intelligence home"><img src="/static/berry-intelligence-icon.png" width="36" height="36" alt="" /><span><b>berry</b> intelligence<small>YOUR INDUSTRY, IN VIEW</small></span></Link>
       <nav className="berry-nav" aria-label="Primary">{destinations.map(([path, label]) => path === 'workspaces'
         ? <a key={path} href={legacyHref('/workspaces', pathname, context)}>{label}</a>
-        : <NavLink key={path} to={{ pathname: `/app/${path}`, search }}>{label}</NavLink>)}</nav>
+        : <NavLink key={path} to={{ pathname: `/app/${path}`, search }}>{label}</NavLink>)}<a href={legacyHref('/viewer', pathname, context)}>Export to viewer</a></nav>
       <div className="berry-topbar-actions">
       <Link className="berry-button berry-button--quiet" to={investigationHref('/app/workspaces', context)}>Save / export</Link>
       {Command && <button type="button" className="berry-button berry-button--ghost" aria-expanded={commandOpen} onClick={() => setCommandOpen(open => !open)}>Ask Berry</button>}

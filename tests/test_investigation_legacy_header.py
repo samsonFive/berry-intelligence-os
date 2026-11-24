@@ -127,28 +127,30 @@ def header(response):
     return parsed
 
 
-def test_actual_workspace_route_uses_same_four_primary_destinations_and_separate_save(retained_client):
+def test_actual_workspace_route_uses_same_primary_destinations_and_separate_save(retained_client):
     ctx = selection()
     destination = "/app/landscape?" + api.context_query(ctx)
     parsed = header(retained_client.get("/workspaces", params={"return_to": destination}))
-    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn"]
+    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn", "Export to viewer"]
     assert [item["label"] for item in parsed.primary if item["current"] == "page"] == ["Workspaces"]
     assert urlsplit(parsed.brand).path == "/app/landscape"
     assert urlsplit(parsed.save).path == "/app/workspaces"
     for item in parsed.primary:
         target = urlsplit(item["href"])
-        if item["label"] != "Workspaces":
+        if item["label"] == "Export to viewer":
+            assert item["href"] == "/viewer"
+        elif item["label"] != "Workspaces":
             assert api.normalize_context(QueryParams(target.query))[0] == ctx
     assert all("refresh=1" not in item["href"] for item in parsed.primary)
 
 
 @pytest.mark.parametrize("path,current", [("/workspaces", "Workspaces"), ("/landscapes/explorer", "Landscape")])
 @pytest.mark.parametrize("destination", [None, "https://external.example/app/landscape?ctx_v=1&focus=company-untrusted-header", "/app/landscape?ctx_v=1&berry=berry-blueberry&berry=berry-strawberry", "/app/landscape?ctx_v=2&company_set=watched"])
-def test_direct_or_invalid_return_uses_only_four_canonical_authoring_links(retained_client, destination, path, current):
+def test_direct_or_invalid_return_uses_canonical_authoring_links(retained_client, destination, path, current):
     response = retained_client.get(path, params={"return_to": destination} if destination is not None else {})
     parsed = header(response)
-    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn"]
-    assert [item["href"] for item in parsed.primary] == ["/app/landscape", "/app/briefing", "/workspaces", "/app/learn"]
+    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn", "Export to viewer"]
+    assert [item["href"] for item in parsed.primary] == ["/app/landscape", "/app/briefing", "/workspaces", "/app/learn", "/viewer"]
     assert [item["label"] for item in parsed.primary if item["current"] == "page"] == [current]
     assert parsed.brand == "/app/landscape" and parsed.save == "/app/workspaces"
     assert parsed.more
@@ -160,7 +162,7 @@ def test_direct_map_explorer_does_not_coerce_legacy_filters_into_native_selector
         "berry": "berry-strawberry", "q": "UNVALIDATED_HEADER_QUERY", "focus": "company-untrusted-header",
         "cohort_companies": "company-untrusted-header", "company_set": "watched",
     }))
-    assert [item["href"] for item in parsed.primary] == ["/app/landscape", "/app/briefing", "/workspaces", "/app/learn"]
+    assert [item["href"] for item in parsed.primary] == ["/app/landscape", "/app/briefing", "/workspaces", "/app/learn", "/viewer"]
     assert parsed.save == "/app/workspaces"
 
 
@@ -168,10 +170,12 @@ def test_actual_explorer_valid_return_preserves_full_native_selection(retained_c
     context = selection()
     destination = "/app/briefing?" + api.context_query(context)
     parsed = header(retained_client.get("/landscapes/explorer", params={"return_to": destination}))
-    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn"]
+    assert [item["label"] for item in parsed.primary] == ["Landscape", "Briefing", "Workspaces", "Learn", "Export to viewer"]
     for link in parsed.primary:
         target = urlsplit(link["href"])
-        if link["label"] == "Workspaces":
+        if link["label"] == "Export to viewer":
+            assert link["href"] == "/viewer"
+        elif link["label"] == "Workspaces":
             native = parse_qs(target.query)["return_to"][0]
             assert api.normalize_context(QueryParams(urlsplit(native).query))[0] == context
         else:

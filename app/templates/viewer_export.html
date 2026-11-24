@@ -1,0 +1,58 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Export to viewer · Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/viewer_export.css?v=1">{% endblock %}
+{% block content %}
+<header class="digest-heading"><div><p class="eyebrow">COMPANY STATIC VIEWER</p><h1>Export to viewer</h1><p>A ready-to-publish file snapshot of your directories and selected Digest stories.</p></div><a class="outline-button" href="/viewer">Export to viewer home</a></header>
+<button class="outline-button" type="button" data-open-export>Open export dialog</button>
+<dialog id="viewer-export-dialog" aria-labelledby="viewer-export-title" open>
+  <header class="vx-heading"><div><p class="eyebrow">COMPANY STATIC VIEWER</p><h2 id="viewer-export-title">Export to viewer</h2><p>Review the content, download the package, then upload its HTML page to your internal host.</p></div><a class="outline-button" href="/viewer" aria-label="Close export dialog">Close</a></header>
+  {% if export_error %}<p class="vx-error" role="alert">{{ export_error }}</p>{% endif %}
+  {% if preview %}
+  <section class="vx-preview" aria-labelledby="vx-preview-title"><h3 id="vx-preview-title">Your release is ready to download</h3><p>{{ preview_counts.companies }} {{ 'company' if preview_counts.companies == 1 else 'companies' }} · {{ preview_counts.varieties }} {{ 'variety' if preview_counts.varieties == 1 else 'varieties' }} · {{ preview_counts.editions }} newsletter {{ 'edition' if preview_counts.editions == 1 else 'editions' }} · {{ preview_counts.activity }} activity records · {{ preview_counts.assets }} packaged assets · {{ preview_counts.reports }} selected reports</p>
+    <p>Changes: {{ preview.workspace.changes.counts.added }} added · {{ preview.workspace.changes.counts.updated }} updated · {{ preview.workspace.changes.counts.no_longer_exported }} no longer exported · {{ preview.workspace.changes.counts.outside_scope }} outside scope. Compared with {{ preview.workspace.changes.basis }} / {{ preview.workspace.changes.baseline_id or 'first release' }}.</p>
+    <details><summary>Review {{ preview_counts.asset_omissions }} unavailable or excluded assets</summary>{% for asset in preview.workspace.asset_omissions %}<p>{{ asset.title }}: {{ asset.reason }}</p>{% else %}<p>None reported.</p>{% endfor %}</details>
+    <p>Corporate tiers, projects and flavor data stay on the corporate side and are absent from this research package.</p>
+    {% if preview.workspace.reports %}<details><summary>Selected reports</summary>{% for report in preview.workspace.reports %}<p><strong>{{ report.title }}</strong> · {{ report.status }}</p>{% endfor %}</details>{% endif %}
+    {% if preview.issue %}<p><strong>{{ preview.issue.title }}</strong> · {{ preview.issue.date }} · {{ preview.issue['items']|length }} selected stories</p><details><summary>Preview newsletter stories</summary>{% for story in preview.issue['items'] %}<article><h4>{{ story.title }}</h4><p>{{ story.summary }}</p><small>{{ story.source }} · {{ story.published_date or 'Date not supplied' }} · {{ story.status }}</small></article>{% endfor %}</details>{% endif %}
+    <p>{% if preview.settings.format == 'json' %}JSON files only. Importing these changes one browser; it does not publish a company-wide update.{% else %}Publish the complete <code>site/</code> folder from the ZIP, preserving its pages and assets. It uses HTML with inline CSS, with no JavaScript or API calls. Corporate tiers and projects are added by your corporate publisher.{% endif %}</p>
+    <form method="post" action="/exports/viewer/download"><input type="hidden" name="token" value="{{ preview.token }}"><button class="green-button">Download viewer package</button></form>
+    <p class="vx-hint">The platform remembers this snapshot after the download is generated. This does not confirm corporate publication. If you change the options below, rebuild the preview; uploaded files must be chosen again.</p>
+  </section>
+  {% endif %}
+  {% if latest %}<section class="vx-preview"><h3>Publication baseline</h3><p>Last confirmed: {% if published %}{{ published.release_id }} · {{ published.confirmed_at }}{% else %}None. Changes use the previous generated export until you confirm a publication.{% endif %}</p><form method="post" action="/exports/viewer/confirm"><input type="hidden" name="release_id" value="{{ latest.release_id }}"><button class="outline-button">Confirm {{ latest.release_id }} was published</button></form><p class="vx-hint">Use this only after verifying the package on the corporate site. It records your confirmation; it does not publish anything.</p></section>{% endif %}
+  <form action="/exports/viewer/preview" method="post" enctype="multipart/form-data" class="vx-form">
+    <input type="hidden" name="baseline_revision" value="{{ baseline_revision }}">
+    {% for key, value in filters.items() %}<input type="hidden" name="digest_{{ key }}" value="{{ value }}">{% endfor %}
+    <fieldset><legend>1. Keep the research archive</legend>
+      <label>Starting workspace<select name="baseline_mode" id="vx-baseline-mode">
+        {% if latest %}<option value="previous" {% if values.baseline_mode == 'previous' %}selected{% endif %}>Use previous export from my account</option>{% endif %}
+        <option value="upload" {% if values.baseline_mode == 'upload' %}selected{% endif %}>Upload a research-only workspace backup</option>
+        {% if not latest %}<option value="first" {% if values.baseline_mode == 'first' %}selected{% endif %}>New site — no offsite history to preserve</option>{% endif %}
+      </select></label>
+      {% if latest %}<p class="vx-hint">Last generated export: {{ latest.created_at }} · release {{ latest.release_id }}. It is not proof of what is currently hosted.</p>{% endif %}
+      <label data-baseline-upload>Research workspace JSON (no flavor records)<input type="file" name="baseline" accept=".json,application/json"></label>
+      <p class="vx-hint">Previous newsletter editions are retained. Corporate flavor data is administered separately: do not upload it or a workspace containing scores. This export cannot modify that corporate supplement.</p>
+    </fieldset>
+    <fieldset><legend>2. Directory scope</legend>
+      <label>Company and variety coverage<select name="directory_berry"><option value="">All berry crops</option>{% for id, label in berries.items() %}<option value="{{ id }}" {% if values.directory_berry == id %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <p class="vx-hint">Includes current company and variety records, all linked stored public-source activity, social channels, and available assets. Profile activity defaults to 90 days with a full searchable archive. Recorded public asset URLs may be retrieved during preview; missing files appear in the omissions report. Personal favorites, tiers, subscriptions, account details, private notes, and reading progress are excluded.</p>
+    </fieldset>
+    <fieldset><legend>3. Curate this newsletter edition</legend>
+      <label class="vx-check"><input type="checkbox" name="add_newsletter" value="1" {% if values.add_newsletter %}checked{% endif %}> Add or update a newsletter edition</label>
+      <div class="vx-grid"><label>Edition title<input name="title" value="{{ values.title }}" maxlength="300"></label><label>Edition date<input name="date" type="date" value="{{ values.date }}"></label><label>Edition ID<input name="issue_id" value="{{ values.issue_id }}" maxlength="120" list="vx-issue-ids"></label><datalist id="vx-issue-ids">{% if latest %}{% for issue in latest.workspace.issues %}<option value="{{ issue.id }}">{{ issue.title }} · {{ issue.date }}</option>{% endfor %}{% endif %}</datalist><label>Display editor name (optional)<input name="editor" value="{{ values.editor }}" maxlength="200"></label><label class="vx-wide">Introduction for company readers<textarea name="intro" maxlength="8000">{{ values.intro }}</textarea></label></div>
+      <p class="vx-hint">Use the same edition ID to replace an edition, or a new ID to retain it alongside older newsletters. Existing editions remain when no new edition is added.</p>
+      <div class="vx-story-toolbar"><strong>{{ candidates|length }} eligible stories from your Digest, across all matching pages</strong><button type="button" class="outline-button" data-select-stories="all">Select all</button><button type="button" class="outline-button" data-select-stories="none">Clear selection</button></div>
+      <p class="vx-hint">Saved stories are initially selected. List subscriptions and reading-queue membership do not automatically publish stories. Review each selection; no new research is generated.</p>
+      <div class="vx-stories">{% for card in candidates %}<label class="vx-story"><input type="checkbox" name="story_ids" value="{{ card.id }}" {% if card.id in values.story_ids %}checked{% endif %}><span><strong>{{ card.headline }}</strong><small>{{ card.source_name }} · {{ card.published_at or 'Date not supplied' }} · {{ 'Source reviewed' if card.trusted or card.source_reviewed else 'Source not reviewed' }}</small><span>{{ card.deck }}</span></span></label>{% else %}<p>No exportable stories match your Digest filters. Save a source story or broaden the Digest view, or export directories without adding an edition.</p>{% endfor %}</div>
+    </fieldset>
+    <fieldset><legend>4. Expose reports internally</legend>
+      <p class="vx-hint">Select only the reports intended for company readers. Saved prose is exported as stored, with draft/AI-assisted labels; no report is regenerated. Finished reports include their available PDF/XLSX downloads. Selection is remembered for your next export. Deselect a report to remove it from the next full site release.</p>
+      <div class="vx-stories">{% for report in report_candidates %}<label class="vx-story"><input type="checkbox" name="report_ids" value="{{ report.id }}" {% if report.id in values.report_ids %}checked{% endif %}><span><strong>{{ report.title }}</strong><small>{{ report.date }} · {{ report.status }}</small><span>{{ report.summary }}</span></span></label>{% else %}<p>No finished library reports or saved reports with stored sections are available.</p>{% endfor %}</div>
+    </fieldset>
+    <fieldset><legend>5. HTML-only delivery format</legend><label>Package<select name="format"><option value="site" {% if values.format == 'site' %}selected{% endif %}>Full site release — HTML with inline CSS, JSON, and instructions</option><option value="json" {% if values.format == 'json' %}selected{% endif %}>Content JSON only — for an existing viewer</option></select></label><p class="vx-hint">The full release contains linked HTML pages with inline CSS, local assets, selected reports, JSON, change report, a Python corporate publisher, and Copilot instructions. No JavaScript or browser storage is required. Corporate tiers, projects and flavor stay in separate corporate-side inputs; the weekly research package cannot overwrite them. Uploading or publishing remains your separate action.</p></fieldset>
+    <div class="vx-actions"><a class="outline-button" href="/viewer">Cancel</a><button class="green-button">{% if preview %}Rebuild preview{% else %}Preview release{% endif %}</button></div>
+  </form>
+</dialog>
+<noscript><p>Use the export form above. Story selection and package generation also work without JavaScript.</p></noscript>
+{% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/viewer_export.js?v=1"></script>{% endblock %}

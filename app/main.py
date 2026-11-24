@@ -641,7 +641,7 @@ async def private_briefings_middleware(request: Request, call_next):
         target = "/app/landscape" + ("?" + request.url.query if request.url.query else "")
         return RedirectResponse(target, status_code=307, headers={"Cache-Control": "private, no-store"})
     private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports", "/monitor", "/operations", "/watches", "/watchtower", "/queues/monitoring", "/review-ops", "/collection-ops", "/research-ops", "/coverage-assurance"}
-    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/", "/watches/", "/watchtower/", "/review-ops/", "/collection-ops/"))
+    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/", "/watches/", "/watchtower/", "/review-ops/", "/collection-ops/", "/exports/"))
     if not AUTHORING_MODE and (private_home or private_detail):
         return HTMLResponse("This personal or operator workspace requires private authoring access.", status_code=403)
     return await call_next(request)
@@ -994,7 +994,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     # references must not hydrate every article merely to calculate old badges.
     if request.url.path.startswith(("/facts/", "/variety-plantings")):
         return {"nav_work_counts": {}, "ui_context": ui_context, "berries": BERRIES}
-    if variety_workspace or landscape_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    if variety_workspace or landscape_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/viewer", "/exports/viewer", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn", "/competitive-evaluation", "/global-watchlist", "/coverage/archive")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -11723,6 +11723,8 @@ def api_global_search(
 # Consolidated private reading workspace; legacy queue routes remain compatible.
 from app.personal_digest_routes import router as personal_digest_router
 app.include_router(personal_digest_router)
+from app.viewer_export_routes import router as viewer_export_router
+app.include_router(viewer_export_router)
 from app.company_news_routes import router as company_news_router
 app.include_router(company_news_router)
 from app.news_packet_routes import router as news_packet_router
