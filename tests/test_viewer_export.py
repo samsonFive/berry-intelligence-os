@@ -157,6 +157,20 @@ def test_directory_geography_keeps_headquarters_and_activity_separate():
     assert restored['directory'] == result
 
 
+@pytest.mark.parametrize('qualification', [{'publication_scope': 'private'}, {'status': 'withdrawn'},
+                                         {'review_state': 'archived'}, {'evidence_role': 'atomic_proposal'}])
+def test_directory_derived_geography_uses_the_public_active_source_boundary(qualification):
+    variety = {'id': 'variety-a', 'name': 'Variety', 'entity_type': 'variety', 'berry_ids': ['berry-blueberry'], 'status': 'unverified'}
+    geo = {'id': 'geography-example', 'name': 'Example country', 'entity_type': 'geography'}
+    observation = {'id': 'observation-a', 'title': 'Source observation', 'record_type': 'evidence',
+                   'status': 'unreviewed', 'publication_scope': 'public', 'entity_ids': ['variety-a'],
+                   'geography_ids': [geo['id']], 'commercial_observation': {'variety_entity_id': 'variety-a', 'market_country': geo['id']}}
+    public = service.directory_from_catalog([], [variety, geo], [], evidence=[observation])
+    assert public['varieties'][0]['activity_geographies'] == ['Example country']
+    excluded = service.directory_from_catalog([], [variety, geo], [], evidence=[{**observation, **qualification}])
+    assert excluded['varieties'][0]['activity_geographies'] == []
+
+
 @pytest.fixture
 def platform(monkeypatch, tmp_path):
     monkeypatch.setattr(main, 'INBOX_DIR', tmp_path / 'inbox')
