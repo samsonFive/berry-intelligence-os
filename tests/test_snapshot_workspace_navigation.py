@@ -28,7 +28,7 @@ def test_map_and_snapshot_keep_the_same_primary_links_and_fresh_news_action(monk
     assert primary_links(snapshot.text) == primary_links(map_page.text)
     links = set(primary_links(snapshot.text))
     if authoring:
-        assert links == {"/app/landscape", "/app/briefing", "/workspaces", "/app/learn"}
+        assert links == {"/app/landscape", "/app/briefing", "/workspaces", "/app/learn", "/viewer"}
         assert 'class="glass-more"' in snapshot.text
         assert 'href="/app/workspaces"' in snapshot.text  # Separate Save / export utility.
         for href in ("/social", "/global-watchlist"):
